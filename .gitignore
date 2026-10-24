@@ -8,3 +8,4 @@ generated/
 .vs/
 *.zip
 .env
+__pycache__/

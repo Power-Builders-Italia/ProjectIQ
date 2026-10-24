@@ -91,7 +91,13 @@
       <RootComponent type="1" schemaName="op365_resourcecost" behavior="0" />
       <RootComponent type="1" schemaName="op365_settings" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierdocument" behavior="0" />
+      <RootComponent type="1" schemaName="systemuser" behavior="1" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3559.1)" />
+        <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
