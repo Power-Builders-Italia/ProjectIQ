@@ -5,9 +5,18 @@
   <RolePrivileges>
     <RolePrivilege name="prvAppendop365_Baseline" level="Basic" />
     <RolePrivilege name="prvAppendop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvAppendop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvAppendop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvAppendop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvAppendop365_Project" level="Basic" />
     <RolePrivilege name="prvAppendop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvAppendop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvAppendop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvAppendop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvAppendop365_PurchaseRequestLine" level="Basic" />
+    <RolePrivilege name="prvAppendop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvAppendop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvAppendop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvAppendop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsDependency" level="Basic" />
@@ -17,23 +26,43 @@
     <RolePrivilege name="prvAppendToop365_Absence" level="Global" />
     <RolePrivilege name="prvAppendToop365_Baseline" level="Basic" />
     <RolePrivilege name="prvAppendToop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Item" level="Global" />
     <RolePrivilege name="prvAppendToop365_ItemSupplier" level="Global" />
     <RolePrivilege name="prvAppendToop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Project" level="Basic" />
     <RolePrivilege name="prvAppendToop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_PurchaseRequestLine" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Resource" level="Global" />
     <RolePrivilege name="prvAppendToop365_ResourceCost" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvAppendToop365_SupplierInvoice" level="Basic" />
+    <RolePrivilege name="prvAppendToop365_SupplierInvoiceLine" level="Basic" />
     <RolePrivilege name="prvAppendToop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsNode" level="Basic" />
     <RolePrivilege name="prvCreateop365_Baseline" level="Basic" />
     <RolePrivilege name="prvCreateop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvCreateop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvCreateop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvCreateop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvCreateop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvCreateop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvCreateop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvCreateop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvCreateop365_PurchaseRequestLine" level="Basic" />
+    <RolePrivilege name="prvCreateop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvCreateop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvCreateop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvCreateop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsDependency" level="Basic" />
@@ -41,8 +70,17 @@
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvDeleteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvDeleteop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvDeleteop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvDeleteop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_PurchaseRequestLine" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvDeleteop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvDeleteop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvDeleteop365_WbsDependency" level="Basic" />
@@ -52,15 +90,26 @@
     <RolePrivilege name="prvReadop365_Absence" level="Global" />
     <RolePrivilege name="prvReadop365_Baseline" level="Basic" />
     <RolePrivilege name="prvReadop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvReadop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvReadop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvReadop365_Item" level="Global" />
     <RolePrivilege name="prvReadop365_ItemSupplier" level="Global" />
     <RolePrivilege name="prvReadop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvReadop365_Project" level="Basic" />
     <RolePrivilege name="prvReadop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvReadop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvReadop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvReadop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvReadop365_PurchaseRequestLine" level="Basic" />
     <RolePrivilege name="prvReadop365_Resource" level="Global" />
     <RolePrivilege name="prvReadop365_ResourceCost" level="Global" />
+    <RolePrivilege name="prvReadop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvReadop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvReadop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvReadop365_Settings" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvReadop365_SupplierInvoice" level="Basic" />
+    <RolePrivilege name="prvReadop365_SupplierInvoiceLine" level="Basic" />
     <RolePrivilege name="prvReadop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvReadop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvReadop365_WbsDependency" level="Basic" />
@@ -75,9 +124,18 @@
     <RolePrivilege name="prvShareop365_Project" level="Basic" />
     <RolePrivilege name="prvWriteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvWriteop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvWriteop365_GoodsReceipt" level="Basic" />
+    <RolePrivilege name="prvWriteop365_GoodsReceiptLine" level="Basic" />
     <RolePrivilege name="prvWriteop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvWriteop365_Project" level="Basic" />
     <RolePrivilege name="prvWriteop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvWriteop365_PurchaseOrder" level="Basic" />
+    <RolePrivilege name="prvWriteop365_PurchaseOrderLine" level="Basic" />
+    <RolePrivilege name="prvWriteop365_PurchaseRequest" level="Basic" />
+    <RolePrivilege name="prvWriteop365_PurchaseRequestLine" level="Basic" />
+    <RolePrivilege name="prvWriteop365_Rfq" level="Basic" />
+    <RolePrivilege name="prvWriteop365_RfqInvitation" level="Basic" />
+    <RolePrivilege name="prvWriteop365_RfqQuote" level="Basic" />
     <RolePrivilege name="prvWriteop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsDependency" level="Basic" />

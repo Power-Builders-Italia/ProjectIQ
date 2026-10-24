@@ -8,14 +8,47 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ActualsRollup, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7c11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ActualsRollup">
       <FriendlyName>ActualsRollup</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.AwardRfq, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1eeca7dc-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.AwardRfq">
+      <FriendlyName>AwardRfq</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.BaselineReference, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="09e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.BaselineReference">
       <FriendlyName>BaselineReference</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.CancelGoodsReceipt, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1feca7dc-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.CancelGoodsReceipt">
+      <FriendlyName>CancelGoodsReceipt</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.CancelPurchaseRequest, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0bc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.CancelPurchaseRequest">
+      <FriendlyName>CancelPurchaseRequest</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.CancelRfq, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0cc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.CancelRfq">
+      <FriendlyName>CancelRfq</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ContactCount, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0dc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ContactCount">
+      <FriendlyName>ContactCount</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.CreatePurchaseOrder, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0ec5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.CreatePurchaseOrder">
+      <FriendlyName>CreatePurchaseOrder</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.CreateRfq, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0fc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.CreateRfq">
+      <FriendlyName>CreateRfq</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecidePurchaseRequest, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="10c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecidePurchaseRequest">
+      <FriendlyName>DecidePurchaseRequest</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecideSupplierInvoice, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="11c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecideSupplierInvoice">
+      <FriendlyName>DecideSupplierInvoice</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecideTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7d11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecideTimeEntries">
       <FriendlyName>DecideTimeEntries</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.GetLabourCost, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7e11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.GetLabourCost">
       <FriendlyName>GetLabourCost</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.GoodsReceiptGuard, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="12c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.GoodsReceiptGuard">
+      <FriendlyName>GoodsReceiptGuard</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.MaterialUsageReceiptGuard, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="13c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.MaterialUsageReceiptGuard">
+      <FriendlyName>MaterialUsageReceiptGuard</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.MaterialUsageValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8011ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.MaterialUsageValidate">
       <FriendlyName>MaterialUsageValidate</FriendlyName>
@@ -29,17 +62,77 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ProjectSync, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0fe7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ProjectSync">
       <FriendlyName>ProjectSync</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseOrderDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="14c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseOrderDelete">
+      <FriendlyName>PurchaseOrderDelete</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseOrderLineValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="15c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseOrderLineValidate">
+      <FriendlyName>PurchaseOrderLineValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseOrderValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="16c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseOrderValidate">
+      <FriendlyName>PurchaseOrderValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseRequestDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="17c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseRequestDelete">
+      <FriendlyName>PurchaseRequestDelete</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseRequestLineValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="18c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseRequestLineValidate">
+      <FriendlyName>PurchaseRequestLineValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseRequestTotals, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="19c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseRequestTotals">
+      <FriendlyName>PurchaseRequestTotals</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseRequestValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1ac5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseRequestValidate">
+      <FriendlyName>PurchaseRequestValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.PurchaseTotals, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1bc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.PurchaseTotals">
+      <FriendlyName>PurchaseTotals</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RegisterGoodsReceipt, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1cc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.RegisterGoodsReceipt">
+      <FriendlyName>RegisterGoodsReceipt</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceCostSync, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="13e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceCostSync">
       <FriendlyName>ResourceCostSync</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceDefaults, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="14e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceDefaults">
       <FriendlyName>ResourceDefaults</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RfqInvitationValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1dc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.RfqInvitationValidate">
+      <FriendlyName>RfqInvitationValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RfqQuoteTotals, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1ec5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.RfqQuoteTotals">
+      <FriendlyName>RfqQuoteTotals</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RfqQuoteValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1fc5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.RfqQuoteValidate">
+      <FriendlyName>RfqQuoteValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RfqResponses, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="20c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.RfqResponses">
+      <FriendlyName>RfqResponses</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SaveBaseline, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="15e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SaveBaseline">
       <FriendlyName>SaveBaseline</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SendRfq, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="21c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SendRfq">
+      <FriendlyName>SendRfq</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SendTimeReminders, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="2a5bcf95-fbcf-f111-a05b-000d3ad895be" Name="OpenProject365.Plugins.SendTimeReminders">
+      <FriendlyName>SendTimeReminders</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SetPurchaseOrderStatus, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="22c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SetPurchaseOrderStatus">
+      <FriendlyName>SetPurchaseOrderStatus</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SubmitPurchaseRequest, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="23c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SubmitPurchaseRequest">
+      <FriendlyName>SubmitPurchaseRequest</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SubmitTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8311ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SubmitTimeEntries">
       <FriendlyName>SubmitTimeEntries</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierInvoiceLineValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="24c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierInvoiceLineValidate">
+      <FriendlyName>SupplierInvoiceLineValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierInvoiceTotals, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="25c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierInvoiceTotals">
+      <FriendlyName>SupplierInvoiceTotals</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierInvoiceValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="c315c1e8-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierInvoiceValidate">
+      <FriendlyName>SupplierInvoiceValidate</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.TimeEntryDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8411ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.TimeEntryDelete">
       <FriendlyName>TimeEntryDelete</FriendlyName>

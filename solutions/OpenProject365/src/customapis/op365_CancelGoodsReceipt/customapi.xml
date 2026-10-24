@@ -1,0 +1,19 @@
+<customapi uniquename="op365_CancelGoodsReceipt">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_goodsreceipt</boundentitylogicalname>
+  <description default="Deletes a goods receipt with its material usage and restores the order quantities">
+    <label description="Deletes a goods receipt with its material usage and restores the order quantities" languagecode="1033" />
+  </description>
+  <displayname default="Cancel Goods Receipt">
+    <label description="Cancel Goods Receipt" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Cancel Goods Receipt</name>
+  <plugintypeid>
+    <plugintypeexportkey>1feca7dc-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

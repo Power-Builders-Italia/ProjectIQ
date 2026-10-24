@@ -60,6 +60,14 @@ SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
                                      entity('op365_timeentries', 'op365_timeentry', 'Time Entries')]),
         group('op365_planning', 'Planning', [dashboard('op365_resourceload', 'Resource Load', 'Resource Load'),
                                              entity('op365_absences', 'op365_absence', 'Absences')])]),
+    area('op365_purchasing', 'Purchasing', [
+        group('op365_procurement', 'Procurement', [
+            entity('op365_purchaserequests', 'op365_purchaserequest', 'Purchase Requests'),
+            entity('op365_rfqs', 'op365_rfq', 'RFQs'),
+            entity('op365_purchaseorders', 'op365_purchaseorder', 'Purchase Orders'),
+            entity('op365_goodsreceipts', 'op365_goodsreceipt', 'Goods Receipts'),
+            entity('op365_supplierinvoices', 'op365_supplierinvoice', 'Supplier Invoices')]),
+        group('op365_analysis', 'Analysis', [dashboard('op365_spend', 'Spend', 'Spend')])]),
     area('op365_masterdata', 'Master Data', [
         group('op365_records', 'Records', [
             entity_view('op365_customers', 'account', 'Customers', 'All Customers'),
@@ -77,8 +85,12 @@ SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
 TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
           'op365_resourcecost', 'op365_absence', 'op365_settings',
           'op365_project', 'op365_projectmember', 'op365_wbsnode', 'op365_wbsdependency', 'op365_wbsallocation',
-          'op365_baseline', 'op365_baselinenode', 'op365_timeentry', 'op365_materialusage']
-DASHBOARDS = ['Timesheet', 'Time Approval', 'Resource Load']
+          'op365_baseline', 'op365_baselinenode', 'op365_timeentry', 'op365_materialusage',
+          'op365_purchaserequest', 'op365_purchaserequestline', 'op365_rfq', 'op365_rfqinvitation', 'op365_rfqquote',
+          'op365_purchaseorder', 'op365_purchaseorderline', 'op365_goodsreceipt', 'op365_goodsreceiptline',
+          'op365_supplierinvoice', 'op365_supplierinvoiceline',
+          'activitypointer', 'task', 'phonecall', 'appointment', 'email', 'annotation']
+DASHBOARDS = ['Timesheet', 'Time Approval', 'Resource Load', 'Spend']
 
 # modern commands: (unique name, label, table, location 0 = form, web resource, function, tooltip)
 COMMANDS = [

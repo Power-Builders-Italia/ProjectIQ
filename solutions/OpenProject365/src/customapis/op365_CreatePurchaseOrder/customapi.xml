@@ -1,0 +1,19 @@
+<customapi uniquename="op365_CreatePurchaseOrder">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Creates a draft purchase order from an approved purchase request">
+    <label description="Creates a draft purchase order from an approved purchase request" languagecode="1033" />
+  </description>
+  <displayname default="Create Purchase Order">
+    <label description="Create Purchase Order" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Create Purchase Order</name>
+  <plugintypeid>
+    <plugintypeexportkey>0ec5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

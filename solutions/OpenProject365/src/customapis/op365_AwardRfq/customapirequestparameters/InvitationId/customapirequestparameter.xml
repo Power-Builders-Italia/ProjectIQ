@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="InvitationId">
+  <description default="Winning invitation">
+    <label description="Winning invitation" languagecode="1033" />
+  </description>
+  <displayname default="InvitationId">
+    <label description="InvitationId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_AwardRfq.InvitationId</name>
+  <type>12</type>
+</customapirequestparameter>

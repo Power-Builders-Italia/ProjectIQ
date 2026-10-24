@@ -1,0 +1,19 @@
+<customapi uniquename="op365_AwardRfq">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_rfq</boundentitylogicalname>
+  <description default="Awards the request for quotation to a supplier and creates the purchase order">
+    <label description="Awards the request for quotation to a supplier and creates the purchase order" languagecode="1033" />
+  </description>
+  <displayname default="Award RFQ">
+    <label description="Award RFQ" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Award RFQ</name>
+  <plugintypeid>
+    <plugintypeexportkey>1eeca7dc-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

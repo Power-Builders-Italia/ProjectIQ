@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Register Receipt</title>
+<!-- Goods receipt dialog of the purchase order form: quantities still to receive per line, delivery note, receipt date;
+     runs op365_RegisterGoodsReceipt and closes. Web resource op365_/pages/receipt.html (data: id = purchase order). -->
+<style>
+  body { font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, sans-serif; font-size: 14px; margin: 0; padding: 16px;
+         color: #242424; background: #fff; box-sizing: border-box; height: 100vh; display: flex; flex-direction: column; gap: 12px; }
+  .fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .fields label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+  input { font: inherit; font-weight: 400; padding: 5px 8px; border: 1px solid #d1d1d1; border-radius: 4px; }
+  input:focus { outline: 2px solid #0f6cbd; border-color: transparent; }
+  .lines { flex: 1; overflow: auto; border-top: 1px solid #e0e0e0; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; text-align: left; }
+  th { font-weight: 600; font-size: 12px; color: #616161; position: sticky; top: 0; background: #fff; }
+  .num { text-align: right; white-space: nowrap; }
+  td input { width: 90px; text-align: right; }
+  .actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .actions div { display: flex; gap: 8px; }
+  button { font: inherit; padding: 5px 16px; border-radius: 4px; border: 1px solid #d1d1d1; background: #fff; cursor: pointer; min-width: 96px; }
+  button.primary { background: #0f6cbd; color: #fff; border-color: #0f6cbd; }
+  button.link { border: none; color: #0f6cbd; min-width: 0; padding: 5px 4px; }
+  button:disabled { opacity: .5; cursor: default; }
+  .error { color: #b10e1c; }
+  .muted { color: #616161; }
+</style>
+</head>
+<body>
+  <div class="fields">
+    <label>Receipt date <input id="date" type="date" /></label>
+    <label>Delivery note number <input id="dn" type="text" maxlength="50" /></label>
+    <label>Delivery note date <input id="dndate" type="date" /></label>
+  </div>
+  <div class="lines">
+    <table>
+      <thead><tr><th>Line</th><th class="num">Ordered</th><th class="num">Received</th><th class="num">Receive now</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="4" class="muted">Loading...</td></tr></tbody>
+    </table>
+  </div>
+  <div id="error" class="error" role="alert"></div>
+  <div class="actions">
+    <span><button id="all" class="link" type="button">Receive all</button><button id="none" class="link" type="button">Clear</button></span>
+    <div><button id="cancel" type="button">Cancel</button><button id="ok" class="primary" type="button" disabled>Register</button></div>
+  </div>
+<script>
+(function () {
+  "use strict";
+  var params = new URLSearchParams(new URLSearchParams(location.search).get("data") || "");
+  var orderId = params.get("id");
+  var xrm = window.parent && window.parent.Xrm;
+  var base = (xrm ? xrm.Utility.getGlobalContext().getClientUrl() : location.origin) + "/api/data/v9.2/";
+  var headers = { "Content-Type": "application/json; charset=utf-8", Accept: "application/json", "OData-Version": "4.0", "OData-MaxVersion": "4.0" };
+  var rows = document.getElementById("rows"), ok = document.getElementById("ok"), error = document.getElementById("error");
+  var lines = [];
+
+  function api(path, body) {
+    return fetch(base + path, { method: body ? "POST" : "GET", credentials: "same-origin", headers: headers, body: body ? JSON.stringify(body) : undefined })
+      .then(function (r) { return r.text().then(function (t) { var j = t ? JSON.parse(t) : {}; if (!r.ok) { throw new Error(j.error && j.error.message || r.statusText); } return j; }); });
+  }
+  function fmt(v) { return Number(v || 0).toLocaleString(undefined, { maximumFractionDigits: 3 }); }
+  function inputs() { return Array.prototype.slice.call(rows.querySelectorAll("input")); }
+  function update() { ok.disabled = !inputs().some(function (i) { return Number(i.value) > 0; }); }
+
+  document.getElementById("date").value = new Date().toISOString().slice(0, 10);
+  api("op365_purchaseorderlines?$select=op365_name,op365_quantity,op365_receivedquantity,op365_uom,op365_sortorder&$filter=_op365_purchaseorderid_value eq " + orderId + " and statecode eq 0&$orderby=op365_sortorder,op365_name")
+    .then(function (j) {
+      lines = j.value;
+      rows.innerHTML = "";
+      lines.forEach(function (l) {
+        var left = Math.max(0, (l.op365_quantity || 0) - (l.op365_receivedquantity || 0));
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td></td><td class='num'></td><td class='num'></td><td class='num'></td>";
+        tr.children[0].textContent = l.op365_name;
+        tr.children[1].textContent = fmt(l.op365_quantity) + " " + (l.op365_uom || "");
+        tr.children[2].textContent = fmt(l.op365_receivedquantity);
+        var input = document.createElement("input");
+        input.type = "number"; input.min = "0"; input.step = "any"; input.max = String(left); input.value = String(left);
+        input.dataset.id = l.op365_purchaseorderlineid; input.dataset.left = String(left); input.disabled = left === 0;
+        input.setAttribute("aria-label", "Receive now: " + l.op365_name);
+        input.addEventListener("input", update);
+        tr.children[3].appendChild(input);
+        rows.appendChild(tr);
+      });
+      if (!lines.length) { rows.innerHTML = "<tr><td colspan='4' class='muted'>The order has no lines.</td></tr>"; }
+      update();
+    }, function (e) { error.textContent = e.message; });
+
+  document.getElementById("all").addEventListener("click", function () { inputs().forEach(function (i) { i.value = i.dataset.left; }); update(); });
+  document.getElementById("none").addEventListener("click", function () { inputs().forEach(function (i) { i.value = "0"; }); update(); });
+  document.getElementById("cancel").addEventListener("click", function () { window.close(); });
+  ok.addEventListener("click", function () {
+    error.textContent = "";
+    var picked = inputs().filter(function (i) { return Number(i.value) > 0; }).map(function (i) { return i.dataset.id + "=" + Number(i.value); });
+    var body = { Lines: picked };
+    var date = document.getElementById("date").value, dn = document.getElementById("dn").value.trim(), dnDate = document.getElementById("dndate").value;
+    if (date) { body.ReceiptDate = date + "T00:00:00Z"; }
+    if (dn) { body.DeliveryNoteNumber = dn; }
+    if (dnDate) { body.DeliveryNoteDate = dnDate + "T00:00:00Z"; }
+    ok.disabled = true;
+    api("op365_purchaseorders(" + orderId + ")/Microsoft.Dynamics.CRM.op365_RegisterGoodsReceipt", body)
+      .then(function () { window.close(); }, function (e) { error.textContent = e.message; update(); });
+  });
+})();
+</script>
+</body>
+</html>

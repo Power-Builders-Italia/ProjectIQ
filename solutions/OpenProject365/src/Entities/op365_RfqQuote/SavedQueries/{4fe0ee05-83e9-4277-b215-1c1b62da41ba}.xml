@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{4fe0ee05-83e9-4277-b215-1c1b62da41ba}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_requestlineid" select="1" icon="1" preview="1">
+        <row name="result" id="op365_rfqquoteid">
+          <cell name="op365_requestlineid" width="240" />
+          <cell name="op365_price" width="100" />
+          <cell name="op365_notes" width="240" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_rfqquote">
+          <attribute name="op365_requestlineid" />
+          <attribute name="op365_price" />
+          <attribute name="op365_notes" />
+          <attribute name="op365_rfqquoteid" />
+          <order attribute="op365_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="RFQ Quotes" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

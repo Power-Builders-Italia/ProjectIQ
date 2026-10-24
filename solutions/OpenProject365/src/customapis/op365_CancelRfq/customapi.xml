@@ -1,0 +1,19 @@
+<customapi uniquename="op365_CancelRfq">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_rfq</boundentitylogicalname>
+  <description default="Cancels a draft or sent request for quotation">
+    <label description="Cancels a draft or sent request for quotation" languagecode="1033" />
+  </description>
+  <displayname default="Cancel RFQ">
+    <label description="Cancel RFQ" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Cancel RFQ</name>
+  <plugintypeid>
+    <plugintypeexportkey>0cc5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

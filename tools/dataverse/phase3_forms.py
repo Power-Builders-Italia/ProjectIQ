@@ -1,4 +1,4 @@
-"""Phase 3 forms: Project (now with Time, Materials and Costs), Time Entry (main and quick create), Material Usage,
+"""Phase 3 forms: Time Entry (main and quick create), Material Usage,
 and the Timesheet, Time Approval and Resource Load dashboards built on the Phase 3 code components.
 
 Run after tools/pcf/push.sh (the forms reference the code components). Idempotent.
@@ -13,26 +13,7 @@ SRC = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'webresources')
 EXEC_JS = 'op365_/scripts/execution.form.js'
 webresource(EXEC_JS, os.path.join(SRC, 'execution.form.js'), 'Time Entry and Material Usage form script')
 
-P = 'op365_project'
-WBS_REL = 'op365_project_wbsnode_projectid'
-form(P, 'Project', [
-    tab('Summary', [
-        ('60%', [section(P, 'Project', ['op365_code', 'op365_name', 'op365_customerid', 'op365_projectmanagerid',
-                                        'statuscode', 'ownerid', 'op365_startdate', 'op365_enddate']),
-                 section(P, 'Budget and Progress', ['op365_contractvalue', 'op365_budgettotal', 'op365_actualcost',
-                                                    'op365_actualhours', 'op365_committedcost', 'op365_progresspct']),
-                 section(P, 'Description', ['op365_description'], columns=1)]),
-        ('40%', [section(P, 'Timeline', [('timeline',)])])]),
-    tab('WBS', [('100%', [section(P, 'WBS', [('subgrid', 'WbsTree', 'WBS', 'op365_wbsnode', WBS_REL, 20, 'op365_OP365.WbsTreeGrid')])])]),
-    tab('Gantt', [('100%', [section(P, 'Gantt', [('subgrid', 'Gantt', 'Gantt', 'op365_wbsnode', WBS_REL, 20, 'op365_OP365.GanttChart')]),
-                            section(P, 'Baselines', [('subgrid', 'Baselines', 'Baselines', 'op365_baseline', 'op365_project_baseline_projectid', 5)])])]),
-    tab('Costs', [('100%', [section(P, 'Cost Summary', [('pcf', 'op365_actualcost', 'op365_OP365.CostSummary')])])]),
-    tab('Time', [('100%', [section(P, 'Time Entries', [('subgrid', 'TimeEntries', 'Time Entries', 'op365_timeentry',
-                                                        'op365_project_timeentry_projectid', 12, None, 'Time Entries by Project')])])]),
-    tab('Materials', [('100%', [section(P, 'Material Usage', [('subgrid', 'Materials', 'Material Usage', 'op365_materialusage',
-                                                               'op365_project_materialusage_projectid', 12, None, 'Material Usage by Project')])])]),
-    tab('Team', [('100%', [section(P, 'Team', [('subgrid', 'Team', 'Project Members', 'op365_projectmember', 'op365_project_projectmember_projectid', 10)])])]),
-], replace='Information')
+# The Project form moved to phase4_forms.py (Purchasing tab).
 
 T = 'op365_timeentry'
 script = lambda: onload(EXEC_JS, 'OP365.Execution.onLoad')

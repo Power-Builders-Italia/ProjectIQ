@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{b6c6a714-ffcf-f111-a05b-7ced8d2d53e4}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_number" select="1" icon="1" preview="1">
+        <row name="result" id="op365_purchaserequestid">
+          <cell name="op365_number" width="100" />
+          <cell name="op365_title" width="220" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_requesterid" width="150" />
+          <cell name="op365_neededby" width="100" />
+          <cell name="statuscode" width="100" />
+          <cell name="op365_estimatedamount" width="120" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_purchaserequest">
+          <attribute name="op365_number" />
+          <attribute name="op365_title" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_requesterid" />
+          <attribute name="op365_neededby" />
+          <attribute name="statuscode" />
+          <attribute name="op365_estimatedamount" />
+          <attribute name="op365_purchaserequestid" />
+          <order attribute="op365_number" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="and">
+            <condition attribute="op365_requesterid" operator="eq-userid" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="My Purchase Requests" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

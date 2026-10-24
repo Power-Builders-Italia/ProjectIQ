@@ -155,7 +155,7 @@ def webresource(name, path, display):
     if v:
         ok(S.patch(API + f"webresourceset({v[0]['webresourceid']})", json=body), 'update web resource ' + name)
     else:
-        body.update({'name': name, 'webresourcetype': 3})
+        body.update({'name': name, 'webresourcetype': {'.html': 1, '.htm': 1, '.css': 2, '.svg': 11}.get(os.path.splitext(name)[1], 3)})
         ok(S.post(API + 'webresourceset', json=body), 'create web resource ' + name)
 
 

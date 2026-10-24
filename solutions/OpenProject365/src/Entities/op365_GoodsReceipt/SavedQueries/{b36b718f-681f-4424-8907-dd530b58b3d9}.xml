@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{b36b718f-681f-4424-8907-dd530b58b3d9}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_number" select="1" icon="1" preview="1">
+        <row name="result" id="op365_goodsreceiptid">
+          <cell name="op365_number" width="100" />
+          <cell name="op365_purchaseorderid" width="110" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_receiptdate" width="100" />
+          <cell name="op365_deliverynotenumber" width="130" />
+          <cell name="op365_deliverynotedate" width="110" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_goodsreceipt">
+          <attribute name="op365_number" />
+          <attribute name="op365_purchaseorderid" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_receiptdate" />
+          <attribute name="op365_deliverynotenumber" />
+          <attribute name="op365_deliverynotedate" />
+          <attribute name="op365_goodsreceiptid" />
+          <order attribute="op365_number" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All Goods Receipts" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

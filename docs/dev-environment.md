@@ -40,9 +40,15 @@ pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProj
 | Folder | Build | Tests |
 |---|---|---|
 | `src/plugins` | `dotnet build src/plugins/OpenProject365.Plugins -c Release` (.NET Framework 4.6.2, strong-named) | `dotnet test src/plugins/OpenProject365.Plugins.Tests` |
-| `src/pcf` | `npm ci && npm run build` (all six controls, ESLint included) | `npm test` (Jest: WBS tree, critical path, time scale, timesheet, approval, resource load, cost summary) |
+| `src/pcf` | `npm ci && npm run build` (all seven controls, ESLint included) | `npm test` (Jest: WBS tree, critical path, time scale, timesheet, approval, resource load, cost summary, quote comparison) |
 
 Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the assembly; `tools/pcf/push.sh` pushes each control into the solution (`pac pcf push` accepts one manifest per project). In the cloud container create the pac profile with `--accept-cleartext-caching` (no keyring).
+
+## Cloud flows
+
+`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off: link a connection to the reference (Solutions > Open Project 365 > Connection references) and turn it on. After a managed import into Test do the same there.
+
+After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
 ## CI and Solution Checker
 

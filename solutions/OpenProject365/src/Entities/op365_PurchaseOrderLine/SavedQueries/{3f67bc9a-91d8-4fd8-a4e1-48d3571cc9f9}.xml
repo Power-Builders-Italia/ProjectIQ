@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{3f67bc9a-91d8-4fd8-a4e1-48d3571cc9f9}</savedqueryid>
+    <layoutxml>
+      <grid name="op365_purchaseorderlines" jump="op365_name" select="1" icon="1" preview="1">
+        <row name="op365_purchaseorderline" id="op365_purchaseorderlineid">
+          <cell name="op365_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_purchaseorderline">
+          <attribute name="op365_purchaseorderlineid" />
+          <attribute name="op365_name" />
+          <attribute name="createdon" />
+          <order attribute="op365_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Purchase Order Line Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

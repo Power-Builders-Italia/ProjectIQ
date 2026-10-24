@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SdkMessageProcessingStep Name="SupplierInvoiceValidate: Update of op365_supplierinvoice (PreOperation)" SdkMessageProcessingStepId="{31fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SdkMessageId>20bebb1b-ea3e-db11-86a7-000a3a5473e8</SdkMessageId>
+  <PluginTypeName>OpenProject365.Plugins.SupplierInvoiceValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971</PluginTypeName>
+  <PluginTypeId>c315c1e8-fdcf-f111-a05b-7ced8d2d53e4</PluginTypeId>
+  <PrimaryEntity>op365_supplierinvoice</PrimaryEntity>
+  <AsyncAutoDelete>0</AsyncAutoDelete>
+  <FilteringAttributes>statuscode,statecode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_invoicenumber,op365_invoicedate,op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
+  <InvocationSource>1</InvocationSource>
+  <Mode>0</Mode>
+  <Rank>1</Rank>
+  <EventHandlerTypeCode>4602</EventHandlerTypeCode>
+  <Stage>20</Stage>
+  <IsCustomizable>1</IsCustomizable>
+  <IsHidden>0</IsHidden>
+  <SupportedDeployment>0</SupportedDeployment>
+  <IntroducedVersion>1.0.4.0</IntroducedVersion>
+  <SdkMessageProcessingStepImages>
+    <SdkMessageProcessingStepImage Name="PreImage">
+      <SdkMessageProcessingStepImageId>{34fb06fb-fdcf-f111-a05b-7ced8d2d53e4}</SdkMessageProcessingStepImageId>
+      <Attributes>statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber</Attributes>
+      <EntityAlias>PreImage</EntityAlias>
+      <ImageType>0</ImageType>
+      <MessagePropertyName>Target</MessagePropertyName>
+      <IsCustomizable>1</IsCustomizable>
+    </SdkMessageProcessingStepImage>
+  </SdkMessageProcessingStepImages>
+</SdkMessageProcessingStep>

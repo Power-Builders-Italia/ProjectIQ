@@ -76,8 +76,9 @@ def ent(t):
 
 
 def create_tables(tables):
-    """tables: (schema, display, plural, description, (primary schema, label, max, required))"""
-    for schema, disp, plural, desc, (pn, pl, pmax, preq) in tables:
+    """tables: (schema, display, plural, description, (primary schema, label, max, required[, autonumber format]))"""
+    for schema, disp, plural, desc, primary in tables:
+        pn, pl, pmax, preq = primary[:4]
         ln = (P+schema).lower()
         if exists(ent(ln)+'?$select=LogicalName'):
             print('skip', ln); continue
@@ -86,7 +87,36 @@ def create_tables(tables):
                 'IsActivity': False, 'HasActivities': False, 'HasNotes': True,
                 'IsAuditEnabled': {'Value': True, 'CanBeChanged': True, 'ManagedPropertyLogicalName': 'canmodifyauditsettings'},
                 'Attributes': [dict(col('text', pn, pl, required=preq, max=pmax), IsPrimaryName=True)]}
+        if len(primary) > 4:
+            body['Attributes'][0]['AutoNumberFormat'] = primary[4]
         ok(S.post(API+'EntityDefinitions', json=body), 'table '+ln)
+
+
+def status_reasons(table, values):
+    attr = S.get(API + ent(table) + "/Attributes(LogicalName='statuscode')/Microsoft.Dynamics.CRM.StatusAttributeMetadata"
+                 "?$select=LogicalName&$expand=OptionSet($select=Options)").json()
+    have = {o['Value']: o['Label']['UserLocalizedLabel']['Label'] for o in attr['OptionSet']['Options']}
+    for value, state, label in values:
+        if have.get(value) == label:
+            print('skip status', label); continue
+        action = 'UpdateOptionValue' if value in have else 'InsertStatusValue'
+        body = {'EntityLogicalName': table, 'AttributeLogicalName': 'statuscode', 'Value': value, 'Label': L(label),
+                'SolutionUniqueName': 'OpenProject365'}
+        body.update({'MergeLabels': True} if value in have else {'StateCode': state})
+        ok(S.post(API + action, json=body), f'status {table}: {label}')
+
+
+def enable_timeline(table, activities=False):
+    """Notes (and activities) on a table; HasNotes in the create request is ignored, so set it afterwards.
+    Activities cannot be turned off again once on."""
+    md = S.get(API + ent(table)).json()
+    if md['HasNotes'] and (md['HasActivities'] or not activities):
+        print('skip timeline', table); return
+    md['HasNotes'] = True
+    if activities:
+        md['HasActivities'] = True
+    ok(S.put(API + ent(table), json=md, headers={'MSCRM.MergeLabels': 'true'}),
+       f'notes{" and activities" if activities else ""} on {table}')
 
 
 def create_columns(columns):

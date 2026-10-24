@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{5c70e9f3-f96a-48c4-8bb1-4e25def68299}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_linenumber" select="1" icon="1" preview="1">
+        <row name="result" id="op365_supplierinvoicelineid">
+          <cell name="op365_linenumber" width="60" />
+          <cell name="op365_code" width="90" />
+          <cell name="op365_name" width="240" />
+          <cell name="op365_quantity" width="80" />
+          <cell name="op365_uom" width="60" />
+          <cell name="op365_unitprice" width="100" />
+          <cell name="op365_totalprice" width="110" />
+          <cell name="op365_vatrate" width="70" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_supplierinvoiceline">
+          <attribute name="op365_linenumber" />
+          <attribute name="op365_code" />
+          <attribute name="op365_name" />
+          <attribute name="op365_quantity" />
+          <attribute name="op365_uom" />
+          <attribute name="op365_unitprice" />
+          <attribute name="op365_totalprice" />
+          <attribute name="op365_vatrate" />
+          <attribute name="op365_supplierinvoicelineid" />
+          <order attribute="op365_linenumber" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Supplier Invoice Lines" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

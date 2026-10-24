@@ -15,6 +15,16 @@ PREVAL, PRE, POST = 10, 20, 40
 TE_IMAGE = 'statuscode,op365_projectid,op365_wbsnodeid,op365_resourceid,op365_entrydate,op365_hours'
 MU_IMAGE = 'op365_projectid,op365_wbsnodeid,op365_itemid,op365_supplierid,op365_quantity,op365_unitcost,op365_name,op365_uom'
 
+MU_FIELDS = 'op365_projectid,op365_itemid,op365_supplierid,op365_quantity,op365_unitcost,op365_usagedate,op365_name,op365_uom,statecode'
+PR_FIELDS = ('statuscode,statecode,op365_title,op365_justification,op365_neededby,op365_projectid,op365_wbsnodeid,'
+             'op365_preferredsupplierid,op365_requesterid')
+PRL_FIELDS = 'op365_purchaserequestid,op365_itemid,op365_name,op365_quantity,op365_uom,op365_estimatedprice,op365_notes'
+PO_FIELDS = ('statuscode,statecode,op365_supplierid,op365_projectid,op365_purchaserequestid,op365_orderdate,op365_expecteddelivery,'
+             'op365_deliveryplace,op365_paymentterms,op365_notes,op365_supplierconfirmed')
+POL_FIELDS = 'op365_purchaseorderid,op365_itemid,op365_wbsnodeid,op365_name,op365_quantity,op365_uom,op365_price,op365_receivedquantity'
+INV_FIELDS = ('statuscode,statecode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_invoicenumber,op365_invoicedate,'
+              'op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber')
+
 # class, message, table, stage, filtering attributes, pre-image attributes
 STEPS = [
   ('ResourceDefaults', 'Create', 'op365_resource', PRE, None, None),
@@ -55,6 +65,61 @@ STEPS = [
   ('ActualsRollup', 'Create', 'op365_materialusage', POST, None, None),
   ('ActualsRollup', 'Update', 'op365_materialusage', POST, 'op365_projectid,op365_wbsnodeid,op365_totalcost,statecode', 'op365_projectid'),
   ('ActualsRollup', 'Delete', 'op365_materialusage', POST, None, 'op365_projectid'),
+  # Phase 4
+  ('MaterialUsageReceiptGuard', 'Update', 'op365_materialusage', PREVAL, MU_FIELDS, 'op365_goodsreceiptlineid'),
+  ('MaterialUsageReceiptGuard', 'Delete', 'op365_materialusage', PREVAL, None, 'op365_goodsreceiptlineid'),
+  ('PurchaseRequestValidate', 'Create', 'op365_purchaserequest', PRE, None, None),
+  ('PurchaseRequestValidate', 'Update', 'op365_purchaserequest', PRE, PR_FIELDS, 'statuscode,op365_projectid,op365_wbsnodeid'),
+  ('PurchaseRequestDelete', 'Delete', 'op365_purchaserequest', PRE, None, 'statuscode'),
+  ('PurchaseRequestLineValidate', 'Create', 'op365_purchaserequestline', PRE, None, None),
+  ('PurchaseRequestLineValidate', 'Update', 'op365_purchaserequestline', PRE, PRL_FIELDS, PRL_FIELDS),
+  ('PurchaseRequestLineValidate', 'Delete', 'op365_purchaserequestline', PRE, None, 'op365_purchaserequestid'),
+  ('PurchaseRequestTotals', 'Create', 'op365_purchaserequestline', POST, None, None),
+  ('PurchaseRequestTotals', 'Update', 'op365_purchaserequestline', POST, 'op365_amount,op365_purchaserequestid,statecode', 'op365_purchaserequestid'),
+  ('PurchaseRequestTotals', 'Delete', 'op365_purchaserequestline', POST, None, 'op365_purchaserequestid'),
+  ('RfqInvitationValidate', 'Create', 'op365_rfqinvitation', PRE, None, None),
+  ('RfqInvitationValidate', 'Update', 'op365_rfqinvitation', PRE, 'statuscode,op365_supplierid,op365_email,op365_deliverydays,op365_suppliernotes',
+   'statuscode,op365_rfqid,op365_supplierid,op365_email'),
+  ('RfqResponses', 'Create', 'op365_rfqinvitation', POST, None, None),
+  ('RfqResponses', 'Update', 'op365_rfqinvitation', POST, 'statuscode', 'op365_rfqid'),
+  ('RfqResponses', 'Delete', 'op365_rfqinvitation', POST, None, 'op365_rfqid'),
+  ('RfqQuoteValidate', 'Create', 'op365_rfqquote', PRE, None, None),
+  ('RfqQuoteValidate', 'Update', 'op365_rfqquote', PRE, 'op365_price,op365_requestlineid,op365_invitationid', 'op365_invitationid,op365_requestlineid'),
+  ('RfqQuoteValidate', 'Delete', 'op365_rfqquote', PRE, None, 'op365_invitationid'),
+  ('RfqQuoteTotals', 'Create', 'op365_rfqquote', POST, None, None),
+  ('RfqQuoteTotals', 'Update', 'op365_rfqquote', POST, 'op365_price,op365_requestlineid,statecode', 'op365_invitationid'),
+  ('RfqQuoteTotals', 'Delete', 'op365_rfqquote', POST, None, 'op365_invitationid'),
+  ('PurchaseOrderValidate', 'Create', 'op365_purchaseorder', PRE, None, None),
+  ('PurchaseOrderValidate', 'Update', 'op365_purchaseorder', PRE, PO_FIELDS, 'statuscode,op365_projectid,op365_supplierid,op365_paymentterms'),
+  ('PurchaseOrderDelete', 'Delete', 'op365_purchaseorder', PRE, None, 'statuscode'),
+  ('PurchaseOrderLineValidate', 'Create', 'op365_purchaseorderline', PRE, None, None),
+  ('PurchaseOrderLineValidate', 'Update', 'op365_purchaseorderline', PRE, POL_FIELDS, POL_FIELDS),
+  ('PurchaseOrderLineValidate', 'Delete', 'op365_purchaseorderline', PRE, None, 'op365_purchaseorderid'),
+  ('PurchaseTotals', 'Create', 'op365_purchaseorderline', POST, None, None),
+  ('PurchaseTotals', 'Update', 'op365_purchaseorderline', POST, 'op365_amount,op365_quantity,op365_price,op365_receivedquantity,op365_itemid,statecode',
+   'op365_purchaseorderid,op365_itemid'),
+  ('PurchaseTotals', 'Delete', 'op365_purchaseorderline', POST, None, 'op365_purchaseorderid,op365_itemid'),
+  ('PurchaseTotals', 'Update', 'op365_purchaseorder', POST, 'statuscode,op365_projectid,op365_supplierid,op365_totalamount,statecode',
+   'op365_projectid,op365_supplierid'),
+  ('PurchaseTotals', 'Delete', 'op365_purchaseorder', POST, None, 'op365_projectid,op365_supplierid'),
+  ('GoodsReceiptGuard', 'Create', 'op365_goodsreceipt', PRE, None, None),
+  ('GoodsReceiptGuard', 'Update', 'op365_goodsreceipt', PRE, 'op365_purchaseorderid,op365_projectid,op365_receiptdate,op365_deliverynotenumber,op365_deliverynotedate,op365_notes', None),
+  ('GoodsReceiptGuard', 'Delete', 'op365_goodsreceipt', PRE, None, None),
+  ('GoodsReceiptGuard', 'Create', 'op365_goodsreceiptline', PRE, None, None),
+  ('GoodsReceiptGuard', 'Update', 'op365_goodsreceiptline', PRE, 'op365_quantity,op365_orderlineid,op365_goodsreceiptid', None),
+  ('GoodsReceiptGuard', 'Delete', 'op365_goodsreceiptline', PRE, None, None),
+  ('SupplierInvoiceValidate', 'Create', 'op365_supplierinvoice', PRE, None, None),
+  ('SupplierInvoiceValidate', 'Update', 'op365_supplierinvoice', PRE, INV_FIELDS, 'statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber'),
+  ('SupplierInvoiceLineValidate', 'Create', 'op365_supplierinvoiceline', PRE, None, None),
+  ('SupplierInvoiceLineValidate', 'Update', 'op365_supplierinvoiceline', PRE, 'op365_quantity,op365_unitprice,op365_totalprice,op365_vatrate,op365_name,op365_code',
+   'op365_supplierinvoiceid,op365_quantity,op365_unitprice'),
+  ('SupplierInvoiceLineValidate', 'Delete', 'op365_supplierinvoiceline', PRE, None, 'op365_supplierinvoiceid'),
+  ('SupplierInvoiceTotals', 'Create', 'op365_supplierinvoiceline', POST, None, None),
+  ('SupplierInvoiceTotals', 'Update', 'op365_supplierinvoiceline', POST, 'op365_totalprice,op365_vatrate,statecode', 'op365_supplierinvoiceid'),
+  ('SupplierInvoiceTotals', 'Delete', 'op365_supplierinvoiceline', POST, None, 'op365_supplierinvoiceid'),
+  ('ContactCount', 'Create', 'contact', POST, None, None),
+  ('ContactCount', 'Update', 'contact', POST, 'parentcustomerid,statecode', 'parentcustomerid'),
+  ('ContactCount', 'Delete', 'contact', POST, None, 'parentcustomerid'),
 ]
 
 # Custom APIs: unique name -> class, display name, description, binding table (None = unbound), function,
@@ -80,6 +145,43 @@ APIS = {
       'Hourly cost of a resource on a date (requires the Cost Visibility profile)', None, True,
       [('ResourceId', 12, False, 'Resource'), ('Date', 1, False, 'Date')],
       [('HourlyCost', 2, 'Hourly cost valid on the date')]),
+  'op365_SendTimeReminders': ('SendTimeReminders', 'Send Time Reminders',
+      'Notifies the users who recorded fewer hours than expected on the date (daily time reminder flow)', None, False,
+      [('Date', 1, True, 'Date; default today in Europe/Rome')],
+      [('Count', 7, 'Number of reminders sent')]),
+  # Phase 4: purchasing
+  'op365_SubmitPurchaseRequest': ('SubmitPurchaseRequest', 'Submit Purchase Request',
+      'Submits a draft or rejected purchase request to the project manager', 'op365_purchaserequest', False, [], []),
+  'op365_DecidePurchaseRequest': ('DecidePurchaseRequest', 'Decide Purchase Request',
+      'Approves or rejects a submitted purchase request (above the threshold a second approval is needed)', 'op365_purchaserequest', False,
+      [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Decision note; required to reject')], []),
+  'op365_CancelPurchaseRequest': ('CancelPurchaseRequest', 'Cancel Purchase Request',
+      'Cancels a purchase request that is not ordered', 'op365_purchaserequest', False, [], []),
+  'op365_CreateRfq': ('CreateRfq', 'Create RFQ', 'Creates a request for quotation with supplier invitations from an approved purchase request',
+      'op365_purchaserequest', False,
+      [('Deadline', 1, True, 'Deadline; default in 7 days'), ('SupplierIds', 11, True, 'Suppliers to invite; default preferred and item suppliers')],
+      [('RfqId', 12, 'New request for quotation')]),
+  'op365_SendRfq': ('SendRfq', 'Send RFQ', 'Sends the request for quotation to the invited suppliers', 'op365_rfq', False, [],
+      [('Count', 7, 'Suppliers invited')]),
+  'op365_AwardRfq': ('AwardRfq', 'Award RFQ', 'Awards the request for quotation to a supplier and creates the purchase order', 'op365_rfq', False,
+      [('InvitationId', 12, False, 'Winning invitation')], [('PurchaseOrderId', 12, 'New purchase order')]),
+  'op365_CancelRfq': ('CancelRfq', 'Cancel RFQ', 'Cancels a draft or sent request for quotation', 'op365_rfq', False, [], []),
+  'op365_CreatePurchaseOrder': ('CreatePurchaseOrder', 'Create Purchase Order', 'Creates a draft purchase order from an approved purchase request',
+      'op365_purchaserequest', False, [('SupplierId', 12, True, 'Supplier; default the preferred supplier')],
+      [('PurchaseOrderId', 12, 'New purchase order')]),
+  'op365_SetPurchaseOrderStatus': ('SetPurchaseOrderStatus', 'Set Purchase Order Status',
+      'Moves a purchase order to Sent, Confirmed, Draft or Cancelled', 'op365_purchaseorder', False,
+      [('Status', 10, False, 'Sent, Confirmed, Draft or Cancelled')], []),
+  'op365_RegisterGoodsReceipt': ('RegisterGoodsReceipt', 'Register Goods Receipt',
+      'Registers a goods receipt and the material usage of the received lines', 'op365_purchaseorder', False,
+      [('ReceiptDate', 1, True, 'Receipt date; default today'), ('DeliveryNoteNumber', 10, True, 'Delivery note number'),
+       ('DeliveryNoteDate', 1, True, 'Delivery note date'), ('Lines', 11, True, '"orderLineId=quantity"; default everything still to receive')],
+      [('GoodsReceiptId', 12, 'New goods receipt')]),
+  'op365_CancelGoodsReceipt': ('CancelGoodsReceipt', 'Cancel Goods Receipt',
+      'Deletes a goods receipt with its material usage and restores the order quantities', 'op365_goodsreceipt', False, [], []),
+  'op365_DecideSupplierInvoice': ('DecideSupplierInvoice', 'Decide Supplier Invoice', 'Approves or rejects a supplier invoice',
+      'op365_supplierinvoice', False,
+      [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Decision note; required to reject')], []),
 }
 
 

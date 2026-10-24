@@ -5,8 +5,7 @@ Idempotent; reads the PAC_* environment variables.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from dv import S, API
-from meta import L, col, ok, ent, create_tables, create_columns, create_lookups, create_keys, publish
+from meta import col, create_tables, create_columns, create_lookups, status_reasons, publish
 
 TABLES = [
   ('TimeEntry', 'Time Entry', 'Time Entries', 'Hours of a resource on a project and WBS node', ('Name', 'Name', 200, False)),
@@ -52,20 +51,6 @@ LOOKUPS = [
 
 # Time entry status reasons (active state): Draft, Submitted, Approved, Rejected. Only the Custom APIs change them.
 STATUS = [(1, 0, 'Draft'), (365000000, 0, 'Submitted'), (365000001, 0, 'Approved'), (365000002, 0, 'Rejected')]
-
-
-def status_reasons(table, values):
-    attr = S.get(API + ent(table) + "/Attributes(LogicalName='statuscode')/Microsoft.Dynamics.CRM.StatusAttributeMetadata"
-                 "?$select=LogicalName&$expand=OptionSet($select=Options)").json()
-    have = {o['Value']: o['Label']['UserLocalizedLabel']['Label'] for o in attr['OptionSet']['Options']}
-    for value, state, label in values:
-        if have.get(value) == label:
-            print('skip status', label); continue
-        action = 'UpdateOptionValue' if value in have else 'InsertStatusValue'
-        body = {'EntityLogicalName': table, 'AttributeLogicalName': 'statuscode', 'Value': value, 'Label': L(label),
-                'SolutionUniqueName': 'OpenProject365'}
-        body.update({'MergeLabels': True} if value in have else {'StateCode': state})
-        ok(S.post(API + action, json=body), f'status {table}: {label}')
 
 
 create_tables(TABLES)

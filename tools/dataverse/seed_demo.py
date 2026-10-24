@@ -1,5 +1,6 @@
 """Demo data for Open Project 365: customers, suppliers, items, resources, three projects with WBS, dependencies,
-allocations, a baseline, time entries in every status and material usage.
+allocations, a baseline, time entries in every status, material usage and purchasing (requests, an awarded RFQ,
+orders, a partial goods receipt and a supplier invoice).
 
 Records are recognisable by the DEMO- codes and the "(demo)" suffix. Running again deletes the previous demo data
 first; `--clean` only deletes it. Uses the PAC_* environment variables. The project manager and the first resource
@@ -34,6 +35,8 @@ def action(name, body):
 
 
 def clean():
+    for i in get("op365_supplierinvoices?$select=op365_supplierinvoiceid&$filter=endswith(op365_sellername,'(demo)')"):
+        S.delete(API + f"op365_supplierinvoices({i['op365_supplierinvoiceid']})")
     for p in get("op365_projects?$select=op365_projectid&$filter=startswith(op365_code,'DEMO-')"):
         S.delete(API + f"op365_projects({p['op365_projectid']})")
     for i in get("op365_items?$select=op365_itemid&$filter=startswith(op365_code,'DEMO-')"):
@@ -69,8 +72,13 @@ for name, cust, supp, vat in [('Rossi Costruzioni (demo)', True, False, 'IT01234
     if cust:
         body['op365_customertype'] = 365000001
     if supp:
-        body['op365_supplierstatus'] = 365000000
+        body.update({'op365_supplierstatus': 365000000, 'op365_paymentterms': '60 days end of month',
+                     'emailaddress1': f"orders@{name.split()[0].lower()}.example.com"})
     acc[name.split()[0]] = post('accounts', body)['accountid']
+    if supp:
+        post('contacts', {'firstname': 'Ufficio', 'lastname': f"Vendite {name.split()[0]} (demo)",
+                          'emailaddress1': f"sales@{name.split()[0].lower()}.example.com",
+                          'parentcustomerid_account@odata.bind': f"/accounts({acc[name.split()[0]]})"})
 
 # ---------- items ----------
 items = {}
@@ -125,7 +133,8 @@ def project(code, name, customer, start, end, value, status):
                                    'op365_startdate': start, 'op365_enddate': end, 'statuscode': 365000000,
                                    'op365_CustomerId@odata.bind': f'/accounts({customer})',
                                    'op365_ProjectManagerId@odata.bind': f'/systemusers({me})',
-                                   'op365_description': f'{name} - demo data'})['op365_projectid'], status
+                                   'op365_description': f'{name} - demo data',
+                                   **({'ownerid@odata.bind': f'/systemusers({me})'} if user else {})})['op365_projectid'], status
 
 
 def wbs(prj, nodes):
@@ -221,8 +230,78 @@ for prj, node, code, qty, days in [(pa, na['1.2'], 'DEMO-CTR-01', 320, -20), (pa
         body['op365_SupplierId@odata.bind'] = f'/accounts({supplier})'
     post('op365_materialusages', body)
 
+
+# ---------- purchasing ----------
+def bound(es, id_, name, body=None):
+    return action(f'{es}({id_})/Microsoft.Dynamics.CRM.{name}', body or {})
+
+
+def request(prj, node, title, needed, lines, supplier=None):
+    body = {'op365_ProjectId@odata.bind': f'/op365_projects({prj})', 'op365_WbsNodeId@odata.bind': f'/op365_wbsnodes({node})',
+            'op365_title': title, 'op365_neededby': D(needed), 'op365_justification': f'{title} (demo)'}
+    if supplier:
+        body['op365_PreferredSupplierId@odata.bind'] = f'/accounts({supplier})'
+    if user:
+        body['op365_RequesterId@odata.bind'] = f'/systemusers({me})'
+        body['ownerid@odata.bind'] = f'/systemusers({me})'
+    pr = post('op365_purchaserequests', body)['op365_purchaserequestid']
+    ids = []
+    for code, qty in lines:
+        ids.append(post('op365_purchaserequestlines', {'op365_PurchaseRequestId@odata.bind': f'/op365_purchaserequests({pr})',
+                                                       'op365_ItemId@odata.bind': f'/op365_items({items[code][0]})',
+                                                       'op365_quantity': qty})['op365_purchaserequestlineid'])
+    return pr, ids
+
+
+# DEMO-001: switchboard material through an RFQ, awarded, confirmed and partly received, with the supplier invoice
+pr1, l1 = request(pa, na['2.2'], 'Materiale quadri e cablaggi', 5, [('DEMO-QE-01', 4), ('DEMO-CAV-01', 1200)], acc['Elettroforniture'])
+bound('op365_purchaserequests', pr1, 'op365_SubmitPurchaseRequest')
+bound('op365_purchaserequests', pr1, 'op365_DecidePurchaseRequest', {'Approve': True})
+rfq = bound('op365_purchaserequests', pr1, 'op365_CreateRfq', {'Deadline': D(3) + 'T00:00:00Z',
+                                                                 'SupplierIds': [acc['Elettroforniture'], acc['Solare']]})['RfqId']
+bound('op365_rfqs', rfq, 'op365_SendRfq')
+invitations = {i['_op365_supplierid_value']: i['op365_rfqinvitationid']
+               for i in get(f'op365_rfqinvitations?$select=op365_rfqinvitationid,_op365_supplierid_value&$filter=_op365_rfqid_value eq {rfq}')}
+for supplier, prices, days in [('Elettroforniture', (158, 0.98), 7), ('Solare', (171, 1.10), 12)]:
+    inv = invitations[acc[supplier]]
+    S.patch(API + f'op365_rfqinvitations({inv})', json={'op365_deliverydays': days})
+    for line, price in zip(l1, prices):
+        post('op365_rfqquotes', {'op365_InvitationId@odata.bind': f'/op365_rfqinvitations({inv})',
+                                 'op365_RequestLineId@odata.bind': f'/op365_purchaserequestlines({line})', 'op365_price': price})
+po1 = bound('op365_rfqs', rfq, 'op365_AwardRfq', {'InvitationId': invitations[acc['Elettroforniture']]})['PurchaseOrderId']
+S.patch(API + f'op365_purchaseorders({po1})', json={'op365_deliveryplace': 'Cantiere Rossi, Via Roma 10, Milano'})
+bound('op365_purchaseorders', po1, 'op365_SetPurchaseOrderStatus', {'Status': 'Sent'})
+bound('op365_purchaseorders', po1, 'op365_SetPurchaseOrderStatus', {'Status': 'Confirmed'})
+po1_lines = get(f'op365_purchaseorderlines?$select=op365_purchaseorderlineid,op365_quantity&$filter=_op365_purchaseorderid_value eq {po1}'
+                '&$orderby=op365_sortorder')
+bound('op365_purchaseorders', po1, 'op365_RegisterGoodsReceipt', {
+    'Lines': [f"{po1_lines[0]['op365_purchaseorderlineid']}=2", f"{po1_lines[1]['op365_purchaseorderlineid']}=600"],
+    'DeliveryNoteNumber': 'DDT 1187', 'DeliveryNoteDate': D(-1) + 'T00:00:00Z', 'ReceiptDate': D(-1) + 'T00:00:00Z'})
+inv = post('op365_supplierinvoices', {'op365_invoicenumber': 'FT 2026/0412', 'op365_invoicedate': D(0),
+                                      'op365_SupplierId@odata.bind': f"/accounts({acc['Elettroforniture']})",
+                                      'op365_PurchaseOrderId@odata.bind': f'/op365_purchaseorders({po1})', 'op365_orderrefs': 'ODA ' + get(
+                                          f'op365_purchaseorders?$select=op365_number&$filter=op365_purchaseorderid eq {po1}')[0]['op365_number'],
+                                      'op365_deliverynoterefs': 'DDT 1187'})['op365_supplierinvoiceid']
+for n, (name, qty, price) in enumerate([('Quadro elettrico 24 moduli', 2, 158), ('Cavo FG16OR16 3G2.5', 600, 0.98)], 1):
+    post('op365_supplierinvoicelines', {'op365_SupplierInvoiceId@odata.bind': f'/op365_supplierinvoices({inv})', 'op365_linenumber': n,
+                                        'op365_name': name, 'op365_quantity': qty, 'op365_unitprice': price, 'op365_vatrate': 22,
+                                        'op365_OrderLineId@odata.bind': f"/op365_purchaseorderlines({po1_lines[n - 1]['op365_purchaseorderlineid']})"})
+# DEMO-001: a request waiting for approval
+pr2, _ = request(pa, na['1.2'], 'Cartongesso per pareti aggiuntive', 10, [('DEMO-CTR-01', 150)])
+bound('op365_purchaserequests', pr2, 'op365_SubmitPurchaseRequest')
+# DEMO-002: panels and inverter ordered directly from the preferred supplier, order sent
+pr3, _ = request(pb, nb['2.1'], 'Moduli e inverter', 15, [('DEMO-PAN-01', 40), ('DEMO-INV-01', 1)], acc['Solare'])
+bound('op365_purchaserequests', pr3, 'op365_SubmitPurchaseRequest')
+bound('op365_purchaserequests', pr3, 'op365_DecidePurchaseRequest', {'Approve': True})
+po2 = bound('op365_purchaserequests', pr3, 'op365_CreatePurchaseOrder')['PurchaseOrderId']
+S.patch(API + f'op365_purchaseorders({po2})', json={'op365_expecteddelivery': D(20)})
+bound('op365_purchaseorders', po2, 'op365_SetPurchaseOrderStatus', {'Status': 'Sent'})
+# DEMO-002: a draft request
+request(pb, nb['2.2'], 'Cavi solari e connettori', 45, [('DEMO-CAV-01', 300)], acc['Solare'])
+
 for prj in (pa, pb, pc):
-    p = S.get(API + f'op365_projects({prj})?$select=op365_code,op365_budgettotal,op365_actualcost,op365_actualhours,op365_progresspct').json()
-    print(p['op365_code'], 'budget', p['op365_budgettotal'], 'actual', p['op365_actualcost'], 'hours', p['op365_actualhours'],
-          'progress', p['op365_progresspct'])
+    p = S.get(API + f'op365_projects({prj})?$select=op365_code,op365_budgettotal,op365_actualcost,op365_committedcost,'
+                    'op365_actualhours,op365_progresspct').json()
+    print(p['op365_code'], 'budget', p['op365_budgettotal'], 'actual', p['op365_actualcost'], 'committed', p['op365_committedcost'],
+          'hours', p['op365_actualhours'], 'progress', p['op365_progresspct'])
 print('time entries:', sum(len(v) for v in weeks.values()))

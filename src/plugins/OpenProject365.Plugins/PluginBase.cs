@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Xrm.Sdk;
 
 namespace OpenProject365.Plugins
@@ -71,6 +72,10 @@ namespace OpenProject365.Plugins
         }
 
         public bool Changed(string attribute) => Target != null && Target.Contains(attribute);
+
+        /// <summary>True when the update touches only the given columns (the primary key and modifiedon don't count).</summary>
+        public bool ChangesOnly(params string[] attributes) =>
+            Target != null && Target.Attributes.Keys.All(k => k == Execution.PrimaryEntityName + "id" || k == "modifiedon" || attributes.Contains(k));
 
         /// <summary>True when this operation runs because a parent record of the given table is being deleted.</summary>
         public bool IsCascadeDeleteOf(string table)

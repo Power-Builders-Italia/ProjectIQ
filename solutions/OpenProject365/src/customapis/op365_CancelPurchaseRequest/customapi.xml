@@ -1,0 +1,19 @@
+<customapi uniquename="op365_CancelPurchaseRequest">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Cancels a purchase request that is not ordered">
+    <label description="Cancels a purchase request that is not ordered" languagecode="1033" />
+  </description>
+  <displayname default="Cancel Purchase Request">
+    <label description="Cancel Purchase Request" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Cancel Purchase Request</name>
+  <plugintypeid>
+    <plugintypeexportkey>0bc5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>
