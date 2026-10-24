@@ -31,6 +31,22 @@ jobs:
           tenant-id: ${{ secrets.PP_TENANT_ID }}
           path: out/OpenProject365.zip
           checker-logs-artifact-name: solution-checker-logs
+      - name: Solution Checker findings
+        if: env.HAS_CHECKER == 'true' && hashFiles('out/OpenProject365.zip') != ''
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP 'PowerAppsChecker'
+          Get-ChildItem $out -Recurse -Filter *.zip | ForEach-Object { Expand-Archive $_.FullName -DestinationPath (Join-Path $out 'sarif') -Force }
+          $sarif = Get-ChildItem $out -Recurse -Filter *.sarif
+          foreach ($file in $sarif) {
+            $doc = Get-Content $file.FullName -Raw | ConvertFrom-Json
+            foreach ($run in $doc.runs) {
+              foreach ($r in $run.results) {
+                $loc = ($r.locations | ForEach-Object { $_.physicalLocation.artifactLocation.uri + ' ' + $_.logicalLocations.fullyQualifiedName }) -join '; '
+                Write-Output ("[{0}] {1}: {2} @ {3}" -f $r.properties.severity, $r.ruleId, $r.message.text, $loc)
+              }
+            }
+          }
       - name: Upload solution package
         if: hashFiles('out/OpenProject365.zip') != ''
         uses: actions/upload-artifact@v4
