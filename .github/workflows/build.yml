@@ -18,3 +18,9 @@ jobs:
           solution-folder: solutions/OpenProject365/src
           solution-file: out/OpenProject365.zip
           solution-type: Unmanaged
+      - name: Upload solution package
+        if: hashFiles('out/OpenProject365.zip') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenProject365-unmanaged
+          path: out/OpenProject365.zip
