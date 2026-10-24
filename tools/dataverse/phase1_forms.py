@@ -3,7 +3,7 @@
 Forms are generated from a compact layout description. Existing forms (matched by table + name)
 are overwritten; the generated 'Information' form of each custom table is renamed and replaced.
 """
-import os, sys, uuid
+import itertools, os, sys, uuid
 from xml.sax.saxutils import escape
 sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
@@ -36,8 +36,10 @@ def attr(table, name):
     return _attrs[table][name]
 
 
+_ids = itertools.count()
 def gid():
-    return '{%s}' % uuid.uuid4()
+    # deterministic ids (stable across runs) keep the unpacked FormXml diffs small
+    return '{%s}' % uuid.uuid5(uuid.NAMESPACE_URL, f'op365-phase1-forms-{next(_ids)}')
 
 
 def lbl(text):
@@ -135,7 +137,15 @@ def form(table, name, tabs, replace=None, description='', extra=''):
         ok(S.patch(API + f'systemforms({existing})', json=body), f'update form {table}: {name}')
     else:
         body.update({'objecttypecode': table, 'type': 2, 'formactivationstate': 1})
-        ok(S.post(API + 'systemforms', json=body), f'create form {table}: {name}')
+        r = S.post(API + 'systemforms', json=body)
+        ok(r, f'create form {table}: {name}')
+        existing = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
+    # renamed forms can lose their localized name, and a form without one fails to import
+    ok(S.post(API + 'SetLocLabels', json={
+        'EntityMoniker': {'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': existing},
+        'AttributeName': 'name',
+        'Labels': [{'@odata.type': 'Microsoft.Dynamics.CRM.LocalizedLabel', 'Label': name, 'LanguageCode': 1033}]}),
+       f'label form {name}')
 
 
 A = 'account'

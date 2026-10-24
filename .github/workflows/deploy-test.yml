@@ -1,0 +1,52 @@
+name: deploy-test
+
+# Exports OpenProject365 as managed from Dev (version 1.0.<run>.0) and imports it into Test.
+# Uses the PP_* secrets; the app registration must be an application user in both environments.
+on:
+  workflow_dispatch:
+    inputs:
+      target-url:
+        description: Target environment URL
+        default: https://openproject365-test.crm4.dynamics.com
+        required: true
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: Set solution version in Dev
+        uses: microsoft/powerplatform-actions/set-online-solution-version@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          name: OpenProject365
+          version: 1.0.${{ github.run_number }}.0
+      - name: Export managed from Dev
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/OpenProject365_managed.zip
+          managed: true
+      - name: Import into target
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ inputs.target-url }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-file: out/OpenProject365_managed.zip
+          publish-changes: true
+          run-asynchronously: true
+          max-async-wait-time: 60
+      - name: Upload managed package
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenProject365-managed
+          path: out/OpenProject365_managed.zip

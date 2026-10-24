@@ -37,11 +37,12 @@ pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProj
 
 ## CI and Solution Checker
 
-The `build` workflow packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The check fails on any high-severity issue.
+The `build` workflow packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
 
 ## Environments
 
 | Environment | Status |
 |---|---|
 | Dev (`openproject365-dev.crm4.dynamics.com`) | available, unmanaged solution |
-| Build / Test | to be created in the Power Platform admin center (managed solution) |
+| Test (`openproject365-test.crm4.dynamics.com`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow) |
+| Build | not needed yet: CI only packs and checks |

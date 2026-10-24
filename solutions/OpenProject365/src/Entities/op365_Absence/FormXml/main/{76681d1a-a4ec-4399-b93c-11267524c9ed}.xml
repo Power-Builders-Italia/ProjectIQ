@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{f5a6be28-ff2f-4ca3-b5e5-a844c9908e78}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{d7496e54-8e10-5906-a501-ca085908f5fb}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="absence" showlabel="true" showbar="false" columns="2" id="{aaa23e68-6727-4bb6-a8cb-bad75fde131e}">
+                <section name="absence" showlabel="true" showbar="false" columns="2" id="{3325fde0-c12d-512f-94ec-171e761d2b12}">
                   <labels>
                     <label description="Absence" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{a57e2a27-55f8-4ec6-864e-1abc471acc0c}">
+                      <cell id="{9eaf7efe-5c42-58ca-9dc7-9ea9c9253fb9}">
                         <labels>
                           <label description="Resource" languagecode="1033" />
                         </labels>
                         <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
                       </cell>
-                      <cell id="{38db3a81-ad3b-4ad3-8fd5-c97860c8c2a8}">
+                      <cell id="{496528f9-685f-5310-961f-fcbd105908f8}">
                         <labels>
                           <label description="Absence Type" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{f936a78c-247b-4f23-8157-f136981fff5c}">
+                      <cell id="{45dd7045-2e54-5ce1-a00d-86088016b245}">
                         <labels>
                           <label description="From" languagecode="1033" />
                         </labels>
                         <control id="op365_fromdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_fromdate" />
                       </cell>
-                      <cell id="{8a10557b-570c-40f4-9faa-d90f57c83043}">
+                      <cell id="{f584205c-585d-5906-bc6d-459564fd9c3c}">
                         <labels>
                           <label description="To" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{066687ec-6f69-410c-8ae9-7ec7ccd10f60}">
+                      <cell id="{ce337176-4e81-5308-9994-69efebc54fbf}">
                         <labels>
                           <label description="Hours" languagecode="1033" />
                         </labels>
                         <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
                       </cell>
-                      <cell id="{306283b2-bccd-4d99-b459-aa8aff00c366}">
+                      <cell id="{9552d607-4f6c-5b0c-ad74-72805e28a91a}">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
@@ -62,7 +62,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{274da816-59ae-41ab-a2b7-2e594f88b45e}">
+                      <cell id="{ae8961c7-a99b-54cf-b2e3-9556843ccb3b}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -71,13 +71,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{5d8cba1b-af50-4c79-8721-d45ef354da92}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{e655a71c-c27a-5351-a502-f0abd3284a43}">
                   <labels>
                     <label description="Notes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{eb384c7b-1583-4bfe-877a-27540d9647c1}">
+                      <cell id="{b876d74e-b971-56a2-8cc7-aec14da9f483}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
                         </labels>
@@ -94,5 +94,8 @@
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Absence" languagecode="1033" />
+    </LocalizedNames>
   </systemform>
 </forms>

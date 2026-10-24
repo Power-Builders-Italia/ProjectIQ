@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{8ee56d49-abd1-45c4-960b-ad914f3fc30b}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{4b7085a8-ced7-5541-b8a0-fdd78f02c0f4}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="resource" showlabel="true" showbar="false" columns="2" id="{14c1455a-c436-44d0-8ac8-c18d3af2a123}">
+                <section name="resource" showlabel="true" showbar="false" columns="2" id="{013e4dd0-d29b-50fb-93c4-f1a89862b7a9}">
                   <labels>
                     <label description="Resource" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{45ea5cff-8226-4fe5-89d7-0c6e9afd2083}">
+                      <cell id="{2070a753-bdd0-57c7-a146-e20f4cef556d}">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
-                      <cell id="{1b69d2cd-7da1-4afe-8b67-7625d7ae31c8}">
+                      <cell id="{0282b8af-ce4b-58a3-b7e4-423843811ccf}">
                         <labels>
                           <label description="Role" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{16a21a35-5d09-46cb-bca9-b4be73580666}">
+                      <cell id="{8c5aaaaa-1e8c-5e79-a238-dddce3eee71b}">
                         <labels>
                           <label description="User" languagecode="1033" />
                         </labels>
                         <control id="op365_userid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_userid" />
                       </cell>
-                      <cell id="{74809ba5-cc17-4ce0-89e1-c7293b497b03}">
+                      <cell id="{0d15804f-3cce-520a-8c1c-95b5360e336e}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -49,19 +49,19 @@
                     </row>
                   </rows>
                 </section>
-                <section name="capacity_and_cost" showlabel="true" showbar="false" columns="2" id="{6ed377a6-9341-4ffe-806a-14f52fdedcce}">
+                <section name="capacity_and_cost" showlabel="true" showbar="false" columns="2" id="{06680723-7920-500f-aa57-a0ad17d2b772}">
                   <labels>
                     <label description="Capacity and Cost" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{77d77a60-7c7e-407e-b0fe-2b18285d63d3}">
+                      <cell id="{af479113-7a86-5f9c-8c33-d8b54c211385}">
                         <labels>
                           <label description="Weekly Hours" languagecode="1033" />
                         </labels>
                         <control id="op365_weeklyhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_weeklyhours" />
                       </cell>
-                      <cell id="{64f6a3c6-8889-4209-8ea7-7eb8877889b3}">
+                      <cell id="{0eb08e01-8fdc-5ea1-a8d2-fe7d794ae2d3}">
                         <labels>
                           <label description="Hourly Cost" languagecode="1033" />
                         </labels>
@@ -69,7 +69,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b32f78d1-1075-41ec-98f8-efe5d6795c5d}">
+                      <cell id="{074e72a2-2607-5385-a2f9-df83c69e6dba}">
                         <labels>
                           <label description="Working Days" languagecode="1033" />
                         </labels>
@@ -82,20 +82,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="costs" id="{2310c375-19b2-47b8-97b0-fff6e298e65c}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="costs" id="{4b4f8fdc-aa07-5b3b-b472-83f6c1bfbf6f}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Costs" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="hourly_costs" showlabel="true" showbar="false" columns="1" id="{3d91abd5-108e-480f-b04e-69d847cb0835}">
+                <section name="hourly_costs" showlabel="true" showbar="false" columns="1" id="{9263e758-22af-597c-909a-1342d309b0ba}">
                   <labels>
                     <label description="Hourly Costs" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{fb953e4f-c71b-4383-8e14-8ae95d45e0be}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                      <cell id="{ab53de14-2c5d-5108-8ae6-c91b7ea4ca07}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Hourly Costs" languagecode="1033" />
                         </labels>
@@ -124,20 +124,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="absences" id="{f3805943-1c0c-46f9-a182-2e2d45b24982}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="absences" id="{945802b2-3853-549c-bde8-34f2a91b9855}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Absences" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="absences" showlabel="true" showbar="false" columns="1" id="{dcbde204-3a8c-4b73-8861-bf6661a5d970}">
+                <section name="absences" showlabel="true" showbar="false" columns="1" id="{7d108ebc-3125-5a86-9b56-6140e24bb6d7}">
                   <labels>
                     <label description="Absences" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{805356dc-921d-453f-930d-1fc3db3479f7}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                      <cell id="{16c2a76a-92e2-5ae1-a778-36d619ad4ab8}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Absences" languagecode="1033" />
                         </labels>
@@ -170,5 +170,8 @@
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Resource" languagecode="1033" />
+    </LocalizedNames>
   </systemform>
 </forms>
