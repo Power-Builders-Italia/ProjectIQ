@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26102.120" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26102.120" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26102.00120">
+<ImportExportXml version="9.2.26102.120" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26102.120" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00137">
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
@@ -87,15 +87,26 @@
       <RootComponent type="1" schemaName="op365_absence" behavior="0" />
       <RootComponent type="1" schemaName="op365_baseline" behavior="0" />
       <RootComponent type="1" schemaName="op365_baselinenode" behavior="0" />
+      <RootComponent type="1" schemaName="op365_goodsreceipt" behavior="0" />
+      <RootComponent type="1" schemaName="op365_goodsreceiptline" behavior="0" />
       <RootComponent type="1" schemaName="op365_item" behavior="0" />
       <RootComponent type="1" schemaName="op365_itemsupplier" behavior="0" />
       <RootComponent type="1" schemaName="op365_materialusage" behavior="0" />
       <RootComponent type="1" schemaName="op365_project" behavior="0" />
       <RootComponent type="1" schemaName="op365_projectmember" behavior="0" />
+      <RootComponent type="1" schemaName="op365_purchaseorder" behavior="0" />
+      <RootComponent type="1" schemaName="op365_purchaseorderline" behavior="0" />
+      <RootComponent type="1" schemaName="op365_purchaserequest" behavior="0" />
+      <RootComponent type="1" schemaName="op365_purchaserequestline" behavior="0" />
       <RootComponent type="1" schemaName="op365_resource" behavior="0" />
       <RootComponent type="1" schemaName="op365_resourcecost" behavior="0" />
+      <RootComponent type="1" schemaName="op365_rfq" behavior="0" />
+      <RootComponent type="1" schemaName="op365_rfqinvitation" behavior="0" />
+      <RootComponent type="1" schemaName="op365_rfqquote" behavior="0" />
       <RootComponent type="1" schemaName="op365_settings" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierdocument" behavior="0" />
+      <RootComponent type="1" schemaName="op365_supplierinvoice" behavior="0" />
+      <RootComponent type="1" schemaName="op365_supplierinvoiceline" behavior="0" />
       <RootComponent type="1" schemaName="op365_timeentry" behavior="0" />
       <RootComponent type="1" schemaName="op365_wbsallocation" behavior="0" />
       <RootComponent type="1" schemaName="op365_wbsdependency" behavior="0" />
@@ -103,16 +114,22 @@
       <RootComponent type="1" schemaName="systemuser" behavior="1" />
       <RootComponent type="20" id="{3dcd2920-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="20" id="{eb969a0f-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="29" id="{a58865cd-fbcf-f111-a05b-000d3ad895be}" behavior="0" />
       <RootComponent type="60" id="{37705131-eccf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="60" id="{40705131-eccf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="60" id="{49705131-eccf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="60" id="{62ea5f60-00d0-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/pages/decision.html" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/pages/receipt.html" behavior="0" />
       <RootComponent type="61" schemaName="op365_/scripts/account.form.js" behavior="0" />
       <RootComponent type="61" schemaName="op365_/scripts/execution.form.js" behavior="0" />
       <RootComponent type="61" schemaName="op365_/scripts/project.form.js" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/scripts/purchasing.js" behavior="0" />
       <RootComponent type="61" schemaName="op365_/scripts/wbsnode.form.js" behavior="0" />
       <RootComponent type="62" schemaName="op365_OpenProject365" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.CostSummary" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.GanttChart" behavior="0" />
+      <RootComponent type="66" schemaName="op365_OP365.QuoteComparison" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.ResourceLoad" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.TimeApproval" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.WbsTreeGrid" behavior="0" />
@@ -124,30 +141,80 @@
       <RootComponent type="92" id="{0761c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0b61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0e61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{10fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1261c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{14fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1661c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{18fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1961c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{1cfb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1d61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{1ffb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{2061c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{22fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{23e7fb53-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{245d3101-fecf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{2461c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{25fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{285d3101-fecf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{28fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2b5d3101-fecf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2bfb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{2de7fb53-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2efb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2f5d3101-fecf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{31fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{35fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{38fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{3cfb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{40fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{43fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{51d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{53711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{54d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{57711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{58d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{59d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{5b711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{5cd7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{5e711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{5fd2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{5fd7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{61711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{64d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{64d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{65711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{68d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{68d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{69711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{6bd2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{6bd7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{6c711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{6fd2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{6fd7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{70711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{73d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{74711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{76d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{77711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{7ad7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{7b711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{7bd2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{7dd7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{7e711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{81d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{82711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{8611ce78-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{86d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{92d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{96d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{99d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{9b5887ba-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{9dd2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{a2d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{a6d2f6f4-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{c415c1e8-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{c815c1e8-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{efeb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{f2eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{f6eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
