@@ -7,17 +7,19 @@ on:
 
 jobs:
   solution:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: microsoft/powerplatform-actions/actions-install@v1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      # pac 2.8.x bundled with powerplatform-actions rejects the unmodified
+      # SystemUser stub that Dataverse exports for lookups to systemuser
+      - name: Install Power Platform CLI
+        run: dotnet tool install --global Microsoft.PowerApps.CLI.Tool --version 2.14.1
       - name: Pack solution (unmanaged)
         if: hashFiles('solutions/OpenProject365/src/Other/Solution.xml') != ''
-        uses: microsoft/powerplatform-actions/pack-solution@v1
-        with:
-          solution-folder: solutions/OpenProject365/src
-          solution-file: out/OpenProject365.zip
-          solution-type: Unmanaged
+        run: pac solution pack --folder solutions/OpenProject365/src --zipfile out/OpenProject365.zip --packagetype Unmanaged
       - name: Upload solution package
         if: hashFiles('out/OpenProject365.zip') != ''
         uses: actions/upload-artifact@v4
