@@ -1,4 +1,4 @@
-"""Phase 2 plugin registration: OpenProject365.Plugins assembly, steps, images and the op365_SaveBaseline Custom API.
+"""Plugin registration (all phases): OpenProject365.Plugins assembly, steps, images and Custom APIs.
 
 Build the assembly first:  dotnet build src/plugins/OpenProject365.Plugins -c Release
 Idempotent: the assembly content is updated, missing types/steps/images are created.
@@ -12,6 +12,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 DLL = os.path.join(ROOT, 'src/plugins/OpenProject365.Plugins/bin/Release/net462/OpenProject365.Plugins.dll')
 NSP = 'OpenProject365.Plugins.'
 PREVAL, PRE, POST = 10, 20, 40
+TE_IMAGE = 'statuscode,op365_projectid,op365_wbsnodeid,op365_resourceid,op365_entrydate,op365_hours'
+MU_IMAGE = 'op365_projectid,op365_wbsnodeid,op365_itemid,op365_supplierid,op365_quantity,op365_unitcost,op365_name,op365_uom'
 
 # class, message, table, stage, filtering attributes, pre-image attributes
 STEPS = [
@@ -40,8 +42,45 @@ STEPS = [
    'op365_predecessorid,op365_successorid'),
   ('BaselineReference', 'Create', 'op365_baseline', POST, None, None),
   ('BaselineReference', 'Update', 'op365_baseline', POST, 'op365_isreference', 'op365_projectid'),
+  # Phase 3
+  ('TimeEntryValidate', 'Create', 'op365_timeentry', PRE, None, None),
+  ('TimeEntryValidate', 'Update', 'op365_timeentry', PRE, None, TE_IMAGE),
+  ('TimeEntryDelete', 'Delete', 'op365_timeentry', PRE, None, 'statuscode'),
+  ('ActualsRollup', 'Create', 'op365_timeentry', POST, None, None),
+  ('ActualsRollup', 'Update', 'op365_timeentry', POST, 'op365_projectid,op365_wbsnodeid,op365_hours,op365_cost,statuscode', 'op365_projectid'),
+  ('ActualsRollup', 'Delete', 'op365_timeentry', POST, None, 'op365_projectid'),
+  ('MaterialUsageValidate', 'Create', 'op365_materialusage', PRE, None, None),
+  ('MaterialUsageValidate', 'Update', 'op365_materialusage', PRE,
+   'op365_projectid,op365_wbsnodeid,op365_itemid,op365_supplierid,op365_quantity,op365_unitcost', MU_IMAGE),
+  ('ActualsRollup', 'Create', 'op365_materialusage', POST, None, None),
+  ('ActualsRollup', 'Update', 'op365_materialusage', POST, 'op365_projectid,op365_wbsnodeid,op365_totalcost,statecode', 'op365_projectid'),
+  ('ActualsRollup', 'Delete', 'op365_materialusage', POST, None, 'op365_projectid'),
 ]
-API_TYPE = 'SaveBaseline'
+
+# Custom APIs: unique name -> class, display name, description, binding table (None = unbound), function,
+# request parameters (name, type, optional, description), response properties (name, type, description).
+# Types: 0 Boolean, 1 DateTime, 2 Decimal, 7 Integer, 10 String, 11 StringArray, 12 Guid.
+APIS = {
+  'op365_SaveBaseline': ('SaveBaseline', 'Save Baseline',
+      'Saves the current WBS budget and dates of the project as a new baseline', 'op365_project', False,
+      [('Name', 10, True, 'Baseline name; default "Baseline <date>"'),
+       ('KeepReference', 0, True, 'Keep the current reference baseline instead of replacing it (default false)')],
+      [('BaselineId', 12, 'Id of the new baseline')]),
+  'op365_SubmitTimeEntries': ('SubmitTimeEntries', 'Submit Time Entries',
+      'Submits draft or rejected time entries for approval (approves them when time approval is off)', None, False,
+      [('TimeEntryIds', 11, False, 'Ids of the time entries')],
+      [('Count', 7, 'Number of entries submitted')]),
+  'op365_DecideTimeEntries': ('DecideTimeEntries', 'Decide Time Entries',
+      'Approves or rejects submitted time entries (project managers and administrators)', None, False,
+      [('TimeEntryIds', 11, False, 'Ids of the time entries'),
+       ('Approve', 0, False, 'True to approve, false to reject'),
+       ('Note', 10, True, 'Decision note; required to reject')],
+      [('Count', 7, 'Number of entries decided')]),
+  'op365_GetLabourCost': ('GetLabourCost', 'Get Labour Cost',
+      'Hourly cost of a resource on a date (requires the Cost Visibility profile)', None, True,
+      [('ResourceId', 12, False, 'Resource'), ('Date', 1, False, 'Date')],
+      [('HourlyCost', 2, 'Hourly cost valid on the date')]),
+}
 
 
 def one(url):
@@ -66,7 +105,7 @@ else:
 
 # ---------- types ----------
 types = {}
-for cls in sorted({s[0] for s in STEPS} | {API_TYPE}):
+for cls in sorted({s[0] for s in STEPS} | {a[0] for a in APIS.values()}):
     t = one(f"plugintypes?$select=plugintypeid&$filter=typename eq '{NSP + cls}'")
     if t:
         types[cls] = t['plugintypeid']; continue
@@ -105,30 +144,30 @@ for cls, msg, table, stage, filtering, image in STEPS:
             'attributes': image, 'sdkmessageprocessingstepid@odata.bind': f'/sdkmessageprocessingsteps({sid})'}),
            '  pre-image ' + image)
 
-# ---------- Custom API ----------
-capi = one("customapis?$select=customapiid&$filter=uniquename eq 'op365_SaveBaseline'")
-if capi:
-    capi_id = capi['customapiid']; print('skip custom api')
-else:
-    r = S.post(API + 'customapis', json={
-        'uniquename': 'op365_SaveBaseline', 'name': 'Save Baseline', 'displayname': 'Save Baseline',
-        'description': 'Saves the current WBS budget and dates of the project as a new baseline',
-        'bindingtype': 1, 'boundentitylogicalname': 'op365_project', 'isfunction': False,
-        'allowedcustomprocessingsteptype': 0, 'PluginTypeId@odata.bind': f'/plugintypes({types[API_TYPE]})'})
-    ok(r, 'custom api op365_SaveBaseline'); capi_id = created_id(r)
-
-for uname, typ, desc in [('Name', 10, 'Baseline name; default "Baseline <date>"'),
-                         ('KeepReference', 0, 'Keep the current reference baseline instead of replacing it (default false)')]:
-    if one(f"customapirequestparameters?$select=customapirequestparameterid&$filter=_customapiid_value eq {capi_id} "
-           f"and uniquename eq '{uname}'"):
-        continue
-    ok(S.post(API + 'customapirequestparameters', json={
-        'uniquename': uname, 'name': 'op365_SaveBaseline.' + uname, 'displayname': uname, 'description': desc,
-        'type': typ, 'isoptional': True, 'CustomAPIId@odata.bind': f'/customapis({capi_id})'}), 'parameter ' + uname)
-
-if not one(f"customapiresponseproperties?$select=customapiresponsepropertyid&$filter=_customapiid_value eq {capi_id} "
-           "and uniquename eq 'BaselineId'"):
-    ok(S.post(API + 'customapiresponseproperties', json={
-        'uniquename': 'BaselineId', 'name': 'op365_SaveBaseline.BaselineId', 'displayname': 'Baseline Id',
-        'description': 'Id of the new baseline', 'type': 12,
-        'CustomAPIId@odata.bind': f'/customapis({capi_id})'}), 'response BaselineId')
+# ---------- Custom APIs ----------
+for uname, (cls, display, desc, bound, function, params, props) in APIS.items():
+    capi = one(f"customapis?$select=customapiid&$filter=uniquename eq '{uname}'")
+    if capi:
+        capi_id = capi['customapiid']; print('skip', uname)
+    else:
+        body = {'uniquename': uname, 'name': display, 'displayname': display, 'description': desc,
+                'bindingtype': 1 if bound else 0, 'isfunction': function, 'allowedcustomprocessingsteptype': 0,
+                'PluginTypeId@odata.bind': f'/plugintypes({types[cls]})'}
+        if bound:
+            body['boundentitylogicalname'] = bound
+        r = S.post(API + 'customapis', json=body)
+        ok(r, 'custom api ' + uname); capi_id = created_id(r)
+    for pname, typ, optional, pdesc in params:
+        if one(f"customapirequestparameters?$select=customapirequestparameterid&$filter=_customapiid_value eq {capi_id} "
+               f"and uniquename eq '{pname}'"):
+            continue
+        ok(S.post(API + 'customapirequestparameters', json={
+            'uniquename': pname, 'name': f'{uname}.{pname}', 'displayname': pname, 'description': pdesc,
+            'type': typ, 'isoptional': optional, 'CustomAPIId@odata.bind': f'/customapis({capi_id})'}), '  parameter ' + pname)
+    for pname, typ, pdesc in props:
+        if one(f"customapiresponseproperties?$select=customapiresponsepropertyid&$filter=_customapiid_value eq {capi_id} "
+               f"and uniquename eq '{pname}'"):
+            continue
+        ok(S.post(API + 'customapiresponseproperties', json={
+            'uniquename': pname, 'name': f'{uname}.{pname}', 'displayname': pname, 'description': pdesc,
+            'type': typ, 'CustomAPIId@odata.bind': f'/customapis({capi_id})'}), '  response ' + pname)

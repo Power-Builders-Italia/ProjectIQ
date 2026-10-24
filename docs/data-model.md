@@ -136,7 +136,7 @@ python3 tools/dataverse/phase2_tables.py
 python3 tools/dataverse/phase2_security.py
 python3 tools/dataverse/phase2_views.py
 dotnet build src/plugins/OpenProject365.Plugins -c Release
-python3 tools/dataverse/phase2_plugins.py
+python3 tools/dataverse/plugins.py
 (cd src/pcf && npm ci) && tools/pcf/push.sh     # needs a pac auth profile on the environment
 python3 tools/dataverse/phase2_forms.py
 python3 tools/dataverse/app.py
