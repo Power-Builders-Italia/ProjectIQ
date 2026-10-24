@@ -80,10 +80,10 @@ def default_view(table, name=None):
 _descriptions = []
 
 
-def subgrid_cell(name, label, target, relationship, rows=8, pcf=None, view=None, dataset='nodes'):
+def subgrid_cell(name, label, target, relationship, rows=8, pcf=None, view=None, dataset='nodes', colspan=1):
     """pcf: name of a dataset code component (e.g. op365_OP365.GanttChart) that renders the subgrid on every form factor.
     relationship None = all records of the view (dashboards); view: view name instead of the default view;
-    dataset: name of the code component's data-set."""
+    dataset: name of the code component's data-set; colspan: 3 to fill a dashboard section (columns '111')."""
     vid = default_view(target, view)
     rel = f'<RelationshipName>{relationship}</RelationshipName>' if relationship else ''
     params = (f'<ViewId>{{{vid}}}</ViewId><IsUserView>false</IsUserView>'
@@ -105,7 +105,7 @@ def subgrid_cell(name, label, target, relationship, rows=8, pcf=None, view=None,
             + ''.join(f'<customControl formFactor="{ff}" name="{pcf}"><parameters>{dataset}</parameters></customControl>'
                       for ff in (0, 1, 2))
             + '</controlDescription>')
-    return (f'<cell id="{gid()}" showlabel="{"false" if pcf else "true"}" rowspan="{rows}" colspan="1" auto="false">{lbl(label)}'
+    return (f'<cell id="{gid()}" showlabel="{"false" if pcf else "true"}" rowspan="{rows}" colspan="{colspan}" auto="false">{lbl(label)}'
             f'<control id="{name}" classid="{SUBGRID}" indicationOfSubgrid="true"{unique}><parameters>{params}'
             '</parameters></control></cell>')
 
@@ -115,8 +115,9 @@ def timeline_cell():
             f'<control id="notescontrol" classid="{TIMELINE}" disabled="false" /></cell>')
 
 
-def section(table, title, items, columns=2):
-    """items: column names, or ('subgrid', id, label, target, relationship, ...) / ('timeline',) / ('pcf', column, control)."""
+def section(table, title, items, columns=2, grid=None):
+    """items: column names, or ('subgrid', id, label, target, relationship, ...) / ('timeline',) / ('pcf', column, control).
+    grid: explicit columns attribute (dashboards use '111')."""
     rows, pending = [], []
     for it in items:
         if isinstance(it, tuple):
@@ -133,7 +134,7 @@ def section(table, title, items, columns=2):
     if pending:
         rows.append(pending)
     special = any(isinstance(i, tuple) for i in items)
-    cols = 1 if special else columns
+    cols = grid or (1 if special else columns)
     body = ''.join('<row>' + ''.join(r) + '</row>' for r in rows)
     return (f'<section name="{title.lower().replace(" ", "_")}" showlabel="true" showbar="false" columns="{cols}" '
             f'id="{gid()}">{lbl(title)}<rows>{body}</rows></section>')

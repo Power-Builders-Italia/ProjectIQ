@@ -20,13 +20,13 @@
             <columns>
               <column width="100%">
                 <sections>
-                  <section name="timesheet" showlabel="true" showbar="false" columns="1" id="{59da6614-efb3-594e-9e52-7e1a651b7e30}">
+                  <section name="timesheet" showlabel="true" showbar="false" columns="111" id="{59da6614-efb3-594e-9e52-7e1a651b7e30}">
                     <labels>
                       <label description="Timesheet" languagecode="1033" />
                     </labels>
                     <rows>
                       <row>
-                        <cell id="{0c7f00af-5853-5c26-b028-3d6c0849ebab}" showlabel="false" rowspan="30" colspan="1" auto="false">
+                        <cell id="{0c7f00af-5853-5c26-b028-3d6c0849ebab}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Timesheet" languagecode="1033" />
                           </labels>

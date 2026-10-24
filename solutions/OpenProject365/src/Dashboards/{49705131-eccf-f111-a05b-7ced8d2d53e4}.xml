@@ -20,13 +20,13 @@
             <columns>
               <column width="100%">
                 <sections>
-                  <section name="resource_load" showlabel="true" showbar="false" columns="1" id="{c7d9a69e-93a4-52a6-8a73-bddca097ed32}">
+                  <section name="resource_load" showlabel="true" showbar="false" columns="111" id="{c7d9a69e-93a4-52a6-8a73-bddca097ed32}">
                     <labels>
                       <label description="Resource Load" languagecode="1033" />
                     </labels>
                     <rows>
                       <row>
-                        <cell id="{e1e940c0-db73-5a01-9cfa-bdd2fcdbbbbd}" showlabel="false" rowspan="30" colspan="1" auto="false">
+                        <cell id="{e1e940c0-db73-5a01-9cfa-bdd2fcdbbbbd}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Resource Load" languagecode="1033" />
                           </labels>
