@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{2861707a-b1fc-45d1-b133-db4ab2e34594}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_resourceid" select="1" icon="1" preview="1">
+        <row name="result" id="op365_wbsallocationid">
+          <cell name="op365_resourceid" width="200" />
+          <cell name="op365_wbsnodeid" width="200" />
+          <cell name="op365_hours" width="90" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_wbsallocation">
+          <attribute name="op365_resourceid" />
+          <attribute name="op365_wbsnodeid" />
+          <attribute name="op365_hours" />
+          <attribute name="op365_wbsallocationid" />
+          <order attribute="op365_resourceid" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="WBS Allocations" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

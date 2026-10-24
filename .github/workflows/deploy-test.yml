@@ -43,6 +43,8 @@ jobs:
           tenant-id: ${{ secrets.PP_TENANT_ID }}
           solution-file: out/OpenProject365_managed.zip
           publish-changes: true
+          # plugin steps are imported disabled unless activated
+          activate-plugins: true
           run-asynchronously: true
           max-async-wait-time: 60
       - name: Upload managed package

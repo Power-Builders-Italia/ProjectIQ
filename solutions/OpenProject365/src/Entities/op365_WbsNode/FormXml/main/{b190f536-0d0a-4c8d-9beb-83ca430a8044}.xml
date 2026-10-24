@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{b190f536-0d0a-4c8d-9beb-83ca430a8044}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{940006df-dd07-5c98-8204-4a0a01c9e1b7}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="wbs_node" showlabel="true" showbar="false" columns="2" id="{588a02b0-4d61-5cd0-9af9-fc406b22e5a7}">
+                  <labels>
+                    <label description="WBS Node" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f7425843-a350-5752-a1b8-13964e68bcfd}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                      <cell id="{740ad7b3-1eea-529d-9954-04e1841a46e7}">
+                        <labels>
+                          <label description="Parent Node" languagecode="1033" />
+                        </labels>
+                        <control id="op365_parentid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_parentid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c0acb951-4b5e-5534-9fcf-1bcde1fb0a33}">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
+                      </cell>
+                      <cell id="{f581ebd3-5669-5498-b82c-6bd6009025bc}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f87edcfa-6261-561f-a53f-a8ba695c5260}">
+                        <labels>
+                          <label description="Owner Resource" languagecode="1033" />
+                        </labels>
+                        <control id="op365_ownerresourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_ownerresourceid" />
+                      </cell>
+                      <cell id="{b79c4f70-8e56-5f37-9a36-5c9a56109fce}">
+                        <labels>
+                          <label description="Sort Order" languagecode="1033" />
+                        </labels>
+                        <control id="op365_sortorder" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_sortorder" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9df2ed4c-f725-55e4-859e-13f829697f9c}">
+                        <labels>
+                          <label description="Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_startdate" />
+                      </cell>
+                      <cell id="{85a94296-917e-5b83-aa72-624153495c1b}">
+                        <labels>
+                          <label description="End Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_enddate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{183d3ef2-7864-5348-bca2-93a12dbf38d8}">
+                        <labels>
+                          <label description="Progress %" languagecode="1033" />
+                        </labels>
+                        <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" />
+                      </cell>
+                      <cell id="{907ca7a7-3d06-5c83-b7aa-518d41aa45e4}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="budget" id="{c65752be-2179-5a07-9d49-029f348351ee}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Budget" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="budget" showlabel="true" showbar="false" columns="2" id="{2eaada7a-b0f3-5916-9ec6-cc18287553ed}">
+                  <labels>
+                    <label description="Budget" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{2c14883e-7fc2-5f88-a5e8-b60b5f80327f}">
+                        <labels>
+                          <label description="Budget Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_budgethours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_budgethours" />
+                      </cell>
+                      <cell id="{f3f99e75-6c3b-576e-a5fd-f95318f119af}">
+                        <labels>
+                          <label description="Actual Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_actualhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_actualhours" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2b5985de-a7e3-5c40-9fc6-443fab0ce090}">
+                        <labels>
+                          <label description="Budget Labour" languagecode="1033" />
+                        </labels>
+                        <control id="op365_budgetlabour" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetlabour" />
+                      </cell>
+                      <cell id="{e9e1cd6b-422e-52c0-b527-d7ccc8f986fa}">
+                        <labels>
+                          <label description="Budget Materials" languagecode="1033" />
+                        </labels>
+                        <control id="op365_budgetmaterials" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetmaterials" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{260250f5-b45a-512d-9e6e-edf302535f47}">
+                        <labels>
+                          <label description="Budget Other" languagecode="1033" />
+                        </labels>
+                        <control id="op365_budgetother" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetother" />
+                      </cell>
+                      <cell id="{73ca7c19-9c21-53e8-bf30-4e4a57894d3a}">
+                        <labels>
+                          <label description="Budget Total" languagecode="1033" />
+                        </labels>
+                        <control id="op365_budgettotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgettotal" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="dependencies" id="{801571c3-129f-58f2-8e6e-2f03c7d89fe1}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Dependencies" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="predecessors" showlabel="true" showbar="false" columns="1" id="{145ea74e-1ff4-5ef8-9e83-bf425f10181b}">
+                  <labels>
+                    <label description="Predecessors" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{94a63124-897e-5ec1-ae1a-3ea865da1afb}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                        <labels>
+                          <label description="Predecessors" languagecode="1033" />
+                        </labels>
+                        <control id="Predecessors" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{5ddb7e93-bca4-4af7-a5a2-08ea372fb94f}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_wbsnode_wbsdependency_successorid</RelationshipName>
+                            <TargetEntityType>op365_wbsdependency</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>6</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="successors" showlabel="true" showbar="false" columns="1" id="{1fcd91f6-dc11-5998-b65a-d1286fcea714}">
+                  <labels>
+                    <label description="Successors" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{46b5c296-6671-5b5d-a6d2-b7bae81cdc8a}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                        <labels>
+                          <label description="Successors" languagecode="1033" />
+                        </labels>
+                        <control id="Successors" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{5ddb7e93-bca4-4af7-a5a2-08ea372fb94f}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_wbsnode_wbsdependency_predecessorid</RelationshipName>
+                            <TargetEntityType>op365_wbsdependency</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>6</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="allocations" id="{2cc48aae-7cc5-551e-8b8b-91f7b8947e15}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Allocations" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="allocations" showlabel="true" showbar="false" columns="1" id="{dff3238a-25de-56b4-89e0-8da193b402b4}">
+                  <labels>
+                    <label description="Allocations" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4024b603-8b9d-5bb7-9abc-ca4acd50b8bd}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Allocations" languagecode="1033" />
+                        </labels>
+                        <control id="Allocations" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{2861707a-b1fc-45d1-b133-db4ab2e34594}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_wbsnode_wbsallocation_wbsnodeid</RelationshipName>
+                            <TargetEntityType>op365_wbsallocation</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/wbsnode.form.js" libraryUniqueId="{576ec48e-b1de-5d6a-b98d-1abb1bf28e6f}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.WbsNode.onLoad" libraryName="op365_/scripts/wbsnode.form.js" handlerUniqueId="{8a1c46ea-3a68-5357-b00f-e799942a621f}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="WBS Node" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

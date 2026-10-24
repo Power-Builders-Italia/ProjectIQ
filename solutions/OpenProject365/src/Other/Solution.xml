@@ -8,7 +8,7 @@
     <Descriptions>
       <Description description="Project and job management on Microsoft Dataverse" languagecode="1033" />
     </Descriptions>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.1.0</Version>
     <Managed>0</Managed>
     <Publisher>
       <UniqueName>PowerBuildersItalia</UniqueName>
@@ -85,19 +85,52 @@
       <RootComponent type="1" schemaName="account" behavior="1" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
       <RootComponent type="1" schemaName="op365_absence" behavior="0" />
+      <RootComponent type="1" schemaName="op365_baseline" behavior="0" />
+      <RootComponent type="1" schemaName="op365_baselinenode" behavior="0" />
       <RootComponent type="1" schemaName="op365_item" behavior="0" />
       <RootComponent type="1" schemaName="op365_itemsupplier" behavior="0" />
+      <RootComponent type="1" schemaName="op365_project" behavior="0" />
+      <RootComponent type="1" schemaName="op365_projectmember" behavior="0" />
       <RootComponent type="1" schemaName="op365_resource" behavior="0" />
       <RootComponent type="1" schemaName="op365_resourcecost" behavior="0" />
       <RootComponent type="1" schemaName="op365_settings" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierdocument" behavior="0" />
+      <RootComponent type="1" schemaName="op365_wbsallocation" behavior="0" />
+      <RootComponent type="1" schemaName="op365_wbsdependency" behavior="0" />
+      <RootComponent type="1" schemaName="op365_wbsnode" behavior="0" />
       <RootComponent type="1" schemaName="systemuser" behavior="1" />
       <RootComponent type="20" id="{3dcd2920-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="20" id="{eb969a0f-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="61" schemaName="op365_/scripts/account.form.js" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/scripts/project.form.js" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/scripts/wbsnode.form.js" behavior="0" />
       <RootComponent type="62" schemaName="op365_OpenProject365" behavior="0" />
+      <RootComponent type="66" schemaName="op365_OP365.GanttChart" behavior="0" />
+      <RootComponent type="66" schemaName="op365_OP365.WbsTreeGrid" behavior="0" />
       <RootComponent type="70" id="{85a50f28-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="80" schemaName="op365_OpenProject365" behavior="0" />
+      <RootComponent type="91" id="{06e7fb53-e1cf-f111-a05b-7ced8d2d53e4}" schemaName="OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" behavior="0" />
+      <RootComponent type="92" id="{23e7fb53-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2de7fb53-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{53711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{57711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{5b711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{5e711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{61711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{65711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{69711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{6c711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{70711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{74711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{77711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{7b711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{7e711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{82711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{9b5887ba-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{efeb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{f2eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{f6eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{f9eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>

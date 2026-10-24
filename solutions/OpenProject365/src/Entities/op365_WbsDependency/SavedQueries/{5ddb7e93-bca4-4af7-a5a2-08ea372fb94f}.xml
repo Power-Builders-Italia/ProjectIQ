@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{5ddb7e93-bca4-4af7-a5a2-08ea372fb94f}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_predecessorid" select="1" icon="1" preview="1">
+        <row name="result" id="op365_wbsdependencyid">
+          <cell name="op365_predecessorid" width="200" />
+          <cell name="op365_successorid" width="200" />
+          <cell name="op365_dependencytype" width="130" />
+          <cell name="op365_lagdays" width="90" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_wbsdependency">
+          <attribute name="op365_predecessorid" />
+          <attribute name="op365_successorid" />
+          <attribute name="op365_dependencytype" />
+          <attribute name="op365_lagdays" />
+          <attribute name="op365_wbsdependencyid" />
+          <order attribute="op365_predecessorid" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="WBS Dependencies" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

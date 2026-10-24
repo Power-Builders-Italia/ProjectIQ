@@ -11,7 +11,19 @@
   <optionsets />
   <WebResources />
   <CustomControls />
+  <SolutionPluginAssemblies />
+  <SdkMessageProcessingSteps />
   <AppModuleSiteMaps />
+  <teamtemplates>
+    <teamtemplate teamtemplateid="2fe4037c-e1cf-f111-a05b-7ced8d2d53e4">
+      <entitylogicalname>op365_project</entitylogicalname>
+      <defaultaccessrightsmask>262167</defaultaccessrightsmask>
+      <description>Created by Open Project 365 for project members</description>
+      <iscustomizable>1</iscustomizable>
+      <issystem>0</issystem>
+      <teamtemplatename>OP365 Project Manager</teamtemplatename>
+    </teamtemplate>
+  </teamtemplates>
   <AppModules />
   <EntityDataProviders />
   <Languages>

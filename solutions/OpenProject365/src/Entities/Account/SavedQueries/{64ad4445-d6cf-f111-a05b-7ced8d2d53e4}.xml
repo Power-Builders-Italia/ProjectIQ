@@ -14,8 +14,8 @@
           <cell name="op365_customertype" width="120" />
           <cell name="op365_vatnumber" width="130" />
           <cell name="primarycontactid" width="180" />
-          <cell name="telephone1" width="120" />
-          <cell name="emailaddress1" width="200" />
+          <cell name="op365_projectcount" width="90" />
+          <cell name="op365_contractvaluetotal" width="140" />
         </row>
       </grid>
     </layoutxml>
@@ -27,8 +27,8 @@
           <attribute name="op365_customertype" />
           <attribute name="op365_vatnumber" />
           <attribute name="primarycontactid" />
-          <attribute name="telephone1" />
-          <attribute name="emailaddress1" />
+          <attribute name="op365_projectcount" />
+          <attribute name="op365_contractvaluetotal" />
           <attribute name="accountid" />
           <order attribute="name" descending="false" />
           <filter type="and">

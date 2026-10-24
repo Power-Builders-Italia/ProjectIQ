@@ -10,6 +10,16 @@
       <Titles>
         <Title LCID="1033" Title="Projects" />
       </Titles>
+      <Group Id="op365_work">
+        <Titles>
+          <Title LCID="1033" Title="Work" />
+        </Titles>
+        <SubArea Id="op365_projectssub" Entity="op365_project">
+          <Titles>
+            <Title LCID="1033" Title="Projects" />
+          </Titles>
+        </SubArea>
+      </Group>
       <Group Id="op365_planning">
         <Titles>
           <Title LCID="1033" Title="Planning" />
@@ -72,6 +82,11 @@
         <SubArea Id="op365_resourcecosts" Entity="op365_resourcecost">
           <Titles>
             <Title LCID="1033" Title="Resource Costs" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_projectmembers" Entity="op365_projectmember">
+          <Titles>
+            <Title LCID="1033" Title="Project Members" />
           </Titles>
         </SubArea>
       </Group>

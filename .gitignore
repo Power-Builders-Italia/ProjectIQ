@@ -9,3 +9,4 @@ generated/
 *.zip
 .env
 __pycache__/
+TestResults/

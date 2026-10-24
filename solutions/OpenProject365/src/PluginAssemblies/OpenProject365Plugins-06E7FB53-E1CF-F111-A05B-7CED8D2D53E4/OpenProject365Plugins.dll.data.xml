@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PluginAssembly FullName="OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginAssemblyId="06e7fb53-e1cf-f111-a05b-7ced8d2d53e4" CustomizationLevel="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsolationMode>2</IsolationMode>
+  <SourceType>0</SourceType>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <FileName>/PluginAssemblies/OpenProject365Plugins-06E7FB53-E1CF-F111-A05B-7CED8D2D53E4/OpenProject365Plugins.dll</FileName>
+  <PluginTypes>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.BaselineReference, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="09e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.BaselineReference">
+      <FriendlyName>BaselineReference</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ProjectMemberName, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0be7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ProjectMemberName">
+      <FriendlyName>ProjectMemberName</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ProjectMemberSync, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0de7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ProjectMemberSync">
+      <FriendlyName>ProjectMemberSync</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ProjectSync, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0fe7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ProjectSync">
+      <FriendlyName>ProjectSync</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceCostSync, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="13e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceCostSync">
+      <FriendlyName>ResourceCostSync</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceDefaults, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="14e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceDefaults">
+      <FriendlyName>ResourceDefaults</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SaveBaseline, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="15e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SaveBaseline">
+      <FriendlyName>SaveBaseline</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsDependencyValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="17e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsDependencyValidate">
+      <FriendlyName>WbsDependencyValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsNodeBudget, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="19e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsNodeBudget">
+      <FriendlyName>WbsNodeBudget</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsNodeDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1ae7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsNodeDelete">
+      <FriendlyName>WbsNodeDelete</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsNodeRollup, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="1be7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsNodeRollup">
+      <FriendlyName>WbsNodeRollup</FriendlyName>
+    </PluginType>
+  </PluginTypes>
+</PluginAssembly>

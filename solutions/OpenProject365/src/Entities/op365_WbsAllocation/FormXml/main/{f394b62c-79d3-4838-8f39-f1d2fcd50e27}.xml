@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{f394b62c-79d3-4838-8f39-f1d2fcd50e27}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{e27c4c37-9881-5ee8-a1f5-7c34ddb174b3}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="allocation" showlabel="true" showbar="false" columns="2" id="{94bf9ff6-a081-57a8-89ae-fac8811d1103}">
+                  <labels>
+                    <label description="Allocation" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ddbb2f20-e87b-5bf0-92cb-a79c38b92ce1}">
+                        <labels>
+                          <label description="WBS Node" languagecode="1033" />
+                        </labels>
+                        <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
+                      </cell>
+                      <cell id="{10666228-e64b-569a-876b-eb0e8e82d5c4}">
+                        <labels>
+                          <label description="Resource" languagecode="1033" />
+                        </labels>
+                        <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{25f8d7cb-9733-5ae3-9e25-be43d6240556}">
+                        <labels>
+                          <label description="Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
+                      </cell>
+                      <cell id="{f0a066bf-020d-5cdb-85af-5c0d5c9f2483}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="WBS Allocation" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

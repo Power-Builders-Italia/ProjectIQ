@@ -6,58 +6,100 @@
     <RolePrivilege name="prvAppendAccount" level="Global" />
     <RolePrivilege name="prvAppendContact" level="Global" />
     <RolePrivilege name="prvAppendop365_Absence" level="Global" />
+    <RolePrivilege name="prvAppendop365_Baseline" level="Global" />
+    <RolePrivilege name="prvAppendop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvAppendop365_Item" level="Global" />
     <RolePrivilege name="prvAppendop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvAppendop365_Project" level="Global" />
+    <RolePrivilege name="prvAppendop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvAppendop365_Resource" level="Global" />
     <RolePrivilege name="prvAppendop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvAppendop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvAppendop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvAppendop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvAppendop365_WbsNode" level="Global" />
     <RolePrivilege name="prvAppendToAccount" level="Global" />
     <RolePrivilege name="prvAppendToContact" level="Global" />
     <RolePrivilege name="prvAppendToop365_Absence" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Baseline" level="Global" />
+    <RolePrivilege name="prvAppendToop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvAppendToop365_Item" level="Global" />
     <RolePrivilege name="prvAppendToop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Project" level="Global" />
+    <RolePrivilege name="prvAppendToop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvAppendToop365_Resource" level="Global" />
     <RolePrivilege name="prvAppendToop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvAppendToop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvAppendToop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvAppendToop365_WbsNode" level="Global" />
     <RolePrivilege name="prvAssignAccount" level="Global" />
     <RolePrivilege name="prvAssignContact" level="Global" />
     <RolePrivilege name="prvAssignop365_Absence" level="Global" />
+    <RolePrivilege name="prvAssignop365_Baseline" level="Global" />
+    <RolePrivilege name="prvAssignop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvAssignop365_Item" level="Global" />
     <RolePrivilege name="prvAssignop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvAssignop365_Project" level="Global" />
+    <RolePrivilege name="prvAssignop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvAssignop365_Resource" level="Global" />
     <RolePrivilege name="prvAssignop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvAssignop365_Settings" level="Global" />
     <RolePrivilege name="prvAssignop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvAssignop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvAssignop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvAssignop365_WbsNode" level="Global" />
     <RolePrivilege name="prvCreateAccount" level="Global" />
     <RolePrivilege name="prvCreateContact" level="Global" />
     <RolePrivilege name="prvCreateop365_Absence" level="Global" />
+    <RolePrivilege name="prvCreateop365_Baseline" level="Global" />
+    <RolePrivilege name="prvCreateop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvCreateop365_Item" level="Global" />
     <RolePrivilege name="prvCreateop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvCreateop365_Project" level="Global" />
+    <RolePrivilege name="prvCreateop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvCreateop365_Resource" level="Global" />
     <RolePrivilege name="prvCreateop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvCreateop365_Settings" level="Global" />
     <RolePrivilege name="prvCreateop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvCreateop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvCreateop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvCreateop365_WbsNode" level="Global" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvDeleteAccount" level="Global" />
     <RolePrivilege name="prvDeleteContact" level="Global" />
     <RolePrivilege name="prvDeleteop365_Absence" level="Global" />
+    <RolePrivilege name="prvDeleteop365_Baseline" level="Global" />
+    <RolePrivilege name="prvDeleteop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvDeleteop365_Item" level="Global" />
     <RolePrivilege name="prvDeleteop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvDeleteop365_Project" level="Global" />
+    <RolePrivilege name="prvDeleteop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvDeleteop365_Resource" level="Global" />
     <RolePrivilege name="prvDeleteop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvDeleteop365_Settings" level="Global" />
     <RolePrivilege name="prvDeleteop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvDeleteop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvDeleteop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvDeleteop365_WbsNode" level="Global" />
     <RolePrivilege name="prvReadAccount" level="Global" />
     <RolePrivilege name="prvReadContact" level="Global" />
     <RolePrivilege name="prvReadop365_Absence" level="Global" />
+    <RolePrivilege name="prvReadop365_Baseline" level="Global" />
+    <RolePrivilege name="prvReadop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvReadop365_Item" level="Global" />
     <RolePrivilege name="prvReadop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvReadop365_Project" level="Global" />
+    <RolePrivilege name="prvReadop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvReadop365_Resource" level="Global" />
     <RolePrivilege name="prvReadop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvReadop365_Settings" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsNode" level="Global" />
     <RolePrivilege name="prvReadPluginAssembly" level="Global" />
     <RolePrivilege name="prvReadPluginType" level="Global" />
     <RolePrivilege name="prvReadSdkMessage" level="Global" />
@@ -68,21 +110,35 @@
     <RolePrivilege name="prvShareAccount" level="Global" />
     <RolePrivilege name="prvShareContact" level="Global" />
     <RolePrivilege name="prvShareop365_Absence" level="Global" />
+    <RolePrivilege name="prvShareop365_Baseline" level="Global" />
+    <RolePrivilege name="prvShareop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvShareop365_Item" level="Global" />
     <RolePrivilege name="prvShareop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvShareop365_Project" level="Global" />
+    <RolePrivilege name="prvShareop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvShareop365_Resource" level="Global" />
     <RolePrivilege name="prvShareop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvShareop365_Settings" level="Global" />
     <RolePrivilege name="prvShareop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvShareop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvShareop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvShareop365_WbsNode" level="Global" />
     <RolePrivilege name="prvWriteAccount" level="Global" />
     <RolePrivilege name="prvWriteContact" level="Global" />
     <RolePrivilege name="prvWriteop365_Absence" level="Global" />
+    <RolePrivilege name="prvWriteop365_Baseline" level="Global" />
+    <RolePrivilege name="prvWriteop365_BaselineNode" level="Global" />
     <RolePrivilege name="prvWriteop365_Item" level="Global" />
     <RolePrivilege name="prvWriteop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvWriteop365_Project" level="Global" />
+    <RolePrivilege name="prvWriteop365_ProjectMember" level="Global" />
     <RolePrivilege name="prvWriteop365_Resource" level="Global" />
     <RolePrivilege name="prvWriteop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvWriteop365_Settings" level="Global" />
     <RolePrivilege name="prvWriteop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvWriteop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvWriteop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvWriteop365_WbsNode" level="Global" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
   </RolePrivileges>
 </Role>

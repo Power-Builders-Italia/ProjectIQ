@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{bd325bfb-b4e3-4927-af8e-d2a8a0ad4974}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{be7e6eb3-4a7d-5997-ae0b-266f3f94ab8d}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="baseline" showlabel="true" showbar="false" columns="2" id="{c534f9da-c99b-5e37-bd5a-e73738411b8a}">
+                  <labels>
+                    <label description="Baseline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f68b3d80-2541-5409-bf5a-bacf035d1f5f}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                      <cell id="{ac0404c5-1bcb-5381-b489-558b7a2dacf2}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1fd7e312-659b-5b31-8574-2971b24d5568}">
+                        <labels>
+                          <label description="Is Reference" languagecode="1033" />
+                        </labels>
+                        <control id="op365_isreference" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_isreference" />
+                      </cell>
+                      <cell id="{11c7b06c-3c9c-5ccf-a54f-fe880a107373}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="description" showlabel="true" showbar="false" columns="1" id="{61ed97e9-5118-5ced-b226-728c90650c9f}">
+                  <labels>
+                    <label description="Description" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{bb2c32d1-da55-531f-9afd-93c314dd680d}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="op365_description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_description" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="nodes" showlabel="true" showbar="false" columns="1" id="{bf597c1d-c6f4-5099-9875-145feff742be}">
+                  <labels>
+                    <label description="Nodes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6a091992-bb0e-5655-b26e-4ae7d2ad0d36}" showlabel="true" rowspan="15" colspan="1" auto="false">
+                        <labels>
+                          <label description="Nodes" languagecode="1033" />
+                        </labels>
+                        <control id="Nodes" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{783db333-5858-481b-a658-3802f788c915}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_baseline_baselinenode_baselineid</RelationshipName>
+                            <TargetEntityType>op365_baselinenode</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>15</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Baseline" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

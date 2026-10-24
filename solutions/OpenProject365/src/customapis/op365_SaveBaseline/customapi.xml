@@ -1,0 +1,19 @@
+<customapi uniquename="op365_SaveBaseline">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_project</boundentitylogicalname>
+  <description default="Saves the current WBS budget and dates of the project as a new baseline">
+    <label description="Saves the current WBS budget and dates of the project as a new baseline" languagecode="1033" />
+  </description>
+  <displayname default="Save Baseline">
+    <label description="Save Baseline" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Save Baseline</name>
+  <plugintypeid>
+    <plugintypeexportkey>15e7fb53-e1cf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

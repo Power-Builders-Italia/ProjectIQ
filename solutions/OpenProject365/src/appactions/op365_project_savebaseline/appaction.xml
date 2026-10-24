@@ -1,0 +1,41 @@
+<appaction uniquename="op365_project_savebaseline">
+  <appmoduleid>
+    <uniquename>op365_OpenProject365</uniquename>
+  </appmoduleid>
+  <buttonaccessibilitytext default="Save Baseline">
+    <label description="Save Baseline" languagecode="1033" />
+  </buttonaccessibilitytext>
+  <buttonlabeltext default="Save Baseline">
+    <label description="Save Baseline" languagecode="1033" />
+  </buttonlabeltext>
+  <buttontooltipdescription default="Save the current WBS budget and dates as the reference baseline">
+    <label description="Save the current WBS budget and dates as the reference baseline" languagecode="1033" />
+  </buttontooltipdescription>
+  <buttontooltiptitle default="Save Baseline">
+    <label description="Save Baseline" languagecode="1033" />
+  </buttontooltiptitle>
+  <context>1</context>
+  <contextentity>
+    <logicalname>op365_project</logicalname>
+  </contextentity>
+  <contextvalue>op365_project</contextvalue>
+  <fonticon>Save</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>Save Baseline</name>
+  <onclickeventjavascriptfunctionname>OP365.Project.saveBaseline</onclickeventjavascriptfunctionname>
+  <onclickeventjavascriptparameters>[{"type":5}]</onclickeventjavascriptparameters>
+  <onclickeventjavascriptwebresourceid>
+    <webresourceid>58a8896d-e4cf-f111-a05b-7ced8d2d53e4</webresourceid>
+  </onclickeventjavascriptwebresourceid>
+  <onclickeventtype>2</onclickeventtype>
+  <origin>0</origin>
+  <sequence>10.0000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilitytype>0</visibilitytype>
+</appaction>
