@@ -1,0 +1,10 @@
+bin/
+obj/
+node_modules/
+out/
+generated/
+*.user
+*.suo
+.vs/
+*.zip
+.env

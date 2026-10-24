@@ -1,0 +1,20 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  solution:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: Pack solution (unmanaged)
+        if: hashFiles('solutions/OpenProject365/src/Other/Solution.xml') != ''
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-folder: solutions/OpenProject365/src
+          solution-file: out/OpenProject365.zip
+          solution-type: Unmanaged
