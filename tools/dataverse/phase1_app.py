@@ -1,0 +1,98 @@
+"""Model-driven app 'Open Project 365' with the Phase 1 sitemap (areas fill up in later phases)."""
+import os, sys
+sys.path.insert(0, os.path.dirname(__file__))
+from dv import S, API
+
+APP = 'op365_OpenProject365'
+DEFAULT_ICON = '953b9fac-1e5e-e611-80d6-00155ded156f'  # standard model-driven app icon
+
+
+def ok(r, what):
+    if r.status_code >= 300:
+        print('FAIL', what, r.status_code, r.text[:800]); sys.exit(1)
+    print('ok  ', what)
+
+
+def view_id(table, name):
+    return S.get(API + f"savedqueries?$select=savedqueryid&$filter=returnedtypecode eq '{table}' and name eq '{name}'"
+                 ).json()['value'][0]['savedqueryid']
+
+
+def t(text):
+    return f'<Titles><Title LCID="1033" Title="{text}" /></Titles>'
+
+
+def entity(id, table, title):
+    return f'<SubArea Id="{id}" Entity="{table}">{t(title)}</SubArea>'
+
+
+def entity_view(id, table, title, view):
+    url = f'/main.aspx?pagetype=entitylist&amp;etn={table}&amp;viewid=%7b{view_id(table, view)}%7d'
+    return f'<SubArea Id="{id}" Entity="{table}" Url="{url}">{t(title)}</SubArea>'
+
+
+def group(id, title, subs):
+    return f'<Group Id="{id}">{t(title)}' + ''.join(subs) + '</Group>'
+
+
+def area(id, title, groups):
+    return f'<Area Id="{id}" ShowGroups="true">{t(title)}' + ''.join(groups) + '</Area>'
+
+
+SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
+    area('op365_projects', 'Projects', [
+        group('op365_planning', 'Planning', [entity('op365_absences', 'op365_absence', 'Absences')])]),
+    area('op365_masterdata', 'Master Data', [
+        group('op365_records', 'Records', [
+            entity_view('op365_customers', 'account', 'Customers', 'All Customers'),
+            entity_view('op365_suppliers', 'account', 'Suppliers', 'All Suppliers'),
+            entity('op365_contacts', 'contact', 'Contacts'),
+            entity('op365_items', 'op365_item', 'Items'),
+            entity('op365_resources', 'op365_resource', 'Resources')])]),
+    area('op365_settingsarea', 'Settings', [
+        group('op365_company', 'Company', [
+            entity('op365_settingssub', 'op365_settings', 'Settings'),
+            entity('op365_resourcecosts', 'op365_resourcecost', 'Resource Costs')])]),
+]) + '</SiteMap>'
+
+TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
+          'op365_resourcecost', 'op365_absence', 'op365_settings']
+
+# a new app stays unpublished until PublishXml, so look it up among unpublished rows too
+app = [a for a in S.get(API + 'appmodules/Microsoft.Dynamics.CRM.RetrieveUnpublishedMultiple()'
+                        '?$select=appmoduleid,uniquename').json()['value'] if a['uniquename'] == APP]
+if app:
+    app_id = app[0]['appmoduleid']; print('skip app')
+else:
+    r = S.post(API + 'appmodules', json={
+        'name': 'Open Project 365', 'uniquename': APP, 'clienttype': 4, 'navigationtype': 0,
+        'description': 'Projects, planning, time, materials and purchasing on Dataverse',
+        'webresourceid': DEFAULT_ICON})
+    ok(r, 'app ' + APP); app_id = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
+
+sm = [s for s in S.get(API + 'sitemaps/Microsoft.Dynamics.CRM.RetrieveUnpublishedMultiple()'
+                       '?$select=sitemapid,sitemapnameunique').json()['value'] if s.get('sitemapnameunique') == APP]
+if sm:
+    sitemap_id = sm[0]['sitemapid']
+    ok(S.patch(API + f'sitemaps({sitemap_id})', json={'sitemapxml': SITEMAP}), 'update sitemap')
+else:
+    r = S.post(API + 'sitemaps', json={
+        'sitemapname': 'Open Project 365', 'sitemapnameunique': APP, 'isappaware': True, 'sitemapxml': SITEMAP})
+    ok(r, 'sitemap'); sitemap_id = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
+
+components = [{'@odata.type': 'Microsoft.Dynamics.CRM.sitemap', 'sitemapid': sitemap_id}]
+for table in TABLES:
+    mid = S.get(API + f"EntityDefinitions(LogicalName='{table}')?$select=MetadataId").json()['MetadataId']
+    components.append({'@odata.type': 'Microsoft.Dynamics.CRM.entity', 'entityid': mid})
+# account: only the two Open Project 365 forms and views
+for f in S.get(API + "systemforms?$select=formid&$filter=objecttypecode eq 'account' and type eq 2 "
+               "and (name eq 'Customer' or name eq 'Supplier')").json()['value']:
+    components.append({'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': f['formid']})
+ok(S.post(API + 'AddAppComponents', json={'AppId': app_id, 'Components': components}), 'app components')
+
+v = S.get(API + f'ValidateApp(AppModuleId={app_id})').json()
+print('validate:', v.get('AppValidationResponse', {}).get('ValidationSuccess'),
+      [i.get('Message') for i in v.get('AppValidationResponse', {}).get('ValidationIssueList', [])][:10])
+ok(S.post(API + 'PublishXml', json={'ParameterXml': f'<importexportxml><appmodules><appmodule>{app_id}</appmodule>'
+                                    f'</appmodules><sitemaps><sitemap>{sitemap_id}</sitemap></sitemaps></importexportxml>'}),
+   'publish app')

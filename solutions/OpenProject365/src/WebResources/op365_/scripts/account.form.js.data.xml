@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{40dd4ec7-d6cf-f111-a05b-7ced8d2d53e4}</WebResourceId>
+  <Name>op365_/scripts/account.form.js</Name>
+  <DisplayName>Account form script</DisplayName>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/op365_scriptsaccountformjs40DD4EC7-D6CF-F111-A05B-7CED8D2D53E4</FileName>
+</WebResource>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{3dcd2920-d6cf-f111-a05b-7ced8d2d53e4}" name="OP365 User" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendToAccount" level="Global" />
+    <RolePrivilege name="prvAppendToContact" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Absence" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Item" level="Global" />
+    <RolePrivilege name="prvAppendToop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Resource" level="Global" />
+    <RolePrivilege name="prvAppendToop365_ResourceCost" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
+    <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadAccount" level="Global" />
+    <RolePrivilege name="prvReadContact" level="Global" />
+    <RolePrivilege name="prvReadop365_Absence" level="Global" />
+    <RolePrivilege name="prvReadop365_Item" level="Global" />
+    <RolePrivilege name="prvReadop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvReadop365_Resource" level="Global" />
+    <RolePrivilege name="prvReadop365_ResourceCost" level="Global" />
+    <RolePrivilege name="prvReadop365_Settings" level="Global" />
+    <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

@@ -10,8 +10,11 @@
     <layoutxml>
       <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
         <row name="result" id="op365_resourceid">
-          <cell name="op365_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="op365_name" width="200" />
+          <cell name="op365_role" width="150" />
+          <cell name="op365_hourlycost" width="110" />
+          <cell name="op365_weeklyhours" width="110" />
+          <cell name="op365_userid" width="180" />
         </row>
       </grid>
     </layoutxml>
@@ -19,9 +22,12 @@
     <fetchxml>
       <fetch version="1.0" mapping="logical">
         <entity name="op365_resource">
-          <attribute name="op365_resourceid" />
           <attribute name="op365_name" />
-          <attribute name="createdon" />
+          <attribute name="op365_role" />
+          <attribute name="op365_hourlycost" />
+          <attribute name="op365_weeklyhours" />
+          <attribute name="op365_userid" />
+          <attribute name="op365_resourceid" />
           <order attribute="op365_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />

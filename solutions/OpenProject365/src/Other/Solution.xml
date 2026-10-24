@@ -92,11 +92,29 @@
       <RootComponent type="1" schemaName="op365_settings" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierdocument" behavior="0" />
       <RootComponent type="1" schemaName="systemuser" behavior="1" />
+      <RootComponent type="20" id="{3dcd2920-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="20" id="{eb969a0f-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="61" schemaName="op365_/scripts/account.form.js" behavior="0" />
+      <RootComponent type="62" schemaName="op365_OpenProject365" behavior="0" />
+      <RootComponent type="70" id="{85a50f28-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="80" schemaName="op365_OpenProject365" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
         <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3559.1)" />
         <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="op365_OpenProject365" displayName="Open Project 365" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.27">PowerAppsAppFramework_Anchor (1.0.0.27)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=op365_OpenProject365,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="op365_OpenProject365" id.settingdefinitionid.uniquename="AppChannel" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

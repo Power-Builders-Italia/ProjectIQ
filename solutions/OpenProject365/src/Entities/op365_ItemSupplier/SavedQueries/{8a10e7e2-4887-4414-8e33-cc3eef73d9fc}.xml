@@ -8,10 +8,14 @@
     <isdefault>1</isdefault>
     <savedqueryid>{8a10e7e2-4887-4414-8e33-cc3eef73d9fc}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+      <grid name="resultset" jump="op365_itemid" select="1" icon="1" preview="1">
         <row name="result" id="op365_itemsupplierid">
-          <cell name="op365_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="op365_itemid" width="200" />
+          <cell name="op365_supplierid" width="200" />
+          <cell name="op365_suppliercode" width="120" />
+          <cell name="op365_price" width="110" />
+          <cell name="op365_leadtimedays" width="110" />
+          <cell name="op365_minimumlot" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -19,10 +23,14 @@
     <fetchxml>
       <fetch version="1.0" mapping="logical">
         <entity name="op365_itemsupplier">
+          <attribute name="op365_itemid" />
+          <attribute name="op365_supplierid" />
+          <attribute name="op365_suppliercode" />
+          <attribute name="op365_price" />
+          <attribute name="op365_leadtimedays" />
+          <attribute name="op365_minimumlot" />
           <attribute name="op365_itemsupplierid" />
-          <attribute name="op365_name" />
-          <attribute name="createdon" />
-          <order attribute="op365_name" descending="false" />
+          <order attribute="op365_itemid" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>op365_OpenProject365</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="7.0.0.0">
+    <Area Id="op365_projects" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Projects" />
+      </Titles>
+      <Group Id="op365_planning">
+        <Titles>
+          <Title LCID="1033" Title="Planning" />
+        </Titles>
+        <SubArea Id="op365_absences" Entity="op365_absence">
+          <Titles>
+            <Title LCID="1033" Title="Absences" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+    <Area Id="op365_masterdata" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Master Data" />
+      </Titles>
+      <Group Id="op365_records">
+        <Titles>
+          <Title LCID="1033" Title="Records" />
+        </Titles>
+        <SubArea Id="op365_customers" Entity="account" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b61ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d">
+          <Titles>
+            <Title LCID="1033" Title="Customers" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_suppliers" Entity="account" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b67ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d">
+          <Titles>
+            <Title LCID="1033" Title="Suppliers" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_contacts" Entity="contact">
+          <Titles>
+            <Title LCID="1033" Title="Contacts" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_items" Entity="op365_item">
+          <Titles>
+            <Title LCID="1033" Title="Items" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_resources" Entity="op365_resource">
+          <Titles>
+            <Title LCID="1033" Title="Resources" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+    <Area Id="op365_settingsarea" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Settings" />
+      </Titles>
+      <Group Id="op365_company">
+        <Titles>
+          <Title LCID="1033" Title="Company" />
+        </Titles>
+        <SubArea Id="op365_settingssub" Entity="op365_settings">
+          <Titles>
+            <Title LCID="1033" Title="Settings" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_resourcecosts" Entity="op365_resourcecost">
+          <Titles>
+            <Title LCID="1033" Title="Resource Costs" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="Open Project 365" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

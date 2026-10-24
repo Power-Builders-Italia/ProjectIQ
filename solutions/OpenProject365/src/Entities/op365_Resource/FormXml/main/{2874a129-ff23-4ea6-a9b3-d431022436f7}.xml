@@ -7,32 +7,157 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab verticallayout="true" id="{C1F00A4B-D463-4EBE-A9E9-70AF7468F312}" IsUserDefined="1">
+        <tab name="general" id="{8ee56d49-abd1-45c4-960b-ad914f3fc30b}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{9406A786-9E9C-427C-8759-10AB68EA4C71}">
+                <section name="resource" showlabel="true" showbar="false" columns="2" id="{14c1455a-c436-44d0-8ac8-c18d3af2a123}">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Resource" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{512156E8-5B57-4B17-BB24-F7D756301F60}">
+                      <cell id="{45ea5cff-8226-4fe5-89d7-0c6e9afd2083}">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_Name" />
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                      <cell id="{1b69d2cd-7da1-4afe-8b67-7625d7ae31c8}">
+                        <labels>
+                          <label description="Role" languagecode="1033" />
+                        </labels>
+                        <control id="op365_role" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_role" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{A3EEA65E-7033-4387-8910-A405D43F0990}">
+                      <cell id="{16a21a35-5d09-46cb-bca9-b4be73580666}">
+                        <labels>
+                          <label description="User" languagecode="1033" />
+                        </labels>
+                        <control id="op365_userid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_userid" />
+                      </cell>
+                      <cell id="{74809ba5-cc17-4ce0-89e1-c7293b497b03}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="capacity_and_cost" showlabel="true" showbar="false" columns="2" id="{6ed377a6-9341-4ffe-806a-14f52fdedcce}">
+                  <labels>
+                    <label description="Capacity and Cost" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{77d77a60-7c7e-407e-b0fe-2b18285d63d3}">
+                        <labels>
+                          <label description="Weekly Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_weeklyhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_weeklyhours" />
+                      </cell>
+                      <cell id="{64f6a3c6-8889-4209-8ea7-7eb8877889b3}">
+                        <labels>
+                          <label description="Hourly Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_hourlycost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_hourlycost" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b32f78d1-1075-41ec-98f8-efe5d6795c5d}">
+                        <labels>
+                          <label description="Working Days" languagecode="1033" />
+                        </labels>
+                        <control id="op365_workingdays" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_workingdays" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="costs" id="{2310c375-19b2-47b8-97b0-fff6e298e65c}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Costs" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="hourly_costs" showlabel="true" showbar="false" columns="1" id="{3d91abd5-108e-480f-b04e-69d847cb0835}">
+                  <labels>
+                    <label description="Hourly Costs" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{fb953e4f-c71b-4383-8e14-8ae95d45e0be}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Hourly Costs" languagecode="1033" />
+                        </labels>
+                        <control id="Costs" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{f826804c-75ef-4a52-817b-1655e1c84fa9}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_resource_resourcecost_resourceid</RelationshipName>
+                            <TargetEntityType>op365_resourcecost</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="absences" id="{f3805943-1c0c-46f9-a182-2e2d45b24982}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Absences" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="absences" showlabel="true" showbar="false" columns="1" id="{dcbde204-3a8c-4b73-8861-bf6661a5d970}">
+                  <labels>
+                    <label description="Absences" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{805356dc-921d-453f-930d-1fc3db3479f7}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Absences" languagecode="1033" />
+                        </labels>
+                        <control id="Absences" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{57c96f55-8d15-4743-97ea-2b05eaee03b0}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_resource_absence_resourceid</RelationshipName>
+                            <TargetEntityType>op365_absence</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
                       </cell>
                     </row>
                   </rows>
@@ -45,11 +170,5 @@
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
-    <LocalizedNames>
-      <LocalizedName description="Information" languagecode="1033" />
-    </LocalizedNames>
-    <Descriptions>
-      <Description description="A form for this entity." languagecode="1033" />
-    </Descriptions>
   </systemform>
 </forms>

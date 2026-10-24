@@ -7,28 +7,48 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab verticallayout="true" id="{47853232-DB85-4CDD-8890-55471927AFA3}" IsUserDefined="1">
+        <tab name="general" id="{88f0b2d1-65e8-4488-b283-cb506ab3dba7}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{87F749C6-2647-442A-B653-F21B28C21846}">
+                <section name="resource_cost" showlabel="true" showbar="false" columns="2" id="{def8427d-ac07-4ca8-a12e-8be2b4481821}">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Resource Cost" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{C59F0809-FFB4-4228-B043-0BE9EB9EC9B1}">
+                      <cell id="{350e9c33-8626-4f0b-960f-7a44a2651be8}">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Resource" languagecode="1033" />
                         </labels>
-                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_Name" />
+                        <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
+                      </cell>
+                      <cell id="{cb6ce956-be5b-48b9-b11e-dafbe19a8fc0}">
+                        <labels>
+                          <label description="Valid From" languagecode="1033" />
+                        </labels>
+                        <control id="op365_validfrom" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_validfrom" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{893D25B7-3A98-4953-8B96-5AADD9950F46}">
+                      <cell id="{d6ecf41c-f682-489c-964e-2ba8bf3a937f}">
+                        <labels>
+                          <label description="Hourly Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_hourlycost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_hourlycost" />
+                      </cell>
+                      <cell id="{2df803dd-c8ec-4e64-b22a-71b1c400ff1a}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{611c5386-df8f-47e2-bc15-03331199cc13}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -45,11 +65,5 @@
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
-    <LocalizedNames>
-      <LocalizedName description="Information" languagecode="1033" />
-    </LocalizedNames>
-    <Descriptions>
-      <Description description="A form for this entity." languagecode="1033" />
-    </Descriptions>
   </systemform>
 </forms>

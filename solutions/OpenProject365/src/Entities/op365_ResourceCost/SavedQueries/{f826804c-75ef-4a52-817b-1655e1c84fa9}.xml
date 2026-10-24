@@ -8,10 +8,11 @@
     <isdefault>1</isdefault>
     <savedqueryid>{f826804c-75ef-4a52-817b-1655e1c84fa9}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+      <grid name="resultset" jump="op365_resourceid" select="1" icon="1" preview="1">
         <row name="result" id="op365_resourcecostid">
-          <cell name="op365_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="op365_resourceid" width="200" />
+          <cell name="op365_validfrom" width="110" />
+          <cell name="op365_hourlycost" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -19,10 +20,12 @@
     <fetchxml>
       <fetch version="1.0" mapping="logical">
         <entity name="op365_resourcecost">
+          <attribute name="op365_resourceid" />
+          <attribute name="op365_validfrom" />
+          <attribute name="op365_hourlycost" />
           <attribute name="op365_resourcecostid" />
-          <attribute name="op365_name" />
-          <attribute name="createdon" />
-          <order attribute="op365_name" descending="false" />
+          <order attribute="op365_resourceid" descending="false" />
+          <order attribute="op365_validfrom" descending="true" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
