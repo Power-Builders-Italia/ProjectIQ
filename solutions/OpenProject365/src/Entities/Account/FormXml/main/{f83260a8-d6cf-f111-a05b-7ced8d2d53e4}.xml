@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{f83260a8-d6cf-f111-a05b-7ced8d2d53e4}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="summary" id="{3b9d79de-354a-4315-ac1d-26f8e217ac41}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="customer" showlabel="true" showbar="false" columns="2" id="{cbef44c6-f65f-4b08-a46d-0defa2973600}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5b8c6cd7-a190-4bdc-ab2c-890009f9a532}">
+                        <labels>
+                          <label description="Account Name" languagecode="1033" />
+                        </labels>
+                        <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" />
+                      </cell>
+                      <cell id="{407174a9-1ab8-4b09-bff1-e8bbc8bb16e6}">
+                        <labels>
+                          <label description="Is Customer" languagecode="1033" />
+                        </labels>
+                        <control id="op365_iscustomer" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_iscustomer" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{87f33dbb-3fdd-40aa-aa6c-1a0f864ffaa0}">
+                        <labels>
+                          <label description="Customer Type" languagecode="1033" />
+                        </labels>
+                        <control id="op365_customertype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_customertype" />
+                      </cell>
+                      <cell id="{c3f2ee3f-5ebf-4a8d-a1d8-d6e320422942}">
+                        <labels>
+                          <label description="VAT Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_vatnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_vatnumber" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{644a1576-563b-4c32-903e-d948a84f0159}">
+                        <labels>
+                          <label description="Tax Code" languagecode="1033" />
+                        </labels>
+                        <control id="op365_taxcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_taxcode" />
+                      </cell>
+                      <cell id="{7e63932f-3961-4032-8b9f-11872c840dff}">
+                        <labels>
+                          <label description="Primary Contact" languagecode="1033" />
+                        </labels>
+                        <control id="primarycontactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="primarycontactid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1b18b685-320d-458d-aab6-49a9b0cefb5a}">
+                        <labels>
+                          <label description="Main Phone" languagecode="1033" />
+                        </labels>
+                        <control id="telephone1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="telephone1" />
+                      </cell>
+                      <cell id="{9a4d451b-68aa-44bb-ade3-3f29a2546417}">
+                        <labels>
+                          <label description="Email" languagecode="1033" />
+                        </labels>
+                        <control id="emailaddress1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="emailaddress1" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{20d29d9b-c7e4-425d-ae6d-bd81c54782b6}">
+                        <labels>
+                          <label description="Website" languagecode="1033" />
+                        </labels>
+                        <control id="websiteurl" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="websiteurl" />
+                      </cell>
+                      <cell id="{b69a06dc-f735-4d7b-880a-b98507f8967a}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="address" showlabel="true" showbar="false" columns="2" id="{ba21c3b2-b9d8-4d46-820f-efbf483847e5}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{516ea63d-0901-44dc-a987-fd7c34e09c22}">
+                        <labels>
+                          <label description="Address 1: Street 1" languagecode="1033" />
+                        </labels>
+                        <control id="address1_line1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_line1" />
+                      </cell>
+                      <cell id="{c75d624a-6a14-4239-9a0f-b05b6c8f1e29}">
+                        <labels>
+                          <label description="Address 1: City" languagecode="1033" />
+                        </labels>
+                        <control id="address1_city" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_city" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7fcce55d-2817-4cf4-ba80-e762ccb506ea}">
+                        <labels>
+                          <label description="Address 1: ZIP/Postal Code" languagecode="1033" />
+                        </labels>
+                        <control id="address1_postalcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_postalcode" />
+                      </cell>
+                      <cell id="{694c7859-ba06-4c04-90fa-af6cdb7e8555}">
+                        <labels>
+                          <label description="Address 1: State/Province" languagecode="1033" />
+                        </labels>
+                        <control id="address1_stateorprovince" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_stateorprovince" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1eeaedc0-7754-4f4f-a518-4d493442d817}">
+                        <labels>
+                          <label description="Address 1: Country/Region" languagecode="1033" />
+                        </labels>
+                        <control id="address1_country" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_country" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="billing" showlabel="true" showbar="false" columns="2" id="{bbbe5ab7-2d12-4668-bef0-e91869e6c201}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4ba25ab5-d7c6-4c7d-89e8-456c016c863d}">
+                        <labels>
+                          <label description="Payment Terms" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paymentterms" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentterms" />
+                      </cell>
+                      <cell id="{ced4244e-08b9-4fa1-99a5-3fb8a4aa47bd}">
+                        <labels>
+                          <label description="IBAN" languagecode="1033" />
+                        </labels>
+                        <control id="op365_iban" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_iban" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b6bdf573-639d-4047-bb2f-d10f2f674aa9}">
+                        <labels>
+                          <label description="PEC" languagecode="1033" />
+                        </labels>
+                        <control id="op365_pec" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_pec" />
+                      </cell>
+                      <cell id="{1053d811-b312-45da-aa11-1ca446182b84}">
+                        <labels>
+                          <label description="Language" languagecode="1033" />
+                        </labels>
+                        <control id="op365_language" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_language" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{fb90f580-0750-4697-8207-938d91604935}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f746a688-57e1-452d-a3f2-492b36f45ef3}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="contacts" id="{ef51d7cc-15c9-4a84-8b48-dcf34e07e2ab}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="contacts" showlabel="true" showbar="false" columns="1" id="{55d95680-d8b9-4b9c-a2cc-6bfaa53ac102}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0a05d2b1-cfa5-4028-a7b9-529ea5cbbae2}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Contacts" languagecode="1033" />
+                        </labels>
+                        <control id="Contacts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{00000000-0000-0000-00aa-000010001003}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>contact_customer_accounts</RelationshipName>
+                            <TargetEntityType>contact</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/account.form.js" libraryUniqueId="{3a69c810-5ea5-4086-b259-c46d9fbc98c0}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Account.onLoad" libraryName="op365_/scripts/account.form.js" handlerUniqueId="{57d7deac-282b-4ac3-a912-19ebed1061df}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Customer" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Account as customer (Open Project 365)" languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

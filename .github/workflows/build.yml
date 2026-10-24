@@ -8,6 +8,9 @@ on:
 jobs:
   solution:
     runs-on: windows-latest
+    env:
+      # Solution Checker runs only when the service principal secrets are configured
+      HAS_CHECKER: ${{ secrets.PP_CLIENT_SECRET != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: microsoft/powerplatform-actions/actions-install@v1
@@ -18,6 +21,18 @@ jobs:
           solution-folder: solutions/OpenProject365/src
           solution-file: out/OpenProject365.zip
           solution-type: Unmanaged
+      - name: Solution Checker
+        if: env.HAS_CHECKER == 'true' && hashFiles('out/OpenProject365.zip') != ''
+        uses: microsoft/powerplatform-actions/check-solution@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          path: out/OpenProject365.zip
+          error-level: HighIssueCount
+          error-threshold: 0
+          checker-logs-artifact-name: solution-checker-logs
       - name: Upload solution package
         if: hashFiles('out/OpenProject365.zip') != ''
         uses: actions/upload-artifact@v4

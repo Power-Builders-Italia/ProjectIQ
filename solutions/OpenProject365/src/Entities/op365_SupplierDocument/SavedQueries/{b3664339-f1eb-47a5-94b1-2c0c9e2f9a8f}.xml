@@ -8,10 +8,14 @@
     <isdefault>1</isdefault>
     <savedqueryid>{b3664339-f1eb-47a5-94b1-2c0c9e2f9a8f}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="op365_description" select="1" icon="1" preview="1">
+      <grid name="resultset" jump="op365_documenttype" select="1" icon="1" preview="1">
         <row name="result" id="op365_supplierdocumentid">
-          <cell name="op365_description" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="op365_documenttype" width="140" />
+          <cell name="op365_description" width="250" />
+          <cell name="op365_supplierid" width="200" />
+          <cell name="op365_number" width="110" />
+          <cell name="op365_issuedate" width="110" />
+          <cell name="op365_expirydate" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -19,10 +23,14 @@
     <fetchxml>
       <fetch version="1.0" mapping="logical">
         <entity name="op365_supplierdocument">
-          <attribute name="op365_supplierdocumentid" />
+          <attribute name="op365_documenttype" />
           <attribute name="op365_description" />
-          <attribute name="createdon" />
-          <order attribute="op365_description" descending="false" />
+          <attribute name="op365_supplierid" />
+          <attribute name="op365_number" />
+          <attribute name="op365_issuedate" />
+          <attribute name="op365_expirydate" />
+          <attribute name="op365_supplierdocumentid" />
+          <order attribute="op365_expirydate" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>

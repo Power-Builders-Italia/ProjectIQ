@@ -7,32 +7,121 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab verticallayout="true" id="{74088CFB-E51F-4C3E-94E8-C5256EC9FBEA}" IsUserDefined="1">
+        <tab name="general" id="{3260eb5b-bf2d-421d-9d45-124c91bc85e2}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
-            <column width="100%">
+            <column width="60%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{6CFCEE7A-A246-49E3-8BB3-61DBA197AC95}">
+                <section name="document" showlabel="true" showbar="false" columns="2" id="{c56397b7-05e5-4970-ba8c-6e4a7a5edc11}">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Document" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{450B858F-07A4-45E2-B8FE-98267CB02BBB}">
+                      <cell id="{5aeab981-701e-472a-8fd0-13d2fc7ee60b}">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Supplier" languagecode="1033" />
                         </labels>
-                        <control id="op365_description" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_Description" />
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
+                      </cell>
+                      <cell id="{40f5cd02-6f67-42e1-91a4-a4373c184b26}">
+                        <labels>
+                          <label description="Document Type" languagecode="1033" />
+                        </labels>
+                        <control id="op365_documenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_documenttype" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{63DA17F1-B801-4056-B520-32931BC06116}">
+                      <cell id="{b86c58ce-57ec-4f35-9972-61b1c41fdbcc}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="op365_description" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_description" />
+                      </cell>
+                      <cell id="{8aafde33-5e19-45f9-ade0-1cae0f81348c}">
+                        <labels>
+                          <label description="Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1b0441d5-7a3d-43d4-a2f0-eec046a984d0}">
+                        <labels>
+                          <label description="Issue Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_issuedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_issuedate" />
+                      </cell>
+                      <cell id="{fb5c11ae-f065-4520-85d1-a09b83ae8439}">
+                        <labels>
+                          <label description="Expiry Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_expirydate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_expirydate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{278194f7-08c7-46c7-8a59-5e1cd89c450d}">
+                        <labels>
+                          <label description="External URL" languagecode="1033" />
+                        </labels>
+                        <control id="op365_externalurl" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_externalurl" />
+                      </cell>
+                      <cell id="{e94458c3-256e-4cc5-aafb-456482c17202}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="file" showlabel="true" showbar="false" columns="1" id="{7e4bb907-76c3-4120-97fb-5d2c31a3b087}">
+                  <labels>
+                    <label description="File" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4c458d74-e526-4801-8ec2-42e35442fadf}">
+                        <labels>
+                          <label description="File" languagecode="1033" />
+                        </labels>
+                        <control id="op365_file" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_file" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{3bd65477-67ad-486f-af7e-221936d22b0b}">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{19d96b7c-a9ad-4971-860d-141249e17856}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{aca75db7-c1a2-4ac9-947b-b89d9225aa6b}">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{e030a34f-b17c-41ca-a2e3-53dfaae022c0}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="Timeline" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -46,10 +135,7 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
-      <LocalizedName description="Information" languagecode="1033" />
+      <LocalizedName description="Supplier Document" languagecode="1033" />
     </LocalizedNames>
-    <Descriptions>
-      <Description description="A form for this entity." languagecode="1033" />
-    </Descriptions>
   </systemform>
 </forms>

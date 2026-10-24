@@ -7,32 +7,131 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab verticallayout="true" id="{6FFE70C4-ED9E-4DA9-A3B3-7446C838E41E}" IsUserDefined="1">
+        <tab name="general" id="{c96dcd66-6a66-4027-8f62-7588097ad92a}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
-            <column width="100%">
+            <column width="60%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{FEA740FC-8179-4B1A-B3B4-DCE5D7AFA894}">
+                <section name="item" showlabel="true" showbar="false" columns="2" id="{cbb8cc2f-3ddc-499c-b1b4-366638107069}">
                   <labels>
-                    <label description="General" languagecode="1033" />
+                    <label description="Item" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{797967B6-CC6E-4343-89B3-A6E3014DE2C7}">
+                      <cell id="{42e751e9-0115-4fb5-9954-d0476919fa4f}">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Code" languagecode="1033" />
                         </labels>
-                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_Name" />
+                        <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
+                      </cell>
+                      <cell id="{94847235-f06e-4d69-9c75-019b932d4a2b}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{C9D0A677-EA59-4240-AE68-F34E573E0322}">
+                      <cell id="{53104d42-d1ae-423c-a37b-216a7be987ff}">
+                        <labels>
+                          <label description="Category" languagecode="1033" />
+                        </labels>
+                        <control id="op365_category" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_category" />
+                      </cell>
+                      <cell id="{3adbfa0f-fcbd-4ef9-a0e5-a93f074b8295}">
+                        <labels>
+                          <label description="Unit of Measure" languagecode="1033" />
+                        </labels>
+                        <control id="op365_uom" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_uom" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ceec09d0-b592-419a-9f90-9b3209d7fa1b}">
+                        <labels>
+                          <label description="Unit Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_unitcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_unitcost" />
+                      </cell>
+                      <cell id="{4349f031-6697-44b1-877b-0ec2d3b15521}">
+                        <labels>
+                          <label description="Default Supplier" languagecode="1033" />
+                        </labels>
+                        <control id="op365_defaultsupplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_defaultsupplierid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ff98fa40-70a6-4216-a338-fac4705d77e9}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{b9d46cce-71cf-44c0-b10f-537a8f3beb98}">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c950a031-25af-4282-9716-42bb83b295b1}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="suppliers" showlabel="true" showbar="false" columns="1" id="{fbafdfb8-a512-4afa-9c6e-9e83eac9a34e}">
+                  <labels>
+                    <label description="Suppliers" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7f837cd7-2cc0-4361-b768-166ca99c4a91}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Suppliers" languagecode="1033" />
+                        </labels>
+                        <control id="Suppliers" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{8a10e7e2-4887-4414-8e33-cc3eef73d9fc}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_item_itemsupplier_itemid</RelationshipName>
+                            <TargetEntityType>op365_itemsupplier</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{0df667ff-996e-45e7-836c-6b5fe238cda3}">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{74839a36-d59b-4289-a6e6-4fdff33ef66c}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="Timeline" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -46,10 +145,7 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
-      <LocalizedName description="Information" languagecode="1033" />
+      <LocalizedName description="Item" languagecode="1033" />
     </LocalizedNames>
-    <Descriptions>
-      <Description description="A form for this entity." languagecode="1033" />
-    </Descriptions>
   </systemform>
 </forms>

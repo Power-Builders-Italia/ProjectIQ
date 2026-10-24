@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{2c3360a8-d6cf-f111-a05b-7ced8d2d53e4}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="summary" id="{016161da-c064-46a2-8df2-34f00ac70917}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="supplier" showlabel="true" showbar="false" columns="2" id="{baf876f8-3637-4eb4-bb59-947d713ddcbe}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{92070fca-a4bc-4875-9dbd-711d87caded4}">
+                        <labels>
+                          <label description="Account Name" languagecode="1033" />
+                        </labels>
+                        <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" />
+                      </cell>
+                      <cell id="{50e20040-ba57-4076-b1e1-0f99777a875b}">
+                        <labels>
+                          <label description="Is Supplier" languagecode="1033" />
+                        </labels>
+                        <control id="op365_issupplier" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_issupplier" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bbc2d097-07e5-4ee3-8532-cef860cdeffb}">
+                        <labels>
+                          <label description="Supplier Status" languagecode="1033" />
+                        </labels>
+                        <control id="op365_supplierstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_supplierstatus" />
+                      </cell>
+                      <cell id="{3b9e7cf9-c3ed-4028-8e2e-a550e6504eba}">
+                        <labels>
+                          <label description="Supplier Category" languagecode="1033" />
+                        </labels>
+                        <control id="op365_suppliercategory" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_suppliercategory" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b942136b-5977-4adb-8c08-6088fd8f8947}">
+                        <labels>
+                          <label description="VAT Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_vatnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_vatnumber" />
+                      </cell>
+                      <cell id="{c8d8e206-abda-4a98-82da-6af70ae23c36}">
+                        <labels>
+                          <label description="Tax Code" languagecode="1033" />
+                        </labels>
+                        <control id="op365_taxcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_taxcode" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d897d858-12bd-485f-9d27-8888844d9a20}">
+                        <labels>
+                          <label description="Primary Contact" languagecode="1033" />
+                        </labels>
+                        <control id="primarycontactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="primarycontactid" />
+                      </cell>
+                      <cell id="{69c15773-fe7a-4a20-aea0-c8105aeb7ea2}">
+                        <labels>
+                          <label description="Main Phone" languagecode="1033" />
+                        </labels>
+                        <control id="telephone1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="telephone1" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{62e43cc7-d36d-4965-8625-051d2117149f}">
+                        <labels>
+                          <label description="Email" languagecode="1033" />
+                        </labels>
+                        <control id="emailaddress1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="emailaddress1" />
+                      </cell>
+                      <cell id="{b9ecfd57-199a-4007-80e0-7db1b6f8c78b}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="address" showlabel="true" showbar="false" columns="2" id="{f4feb58e-2e90-423f-9d58-a12ce3a02bab}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5ca31d61-ae05-407c-8fe6-558f61b566d2}">
+                        <labels>
+                          <label description="Address 1: Street 1" languagecode="1033" />
+                        </labels>
+                        <control id="address1_line1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_line1" />
+                      </cell>
+                      <cell id="{fc52ce68-a4d1-45a7-a6e5-41c80087e4cc}">
+                        <labels>
+                          <label description="Address 1: City" languagecode="1033" />
+                        </labels>
+                        <control id="address1_city" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_city" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{51f516ab-0363-4a45-af02-2f753db69211}">
+                        <labels>
+                          <label description="Address 1: ZIP/Postal Code" languagecode="1033" />
+                        </labels>
+                        <control id="address1_postalcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_postalcode" />
+                      </cell>
+                      <cell id="{2983ba76-5b2f-4970-be5e-e3b1f7007689}">
+                        <labels>
+                          <label description="Address 1: State/Province" languagecode="1033" />
+                        </labels>
+                        <control id="address1_stateorprovince" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_stateorprovince" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e32a7845-2755-443d-8353-4b5b7f3e93d5}">
+                        <labels>
+                          <label description="Address 1: Country/Region" languagecode="1033" />
+                        </labels>
+                        <control id="address1_country" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_country" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="payment" showlabel="true" showbar="false" columns="2" id="{d06aab35-56cd-473e-a5db-5eb077a56c7f}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8438f558-adb8-450b-998a-4accc412e011}">
+                        <labels>
+                          <label description="Payment Terms" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paymentterms" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentterms" />
+                      </cell>
+                      <cell id="{a2528a43-0689-49e0-b556-47f75b95dba6}">
+                        <labels>
+                          <label description="IBAN" languagecode="1033" />
+                        </labels>
+                        <control id="op365_iban" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_iban" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d3aa7277-9767-42fb-9c38-a2390aa16fb7}">
+                        <labels>
+                          <label description="PEC" languagecode="1033" />
+                        </labels>
+                        <control id="op365_pec" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_pec" />
+                      </cell>
+                      <cell id="{e036baf9-0e2d-4c75-b357-1ae311e78e48}">
+                        <labels>
+                          <label description="Language" languagecode="1033" />
+                        </labels>
+                        <control id="op365_language" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_language" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{03256cc0-fd7e-42ac-b918-f6b998da40c5}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4aaf06e1-4e16-41a5-b3e0-d49cd9f79fd0}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="documents" id="{4126c766-9502-4f53-9022-9f7a8c1115dc}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="document_alerts" showlabel="true" showbar="false" columns="2" id="{befc21e4-6ca0-4a43-9c4d-284d13989b72}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{b12ab3a7-dba2-4d8d-96c0-fb0d85d03d52}">
+                        <labels>
+                          <label description="Expired Documents" languagecode="1033" />
+                        </labels>
+                        <control id="op365_expireddocs" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_expireddocs" />
+                      </cell>
+                      <cell id="{ac5dd887-db96-4dfd-a0ba-37d2e96fdccb}">
+                        <labels>
+                          <label description="Expiring Documents" languagecode="1033" />
+                        </labels>
+                        <control id="op365_expiringdocs" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_expiringdocs" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="documents" showlabel="true" showbar="false" columns="1" id="{1f5007fe-244b-4007-a85b-8d693a7e50af}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{49961e60-3efe-4dc4-8681-d1899284240d}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Supplier Documents" languagecode="1033" />
+                        </labels>
+                        <control id="Documents" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{b3664339-f1eb-47a5-94b1-2c0c9e2f9a8f}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_account_supplierdocument_supplierid</RelationshipName>
+                            <TargetEntityType>op365_supplierdocument</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="item_prices" id="{80aae5c8-480d-4a9c-b0f3-7eca064f352b}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="item_prices" showlabel="true" showbar="false" columns="1" id="{80b05ec0-9dbc-4f82-b0a8-ffabfa8c596c}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4bd1554b-311a-4396-8a2d-9375ae037cc9}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Item Suppliers" languagecode="1033" />
+                        </labels>
+                        <control id="ItemPrices" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{8a10e7e2-4887-4414-8e33-cc3eef73d9fc}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_account_itemsupplier_supplierid</RelationshipName>
+                            <TargetEntityType>op365_itemsupplier</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="contacts" id="{e64b4f2a-03cd-4082-913c-8dd3c2e38398}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="contacts" showlabel="true" showbar="false" columns="1" id="{2bb1e8f9-cdb8-4d9b-a9f2-c89e3fff64a8}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{e842ad3a-cd24-4082-b3ad-d7fed0e1f660}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Contacts" languagecode="1033" />
+                        </labels>
+                        <control id="Contacts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{00000000-0000-0000-00aa-000010001003}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>contact_customer_accounts</RelationshipName>
+                            <TargetEntityType>contact</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/account.form.js" libraryUniqueId="{9a00df50-19ad-411d-a3f0-be0340ba1729}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Account.onLoad" libraryName="op365_/scripts/account.form.js" handlerUniqueId="{f99fa519-23df-4860-83d7-7f6697a5db80}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Supplier" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Account as supplier (Open Project 365)" languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

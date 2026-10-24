@@ -8,10 +8,14 @@
     <isdefault>1</isdefault>
     <savedqueryid>{36721ad8-19d6-43af-9f50-a6b3de8d4541}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+      <grid name="resultset" jump="op365_code" select="1" icon="1" preview="1">
         <row name="result" id="op365_itemid">
-          <cell name="op365_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="op365_code" width="120" />
+          <cell name="op365_name" width="250" />
+          <cell name="op365_category" width="150" />
+          <cell name="op365_defaultsupplierid" width="200" />
+          <cell name="op365_uom" width="80" />
+          <cell name="op365_unitcost" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -19,15 +23,21 @@
     <fetchxml>
       <fetch version="1.0" mapping="logical">
         <entity name="op365_item">
-          <attribute name="op365_itemid" />
+          <attribute name="op365_code" />
           <attribute name="op365_name" />
-          <attribute name="createdon" />
-          <order attribute="op365_name" descending="false" />
+          <attribute name="op365_category" />
+          <attribute name="op365_defaultsupplierid" />
+          <attribute name="op365_uom" />
+          <attribute name="op365_unitcost" />
+          <attribute name="op365_itemid" />
+          <order attribute="op365_code" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
           <filter type="or" isquickfindfields="1">
+            <condition attribute="op365_code" operator="like" value="{0}" />
             <condition attribute="op365_name" operator="like" value="{0}" />
+            <condition attribute="op365_category" operator="like" value="{0}" />
           </filter>
         </entity>
       </fetch>
