@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="KeepReference">
+  <description default="Keep the current reference baseline instead of replacing it (default false)">
+    <label description="Keep the current reference baseline instead of replacing it (default false)" languagecode="1033" />
+  </description>
+  <displayname default="KeepReference">
+    <label description="KeepReference" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_SaveBaseline.KeepReference</name>
+  <type>0</type>
+</customapirequestparameter>

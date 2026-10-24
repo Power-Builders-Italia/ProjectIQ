@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{d34e2911-e2cf-f111-a05b-7ced8d2d53e4}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="name" select="1" icon="1" preview="1">
+        <row name="result" id="accountid">
+          <cell name="name" width="250" />
+          <cell name="op365_customertype" width="120" />
+          <cell name="op365_vatnumber" width="130" />
+          <cell name="primarycontactid" width="180" />
+          <cell name="op365_projectcount" width="90" />
+          <cell name="op365_contractvaluetotal" width="140" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="account">
+          <attribute name="name" />
+          <attribute name="op365_customertype" />
+          <attribute name="op365_vatnumber" />
+          <attribute name="primarycontactid" />
+          <attribute name="op365_projectcount" />
+          <attribute name="op365_contractvaluetotal" />
+          <attribute name="accountid" />
+          <order attribute="name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="op365_iscustomer" operator="eq" value="1" />
+          </filter>
+          <filter type="or">
+            <condition attribute="op365_projectcount" operator="eq" value="0" />
+            <condition attribute="op365_projectcount" operator="null" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Customers without Projects" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -35,14 +35,23 @@ pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProj
 
 3. Commit on a feature branch and open a pull request.
 
+## Code
+
+| Folder | Build | Tests |
+|---|---|---|
+| `src/plugins` | `dotnet build src/plugins/OpenProject365.Plugins -c Release` (.NET Framework 4.6.2, strong-named) | `dotnet test src/plugins/OpenProject365.Plugins.Tests` |
+| `src/pcf` | `npm ci && npm run build` (both controls, ESLint included) | `npm test` (Jest: WBS tree, critical path, time scale) |
+
+Deploy to dev: `python3 tools/dataverse/phase2_plugins.py` registers or updates the assembly; `tools/pcf/push.sh` pushes each control into the solution (`pac pcf push` accepts one manifest per project).
+
 ## CI and Solution Checker
 
-The `build` workflow packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
+The `build` workflow builds and tests the plugins and the PCF controls and packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
 
 ## Environments
 
 | Environment | Status |
 |---|---|
 | Dev (`openproject365-dev.crm4.dynamics.com`) | available, unmanaged solution |
-| Test (`openproject365-test.crm4.dynamics.com`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow) |
+| Test (`openproject365-test.crm4.dynamics.com`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow); plugin steps are activated on import |
 | Build | not needed yet: CI only packs and checks |

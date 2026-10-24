@@ -1,4 +1,7 @@
-"""Model-driven app 'Open Project 365' with the Phase 1 sitemap (areas fill up in later phases)."""
+"""Model-driven app 'Open Project 365': sitemap and modern commands of every delivered phase.
+
+Cumulative: run it after the phase scripts. Idempotent.
+"""
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
@@ -41,6 +44,7 @@ def area(id, title, groups):
 
 SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
     area('op365_projects', 'Projects', [
+        group('op365_work', 'Work', [entity('op365_projectssub', 'op365_project', 'Projects')]),
         group('op365_planning', 'Planning', [entity('op365_absences', 'op365_absence', 'Absences')])]),
     area('op365_masterdata', 'Master Data', [
         group('op365_records', 'Records', [
@@ -52,11 +56,20 @@ SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
     area('op365_settingsarea', 'Settings', [
         group('op365_company', 'Company', [
             entity('op365_settingssub', 'op365_settings', 'Settings'),
-            entity('op365_resourcecosts', 'op365_resourcecost', 'Resource Costs')])]),
+            entity('op365_resourcecosts', 'op365_resourcecost', 'Resource Costs'),
+            entity('op365_projectmembers', 'op365_projectmember', 'Project Members')])]),
 ]) + '</SiteMap>'
 
 TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
-          'op365_resourcecost', 'op365_absence', 'op365_settings']
+          'op365_resourcecost', 'op365_absence', 'op365_settings',
+          'op365_project', 'op365_projectmember', 'op365_wbsnode', 'op365_wbsdependency', 'op365_wbsallocation',
+          'op365_baseline', 'op365_baselinenode']
+
+# modern commands: (unique name, label, table, location 0 = form, web resource, function, tooltip)
+COMMANDS = [
+    ('op365_project_savebaseline', 'Save Baseline', 'op365_project', 0, 'op365_/scripts/project.form.js',
+     'OP365.Project.saveBaseline', 'Save the current WBS budget and dates as the reference baseline'),
+]
 
 # a new app stays unpublished until PublishXml, so look it up among unpublished rows too
 app = [a for a in S.get(API + 'appmodules/Microsoft.Dynamics.CRM.RetrieveUnpublishedMultiple()'
@@ -89,6 +102,24 @@ for f in S.get(API + "systemforms?$select=formid&$filter=objecttypecode eq 'acco
                "and (name eq 'Customer' or name eq 'Supplier')").json()['value']:
     components.append({'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': f['formid']})
 ok(S.post(API + 'AddAppComponents', json={'AppId': app_id, 'Components': components}), 'app components')
+
+for uname, label, table, location, library, function, tip in COMMANDS:
+    body = {
+        'name': label, 'buttonlabeltext': label, 'buttontooltiptitle': label, 'buttontooltipdescription': tip,
+        'buttonaccessibilitytext': label, 'fonticon': 'Save', 'location': location, 'context': 1, 'contextvalue': table, 'type': 0,
+        'sequence': 10, 'onclickeventtype': 2, 'onclickeventjavascriptfunctionname': function,
+        'onclickeventjavascriptparameters': '[{"type":5}]',  # PrimaryControl
+        'visibilitytype': 0, 'hidden': False,
+        'AppModuleId@odata.bind': f'/appmodules({app_id})',
+        'ContextEntity@odata.bind': '/entities(%s)' % S.get(API + f"EntityDefinitions(LogicalName='{table}')?$select=MetadataId").json()['MetadataId'],
+        'OnClickEventJavaScriptWebResourceId@odata.bind': '/webresourceset(%s)' % S.get(
+            API + f"webresourceset?$select=webresourceid&$filter=name eq '{library}'").json()['value'][0]['webresourceid'],
+    }
+    existing = S.get(API + f"appactions?$select=appactionid&$filter=uniquename eq '{uname}'").json()['value']
+    if existing:
+        ok(S.patch(API + f"appactions({existing[0]['appactionid']})", json=body), 'command ' + label)
+    else:
+        ok(S.post(API + 'appactions', json={'uniquename': uname, **body}), 'command ' + label)
 
 v = S.get(API + f'ValidateApp(AppModuleId={app_id})').json()
 print('validate:', v.get('AppValidationResponse', {}).get('ValidationSuccess'),

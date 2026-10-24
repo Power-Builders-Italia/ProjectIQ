@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="BaselineId">
+  <description default="Id of the new baseline">
+    <label description="Id of the new baseline" languagecode="1033" />
+  </description>
+  <displayname default="Baseline Id">
+    <label description="Baseline Id" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SaveBaseline.BaselineId</name>
+  <type>12</type>
+</customapiresponseproperty>

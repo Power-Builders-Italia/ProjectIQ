@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Control_Name" xml:space="preserve">
+    <value>WBS Tree Grid</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Expandable WBS of the project with inline editing of budget, dates and progress</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>WBS nodes</value>
+  </data>
+  <data name="Col_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Col_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Col_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Col_End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Col_Hours" xml:space="preserve">
+    <value>Budget Hours</value>
+  </data>
+  <data name="Col_Labour" xml:space="preserve">
+    <value>Labour</value>
+  </data>
+  <data name="Col_Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="Col_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Col_Total" xml:space="preserve">
+    <value>Budget Total</value>
+  </data>
+  <data name="Col_Progress" xml:space="preserve">
+    <value>Progress %</value>
+  </data>
+  <data name="Add_Node" xml:space="preserve">
+    <value>New node</value>
+  </data>
+  <data name="Add_Child" xml:space="preserve">
+    <value>New child node</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Expand_All" xml:space="preserve">
+    <value>Expand all</value>
+  </data>
+  <data name="Collapse_All" xml:space="preserve">
+    <value>Collapse all</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>No WBS nodes yet. Use New node to create the first one.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Save the project to build its WBS.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>The WBS could not be loaded</value>
+  </data>
+  <data name="Error_Save" xml:space="preserve">
+    <value>The change could not be saved</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Rolled_Up" xml:space="preserve">
+    <value>Includes child nodes</value>
+  </data>
+</root>
