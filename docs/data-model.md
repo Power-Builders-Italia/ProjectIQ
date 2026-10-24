@@ -29,7 +29,7 @@ erDiagram
 
 All custom tables are user-owned, with notes and auditing enabled. Choice values start at 365000000.
 
-Still deferred (they depend on Phase 3-4 tables): Account contactcount and spend, Item usagecount and spend.
+Still deferred (they depend on Phase 4 tables): Account contactcount and spend, Item usagecount and spend.
 
 ## Phase 2 – Projects, team, WBS, baselines
 
@@ -62,7 +62,7 @@ erDiagram
 | `op365_baselinenode` | Name | – | BaselineId, WbsNodeId, Code, BudgetHours, BudgetTotal, StartDate, EndDate |
 | `account` (std) | – | – | + ProjectCount, ContractValueTotal |
 
-**Totals are plugin-maintained columns, not rollup columns**: they are current right after each save (rollups refresh asynchronously) and follow one rule shared with the PCF controls. ActualCost, CommittedCost and ActualHours are filled in Phase 3-4.
+**Totals are plugin-maintained columns, not rollup columns**: they are current right after each save (rollups refresh asynchronously) and follow one rule shared with the PCF controls. ActualCost and ActualHours are filled from Phase 3, CommittedCost in Phase 4.
 
 A table can have only one cascading parent, so the Predecessor, Successor and Parent Node lookups only remove the link on delete; the `WbsNodeDelete` plugin deletes the dependencies and the subtree of a deleted node.
 
@@ -92,6 +92,60 @@ Both are React virtual controls on the Fluent UI v9 platform library, bound to t
 | `OP365.WbsTreeGrid` | WBS | Expandable tree ordered by Sort Order then outline code; inline edit of dates, hours, budget parts and progress on leaf nodes; rolled-up totals on parent nodes; new node / new child node |
 | `OP365.GanttChart` | Gantt | Week / month / quarter scale; summary and task bars with progress; finish-to-start arrows; critical path computed client-side (`shared/cpm.ts`); bars pushed by dependencies shown dashed; baseline dropdown (reference baseline preselected); today line |
 
+## Phase 3 – Execution: time, materials, actuals
+
+```mermaid
+erDiagram
+    op365_project ||--o{ op365_timeentry : "parental"
+    op365_wbsnode |o--o{ op365_timeentry : "wbs node"
+    op365_resource ||--o{ op365_timeentry : "resource (restrict)"
+    systemuser |o--o{ op365_timeentry : "decided by"
+    op365_project ||--o{ op365_materialusage : "parental"
+    op365_wbsnode |o--o{ op365_materialusage : "wbs node"
+    op365_item |o--o{ op365_materialusage : item
+    account |o--o{ op365_materialusage : supplier
+```
+
+| Table | Primary column | Notes |
+|---|---|---|
+| `op365_timeentry` | Name (resource + date, set by plugin) | ProjectId, WbsNodeId, ResourceId, EntryDate, Hours (0–24), Notes, Cost (secured), Revenue, SubmittedOn, DecidedById, DecidedOn, DecisionNote. Status reasons: Draft, Submitted, Approved, Rejected |
+| `op365_materialusage` | Description | ProjectId, WbsNodeId, ItemId, SupplierId, UsageDate, Quantity, Uom, UnitCost (secured), TotalCost (secured) |
+| `op365_project` (+) | – | ActualHours; ActualCost now filled |
+| `op365_wbsnode` (+) | – | ActualCost; ActualHours now filled |
+
+```mermaid
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Submitted: Submit (op365_SubmitTimeEntries)
+    Rejected --> Submitted: Submit
+    Draft --> Approved: Submit, time approval off in Settings
+    Submitted --> Approved: Approve (op365_DecideTimeEntries)
+    Submitted --> Rejected: Reject + note
+```
+
+Actuals count **approved** hours and costs plus all material usage. Time is entered only on **In Progress** projects; submitted and approved entries are locked.
+
+### Plugins and Custom API (Phase 3)
+
+| Class | Trigger | Does |
+|---|---|---|
+| TimeEntryValidate | Time Entry create/update (pre) | Status only through the APIs; submitted/approved locked; resource = caller's resource; project In Progress; WBS node of the project; Cost = hours × hourly cost valid on the date; Revenue = hours × member hourly rate; Name |
+| TimeEntryDelete | Time Entry delete (pre) | Submitted and approved entries cannot be deleted (except with the project) |
+| MaterialUsageValidate | Material Usage create/update (pre) | Project In Progress; WBS node of the project; description and unit from the item; unit cost = supplier price, else item cost; TotalCost |
+| ActualsRollup | Time Entry and Material Usage create/update/delete (post) | ActualHours and ActualCost of the WBS nodes and the project |
+| SubmitTimeEntries | Custom API `op365_SubmitTimeEntries` (TimeEntryIds → Count) | Own entries (any for administrators) to Submitted, or Approved when approval is off; in-app notification to the project managers |
+| DecideTimeEntries | Custom API `op365_DecideTimeEntries` (TimeEntryIds, Approve, Note → Count) | Project managers and administrators approve or reject (note required); in-app notification to the resource |
+| GetLabourCost | Custom API function `op365_GetLabourCost` (ResourceId, Date → HourlyCost) | Hourly cost valid on a date, under the caller's column security |
+
+### Code components (Phase 3)
+
+| Control | Where | Features |
+|---|---|---|
+| `OP365.WeeklyTimesheet` | Dashboard **Timesheet** | Week grid of the current user by project / task, inline hours, add line, status badges, daily and weekly totals against weekly hours, Submit week |
+| `OP365.TimeApproval` | Dashboard **Time Approval** | Submitted entries by resource and week with project split, select groups or single entries, Approve, Reject with note |
+| `OP365.ResourceLoad` | Dashboard **Resource Load** | Heatmap resource × week: WBS allocations spread over working days against weekly hours minus absences and closures; 4–26 weeks; hours on undated nodes shown apart |
+| `OP365.CostSummary` | Project form, **Costs** tab (bound to Actual Cost) | Contract, budget, actual (labour / materials), estimate at completion, margin; budget vs actual by top-level WBS branch |
+
 ## Security
 
 | Component | Content |
@@ -101,7 +155,10 @@ Both are React virtual controls on the Fluent UI v9 platform library, bound to t
 | OP365 Cost Visibility | Column security profile: read/create/update of `op365_hourlycost` on Resource and Resource Cost |
 | OP365 Administrator (F2) | Organization-level full access on Project and its child tables |
 | OP365 User (F2) | User-level Read, Write, Append, Append To, Share on Project; User-level Create, Read, Write, Delete, Append, Append To on the child tables. Projects become visible through the access teams |
-| Access team templates on Project | **OP365 Project Manager** (Read, Write, Append, Append To, Share), **OP365 Project Contributor** (Read, Append), **OP365 Project Reader** (Read). Templates are not solution components: the plugin creates them on first use in each environment |
+| OP365 Administrator (F3) | Organization-level full access on Time Entry and Material Usage |
+| OP365 User (F3) | User-level Create, Read, Write, Delete, Append, Append To on Time Entry and Material Usage |
+| OP365 Cost Visibility (F3) | + Time Entry Cost, Material Usage Unit Cost and Total Cost |
+| Access team templates on Project | **OP365 Project Manager** (Read, Write, Append, Append To, Share), **OP365 Project Contributor** (Read, Append, Append To: members can log time and materials), **OP365 Project Reader** (Read). Templates are not solution components: the plugin creates them on first use in each environment |
 
 OP365 roles are additive: every internal user also needs the standard **Basic User** role. Assign the Cost Visibility profile to administrators and project managers.
 
@@ -111,17 +168,18 @@ Model-driven app **Open Project 365** (`op365_OpenProject365`).
 
 ```mermaid
 flowchart LR
-  P[Projects] --> W[Work] --> PR[Projects]
-  P --> PL[Planning] --> AB[Absences]
+  P[Projects] --> W[Work] --> PR[Projects] & MU[Material Usage]
+  P --> T[Time] --> TS[Timesheet] & AP[Approvals] & TE[Time Entries]
+  P --> PL[Planning] --> RL[Resource Load] & AB[Absences]
   M[Master Data] --> R[Records] --> C1[Customers] & C2[Suppliers] & C3[Contacts] & C4[Items] & C5[Resources]
   S[Settings] --> CO[Company] --> S1[Settings] & S2[Resource Costs] & S3[Project Members]
 ```
 
 Account has two forms, **Customer** and **Supplier**; `op365_/scripts/account.form.js` (source in `src/webresources`) opens supplier-only accounts on the Supplier form and flags new records according to the chosen form.
 
-Project form: Summary, WBS (WBS Tree Grid), Gantt (Gantt Chart and baselines), Team, Timeline, with the **Save Baseline** command (modern command, `op365_/scripts/project.form.js`). WBS Node form: General, Budget, Dependencies, Allocations; `op365_/scripts/wbsnode.form.js` limits Parent Node to the same project.
+Project form: Summary, WBS (WBS Tree Grid), Gantt (Gantt Chart and baselines), Costs (Cost Summary), Time, Materials, Team, Timeline, with the **Save Baseline** command (modern command, `op365_/scripts/project.form.js`). WBS Node form: General, Budget, Dependencies, Allocations; `op365_/scripts/wbsnode.form.js` limits Parent Node to the same project. Time Entry (main and quick create) and Material Usage forms: `op365_/scripts/execution.form.js` limits WBS Node to the selected project.
 
-Views: All, In Progress, Offers, Suspended and Closed Projects, WBS Nodes by Project, Project Members, Customers with/without Projects, All Customers (default), Prospects, All/Active/Blocked Suppliers, Suppliers with Document Alerts, All Items, Active Resources, Absences, plus Quick Find on Account and Item.
+Views: All, In Progress, Offers, Suspended and Closed Projects, WBS Nodes by Project, Project Members, Customers with/without Projects, All Customers (default), Prospects, All/Active/Blocked Suppliers, Suppliers with Document Alerts, All Items, Active Resources, Absences, All / My Time Entries, Time Entries to Approve, Time Entries by Project, All Material Usage, Material Usage by Project, plus Quick Find on Account, Item, Time Entry and Material Usage.
 
 ## Recreating the schema
 
@@ -135,12 +193,17 @@ python3 tools/dataverse/phase1_forms.py
 python3 tools/dataverse/phase2_tables.py
 python3 tools/dataverse/phase2_security.py
 python3 tools/dataverse/phase2_views.py
+python3 tools/dataverse/phase3_tables.py
+python3 tools/dataverse/phase3_security.py
+python3 tools/dataverse/phase3_views.py
 dotnet build src/plugins/OpenProject365.Plugins -c Release
-python3 tools/dataverse/plugins.py
+python3 tools/dataverse/plugins.py              # assembly, steps and Custom APIs of every phase
 (cd src/pcf && npm ci) && tools/pcf/push.sh     # needs a pac auth profile on the environment
 python3 tools/dataverse/phase2_forms.py
-python3 tools/dataverse/app.py
-python3 tools/dataverse/phase2_smoke.py         # end-to-end check of the plugins, cleans up after itself
+python3 tools/dataverse/phase3_forms.py
+python3 tools/dataverse/app.py                  # also publishes (views are read back in their published state)
+python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugins, clean up after themselves
+python3 tools/dataverse/phase3_smoke.py
 ```
 
 Shared helpers: `meta.py` (columns, tables, lookups, keys, roles), `viewlib.py` (views), `formlib.py` (FormXml).

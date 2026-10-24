@@ -15,10 +15,10 @@
           <cell name="op365_customerid" width="180" />
           <cell name="op365_projectmanagerid" width="150" />
           <cell name="statuscode" width="110" />
-          <cell name="op365_startdate" width="100" />
           <cell name="op365_enddate" width="100" />
           <cell name="op365_contractvalue" width="120" />
           <cell name="op365_budgettotal" width="120" />
+          <cell name="op365_actualcost" width="120" />
           <cell name="op365_progresspct" width="90" />
         </row>
       </grid>
@@ -32,10 +32,10 @@
           <attribute name="op365_customerid" />
           <attribute name="op365_projectmanagerid" />
           <attribute name="statuscode" />
-          <attribute name="op365_startdate" />
           <attribute name="op365_enddate" />
           <attribute name="op365_contractvalue" />
           <attribute name="op365_budgettotal" />
+          <attribute name="op365_actualcost" />
           <attribute name="op365_progresspct" />
           <attribute name="op365_projectid" />
           <order attribute="op365_code" descending="false" />

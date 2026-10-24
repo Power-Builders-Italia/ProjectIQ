@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="TimeEntryIds">
+  <description default="Ids of the time entries">
+    <label description="Ids of the time entries" languagecode="1033" />
+  </description>
+  <displayname default="TimeEntryIds">
+    <label description="TimeEntryIds" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_DecideTimeEntries.TimeEntryIds</name>
+  <type>11</type>
+</customapirequestparameter>

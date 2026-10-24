@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{138b0c29-bbd7-43e5-be1f-86a41df70902}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{02fefe40-4ad3-536e-a52f-23587740bcf1}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="time" showlabel="true" showbar="false" columns="2" id="{c0d8b770-edbc-5e2f-a86f-520abc1bdfe5}">
+                  <labels>
+                    <label description="Time" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c641c6c3-4114-5ad5-99d6-6d3ce85b36f0}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                      <cell id="{7735e86b-114a-51ae-9a94-51e4b32ebb14}">
+                        <labels>
+                          <label description="WBS Node" languagecode="1033" />
+                        </labels>
+                        <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{47ee06ce-a503-52ee-a652-be8e09119782}">
+                        <labels>
+                          <label description="Resource" languagecode="1033" />
+                        </labels>
+                        <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
+                      </cell>
+                      <cell id="{fc2d59e0-92ea-5491-bc5d-00ddd44e2621}">
+                        <labels>
+                          <label description="Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_entrydate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_entrydate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{28c99cea-d8f5-5b1e-ab05-eb06137a9baa}">
+                        <labels>
+                          <label description="Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
+                      </cell>
+                      <cell id="{6730e0ce-c3a7-516c-836a-5a2716ec6edc}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{aced030e-793a-5657-89ad-9a1f5fec10eb}">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a2195cae-c626-5311-85c6-9b1758d6767c}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="approval" showlabel="true" showbar="false" columns="1" id="{ba934af1-e829-5854-886c-b47a273649a0}">
+                  <labels>
+                    <label description="Approval" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{be5501cb-47fb-560f-8f74-e27f1436fd3e}">
+                        <labels>
+                          <label description="Submitted On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_submittedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_submittedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0fbf2619-f39d-5a50-8d30-5c9821fd216a}">
+                        <labels>
+                          <label description="Decided By" languagecode="1033" />
+                        </labels>
+                        <control id="op365_decidedbyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_decidedbyid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ae8db1e2-9df2-590b-ae22-fc4196e903b0}">
+                        <labels>
+                          <label description="Decided On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_decidedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_decidedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3df9ff4f-3afc-5b55-8056-7a2dd37bec2e}">
+                        <labels>
+                          <label description="Decision Note" languagecode="1033" />
+                        </labels>
+                        <control id="op365_decisionnote" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_decisionnote" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="value" showlabel="true" showbar="false" columns="1" id="{3046a41e-b779-57b4-920a-8f32c1fb34e3}">
+                  <labels>
+                    <label description="Value" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{25be6057-c582-58f1-909f-9e5acdb1581c}">
+                        <labels>
+                          <label description="Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_cost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_cost" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3b3d08f0-2bca-5b07-a39c-b6a786c1fcf0}">
+                        <labels>
+                          <label description="Revenue" languagecode="1033" />
+                        </labels>
+                        <control id="op365_revenue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_revenue" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{50d74d4e-f827-54e5-a35f-9206a1c29ea4}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{58259c23-2d0f-5d4c-9f4b-eac9a2da5f1d}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/execution.form.js" libraryUniqueId="{eb59a6a2-7b8f-5062-b15c-d9e8f208bc36}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Execution.onLoad" libraryName="op365_/scripts/execution.form.js" handlerUniqueId="{ecfcdcad-4180-506c-a3da-fb94cb37f667}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Time Entry" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

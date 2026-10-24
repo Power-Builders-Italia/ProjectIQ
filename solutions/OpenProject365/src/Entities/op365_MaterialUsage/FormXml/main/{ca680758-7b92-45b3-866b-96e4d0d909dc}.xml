@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{ca680758-7b92-45b3-866b-96e4d0d909dc}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{b2ebcf2e-0578-56c8-82c3-5f271fd5ae80}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="usage" showlabel="true" showbar="false" columns="2" id="{b99d4b4f-ff87-5001-9495-75d64a7113ef}">
+                  <labels>
+                    <label description="Usage" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{723bf8a8-9eb4-5c5d-b4dc-0eb9d498fffd}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                      <cell id="{810125fe-63e9-5aad-85a5-23125ff46dce}">
+                        <labels>
+                          <label description="WBS Node" languagecode="1033" />
+                        </labels>
+                        <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8706fa75-9806-585c-84e3-ceb26be4e156}">
+                        <labels>
+                          <label description="Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_usagedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_usagedate" />
+                      </cell>
+                      <cell id="{99c0004e-3efd-5111-a742-14c1003366c5}">
+                        <labels>
+                          <label description="Item" languagecode="1033" />
+                        </labels>
+                        <control id="op365_itemid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_itemid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ebca80dd-1094-5693-8e2a-3f0ffabe1283}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                      <cell id="{e1969bb3-d44b-5633-b85f-8cec4c9c927c}">
+                        <labels>
+                          <label description="Supplier" languagecode="1033" />
+                        </labels>
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{06e71ec3-cfc1-5361-ab8a-0cb030ed4536}">
+                        <labels>
+                          <label description="Quantity" languagecode="1033" />
+                        </labels>
+                        <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" />
+                      </cell>
+                      <cell id="{7eff92e0-bb19-5143-a2a3-be1cd1585a88}">
+                        <labels>
+                          <label description="Unit of Measure" languagecode="1033" />
+                        </labels>
+                        <control id="op365_uom" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_uom" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="cost" showlabel="true" showbar="false" columns="1" id="{d244ab9b-4864-5394-a485-d83a814a2d1a}">
+                  <labels>
+                    <label description="Cost" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{91104352-af93-5061-a20a-4bc9882d2923}">
+                        <labels>
+                          <label description="Unit Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_unitcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_unitcost" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3c790c32-b945-5093-a58d-90a1e3acc1e0}">
+                        <labels>
+                          <label description="Total Cost" languagecode="1033" />
+                        </labels>
+                        <control id="op365_totalcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_totalcost" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{add148ea-7fcd-5d03-9802-f10ff3419f25}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/execution.form.js" libraryUniqueId="{51f7cbb1-ead6-58e8-adaf-89b11170ebaf}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Execution.onLoad" libraryName="op365_/scripts/execution.form.js" handlerUniqueId="{67787ffe-3dc5-5d28-ac31-4acb0648bd19}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Material Usage" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

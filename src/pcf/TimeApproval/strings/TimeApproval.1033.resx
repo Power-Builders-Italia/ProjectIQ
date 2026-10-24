@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Control_Name" xml:space="preserve">
+    <value>Time Approval</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Submitted time entries grouped by resource and week, with approve and reject</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Time entries</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>The time entries could not be loaded</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>{0} entries approved.</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>{0} entries rejected.</value>
+  </data>
+  <data name="Nothing_To_Approve" xml:space="preserve">
+    <value>No time entries are waiting for approval.</value>
+  </data>
+  <data name="Select_All" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Column_Resource" xml:space="preserve">
+    <value>Resource</value>
+  </data>
+  <data name="Column_Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Column_Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Reject_Title" xml:space="preserve">
+    <value>Reject {0} time entries</value>
+  </data>
+  <data name="Reject_Note" xml:space="preserve">
+    <value>Reason (sent to the resource)</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+</root>

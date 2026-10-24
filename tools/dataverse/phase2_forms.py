@@ -1,5 +1,5 @@
-"""Phase 2 main forms: Project (WBS Tree Grid and Gantt code components, team, baselines), WBS Node and the
-project child tables, plus the Save Baseline modern command on the Project form.
+"""Phase 2 main forms: WBS Node and the project child tables, plus the web resources of the Project form
+(the Project form itself is defined in phase3_forms.py).
 
 Run after tools/pcf/push.sh (the forms reference the code components). Idempotent.
 """
@@ -15,21 +15,7 @@ WBS_JS = 'op365_/scripts/wbsnode.form.js'
 webresource(PROJECT_JS, os.path.join(SRC, 'project.form.js'), 'Project form script')
 webresource(WBS_JS, os.path.join(SRC, 'wbsnode.form.js'), 'WBS Node form script')
 
-P = 'op365_project'
-WBS_REL = 'op365_project_wbsnode_projectid'
-form(P, 'Project', [
-    tab('Summary', [
-        ('60%', [section(P, 'Project', ['op365_code', 'op365_name', 'op365_customerid', 'op365_projectmanagerid',
-                                        'statuscode', 'ownerid', 'op365_startdate', 'op365_enddate']),
-                 section(P, 'Budget and Progress', ['op365_contractvalue', 'op365_budgettotal', 'op365_actualcost',
-                                                    'op365_committedcost', 'op365_progresspct']),
-                 section(P, 'Description', ['op365_description'], columns=1)]),
-        ('40%', [section(P, 'Timeline', [('timeline',)])])]),
-    tab('WBS', [('100%', [section(P, 'WBS', [('subgrid', 'WbsTree', 'WBS', 'op365_wbsnode', WBS_REL, 20, 'op365_OP365.WbsTreeGrid')])])]),
-    tab('Gantt', [('100%', [section(P, 'Gantt', [('subgrid', 'Gantt', 'Gantt', 'op365_wbsnode', WBS_REL, 20, 'op365_OP365.GanttChart')]),
-                            section(P, 'Baselines', [('subgrid', 'Baselines', 'Baselines', 'op365_baseline', 'op365_project_baseline_projectid', 5)])])]),
-    tab('Team', [('100%', [section(P, 'Team', [('subgrid', 'Team', 'Project Members', 'op365_projectmember', 'op365_project_projectmember_projectid', 10)])])]),
-], replace='Information')
+# The Project form moved to phase3_forms.py (Time, Materials and Costs tabs).
 
 T = 'op365_wbsnode'
 form(T, 'WBS Node', [

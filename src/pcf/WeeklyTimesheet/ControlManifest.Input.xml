@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="OP365" constructor="WeeklyTimesheet" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+    <external-service-usage enabled="false" />
+    <!-- Bound to a Time Entries subgrid (dashboard); the week is read and written through the Web API. -->
+    <data-set name="entries" display-name-key="Dataset_Name" />
+    <resources>
+      <code path="index.ts" order="1" />
+      <platform-library name="React" version="16.14.0" />
+      <platform-library name="Fluent" version="9.46.2" />
+      <resx path="strings/WeeklyTimesheet.1033.resx" version="1.0.0" />
+    </resources>
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true" />
+      <uses-feature name="Utility" required="true" />
+    </feature-usage>
+  </control>
+</manifest>

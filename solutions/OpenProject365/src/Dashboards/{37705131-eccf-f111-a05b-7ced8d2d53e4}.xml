@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Timesheet" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Weekly time entry of the current user" languagecode="1033" />
+  </Descriptions>
+  <FormId>{37705131-eccf-f111-a05b-7ced8d2d53e4}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab name="timesheet" id="{6ddebc3c-d280-5644-8b58-3f4bb7ad4fda}" expanded="true" showlabel="true" verticallayout="true">
+            <labels>
+              <label description="Timesheet" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="timesheet" showlabel="true" showbar="false" columns="1" id="{59da6614-efb3-594e-9e52-7e1a651b7e30}">
+                    <labels>
+                      <label description="Timesheet" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{0c7f00af-5853-5c26-b028-3d6c0849ebab}" showlabel="false" rowspan="30" colspan="1" auto="false">
+                          <labels>
+                            <label description="Timesheet" languagecode="1033" />
+                          </labels>
+                          <control id="Board" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{d53f18bc-a6e9-5131-b3fa-534b7248972a}">
+                            <parameters>
+                              <ViewId>{f0982a68-99bb-4121-adfc-e6ab60e82a08}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_timeentry</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>30</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <controlDescriptions>
+          <controlDescription forControl="{d53f18bc-a6e9-5131-b3fa-534b7248972a}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+              <parameters>
+                <ViewId>{f0982a68-99bb-4121-adfc-e6ab60e82a08}</ViewId>
+                <IsUserView>false</IsUserView>
+                <TargetEntityType>op365_timeentry</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>false</EnableViewPicker>
+                <EnableJumpBar>false</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId />
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>30</RecordsPerPage>
+              </parameters>
+            </customControl>
+            <customControl formFactor="0" name="op365_OP365.WeeklyTimesheet">
+              <parameters>
+                <data-set name="entries">
+                  <ViewId>{f0982a68-99bb-4121-adfc-e6ab60e82a08}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_timeentry</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="op365_OP365.WeeklyTimesheet">
+              <parameters>
+                <data-set name="entries">
+                  <ViewId>{f0982a68-99bb-4121-adfc-e6ab60e82a08}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_timeentry</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="op365_OP365.WeeklyTimesheet">
+              <parameters>
+                <data-set name="entries">
+                  <ViewId>{f0982a68-99bb-4121-adfc-e6ab60e82a08}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_timeentry</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+          </controlDescription>
+        </controlDescriptions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

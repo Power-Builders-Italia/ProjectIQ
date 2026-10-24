@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="HourlyCost">
+  <description default="Hourly cost valid on the date">
+    <label description="Hourly cost valid on the date" languagecode="1033" />
+  </description>
+  <displayname default="HourlyCost">
+    <label description="HourlyCost" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_GetLabourCost.HourlyCost</name>
+  <type>2</type>
+</customapiresponseproperty>

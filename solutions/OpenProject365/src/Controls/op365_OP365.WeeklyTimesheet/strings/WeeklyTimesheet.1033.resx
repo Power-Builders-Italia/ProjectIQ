@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Control_Name" xml:space="preserve">
+    <value>Weekly Timesheet</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Weekly time entry grid of the current user by project and task, with submission for approval</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Time entries</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>The timesheet could not be loaded</value>
+  </data>
+  <data name="Error_Hours" xml:space="preserve">
+    <value>Enter hours between 0 and 24.</value>
+  </data>
+  <data name="No_Resource" xml:space="preserve">
+    <value>Your user is not linked to a resource. Ask an administrator to set User on your Resource.</value>
+  </data>
+  <data name="Previous_Week" xml:space="preserve">
+    <value>Previous week</value>
+  </data>
+  <data name="Next_Week" xml:space="preserve">
+    <value>Next week</value>
+  </data>
+  <data name="This_Week" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Submit_Week" xml:space="preserve">
+    <value>Submit week</value>
+  </data>
+  <data name="Submitted" xml:space="preserve">
+    <value>{0} entries submitted.</value>
+  </data>
+  <data name="Column_Line" xml:space="preserve">
+    <value>Project / task</value>
+  </data>
+  <data name="Column_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Weekly hours</value>
+  </data>
+  <data name="Pick_Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Pick_Task" xml:space="preserve">
+    <value>Task (optional)</value>
+  </data>
+  <data name="Add_Line" xml:space="preserve">
+    <value>Add line</value>
+  </data>
+  <data name="Status_Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="Status_Submitted" xml:space="preserve">
+    <value>Submitted</value>
+  </data>
+  <data name="Status_Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+</root>

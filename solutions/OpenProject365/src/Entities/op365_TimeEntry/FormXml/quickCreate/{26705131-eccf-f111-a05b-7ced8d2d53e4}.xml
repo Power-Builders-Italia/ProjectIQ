@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{26705131-eccf-f111-a05b-7ced8d2d53e4}</formid>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{d16425cb-8504-5ccb-a0bc-d3061749a59e}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="time" showlabel="true" showbar="false" columns="1" id="{ca72de87-ea32-528e-b093-c7906d59f17c}">
+                  <labels>
+                    <label description="Time" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{29230598-a7b2-5a38-893a-96112f61e370}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2377f130-42ad-5e03-8f5f-6c2c20756791}">
+                        <labels>
+                          <label description="WBS Node" languagecode="1033" />
+                        </labels>
+                        <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{93d1ca4d-d5c8-5bbb-9f8e-d802543058bd}">
+                        <labels>
+                          <label description="Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_entrydate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_entrydate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d07e83f1-c715-5083-b815-d8f8acad9e34}">
+                        <labels>
+                          <label description="Hours" languagecode="1033" />
+                        </labels>
+                        <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c2eb1196-afb1-57c5-9a10-f33b3628d7cb}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/execution.form.js" libraryUniqueId="{366235b1-9cf6-5f19-a745-33ff826ff24b}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Execution.onLoad" libraryName="op365_/scripts/execution.form.js" handlerUniqueId="{be131db2-e233-5d1f-a406-18b87f6db3b6}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Quick Time Entry" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Resource Load" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Allocated hours against capacity by week" languagecode="1033" />
+  </Descriptions>
+  <FormId>{49705131-eccf-f111-a05b-7ced8d2d53e4}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab name="resource_load" id="{c897a348-5f12-55fd-acb7-f75de94f977e}" expanded="true" showlabel="true" verticallayout="true">
+            <labels>
+              <label description="Resource Load" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="resource_load" showlabel="true" showbar="false" columns="1" id="{c7d9a69e-93a4-52a6-8a73-bddca097ed32}">
+                    <labels>
+                      <label description="Resource Load" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{e1e940c0-db73-5a01-9cfa-bdd2fcdbbbbd}" showlabel="false" rowspan="30" colspan="1" auto="false">
+                          <labels>
+                            <label description="Resource Load" languagecode="1033" />
+                          </labels>
+                          <control id="Board" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{f9386c06-0bef-5fa9-a4cf-1c0b603719ec}">
+                            <parameters>
+                              <ViewId>{03ca09e8-868d-428a-a609-af1337e85f05}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_resource</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>30</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <controlDescriptions>
+          <controlDescription forControl="{f9386c06-0bef-5fa9-a4cf-1c0b603719ec}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+              <parameters>
+                <ViewId>{03ca09e8-868d-428a-a609-af1337e85f05}</ViewId>
+                <IsUserView>false</IsUserView>
+                <TargetEntityType>op365_resource</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>false</EnableViewPicker>
+                <EnableJumpBar>false</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId />
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>30</RecordsPerPage>
+              </parameters>
+            </customControl>
+            <customControl formFactor="0" name="op365_OP365.ResourceLoad">
+              <parameters>
+                <data-set name="resources">
+                  <ViewId>{03ca09e8-868d-428a-a609-af1337e85f05}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_resource</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="op365_OP365.ResourceLoad">
+              <parameters>
+                <data-set name="resources">
+                  <ViewId>{03ca09e8-868d-428a-a609-af1337e85f05}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_resource</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="op365_OP365.ResourceLoad">
+              <parameters>
+                <data-set name="resources">
+                  <ViewId>{03ca09e8-868d-428a-a609-af1337e85f05}</ViewId>
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>op365_resource</TargetEntityType>
+                  <EnableViewPicker>false</EnableViewPicker>
+                  <EnableQuickFind>false</EnableQuickFind>
+                  <RecordsPerPage>30</RecordsPerPage>
+                </data-set>
+              </parameters>
+            </customControl>
+          </controlDescription>
+        </controlDescriptions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

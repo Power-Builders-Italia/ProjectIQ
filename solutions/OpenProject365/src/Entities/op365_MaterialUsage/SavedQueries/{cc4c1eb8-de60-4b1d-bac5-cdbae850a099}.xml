@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{cc4c1eb8-de60-4b1d-bac5-cdbae850a099}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_usagedate" select="1" icon="1" preview="1">
+        <row name="result" id="op365_materialusageid">
+          <cell name="op365_usagedate" width="100" />
+          <cell name="op365_name" width="200" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_wbsnodeid" width="160" />
+          <cell name="op365_quantity" width="80" />
+          <cell name="op365_uom" width="60" />
+          <cell name="op365_unitcost" width="90" />
+          <cell name="op365_totalcost" width="100" />
+          <cell name="op365_supplierid" width="160" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_materialusage">
+          <attribute name="op365_usagedate" />
+          <attribute name="op365_name" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_wbsnodeid" />
+          <attribute name="op365_quantity" />
+          <attribute name="op365_uom" />
+          <attribute name="op365_unitcost" />
+          <attribute name="op365_totalcost" />
+          <attribute name="op365_supplierid" />
+          <attribute name="op365_materialusageid" />
+          <order attribute="op365_usagedate" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="op365_name" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Material Usage" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

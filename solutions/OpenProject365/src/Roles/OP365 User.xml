@@ -5,8 +5,10 @@
   <RolePrivileges>
     <RolePrivilege name="prvAppendop365_Baseline" level="Basic" />
     <RolePrivilege name="prvAppendop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvAppendop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvAppendop365_Project" level="Basic" />
     <RolePrivilege name="prvAppendop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvAppendop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsNode" level="Basic" />
@@ -17,25 +19,31 @@
     <RolePrivilege name="prvAppendToop365_BaselineNode" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Item" level="Global" />
     <RolePrivilege name="prvAppendToop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvAppendToop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Project" level="Basic" />
     <RolePrivilege name="prvAppendToop365_ProjectMember" level="Basic" />
     <RolePrivilege name="prvAppendToop365_Resource" level="Global" />
     <RolePrivilege name="prvAppendToop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvAppendToop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsNode" level="Basic" />
     <RolePrivilege name="prvCreateop365_Baseline" level="Basic" />
     <RolePrivilege name="prvCreateop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvCreateop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvCreateop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvCreateop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsNode" level="Basic" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvDeleteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvDeleteop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvDeleteop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvDeleteop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvDeleteop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvDeleteop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvDeleteop365_WbsNode" level="Basic" />
@@ -46,12 +54,14 @@
     <RolePrivilege name="prvReadop365_BaselineNode" level="Basic" />
     <RolePrivilege name="prvReadop365_Item" level="Global" />
     <RolePrivilege name="prvReadop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvReadop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvReadop365_Project" level="Basic" />
     <RolePrivilege name="prvReadop365_ProjectMember" level="Basic" />
     <RolePrivilege name="prvReadop365_Resource" level="Global" />
     <RolePrivilege name="prvReadop365_ResourceCost" level="Global" />
     <RolePrivilege name="prvReadop365_Settings" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvReadop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvReadop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvReadop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvReadop365_WbsNode" level="Basic" />
@@ -65,8 +75,10 @@
     <RolePrivilege name="prvShareop365_Project" level="Basic" />
     <RolePrivilege name="prvWriteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvWriteop365_BaselineNode" level="Basic" />
+    <RolePrivilege name="prvWriteop365_MaterialUsage" level="Basic" />
     <RolePrivilege name="prvWriteop365_Project" level="Basic" />
     <RolePrivilege name="prvWriteop365_ProjectMember" level="Basic" />
+    <RolePrivilege name="prvWriteop365_TimeEntry" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsNode" level="Basic" />
