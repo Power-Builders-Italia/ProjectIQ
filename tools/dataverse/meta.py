@@ -42,6 +42,9 @@ def col(kind, schema, label, desc='', required=False, **kw):
     elif kind == 'date':
         a.update({'@odata.type': NS+'DateTimeAttributeMetadata', 'Format': 'DateOnly',
                   'DateTimeBehavior': {'Value': 'DateOnly'}})
+    elif kind == 'datetime':
+        a.update({'@odata.type': NS+'DateTimeAttributeMetadata', 'Format': 'DateAndTime',
+                  'DateTimeBehavior': {'Value': 'UserLocal'}})
     elif kind == 'bool':
         a.update({'@odata.type': NS+'BooleanAttributeMetadata', 'DefaultValue': False,
                   'OptionSet': {'@odata.type': NS+'BooleanOptionSetMetadata', 'OptionSetType': 'Boolean',

@@ -13,9 +13,10 @@
           <cell name="op365_code" width="90" />
           <cell name="op365_name" width="220" />
           <cell name="op365_ownerresourceid" width="150" />
-          <cell name="op365_actualhours" width="100" />
-          <cell name="op365_budgethours" width="100" />
-          <cell name="op365_budgettotal" width="120" />
+          <cell name="op365_budgethours" width="90" />
+          <cell name="op365_actualhours" width="90" />
+          <cell name="op365_budgettotal" width="110" />
+          <cell name="op365_actualcost" width="110" />
           <cell name="op365_progresspct" width="90" />
           <cell name="op365_startdate" width="100" />
           <cell name="op365_enddate" width="100" />
@@ -29,9 +30,10 @@
           <attribute name="op365_code" />
           <attribute name="op365_name" />
           <attribute name="op365_ownerresourceid" />
-          <attribute name="op365_actualhours" />
           <attribute name="op365_budgethours" />
+          <attribute name="op365_actualhours" />
           <attribute name="op365_budgettotal" />
+          <attribute name="op365_actualcost" />
           <attribute name="op365_progresspct" />
           <attribute name="op365_startdate" />
           <attribute name="op365_enddate" />

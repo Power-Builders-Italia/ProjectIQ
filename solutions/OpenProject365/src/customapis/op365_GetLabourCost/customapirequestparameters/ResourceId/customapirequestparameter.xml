@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ResourceId">
+  <description default="Resource">
+    <label description="Resource" languagecode="1033" />
+  </description>
+  <displayname default="ResourceId">
+    <label description="ResourceId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_GetLabourCost.ResourceId</name>
+  <type>12</type>
+</customapirequestparameter>

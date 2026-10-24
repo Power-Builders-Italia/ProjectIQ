@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{618de545-3843-468a-8a8b-0a9791f372fc}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_entrydate" select="1" icon="1" preview="1">
+        <row name="result" id="op365_timeentryid">
+          <cell name="op365_entrydate" width="100" />
+          <cell name="op365_resourceid" width="160" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_wbsnodeid" width="180" />
+          <cell name="op365_hours" width="70" />
+          <cell name="statuscode" width="100" />
+          <cell name="op365_notes" width="220" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_timeentry">
+          <attribute name="op365_entrydate" />
+          <attribute name="op365_resourceid" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_wbsnodeid" />
+          <attribute name="op365_hours" />
+          <attribute name="statuscode" />
+          <attribute name="op365_notes" />
+          <attribute name="op365_timeentryid" />
+          <order attribute="op365_entrydate" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="op365_name" operator="like" value="{0}" />
+            <condition attribute="op365_notes" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Time Entries" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

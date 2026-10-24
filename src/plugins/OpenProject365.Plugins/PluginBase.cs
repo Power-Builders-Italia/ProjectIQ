@@ -81,6 +81,15 @@ namespace OpenProject365.Plugins
             return false;
         }
 
+        /// <summary>True when this operation runs inside one of the given messages (e.g. a Custom API).</summary>
+        public bool IsInside(params string[] messages)
+        {
+            for (var c = Execution.ParentContext; c != null; c = c.ParentContext)
+                if (Array.IndexOf(messages, c.MessageName) >= 0)
+                    return true;
+            return false;
+        }
+
         public void Trace(string format, params object[] args) => tracing?.Trace(format, args);
     }
 }

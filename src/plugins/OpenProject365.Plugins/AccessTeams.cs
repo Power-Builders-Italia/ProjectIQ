@@ -16,7 +16,8 @@ namespace OpenProject365.Plugins
         private static readonly (int Role, string Name, int Mask)[] Templates =
         {
             (Model.RoleManager, "OP365 Project Manager", 1 | 2 | 4 | 16 | 262144),
-            (Model.RoleContributor, "OP365 Project Contributor", 1 | 4),
+            // Append To lets contributors add time entries and material usage to the project
+            (Model.RoleContributor, "OP365 Project Contributor", 1 | 4 | 16),
             (Model.RoleReader, "OP365 Project Reader", 1),
         };
 
@@ -24,10 +25,15 @@ namespace OpenProject365.Plugins
         {
             var t = Templates.FirstOrDefault(x => x.Role == role);
             if (t.Name == null) t = Templates[2];
-            var query = new QueryExpression("teamtemplate") { ColumnSet = new ColumnSet(false), TopCount = 1 };
+            var query = new QueryExpression("teamtemplate") { ColumnSet = new ColumnSet("defaultaccessrightsmask"), TopCount = 1 };
             query.Criteria.AddCondition("teamtemplatename", ConditionOperator.Equal, t.Name);
             var found = system.RetrieveMultiple(query).Entities.FirstOrDefault();
-            if (found != null) return found.Id;
+            if (found != null)
+            {
+                if (found.GetAttributeValue<int>("defaultaccessrightsmask") != t.Mask)
+                    system.Update(new Entity("teamtemplate", found.Id) { ["defaultaccessrightsmask"] = t.Mask });
+                return found.Id;
+            }
 
             var otc = ((Microsoft.Xrm.Sdk.Messages.RetrieveEntityResponse)system.Execute(
                 new Microsoft.Xrm.Sdk.Messages.RetrieveEntityRequest

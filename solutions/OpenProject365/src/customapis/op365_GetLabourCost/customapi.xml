@@ -1,0 +1,18 @@
+<customapi uniquename="op365_GetLabourCost">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Hourly cost of a resource on a date (requires the Cost Visibility profile)">
+    <label description="Hourly cost of a resource on a date (requires the Cost Visibility profile)" languagecode="1033" />
+  </description>
+  <displayname default="Get Labour Cost">
+    <label description="Get Labour Cost" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>1</isfunction>
+  <isprivate>0</isprivate>
+  <name>Get Labour Cost</name>
+  <plugintypeid>
+    <plugintypeexportkey>7e11ce78-e9cf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -49,25 +49,45 @@ def lbl(text):
     return f'<labels><label description="{escape(text)}" languagecode="1033" /></labels>'
 
 
-def field_cell(table, name):
+def field_cell(table, name, pcf=None):
+    """name ending with '!' = read-only. pcf: field code component (e.g. op365_OP365.CostSummary) on every form factor."""
+    disabled = name.endswith('!')
+    name = name.rstrip('!')
     a = attr(table, name)
     label = (a['DisplayName'].get('UserLocalizedLabel') or {}).get('Label', name)
     cls = CLASSID[a['AttributeType']]
-    return f'<cell id="{gid()}">{lbl(label)}<control id="{name}" classid="{cls}" datafieldname="{name}" /></cell>'
+    extra = ' disabled="true"' if disabled else ''
+    cell = ''
+    if pcf:
+        uid = gid()
+        extra += f' uniqueid="{uid}"'
+        cell = ' showlabel="false"'
+        _descriptions.append(
+            f'<controlDescription forControl="{uid}">'
+            f'<customControl id="{cls}"><parameters><datafieldname>{name}</datafieldname></parameters></customControl>'
+            + ''.join(f'<customControl formFactor="{ff}" name="{pcf}"><parameters><value>{name}</value>'
+                      '</parameters></customControl>' for ff in (0, 1, 2))
+            + '</controlDescription>')
+    return f'<cell id="{gid()}"{cell}>{lbl(label)}<control id="{name}" classid="{cls}" datafieldname="{name}"{extra} /></cell>'
 
 
-def default_view(table):
+def default_view(table, name=None):
+    cond = f"name eq '{name}'" if name else 'isdefault eq true'
     return S.get(API + f"savedqueries?$select=savedqueryid&$filter=returnedtypecode eq '{table}' "
-                 "and querytype eq 0 and isdefault eq true").json()['value'][0]['savedqueryid']
+                 f"and querytype eq 0 and {cond}").json()['value'][0]['savedqueryid']
 
 
 _descriptions = []
 
 
-def subgrid_cell(name, label, target, relationship, rows=8, pcf=None):
-    """pcf: name of a dataset code component (e.g. op365_OP365.GanttChart) that renders the subgrid on every form factor."""
-    params = (f'<ViewId>{{{default_view(target)}}}</ViewId><IsUserView>false</IsUserView>'
-              f'<RelationshipName>{relationship}</RelationshipName><TargetEntityType>{target}</TargetEntityType>'
+def subgrid_cell(name, label, target, relationship, rows=8, pcf=None, view=None, dataset='nodes'):
+    """pcf: name of a dataset code component (e.g. op365_OP365.GanttChart) that renders the subgrid on every form factor.
+    relationship None = all records of the view (dashboards); view: view name instead of the default view;
+    dataset: name of the code component's data-set."""
+    vid = default_view(target, view)
+    rel = f'<RelationshipName>{relationship}</RelationshipName>' if relationship else ''
+    params = (f'<ViewId>{{{vid}}}</ViewId><IsUserView>false</IsUserView>'
+              f'{rel}<TargetEntityType>{target}</TargetEntityType>'
               '<AutoExpand>Fixed</AutoExpand><EnableQuickFind>false</EnableQuickFind><EnableViewPicker>false</EnableViewPicker>'
               '<EnableJumpBar>false</EnableJumpBar><ChartGridMode>Grid</ChartGridMode><VisualizationId />'
               f'<IsUserChart>false</IsUserChart><EnableChartPicker>false</EnableChartPicker><RecordsPerPage>{rows}</RecordsPerPage>')
@@ -75,8 +95,8 @@ def subgrid_cell(name, label, target, relationship, rows=8, pcf=None):
     if pcf:
         uid = gid()
         unique = f' uniqueid="{uid}"'
-        dataset = (f'<data-set name="nodes"><ViewId>{{{default_view(target)}}}</ViewId><IsUserView>false</IsUserView>'
-                   f'<RelationshipName>{relationship}</RelationshipName><TargetEntityType>{target}</TargetEntityType>'
+        dataset = (f'<data-set name="{dataset}"><ViewId>{{{vid}}}</ViewId><IsUserView>false</IsUserView>'
+                   f'{rel}<TargetEntityType>{target}</TargetEntityType>'
                    '<EnableViewPicker>false</EnableViewPicker><EnableQuickFind>false</EnableQuickFind>'
                    f'<RecordsPerPage>{rows}</RecordsPerPage></data-set>')
         _descriptions.append(
@@ -96,13 +116,16 @@ def timeline_cell():
 
 
 def section(table, title, items, columns=2):
-    """items: column names, or ('subgrid', id, label, target, relationship) / ('timeline',)."""
+    """items: column names, or ('subgrid', id, label, target, relationship, ...) / ('timeline',) / ('pcf', column, control)."""
     rows, pending = [], []
     for it in items:
         if isinstance(it, tuple):
             if pending:
                 rows.append(pending); pending = []
-            rows.append([subgrid_cell(*it[1:]) if it[0] == 'subgrid' else timeline_cell()])
+            if it[0] == 'pcf':
+                rows.append([field_cell(table, it[1], it[2])])
+            else:
+                rows.append([subgrid_cell(*it[1:]) if it[0] == 'subgrid' else timeline_cell()])
             continue
         pending.append(field_cell(table, it))
         if len(pending) == columns:
@@ -142,7 +165,8 @@ def onload(library, function):
             'parameters="" passExecutionContext="true" /></Handlers></event></events>')
 
 
-def form(table, name, tabs, replace=None, description='', extra=''):
+def form(table, name, tabs, replace=None, description='', extra='', form_type=2):
+    """form_type: 2 main, 7 quick create, 0 dashboard (table 'none')."""
     descriptions = ''
     if _descriptions:
         descriptions = '<controlDescriptions>' + ''.join(_descriptions) + '</controlDescriptions>'
@@ -150,7 +174,7 @@ def form(table, name, tabs, replace=None, description='', extra=''):
     xml = '<form><tabs>' + ''.join(tabs) + '</tabs>' + extra + descriptions + '</form>'
     existing = None
     for n in [name] + ([replace] if replace else []):
-        v = S.get(API + f"systemforms?$select=formid&$filter=objecttypecode eq '{table}' and type eq 2 "
+        v = S.get(API + f"systemforms?$select=formid&$filter=objecttypecode eq '{table}' and type eq {form_type} "
                   f"and name eq '{n}'").json()['value']
         if v:
             existing = v[0]['formid']; break
@@ -158,7 +182,7 @@ def form(table, name, tabs, replace=None, description='', extra=''):
     if existing:
         ok(S.patch(API + f'systemforms({existing})', json=body), f'update form {table}: {name}')
     else:
-        body.update({'objecttypecode': table, 'type': 2, 'formactivationstate': 1})
+        body.update({'objecttypecode': table, 'type': form_type, 'formactivationstate': 1})
         r = S.post(API + 'systemforms', json=body)
         ok(r, f'create form {table}: {name}')
         existing = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
@@ -168,3 +192,4 @@ def form(table, name, tabs, replace=None, description='', extra=''):
         'AttributeName': 'name',
         'Labels': [{'@odata.type': 'Microsoft.Dynamics.CRM.LocalizedLabel', 'Label': name, 'LanguageCode': 1033}]}),
        f'label form {name}')
+    return existing

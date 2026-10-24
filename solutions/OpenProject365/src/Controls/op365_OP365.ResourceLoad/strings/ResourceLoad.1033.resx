@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Control_Name" xml:space="preserve">
+    <value>Resource Load</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Allocated WBS hours against capacity by resource and week</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>The resource load could not be loaded</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="This_Week" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>{0} weeks</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Allocated" xml:space="preserve">
+    <value>Allocated</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>capacity</value>
+  </data>
+  <data name="Column_Resource" xml:space="preserve">
+    <value>Resource</value>
+  </data>
+  <data name="Unscheduled" xml:space="preserve">
+    <value>No dates</value>
+  </data>
+  <data name="Unscheduled_Tip" xml:space="preserve">
+    <value>Allocated hours on WBS nodes without start and end dates</value>
+  </data>
+  <data name="Level_free" xml:space="preserve">
+    <value>Under 50%</value>
+  </data>
+  <data name="Level_ok" xml:space="preserve">
+    <value>50-90%</value>
+  </data>
+  <data name="Level_full" xml:space="preserve">
+    <value>90-100%</value>
+  </data>
+  <data name="Level_over" xml:space="preserve">
+    <value>Over 100%</value>
+  </data>
+</root>

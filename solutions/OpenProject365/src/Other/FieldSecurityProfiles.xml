@@ -18,6 +18,30 @@
         <CanCreate>4</CanCreate>
         <CanReadUnmasked>0</CanReadUnmasked>
       </FieldPermission>
+      <FieldPermission>
+        <EntityName>op365_timeentry</EntityName>
+        <AttributeName>op365_cost</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>op365_materialusage</EntityName>
+        <AttributeName>op365_unitcost</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>op365_materialusage</EntityName>
+        <AttributeName>op365_totalcost</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
     </FieldPermissions>
   </FieldSecurityProfile>
 </FieldSecurityProfiles>

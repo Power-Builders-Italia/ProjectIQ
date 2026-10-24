@@ -34,6 +34,15 @@ def entity_view(id, table, title, view):
     return f'<SubArea Id="{id}" Entity="{table}" Url="{url}">{t(title)}</SubArea>'
 
 
+def dashboard_id(name):
+    return S.get(API + f"systemforms?$select=formid&$filter=type eq 0 and name eq '{name}'").json()['value'][0]['formid']
+
+
+def dashboard(id, title, name):
+    url = f'/main.aspx?pagetype=dashboard&amp;id=%7b{dashboard_id(name)}%7d&amp;type=system'
+    return f'<SubArea Id="{id}" Url="{url}">{t(title)}</SubArea>'
+
+
 def group(id, title, subs):
     return f'<Group Id="{id}">{t(title)}' + ''.join(subs) + '</Group>'
 
@@ -44,8 +53,13 @@ def area(id, title, groups):
 
 SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
     area('op365_projects', 'Projects', [
-        group('op365_work', 'Work', [entity('op365_projectssub', 'op365_project', 'Projects')]),
-        group('op365_planning', 'Planning', [entity('op365_absences', 'op365_absence', 'Absences')])]),
+        group('op365_work', 'Work', [entity('op365_projectssub', 'op365_project', 'Projects'),
+                                     entity('op365_materialusages', 'op365_materialusage', 'Material Usage')]),
+        group('op365_time', 'Time', [dashboard('op365_timesheet', 'Timesheet', 'Timesheet'),
+                                     dashboard('op365_timeapproval', 'Approvals', 'Time Approval'),
+                                     entity('op365_timeentries', 'op365_timeentry', 'Time Entries')]),
+        group('op365_planning', 'Planning', [dashboard('op365_resourceload', 'Resource Load', 'Resource Load'),
+                                             entity('op365_absences', 'op365_absence', 'Absences')])]),
     area('op365_masterdata', 'Master Data', [
         group('op365_records', 'Records', [
             entity_view('op365_customers', 'account', 'Customers', 'All Customers'),
@@ -63,7 +77,8 @@ SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
 TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
           'op365_resourcecost', 'op365_absence', 'op365_settings',
           'op365_project', 'op365_projectmember', 'op365_wbsnode', 'op365_wbsdependency', 'op365_wbsallocation',
-          'op365_baseline', 'op365_baselinenode']
+          'op365_baseline', 'op365_baselinenode', 'op365_timeentry', 'op365_materialusage']
+DASHBOARDS = ['Timesheet', 'Time Approval', 'Resource Load']
 
 # modern commands: (unique name, label, table, location 0 = form, web resource, function, tooltip)
 COMMANDS = [
@@ -101,7 +116,26 @@ for table in TABLES:
 for f in S.get(API + "systemforms?$select=formid&$filter=objecttypecode eq 'account' and type eq 2 "
                "and (name eq 'Customer' or name eq 'Supplier')").json()['value']:
     components.append({'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': f['formid']})
+for name in DASHBOARDS:
+    components.append({'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': dashboard_id(name)})
 ok(S.post(API + 'AddAppComponents', json={'AppId': app_id, 'Components': components}), 'app components')
+
+# in-app notifications (sent by the time approval plugins): older environments still have the app setting,
+# newer ones show notifications without it
+definition = S.get(API + "settingdefinitions?$select=settingdefinitionid&$filter=uniquename eq 'AppNotificationPolarisFeature'").json()['value']
+if not definition:
+    print('skip in-app notifications setting (not needed in this environment)')
+else:
+    definition = definition[0]['settingdefinitionid']
+    current = S.get(API + f"appsettings?$select=appsettingid,value&$filter=_parentappmoduleid_value eq {app_id} "
+                    f"and _settingdefinitionid_value eq {definition}").json()['value']
+    if not current:
+        ok(S.post(API + 'appsettings', json={
+            'value': 'true', 'uniquename': f'{APP}_AppNotificationPolarisFeature',
+            'ParentAppModuleId@odata.bind': f'/appmodules({app_id})',
+            'SettingDefinitionId@odata.bind': f'/settingdefinitions({definition})'}), 'in-app notifications on')
+    elif current[0]['value'] != 'true':
+        ok(S.patch(API + f"appsettings({current[0]['appsettingid']})", json={'value': 'true'}), 'in-app notifications on')
 
 for uname, label, table, location, library, function, tip in COMMANDS:
     body = {

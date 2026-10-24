@@ -5,8 +5,20 @@
   <IntroducedVersion>1.0.1.0</IntroducedVersion>
   <FileName>/PluginAssemblies/OpenProject365Plugins-06E7FB53-E1CF-F111-A05B-7CED8D2D53E4/OpenProject365Plugins.dll</FileName>
   <PluginTypes>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ActualsRollup, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7c11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ActualsRollup">
+      <FriendlyName>ActualsRollup</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.BaselineReference, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="09e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.BaselineReference">
       <FriendlyName>BaselineReference</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecideTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7d11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecideTimeEntries">
+      <FriendlyName>DecideTimeEntries</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.GetLabourCost, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="7e11ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.GetLabourCost">
+      <FriendlyName>GetLabourCost</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.MaterialUsageValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8011ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.MaterialUsageValidate">
+      <FriendlyName>MaterialUsageValidate</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ProjectMemberName, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="0be7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ProjectMemberName">
       <FriendlyName>ProjectMemberName</FriendlyName>
@@ -25,6 +37,15 @@
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SaveBaseline, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="15e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SaveBaseline">
       <FriendlyName>SaveBaseline</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SubmitTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8311ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SubmitTimeEntries">
+      <FriendlyName>SubmitTimeEntries</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.TimeEntryDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8411ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.TimeEntryDelete">
+      <FriendlyName>TimeEntryDelete</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.TimeEntryValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8511ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.TimeEntryValidate">
+      <FriendlyName>TimeEntryValidate</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsDependencyValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="17e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsDependencyValidate">
       <FriendlyName>WbsDependencyValidate</FriendlyName>

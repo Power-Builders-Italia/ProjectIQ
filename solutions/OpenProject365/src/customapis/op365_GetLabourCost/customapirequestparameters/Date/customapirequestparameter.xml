@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Date">
+  <description default="Date">
+    <label description="Date" languagecode="1033" />
+  </description>
+  <displayname default="Date">
+    <label description="Date" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_GetLabourCost.Date</name>
+  <type>1</type>
+</customapirequestparameter>
