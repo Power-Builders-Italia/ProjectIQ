@@ -44,6 +44,12 @@ pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProj
 
 Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the assembly; `tools/pcf/push.sh` pushes each control into the solution (`pac pcf push` accepts one manifest per project). In the cloud container create the pac profile with `--accept-cleartext-caching` (no keyring).
 
+## Cloud flows
+
+`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off: link a connection to the reference (Solutions > Open Project 365 > Connection references) and turn it on. After a managed import into Test do the same there.
+
+After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
+
 ## CI and Solution Checker
 
 The `build` workflow builds and tests the plugins and the PCF controls and packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
