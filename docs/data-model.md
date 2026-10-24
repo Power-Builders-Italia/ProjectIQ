@@ -29,7 +29,7 @@ erDiagram
 
 All custom tables are user-owned, with notes and auditing enabled. Choice values start at 365000000.
 
-Still deferred (they depend on Phase 4 tables): Account contactcount and spend, Item usagecount and spend.
+Account contactcount and spend, Item usagecount and spend are filled from Phase 4.
 
 ## Phase 2 – Projects, team, WBS, baselines
 
@@ -250,6 +250,7 @@ flowchart LR
   P[Projects] --> W[Work] --> PR[Projects] & MU[Material Usage]
   P --> T[Time] --> TS[Timesheet] & AP[Approvals] & TE[Time Entries]
   P --> PL[Planning] --> RL[Resource Load] & AB[Absences]
+  P --> PU[Purchasing] --> SP[Spend] & RQ[Requests] & RF[RFQs] & PO[Orders] & GR[Receipts] & IN[Supplier Invoices]
   M[Master Data] --> R[Records] --> C1[Customers] & C2[Suppliers] & C3[Contacts] & C4[Items] & C5[Resources]
   S[Settings] --> CO[Company] --> S1[Settings] & S2[Resource Costs] & S3[Project Members]
 ```
