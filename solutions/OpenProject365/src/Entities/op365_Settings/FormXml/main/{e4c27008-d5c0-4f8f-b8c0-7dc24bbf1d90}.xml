@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{1c62f6d2-1a41-40c5-b19b-482b7d1bdca5}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{df76a1d1-48d0-590f-8d69-5e93ad83fd3f}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="company" showlabel="true" showbar="false" columns="2" id="{29318db9-747d-4a52-8759-22e1d0be7a5f}">
+                <section name="company" showlabel="true" showbar="false" columns="2" id="{aff6919e-4b8e-5a79-a683-0cdb5c67a2bb}">
                   <labels>
                     <label description="Company" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{10a73380-9cb8-4632-b3ca-359daa61e858}">
+                      <cell id="{c8daec7e-725c-5886-b073-869de49b645b}">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
-                      <cell id="{68af6278-5dae-40d0-a56b-7e211ca815e3}">
+                      <cell id="{6e28fe28-db1f-50dc-b1c4-4fd225acce58}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -35,13 +35,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="time_tracking" showlabel="true" showbar="false" columns="2" id="{d3e5259c-8c8a-4319-8952-919caad9c0b8}">
+                <section name="time_tracking" showlabel="true" showbar="false" columns="2" id="{ae89e58c-7b06-5841-8d40-f5de8207aa70}">
                   <labels>
                     <label description="Time Tracking" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{7bcd0aad-cc49-4f1e-94d3-325aff785210}">
+                      <cell id="{5654fc84-87cf-57f2-bd46-9dc8139746d5}">
                         <labels>
                           <label description="Time Approval Enabled" languagecode="1033" />
                         </labels>
@@ -50,13 +50,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="purchasing" showlabel="true" showbar="false" columns="2" id="{5752b86f-a602-4c95-89ae-e7a345a595f0}">
+                <section name="purchasing" showlabel="true" showbar="false" columns="2" id="{a68246ad-16e5-5af7-90a1-e30d86dac3c0}">
                   <labels>
                     <label description="Purchasing" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{59548d54-a3fc-4a6a-ac1a-86f84a338de5}">
+                      <cell id="{0c414e43-1f19-5d05-b041-8ca41f369ea9}">
                         <labels>
                           <label description="Purchase Request Threshold" languagecode="1033" />
                         </labels>
@@ -73,5 +73,8 @@
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Settings" languagecode="1033" />
+    </LocalizedNames>
   </systemform>
 </forms>

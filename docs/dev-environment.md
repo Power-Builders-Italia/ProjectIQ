@@ -44,4 +44,5 @@ The `build` workflow packs the solution on every PR. It also runs the Solution C
 | Environment | Status |
 |---|---|
 | Dev (`openproject365-dev.crm4.dynamics.com`) | available, unmanaged solution |
-| Build / Test | to be created in the Power Platform admin center (managed solution) |
+| Test (`openproject365-test.crm4.dynamics.com`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow) |
+| Build | not needed yet: CI only packs and checks |

@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{3260eb5b-bf2d-421d-9d45-124c91bc85e2}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{531854a6-5713-510e-acda-a0f415890f5f}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
-                <section name="document" showlabel="true" showbar="false" columns="2" id="{c56397b7-05e5-4970-ba8c-6e4a7a5edc11}">
+                <section name="document" showlabel="true" showbar="false" columns="2" id="{6c85484e-64da-5290-a22b-dc70e5db2424}">
                   <labels>
                     <label description="Document" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5aeab981-701e-472a-8fd0-13d2fc7ee60b}">
+                      <cell id="{3c471bcf-f5f6-5390-a163-93bd5b11fbb5}">
                         <labels>
                           <label description="Supplier" languagecode="1033" />
                         </labels>
                         <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
                       </cell>
-                      <cell id="{40f5cd02-6f67-42e1-91a4-a4373c184b26}">
+                      <cell id="{70d193a0-0286-5c61-a284-6f4542e00a2e}">
                         <labels>
                           <label description="Document Type" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b86c58ce-57ec-4f35-9972-61b1c41fdbcc}">
+                      <cell id="{55b4ac3d-ae0c-573f-b5a3-975e879d1f9b}">
                         <labels>
                           <label description="Description" languagecode="1033" />
                         </labels>
                         <control id="op365_description" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_description" />
                       </cell>
-                      <cell id="{8aafde33-5e19-45f9-ade0-1cae0f81348c}">
+                      <cell id="{1e1d1cb1-fd49-5fb5-b458-5309a3fb13fd}">
                         <labels>
                           <label description="Number" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{1b0441d5-7a3d-43d4-a2f0-eec046a984d0}">
+                      <cell id="{4c9bfab7-3a23-5964-9781-8a49ac9b0716}">
                         <labels>
                           <label description="Issue Date" languagecode="1033" />
                         </labels>
                         <control id="op365_issuedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_issuedate" />
                       </cell>
-                      <cell id="{fb5c11ae-f065-4520-85d1-a09b83ae8439}">
+                      <cell id="{210102c6-c273-5c80-a221-afee5f100934}">
                         <labels>
                           <label description="Expiry Date" languagecode="1033" />
                         </labels>
@@ -62,13 +62,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{278194f7-08c7-46c7-8a59-5e1cd89c450d}">
+                      <cell id="{dec14bfe-eab9-5c51-827f-ee231dd8e832}">
                         <labels>
                           <label description="External URL" languagecode="1033" />
                         </labels>
                         <control id="op365_externalurl" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_externalurl" />
                       </cell>
-                      <cell id="{e94458c3-256e-4cc5-aafb-456482c17202}">
+                      <cell id="{43cb475b-e832-5f96-bddf-3498aabc093e}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -77,13 +77,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="file" showlabel="true" showbar="false" columns="1" id="{7e4bb907-76c3-4120-97fb-5d2c31a3b087}">
+                <section name="file" showlabel="true" showbar="false" columns="1" id="{c2b002fb-f83d-52c9-be7d-369bcd73d6e2}">
                   <labels>
                     <label description="File" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4c458d74-e526-4801-8ec2-42e35442fadf}">
+                      <cell id="{b172c1a9-38a9-5d64-a063-53969d3724db}">
                         <labels>
                           <label description="File" languagecode="1033" />
                         </labels>
@@ -92,13 +92,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{3bd65477-67ad-486f-af7e-221936d22b0b}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{20da4a34-0f11-5008-b8c4-48f8cdd73e38}">
                   <labels>
                     <label description="Notes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{19d96b7c-a9ad-4971-860d-141249e17856}">
+                      <cell id="{fdf1e9fa-d0f6-5fa1-8acc-c7bafeb853b0}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
                         </labels>
@@ -111,13 +111,13 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{aca75db7-c1a2-4ac9-947b-b89d9225aa6b}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{d92cabb8-f9d0-556d-ad84-9aa38f931ca4}">
                   <labels>
                     <label description="Timeline" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{e030a34f-b17c-41ca-a2e3-53dfaae022c0}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{165440bc-8032-59ed-a409-afbff005e1ec}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Timeline" languagecode="1033" />
                         </labels>

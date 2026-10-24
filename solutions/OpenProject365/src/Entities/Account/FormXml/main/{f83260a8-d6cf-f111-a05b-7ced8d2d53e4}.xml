@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="summary" id="{3b9d79de-354a-4315-ac1d-26f8e217ac41}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="summary" id="{01135be2-e70d-551f-a4e0-932fbd6a8263}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
-            <label description="" languagecode="1033" />
+            <label description="Summary" languagecode="1033" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
-                <section name="customer" showlabel="true" showbar="false" columns="2" id="{cbef44c6-f65f-4b08-a46d-0defa2973600}">
+                <section name="customer" showlabel="true" showbar="false" columns="2" id="{608013c8-d0e0-579b-92ef-ce9c3fcaa82f}">
                   <labels>
-                    <label description="" languagecode="1033" />
+                    <label description="Customer" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5b8c6cd7-a190-4bdc-ab2c-890009f9a532}">
+                      <cell id="{f4fd0d33-88c5-512f-8a7e-7aa8cd0d6094}">
                         <labels>
                           <label description="Account Name" languagecode="1033" />
                         </labels>
                         <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" />
                       </cell>
-                      <cell id="{407174a9-1ab8-4b09-bff1-e8bbc8bb16e6}">
+                      <cell id="{b12377b2-9ee9-5505-a11d-80dd4661783f}">
                         <labels>
                           <label description="Is Customer" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{87f33dbb-3fdd-40aa-aa6c-1a0f864ffaa0}">
+                      <cell id="{0dfcb6a2-5cef-54ef-8c8d-d680d90697ed}">
                         <labels>
                           <label description="Customer Type" languagecode="1033" />
                         </labels>
                         <control id="op365_customertype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_customertype" />
                       </cell>
-                      <cell id="{c3f2ee3f-5ebf-4a8d-a1d8-d6e320422942}">
+                      <cell id="{ca940300-5db3-58d0-91e2-cea51fdcd9f1}">
                         <labels>
                           <label description="VAT Number" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{644a1576-563b-4c32-903e-d948a84f0159}">
+                      <cell id="{f5b8e9f5-b2da-5131-883a-1ba344e4496c}">
                         <labels>
                           <label description="Tax Code" languagecode="1033" />
                         </labels>
                         <control id="op365_taxcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_taxcode" />
                       </cell>
-                      <cell id="{7e63932f-3961-4032-8b9f-11872c840dff}">
+                      <cell id="{f08c2590-8cc7-556b-ad51-ef8527561c8d}">
                         <labels>
                           <label description="Primary Contact" languagecode="1033" />
                         </labels>
@@ -62,13 +62,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{1b18b685-320d-458d-aab6-49a9b0cefb5a}">
+                      <cell id="{cbaa1494-ef10-5e17-8a27-ff662e0c7c10}">
                         <labels>
                           <label description="Main Phone" languagecode="1033" />
                         </labels>
                         <control id="telephone1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="telephone1" />
                       </cell>
-                      <cell id="{9a4d451b-68aa-44bb-ade3-3f29a2546417}">
+                      <cell id="{6be3355c-ab6b-577b-aed9-d5ccb465b56d}">
                         <labels>
                           <label description="Email" languagecode="1033" />
                         </labels>
@@ -76,13 +76,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{20d29d9b-c7e4-425d-ae6d-bd81c54782b6}">
+                      <cell id="{98e9a9e4-82a2-5b5a-aeb9-d77bf5e2bc15}">
                         <labels>
                           <label description="Website" languagecode="1033" />
                         </labels>
                         <control id="websiteurl" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="websiteurl" />
                       </cell>
-                      <cell id="{b69a06dc-f735-4d7b-880a-b98507f8967a}">
+                      <cell id="{1d7771ea-5457-511e-b50b-652990b5bda0}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -91,19 +91,19 @@
                     </row>
                   </rows>
                 </section>
-                <section name="address" showlabel="true" showbar="false" columns="2" id="{ba21c3b2-b9d8-4d46-820f-efbf483847e5}">
+                <section name="address" showlabel="true" showbar="false" columns="2" id="{b41950ad-88ec-5674-bea3-9916f1eb96b9}">
                   <labels>
-                    <label description="" languagecode="1033" />
+                    <label description="Address" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{516ea63d-0901-44dc-a987-fd7c34e09c22}">
+                      <cell id="{02fe3216-cc14-5dde-9d49-1aaaffa4b066}">
                         <labels>
                           <label description="Address 1: Street 1" languagecode="1033" />
                         </labels>
                         <control id="address1_line1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_line1" />
                       </cell>
-                      <cell id="{c75d624a-6a14-4239-9a0f-b05b6c8f1e29}">
+                      <cell id="{dd8e2873-a8c7-50b7-a7f1-062d330d3e66}">
                         <labels>
                           <label description="Address 1: City" languagecode="1033" />
                         </labels>
@@ -111,13 +111,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{7fcce55d-2817-4cf4-ba80-e762ccb506ea}">
+                      <cell id="{21b5c30a-b189-513c-824d-da5ea1d69c4e}">
                         <labels>
                           <label description="Address 1: ZIP/Postal Code" languagecode="1033" />
                         </labels>
                         <control id="address1_postalcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_postalcode" />
                       </cell>
-                      <cell id="{694c7859-ba06-4c04-90fa-af6cdb7e8555}">
+                      <cell id="{e80c13b7-3fe3-5199-b1bc-59c15e5f30dd}">
                         <labels>
                           <label description="Address 1: State/Province" languagecode="1033" />
                         </labels>
@@ -125,7 +125,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{1eeaedc0-7754-4f4f-a518-4d493442d817}">
+                      <cell id="{c9ea0b7d-3866-5555-a8e5-9d5e0dc03ce5}">
                         <labels>
                           <label description="Address 1: Country/Region" languagecode="1033" />
                         </labels>
@@ -134,19 +134,19 @@
                     </row>
                   </rows>
                 </section>
-                <section name="billing" showlabel="true" showbar="false" columns="2" id="{bbbe5ab7-2d12-4668-bef0-e91869e6c201}">
+                <section name="billing" showlabel="true" showbar="false" columns="2" id="{c629508a-8dc1-53de-9535-1cbc970476a7}">
                   <labels>
-                    <label description="" languagecode="1033" />
+                    <label description="Billing" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4ba25ab5-d7c6-4c7d-89e8-456c016c863d}">
+                      <cell id="{3ca6bd55-c004-53cb-ac77-c58f9aa46ca3}">
                         <labels>
                           <label description="Payment Terms" languagecode="1033" />
                         </labels>
                         <control id="op365_paymentterms" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentterms" />
                       </cell>
-                      <cell id="{ced4244e-08b9-4fa1-99a5-3fb8a4aa47bd}">
+                      <cell id="{7a9100c4-e0c2-5bac-9224-b21239344ba2}">
                         <labels>
                           <label description="IBAN" languagecode="1033" />
                         </labels>
@@ -154,13 +154,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b6bdf573-639d-4047-bb2f-d10f2f674aa9}">
+                      <cell id="{9e7d86ad-6b89-5eec-a000-0cf405fc98bc}">
                         <labels>
                           <label description="PEC" languagecode="1033" />
                         </labels>
                         <control id="op365_pec" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_pec" />
                       </cell>
-                      <cell id="{1053d811-b312-45da-aa11-1ca446182b84}">
+                      <cell id="{9dc03a6d-878c-514b-9fcd-b6829ae5ceda}">
                         <labels>
                           <label description="Language" languagecode="1033" />
                         </labels>
@@ -173,15 +173,15 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{fb90f580-0750-4697-8207-938d91604935}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{7fefbbd8-9493-5544-87b9-4779ca2e2e28}">
                   <labels>
-                    <label description="" languagecode="1033" />
+                    <label description="Timeline" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{f746a688-57e1-452d-a3f2-492b36f45ef3}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{30e76db4-4397-5bfe-90c2-fef6b68dacaf}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Timeline" languagecode="1033" />
                         </labels>
                         <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
@@ -192,20 +192,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="contacts" id="{ef51d7cc-15c9-4a84-8b48-dcf34e07e2ab}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="contacts" id="{6991f799-e01c-5947-97c1-c3cf01faef70}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
-            <label description="" languagecode="1033" />
+            <label description="Contacts" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="contacts" showlabel="true" showbar="false" columns="1" id="{55d95680-d8b9-4b9c-a2cc-6bfaa53ac102}">
+                <section name="contacts" showlabel="true" showbar="false" columns="1" id="{6febc1ab-bcec-54f5-a896-bb447d326dea}">
                   <labels>
-                    <label description="" languagecode="1033" />
+                    <label description="Contacts" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0a05d2b1-cfa5-4028-a7b9-529ea5cbbae2}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                      <cell id="{0c8e2616-f217-5c5c-868a-e6686d7888b9}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Contacts" languagecode="1033" />
                         </labels>
@@ -236,12 +236,12 @@
         </tab>
       </tabs>
       <formLibraries>
-        <Library name="op365_/scripts/account.form.js" libraryUniqueId="{3a69c810-5ea5-4086-b259-c46d9fbc98c0}" />
+        <Library name="op365_/scripts/account.form.js" libraryUniqueId="{2f3a7e9d-8a49-5cb0-af10-34fa63f2cb62}" />
       </formLibraries>
       <events>
         <event name="onload" application="false" active="false">
           <Handlers>
-            <Handler functionName="OP365.Account.onLoad" libraryName="op365_/scripts/account.form.js" handlerUniqueId="{57d7deac-282b-4ac3-a912-19ebed1061df}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="OP365.Account.onLoad" libraryName="op365_/scripts/account.form.js" handlerUniqueId="{c5ba96d6-5fce-5fbd-a4be-d37ec65ed578}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
       </events>
