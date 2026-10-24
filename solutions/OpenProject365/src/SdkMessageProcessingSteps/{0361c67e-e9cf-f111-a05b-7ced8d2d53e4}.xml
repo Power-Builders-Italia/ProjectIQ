@@ -5,7 +5,7 @@
   <PluginTypeId>8511ce78-e9cf-f111-a05b-7ced8d2d53e4</PluginTypeId>
   <PrimaryEntity>op365_timeentry</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
-  <FilteringAttributes></FilteringAttributes>
+  <FilteringAttributes>statuscode,op365_projectid,op365_wbsnodeid,op365_resourceid,op365_entrydate,op365_hours,statecode,op365_notes,op365_cost,op365_revenue</FilteringAttributes>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

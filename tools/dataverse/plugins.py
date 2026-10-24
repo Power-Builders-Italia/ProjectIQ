@@ -44,7 +44,7 @@ STEPS = [
   ('BaselineReference', 'Update', 'op365_baseline', POST, 'op365_isreference', 'op365_projectid'),
   # Phase 3
   ('TimeEntryValidate', 'Create', 'op365_timeentry', PRE, None, None),
-  ('TimeEntryValidate', 'Update', 'op365_timeentry', PRE, None, TE_IMAGE),
+  ('TimeEntryValidate', 'Update', 'op365_timeentry', PRE, TE_IMAGE + ',statecode,op365_notes,op365_cost,op365_revenue', TE_IMAGE),
   ('TimeEntryDelete', 'Delete', 'op365_timeentry', PRE, None, 'statuscode'),
   ('ActualsRollup', 'Create', 'op365_timeentry', POST, None, None),
   ('ActualsRollup', 'Update', 'op365_timeentry', POST, 'op365_projectid,op365_wbsnodeid,op365_hours,op365_cost,statuscode', 'op365_projectid'),
@@ -123,9 +123,13 @@ def message(name):
 
 for cls, msg, table, stage, filtering, image in STEPS:
     name = f'{cls}: {msg} of {table} ({ {PREVAL: "PreValidation", PRE: "PreOperation", POST: "PostOperation"}[stage]})'
-    step = one(f"sdkmessageprocessingsteps?$select=sdkmessageprocessingstepid&$filter=name eq '{name}'")
+    step = one(f"sdkmessageprocessingsteps?$select=sdkmessageprocessingstepid,filteringattributes&$filter=name eq '{name}'")
     if step:
-        sid = step['sdkmessageprocessingstepid']; print('skip', name)
+        sid = step['sdkmessageprocessingstepid']
+        if filtering and step.get('filteringattributes') != filtering:
+            ok(S.patch(API + f'sdkmessageprocessingsteps({sid})', json={'filteringattributes': filtering}), 'filter ' + name)
+        else:
+            print('skip', name)
     else:
         flt = one(f"sdkmessagefilters?$select=sdkmessagefilterid&$filter=primaryobjecttypecode eq '{table}' "
                   f"and _sdkmessageid_value eq {message(msg)}")['sdkmessagefilterid']
