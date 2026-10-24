@@ -99,7 +99,6 @@ Both are React virtual controls on the Fluent UI v9 platform library, bound to t
 | OP365 Administrator | Organization-level Create, Read, Write, Delete, Append, Append To, Assign, Share on Account, Contact and all F1 tables |
 | OP365 User | Organization-level Read and Append To on the same tables (writes come with the project tables in F2-F4) |
 | OP365 Cost Visibility | Column security profile: read/create/update of `op365_hourlycost` on Resource and Resource Cost |
-
 | OP365 Administrator (F2) | Organization-level full access on Project and its child tables |
 | OP365 User (F2) | User-level Read, Write, Append, Append To, Share on Project; User-level Create, Read, Write, Delete, Append, Append To on the child tables. Projects become visible through the access teams |
 | Access team templates on Project | **OP365 Project Manager** (Read, Write, Append, Append To, Share), **OP365 Project Contributor** (Read, Append), **OP365 Project Reader** (Read). Templates are not solution components: the plugin creates them on first use in each environment |
@@ -115,7 +114,7 @@ flowchart LR
   P[Projects] --> W[Work] --> PR[Projects]
   P --> PL[Planning] --> AB[Absences]
   M[Master Data] --> R[Records] --> C1[Customers] & C2[Suppliers] & C3[Contacts] & C4[Items] & C5[Resources]
-  S[Settings] --> CO[Company] --> S1[Settings] & S2[Resource Costs]
+  S[Settings] --> CO[Company] --> S1[Settings] & S2[Resource Costs] & S3[Project Members]
 ```
 
 Account has two forms, **Customer** and **Supplier**; `op365_/scripts/account.form.js` (source in `src/webresources`) opens supplier-only accounts on the Supplier form and flags new records according to the chosen form.
