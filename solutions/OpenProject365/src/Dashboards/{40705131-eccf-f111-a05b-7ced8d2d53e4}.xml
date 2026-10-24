@@ -20,13 +20,13 @@
             <columns>
               <column width="100%">
                 <sections>
-                  <section name="time_approval" showlabel="true" showbar="false" columns="1" id="{1accf03b-7b92-56a8-a34f-0670bcbf45a4}">
+                  <section name="time_approval" showlabel="true" showbar="false" columns="111" id="{1accf03b-7b92-56a8-a34f-0670bcbf45a4}">
                     <labels>
                       <label description="Time Approval" languagecode="1033" />
                     </labels>
                     <rows>
                       <row>
-                        <cell id="{70af8e5b-5f14-5e0a-a50d-9b5bc050f1e4}" showlabel="false" rowspan="30" colspan="1" auto="false">
+                        <cell id="{70af8e5b-5f14-5e0a-a50d-9b5bc050f1e4}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Time Approval" languagecode="1033" />
                           </labels>

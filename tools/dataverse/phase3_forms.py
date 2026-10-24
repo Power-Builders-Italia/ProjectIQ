@@ -63,8 +63,10 @@ for name, desc, target, view, pcf, dataset in [
     ('Time Approval', 'Submitted time entries to approve', 'op365_timeentry', 'Time Entries to Approve', 'op365_OP365.TimeApproval', 'entries'),
     ('Resource Load', 'Allocated hours against capacity by week', 'op365_resource', None, 'op365_OP365.ResourceLoad', 'resources'),
 ]:
-    item = ('subgrid', 'Board', name, target, None, 30, pcf, view if view != 'My Time Entries' else None, dataset)
-    DASHBOARDS[name] = form('none', name, [tab(name, [('100%', [section('none', name, [item])])])], description=desc, form_type=0)
+    # dashboards lay sections out on a 3-column grid: the subgrid spans all of it to fill the page
+    item = ('subgrid', 'Board', name, target, None, 30, pcf, view if view != 'My Time Entries' else None, dataset, 3)
+    DASHBOARDS[name] = form('none', name, [tab(name, [('100%', [section('none', name, [item], grid='111')])])],
+                           description=desc, form_type=0)
 
 ok(S.post(API + 'PublishAllXml', json={}), 'publish')
 for name, fid in DASHBOARDS.items():
