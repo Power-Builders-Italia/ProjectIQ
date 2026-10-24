@@ -40,7 +40,7 @@ pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProj
 | Folder | Build | Tests |
 |---|---|---|
 | `src/plugins` | `dotnet build src/plugins/OpenProject365.Plugins -c Release` (.NET Framework 4.6.2, strong-named) | `dotnet test src/plugins/OpenProject365.Plugins.Tests` |
-| `src/pcf` | `npm ci && npm run build` (all six controls, ESLint included) | `npm test` (Jest: WBS tree, critical path, time scale, timesheet, approval, resource load, cost summary) |
+| `src/pcf` | `npm ci && npm run build` (all seven controls, ESLint included) | `npm test` (Jest: WBS tree, critical path, time scale, timesheet, approval, resource load, cost summary, quote comparison) |
 
 Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the assembly; `tools/pcf/push.sh` pushes each control into the solution (`pac pcf push` accepts one manifest per project). In the cloud container create the pac profile with `--accept-cleartext-caching` (no keyring).
 
