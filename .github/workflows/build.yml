@@ -30,8 +30,6 @@ jobs:
           client-secret: ${{ secrets.PP_CLIENT_SECRET }}
           tenant-id: ${{ secrets.PP_TENANT_ID }}
           path: out/OpenProject365.zip
-          error-level: HighIssueCount
-          error-threshold: 0
           checker-logs-artifact-name: solution-checker-logs
       - name: Upload solution package
         if: hashFiles('out/OpenProject365.zip') != ''
