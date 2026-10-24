@@ -1,0 +1,19 @@
+<customapi uniquename="op365_DecideSupplierInvoice">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_supplierinvoice</boundentitylogicalname>
+  <description default="Approves or rejects a supplier invoice">
+    <label description="Approves or rejects a supplier invoice" languagecode="1033" />
+  </description>
+  <displayname default="Decide Supplier Invoice">
+    <label description="Decide Supplier Invoice" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Decide Supplier Invoice</name>
+  <plugintypeid>
+    <plugintypeexportkey>11c5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

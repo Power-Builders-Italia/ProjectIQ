@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Deadline">
+  <description default="Deadline; default in 7 days">
+    <label description="Deadline; default in 7 days" languagecode="1033" />
+  </description>
+  <displayname default="Deadline">
+    <label description="Deadline" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_CreateRfq.Deadline</name>
+  <type>1</type>
+</customapirequestparameter>

@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{eb9360b7-3e95-4ae2-8d92-6b48b677251c}</formid>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{e26313db-eb64-51d1-9990-53123a520049}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="order" showlabel="true" showbar="false" columns="2" id="{6aa435a4-17a2-5deb-bebf-eabc7a0050bd}">
+                  <labels>
+                    <label description="Order" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6a1b5920-37c0-58b3-92a7-5e025ad40754}">
+                        <labels>
+                          <label description="Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="true" />
+                      </cell>
+                      <cell id="{1377f4e4-13a7-5e51-9904-55698a497419}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7e909ab3-d697-5d5f-a76f-530be058b090}">
+                        <labels>
+                          <label description="Supplier" languagecode="1033" />
+                        </labels>
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
+                      </cell>
+                      <cell id="{d03cee9b-9528-555c-a928-30f2bf1291dc}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{38856b31-cbdb-5801-bac7-86f1e5d28089}">
+                        <labels>
+                          <label description="Purchase Request" languagecode="1033" />
+                        </labels>
+                        <control id="op365_purchaserequestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaserequestid" />
+                      </cell>
+                      <cell id="{4031c5d2-a22d-54b9-be22-8fd3163a1516}">
+                        <labels>
+                          <label description="Order Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_orderdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_orderdate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0adaf690-19f3-57e0-8414-228d1f8ba8b3}">
+                        <labels>
+                          <label description="Expected Delivery" languagecode="1033" />
+                        </labels>
+                        <control id="op365_expecteddelivery" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_expecteddelivery" />
+                      </cell>
+                      <cell id="{261f9e68-dc65-5d93-a68a-bcca6e5ddfa3}">
+                        <labels>
+                          <label description="Delivery Place" languagecode="1033" />
+                        </labels>
+                        <control id="op365_deliveryplace" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_deliveryplace" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4049f8e9-6515-53d9-9594-0740694a6ae3}">
+                        <labels>
+                          <label description="Payment Terms" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paymentterms" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentterms" />
+                      </cell>
+                      <cell id="{500fffb4-a38e-588e-9cee-6629043ba2e4}">
+                        <labels>
+                          <label description="Total Amount" languagecode="1033" />
+                        </labels>
+                        <control id="op365_totalamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_totalamount" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{80dacf34-7634-53ea-ac2c-7563f4f3969c}">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{cf3f5ac8-6dd5-562b-a75e-e2e248b167fe}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="lines" showlabel="true" showbar="false" columns="1" id="{a42bbd75-ceb3-531e-8e0a-7fa35902d8d1}">
+                  <labels>
+                    <label description="Lines" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5a243619-7299-5baf-b02e-a443c9993ba4}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                        <labels>
+                          <label description="Lines" languagecode="1033" />
+                        </labels>
+                        <control id="Lines" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{c725e30b-c1a4-489e-b343-6d977f831573}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_purchaseorder_purchaseorderline_purchaseorderid</RelationshipName>
+                            <TargetEntityType>op365_purchaseorderline</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>10</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="progress" showlabel="true" showbar="false" columns="1" id="{ef2d3409-45fb-5ca8-bb59-2599de0523f4}">
+                  <labels>
+                    <label description="Progress" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{36aea1f3-952b-5ab1-9483-484889eeb2eb}">
+                        <labels>
+                          <label description="Sent To" languagecode="1033" />
+                        </labels>
+                        <control id="op365_sentto" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_sentto" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ade0128d-5041-5b15-a99e-f7422efdacfc}">
+                        <labels>
+                          <label description="Sent On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_senton" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_senton" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9716b05f-2197-5ad3-ab2d-d9a600b860fc}">
+                        <labels>
+                          <label description="Supplier Confirmed" languagecode="1033" />
+                        </labels>
+                        <control id="op365_supplierconfirmed" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_supplierconfirmed" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f6a6f3f1-c162-5081-8e3b-16fae2f1b88e}">
+                        <labels>
+                          <label description="Confirmed On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_confirmedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_confirmedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6c0e7e35-60ac-56de-bdd8-a0981344439f}">
+                        <labels>
+                          <label description="Received Amount" languagecode="1033" />
+                        </labels>
+                        <control id="op365_receivedamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_receivedamount" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4f4c209e-0a0c-58cc-b3b4-ce8a91e8af99}">
+                        <labels>
+                          <label description="Received On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_receivedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_receivedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6ddc8f64-0950-5c2e-9dcb-4cb8e4a58c1d}">
+                        <labels>
+                          <label description="Cancelled On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_cancelledon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_cancelledon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{cd79e7d8-3dfe-51ea-b516-4395e402ab5c}">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{09c914c3-58a5-57a7-8595-3e48f5ca7abe}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="Timeline" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="receipts" id="{15dd60b6-e65b-5875-a15d-0b9de75dbeab}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Receipts" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="goods_receipts" showlabel="true" showbar="false" columns="1" id="{8ff6f89a-1686-550d-94c7-33f712b17982}">
+                  <labels>
+                    <label description="Goods Receipts" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{912e8f08-0c2f-5b2d-84f9-de5662d896ee}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Goods Receipts" languagecode="1033" />
+                        </labels>
+                        <control id="Receipts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{0cd89122-ffcf-f111-a05b-7ced8d2d53e4}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_purchaseorder_goodsreceipt_purchaseorderid</RelationshipName>
+                            <TargetEntityType>op365_goodsreceipt</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="invoices" id="{26d1c2fe-ad54-555a-ac52-251f1f23e5f6}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Invoices" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="supplier_invoices" showlabel="true" showbar="false" columns="1" id="{02dfdf77-187f-5d16-a799-c6e08a95f988}">
+                  <labels>
+                    <label description="Supplier Invoices" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{eea04406-bbac-578a-bfee-6d342c8a1904}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Supplier Invoices" languagecode="1033" />
+                        </labels>
+                        <control id="Invoices" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{1ed89122-ffcf-f111-a05b-7ced8d2d53e4}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_purchaseorder_supplierinvoice_purchaseorderid</RelationshipName>
+                            <TargetEntityType>op365_supplierinvoice</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Purchase Order" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Date">
+  <description default="Date; default today in Europe/Rome">
+    <label description="Date; default today in Europe/Rome" languagecode="1033" />
+  </description>
+  <displayname default="Date">
+    <label description="Date" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_SendTimeReminders.Date</name>
+  <type>1</type>
+</customapirequestparameter>

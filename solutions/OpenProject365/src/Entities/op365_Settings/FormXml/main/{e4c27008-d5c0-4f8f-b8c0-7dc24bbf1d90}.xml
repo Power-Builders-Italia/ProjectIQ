@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{df76a1d1-48d0-590f-8d69-5e93ad83fd3f}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{1eeccacd-e5b7-598b-9913-e104db4d3043}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="company" showlabel="true" showbar="false" columns="2" id="{aff6919e-4b8e-5a79-a683-0cdb5c67a2bb}">
+                <section name="company" showlabel="true" showbar="false" columns="2" id="{6d0be908-eb05-5d4a-8f0d-c705a0696da0}">
                   <labels>
                     <label description="Company" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{c8daec7e-725c-5886-b073-869de49b645b}">
+                      <cell id="{c1352540-cf29-5213-b4bd-74c3a910759b}">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
-                      <cell id="{6e28fe28-db1f-50dc-b1c4-4fd225acce58}">
+                      <cell id="{7efb2c5c-69aa-57b3-9dce-34506ade0e1a}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
@@ -35,13 +35,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="time_tracking" showlabel="true" showbar="false" columns="2" id="{ae89e58c-7b06-5841-8d40-f5de8207aa70}">
+                <section name="time_tracking" showlabel="true" showbar="false" columns="2" id="{cf5cfbd9-870a-5d8a-aa3a-e3480de57551}">
                   <labels>
                     <label description="Time Tracking" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5654fc84-87cf-57f2-bd46-9dc8139746d5}">
+                      <cell id="{0fc4c540-1f96-5f1d-9052-fa753cfefdef}">
                         <labels>
                           <label description="Time Approval Enabled" languagecode="1033" />
                         </labels>
@@ -50,17 +50,23 @@
                     </row>
                   </rows>
                 </section>
-                <section name="purchasing" showlabel="true" showbar="false" columns="2" id="{a68246ad-16e5-5af7-90a1-e30d86dac3c0}">
+                <section name="purchasing" showlabel="true" showbar="false" columns="2" id="{0f879af7-3ee5-56e4-9549-6fa343509fb9}">
                   <labels>
                     <label description="Purchasing" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0c414e43-1f19-5d05-b041-8ca41f369ea9}">
+                      <cell id="{eb9e4b73-6586-5b96-bfd6-53e7b5425aeb}">
                         <labels>
                           <label description="Purchase Request Threshold" languagecode="1033" />
                         </labels>
                         <control id="op365_purchaserequestthreshold" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_purchaserequestthreshold" />
+                      </cell>
+                      <cell id="{85ae9f9b-28b3-55b6-b5fb-7f85d37e780d}">
+                        <labels>
+                          <label description="Purchasing Approver" languagecode="1033" />
+                        </labels>
+                        <control id="op365_purchasingapproverid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchasingapproverid" />
                       </cell>
                     </row>
                   </rows>

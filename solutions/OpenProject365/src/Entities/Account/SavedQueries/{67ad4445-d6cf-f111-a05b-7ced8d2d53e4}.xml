@@ -11,11 +11,12 @@
       <grid name="resultset" jump="name" select="1" icon="1" preview="1">
         <row name="result" id="accountid">
           <cell name="name" width="250" />
-          <cell name="op365_supplierstatus" width="120" />
-          <cell name="op365_suppliercategory" width="150" />
+          <cell name="op365_suppliercategory" width="140" />
+          <cell name="op365_supplierstatus" width="110" />
           <cell name="op365_vatnumber" width="130" />
-          <cell name="op365_expireddocs" width="110" />
-          <cell name="op365_expiringdocs" width="110" />
+          <cell name="op365_contactcount" width="80" />
+          <cell name="op365_spend" width="120" />
+          <cell name="op365_expireddocs" width="90" />
         </row>
       </grid>
     </layoutxml>
@@ -24,11 +25,12 @@
       <fetch version="1.0" mapping="logical">
         <entity name="account">
           <attribute name="name" />
-          <attribute name="op365_supplierstatus" />
           <attribute name="op365_suppliercategory" />
+          <attribute name="op365_supplierstatus" />
           <attribute name="op365_vatnumber" />
+          <attribute name="op365_contactcount" />
+          <attribute name="op365_spend" />
           <attribute name="op365_expireddocs" />
-          <attribute name="op365_expiringdocs" />
           <attribute name="accountid" />
           <order attribute="name" descending="false" />
           <filter type="and">

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<visualization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedqueryvisualizationid>{5EEA5F60-00D0-F111-A05B-7CED8D2D53E4}</savedqueryvisualizationid>
+  <datadescription>
+    <datadefinition>
+      <fetchcollection>
+        <fetch mapping="logical" aggregate="true">
+          <entity name="op365_purchaseorder">
+            <attribute name="op365_purchaseorderid" aggregate="count" alias="aggregate_column" />
+            <attribute name="statuscode" groupby="true" alias="groupby_column" />
+          </entity>
+        </fetch>
+      </fetchcollection>
+      <categorycollection>
+        <category>
+          <measurecollection>
+            <measure alias="aggregate_column" />
+          </measurecollection>
+        </category>
+      </categorycollection>
+    </datadefinition>
+  </datadescription>
+  <presentationdescription>
+    <Chart Palette="None" PaletteCustomColors="15,108,189; 0,120,212; 98,100,167; 0,153,188; 202,80,16; 135,100,184">
+      <Series>
+        <Series ChartType="Doughnut" IsValueShownAsLabel="True" Font="{0}, 9.5px" LabelForeColor="59, 59, 59" CustomProperties="PieLabelStyle=Outside, PieDrawingStyle=Default">
+          <SmartLabelStyle Enabled="True" />
+        </Series>
+      </Series>
+      <ChartAreas>
+        <ChartArea BorderColor="White" BorderDashStyle="Solid">
+          <Area3DStyle Enable3D="False" />
+        </ChartArea>
+      </ChartAreas>
+      <Legends>
+        <Legend Alignment="Center" LegendStyle="Table" Docking="Right" IsEquallySpacedItems="True" Font="{0}, 11px" ShadowColor="0, 0, 0, 0" ForeColor="59, 59, 59" />
+      </Legends>
+      <Titles>
+        <Title Alignment="TopLeft" DockingOffset="-3" Font="{0}, 13px" ForeColor="59, 59, 59"></Title>
+      </Titles>
+    </Chart>
+  </presentationdescription>
+  <isdefault>0</isdefault>
+  <LocalizedNames>
+    <LocalizedName description="Purchase Orders by Status" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Number of purchase orders by status" languagecode="1033" />
+  </Descriptions>
+  <IsCustomizable>1</IsCustomizable>
+  <IntroducedVersion>1.0.4.0</IntroducedVersion>
+  <CanBeDeleted>1</CanBeDeleted>
+</visualization>

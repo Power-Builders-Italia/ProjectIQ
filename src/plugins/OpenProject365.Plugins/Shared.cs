@@ -77,24 +77,31 @@ namespace OpenProject365.Plugins
         }
 
         /// <summary>In-app notification (model-driven app bell). Never fails the calling operation.</summary>
-        public static void Notify(LocalContext context, Guid userId, string title, string body)
+        public static void Notify(LocalContext context, Guid userId, string title, string body, string actionTitle = null, string actionUrl = null)
         {
             try
             {
-                context.SystemService.Create(new Entity("appnotification")
+                var notification = new Entity("appnotification")
                 {
                     ["title"] = title,
                     ["body"] = body,
                     ["ownerid"] = new EntityReference("systemuser", userId),
                     ["icontype"] = new OptionSetValue(100000000),   // info
                     ["toasttype"] = new OptionSetValue(200000000),  // timed
-                });
+                };
+                if (actionUrl != null)
+                    notification["data"] = "{\"actions\":[{\"title\":\"" + actionTitle + "\",\"data\":{\"url\":\"" + actionUrl + "\"}}]}";
+                context.SystemService.Create(notification);
             }
             catch (Exception ex)
             {
                 context.Trace("notification skipped: {0}", ex.Message);
             }
         }
+
+        /// <summary>Optional DateTime input of a Custom API (an omitted one arrives as DateTime.MinValue).</summary>
+        public static DateTime? OptionalDate(ParameterCollection input, string name) =>
+            input.Contains(name) && input[name] is DateTime d && d.Year > 1900 ? d.Date : (DateTime?)null;
 
         /// <summary>Guids from a Custom API StringArray input.</summary>
         public static List<Guid> Ids(ParameterCollection input, string name)

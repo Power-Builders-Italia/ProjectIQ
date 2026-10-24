@@ -61,6 +61,51 @@
         </SubArea>
       </Group>
     </Area>
+    <Area Id="op365_purchasing" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Purchasing" />
+      </Titles>
+      <Group Id="op365_procurement">
+        <Titles>
+          <Title LCID="1033" Title="Procurement" />
+        </Titles>
+        <SubArea Id="op365_purchaserequests" Entity="op365_purchaserequest">
+          <Titles>
+            <Title LCID="1033" Title="Purchase Requests" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_rfqs" Entity="op365_rfq">
+          <Titles>
+            <Title LCID="1033" Title="RFQs" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_purchaseorders" Entity="op365_purchaseorder">
+          <Titles>
+            <Title LCID="1033" Title="Purchase Orders" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_goodsreceipts" Entity="op365_goodsreceipt">
+          <Titles>
+            <Title LCID="1033" Title="Goods Receipts" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="op365_supplierinvoices" Entity="op365_supplierinvoice">
+          <Titles>
+            <Title LCID="1033" Title="Supplier Invoices" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="op365_analysis">
+        <Titles>
+          <Title LCID="1033" Title="Analysis" />
+        </Titles>
+        <SubArea Id="op365_spend" Url="/main.aspx?pagetype=dashboard&amp;id=%7b62ea5f60-00d0-f111-a05b-7ced8d2d53e4%7d&amp;type=system">
+          <Titles>
+            <Title LCID="1033" Title="Spend" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
     <Area Id="op365_masterdata" ShowGroups="true">
       <Titles>
         <Title LCID="1033" Title="Master Data" />

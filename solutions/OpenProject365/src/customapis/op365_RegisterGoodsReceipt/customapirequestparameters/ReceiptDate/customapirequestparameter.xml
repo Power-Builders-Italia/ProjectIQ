@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ReceiptDate">
+  <description default="Receipt date; default today">
+    <label description="Receipt date; default today" languagecode="1033" />
+  </description>
+  <displayname default="ReceiptDate">
+    <label description="ReceiptDate" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_RegisterGoodsReceipt.ReceiptDate</name>
+  <type>1</type>
+</customapirequestparameter>

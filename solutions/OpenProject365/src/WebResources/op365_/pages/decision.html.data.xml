@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{83644930-00d0-f111-a05b-7ced8d2d53e4}</WebResourceId>
+  <Name>op365_/pages/decision.html</Name>
+  <DisplayName>Reject with a note</DisplayName>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0.4.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/op365_pagesdecisionhtml83644930-00D0-F111-A05B-7CED8D2D53E4</FileName>
+</WebResource>

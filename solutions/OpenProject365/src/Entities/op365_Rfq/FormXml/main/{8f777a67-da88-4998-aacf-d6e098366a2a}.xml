@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{8f777a67-da88-4998-aacf-d6e098366a2a}</formid>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{488d990f-81ec-5a56-8236-803806dd88c1}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="request_for_quotation" showlabel="true" showbar="false" columns="2" id="{10d1b612-5795-5944-aaae-c27058d6803c}">
+                  <labels>
+                    <label description="Request for Quotation" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{46cdc423-bf97-51ed-ac66-91e9be7712eb}">
+                        <labels>
+                          <label description="Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="true" />
+                      </cell>
+                      <cell id="{f974c780-60ad-5e93-82ae-684ace9b5ec5}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{238ef477-798d-559e-a870-80d7a3e15f6a}">
+                        <labels>
+                          <label description="Purchase Request" languagecode="1033" />
+                        </labels>
+                        <control id="op365_purchaserequestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaserequestid" />
+                      </cell>
+                      <cell id="{31551efb-2be9-5b15-a879-a645519b8acf}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b666c034-b200-5d93-922b-7ab3c02973a6}">
+                        <labels>
+                          <label description="Deadline" languagecode="1033" />
+                        </labels>
+                        <control id="op365_deadline" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_deadline" />
+                      </cell>
+                      <cell id="{56433f9e-557d-539c-bc82-4f2089c830de}">
+                        <labels>
+                          <label description="Responses" languagecode="1033" />
+                        </labels>
+                        <control id="op365_responsecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_responsecount" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{ed214fcf-4167-514b-bb98-84b6dcd9914e}">
+                  <labels>
+                    <label description="Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0f0a3dc2-69e3-594d-98f3-5c9dbaa6ed7c}">
+                        <labels>
+                          <label description="Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="invitations" showlabel="true" showbar="false" columns="1" id="{95a7d130-6e7c-5658-95f9-f64dbd992ca1}">
+                  <labels>
+                    <label description="Invitations" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f1737e1e-d2c6-519f-8466-bdf404ee5d66}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Invitations" languagecode="1033" />
+                        </labels>
+                        <control id="Invitations" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{f6990239-c6d5-4faf-8155-06c7fa553180}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_rfq_rfqinvitation_rfqid</RelationshipName>
+                            <TargetEntityType>op365_rfqinvitation</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="outcome" showlabel="true" showbar="false" columns="1" id="{0a50dd54-cfda-5c00-85db-3af3ebb556fc}">
+                  <labels>
+                    <label description="Outcome" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7638c7bd-f96c-58b4-b62f-f9d726726800}">
+                        <labels>
+                          <label description="Sent On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_senton" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_senton" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{000aebc9-32bf-5e7a-8212-1482f7844356}">
+                        <labels>
+                          <label description="Awarded On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_awardedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_awardedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4eb37213-7f60-5b19-aa1b-3ba1d3e2acd9}">
+                        <labels>
+                          <label description="Winning Invitation" languagecode="1033" />
+                        </labels>
+                        <control id="op365_winninginvitationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_winninginvitationid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a0367b12-3975-5816-9270-71f919f8d0a6}">
+                        <labels>
+                          <label description="Purchase Order" languagecode="1033" />
+                        </labels>
+                        <control id="op365_purchaseorderid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaseorderid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c9691b2e-b7fb-556a-80e3-4e6a261c6c02}">
+                        <labels>
+                          <label description="Cancelled On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_cancelledon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_cancelledon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{e22205c4-b835-56dc-bf8b-977c68c32e63}">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3eead8c3-1011-5738-ba8c-18d46e8e8a5e}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                        <labels>
+                          <label description="Timeline" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="quote_comparison" id="{262acae5-a8a3-5fc4-97be-c342ade9f3df}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Quote Comparison" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="quote_comparison" showlabel="true" showbar="false" columns="1" id="{51d1a8f4-a6ca-5e8c-a46a-e2621e32872a}">
+                  <labels>
+                    <label description="Quote Comparison" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a4c847e3-5e94-51b8-a627-0b7c41735e82}" showlabel="false">
+                        <labels>
+                          <label description="Responses" languagecode="1033" />
+                        </labels>
+                        <control id="op365_responsecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_responsecount" uniqueid="{bd4001c2-be25-54c3-9c0e-d2631c9266e0}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <controlDescriptions>
+        <controlDescription forControl="{bd4001c2-be25-54c3-9c0e-d2631c9266e0}">
+          <customControl id="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}">
+            <parameters>
+              <datafieldname>op365_responsecount</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="op365_OP365.QuoteComparison">
+            <parameters>
+              <value>op365_responsecount</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="op365_OP365.QuoteComparison">
+            <parameters>
+              <value>op365_responsecount</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="op365_OP365.QuoteComparison">
+            <parameters>
+              <value>op365_responsecount</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Request for Quotation" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

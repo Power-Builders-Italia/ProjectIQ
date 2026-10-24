@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="DeliveryNoteNumber">
+  <description default="Delivery note number">
+    <label description="Delivery note number" languagecode="1033" />
+  </description>
+  <displayname default="DeliveryNoteNumber">
+    <label description="DeliveryNoteNumber" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_RegisterGoodsReceipt.DeliveryNoteNumber</name>
+  <type>10</type>
+</customapirequestparameter>

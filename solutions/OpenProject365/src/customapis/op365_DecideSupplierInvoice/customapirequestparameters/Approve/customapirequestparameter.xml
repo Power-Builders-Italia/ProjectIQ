@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Approve">
+  <description default="True to approve, false to reject">
+    <label description="True to approve, false to reject" languagecode="1033" />
+  </description>
+  <displayname default="Approve">
+    <label description="Approve" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_DecideSupplierInvoice.Approve</name>
+  <type>0</type>
+</customapirequestparameter>

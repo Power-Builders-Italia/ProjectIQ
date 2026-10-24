@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="RfqId">
+  <description default="New request for quotation">
+    <label description="New request for quotation" languagecode="1033" />
+  </description>
+  <displayname default="RfqId">
+    <label description="RfqId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_CreateRfq.RfqId</name>
+  <type>12</type>
+</customapiresponseproperty>

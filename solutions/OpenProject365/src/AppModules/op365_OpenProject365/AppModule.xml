@@ -24,6 +24,7 @@
     <AppModuleComponent type="60" id="{37705131-eccf-f111-a05b-7ced8d2d53e4}" />
     <AppModuleComponent type="60" id="{40705131-eccf-f111-a05b-7ced8d2d53e4}" />
     <AppModuleComponent type="60" id="{49705131-eccf-f111-a05b-7ced8d2d53e4}" />
+    <AppModuleComponent type="60" id="{62ea5f60-00d0-f111-a05b-7ced8d2d53e4}" />
     <AppModuleComponent type="62" schemaName="op365_OpenProject365" />
   </AppModuleComponents>
   <AppModuleRoleMaps>

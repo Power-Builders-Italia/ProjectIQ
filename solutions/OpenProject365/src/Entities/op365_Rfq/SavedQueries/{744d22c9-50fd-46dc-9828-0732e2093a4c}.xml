@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{744d22c9-50fd-46dc-9828-0732e2093a4c}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_number" select="1" icon="1" preview="1">
+        <row name="result" id="op365_rfqid">
+          <cell name="op365_number" width="100" />
+          <cell name="op365_purchaserequestid" width="120" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_deadline" width="100" />
+          <cell name="op365_responsecount" width="90" />
+          <cell name="statuscode" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_rfq">
+          <attribute name="op365_number" />
+          <attribute name="op365_purchaserequestid" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_deadline" />
+          <attribute name="op365_responsecount" />
+          <attribute name="statuscode" />
+          <attribute name="op365_rfqid" />
+          <order attribute="op365_number" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All RFQs" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

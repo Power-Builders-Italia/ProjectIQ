@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Spend" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Purchasing spend by supplier and project, open orders and invoices to review" languagecode="1033" />
+  </Descriptions>
+  <FormId>{62ea5f60-00d0-f111-a05b-7ced8d2d53e4}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab name="spend" id="{cb90411c-e8f8-5922-a3f5-6dd614056442}" expanded="true" showlabel="false" verticallayout="true">
+            <labels>
+              <label description="Spend" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="charts" showlabel="false" showbar="false" columns="111" id="{21c26467-5a83-5cc0-9acd-721265bdcc03}">
+                    <labels>
+                      <label description="charts" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{6fcdadb5-3ec8-5392-877e-e9ec756f334b}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Spend by Supplier" languagecode="1033" />
+                          </labels>
+                          <control id="BySupplier" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{61f3912d-f086-431a-81f4-fbf01da9644e}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_purchaseorder</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{57ea5f60-00d0-f111-a05b-7ced8d2d53e4}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>12</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{7e8c0a20-978a-5950-aaff-7af14ed02c64}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Spend by Project" languagecode="1033" />
+                          </labels>
+                          <control id="ByProject" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{61f3912d-f086-431a-81f4-fbf01da9644e}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_purchaseorder</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{5bea5f60-00d0-f111-a05b-7ced8d2d53e4}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>12</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{bf405963-0868-5040-9961-83c7dd600b28}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Purchase Orders by Status" languagecode="1033" />
+                          </labels>
+                          <control id="ByStatus" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{61f3912d-f086-431a-81f4-fbf01da9644e}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_purchaseorder</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{5eea5f60-00d0-f111-a05b-7ced8d2d53e4}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>12</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                  <section name="lists" showlabel="false" showbar="false" columns="11" id="{eb47ee1f-df6a-5f5d-981c-889bf048f18d}">
+                    <labels>
+                      <label description="lists" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{f5434846-c80c-5db6-8a69-b4c52bf15500}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                          <labels>
+                            <label description="Open Purchase Orders" languagecode="1033" />
+                          </labels>
+                          <control id="OpenOrders" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{bc0bb71b-ffcf-f111-a05b-7ced8d2d53e4}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_purchaseorder</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{b295f650-dedf-5301-ad1b-2e2df30c706b}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                          <labels>
+                            <label description="Invoices to Review" languagecode="1033" />
+                          </labels>
+                          <control id="InvoicesToReview" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{18d89122-ffcf-f111-a05b-7ced8d2d53e4}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <TargetEntityType>op365_supplierinvoice</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0.4.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

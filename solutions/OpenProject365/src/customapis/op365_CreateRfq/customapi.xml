@@ -1,0 +1,19 @@
+<customapi uniquename="op365_CreateRfq">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Creates a request for quotation with supplier invitations from an approved purchase request">
+    <label description="Creates a request for quotation with supplier invitations from an approved purchase request" languagecode="1033" />
+  </description>
+  <displayname default="Create RFQ">
+    <label description="Create RFQ" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Create RFQ</name>
+  <plugintypeid>
+    <plugintypeexportkey>0fc5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -10,12 +10,14 @@
     <layoutxml>
       <grid name="resultset" jump="op365_code" select="1" icon="1" preview="1">
         <row name="result" id="op365_itemid">
-          <cell name="op365_code" width="120" />
-          <cell name="op365_name" width="250" />
-          <cell name="op365_category" width="150" />
-          <cell name="op365_defaultsupplierid" width="200" />
-          <cell name="op365_uom" width="80" />
-          <cell name="op365_unitcost" width="110" />
+          <cell name="op365_code" width="110" />
+          <cell name="op365_name" width="240" />
+          <cell name="op365_category" width="130" />
+          <cell name="op365_uom" width="60" />
+          <cell name="op365_unitcost" width="100" />
+          <cell name="op365_defaultsupplierid" width="180" />
+          <cell name="op365_usagecount" width="90" />
+          <cell name="op365_spend" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -26,9 +28,11 @@
           <attribute name="op365_code" />
           <attribute name="op365_name" />
           <attribute name="op365_category" />
-          <attribute name="op365_defaultsupplierid" />
           <attribute name="op365_uom" />
           <attribute name="op365_unitcost" />
+          <attribute name="op365_defaultsupplierid" />
+          <attribute name="op365_usagecount" />
+          <attribute name="op365_spend" />
           <attribute name="op365_itemid" />
           <order attribute="op365_code" descending="false" />
           <filter type="and">

@@ -1,0 +1,19 @@
+<customapi uniquename="op365_SetPurchaseOrderStatus">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaseorder</boundentitylogicalname>
+  <description default="Moves a purchase order to Sent, Confirmed, Draft or Cancelled">
+    <label description="Moves a purchase order to Sent, Confirmed, Draft or Cancelled" languagecode="1033" />
+  </description>
+  <displayname default="Set Purchase Order Status">
+    <label description="Set Purchase Order Status" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Set Purchase Order Status</name>
+  <plugintypeid>
+    <plugintypeexportkey>22c5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

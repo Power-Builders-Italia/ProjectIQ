@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{5c937f83-e13a-4cff-9263-21c929565497}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{7091a35f-4ba8-5436-afcf-0a4547797e4f}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="line" showlabel="true" showbar="false" columns="2" id="{43847011-2968-5a18-bed4-0f4cd48555db}">
+                  <labels>
+                    <label description="Line" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7f30e139-e212-569a-8ed3-0a70ca8d5b36}">
+                        <labels>
+                          <label description="Supplier Invoice" languagecode="1033" />
+                        </labels>
+                        <control id="op365_supplierinvoiceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierinvoiceid" />
+                      </cell>
+                      <cell id="{569b2967-f4f9-5d70-b6fc-d3a46ff0c0d9}">
+                        <labels>
+                          <label description="Line Number" languagecode="1033" />
+                        </labels>
+                        <control id="op365_linenumber" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_linenumber" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{15fc1726-c438-5b4f-af7d-d9df81d18eea}">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
+                      </cell>
+                      <cell id="{29157777-6ed0-5f5b-b3a9-7c225fa676a0}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{231b5f81-9bcf-5ebd-92cb-933ef60006fb}">
+                        <labels>
+                          <label description="Quantity" languagecode="1033" />
+                        </labels>
+                        <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" />
+                      </cell>
+                      <cell id="{d082d9d6-2ead-5bf6-a202-d253606d6872}">
+                        <labels>
+                          <label description="Unit of Measure" languagecode="1033" />
+                        </labels>
+                        <control id="op365_uom" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_uom" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8c87cd20-6ca5-5dfa-b55a-75d67c36549c}">
+                        <labels>
+                          <label description="Unit Price" languagecode="1033" />
+                        </labels>
+                        <control id="op365_unitprice" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_unitprice" />
+                      </cell>
+                      <cell id="{fe5d5d35-13c3-5e4f-92b5-b437a32a0d76}">
+                        <labels>
+                          <label description="Total Price" languagecode="1033" />
+                        </labels>
+                        <control id="op365_totalprice" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_totalprice" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{71ce20bf-3a5a-5c7e-9c73-dd71ced5bb8e}">
+                        <labels>
+                          <label description="VAT Rate %" languagecode="1033" />
+                        </labels>
+                        <control id="op365_vatrate" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_vatrate" />
+                      </cell>
+                      <cell id="{cec8b0c2-6948-560d-b282-e956519558a2}">
+                        <labels>
+                          <label description="Order Line" languagecode="1033" />
+                        </labels>
+                        <control id="op365_orderlineid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_orderlineid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Supplier Invoice Line" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

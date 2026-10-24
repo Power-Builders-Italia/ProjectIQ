@@ -1,0 +1,18 @@
+<customapi uniquename="op365_SendTimeReminders">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Notifies the users who recorded fewer hours than expected on the date (daily time reminder flow)">
+    <label description="Notifies the users who recorded fewer hours than expected on the date (daily time reminder flow)" languagecode="1033" />
+  </description>
+  <displayname default="Send Time Reminders">
+    <label description="Send Time Reminders" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Send Time Reminders</name>
+  <plugintypeid>
+    <plugintypeexportkey>2a5bcf95-fbcf-f111-a05b-000d3ad895be</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

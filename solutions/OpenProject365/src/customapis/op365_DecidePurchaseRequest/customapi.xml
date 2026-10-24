@@ -1,0 +1,19 @@
+<customapi uniquename="op365_DecidePurchaseRequest">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Approves or rejects a submitted purchase request (above the threshold a second approval is needed)">
+    <label description="Approves or rejects a submitted purchase request (above the threshold a second approval is needed)" languagecode="1033" />
+  </description>
+  <displayname default="Decide Purchase Request">
+    <label description="Decide Purchase Request" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Decide Purchase Request</name>
+  <plugintypeid>
+    <plugintypeexportkey>10c5c8e2-fdcf-f111-a05b-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

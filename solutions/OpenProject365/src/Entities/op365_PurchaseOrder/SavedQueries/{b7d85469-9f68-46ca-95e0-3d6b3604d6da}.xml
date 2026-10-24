@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{b7d85469-9f68-46ca-95e0-3d6b3604d6da}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_number" select="1" icon="1" preview="1">
+        <row name="result" id="op365_purchaseorderid">
+          <cell name="op365_number" width="100" />
+          <cell name="op365_supplierid" width="200" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_orderdate" width="100" />
+          <cell name="op365_expecteddelivery" width="110" />
+          <cell name="statuscode" width="100" />
+          <cell name="op365_totalamount" width="120" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_purchaseorder">
+          <attribute name="op365_number" />
+          <attribute name="op365_supplierid" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_orderdate" />
+          <attribute name="op365_expecteddelivery" />
+          <attribute name="statuscode" />
+          <attribute name="op365_totalamount" />
+          <attribute name="op365_purchaseorderid" />
+          <order attribute="op365_number" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="op365_number" operator="like" value="{0}" />
+            <condition attribute="op365_supplierid" operator="like" value="{0}" />
+            <condition attribute="op365_projectid" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.4.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Purchase Orders" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Reject</title>
+<!-- Note dialog of the purchasing commands: runs <action>(Approve = false, Note) on <set>(<id>), then closes.
+     Web resource op365_/pages/decision.html, opened with Xrm.Navigation.navigateTo (data: action, set, id, title). -->
+<style>
+  body { font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, sans-serif; font-size: 14px; margin: 0; padding: 16px;
+         color: #242424; background: #fff; box-sizing: border-box; height: 100vh; display: flex; flex-direction: column; gap: 12px; }
+  label { font-weight: 600; }
+  textarea { flex: 1; min-height: 120px; font: inherit; padding: 8px; border: 1px solid #d1d1d1; border-radius: 4px; resize: none; }
+  textarea:focus { outline: 2px solid #0f6cbd; border-color: transparent; }
+  .actions { display: flex; justify-content: flex-end; gap: 8px; }
+  button { font: inherit; padding: 5px 16px; border-radius: 4px; border: 1px solid #d1d1d1; background: #fff; cursor: pointer; min-width: 96px; }
+  button.primary { background: #0f6cbd; color: #fff; border-color: #0f6cbd; }
+  button:disabled { opacity: .5; cursor: default; }
+  .error { color: #b10e1c; }
+</style>
+</head>
+<body>
+  <label for="note">Reason</label>
+  <textarea id="note" placeholder="Explain why it is rejected" maxlength="4000"></textarea>
+  <div id="error" class="error" role="alert"></div>
+  <div class="actions">
+    <button id="cancel" type="button">Cancel</button>
+    <button id="ok" class="primary" type="button" disabled>Reject</button>
+  </div>
+<script>
+(function () {
+  "use strict";
+  var params = new URLSearchParams(new URLSearchParams(location.search).get("data") || "");
+  var note = document.getElementById("note"), ok = document.getElementById("ok"), error = document.getElementById("error");
+  var xrm = window.parent && window.parent.Xrm;
+  function close() { window.close(); }
+  note.addEventListener("input", function () { ok.disabled = !note.value.trim(); });
+  document.getElementById("cancel").addEventListener("click", close);
+  ok.addEventListener("click", function () {
+    ok.disabled = true; error.textContent = "";
+    var url = (xrm ? xrm.Utility.getGlobalContext().getClientUrl() : location.origin) + "/api/data/v9.2/" + params.get("set") + "(" + params.get("id") + ")/Microsoft.Dynamics.CRM." + params.get("action");
+    fetch(url, { method: "POST", credentials: "same-origin", body: JSON.stringify({ Approve: false, Note: note.value.trim() }),
+      headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json", "OData-Version": "4.0", "OData-MaxVersion": "4.0" } })
+      .then(function (r) { return r.text().then(function (t) { if (!r.ok) { var j = t ? JSON.parse(t) : {}; throw new Error(j.error && j.error.message || r.statusText); } }); })
+      .then(close, function (e) { error.textContent = e.message; ok.disabled = false; });
+  });
+  note.focus();
+})();
+</script>
+</body>
+</html>

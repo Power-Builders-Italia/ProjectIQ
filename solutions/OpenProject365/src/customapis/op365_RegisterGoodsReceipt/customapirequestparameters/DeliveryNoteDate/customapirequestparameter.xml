@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="DeliveryNoteDate">
+  <description default="Delivery note date">
+    <label description="Delivery note date" languagecode="1033" />
+  </description>
+  <displayname default="DeliveryNoteDate">
+    <label description="DeliveryNoteDate" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_RegisterGoodsReceipt.DeliveryNoteDate</name>
+  <type>1</type>
+</customapirequestparameter>
