@@ -40,6 +40,9 @@ export function ResourceLoadApp({ context, refreshKey }: Props): React.ReactElem
     const styles = useStyles();
     const s = (key: string): string => context.resources.getString(key);
     const theme = (context as unknown as { fluentDesignLanguage?: { tokenTheme?: Theme } }).fluentDesignLanguage?.tokenTheme ?? webLightTheme;
+    // dashboards host the control in a shrink-to-fit box: take the width the platform allocates
+    const width = context.mode.allocatedWidth;
+    const fill: React.CSSProperties = { width: width > 0 ? `${width}px` : "100%" };
     const today = toDay(new Date())!;
 
     const [first, setFirst] = React.useState(weekStart(today));
@@ -77,7 +80,7 @@ export function ResourceLoadApp({ context, refreshKey }: Props): React.ReactElem
     };
 
     return (
-        <FluentProvider theme={theme}>
+        <FluentProvider theme={theme} style={fill}>
             <div className={styles.root}>
                 <Toolbar size="small">
                     <ToolbarButton icon={<ChevronLeftIcon />} aria-label={s("Previous")} onClick={() => setFirst(f => f - 7 * weeks)} />

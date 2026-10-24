@@ -6,6 +6,7 @@
   <PrimaryEntity>op365_project</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
   <FilteringAttributes>op365_projectmanagerid,op365_customerid,op365_contractvalue,statecode</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

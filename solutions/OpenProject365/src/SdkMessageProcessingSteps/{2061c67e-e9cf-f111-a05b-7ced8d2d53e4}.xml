@@ -6,6 +6,7 @@
   <PrimaryEntity>op365_materialusage</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
   <FilteringAttributes>op365_projectid,op365_wbsnodeid,op365_totalcost,statecode</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

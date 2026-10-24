@@ -6,6 +6,7 @@
   <PrimaryEntity>op365_timeentry</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
   <FilteringAttributes>statuscode,op365_projectid,op365_wbsnodeid,op365_resourceid,op365_entrydate,op365_hours,statecode,op365_notes,op365_cost,op365_revenue</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

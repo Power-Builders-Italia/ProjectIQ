@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="ResourceLoad" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="ResourceLoad" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Bound to a Resources subgrid (dashboard); allocations and absences are read through the Web API. -->
     <data-set name="resources" display-name-key="Dataset_Name" />
