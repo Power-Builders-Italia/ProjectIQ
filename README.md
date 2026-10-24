@@ -16,7 +16,8 @@ Rewrite of Commesse.Cloud; single-tenant (one Dataverse environment per customer
 | `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison) |
 | `src/webresources` | Form scripts (TypeScript) |
 | `portal` | Power Pages supplier portal |
-| `docs` | Analysis, specification, ADRs, [dev environment setup](docs/dev-environment.md) |
+| `docs` | Analysis, specification, ADRs, [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md) |
+| `tools/dataverse` | Scripts that create schema in the dev environment via the Web API |
 
 ## Out of scope
 Sales opportunities, mobile app, data migration from Commesse.Cloud, AI features (planned as a Cowork plugin).
