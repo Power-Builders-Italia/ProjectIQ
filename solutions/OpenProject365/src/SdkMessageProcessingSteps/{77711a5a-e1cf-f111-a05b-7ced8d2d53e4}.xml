@@ -6,6 +6,7 @@
   <PrimaryEntity>op365_wbsnode</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
   <FilteringAttributes>op365_budgetlabour,op365_budgetmaterials,op365_budgetother</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

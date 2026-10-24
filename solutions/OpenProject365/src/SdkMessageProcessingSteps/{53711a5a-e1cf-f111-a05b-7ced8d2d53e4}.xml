@@ -6,6 +6,7 @@
   <PrimaryEntity>op365_resourcecost</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
   <FilteringAttributes>op365_validfrom,op365_hourlycost,op365_resourceid,statecode</FilteringAttributes>
+  <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
   <Rank>1</Rank>

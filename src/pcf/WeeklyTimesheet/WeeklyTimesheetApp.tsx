@@ -48,6 +48,9 @@ export function WeeklyTimesheetApp({ context, refreshKey }: Props): React.ReactE
     const styles = useStyles();
     const s = (key: string): string => context.resources.getString(key);
     const theme = (context as unknown as { fluentDesignLanguage?: { tokenTheme?: Theme } }).fluentDesignLanguage?.tokenTheme ?? webLightTheme;
+    // dashboards host the control in a shrink-to-fit box: take the width the platform allocates
+    const width = context.mode.allocatedWidth;
+    const fill: React.CSSProperties = { width: width > 0 ? `${width}px` : "100%" };
     const today = toDay(new Date())!;
 
     const [monday, setMonday] = React.useState(weekStart(today));
@@ -163,7 +166,7 @@ export function WeeklyTimesheetApp({ context, refreshKey }: Props): React.ReactE
     const hours = (h: number): string => (h ? context.formatting.formatDecimal(h, 2).replace(/[.,]00$/, "") : "");
 
     if (me && !me.resourceId) {
-        return <FluentProvider theme={theme}><MessageBar intent="warning"><MessageBarBody>{s("No_Resource")}</MessageBarBody></MessageBar></FluentProvider>;
+        return <FluentProvider theme={theme} style={fill}><MessageBar intent="warning"><MessageBarBody>{s("No_Resource")}</MessageBarBody></MessageBar></FluentProvider>;
     }
 
     const cell = (row: TimesheetRow, c: Cell, i: number): React.ReactElement => {
@@ -182,7 +185,7 @@ export function WeeklyTimesheetApp({ context, refreshKey }: Props): React.ReactE
     };
 
     return (
-        <FluentProvider theme={theme}>
+        <FluentProvider theme={theme} style={fill}>
             <div className={styles.root}>
                 <Toolbar size="small">
                     <ToolbarButton icon={<ChevronLeftIcon />} aria-label={s("Previous_Week")} onClick={() => setMonday(m => m - 7)} />
