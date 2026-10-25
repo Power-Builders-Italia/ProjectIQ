@@ -10,7 +10,10 @@
   "append": false,
   "appendto": false,
   "parentrelationship": "op365_rfqinvitation_rfqquote_invitationid",
-  "parententitypermission": "3f66636f-43d0-f111-a05b-7ced8d2d53e4"
+  "parententitypermission": "3f66636f-43d0-f111-a05b-7ced8d2d53e4",
+  "adx_entitypermission_webrole": [
+    "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
+  ]
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Supplier RFQ quotes</name>

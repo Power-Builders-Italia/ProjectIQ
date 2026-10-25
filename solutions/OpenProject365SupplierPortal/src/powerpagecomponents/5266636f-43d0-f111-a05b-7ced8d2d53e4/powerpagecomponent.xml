@@ -9,7 +9,10 @@
   "delete": false,
   "append": false,
   "appendto": false,
-  "accountrelationship": "op365_account_purchaseorder_supplierid"
+  "accountrelationship": "op365_account_purchaseorder_supplierid",
+  "adx_entitypermission_webrole": [
+    "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
+  ]
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Supplier purchase orders</name>

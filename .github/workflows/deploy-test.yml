@@ -1,6 +1,7 @@
 name: deploy-test
 
-# Exports OpenProject365 as managed from Dev (version 1.0.<run>.0) and imports it into Test.
+# Exports OpenProject365 and then OpenProject365SupplierPortal as managed from Dev (version 1.0.<run>.0)
+# and imports them into Test in that order (the portal uses the main solution's tables).
 # Uses the PP_* secrets; the app registration must be an application user in both environments.
 # Connection references are mapped by deployment/<settings>.settings.json (connections stay out of the managed layer).
 on:
@@ -55,8 +56,38 @@ jobs:
           max-async-wait-time: 60
           use-deployment-settings-file: true
           deployment-settings-file: deployment/${{ inputs.settings }}.settings.json
+      - name: Set portal solution version in Dev
+        uses: microsoft/powerplatform-actions/set-online-solution-version@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          name: OpenProject365SupplierPortal
+          version: 1.0.${{ github.run_number }}.0
+      - name: Export portal managed from Dev
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/OpenProject365SupplierPortal_managed.zip
+          managed: true
+      - name: Import portal into target
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ inputs.target-url }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-file: out/OpenProject365SupplierPortal_managed.zip
+          publish-changes: true
+          run-asynchronously: true
+          max-async-wait-time: 60
       - name: Upload managed package
         uses: actions/upload-artifact@v4
         with:
           name: OpenProject365-managed
-          path: out/OpenProject365_managed.zip
+          path: out/*_managed.zip

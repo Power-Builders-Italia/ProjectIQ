@@ -1,2 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CustomActions><CustomAction Id="op365.purchaseorder.SendOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="5"><CommandUIDefinition><Button Id="op365.purchaseorder.SendOrder.Button" Command="op365.purchaseorder.SendOrder.Command" LabelText="$LocLabels:op365.purchaseorder.SendOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.SendOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.SendOrder.Tip" TemplateAlias="o1" ModernImage="Send" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaseorder.ConfirmOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="6"><CommandUIDefinition><Button Id="op365.purchaseorder.ConfirmOrder.Button" Command="op365.purchaseorder.ConfirmOrder.Command" LabelText="$LocLabels:op365.purchaseorder.ConfirmOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.ConfirmOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.ConfirmOrder.Tip" TemplateAlias="o1" ModernImage="Accept" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaseorder.RegisterReceipt.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="7"><CommandUIDefinition><Button Id="op365.purchaseorder.RegisterReceipt.Button" Command="op365.purchaseorder.RegisterReceipt.Command" LabelText="$LocLabels:op365.purchaseorder.RegisterReceipt.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.RegisterReceipt.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.RegisterReceipt.Tip" TemplateAlias="o1" ModernImage="Add" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaseorder.ReopenOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="8"><CommandUIDefinition><Button Id="op365.purchaseorder.ReopenOrder.Button" Command="op365.purchaseorder.ReopenOrder.Command" LabelText="$LocLabels:op365.purchaseorder.ReopenOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.ReopenOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.ReopenOrder.Tip" TemplateAlias="o1" ModernImage="Edit" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaseorder.CancelOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="9"><CommandUIDefinition><Button Id="op365.purchaseorder.CancelOrder.Button" Command="op365.purchaseorder.CancelOrder.Command" LabelText="$LocLabels:op365.purchaseorder.CancelOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.CancelOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.CancelOrder.Tip" TemplateAlias="o1" ModernImage="Close" /></CommandUIDefinition></CustomAction></CustomActions><Templates><RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates></Templates><CommandDefinitions><CommandDefinition Id="op365.purchaseorder.SendOrder.Command"><EnableRules><EnableRule Id="op365.purchaseorder.SendOrder.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.sendOrder"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaseorder.ConfirmOrder.Command"><EnableRules><EnableRule Id="op365.purchaseorder.ConfirmOrder.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.confirmOrder"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaseorder.RegisterReceipt.Command"><EnableRules><EnableRule Id="op365.purchaseorder.RegisterReceipt.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.registerReceipt"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaseorder.ReopenOrder.Command"><EnableRules><EnableRule Id="op365.purchaseorder.ReopenOrder.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.reopenOrder"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaseorder.CancelOrder.Command"><EnableRules><EnableRule Id="op365.purchaseorder.CancelOrder.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelOrder"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition></CommandDefinitions><RuleDefinitions><TabDisplayRules /><DisplayRules><DisplayRule Id="op365.purchaseorder.Existing"><FormStateRule State="Create" InvertResult="true" /></DisplayRule></DisplayRules><EnableRules><EnableRule Id="op365.purchaseorder.SendOrder.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaseorder.ConfirmOrder.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000000" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaseorder.RegisterReceipt.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000000" /></Or><Or><ValueRule Field="statuscode" Value="365000001" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaseorder.ReopenOrder.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000000" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaseorder.CancelOrder.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or><Or><ValueRule Field="statuscode" Value="365000000" /></Or><Or><ValueRule Field="statuscode" Value="365000001" /></Or></OrRule></EnableRule></EnableRules></RuleDefinitions><LocLabels><LocLabel Id="op365.purchaseorder.SendOrder.Label"><Titles><Title description="Send to Supplier" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.SendOrder.Tip"><Titles><Title description="Mark the order as sent: its lines can no longer change" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.ConfirmOrder.Label"><Titles><Title description="Confirm" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.ConfirmOrder.Tip"><Titles><Title description="Record the supplier confirmation" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.RegisterReceipt.Label"><Titles><Title description="Register Receipt" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.RegisterReceipt.Tip"><Titles><Title description="Register the goods received and their material usage" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.ReopenOrder.Label"><Titles><Title description="Back to Draft" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.ReopenOrder.Tip"><Titles><Title description="Move the order back to Draft to change it" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.CancelOrder.Label"><Titles><Title description="Cancel Order" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaseorder.CancelOrder.Tip"><Titles><Title description="Cancel the order" languagecode="1033" /></Titles></LocLabel></LocLabels></RibbonDiffXml>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="op365.purchaseorder.CancelOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="9">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaseorder.CancelOrder.Button" Command="op365.purchaseorder.CancelOrder.Command" LabelText="$LocLabels:op365.purchaseorder.CancelOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.CancelOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.CancelOrder.Tip" TemplateAlias="o1" ModernImage="Close" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaseorder.ConfirmOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="6">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaseorder.ConfirmOrder.Button" Command="op365.purchaseorder.ConfirmOrder.Command" LabelText="$LocLabels:op365.purchaseorder.ConfirmOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.ConfirmOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.ConfirmOrder.Tip" TemplateAlias="o1" ModernImage="Accept" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaseorder.RegisterReceipt.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="7">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaseorder.RegisterReceipt.Button" Command="op365.purchaseorder.RegisterReceipt.Command" LabelText="$LocLabels:op365.purchaseorder.RegisterReceipt.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.RegisterReceipt.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.RegisterReceipt.Tip" TemplateAlias="o1" ModernImage="Add" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaseorder.ReopenOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="8">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaseorder.ReopenOrder.Button" Command="op365.purchaseorder.ReopenOrder.Command" LabelText="$LocLabels:op365.purchaseorder.ReopenOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.ReopenOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.ReopenOrder.Tip" TemplateAlias="o1" ModernImage="Edit" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaseorder.SendOrder.CustomAction" Location="Mscrm.Form.op365_purchaseorder.MainTab.Save.Controls._children" Sequence="5">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaseorder.SendOrder.Button" Command="op365.purchaseorder.SendOrder.Command" LabelText="$LocLabels:op365.purchaseorder.SendOrder.Label" ToolTipTitle="$LocLabels:op365.purchaseorder.SendOrder.Label" ToolTipDescription="$LocLabels:op365.purchaseorder.SendOrder.Tip" TemplateAlias="o1" ModernImage="Send" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="op365.purchaseorder.CancelOrder.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaseorder.CancelOrder.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaseorder.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelOrder">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaseorder.ConfirmOrder.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaseorder.ConfirmOrder.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaseorder.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.confirmOrder">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaseorder.RegisterReceipt.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaseorder.RegisterReceipt.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaseorder.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.registerReceipt">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaseorder.ReopenOrder.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaseorder.ReopenOrder.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaseorder.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.reopenOrder">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaseorder.SendOrder.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaseorder.SendOrder.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaseorder.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.sendOrder">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="op365.purchaseorder.Existing">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="op365.purchaseorder.CancelOrder.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaseorder.ConfirmOrder.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaseorder.RegisterReceipt.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaseorder.ReopenOrder.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaseorder.SendOrder.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="op365.purchaseorder.CancelOrder.Label">
+      <Titles>
+        <Title description="Cancel Order" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.CancelOrder.Tip">
+      <Titles>
+        <Title description="Cancel the order" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.ConfirmOrder.Label">
+      <Titles>
+        <Title description="Confirm" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.ConfirmOrder.Tip">
+      <Titles>
+        <Title description="Record the supplier confirmation" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.RegisterReceipt.Label">
+      <Titles>
+        <Title description="Register Receipt" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.RegisterReceipt.Tip">
+      <Titles>
+        <Title description="Register the goods received and their material usage" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.ReopenOrder.Label">
+      <Titles>
+        <Title description="Back to Draft" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.ReopenOrder.Tip">
+      <Titles>
+        <Title description="Move the order back to Draft to change it" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.SendOrder.Label">
+      <Titles>
+        <Title description="Send to Supplier" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaseorder.SendOrder.Tip">
+      <Titles>
+        <Title description="Mark the order as sent: its lines can no longer change" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

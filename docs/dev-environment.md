@@ -50,6 +50,22 @@ Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the ass
 
 After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
+## Supplier portal (Power Pages)
+
+The portal is a separate solution, `OpenProject365SupplierPortal`, that depends on `OpenProject365`.
+The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on the lines created by Send) and confirm purchase orders.
+
+- Create the site once per environment in make.powerpages.microsoft.com (a user, not the service principal), then run
+  `python tools/portal/supplier_portal.py`: Supplier web role, table permissions (Account / Parent scope), Web API site settings, pages and menu.
+  The script is idempotent and writes into the portal solution.
+- A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
+- Never use `pac pages upload` with the service principal: it creates empty components that cannot be deleted.
+- Table permission roles must be stored in the component JSON (`adx_entitypermission_webrole`) as well as in the
+  `powerpagecomponent_powerpagecomponent` relationship: the runtime reads the first, the studio shows the second. The script does both.
+- After changes made through the API: Clear cache at `/_services/about` (Administrators role), then sign out and in.
+- Export/unpack like the main solution, into `solutions/OpenProject365SupplierPortal/src`. deploy-test imports it after the main solution.
+  In a new environment the imported site must be reactivated (Power Pages, Inactive sites) before use.
+
 ## CI and Solution Checker
 
 The `build` workflow builds and tests the plugins and the PCF controls and packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
