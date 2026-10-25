@@ -46,7 +46,7 @@ Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the ass
 
 ## Cloud flows
 
-`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off. A service principal cannot own connections (InvalidUserPlan), so a user creates the Dataverse connection (service principal authentication is fine) and turns the flow on. In Dev link it to the reference in the solution; in Test the `deploy-test` workflow maps the reference through `deployment/test.settings.json` (connection id, not a secret), so the managed layer stays clean. Share the target connection with the application user (Can use) so the import can turn the flow on.
+`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off. A service principal cannot own connections (InvalidUserPlan), so a user creates the Dataverse connection (service principal authentication is fine) and turns the flow on. In Dev link it to the reference in the solution; in Test the `deploy-test` workflow maps the reference through `deployment/test.settings.json`, whose `#{OP365_DATAVERSE_CONNECTION_ID}#` token is replaced with the variable of the same name of the GitHub environment `test`, so the managed layer stays clean and no environment ids are in the repository. Share the target connection with the application user (Can use) so the import can turn the flow on.
 
 After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
@@ -74,6 +74,20 @@ The `build` workflow builds and tests the plugins and the PCF controls and packs
 
 | Environment | Status |
 |---|---|
-| Dev (`openproject365-dev.crm4.dynamics.com`) | available, unmanaged solution |
-| Test (`openproject365-test.crm4.dynamics.com`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow); plugin steps are activated on import |
+| Dev (`<dev-org>.crm4.dynamics.com`, secret `PP_ENVIRONMENT_URL`) | available, unmanaged solution |
+| Test (`<test-org>.crm4.dynamics.com`, variable `TEST_ENVIRONMENT_URL`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow); plugin steps are activated on import |
 | Build | not needed yet: CI only packs and checks |
+
+## GitHub repository security
+
+The repository is meant to be public: environment URLs, tenant, app and connection ids live only in GitHub secrets and variables.
+
+- **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
+  - Variables: `TEST_ENVIRONMENT_URL` (default target URL), `OP365_DATAVERSE_CONNECTION_ID` (Dataverse connection id in Test, Power Apps > Connections > the connection's URL).
+  - Secrets: move `PP_CLIENT_SECRET` (and the other `PP_*`) here when the Solution Checker gets its own app registration; until then they stay repository secrets, used by `build` on pull requests from branches of this repository (pull requests from forks never receive secrets).
+- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`). Never use `pull_request_target`.
+- **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.
+- **Branch protection on `main`**: pull request required, review from code owners ([CODEOWNERS](../.github/CODEOWNERS)), `build` checks required.
+- **Code security**: secret scanning and push protection on; Dependabot alerts on.
+- Vulnerability reports: [SECURITY.md](../SECURITY.md).
+

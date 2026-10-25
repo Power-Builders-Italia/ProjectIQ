@@ -77,10 +77,6 @@ The CI runs `python3 tools/docs/check_docs.py`, which fails when a manual is mis
 
 Sales opportunities, mobile app, data migration from legacy systems, AI features (planned as a Cowork plugin).
 
-## Specification
-
-See the "Open Project 365 - Analisi e specifica" document in the PROGETTI SharePoint library.
-
 ## License
 
 Copyright 2026 Power Builders Italia. Licensed under the [Apache License, Version 2.0](LICENSE); see also [NOTICE](NOTICE).
