@@ -55,7 +55,7 @@ After a solution import check that plugin steps are enabled: an interrupted impo
 The portal is a separate solution, `OpenProject365SupplierPortal`, that depends on `OpenProject365`.
 The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on the lines created by Send) and confirm purchase orders.
 
-- Create the site once per environment in make.powerpages.microsoft.com (a user, not the service principal), then run
+- Create the site only in Dev, in make.powerpages.microsoft.com (a user, not the service principal), then run
   `python tools/portal/supplier_portal.py`: Supplier web role, table permissions (Account / Parent scope), Web API site settings, pages and menu.
   The script is idempotent and writes into the portal solution.
 - A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
