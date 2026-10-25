@@ -1,0 +1,168 @@
+# Administration : utilisateurs, sécurité, paramètres et automatisations
+
+> **Langue :** [English](../en/administration.md) · [Italiano](../it/administration.md) · Français · [Deutsch](../de/administration.md)
+> **Index des manuels :** [README](../../README.md#user-manuals)
+
+Ce manuel s'adresse aux personnes qui mettent en place et exploitent Open Project 365 dans une entreprise : administrateurs fonctionnels, équipe informatique et administrateur de la Power Platform. Il explique comment donner accès aux utilisateurs, comment fonctionne le modèle de sécurité, à quoi servent les paramètres de l'entreprise, quelles automatisations tournent en arrière-plan et quoi vérifier après une mise à jour. Les sujets techniques (build, déploiement, schéma Dataverse) sont traités dans [Development environment setup](../dev-environment.md) et [Data model](../data-model.md) (en anglais).
+
+> Les noms des champs et des boutons sont en anglais, comme à l'écran.
+
+## Liste de contrôle de la première mise en place
+
+```mermaid
+flowchart TD
+    A[1. Environnement avec la solution<br/>Open Project 365] --> B[2. Utilisateurs : Basic User +<br/>rôle OP365]
+    B --> C[3. Profil Cost Visibility<br/>aux managers et contrôleurs]
+    C --> D[4. Ligne Settings : approbation des heures,<br/>seuil et approbateur achats]
+    D --> E[5. Données de référence : clients,<br/>fournisseurs, articles, ressources]
+    E --> F[6. Coûts des ressources et<br/>User relié aux ressources]
+    F --> G[7. Fermetures d'entreprise<br/>de l'année]
+    G --> H[8. Flux de rappel des heures activé]
+    H --> I[9. Facultatif : portail fournisseurs]
+```
+
+| Étape | Où | Détails |
+|---|---|---|
+| 1 | Centre d'administration Power Platform | Un environnement Dataverse par entreprise. La solution est installée par l'informatique (voir [dev environment](../dev-environment.md)) |
+| 2 | Centre d'administration Power Platform → Users | [Rôles de sécurité](#rôles-de-sécurité) |
+| 3 | Centre d'administration Power Platform → Column security profiles | [Visibilité des coûts](#visibilité-des-coûts) |
+| 4 | Settings → Company → Settings | [Paramètres de l'entreprise](#paramètres-de-lentreprise) |
+| 5 | Master Data | [Données de référence](master-data.md) |
+| 6 | Master Data → Resources | [Données de référence](master-data.md#ressources) |
+| 7 | Projects → Planning → Absences (sans ressource) | [Données de référence](master-data.md#absences-et-fermetures-dentreprise) |
+| 8 | Power Automate | [Rappel quotidien des heures](#rappel-quotidien-des-heures) |
+| 9 | Power Pages | [Portail fournisseurs](supplier-portal.md) |
+
+## Licences
+
+Chaque utilisateur interne a besoin d'une licence **Power Apps Premium** (ou d'une licence équivalente incluant les applications pilotées par modèle sur Dataverse). Les fournisseurs qui utilisent le portail n'ont pas besoin de licence Power Apps : ce sont des utilisateurs du portail, couverts par la capacité Power Pages de l'environnement.
+
+## Rôles de sécurité
+
+Les rôles d'Open Project 365 sont **cumulatifs** : chaque utilisateur interne a besoin du rôle standard **Basic User** **plus** un rôle Open Project 365.
+
+| Rôle | Pour | Accès |
+|---|---|---|
+| **OP365 Administrator** | Administrateurs fonctionnels, contrôleurs de gestion, back-office, approbateur achats | Au niveau de l'organisation : création, lecture, écriture, suppression, ajout, attribution et partage sur toutes les tables d'Open Project 365, les clients, fournisseurs et contacts. Voit tous les projets. Peut approuver heures et demandes sur tous les projets, décider des factures fournisseurs, soumettre des heures pour d'autres |
+| **OP365 User** | Chefs de projet, membres des équipes, acheteurs | Lit les données de référence au niveau de l'organisation ; crée et gère ses propres enregistrements ; voit les projets dont il est **propriétaire** ou **membre**, avec les droits de son rôle projet (voir [Projets et équipe](projects-and-team.md#léquipe-du-projet)). Factures fournisseurs : lecture seule |
+
+Le rôle standard **System Administrator** est traité comme OP365 Administrator par toutes les règles d'Open Project 365.
+
+### Ce que peut faire un OP365 User, selon son rôle projet
+
+| | Reader | Contributor | Manager |
+|---|---|---|---|
+| Voir le projet, la WBS, le planning, les coûts | ✓ | ✓ | ✓ |
+| Saisir ses propres heures et matériaux | | ✓ | ✓ |
+| Créer des demandes d'achat | | ✓ | ✓ |
+| Enregistrer des réceptions | | ✓ | ✓ |
+| Modifier le projet, la WBS, l'équipe, les baselines | | | ✓ |
+| Approuver heures et demandes d'achat (premier niveau) | | | ✓ |
+| Appels d'offres, commandes, statuts des commandes | | | ✓ |
+
+Les rôles projet sont accordés via des **équipes d'accès** sur chaque projet ; les trois modèles d'équipe (**OP365 Project Manager**, **OP365 Project Contributor**, **OP365 Project Reader**) sont créés automatiquement la première fois qu'ils sont nécessaires. Ne les supprimez pas et ne les renommez pas.
+
+### Donner accès à un nouveau collaborateur
+
+1. Ajoutez l'utilisateur à l'environnement (centre d'administration Power Platform → Environments → *votre environnement* → Users) et attribuez **Basic User** et **OP365 User** (ou **OP365 Administrator**).
+2. Si la personne doit voir les coûts, ajoutez l'utilisateur au profil **OP365 Cost Visibility**.
+3. Si elle saisira des heures, créez ou ouvrez sa **Resource** (Master Data → Resources), renseignez **User**, Weekly Hours, Working Days et une ligne **Resource Cost**.
+4. Ajoutez l'utilisateur aux équipes de ses projets (onglet **Team** du projet), ou demandez aux chefs de projet de le faire.
+
+## Visibilité des coûts
+
+Les colonnes de coût sont protégées par le profil de sécurité de colonne **OP365 Cost Visibility**. Sans lui, un utilisateur voit ces champs vides ou masqués, même sur les enregistrements qu'il peut ouvrir :
+
+| Table | Colonnes protégées |
+|---|---|
+| Resource | Hourly Cost |
+| Resource Cost | Hourly Cost |
+| Time Entry | Cost |
+| Material Usage | Unit Cost, Total Cost |
+| Account (fournisseur) | Spend |
+| Item | Spend |
+
+Attribuez le profil (centre d'administration Power Platform → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → ajouter des utilisateurs ou équipes) aux administrateurs, chefs de projet et contrôleurs de gestion. Les totaux du projet (Budget Total, Actual Cost, Committed Cost) ne sont pas protégés : quiconque peut lire le projet les voit.
+
+## Paramètres de l'entreprise
+
+**Settings → Company → Settings** contient une **ligne unique** avec les réglages valables pour toute l'entreprise. Créez-la une fois si elle n'existe pas ; n'en créez pas de seconde.
+
+| Champ | Par défaut | Effet |
+|---|---|---|
+| **Name** | – | Nom de l'entreprise |
+| **Time Approval Enabled** | Activé (aussi quand la ligne n'existe pas) | Activé : les heures soumises attendent l'approbation d'un chef de projet. Désactivé : **Submit** approuve immédiatement les heures |
+| **Purchase Request Threshold** | Vide | Montant au-delà duquel une demande d'achat nécessite aussi une approbation de second niveau. Vide ou 0 = jamais |
+| **Purchasing Approver** | Vide | L'utilisateur qui approuve les demandes au-dessus du seuil et décide des factures fournisseurs. Vide = tous les OP365 Administrator |
+
+Les modifications s'appliquent immédiatement aux nouvelles soumissions ; les demandes déjà soumises gardent le niveau d'approbation qui leur a été attribué.
+
+## Autres données de l'entreprise dans la zone Settings
+
+| Page | Usage |
+|---|---|
+| **Resource Costs** | Toutes les lignes de coût horaire de toutes les ressources : utile pour la mise à jour annuelle des taux (ajoutez une ligne par ressource avec le nouveau *Valid From*) |
+| **Project Members** | Tous les membres de tous les projets : utile pour savoir qui travaille où, ou pour retirer une personne qui a quitté l'entreprise |
+
+## Automatisations en arrière-plan
+
+Open Project 365 tient la plupart des chiffres à jour grâce à des **plug-ins** qui s'exécutent dans Dataverse à l'enregistrement des données ; ils ne demandent aucune maintenance. Une seule automatisation est planifiée.
+
+### Rappel quotidien des heures
+
+Le **Daily time reminder** est un flux cloud Power Automate de la solution Open Project 365. Du **lundi au vendredi à 17 h 30** (heure d'Europe de l'Ouest), il appelle l'action *op365_SendTimeReminders*, qui envoie la notification « Record your hours » à chaque ressource active liée à un utilisateur ayant saisi moins d'heures que prévu dans la journée (voir [Saisie des temps](time-tracking.md#le-rappel-quotidien)). Aucun rappel n'est envoyé les jours de fermeture d'entreprise.
+
+Le flux utilise la référence de connexion **op365_dataverse** (Microsoft Dataverse). Un principal de service ne peut pas posséder de connexions Power Automate ; un **utilisateur** doit donc :
+
+1. créer une connexion Microsoft Dataverse (l'authentification par principal de service convient) ;
+2. la lier à la référence de connexion dans la solution (dans les environnements de test/production, le déploiement la mappe via les paramètres de déploiement) ;
+3. partager la connexion avec l'utilisateur d'application du déploiement (*Can use*) pour que les imports puissent activer le flux ;
+4. activer le flux (**on**) et vérifier son historique d'exécution le jour ouvré suivant.
+
+### Ce qui se passe aussi automatiquement
+
+| Automatisation | Quand |
+|---|---|
+| Totaux du projet, totaux WBS et avancement | À chaque enregistrement de nœuds, saisies d'heures, consommations, commandes, réceptions |
+| Nombre de projets et montant total des contrats du client | À chaque modification d'un projet |
+| Dépenses et nombre de contacts du fournisseur ; lignes de commande et dépenses de l'article | À chaque modification de commande, ligne de commande ou contact |
+| Coût horaire de la ressource | À chaque modification d'un Resource Cost |
+| Notifications dans l'application | À la soumission et à la décision des heures et des demandes d'achat, et depuis le rappel quotidien |
+| Accès aux équipes projet | À chaque modification d'un membre de projet |
+
+### Notifications
+
+Les notifications dans l'application sont activées par défaut dans les nouveaux environnements. Les utilisateurs les gèrent depuis l'icône en forme de cloche. Les notifications ne sont jamais bloquantes : si l'une d'elles ne peut pas être envoyée, l'opération aboutit quand même.
+
+## Audit et historique
+
+L'audit est activé sur les tables d'Open Project 365 : une fois l'audit activé aussi au niveau de l'environnement (centre d'administration Power Platform → *Settings* → *Audit and logs*), chaque modification est enregistrée et visible dans l'**Audit history** de chaque enregistrement (Related → Audit history). La chronologie de chaque enregistrement conserve notes, mentions et pièces jointes.
+
+## Après une mise à jour de la solution
+
+Quand l'informatique déploie une nouvelle version :
+
+1. Vérifiez que les étapes de plug-in sont **activées** (un import interrompu peut les laisser désactivées ; l'informatique peut le contrôler dans les *Plug-in steps* de la solution).
+2. Vérifiez que le flux **Daily time reminder** est **activé**.
+3. Si le portail fournisseurs a été mis à jour, **videz le cache du portail** (`/_services/about` → *Clear cache*) et reconnectez-vous.
+4. Lisez les notes de version et les manuels mis à jour (cette documentation est mise à jour avec chaque évolution fonctionnelle).
+
+## Retirer une personne qui a quitté l'entreprise
+
+1. Retirez-la des équipes projet (Settings → Project Members, filtre sur l'utilisateur).
+2. Désactivez sa **Resource** (ses heures et coûts passés restent).
+3. Désactivez l'utilisateur dans le centre d'administration Power Platform / Microsoft 365.
+4. Réattribuez les enregistrements dont elle est propriétaire (Assign) si nécessaire.
+5. Si elle était **Purchasing Approver** ou chef de projet, mettez à jour les Settings et les projets.
+
+## Dépannage
+
+| Symptôme | Cause probable | Solution |
+|---|---|---|
+| Un utilisateur ne voit aucun projet | Il n'est membre d'aucun projet, ou le rôle OP365 manque | Ajoutez le rôle ; ajoutez l'utilisateur aux équipes projet |
+| « Your user is not linked to a resource » | Aucune Resource active avec ce User | Renseignez User sur la Resource |
+| Coûts vides pour un manager | Profil Cost Visibility manquant | Ajoutez l'utilisateur au profil |
+| Personne ne reçoit le rappel quotidien | Flux désactivé ou connexion rompue | Vérifiez le flux et sa connexion |
+| Totaux non mis à jour après un import | Étapes de plug-in désactivées | Activez les étapes de plug-in |
+| Les demandes au-dessus du seuil vont à tous les administrateurs | Purchasing Approver vide | Renseignez-le dans les Settings |
+| Les fournisseurs voient « This area is reserved to suppliers » | Rôle web Supplier manquant ou non connectés | Attribuez le rôle web au contact |

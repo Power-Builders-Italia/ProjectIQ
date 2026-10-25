@@ -250,7 +250,8 @@ flowchart LR
   P[Projects] --> W[Work] --> PR[Projects] & MU[Material Usage]
   P --> T[Time] --> TS[Timesheet] & AP[Approvals] & TE[Time Entries]
   P --> PL[Planning] --> RL[Resource Load] & AB[Absences]
-  P --> PU[Purchasing] --> SP[Spend] & RQ[Requests] & RF[RFQs] & PO[Orders] & GR[Receipts] & IN[Supplier Invoices]
+  U[Purchasing] --> PC[Procurement] --> RQ[Purchase Requests] & RF[RFQs] & PO[Purchase Orders] & GR[Goods Receipts] & IN[Supplier Invoices]
+  U --> AN[Analysis] --> SP[Spend]
   M[Master Data] --> R[Records] --> C1[Customers] & C2[Suppliers] & C3[Contacts] & C4[Items] & C5[Resources]
   S[Settings] --> CO[Company] --> S1[Settings] & S2[Resource Costs] & S3[Project Members]
 ```

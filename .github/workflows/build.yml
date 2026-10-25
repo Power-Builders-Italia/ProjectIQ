@@ -6,6 +6,13 @@ on:
     branches: [main]
 
 jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: User manuals consistency
+        run: python3 tools/docs/check_docs.py
+
   code:
     runs-on: ubuntu-latest
     steps:
