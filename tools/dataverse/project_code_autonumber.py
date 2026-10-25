@@ -8,7 +8,7 @@ def update(col, **changes):
     url = API + ENT + f"/Attributes(LogicalName='{col}')/Microsoft.Dynamics.CRM.StringAttributeMetadata"
     attr = S.get(url).json()
     if all((attr['RequiredLevel']['Value'] if k == 'RequiredLevel' else attr.get(k)) == v for k, v in changes.items()):
-        print('skip', col); return
+        print('skip', col); return False
     for k, v in changes.items():
         if k == 'RequiredLevel':
             attr['RequiredLevel']['Value'] = v
@@ -18,12 +18,14 @@ def update(col, **changes):
     attr['@odata.type'] = 'Microsoft.Dynamics.CRM.StringAttributeMetadata'
     r = S.put(API + ENT + f"/Attributes({attr['MetadataId']})", json=attr, headers={'MSCRM.MergeLabels': 'true'})
     r.raise_for_status(); print('updated', col, changes)
+    return True
 
 
-update('op365_code', RequiredLevel='None', AutoNumberFormat='PRJ-{SEQNUM:6}')
-update('op365_name', RequiredLevel='ApplicationRequired')
-r = S.post(API + 'PublishXml', json={'ParameterXml': '<importexportxml><entities><entity>op365_project</entity></entities></importexportxml>'})
-r.raise_for_status(); print('published')
+changed = update('op365_code', RequiredLevel='None', AutoNumberFormat='PRJ-{SEQNUM:6}')
+changed = update('op365_name', RequiredLevel='ApplicationRequired') or changed
+if changed:
+    r = S.post(API + 'PublishXml', json={'ParameterXml': '<importexportxml><entities><entity>op365_project</entity></entities></importexportxml>'})
+    r.raise_for_status(); print('published')
 
 # The platform starts every autonumber at 1000. Start from PRJ-000001, but only while no PRJ- code exists
 # (re-seeding later would produce duplicates). The seed is per environment: run this once in each one.
