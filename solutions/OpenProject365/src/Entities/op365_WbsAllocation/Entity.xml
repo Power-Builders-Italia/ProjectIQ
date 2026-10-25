@@ -375,6 +375,7 @@
           <LogicalName>op365_resourceid</LogicalName>
           <RequiredLevel>required</RequiredLevel>
           <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
           <ValidForReadApi>1</ValidForReadApi>
           <ValidForCreateApi>1</ValidForCreateApi>
@@ -450,6 +451,7 @@
           <LogicalName>op365_wbsnodeid</LogicalName>
           <RequiredLevel>required</RequiredLevel>
           <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
           <ValidForReadApi>1</ValidForReadApi>
           <ValidForCreateApi>1</ValidForCreateApi>
@@ -887,8 +889,8 @@
           <IntroducedVersion>1.0.1.0</IntroducedVersion>
           <IsCustomizable>0</IsCustomizable>
           <EntityKeyAttributes>
-            <AttributeName>op365_resourceid</AttributeName>
             <AttributeName>op365_wbsnodeid</AttributeName>
+            <AttributeName>op365_resourceid</AttributeName>
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="WBS Node and Resource" languagecode="1033" />

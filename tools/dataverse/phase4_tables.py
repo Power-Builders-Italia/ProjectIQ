@@ -70,10 +70,15 @@ COLUMNS = {
     col('whole', 'DeliveryDays', 'Delivery Days'),
     col('memo', 'SupplierNotes', 'Supplier Notes'),
     col('currency', 'QuotedAmount', 'Quoted Amount', 'Quoted prices x requested quantities. Set by plugin'),
+    col('text', 'RfqNumber', 'RFQ Number', 'Copied from the RFQ on Send (read by the supplier portal)', max=100),
+    col('date', 'Deadline', 'Deadline', 'Copied from the RFQ on Send'),
+    col('memo', 'RfqNotes', 'RFQ Notes', 'Copied from the RFQ on Send'),
   ],
   'op365_rfqquote': [
-    col('currency', 'Price', 'Unit Price', required=True),
+    col('currency', 'Price', 'Unit Price', 'Empty until the supplier quotes the line'),
     col('text', 'Notes', 'Notes', max=400),
+    col('decimal', 'Quantity', 'Quantity', 'Requested quantity, copied from the request line'),
+    col('text', 'Uom', 'Unit', max=20),
   ],
   'op365_purchaseorder': [
     col('date', 'OrderDate', 'Order Date'),

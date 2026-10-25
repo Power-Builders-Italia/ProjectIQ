@@ -1,0 +1,68 @@
+<powerpagecomponent powerpagecomponentid="62c4d681-43d0-f111-a05b-7ced8d2d53e4">
+  <content>{
+  "title": "Purchase orders",
+  "partialurl": "orders",
+  "displayorder": 3,
+  "hiddenfromsitemap": false,
+  "excludefromsearch": true,
+  "enablerating": false,
+  "sharedpageconfiguration": false,
+  "isroot": false,
+  "pagetemplateid": "51a148a9-7811-439a-9a80-6168a730d34e",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970",
+  "parentpageid": "6edd3e5e-fd04-4274-89bb-baac867cd557",
+  "feedbackpolicy": 756150000,
+  "isofflinecached": false,
+  "rootwebpageid": "59c4d681-43d0-f111-a05b-7ced8d2d53e4",
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n&lt;div class=\"container py-4\"&gt;\n  &lt;h1 class=\"h3 mb-3\"&gt;Purchase orders&lt;/h1&gt;\n  {% fetchxml orders %}\n  &lt;fetch&gt;\n    &lt;entity name=\"op365_purchaseorder\"&gt;\n      &lt;attribute name=\"op365_purchaseorderid\" /&gt;&lt;attribute name=\"op365_number\" /&gt;&lt;attribute name=\"op365_orderdate\" /&gt;\n      &lt;attribute name=\"op365_expecteddelivery\" /&gt;&lt;attribute name=\"op365_totalamount\" /&gt;&lt;attribute name=\"statuscode\" /&gt;\n      &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n      &lt;order attribute=\"op365_orderdate\" descending=\"true\" /&gt;\n    &lt;/entity&gt;\n  &lt;/fetch&gt;\n  {% endfetchxml %}\n  {% if orders.results.entities.size == 0 %}\n  &lt;div class=\"alert alert-info\"&gt;There are no purchase orders for your company.&lt;/div&gt;\n  {% else %}\n  &lt;div class=\"table-responsive\"&gt;&lt;table class=\"table table-hover align-middle\"&gt;\n    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Order&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Expected delivery&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class=\"text-end\"&gt;Total&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;\n    &lt;tbody&gt;\n    {% for o in orders.results.entities %}\n      &lt;tr&gt;\n        &lt;td&gt;{{ o.op365_number }}&lt;/td&gt;\n        &lt;td&gt;{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/td&gt;\n        &lt;td&gt;{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}&lt;/td&gt;\n        &lt;td&gt;&lt;span class=\"badge {% if o.statuscode.value == 365000000 %}bg-warning text-dark{% else %}bg-success{% endif %}\"&gt;{% if o.statuscode.value == 365000000 %}To confirm{% else %}{{ o.statuscode.label }}{% endif %}&lt;/span&gt;&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;{{ o.op365_totalamount | round: 2 }}&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;&lt;a class=\"btn btn-sm btn-outline-primary\" href=\"/orders/order/?id={{ o.op365_purchaseorderid }}\"&gt;Open&lt;/a&gt;&lt;/td&gt;\n      &lt;/tr&gt;\n    {% endfor %}\n    &lt;/tbody&gt;\n  &lt;/table&gt;&lt;/div&gt;\n  {% endif %}\n&lt;/div&gt;\n{% endif %}\n"
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Purchase orders</name>
+  <powerpagecomponenttype>2</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <powerpagesitelanguageid>
+    <powerpagesitelanguageid>ded80c8e-6fd5-4186-a9e9-dd3f7790285b</powerpagesitelanguageid>
+  </powerpagesitelanguageid>
+  <searchcontent>Purchase orders{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}
+{% if supplier == false %}
+&lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
+{% else %}
+&lt;div class="container py-4"&gt;
+  &lt;h1 class="h3 mb-3"&gt;Purchase orders&lt;/h1&gt;
+  {% fetchxml orders %}
+  &lt;fetch&gt;
+    &lt;entity name="op365_purchaseorder"&gt;
+      &lt;attribute name="op365_purchaseorderid" /&gt;&lt;attribute name="op365_number" /&gt;&lt;attribute name="op365_orderdate" /&gt;
+      &lt;attribute name="op365_expecteddelivery" /&gt;&lt;attribute name="op365_totalamount" /&gt;&lt;attribute name="statuscode" /&gt;
+      &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
+      &lt;order attribute="op365_orderdate" descending="true" /&gt;
+    &lt;/entity&gt;
+  &lt;/fetch&gt;
+  {% endfetchxml %}
+  {% if orders.results.entities.size == 0 %}
+  &lt;div class="alert alert-info"&gt;There are no purchase orders for your company.&lt;/div&gt;
+  {% else %}
+  &lt;div class="table-responsive"&gt;&lt;table class="table table-hover align-middle"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Order&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Expected delivery&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class="text-end"&gt;Total&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    {% for o in orders.results.entities %}
+      &lt;tr&gt;
+        &lt;td&gt;{{ o.op365_number }}&lt;/td&gt;
+        &lt;td&gt;{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/td&gt;
+        &lt;td&gt;{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}&lt;/td&gt;
+        &lt;td&gt;&lt;span class="badge {% if o.statuscode.value == 365000000 %}bg-warning text-dark{% else %}bg-success{% endif %}"&gt;{% if o.statuscode.value == 365000000 %}To confirm{% else %}{{ o.statuscode.label }}{% endif %}&lt;/span&gt;&lt;/td&gt;
+        &lt;td class="text-end"&gt;{{ o.op365_totalamount | round: 2 }}&lt;/td&gt;
+        &lt;td class="text-end"&gt;&lt;a class="btn btn-sm btn-outline-primary" href="/orders/order/?id={{ o.op365_purchaseorderid }}"&gt;Open&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    {% endfor %}
+    &lt;/tbody&gt;
+  &lt;/table&gt;&lt;/div&gt;
+  {% endif %}
+&lt;/div&gt;
+{% endif %}
+Purchase orders</searchcontent>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

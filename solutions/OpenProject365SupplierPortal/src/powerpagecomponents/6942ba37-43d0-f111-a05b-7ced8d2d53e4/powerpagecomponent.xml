@@ -1,0 +1,15 @@
+<powerpagecomponent powerpagecomponentid="6942ba37-43d0-f111-a05b-7ced8d2d53e4">
+  <content>{
+  "description": "Contacts of a supplier account: answer RFQs and confirm purchase orders",
+  "anonymoususersrole": false,
+  "authenticatedusersrole": false
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Supplier</name>
+  <powerpagecomponenttype>11</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

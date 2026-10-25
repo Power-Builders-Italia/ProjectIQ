@@ -265,9 +265,10 @@ invitations = {i['_op365_supplierid_value']: i['op365_rfqinvitationid']
 for supplier, prices, days in [('Elettroforniture', (158, 0.98), 7), ('Solare', (171, 1.10), 12)]:
     inv = invitations[acc[supplier]]
     S.patch(API + f'op365_rfqinvitations({inv})', json={'op365_deliverydays': days})
-    for line, price in zip(l1, prices):
-        post('op365_rfqquotes', {'op365_InvitationId@odata.bind': f'/op365_rfqinvitations({inv})',
-                                 'op365_RequestLineId@odata.bind': f'/op365_purchaserequestlines({line})', 'op365_price': price})
+    quotes = {q['_op365_requestlineid_value']: q['op365_rfqquoteid']
+              for q in get(f'op365_rfqquotes?$select=op365_rfqquoteid,_op365_requestlineid_value&$filter=_op365_invitationid_value eq {inv}')}
+    for line, price in zip(l1, prices):  # Send created the unpriced lines, as the supplier portal does
+        S.patch(API + f'op365_rfqquotes({quotes[line]})', json={'op365_price': price})
 po1 = bound('op365_rfqs', rfq, 'op365_AwardRfq', {'InvitationId': invitations[acc['Elettroforniture']]})['PurchaseOrderId']
 S.patch(API + f'op365_purchaseorders({po1})', json={'op365_deliveryplace': 'Cantiere Rossi, Via Roma 10, Milano'})
 bound('op365_purchaseorders', po1, 'op365_SetPurchaseOrderStatus', {'Status': 'Sent'})

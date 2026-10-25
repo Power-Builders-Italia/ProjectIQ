@@ -101,10 +101,17 @@ try:
     check('invitation name and email from supplier', any(i['op365_email'] == 'a@example.com' and i['op365_name'] == 'OP365 smoke supplier A' for i in invs), invs)
     r = bound('op365_rfqs', rfq, 'op365_SendRfq')
     check('send RFQ', r.ok and r.json().get('Count') == 2 and get('op365_rfqs', rfq, 'statuscode')['statuscode'] == RFQ_SENT, r.text)
-    post('op365_rfqquotes', {'op365_InvitationId@odata.bind': f'/op365_rfqinvitations({inv_a})',
-                             'op365_RequestLineId@odata.bind': f"/op365_purchaserequestlines({l1['op365_purchaserequestlineid']})", 'op365_price': 38})
-    post('op365_rfqquotes', {'op365_InvitationId@odata.bind': f'/op365_rfqinvitations({inv_b})',
-                             'op365_RequestLineId@odata.bind': f"/op365_purchaserequestlines({l1['op365_purchaserequestlineid']})", 'op365_price': 41})
+    qa = rows('op365_rfqquotes', f'_op365_invitationid_value eq {inv_a}', 'op365_rfqquoteid,op365_price,op365_quantity')
+    qb = rows('op365_rfqquotes', f'_op365_invitationid_value eq {inv_b}', 'op365_rfqquoteid')
+    ia = get('op365_rfqinvitations', inv_a, 'statuscode,op365_rfqnumber,op365_deadline')
+    check('send: one unpriced quote line per request line, invitation still Invited, RFQ number copied',
+          len(qa) == 1 and len(qb) == 1 and qa[0]['op365_price'] is None and float(qa[0]['op365_quantity']) == 30
+          and ia['statuscode'] == INV_INVITED and ia['op365_rfqnumber'].startswith('RFQ-') and ia['op365_deadline'], (qa, ia))
+    r = S.post(API + 'op365_rfqquotes', json={'op365_InvitationId@odata.bind': f'/op365_rfqinvitations({inv_a})', 'op365_price': 1,
+                                             'op365_RequestLineId@odata.bind': f"/op365_purchaserequestlines({l1['op365_purchaserequestlineid']})"})
+    check('second quote for the same line refused', r.status_code >= 400)
+    S.patch(API + f"op365_rfqquotes({qa[0]['op365_rfqquoteid']})", json={'op365_price': 38})
+    S.patch(API + f"op365_rfqquotes({qb[0]['op365_rfqquoteid']})", json={'op365_price': 41})
     ia = get('op365_rfqinvitations', inv_a, 'statuscode,op365_quotedamount')
     check('quote: invitation Responded, quoted 30 x 38', ia['statuscode'] == INV_RESPONDED and money(ia['op365_quotedamount']) == 1140, ia)
     check('RFQ responses 2', get('op365_rfqs', rfq, 'op365_responsecount')['op365_responsecount'] == 2)

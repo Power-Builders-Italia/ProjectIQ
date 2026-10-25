@@ -277,3 +277,11 @@ for uname, (cls, display, desc, bound, function, params, props) in APIS.items():
         ok(S.post(API + 'customapiresponseproperties', json={
             'uniquename': pname, 'name': f'{uname}.{pname}', 'displayname': pname, 'description': pdesc,
             'type': typ, 'CustomAPIId@odata.bind': f'/customapis({capi_id})'}), '  response ' + pname)
+
+# an unmanaged solution import (e.g. after ribbon.py) leaves the steps of the assembly disabled: turn them back on
+disabled = S.get(API + "sdkmessageprocessingsteps?$select=sdkmessageprocessingstepid&$filter=statecode eq 1"
+                       f" and _plugintypeid_value ne null&$expand=plugintypeid($select=assemblyname)").json()['value']
+for st in disabled:
+    if (st.get('plugintypeid') or {}).get('assemblyname') == 'OpenProject365.Plugins':
+        ok(S.patch(API + f"sdkmessageprocessingsteps({st['sdkmessageprocessingstepid']})", json={'statecode': 0, 'statuscode': 1}),
+           'enable step ' + st['sdkmessageprocessingstepid'])
