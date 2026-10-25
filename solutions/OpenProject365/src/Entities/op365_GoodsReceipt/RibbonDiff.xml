@@ -1,2 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CustomActions><CustomAction Id="op365.goodsreceipt.CancelReceipt.CustomAction" Location="Mscrm.Form.op365_goodsreceipt.MainTab.Save.Controls._children" Sequence="5"><CommandUIDefinition><Button Id="op365.goodsreceipt.CancelReceipt.Button" Command="op365.goodsreceipt.CancelReceipt.Command" LabelText="$LocLabels:op365.goodsreceipt.CancelReceipt.Label" ToolTipTitle="$LocLabels:op365.goodsreceipt.CancelReceipt.Label" ToolTipDescription="$LocLabels:op365.goodsreceipt.CancelReceipt.Tip" TemplateAlias="o1" ModernImage="Delete" /></CommandUIDefinition></CustomAction></CustomActions><Templates><RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates></Templates><CommandDefinitions><CommandDefinition Id="op365.goodsreceipt.CancelReceipt.Command"><EnableRules /><DisplayRules><DisplayRule Id="op365.goodsreceipt.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelReceipt"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition></CommandDefinitions><RuleDefinitions><TabDisplayRules /><DisplayRules><DisplayRule Id="op365.goodsreceipt.Existing"><FormStateRule State="Create" InvertResult="true" /></DisplayRule></DisplayRules><EnableRules></EnableRules></RuleDefinitions><LocLabels><LocLabel Id="op365.goodsreceipt.CancelReceipt.Label"><Titles><Title description="Cancel Receipt" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.goodsreceipt.CancelReceipt.Tip"><Titles><Title description="Delete the receipt and its material usage" languagecode="1033" /></Titles></LocLabel></LocLabels></RibbonDiffXml>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="op365.goodsreceipt.CancelReceipt.CustomAction" Location="Mscrm.Form.op365_goodsreceipt.MainTab.Save.Controls._children" Sequence="5">
+      <CommandUIDefinition>
+        <Button Id="op365.goodsreceipt.CancelReceipt.Button" Command="op365.goodsreceipt.CancelReceipt.Command" LabelText="$LocLabels:op365.goodsreceipt.CancelReceipt.Label" ToolTipTitle="$LocLabels:op365.goodsreceipt.CancelReceipt.Label" ToolTipDescription="$LocLabels:op365.goodsreceipt.CancelReceipt.Tip" TemplateAlias="o1" ModernImage="Delete" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="op365.goodsreceipt.CancelReceipt.Command">
+      <EnableRules />
+      <DisplayRules>
+        <DisplayRule Id="op365.goodsreceipt.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelReceipt">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="op365.goodsreceipt.Existing">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules />
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="op365.goodsreceipt.CancelReceipt.Label">
+      <Titles>
+        <Title description="Cancel Receipt" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.goodsreceipt.CancelReceipt.Tip">
+      <Titles>
+        <Title description="Delete the receipt and its material usage" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

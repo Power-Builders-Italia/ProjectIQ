@@ -21,7 +21,8 @@ export async function loadRfq(api: WebApi, rfqId: string): Promise<RfqData> {
             `?$select=op365_rfqinvitationid,op365_name,statuscode,op365_deliverydays&$filter=_op365_rfqid_value eq ${rfqId} and statecode eq 0&$orderby=op365_name`),
         api.retrieveMultipleRecords("op365_rfqquote", "?fetchXml=" + encodeURIComponent(
             "<fetch><entity name='op365_rfqquote'><attribute name='op365_price' /><attribute name='op365_invitationid' />" +
-            "<attribute name='op365_requestlineid' /><filter><condition attribute='statecode' operator='eq' value='0' /></filter>" +
+            "<attribute name='op365_requestlineid' /><filter><condition attribute='statecode' operator='eq' value='0' />" +
+            "<condition attribute='op365_price' operator='not-null' /></filter>" +
             "<link-entity name='op365_rfqinvitation' from='op365_rfqinvitationid' to='op365_invitationid'>" +
             `<filter><condition attribute='op365_rfqid' operator='eq' value='${rfqId}' /></filter></link-entity></entity></fetch>`)),
     ]);

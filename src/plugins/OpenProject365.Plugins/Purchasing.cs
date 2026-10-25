@@ -486,14 +486,15 @@ namespace OpenProject365.Plugins
         }
     }
 
-    /// <summary>Custom API op365_SendRfq (bound to a draft op365_rfq): RFQ → Sent, invitations To Invite → Invited. Output Count.</summary>
+    /// <summary>Custom API op365_SendRfq (bound to a draft op365_rfq): RFQ → Sent, invitations To Invite → Invited with the RFQ number,
+    /// deadline and notes, and an unpriced quote line per request line (what the supplier portal shows). Output Count.</summary>
     public class SendRfq : PluginBase
     {
         protected override void Run(LocalContext context)
         {
             var system = context.SystemService;
             var id = context.TargetReference.Id;
-            var rfq = system.Retrieve(Model.Rfq, id, new ColumnSet("statuscode", Model.ProjectId, "op365_deadline"));
+            var rfq = system.Retrieve(Model.Rfq, id, new ColumnSet("statuscode", Model.ProjectId, Model.PurchaseRequestId, "op365_number", "op365_deadline", "op365_notes"));
             var status = Purchasing.Status(rfq);
             if (status != Model.RfqDraft && status != Model.RfqSent) Purchasing.Fail("Only draft or sent requests for quotation can be sent.");
             Purchasing.EnsureManager(system, Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty, context.Execution.InitiatingUserId, "send the request for quotation");
@@ -502,10 +503,32 @@ namespace OpenProject365.Plugins
             var count = 0;
             var invitations = Purchasing.Children(system, Model.RfqInvitation, Model.RfqId, id, "statuscode");
             if (invitations.Count == 0) Purchasing.Fail("Invite at least one supplier.");
-            foreach (var inv in invitations.Where(i => Purchasing.Status(i) == Model.InvitationToInvite))
+            var requestId = Purchasing.Id(rfq, Model.PurchaseRequestId);
+            var lines = requestId.HasValue ? Purchasing.Children(system, Model.PurchaseRequestLine, Model.PurchaseRequestId, requestId.Value, "op365_sortorder") : new List<Entity>();
+            foreach (var inv in invitations)
             {
-                system.Update(new Entity(Model.RfqInvitation, inv.Id) { ["statuscode"] = new OptionSetValue(Model.InvitationInvited), ["op365_invitedon"] = now });
-                count++;
+                var update = new Entity(Model.RfqInvitation, inv.Id)
+                {
+                    ["op365_rfqnumber"] = rfq.GetAttributeValue<string>("op365_number"),
+                    ["op365_deadline"] = rfq.GetAttributeValue<DateTime?>("op365_deadline"),
+                    ["op365_rfqnotes"] = rfq.GetAttributeValue<string>("op365_notes"),
+                };
+                if (Purchasing.Status(inv) == Model.InvitationToInvite)
+                {
+                    update["statuscode"] = new OptionSetValue(Model.InvitationInvited);
+                    update["op365_invitedon"] = now;
+                    count++;
+                }
+                system.Update(update);
+                // one quote line per request line, without price: the supplier fills it in (portal) or the buyer types it
+                var quoted = new HashSet<Guid>(Purchasing.Children(system, Model.RfqQuote, Model.InvitationId, inv.Id, Model.RequestLineId)
+                    .Select(q => Purchasing.Id(q, Model.RequestLineId) ?? Guid.Empty));
+                foreach (var line in lines.Where(l => !quoted.Contains(l.Id)))
+                    system.Create(new Entity(Model.RfqQuote)
+                    {
+                        [Model.InvitationId] = new EntityReference(Model.RfqInvitation, inv.Id),
+                        [Model.RequestLineId] = new EntityReference(Model.PurchaseRequestLine, line.Id),
+                    });
             }
             if (status == Model.RfqDraft)
                 system.Update(new Entity(Model.Rfq, id) { ["statuscode"] = new OptionSetValue(Model.RfqSent), ["op365_senton"] = now });
@@ -533,7 +556,7 @@ namespace OpenProject365.Plugins
             if (Purchasing.Status(inv) != Model.InvitationResponded) Purchasing.Fail("Award a supplier who sent a quote.");
 
             var quotes = Purchasing.Children(system, Model.RfqQuote, Model.InvitationId, invitationId, Model.RequestLineId, "op365_price", "op365_notes")
-                .Where(q => Purchasing.Id(q, Model.RequestLineId).HasValue).ToList();
+                .Where(q => Purchasing.Id(q, Model.RequestLineId).HasValue && q.GetAttributeValue<Money>("op365_price") != null).ToList();
             if (quotes.Count == 0) Purchasing.Fail("The supplier quoted no lines.");
             var requestId = Purchasing.Id(rfq, Model.PurchaseRequestId);
             var pr = requestId.HasValue ? system.Retrieve(Model.PurchaseRequest, requestId.Value, new ColumnSet(Model.WbsNodeId)) : null;
@@ -641,20 +664,28 @@ namespace OpenProject365.Plugins
             var system = context.SystemService;
             var invRef = context.Message == "Delete" ? context.Pre.GetAttributeValue<EntityReference>(Model.InvitationId) : context.Get<EntityReference>(Model.InvitationId);
             var inv = system.Retrieve(Model.RfqInvitation, invRef.Id, new ColumnSet(Model.RfqId, "statuscode"));
-            var rfq = system.Retrieve(Model.Rfq, Purchasing.Id(inv, Model.RfqId).Value, new ColumnSet("statuscode", Model.PurchaseRequestId));
+            var rfq = system.Retrieve(Model.Rfq, Purchasing.Id(inv, Model.RfqId).Value, new ColumnSet("statuscode", Model.PurchaseRequestId, "op365_deadline"));
             var status = Purchasing.Status(rfq);
             if (status != Model.RfqDraft && status != Model.RfqSent) Purchasing.Fail("The request for quotation is closed.");
             if (context.Message == "Delete") return;
+            if (!context.IsInside(Purchasing.RfqApis) && rfq.GetAttributeValue<DateTime?>("op365_deadline")?.Date < DateTime.UtcNow.Date)
+                Purchasing.Fail("The deadline of the request for quotation has passed.");
             var target = context.Target;
             var line = context.Get<EntityReference>(Model.RequestLineId);
             if (line != null && context.Changed(Model.RequestLineId))
             {
-                var l = system.Retrieve(Model.PurchaseRequestLine, line.Id, new ColumnSet(Model.PurchaseRequestId, "op365_name"));
+                var l = system.Retrieve(Model.PurchaseRequestLine, line.Id, new ColumnSet(Model.PurchaseRequestId, "op365_name", "op365_quantity", "op365_uom"));
                 if (Purchasing.Id(l, Model.PurchaseRequestId) != Purchasing.Id(rfq, Model.PurchaseRequestId))
                     Purchasing.Fail("The line belongs to another purchase request.");
+                if (Purchasing.Children(system, Model.RfqQuote, Model.InvitationId, invRef.Id, Model.RequestLineId)
+                        .Any(q => q.Id != context.PrimaryId && Purchasing.Id(q, Model.RequestLineId) == line.Id))
+                    Purchasing.Fail("This supplier already has a quote for the line: change its price.");
                 target["op365_name"] = l.GetAttributeValue<string>("op365_name");
+                target["op365_quantity"] = l.GetAttributeValue<decimal?>("op365_quantity");
+                target["op365_uom"] = l.GetAttributeValue<string>("op365_uom");
             }
-            if (context.Message == "Create" && Purchasing.Status(inv) != Model.InvitationResponded)
+            // the first price answers the invitation (unpriced lines are created by Send)
+            if (context.Get<Money>("op365_price") != null && context.Changed("op365_price") && Purchasing.Status(inv) != Model.InvitationResponded)
                 system.Update(new Entity(Model.RfqInvitation, inv.Id) { ["statuscode"] = new OptionSetValue(Model.InvitationResponded), ["op365_respondedon"] = DateTime.UtcNow });
         }
     }

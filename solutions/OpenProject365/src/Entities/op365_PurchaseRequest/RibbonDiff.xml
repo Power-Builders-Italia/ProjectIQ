@@ -1,2 +1,244 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CustomActions><CustomAction Id="op365.purchaserequest.Submit.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="5"><CommandUIDefinition><Button Id="op365.purchaserequest.Submit.Button" Command="op365.purchaserequest.Submit.Command" LabelText="$LocLabels:op365.purchaserequest.Submit.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Submit.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Submit.Tip" TemplateAlias="o1" ModernImage="Send" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaserequest.Approve.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="6"><CommandUIDefinition><Button Id="op365.purchaserequest.Approve.Button" Command="op365.purchaserequest.Approve.Command" LabelText="$LocLabels:op365.purchaserequest.Approve.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Approve.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Approve.Tip" TemplateAlias="o1" ModernImage="Accept" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaserequest.Reject.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="7"><CommandUIDefinition><Button Id="op365.purchaserequest.Reject.Button" Command="op365.purchaserequest.Reject.Command" LabelText="$LocLabels:op365.purchaserequest.Reject.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Reject.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Reject.Tip" TemplateAlias="o1" ModernImage="Cancel" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaserequest.CreateRfq.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="8"><CommandUIDefinition><Button Id="op365.purchaserequest.CreateRfq.Button" Command="op365.purchaserequest.CreateRfq.Command" LabelText="$LocLabels:op365.purchaserequest.CreateRfq.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CreateRfq.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CreateRfq.Tip" TemplateAlias="o1" ModernImage="New" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaserequest.CreateOrder.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="9"><CommandUIDefinition><Button Id="op365.purchaserequest.CreateOrder.Button" Command="op365.purchaserequest.CreateOrder.Command" LabelText="$LocLabels:op365.purchaserequest.CreateOrder.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CreateOrder.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CreateOrder.Tip" TemplateAlias="o1" ModernImage="New" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.purchaserequest.CancelRequest.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="10"><CommandUIDefinition><Button Id="op365.purchaserequest.CancelRequest.Button" Command="op365.purchaserequest.CancelRequest.Command" LabelText="$LocLabels:op365.purchaserequest.CancelRequest.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CancelRequest.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CancelRequest.Tip" TemplateAlias="o1" ModernImage="Close" /></CommandUIDefinition></CustomAction></CustomActions><Templates><RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates></Templates><CommandDefinitions><CommandDefinition Id="op365.purchaserequest.Submit.Command"><EnableRules><EnableRule Id="op365.purchaserequest.Submit.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.submitRequest"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaserequest.Approve.Command"><EnableRules><EnableRule Id="op365.purchaserequest.Approve.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.approveRequest"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaserequest.Reject.Command"><EnableRules><EnableRule Id="op365.purchaserequest.Reject.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.rejectRequest"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaserequest.CreateRfq.Command"><EnableRules><EnableRule Id="op365.purchaserequest.CreateRfq.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.createRfq"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaserequest.CreateOrder.Command"><EnableRules><EnableRule Id="op365.purchaserequest.CreateOrder.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.createOrder"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.purchaserequest.CancelRequest.Command"><EnableRules><EnableRule Id="op365.purchaserequest.CancelRequest.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelRequest"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition></CommandDefinitions><RuleDefinitions><TabDisplayRules /><DisplayRules><DisplayRule Id="op365.purchaserequest.Existing"><FormStateRule State="Create" InvertResult="true" /></DisplayRule></DisplayRules><EnableRules><EnableRule Id="op365.purchaserequest.Submit.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or><Or><ValueRule Field="statuscode" Value="365000002" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaserequest.Approve.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000000" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaserequest.Reject.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000000" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaserequest.CreateRfq.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000001" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaserequest.CreateOrder.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="365000001" /></Or></OrRule></EnableRule><EnableRule Id="op365.purchaserequest.CancelRequest.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or><Or><ValueRule Field="statuscode" Value="365000000" /></Or><Or><ValueRule Field="statuscode" Value="365000001" /></Or><Or><ValueRule Field="statuscode" Value="365000002" /></Or></OrRule></EnableRule></EnableRules></RuleDefinitions><LocLabels><LocLabel Id="op365.purchaserequest.Submit.Label"><Titles><Title description="Submit" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.Submit.Tip"><Titles><Title description="Send the request to the project manager for approval" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.Approve.Label"><Titles><Title description="Approve" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.Approve.Tip"><Titles><Title description="Approve the request (above the threshold it goes to the purchasing approver)" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.Reject.Label"><Titles><Title description="Reject" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.Reject.Tip"><Titles><Title description="Reject the request with a note" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CreateRfq.Label"><Titles><Title description="Create RFQ" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CreateRfq.Tip"><Titles><Title description="Ask suppliers for quotations" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CreateOrder.Label"><Titles><Title description="Create Order" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CreateOrder.Tip"><Titles><Title description="Create a purchase order to the preferred supplier" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CancelRequest.Label"><Titles><Title description="Cancel Request" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.purchaserequest.CancelRequest.Tip"><Titles><Title description="Cancel the request" languagecode="1033" /></Titles></LocLabel></LocLabels></RibbonDiffXml>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="op365.purchaserequest.Approve.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="6">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.Approve.Button" Command="op365.purchaserequest.Approve.Command" LabelText="$LocLabels:op365.purchaserequest.Approve.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Approve.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Approve.Tip" TemplateAlias="o1" ModernImage="Accept" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaserequest.CancelRequest.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="10">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.CancelRequest.Button" Command="op365.purchaserequest.CancelRequest.Command" LabelText="$LocLabels:op365.purchaserequest.CancelRequest.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CancelRequest.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CancelRequest.Tip" TemplateAlias="o1" ModernImage="Close" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaserequest.CreateOrder.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="9">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.CreateOrder.Button" Command="op365.purchaserequest.CreateOrder.Command" LabelText="$LocLabels:op365.purchaserequest.CreateOrder.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CreateOrder.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CreateOrder.Tip" TemplateAlias="o1" ModernImage="New" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaserequest.CreateRfq.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="8">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.CreateRfq.Button" Command="op365.purchaserequest.CreateRfq.Command" LabelText="$LocLabels:op365.purchaserequest.CreateRfq.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.CreateRfq.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.CreateRfq.Tip" TemplateAlias="o1" ModernImage="New" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaserequest.Reject.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="7">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.Reject.Button" Command="op365.purchaserequest.Reject.Command" LabelText="$LocLabels:op365.purchaserequest.Reject.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Reject.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Reject.Tip" TemplateAlias="o1" ModernImage="Cancel" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.purchaserequest.Submit.CustomAction" Location="Mscrm.Form.op365_purchaserequest.MainTab.Save.Controls._children" Sequence="5">
+      <CommandUIDefinition>
+        <Button Id="op365.purchaserequest.Submit.Button" Command="op365.purchaserequest.Submit.Command" LabelText="$LocLabels:op365.purchaserequest.Submit.Label" ToolTipTitle="$LocLabels:op365.purchaserequest.Submit.Label" ToolTipDescription="$LocLabels:op365.purchaserequest.Submit.Tip" TemplateAlias="o1" ModernImage="Send" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="op365.purchaserequest.Approve.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.Approve.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.approveRequest">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaserequest.CancelRequest.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.CancelRequest.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.cancelRequest">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaserequest.CreateOrder.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.CreateOrder.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.createOrder">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaserequest.CreateRfq.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.CreateRfq.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.createRfq">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaserequest.Reject.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.Reject.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.rejectRequest">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.purchaserequest.Submit.Command">
+      <EnableRules>
+        <EnableRule Id="op365.purchaserequest.Submit.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.purchaserequest.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.submitRequest">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="op365.purchaserequest.Existing">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="op365.purchaserequest.Approve.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaserequest.CancelRequest.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000002" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaserequest.CreateOrder.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaserequest.CreateRfq.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaserequest.Reject.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.purchaserequest.Submit.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000002" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="op365.purchaserequest.Approve.Label">
+      <Titles>
+        <Title description="Approve" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.Approve.Tip">
+      <Titles>
+        <Title description="Approve the request (above the threshold it goes to the purchasing approver)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CancelRequest.Label">
+      <Titles>
+        <Title description="Cancel Request" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CancelRequest.Tip">
+      <Titles>
+        <Title description="Cancel the request" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CreateOrder.Label">
+      <Titles>
+        <Title description="Create Order" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CreateOrder.Tip">
+      <Titles>
+        <Title description="Create a purchase order to the preferred supplier" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CreateRfq.Label">
+      <Titles>
+        <Title description="Create RFQ" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.CreateRfq.Tip">
+      <Titles>
+        <Title description="Ask suppliers for quotations" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.Reject.Label">
+      <Titles>
+        <Title description="Reject" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.Reject.Tip">
+      <Titles>
+        <Title description="Reject the request with a note" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.Submit.Label">
+      <Titles>
+        <Title description="Submit" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.purchaserequest.Submit.Tip">
+      <Titles>
+        <Title description="Send the request to the project manager for approval" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

@@ -1,0 +1,19 @@
+<powerpagecomponent powerpagecomponentid="048f2aee-c5bd-4742-b383-a3e2d49cd70d">
+  <content>{
+  "enabletracking": false,
+  "excludefromsearch": false,
+  "hiddenfromsitemap": false,
+  "parentpageid": "6edd3e5e-fd04-4274-89bb-baac867cd557",
+  "partialurl": "Logo-sm-64.png",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970"
+}</content>
+  <filecontent mimetype="application/octet-stream">Logo-sm-64.png</filecontent>
+  <iscustomizable>1</iscustomizable>
+  <name>Logo-sm-64.png</name>
+  <powerpagecomponenttype>3</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

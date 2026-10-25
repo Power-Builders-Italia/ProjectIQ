@@ -1,0 +1,26 @@
+<powerpagecomponent powerpagecomponentid="4866636f-43d0-f111-a05b-7ced8d2d53e4">
+  <content>{
+  "entityname": "Supplier RFQ quotes",
+  "entitylogicalname": "op365_rfqquote",
+  "scope": 756150003,
+  "read": true,
+  "write": true,
+  "create": false,
+  "delete": false,
+  "append": false,
+  "appendto": false,
+  "parentrelationship": "op365_rfqinvitation_rfqquote_invitationid",
+  "parententitypermission": "3f66636f-43d0-f111-a05b-7ced8d2d53e4",
+  "adx_entitypermission_webrole": [
+    "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
+  ]
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Supplier RFQ quotes</name>
+  <powerpagecomponenttype>18</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

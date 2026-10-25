@@ -1,2 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CustomActions><CustomAction Id="op365.supplierinvoice.ApproveInvoice.CustomAction" Location="Mscrm.Form.op365_supplierinvoice.MainTab.Save.Controls._children" Sequence="5"><CommandUIDefinition><Button Id="op365.supplierinvoice.ApproveInvoice.Button" Command="op365.supplierinvoice.ApproveInvoice.Command" LabelText="$LocLabels:op365.supplierinvoice.ApproveInvoice.Label" ToolTipTitle="$LocLabels:op365.supplierinvoice.ApproveInvoice.Label" ToolTipDescription="$LocLabels:op365.supplierinvoice.ApproveInvoice.Tip" TemplateAlias="o1" ModernImage="Accept" /></CommandUIDefinition></CustomAction><CustomAction Id="op365.supplierinvoice.RejectInvoice.CustomAction" Location="Mscrm.Form.op365_supplierinvoice.MainTab.Save.Controls._children" Sequence="6"><CommandUIDefinition><Button Id="op365.supplierinvoice.RejectInvoice.Button" Command="op365.supplierinvoice.RejectInvoice.Command" LabelText="$LocLabels:op365.supplierinvoice.RejectInvoice.Label" ToolTipTitle="$LocLabels:op365.supplierinvoice.RejectInvoice.Label" ToolTipDescription="$LocLabels:op365.supplierinvoice.RejectInvoice.Tip" TemplateAlias="o1" ModernImage="Cancel" /></CommandUIDefinition></CustomAction></CustomActions><Templates><RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates></Templates><CommandDefinitions><CommandDefinition Id="op365.supplierinvoice.ApproveInvoice.Command"><EnableRules><EnableRule Id="op365.supplierinvoice.ApproveInvoice.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.supplierinvoice.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.approveInvoice"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition><CommandDefinition Id="op365.supplierinvoice.RejectInvoice.Command"><EnableRules><EnableRule Id="op365.supplierinvoice.RejectInvoice.Enable" /></EnableRules><DisplayRules><DisplayRule Id="op365.supplierinvoice.Existing" /></DisplayRules><Actions><JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.rejectInvoice"><CrmParameter Value="PrimaryControl" /></JavaScriptFunction></Actions></CommandDefinition></CommandDefinitions><RuleDefinitions><TabDisplayRules /><DisplayRules><DisplayRule Id="op365.supplierinvoice.Existing"><FormStateRule State="Create" InvertResult="true" /></DisplayRule></DisplayRules><EnableRules><EnableRule Id="op365.supplierinvoice.ApproveInvoice.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or></OrRule></EnableRule><EnableRule Id="op365.supplierinvoice.RejectInvoice.Enable"><OrRule><Or><ValueRule Field="statuscode" Value="1" /></Or></OrRule></EnableRule></EnableRules></RuleDefinitions><LocLabels><LocLabel Id="op365.supplierinvoice.ApproveInvoice.Label"><Titles><Title description="Approve" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.supplierinvoice.ApproveInvoice.Tip"><Titles><Title description="Approve the invoice" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.supplierinvoice.RejectInvoice.Label"><Titles><Title description="Reject" languagecode="1033" /></Titles></LocLabel><LocLabel Id="op365.supplierinvoice.RejectInvoice.Tip"><Titles><Title description="Reject the invoice with a note" languagecode="1033" /></Titles></LocLabel></LocLabels></RibbonDiffXml>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="op365.supplierinvoice.ApproveInvoice.CustomAction" Location="Mscrm.Form.op365_supplierinvoice.MainTab.Save.Controls._children" Sequence="5">
+      <CommandUIDefinition>
+        <Button Id="op365.supplierinvoice.ApproveInvoice.Button" Command="op365.supplierinvoice.ApproveInvoice.Command" LabelText="$LocLabels:op365.supplierinvoice.ApproveInvoice.Label" ToolTipTitle="$LocLabels:op365.supplierinvoice.ApproveInvoice.Label" ToolTipDescription="$LocLabels:op365.supplierinvoice.ApproveInvoice.Tip" TemplateAlias="o1" ModernImage="Accept" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.supplierinvoice.RejectInvoice.CustomAction" Location="Mscrm.Form.op365_supplierinvoice.MainTab.Save.Controls._children" Sequence="6">
+      <CommandUIDefinition>
+        <Button Id="op365.supplierinvoice.RejectInvoice.Button" Command="op365.supplierinvoice.RejectInvoice.Command" LabelText="$LocLabels:op365.supplierinvoice.RejectInvoice.Label" ToolTipTitle="$LocLabels:op365.supplierinvoice.RejectInvoice.Label" ToolTipDescription="$LocLabels:op365.supplierinvoice.RejectInvoice.Tip" TemplateAlias="o1" ModernImage="Cancel" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="op365.supplierinvoice.ApproveInvoice.Command">
+      <EnableRules>
+        <EnableRule Id="op365.supplierinvoice.ApproveInvoice.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.supplierinvoice.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.approveInvoice">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.supplierinvoice.RejectInvoice.Command">
+      <EnableRules>
+        <EnableRule Id="op365.supplierinvoice.RejectInvoice.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.supplierinvoice.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.rejectInvoice">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="op365.supplierinvoice.Existing">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="op365.supplierinvoice.ApproveInvoice.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.supplierinvoice.RejectInvoice.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="op365.supplierinvoice.ApproveInvoice.Label">
+      <Titles>
+        <Title description="Approve" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.supplierinvoice.ApproveInvoice.Tip">
+      <Titles>
+        <Title description="Approve the invoice" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.supplierinvoice.RejectInvoice.Label">
+      <Titles>
+        <Title description="Reject" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.supplierinvoice.RejectInvoice.Tip">
+      <Titles>
+        <Title description="Reject the invoice with a note" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>
