@@ -11,4 +11,4 @@ Any change to functional behaviour must update the user manuals in `docs/en`, `d
 - Verify statements against the code (plugins, PCF, form scripts, schema scripts) before writing them.
 - New functional area → new manual in all four languages + row in the README "User manuals" table.
 - Run `python3 tools/docs/check_docs.py` before committing; it must report 0 errors.
-- After merging, keep the PROGETTI SharePoint folder "Open Project 365" aligned with the manuals.
+- The repository is the only home of the documentation: do not keep copies elsewhere (e.g. SharePoint).

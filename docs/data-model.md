@@ -1,6 +1,6 @@
 # Data model
 
-Tables delivered so far, by roadmap phase. Full column list: specification in PROGETTI.
+Tables delivered so far, by roadmap phase. Full column list: the table scripts `tools/dataverse/phase*_tables.py` and the solution in `solutions/OpenProject365/src`.
 
 ## Phase 1 – Master data, resources, settings
 

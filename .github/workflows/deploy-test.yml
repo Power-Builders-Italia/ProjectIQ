@@ -3,27 +3,46 @@ name: deploy-test
 # Exports OpenProject365 and then OpenProject365SupplierPortal as managed from Dev (version 1.0.<run>.0)
 # and imports them into Test in that order (the portal uses the main solution's tables).
 # Uses the PP_* secrets; the app registration must be an application user in both environments.
-# Connection references are mapped by deployment/<settings>.settings.json (connections stay out of the managed layer).
+# Connection references are mapped by deployment/<settings>.settings.json (connections stay out of the managed layer);
+# its #{NAME}# tokens come from the variables of the GitHub environment <settings>.
 on:
   workflow_dispatch:
     inputs:
       target-url:
-        description: Target environment URL
-        default: https://openproject365-test.crm4.dynamics.com
-        required: true
+        description: Target environment URL (empty = variable TEST_ENVIRONMENT_URL)
+        default: ''
+        required: false
       settings:
-        description: Deployment settings file in deployment/ (without .settings.json)
+        description: Deployment settings file in deployment/ (without .settings.json); also the GitHub environment name
         default: test
         required: true
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: windows-latest
+    # GitHub environment: protection rules (required reviewers, main only) and environment-scoped secrets/variables
+    environment: ${{ inputs.settings }}
+    env:
+      TARGET_URL: ${{ inputs.target-url || vars.TEST_ENVIRONMENT_URL }}
+      OP365_DATAVERSE_CONNECTION_ID: ${{ vars.OP365_DATAVERSE_CONNECTION_ID }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: microsoft/powerplatform-actions/actions-install@v1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Resolve target and deployment settings
+        # #{NAME}# tokens in the settings file are replaced with the variable NAME, so ids stay out of the repo
+        shell: pwsh
+        run: |
+          if (-not $env:TARGET_URL) { throw 'Set the target-url input or the TEST_ENVIRONMENT_URL variable' }
+          $text = Get-Content 'deployment/${{ inputs.settings }}.settings.json' -Raw
+          $text = [regex]::Replace($text, '#\{(\w+)\}#', { param($m) [Environment]::GetEnvironmentVariable($m.Groups[1].Value) })
+          if ($text -match '"ConnectionId":\s*""') { throw 'A connection id variable is not set (see docs/dev-environment.md)' }
+          New-Item -ItemType Directory -Force out | Out-Null
+          Set-Content out/deployment.settings.json $text
+      - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
       - name: Set solution version in Dev
-        uses: microsoft/powerplatform-actions/set-online-solution-version@v1
+        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
@@ -32,7 +51,7 @@ jobs:
           name: OpenProject365
           version: 1.0.${{ github.run_number }}.0
       - name: Export managed from Dev
-        uses: microsoft/powerplatform-actions/export-solution@v1
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
@@ -42,9 +61,9 @@ jobs:
           solution-output-file: out/OpenProject365_managed.zip
           managed: true
       - name: Import into target
-        uses: microsoft/powerplatform-actions/import-solution@v1
+        uses: microsoft/powerplatform-actions/import-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
-          environment-url: ${{ inputs.target-url }}
+          environment-url: ${{ env.TARGET_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
           client-secret: ${{ secrets.PP_CLIENT_SECRET }}
           tenant-id: ${{ secrets.PP_TENANT_ID }}
@@ -55,9 +74,9 @@ jobs:
           run-asynchronously: true
           max-async-wait-time: 60
           use-deployment-settings-file: true
-          deployment-settings-file: deployment/${{ inputs.settings }}.settings.json
+          deployment-settings-file: out/deployment.settings.json
       - name: Set portal solution version in Dev
-        uses: microsoft/powerplatform-actions/set-online-solution-version@v1
+        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
@@ -66,7 +85,7 @@ jobs:
           name: OpenProject365SupplierPortal
           version: 1.0.${{ github.run_number }}.0
       - name: Export portal managed from Dev
-        uses: microsoft/powerplatform-actions/export-solution@v1
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
@@ -76,9 +95,9 @@ jobs:
           solution-output-file: out/OpenProject365SupplierPortal_managed.zip
           managed: true
       - name: Import portal into target
-        uses: microsoft/powerplatform-actions/import-solution@v1
+        uses: microsoft/powerplatform-actions/import-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
-          environment-url: ${{ inputs.target-url }}
+          environment-url: ${{ env.TARGET_URL }}
           app-id: ${{ secrets.PP_CLIENT_ID }}
           client-secret: ${{ secrets.PP_CLIENT_SECRET }}
           tenant-id: ${{ secrets.PP_TENANT_ID }}
@@ -87,7 +106,7 @@ jobs:
           run-asynchronously: true
           max-async-wait-time: 60
       - name: Upload managed package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: OpenProject365-managed
           path: out/*_managed.zip
