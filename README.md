@@ -1,5 +1,7 @@
 # Open Project 365
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 Project and job management solution built on **Microsoft Dataverse** as a **Power Apps model-driven app**.
 Rewrite of Commesse.Cloud; single-tenant (one Dataverse environment per customer company).
 
@@ -25,3 +27,6 @@ Sales opportunities, mobile app, data migration from Commesse.Cloud, AI features
 
 ## Specification
 See the "Open Project 365 - Analisi e specifica" document in the PROGETTI SharePoint library.
+
+## License
+Copyright 2026 Power Builders Italia. Licensed under the [Apache License, Version 2.0](LICENSE); see also [NOTICE](NOTICE).
