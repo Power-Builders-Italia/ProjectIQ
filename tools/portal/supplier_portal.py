@@ -153,7 +153,7 @@ RFQS = """<div class="container py-4">
         <td>{{ i.op365_rfqnumber }}</td>
         <td>{{ i.op365_deadline | date: 'dd/MM/yyyy' }}</td>
         <td><span class="badge {% if i.statuscode.value == %d %}bg-success{% elsif i.statuscode.value == %d %}bg-secondary{% else %}bg-primary{% endif %}">{{ i.statuscode.label }}</span></td>
-        <td class="text-end">{% if i.op365_quotedamount %}{{ i.op365_quotedamount | round: 2 }}{% endif %}</td>
+        <td class="text-end">{% if i.op365_quotedamount > 0 %}{{ i.op365_quotedamount | round: 2 }}{% endif %}</td>
         <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}">Open</a></td>
       </tr>
     {% endfor %}
