@@ -2,6 +2,7 @@ name: deploy-test
 
 # Exports OpenProject365 as managed from Dev (version 1.0.<run>.0) and imports it into Test.
 # Uses the PP_* secrets; the app registration must be an application user in both environments.
+# Connection references are mapped by deployment/<settings>.settings.json (connections stay out of the managed layer).
 on:
   workflow_dispatch:
     inputs:
@@ -9,11 +10,16 @@ on:
         description: Target environment URL
         default: https://openproject365-test.crm4.dynamics.com
         required: true
+      settings:
+        description: Deployment settings file in deployment/ (without .settings.json)
+        default: test
+        required: true
 
 jobs:
   deploy:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: microsoft/powerplatform-actions/actions-install@v1
       - name: Set solution version in Dev
         uses: microsoft/powerplatform-actions/set-online-solution-version@v1
@@ -47,6 +53,8 @@ jobs:
           activate-plugins: true
           run-asynchronously: true
           max-async-wait-time: 60
+          use-deployment-settings-file: true
+          deployment-settings-file: deployment/${{ inputs.settings }}.settings.json
       - name: Upload managed package
         uses: actions/upload-artifact@v4
         with:

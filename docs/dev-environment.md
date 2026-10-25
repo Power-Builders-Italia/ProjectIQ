@@ -46,7 +46,7 @@ Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the ass
 
 ## Cloud flows
 
-`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off: link a connection to the reference (Solutions > Open Project 365 > Connection references) and turn it on. After a managed import into Test do the same there.
+`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off. A service principal cannot own connections (InvalidUserPlan), so a user creates the Dataverse connection (service principal authentication is fine) and turns the flow on. In Dev link it to the reference in the solution; in Test the `deploy-test` workflow maps the reference through `deployment/test.settings.json` (connection id, not a secret), so the managed layer stays clean. Share the target connection with the application user (Can use) so the import can turn the flow on.
 
 After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
