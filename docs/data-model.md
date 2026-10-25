@@ -53,7 +53,7 @@ erDiagram
 
 | Table | Primary column | Alternate key | Notes |
 |---|---|---|---|
-| `op365_project` | Name | Code | CustomerId, ProjectManagerId, StartDate, EndDate, ContractValue, Description, BudgetTotal, ActualCost, CommittedCost, ProgressPct. Status reasons: Offer, In Progress, Suspended (active), Closed (inactive) |
+| `op365_project` | Name (required) | Code | Code: optional autonumber PRJ-###### (typed codes still allowed). CustomerId, ProjectManagerId, StartDate, EndDate, ContractValue, Description, BudgetTotal, ActualCost, CommittedCost, ProgressPct. Status reasons: Offer, In Progress, Suspended (active), Closed (inactive) |
 | `op365_projectmember` | Name (user name) | ProjectId + UserId | ProjectRole (Manager, Contributor, Reader), HourlyRate |
 | `op365_wbsnode` | Name | – | ParentId (hierarchical), Code, OwnerResourceId, BudgetHours, BudgetLabour, BudgetMaterials, BudgetOther, BudgetTotal, ProgressPct, StartDate, EndDate, SortOrder, ActualHours |
 | `op365_wbsdependency` | Name (pred → succ) | PredecessorId + SuccessorId | ProjectId, DependencyType (Finish-to-Start), LagDays |
@@ -271,6 +271,7 @@ python3 tools/dataverse/phase1_security.py
 python3 tools/dataverse/phase1_views.py
 python3 tools/dataverse/phase1_forms.py
 python3 tools/dataverse/phase2_tables.py
+python3 tools/dataverse/project_code_autonumber.py  # Code autonumber + seed 1: run once in EVERY environment (seed is not in the solution)
 python3 tools/dataverse/phase2_security.py
 python3 tools/dataverse/phase2_views.py
 python3 tools/dataverse/phase3_tables.py
