@@ -6,6 +6,7 @@ is idempotent. Run it against Dev (PAC_* variables), then export the OpenProject
 
     python3 tools/portal/supplier_portal.py
 """
+import json
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'dataverse'))
 from dv import S, API
@@ -85,6 +86,13 @@ def permission(name, table, scope, write=False, relationship=None, parent=None):
                    json={'@odata.id': API + f'powerpagecomponents({SUPPLIER})'})
         if r.status_code >= 300:
             raise SystemExit(f'link {name} to Supplier: {r.text[:300]}')
+    # the site runtime reads the roles from the component JSON, not from the N:N above
+    content = json.loads(S.get(API + f'powerpagecomponents({pid})?$select=content').json()['content'])
+    if content.get('adx_entitypermission_webrole') != [SUPPLIER]:
+        content['adx_entitypermission_webrole'] = [SUPPLIER]
+        r = S.patch(API + f'powerpagecomponents({pid})', json={'content': json.dumps(content)})
+        if r.status_code >= 300:
+            raise SystemExit(f'roles of {name}: {r.text[:300]}')
     PERMISSIONS[name] = pid
 
 
