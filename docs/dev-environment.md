@@ -98,6 +98,7 @@ The repository is meant to be public: environment URLs, tenant, app and connecti
 
 - **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
   - Variables: `TEST_ENVIRONMENT_URL` (default target URL), `OP365_DATAVERSE_CONNECTION_ID` (Dataverse connection id in Test, Power Apps > Connections > the connection's URL).
+  - Optional variables for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing variable is left out, so Test keeps its current value (or the default).
   - Secrets: move `PP_CLIENT_SECRET` (and the other `PP_*`) here when the Solution Checker gets its own app registration; until then they stay repository secrets, used by `build` on pull requests from branches of this repository (pull requests from forks never receive secrets).
 - **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`). Never use `pull_request_target`.
 - **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.

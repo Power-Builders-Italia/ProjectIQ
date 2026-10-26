@@ -760,46 +760,6 @@
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
-  <EntityRelationship Name="lk_op365_settings_createdby">
-    <EntityRelationshipType>OneToMany</EntityRelationshipType>
-    <IsCustomizable>1</IsCustomizable>
-    <IntroducedVersion>1.0</IntroducedVersion>
-    <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>op365_Settings</ReferencingEntityName>
-    <ReferencedEntityName>SystemUser</ReferencedEntityName>
-    <CascadeAssign>NoCascade</CascadeAssign>
-    <CascadeDelete>NoCascade</CascadeDelete>
-    <CascadeArchive>NoCascade</CascadeArchive>
-    <CascadeReparent>NoCascade</CascadeReparent>
-    <CascadeShare>NoCascade</CascadeShare>
-    <CascadeUnshare>NoCascade</CascadeUnshare>
-    <ReferencingAttributeName>CreatedBy</ReferencingAttributeName>
-    <RelationshipDescription>
-      <Descriptions>
-        <Description description="Unique identifier of the user who created the record." languagecode="1033" />
-      </Descriptions>
-    </RelationshipDescription>
-  </EntityRelationship>
-  <EntityRelationship Name="lk_op365_settings_modifiedby">
-    <EntityRelationshipType>OneToMany</EntityRelationshipType>
-    <IsCustomizable>1</IsCustomizable>
-    <IntroducedVersion>1.0</IntroducedVersion>
-    <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>op365_Settings</ReferencingEntityName>
-    <ReferencedEntityName>SystemUser</ReferencedEntityName>
-    <CascadeAssign>NoCascade</CascadeAssign>
-    <CascadeDelete>NoCascade</CascadeDelete>
-    <CascadeArchive>NoCascade</CascadeArchive>
-    <CascadeReparent>NoCascade</CascadeReparent>
-    <CascadeShare>NoCascade</CascadeShare>
-    <CascadeUnshare>NoCascade</CascadeUnshare>
-    <ReferencingAttributeName>ModifiedBy</ReferencingAttributeName>
-    <RelationshipDescription>
-      <Descriptions>
-        <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
-      </Descriptions>
-    </RelationshipDescription>
-  </EntityRelationship>
   <EntityRelationship Name="lk_op365_supplierdocument_createdby">
     <EntityRelationshipType>OneToMany</EntityRelationshipType>
     <IsCustomizable>1</IsCustomizable>
@@ -1325,41 +1285,6 @@
       </EntityRelationshipRole>
     </EntityRelationshipRoles>
   </EntityRelationship>
-  <EntityRelationship Name="op365_systemuser_settings_purchasingapproverid">
-    <EntityRelationshipType>OneToMany</EntityRelationshipType>
-    <IsCustomizable>1</IsCustomizable>
-    <IntroducedVersion>1.0.4.0</IntroducedVersion>
-    <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>op365_Settings</ReferencingEntityName>
-    <ReferencedEntityName>SystemUser</ReferencedEntityName>
-    <CascadeAssign>NoCascade</CascadeAssign>
-    <CascadeDelete>RemoveLink</CascadeDelete>
-    <CascadeArchive>RemoveLink</CascadeArchive>
-    <CascadeReparent>NoCascade</CascadeReparent>
-    <CascadeShare>NoCascade</CascadeShare>
-    <CascadeUnshare>NoCascade</CascadeUnshare>
-    <CascadeRollupView>NoCascade</CascadeRollupView>
-    <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
-    <ReferencingAttributeName>op365_PurchasingApproverId</ReferencingAttributeName>
-    <RelationshipDescription>
-      <Descriptions>
-        <Description description="Administrator who approves purchase requests above the threshold" languagecode="1033" />
-      </Descriptions>
-    </RelationshipDescription>
-    <EntityRelationshipRoles>
-      <EntityRelationshipRole>
-        <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
-        <NavPaneArea>Details</NavPaneArea>
-        <NavPaneOrder>10000</NavPaneOrder>
-        <NavigationPropertyName>op365_PurchasingApproverId</NavigationPropertyName>
-        <RelationshipRoleType>1</RelationshipRoleType>
-      </EntityRelationshipRole>
-      <EntityRelationshipRole>
-        <NavigationPropertyName>op365_systemuser_settings_purchasingapproverid</NavigationPropertyName>
-        <RelationshipRoleType>0</RelationshipRoleType>
-      </EntityRelationshipRole>
-    </EntityRelationshipRoles>
-  </EntityRelationship>
   <EntityRelationship Name="op365_systemuser_supplierinvoice_decidedbyid">
     <EntityRelationshipType>OneToMany</EntityRelationshipType>
     <IsCustomizable>1</IsCustomizable>
@@ -1796,26 +1721,6 @@
     <IntroducedVersion>1.0</IntroducedVersion>
     <IsHierarchical>0</IsHierarchical>
     <ReferencingEntityName>op365_RfqQuote</ReferencingEntityName>
-    <ReferencedEntityName>SystemUser</ReferencedEntityName>
-    <CascadeAssign>NoCascade</CascadeAssign>
-    <CascadeDelete>NoCascade</CascadeDelete>
-    <CascadeArchive>NoCascade</CascadeArchive>
-    <CascadeReparent>NoCascade</CascadeReparent>
-    <CascadeShare>NoCascade</CascadeShare>
-    <CascadeUnshare>NoCascade</CascadeUnshare>
-    <ReferencingAttributeName>OwningUser</ReferencingAttributeName>
-    <RelationshipDescription>
-      <Descriptions>
-        <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
-      </Descriptions>
-    </RelationshipDescription>
-  </EntityRelationship>
-  <EntityRelationship Name="user_op365_settings">
-    <EntityRelationshipType>OneToMany</EntityRelationshipType>
-    <IsCustomizable>1</IsCustomizable>
-    <IntroducedVersion>1.0</IntroducedVersion>
-    <IsHierarchical>0</IsHierarchical>
-    <ReferencingEntityName>op365_Settings</ReferencingEntityName>
     <ReferencedEntityName>SystemUser</ReferencedEntityName>
     <CascadeAssign>NoCascade</CascadeAssign>
     <CascadeDelete>NoCascade</CascadeDelete>

@@ -39,7 +39,7 @@ I numeri vengono assegnati automaticamente al salvataggio: richieste d'acquisto 
 | Creare una richiesta d'acquisto | Un Manager o Contributor del progetto, un amministratore (il richiedente sei tu) |
 | Inviare una richiesta | Il richiedente, un Manager del progetto, un amministratore |
 | Approvare / respingere fino alla soglia | Il project manager (approvatore corrente), qualunque Manager del progetto, un amministratore |
-| Approvare / respingere sopra la soglia (secondo livello) | Il **Purchasing Approver** indicato nelle Settings, o un amministratore |
+| Approvare / respingere sopra la soglia (secondo livello) | Il **Purchasing Approver** indicato nelle [variabili d'ambiente](administration.md#impostazioni-aziendali), o un amministratore |
 | Annullare una richiesta | Il richiedente, un Manager del progetto, un amministratore |
 | Creare RdO e ordini, inviare, aggiudicare, cambiare stato agli ordini | Un Manager del progetto, un amministratore |
 | Registrare entrate merci | Un Manager o Contributor del progetto, un amministratore |
@@ -86,7 +86,7 @@ L'**Estimated Amount** (importo stimato) della richiesta è la somma degli impor
 
 Clicca **Submit**. La richiesta diventa **Submitted**, il suo contenuto viene bloccato (si può ancora completare solo la Justification) e l'applicazione registra tre cose nella sezione *Approval*:
 
-- **Above Threshold**: se l'importo stimato supera la **Purchase Request Threshold** delle Settings;
+- **Above Threshold**: se l'importo stimato supera la **Purchase Request Threshold** ([variabile d'ambiente](administration.md#impostazioni-aziendali));
 - **Over Budget**: se costo effettivo + costo impegnato + questa richiesta superano il budget del nodo WBS (o del progetto, se il nodo non è indicato);
 - **Current Approver**: il project manager, che riceve la notifica "Purchase request to approve".
 
@@ -115,7 +115,7 @@ stateDiagram-v2
 | Livello | Chi decide | Cosa succede con Approve |
 |---|---|---|
 | **Manager** (primo) | Project manager / Manager del progetto | Se la richiesta **non** supera la soglia → **Approved**. Se la supera → passa al livello **Administrator**, vengono registrati *Manager Approved By/On* e gli approvatori di secondo livello vengono avvisati |
-| **Administrator** (secondo) | Il Purchasing Approver delle Settings (se impostato), altrimenti ogni OP365 Administrator | → **Approved** |
+| **Administrator** (secondo) | Il Purchasing Approver della variabile d'ambiente (se impostato), altrimenti ogni OP365 Administrator | → **Approved** |
 
 Se chi approva al primo livello è già un approvatore di secondo livello, la richiesta viene approvata direttamente.
 

@@ -24,7 +24,6 @@
     <RolePrivilege name="prvAppendop365_Rfq" level="Global" />
     <RolePrivilege name="prvAppendop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvAppendop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvAppendop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvAppendop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvAppendop365_SupplierInvoiceLine" level="Global" />
@@ -53,7 +52,6 @@
     <RolePrivilege name="prvAppendToop365_Rfq" level="Global" />
     <RolePrivilege name="prvAppendToop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvAppendToop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierInvoiceLine" level="Global" />
@@ -82,7 +80,6 @@
     <RolePrivilege name="prvAssignop365_Rfq" level="Global" />
     <RolePrivilege name="prvAssignop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvAssignop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvAssignop365_Settings" level="Global" />
     <RolePrivilege name="prvAssignop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvAssignop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvAssignop365_SupplierInvoiceLine" level="Global" />
@@ -111,7 +108,6 @@
     <RolePrivilege name="prvCreateop365_Rfq" level="Global" />
     <RolePrivilege name="prvCreateop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvCreateop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvCreateop365_Settings" level="Global" />
     <RolePrivilege name="prvCreateop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvCreateop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvCreateop365_SupplierInvoiceLine" level="Global" />
@@ -141,7 +137,6 @@
     <RolePrivilege name="prvDeleteop365_Rfq" level="Global" />
     <RolePrivilege name="prvDeleteop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvDeleteop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvDeleteop365_Settings" level="Global" />
     <RolePrivilege name="prvDeleteop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvDeleteop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvDeleteop365_SupplierInvoiceLine" level="Global" />
@@ -170,7 +165,6 @@
     <RolePrivilege name="prvReadop365_Rfq" level="Global" />
     <RolePrivilege name="prvReadop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvReadop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvReadop365_Settings" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierInvoiceLine" level="Global" />
@@ -206,7 +200,6 @@
     <RolePrivilege name="prvShareop365_Rfq" level="Global" />
     <RolePrivilege name="prvShareop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvShareop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvShareop365_Settings" level="Global" />
     <RolePrivilege name="prvShareop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvShareop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvShareop365_SupplierInvoiceLine" level="Global" />
@@ -235,7 +228,6 @@
     <RolePrivilege name="prvWriteop365_Rfq" level="Global" />
     <RolePrivilege name="prvWriteop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvWriteop365_RfqQuote" level="Global" />
-    <RolePrivilege name="prvWriteop365_Settings" level="Global" />
     <RolePrivilege name="prvWriteop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvWriteop365_SupplierInvoice" level="Global" />
     <RolePrivilege name="prvWriteop365_SupplierInvoiceLine" level="Global" />

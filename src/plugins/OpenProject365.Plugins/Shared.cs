@@ -68,14 +68,6 @@ namespace OpenProject365.Plugins
                 .Where(id => id != Guid.Empty).Distinct().ToList();
         }
 
-        /// <summary>Time approval switch of the Settings row; on when there is no row.</summary>
-        public static bool TimeApprovalEnabled(IOrganizationService system)
-        {
-            var query = new QueryExpression(Model.Settings) { ColumnSet = new ColumnSet("op365_timeapprovalenabled"), TopCount = 1 };
-            var row = system.RetrieveMultiple(query).Entities.FirstOrDefault();
-            return row == null || row.GetAttributeValue<bool>("op365_timeapprovalenabled");
-        }
-
         /// <summary>In-app notification (model-driven app bell). Never fails the calling operation.</summary>
         public static void Notify(LocalContext context, Guid userId, string title, string body, string actionTitle = null, string actionUrl = null)
         {

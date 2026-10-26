@@ -18,4 +18,4 @@ A table per project: resource, days, total hours, oldest submission, flags. Then
 
 ## Rules
 - Only Submitted entries are waiting; Draft entries are not yet submitted, Approved and Rejected are decided.
-- When time approval is off (`op365_settings.op365_timeapprovalenabled` = No), hours are approved on submit: say there is nothing to approve.
+- When time approval is off (environment variable `op365_TimeApprovalEnabled` = No), hours are approved on submit: say there is nothing to approve.

@@ -37,7 +37,7 @@ Numbers are assigned automatically when the record is saved: purchase requests `
 | Create a purchase request | A Manager or Contributor of the project, an administrator (the requester is set to you) |
 | Submit a request | The requester, a Manager of the project, an administrator |
 | Approve / reject up to the threshold | The project manager (current approver), any Manager of the project, an administrator |
-| Approve / reject above the threshold (second level) | The **Purchasing Approver** set in Settings, or an administrator |
+| Approve / reject above the threshold (second level) | The **Purchasing Approver** set in the [environment variables](administration.md#company-settings), or an administrator |
 | Cancel a request | The requester, a Manager of the project, an administrator |
 | Create RFQs and orders, send, award, change order status | A Manager of the project, an administrator |
 | Register goods receipts | A Manager or Contributor of the project, an administrator |
@@ -84,7 +84,7 @@ The **Estimated Amount** of the request is the sum of the line amounts.
 
 Click **Submit**. The request becomes **Submitted**, its content is locked (only the Justification can still be completed), and the application records three things in the *Approval* section:
 
-- **Above Threshold**: whether the estimated amount exceeds the **Purchase Request Threshold** in Settings;
+- **Above Threshold**: whether the estimated amount exceeds the **Purchase Request Threshold** [environment variable](administration.md#company-settings);
 - **Over Budget**: whether actual cost + committed cost + this request exceed the budget of the WBS node (or of the project, if no node is set);
 - **Current Approver**: the project manager, who receives a notification "Purchase request to approve".
 
@@ -113,7 +113,7 @@ stateDiagram-v2
 | Level | Who decides | What happens on Approve |
 |---|---|---|
 | **Manager** (first) | Project manager / Managers of the project | If the request is **not** above the threshold → **Approved**. If it is above → it moves to level **Administrator**, *Manager Approved By/On* are recorded, and the second-level approvers are notified |
-| **Administrator** (second) | Purchasing Approver from Settings (if set), otherwise every OP365 Administrator | → **Approved** |
+| **Administrator** (second) | Purchasing Approver environment variable (if set), otherwise every OP365 Administrator | → **Approved** |
 
 If the person approving at the first level is already a second-level approver, the request is approved directly.
 

@@ -123,10 +123,7 @@ COLUMNS = {
     col('decimal', 'Hours', 'Hours', 'Only for single-day absences', min=0, maxv=24),
     col('memo', 'Notes', 'Notes'),
   ],
-  'op365_settings': [
-    col('bool', 'TimeApprovalEnabled', 'Time Approval Enabled'),
-    col('currency', 'PurchaseRequestThreshold', 'Purchase Request Threshold', 'Above this amount a purchase request needs administrator approval'),
-  ],
+  # company settings are environment variables: see settings_env.py
 }
 
 # referencing table, lookup schema, label, referenced table, parental, required

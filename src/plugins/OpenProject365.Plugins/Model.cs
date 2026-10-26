@@ -13,7 +13,6 @@ namespace OpenProject365.Plugins
         public const string ResourceCost = "op365_resourcecost";
         public const string TimeEntry = "op365_timeentry";
         public const string MaterialUsage = "op365_materialusage";
-        public const string Settings = "op365_settings";
         public const string Item = "op365_item";
         public const string PurchaseRequest = "op365_purchaserequest";
         public const string PurchaseRequestLine = "op365_purchaserequestline";

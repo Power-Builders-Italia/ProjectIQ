@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="op365_PurchaseRequestThreshold">
+  <description default="Amount above which a purchase request also needs second-level approval. Empty or 0 = never.">
+    <label description="Amount above which a purchase request also needs second-level approval. Empty or 0 = never." languagecode="1033" />
+  </description>
+  <displayname default="Purchase Request Threshold">
+    <label description="Purchase Request Threshold" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.8.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

@@ -24,20 +24,10 @@ namespace OpenProject365.Plugins
 
         public static void Fail(string message) { throw new InvalidPluginExecutionException(message); }
 
-        public static Entity Settings(IOrganizationService system)
-        {
-            var query = new QueryExpression(Model.Settings)
-            {
-                ColumnSet = new ColumnSet("op365_purchaserequestthreshold", "op365_purchasingapproverid"),
-                TopCount = 1,
-            };
-            return system.RetrieveMultiple(query).Entities.FirstOrDefault() ?? new Entity(Model.Settings);
-        }
-
-        /// <summary>Second-level approvers: the Purchasing Approver of Settings, else every OP365 Administrator.</summary>
+        /// <summary>Second-level approvers: the Purchasing Approver environment variable, else every OP365 Administrator.</summary>
         public static List<Guid> SecondLevelApprovers(IOrganizationService system)
         {
-            var approver = Id(Settings(system), "op365_purchasingapproverid");
+            var approver = Settings.PurchasingApprover(system);
             if (approver.HasValue) return new List<Guid> { approver.Value };
             var query = new QueryExpression("systemuser") { ColumnSet = new ColumnSet(false) };
             query.Criteria.AddCondition("isdisabled", ConditionOperator.Equal, false);
@@ -48,7 +38,7 @@ namespace OpenProject365.Plugins
 
         public static bool IsSecondLevelApprover(IOrganizationService system, Guid userId)
         {
-            var approver = Id(Settings(system), "op365_purchasingapproverid");
+            var approver = Settings.PurchasingApprover(system);
             return approver == userId || Rules.IsAdmin(system, userId);
         }
 
@@ -288,7 +278,7 @@ namespace OpenProject365.Plugins
 
     /// <summary>
     /// Custom API op365_SubmitPurchaseRequest (bound to op365_purchaserequest). Draft or Rejected → Submitted.
-    /// Sets OverBudget (actual + committed + request above the WBS node or project budget), AboveThreshold (Settings),
+    /// Sets OverBudget (actual + committed + request above the WBS node or project budget), AboveThreshold (environment variable),
     /// ApprovalLevel Manager and the project manager as current approver, then notifies the approver.
     /// </summary>
     public class SubmitPurchaseRequest : PluginBase
@@ -325,7 +315,7 @@ namespace OpenProject365.Plugins
                 actual = Purchasing.Amount(p, Model.ActualCost);
                 committed = Purchasing.Amount(p, Model.CommittedCost);
             }
-            var threshold = Purchasing.Settings(system).GetAttributeValue<Money>("op365_purchaserequestthreshold")?.Value;
+            var threshold = Settings.PurchaseRequestThreshold(system);
             var project = system.Retrieve(Model.Project, projectId, new ColumnSet(Model.ProjectManagerId, "op365_name"));
             var approver = Purchasing.Id(project, Model.ProjectManagerId);
             var update = new Entity(Model.PurchaseRequest, id)
@@ -352,7 +342,7 @@ namespace OpenProject365.Plugins
     /// <summary>
     /// Custom API op365_DecidePurchaseRequest (bound). Inputs Approve (bool), Note (string; required to reject).
     /// Level Manager: a manager of the project (or the current approver, or an administrator) decides; an approval above
-    /// the threshold moves the request to level Administrator. Level Administrator: the Purchasing Approver of Settings or an
+    /// the threshold moves the request to level Administrator. Level Administrator: the Purchasing Approver environment variable or an
     /// administrator decides. The requester (or the next approver) is notified.
     /// </summary>
     public class DecidePurchaseRequest : PluginBase
@@ -1199,7 +1189,7 @@ namespace OpenProject365.Plugins
 
     /// <summary>
     /// Custom API op365_DecideSupplierInvoice (bound). Inputs Approve (bool), Note (string; required to reject).
-    /// To Review → Approved or Rejected; the Purchasing Approver of Settings or an administrator decides.
+    /// To Review → Approved or Rejected; the Purchasing Approver environment variable or an administrator decides.
     /// </summary>
     public class DecideSupplierInvoice : PluginBase
     {

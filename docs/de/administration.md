@@ -13,7 +13,7 @@ Dieses Handbuch richtet sich an die Personen, die Open Project 365 in einem Unte
 flowchart TD
     A[1. Umgebung mit der<br/>Lösung Open Project 365] --> B[2. Benutzer: Basic User +<br/>OP365-Rolle]
     B --> C[3. Profil Cost Visibility<br/>für Manager und Controller]
-    C --> D[4. Settings-Zeile: Zeitgenehmigung,<br/>Einkaufsschwelle und Genehmiger]
+    C --> D[4. Umgebungsvariablen: Zeitgenehmigung,<br/>Einkaufsschwelle und Genehmiger]
     D --> E[5. Stammdaten: Kunden,<br/>Lieferanten, Artikel, Ressourcen]
     E --> F[6. Ressourcenkosten und<br/>User auf den Ressourcen verknüpfen]
     F --> G[7. Betriebsschließungen<br/>des Jahres]
@@ -26,7 +26,7 @@ flowchart TD
 | 1 | Power Platform Admin Center | Eine Dataverse-Umgebung pro Unternehmen. Die Lösung wird von der IT installiert (siehe [Entwicklungsumgebung](../dev-environment.md)) |
 | 2 | Power Platform Admin Center → Users | [Sicherheitsrollen](#sicherheitsrollen) |
 | 3 | Power Platform Admin Center → Column security profiles | [Kostensichtbarkeit](#kostensichtbarkeit) |
-| 4 | Settings → Company → Settings | [Unternehmenseinstellungen](#unternehmenseinstellungen) |
+| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Unternehmenseinstellungen](#unternehmenseinstellungen) |
 | 5 | Master Data | [Stammdaten](master-data.md) |
 | 6 | Master Data → Resources | [Stammdaten](master-data.md#ressourcen) |
 | 7 | Projects → Planning → Absences (ohne Ressource) | [Stammdaten](master-data.md#abwesenheiten-und-betriebsschließungen) |
@@ -86,16 +86,30 @@ Weisen Sie das Profil (Power Platform Admin Center → *Settings* → *Users + p
 
 ## Unternehmenseinstellungen
 
-**Settings → Company → Settings** enthält eine **einzige Zeile** mit den unternehmensweiten Schaltern. Legen Sie sie einmal an, falls sie nicht existiert; legen Sie keine zweite an.
+Die unternehmensweiten Schalter sind **Umgebungsvariablen** (environment variables) der Lösung Open Project 365. Jede Umgebung (Dev, Test, Produktion) hat eigene Werte, sodass eine Testumgebung zum Beispiel die Zeitgenehmigung überspringen kann, ohne die Produktion zu berühren. Sie sind nicht in der App: Ein Power Platform-Administrator oder ein Maker der Umgebung ändert sie.
 
-| Feld | Standard | Wirkung |
-|---|---|---|
-| **Name** | – | Name des Unternehmens |
-| **Time Approval Enabled** | An (auch wenn die Zeile nicht existiert) | An: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. Aus: **Submit** genehmigt die Stunden sofort |
-| **Purchase Request Threshold** | Leer | Betrag, ab dem eine Bedarfsanforderung zusätzlich eine Genehmigung der zweiten Stufe braucht. Leer oder 0 = nie |
-| **Purchasing Approver** | Leer | Der Benutzer, der Anforderungen über der Schwelle genehmigt und über Lieferantenrechnungen entscheidet. Leer = jeder OP365 Administrator |
+```mermaid
+flowchart LR
+    DEF[Definition in der Lösung<br/>mit ihrem Default Value] --> VAL{Current Value<br/>in der Umgebung?}
+    VAL -->|ja| USE[Current Value wird verwendet]
+    VAL -->|nein| DFL[Default Value wird verwendet]
+```
 
-Änderungen gelten sofort für neue Einreichungen; bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
+So ändern Sie einen Wert:
+
+1. Öffnen Sie [Power Apps](https://make.powerapps.com), wählen Sie die Umgebung, dann **Solutions** → **Open Project 365** (oder **Default Solution**) → **Environment variables**.
+2. Öffnen Sie die Variable und klicken Sie unter **Current Value** auf **+ New value** (oder bearbeiten Sie den vorhandenen Wert). Ändern Sie nicht den **Default Value** einer verwalteten Lösung.
+3. **Save**. Die Änderung gilt ab der nächsten Einreichung; ein Veröffentlichen ist nicht nötig.
+
+| Umgebungsvariable | Anzeigename | Typ | Standard | Wirkung |
+|---|---|---|---|---|
+| `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. No: **Submit** genehmigt die Stunden sofort |
+| `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Leer | Betrag, ab dem eine Bedarfsanforderung zusätzlich eine Genehmigung der zweiten Stufe braucht. Leer oder 0 = nie |
+| `op365_PurchasingApprover` | **Purchasing Approver** | Text | Leer | **User Name** (z. B. `anna.rossi@contoso.com`) oder primäre E-Mail des Benutzers, der Anforderungen über der Schwelle genehmigt und über Lieferantenrechnungen entscheidet. Leer, oder kein aktiver Benutzer mit diesem Namen = jeder OP365 Administrator |
+
+Der Purchasing Approver ist ein Benutzername und kein Lookup, weil sich die Benutzer-IDs in jeder Umgebung unterscheiden. Bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
+
+In Test kann die IT die Werte auch bei der Bereitstellung über die Deployment Settings setzen (siehe [Entwicklungsumgebung](../dev-environment.md#github-repository-security)); ein dort gesetzter Wert überschreibt bei jeder Bereitstellung den Wert der Umgebung.
 
 ## Weitere Unternehmensdaten im Bereich Settings
 
@@ -153,7 +167,7 @@ Wenn die IT eine neue Version bereitstellt:
 2. Deaktivieren Sie ihre **Resource** (ihre bisherigen Stunden und Kosten bleiben erhalten).
 3. Deaktivieren Sie den Benutzer im Power Platform Admin Center / in Microsoft 365.
 4. Weisen Sie bei Bedarf Datensätze, deren Besitzer sie ist, neu zu (Assign).
-5. War sie **Purchasing Approver** oder Projektleiter, aktualisieren Sie Settings und die Projekte.
+5. War sie **Purchasing Approver** oder Projektleiter, aktualisieren Sie die [Umgebungsvariable](#unternehmenseinstellungen) und die Projekte.
 
 ## Fehlerbehebung
 
@@ -164,5 +178,5 @@ Wenn die IT eine neue Version bereitstellt:
 | Kosten bei einem Manager leer | Profil Cost Visibility fehlt | Den Benutzer dem Profil hinzufügen |
 | Niemand erhält die tägliche Erinnerung | Flow aus oder Verbindung defekt | Flow und Verbindung prüfen |
 | Summen nach einem Import nicht aktualisiert | Plugin-Schritte deaktiviert | Plugin-Schritte aktivieren |
-| Anforderungen über der Schwelle gehen an alle Administratoren | Purchasing Approver leer | In Settings setzen |
+| Anforderungen über der Schwelle gehen an alle Administratoren | Purchasing Approver leer oder nicht der User Name eines aktiven Benutzers | Die [Umgebungsvariable](#unternehmenseinstellungen) setzen |
 | Lieferanten sehen „This area is reserved to suppliers“ | Web-Rolle Supplier fehlt oder nicht angemeldet | Dem Kontakt die Web-Rolle zuweisen |

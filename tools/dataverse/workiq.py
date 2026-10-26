@@ -275,10 +275,6 @@ DESCRIPTIONS = {
     'op365_supplierinvoiceid': 'Supplier invoice the line belongs to',
     'op365_orderlineid': 'Purchase order line the invoice line refers to',
   },
-  'op365_settings': {
-    'op365_timeapprovalenabled': 'Yes when submitted hours need approval before they count as actuals',
-    'op365_purchasingapproverid': 'Administrator who approves purchase requests above the threshold',
-  },
 }
 
 

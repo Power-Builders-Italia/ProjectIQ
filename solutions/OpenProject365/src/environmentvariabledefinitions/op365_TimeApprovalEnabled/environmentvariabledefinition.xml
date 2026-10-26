@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="op365_TimeApprovalEnabled">
+  <defaultvalue>yes</defaultvalue>
+  <description default="Yes: submitted hours wait for the approval of a project manager. No: Submit approves hours immediately.">
+    <label description="Yes: submitted hours wait for the approval of a project manager. No: Submit approves hours immediately." languagecode="1033" />
+  </description>
+  <displayname default="Time Approval Enabled">
+    <label description="Time Approval Enabled" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.8.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000002</type>
+</environmentvariabledefinition>

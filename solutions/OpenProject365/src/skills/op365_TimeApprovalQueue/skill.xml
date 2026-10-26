@@ -15,7 +15,7 @@ A table per project: resource, days, total hours, oldest submission, flags. Then
 
 ## Rules
 - Only Submitted entries are waiting; Draft entries are not yet submitted, Approved and Rejected are decided.
-- When time approval is off (`op365_settings.op365_timeapprovalenabled` = No), hours are approved on submit: say there is nothing to approve.</body>
+- When time approval is off (environment variable `op365_TimeApprovalEnabled` = No), hours are approved on submit: say there is nothing to approve.</body>
   <description>Read-only list of submitted hours (time entries) waiting for approval in Open Project 365. Use when the user asks which hours, timesheets or rapportini they have to approve.</description>
   <iscustomizable>1</iscustomizable>
   <ishidden>0</ishidden>

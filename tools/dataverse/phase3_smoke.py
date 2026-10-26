@@ -31,8 +31,10 @@ def check(what, cond):
 
 
 me = S.get(API + 'WhoAmI').json()['UserId']
-settings = S.get(API + 'op365_settingses?$select=op365_timeapprovalenabled&$top=1').json().get('value', [])
-approval = not settings or settings[0].get('op365_timeapprovalenabled') is not False
+setting = S.get(API + "environmentvariabledefinitions?$select=defaultvalue&$filter=schemaname eq 'op365_TimeApprovalEnabled'"
+               "&$expand=environmentvariabledefinition_environmentvariablevalue($select=value)").json().get('value', [])
+values = [v['value'] for d in setting for v in d['environmentvariabledefinition_environmentvariablevalue']] + [d.get('defaultvalue') for d in setting]
+approval = next((v for v in values if v), 'yes') != 'no'
 acc = post('accounts', {'name': 'OP365 smoke customer', 'op365_iscustomer': True, 'op365_issupplier': True})['accountid']
 res = post('op365_resources', {'op365_name': 'OP365 smoke resource', 'op365_UserId@odata.bind': f'/systemusers({me})'})['op365_resourceid']
 item = post('op365_items', {'op365_code': 'SMOKE-IT', 'op365_name': 'Smoke cable', 'op365_uom': 'm', 'op365_unitcost': 2})['op365_itemid']

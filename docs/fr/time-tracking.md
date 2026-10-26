@@ -190,7 +190,7 @@ Exemple : le coût de Marco est de 35,00 €/h jusqu'au 30 juin et de 38,50 €/
 
 | Réglage | Où | Effet |
 |---|---|---|
-| **Time Approval Enabled** | Settings → Company → Settings | Activé (par défaut) : les heures soumises attendent l'approbation. Désactivé : **Submit** approuve immédiatement les saisies (elles comptent tout de suite dans le réel) |
+| **Time Approval Enabled** | Variable d'environnement `op365_TimeApprovalEnabled` ([Administration](administration.md#paramètres-de-lentreprise)) | Yes (par défaut) : les heures soumises attendent l'approbation. No : **Submit** approuve immédiatement les saisies (elles comptent tout de suite dans le réel) |
 | **User** sur la Resource | Master Data → Resources | Relie une personne à sa ressource : nécessaire pour la feuille de temps |
 | **Weekly Hours**, **Working Days** | Resource | Heures attendues (rappel, total hebdomadaire) |
 | **Absences** | Planning → Absences | Réduisent les heures attendues ; les fermetures d'entreprise suspendent les rappels |

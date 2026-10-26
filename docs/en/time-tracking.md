@@ -188,7 +188,7 @@ Example: Marco's cost is 35.00 €/h until 30 June and 38.50 €/h from 1 July. 
 
 | Setting | Where | Effect |
 |---|---|---|
-| **Time Approval Enabled** | Settings → Company → Settings | On (default): submitted hours wait for approval. Off: **Submit** approves the entries immediately (they count in actuals straight away) |
+| **Time Approval Enabled** | Environment variable `op365_TimeApprovalEnabled` ([Administration](administration.md#company-settings)) | Yes (default): submitted hours wait for approval. No: **Submit** approves the entries immediately (they count in actuals straight away) |
 | **User** on Resource | Master Data → Resources | Links a person to their resource: required to use the timesheet |
 | **Weekly Hours**, **Working Days** | Resource | Expected hours (reminder, weekly total) |
 | **Absences** | Planning → Absences | Reduce expected hours; company closures suspend reminders |
