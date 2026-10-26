@@ -50,6 +50,7 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Purchasing: requests, RFQs, orders, receipts, invoices | [EN](docs/en/purchasing.md) | [IT](docs/it/purchasing.md) | [FR](docs/fr/purchasing.md) | [DE](docs/de/purchasing.md) |
 | Supplier portal | [EN](docs/en/supplier-portal.md) | [IT](docs/it/supplier-portal.md) | [FR](docs/fr/supplier-portal.md) | [DE](docs/de/supplier-portal.md) |
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
+| Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |
 
 Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Data model](docs/data-model.md).
 

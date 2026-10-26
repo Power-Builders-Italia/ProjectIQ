@@ -366,7 +366,7 @@
             <displayname description="Cancelled On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the order was cancelled" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ConfirmedOn">
@@ -406,7 +406,7 @@
             <displayname description="Confirmed On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the supplier confirmed the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DeliveryPlace">
@@ -446,7 +446,7 @@
             <displayname description="Delivery Place" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Where the goods must be delivered" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExpectedDelivery">
@@ -486,7 +486,7 @@
             <displayname description="Expected Delivery" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Delivery date expected from the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -525,7 +525,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Notes printed on the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -605,7 +605,7 @@
             <displayname description="Order Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date of the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PaymentTerms">
@@ -645,7 +645,7 @@
             <displayname description="Payment Terms" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Payment terms of the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -684,7 +684,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the order is for" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseOrderId">
@@ -760,7 +760,7 @@
             <displayname description="Purchase Request" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase request the order comes from" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ReceivedAmount">
@@ -883,7 +883,7 @@
             <displayname description="Received On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When all the goods were received" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SentOn">
@@ -923,7 +923,7 @@
             <displayname description="Sent On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the order was sent to the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SentTo">
@@ -963,7 +963,7 @@
             <displayname description="Sent To" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Email address the order was sent to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierConfirmed">
@@ -1024,7 +1024,7 @@
             <displayname description="Supplier Confirmed" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Yes when the supplier confirmed the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierId">
@@ -1063,7 +1063,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier the order is placed with" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TotalAmount">

@@ -448,7 +448,7 @@
             <displayname description="Decided By" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who approved or rejected the hours" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedOn">
@@ -488,7 +488,7 @@
             <displayname description="Decided On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the hours were approved or rejected" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecisionNote">
@@ -527,7 +527,7 @@
             <displayname description="Decision Note" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Reason given by the approver, required when rejecting" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_EntryDate">
@@ -567,7 +567,7 @@
             <displayname description="Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Day the hours were worked" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Hours">
@@ -607,7 +607,7 @@
             <displayname description="Hours" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Hours worked on the day" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -686,7 +686,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="What was done" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -725,7 +725,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the hours were worked on" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResourceId">
@@ -764,7 +764,7 @@
             <displayname description="Resource" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Resource who worked the hours" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Revenue">
@@ -887,7 +887,7 @@
             <displayname description="Submitted On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the hours were submitted for approval" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TimeEntryId">
@@ -963,7 +963,7 @@
             <displayname description="WBS Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="WBS node the hours were worked on" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

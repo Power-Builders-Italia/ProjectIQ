@@ -365,7 +365,7 @@
             <displayname description="Goods Receipt Line" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Goods receipt line the material came from" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ItemId">
@@ -404,7 +404,7 @@
             <displayname description="Item" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Item used" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_MaterialUsageId">
@@ -520,7 +520,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project that used the material" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Quantity">
@@ -560,7 +560,7 @@
             <displayname description="Quantity" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Quantity used" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierId">
@@ -599,7 +599,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier the material came from" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TotalCost">
@@ -723,7 +723,7 @@
             <displayname description="Unit Cost" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Cost per unit of the material used" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_unitcost_Base">
@@ -805,7 +805,7 @@
             <displayname description="Unit of Measure" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_UsageDate">
@@ -845,7 +845,7 @@
             <displayname description="Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Day the material was used" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">
@@ -884,7 +884,7 @@
             <displayname description="WBS Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="WBS node that used the material" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

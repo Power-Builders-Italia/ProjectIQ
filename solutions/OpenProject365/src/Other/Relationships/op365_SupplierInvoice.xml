@@ -18,7 +18,7 @@
     <ReferencingAttributeName>op365_SupplierInvoiceId</ReferencingAttributeName>
     <RelationshipDescription>
       <Descriptions>
-        <Description description="" languagecode="1033" />
+        <Description description="Supplier invoice the line belongs to" languagecode="1033" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

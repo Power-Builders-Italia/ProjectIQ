@@ -366,7 +366,7 @@
             <displayname description="Category" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Item category used to group materials" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Code">
@@ -406,7 +406,7 @@
             <displayname description="Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Internal item code" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DefaultSupplierId">
@@ -445,7 +445,7 @@
             <displayname description="Default Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier proposed by default when the item is requested or ordered" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ItemId">
@@ -561,7 +561,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the item" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Spend">
@@ -685,7 +685,7 @@
             <displayname description="Unit Cost" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Standard unit cost of the item" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_unitcost_Base">
@@ -767,7 +767,7 @@
             <displayname description="Unit of Measure" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the item, e.g. pcs, m, kg, h" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_UsageCount">

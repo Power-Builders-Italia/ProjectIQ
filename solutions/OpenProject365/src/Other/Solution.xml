@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26102.120" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26102.120" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00137">
+<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00137">
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
@@ -233,9 +233,15 @@
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.27">PowerAppsAppFramework_Anchor (1.0.0.27)</package>
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.28">PowerAppsAppFramework_Anchor (1.0.0.28)</package>
         </Required>
         <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=op365_OpenProject365,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="op365_OpenProject365" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="m365copilotmodelappenabled" solution="msdyn_M365CopilotAppInfraSettings (9.2.0.9)" id.uniquename="m365copilotmodelappenabled">
+          <package appName="PowerAppsAppCopilotApp Package" version="9.2.0.9">msdyn_M365CopilotAppInfraSettings (9.2.0.9)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=op365_OpenProject365,settingdefinitionid.uniquename=m365copilotmodelappenabled" id.parentappmoduleid.uniquename="op365_OpenProject365" id.settingdefinitionid.uniquename="m365copilotmodelappenabled" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

@@ -362,7 +362,7 @@
             <displayname description="Description" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Why the baseline was saved, e.g. contract signed" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsReference">
@@ -502,7 +502,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the baseline is a snapshot of" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

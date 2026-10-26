@@ -447,7 +447,7 @@
             <displayname description="Expiry Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date the document expires; expired documents count in Expired Documents on the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExternalUrl">
@@ -487,7 +487,7 @@
             <displayname description="External URL" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Link to the document when it is stored outside Dataverse" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_File">
@@ -525,7 +525,7 @@
             <displayname description="File" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Scanned or PDF copy of the document" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IssueDate">
@@ -565,7 +565,7 @@
             <displayname description="Issue Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date the document was issued" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -604,7 +604,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the document" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -644,7 +644,7 @@
             <displayname description="Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Document number or protocol" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierDocumentId">
@@ -720,7 +720,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier the compliance document belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

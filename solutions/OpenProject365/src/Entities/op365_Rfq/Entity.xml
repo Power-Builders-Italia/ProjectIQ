@@ -326,7 +326,7 @@
             <displayname description="Awarded On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the RFQ was awarded to a supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_CancelledOn">
@@ -366,7 +366,7 @@
             <displayname description="Cancelled On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the RFQ was cancelled" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Deadline">
@@ -406,7 +406,7 @@
             <displayname description="Deadline" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Last day for suppliers to send their quote" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -445,7 +445,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Instructions for the suppliers" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -524,7 +524,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the RFQ is for" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseOrderId">
@@ -563,7 +563,7 @@
             <displayname description="Purchase Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order created when the RFQ was awarded" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseRequestId">
@@ -602,7 +602,7 @@
             <displayname description="Purchase Request" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Approved purchase request the RFQ comes from" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResponseCount">
@@ -719,7 +719,7 @@
             <displayname description="Sent On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the RFQ was sent to the suppliers" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WinningInvitationId">
@@ -758,7 +758,7 @@
             <displayname description="Winning Invitation" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier invitation that won the RFQ" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

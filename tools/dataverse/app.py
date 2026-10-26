@@ -144,8 +144,8 @@ else:
     if not current:
         ok(S.post(API + 'appsettings', json={
             'value': 'true', 'uniquename': f'{APP}_AppNotificationPolarisFeature',
-            'ParentAppModuleId@odata.bind': f'/appmodules({app_id})',
-            'SettingDefinitionId@odata.bind': f'/settingdefinitions({definition})'}), 'in-app notifications on')
+            'parentappmoduleid@odata.bind': f'/appmodules({app_id})',
+            'settingdefinitionid@odata.bind': f'/settingdefinitions({definition})'}), 'in-app notifications on')
     elif current[0]['value'] != 'true':
         ok(S.patch(API + f"appsettings({current[0]['appsettingid']})", json={'value': 'true'}), 'in-app notifications on')
 

@@ -365,7 +365,7 @@
             <displayname description="Decided By" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who approved or rejected the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedOn">
@@ -405,7 +405,7 @@
             <displayname description="Decided On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the invoice was approved or rejected" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecisionNote">
@@ -444,7 +444,7 @@
             <displayname description="Decision Note" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Reason given by the approver, required when rejecting" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DeliveryNoteRefs">
@@ -484,7 +484,7 @@
             <displayname description="Delivery Note References" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Delivery notes (DDT) quoted on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DocumentType">
@@ -610,7 +610,7 @@
             <displayname description="Invoice Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date of the supplier invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_InvoiceNumber">
@@ -650,7 +650,7 @@
             <displayname description="Invoice Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Number of the supplier invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -730,7 +730,7 @@
             <displayname description="Order References" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase orders quoted on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -769,7 +769,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the invoice is charged to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseOrderId">
@@ -808,7 +808,7 @@
             <displayname description="Purchase Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order the invoice refers to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SellerName">
@@ -848,7 +848,7 @@
             <displayname description="Seller Name" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Seller name as written on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SellerVatNumber">
@@ -888,7 +888,7 @@
             <displayname description="Seller VAT Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Seller VAT number as written on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierId">
@@ -927,7 +927,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier who issued the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierInvoiceId">

@@ -448,7 +448,7 @@
             <displayname description="Item" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Ordered item; empty for a service or a free-text line" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -527,7 +527,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the line" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Price">
@@ -568,7 +568,7 @@
             <displayname description="Unit Price" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Agreed unit price" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_price_Base">
@@ -649,7 +649,7 @@
             <displayname description="Purchase Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order the line belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseOrderLineId">
@@ -726,7 +726,7 @@
             <displayname description="Quantity" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Ordered quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ReceivedQuantity">
@@ -805,7 +805,7 @@
             <displayname description="Request Line" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase request line the order line comes from" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SortOrder">
@@ -845,7 +845,7 @@
             <displayname description="Sort Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Position of the line in the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Uom">
@@ -885,7 +885,7 @@
             <displayname description="Unit of Measure" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">
@@ -924,7 +924,7 @@
             <displayname description="WBS Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="WBS node whose budget the line uses" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

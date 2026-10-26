@@ -489,7 +489,7 @@
             <displayname description="Budget Hours" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned hours for the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_BudgetLabour">
@@ -530,7 +530,7 @@
             <displayname description="Budget Labour" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned labour cost for the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_budgetlabour_Base">
@@ -613,7 +613,7 @@
             <displayname description="Budget Materials" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned materials cost for the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_budgetmaterials_Base">
@@ -696,7 +696,7 @@
             <displayname description="Budget Other" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned other costs for the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_budgetother_Base">
@@ -901,7 +901,7 @@
             <displayname description="End Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned end date of the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -980,7 +980,7 @@
             <displayname description="Owner Resource" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Resource responsible for the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ParentId">
@@ -1019,7 +1019,7 @@
             <displayname description="Parent Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Parent node in the work breakdown structure; empty for a top-level phase" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProgressPct">
@@ -1059,7 +1059,7 @@
             <displayname description="Progress %" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Completion of the node in percent" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -1098,7 +1098,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the node belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SortOrder">
@@ -1178,7 +1178,7 @@
             <displayname description="Start Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned start date of the node" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">

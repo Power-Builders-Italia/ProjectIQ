@@ -42,5 +42,9 @@
       <iscustomizable>1</iscustomizable>
       <value>1</value>
     </appsetting>
+    <appsetting settingdefinitionid.uniquename="m365copilotmodelappenabled">
+      <iscustomizable>1</iscustomizable>
+      <value>2</value>
+    </appsetting>
   </appsettings>
 </AppModule>

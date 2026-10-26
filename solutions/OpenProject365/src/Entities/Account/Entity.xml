@@ -327,7 +327,7 @@
             <displayname description="Customer Type" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Prospect (potential customer) or Customer (has or had projects)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExpiredDocs">
@@ -447,7 +447,7 @@
             <displayname description="IBAN" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Bank account (IBAN) for payments to the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsCustomer">
@@ -508,7 +508,7 @@
             <displayname description="Is Customer" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Yes when the account is a customer that can own projects" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsSupplier">
@@ -569,7 +569,7 @@
             <displayname description="Is Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Yes when the account is a supplier that can receive RFQs and purchase orders" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Language">
@@ -680,7 +680,7 @@
             <displayname description="Payment Terms" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Agreed payment terms, e.g. 60 days end of month" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Pec">
@@ -883,7 +883,7 @@
             <displayname description="Supplier Category" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text category of goods or services supplied" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierStatus">
@@ -944,7 +944,7 @@
             <displayname description="Supplier Status" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Active suppliers can be invited and ordered from; Blocked suppliers cannot" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TaxCode">
@@ -984,7 +984,7 @@
             <displayname description="Tax Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Italian tax code (Codice Fiscale)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_VatNumber">
@@ -1024,7 +1024,7 @@
             <displayname description="VAT Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="VAT registration number (Partita IVA)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="PrimaryContactId">

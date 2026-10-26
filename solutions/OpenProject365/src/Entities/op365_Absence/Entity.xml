@@ -394,7 +394,7 @@
             <displayname description="Absence Type" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Vacation, Leave, Sickness, or Closure (company closure for everyone)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_FromDate">
@@ -434,7 +434,7 @@
             <displayname description="From" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="First day of the absence" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Hours">
@@ -553,7 +553,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the absence" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResourceId">
@@ -592,7 +592,7 @@
             <displayname description="Resource" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Absent resource; empty for a company closure" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ToDate">
@@ -632,7 +632,7 @@
             <displayname description="To" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Last day of the absence" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

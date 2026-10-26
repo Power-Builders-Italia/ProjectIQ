@@ -572,7 +572,7 @@
             <displayname description="Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project code, e.g. PRJ-000123" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_CommittedCost">
@@ -696,7 +696,7 @@
             <displayname description="Contract Value" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Value of the contract with the customer (revenue)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_contractvalue_Base">
@@ -777,7 +777,7 @@
             <displayname description="Customer" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Customer the project is for" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Description">
@@ -816,7 +816,7 @@
             <displayname description="Description" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the project scope" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_EndDate">
@@ -856,7 +856,7 @@
             <displayname description="End Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned end date of the project" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -1012,7 +1012,7 @@
             <displayname description="Project Manager" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User responsible for the project" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_StartDate">
@@ -1052,7 +1052,7 @@
             <displayname description="Start Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Planned start date of the project" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

@@ -365,7 +365,7 @@
             <displayname description="Baseline" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Baseline the values belong to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_BaselineNodeId">
@@ -442,7 +442,7 @@
             <displayname description="Budget Hours" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Budget hours of the node when the baseline was saved" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_BudgetTotal">
@@ -483,7 +483,7 @@
             <displayname description="Budget Total" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Total budget of the node when the baseline was saved" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_budgettotal_Base">
@@ -565,7 +565,7 @@
             <displayname description="Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Outline code of the node when the baseline was saved" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_EndDate">
@@ -605,7 +605,7 @@
             <displayname description="End Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="End date of the node when the baseline was saved" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -685,7 +685,7 @@
             <displayname description="Start Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Start date of the node when the baseline was saved" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">
@@ -724,7 +724,7 @@
             <displayname description="WBS Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Current node the saved values refer to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">
