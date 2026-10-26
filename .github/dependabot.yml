@@ -1,0 +1,46 @@
+# Dependency updates: weekly, grouped per ecosystem, at most one open PR each.
+# Actions stay pinned to commit SHAs (Dependabot updates the SHA and the tag comment).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directory: /src/pcf
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    ignore:
+      # Must match the platform libraries in the PCF manifests (Fluent 9.46.2, React 16.14.0) loaded by the runtime
+      - dependency-name: "@fluentui/react-components"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      pcf:
+        patterns: ["*"]
+
+  - package-ecosystem: nuget
+    directories:
+      - /src/plugins/OpenProject365.Plugins
+      - /src/plugins/OpenProject365.Plugins.Tests
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    ignore:
+      # Plugins target .NET Framework 4.6.2 in the Dataverse sandbox: no major upgrades
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      plugins:
+        patterns: ["*"]
