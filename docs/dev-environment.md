@@ -103,6 +103,7 @@ The repository is meant to be public: environment URLs, tenant, app and connecti
 - **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`). Never use `pull_request_target`.
 - **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.
 - **Branch protection on `main`**: pull request required, review from code owners ([CODEOWNERS](../.github/CODEOWNERS)), `build` checks required.
-- **Code security**: secret scanning and push protection on; Dependabot alerts on.
+- **Code security**: secret scanning and push protection on; Dependabot alerts on; CodeQL default setup.
+- **Dependabot version updates** ([dependabot.yml](../.github/dependabot.yml)): weekly grouped PRs for actions, PCF (npm) and plugins (NuGet). Fluent UI and React are never bumped (they must match the PCF platform libraries) and majors are skipped for npm and NuGet.
 - Vulnerability reports: [SECURITY.md](../SECURITY.md).
 
