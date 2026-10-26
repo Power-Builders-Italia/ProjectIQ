@@ -487,7 +487,7 @@
             <displayname description="Current Approver" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who must approve the request now" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedById">
@@ -526,7 +526,7 @@
             <displayname description="Decided By" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who took the final decision" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedOn">
@@ -566,7 +566,7 @@
             <displayname description="Decided On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the request was finally approved or rejected" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecisionNote">
@@ -605,7 +605,7 @@
             <displayname description="Decision Note" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Reason given by the approver, required when rejecting" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_EstimatedAmount">
@@ -727,7 +727,7 @@
             <displayname description="Justification" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Why the purchase is needed" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ManagerApprovedById">
@@ -766,7 +766,7 @@
             <displayname description="Manager Approved By" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project manager who approved the request" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ManagerApprovedOn">
@@ -806,7 +806,7 @@
             <displayname description="Manager Approved On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the project manager approved the request" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_NeededBy">
@@ -846,7 +846,7 @@
             <displayname description="Needed By" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date by which the goods or services are needed" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -986,7 +986,7 @@
             <displayname description="Preferred Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier suggested by the requester" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -1025,7 +1025,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the purchase is for" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseRequestId">
@@ -1101,7 +1101,7 @@
             <displayname description="Requester" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who asked for the purchase" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SubmittedOn">
@@ -1141,7 +1141,7 @@
             <displayname description="Submitted On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the request was submitted for approval" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Title">
@@ -1181,7 +1181,7 @@
             <displayname description="Title" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short title of what is requested" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">
@@ -1220,7 +1220,7 @@
             <displayname description="WBS Node" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="WBS node whose budget the purchase uses" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

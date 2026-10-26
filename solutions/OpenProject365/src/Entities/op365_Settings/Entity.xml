@@ -488,7 +488,7 @@
             <displayname description="Purchasing Approver" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Administrator who approves purchase requests above the threshold" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SettingsId">
@@ -586,7 +586,7 @@
             <displayname description="Time Approval Enabled" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Yes when submitted hours need approval before they count as actuals" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

@@ -365,7 +365,7 @@
             <displayname description="Item" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Item the conditions refer to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ItemSupplierId">
@@ -442,7 +442,7 @@
             <displayname description="Lead Time (Days)" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Days between order and delivery" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_MinimumLot">
@@ -482,7 +482,7 @@
             <displayname description="Minimum Lot" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Minimum quantity the supplier accepts per order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -561,7 +561,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the supplier conditions" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Price">
@@ -602,7 +602,7 @@
             <displayname description="Price" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit price agreed with the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_price_Base">
@@ -684,7 +684,7 @@
             <displayname description="Supplier Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Code of the item in the supplier catalogue" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierId">
@@ -723,7 +723,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier offering the item" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

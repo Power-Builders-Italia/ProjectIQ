@@ -17,7 +17,7 @@
     <ReferencingAttributeName>op365_File</ReferencingAttributeName>
     <RelationshipDescription>
       <Descriptions>
-        <Description description="" languagecode="1033" />
+        <Description description="Scanned or PDF copy of the document" languagecode="1033" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>

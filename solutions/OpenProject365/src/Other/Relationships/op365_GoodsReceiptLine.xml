@@ -18,7 +18,7 @@
     <ReferencingAttributeName>op365_GoodsReceiptLineId</ReferencingAttributeName>
     <RelationshipDescription>
       <Descriptions>
-        <Description description="" languagecode="1033" />
+        <Description description="Goods receipt line the material came from" languagecode="1033" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

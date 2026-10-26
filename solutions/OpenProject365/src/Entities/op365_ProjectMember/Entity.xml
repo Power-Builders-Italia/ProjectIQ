@@ -488,7 +488,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the member works on" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectMemberId">
@@ -591,7 +591,7 @@
             <displayname description="Project Role" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Manager, Contributor, or Reader: the access the member has to the project" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_UserId">
@@ -630,7 +630,7 @@
             <displayname description="User" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User who is a member of the project" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

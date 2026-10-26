@@ -406,7 +406,7 @@
             <displayname description="Delivery Days" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Delivery time quoted by the supplier, in days" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Email">
@@ -446,7 +446,7 @@
             <displayname description="Email" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Email address the RFQ is sent to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_InvitedOn">
@@ -486,7 +486,7 @@
             <displayname description="Invited On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the supplier was invited" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -649,7 +649,7 @@
             <displayname description="Responded On" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="When the supplier answered" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_RfqId">
@@ -688,7 +688,7 @@
             <displayname description="RFQ" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="RFQ the invitation belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_RfqInvitationId">
@@ -843,7 +843,7 @@
             <displayname description="Supplier" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Invited supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierNotes">
@@ -882,7 +882,7 @@
             <displayname description="Supplier Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Notes written by the supplier with the quote" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

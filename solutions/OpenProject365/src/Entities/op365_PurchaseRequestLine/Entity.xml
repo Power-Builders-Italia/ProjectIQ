@@ -450,7 +450,7 @@
             <displayname description="Estimated Price" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Estimated unit price" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_estimatedprice_Base">
@@ -531,7 +531,7 @@
             <displayname description="Item" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Requested item; empty for a service or a free-text line" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -610,7 +610,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Free-text notes on the line" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseRequestId">
@@ -649,7 +649,7 @@
             <displayname description="Purchase Request" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase request the line belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseRequestLineId">
@@ -726,7 +726,7 @@
             <displayname description="Quantity" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Requested quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SortOrder">
@@ -766,7 +766,7 @@
             <displayname description="Sort Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Position of the line in the request" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Uom">
@@ -806,7 +806,7 @@
             <displayname description="Unit of Measure" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

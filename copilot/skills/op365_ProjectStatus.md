@@ -1,0 +1,28 @@
+---
+name: Open Project 365 - Project status
+description: Read-only health check of a project (commessa) in Open Project 365. Use when the user asks how a project is going, about budget, actual or committed cost, progress, or overruns of a project.
+---
+# Project status (read-only)
+
+Use this skill when the user asks "how is project X going", "is project X over budget", "commessa X: a che punto siamo", or similar.
+Never create, update or delete records: Open Project 365 is read-only from Copilot. If the user asks to change something, tell them which screen of the Open Project 365 app to use.
+
+## Inputs
+- Project: name or code (for example PRJ-000123). If it is ambiguous, list the matching projects (`op365_project`: `op365_code`, `op365_name`, customer) and ask which one.
+
+## Steps
+1. Find the project in `op365_project` by `op365_code` or `op365_name`. Read `statuscode` (1 In Progress, 2 Closed, 365000000 Offer, 365000001 Suspended), `op365_startdate`, `op365_enddate`, `op365_contractvalue`, `op365_budgettotal`, `op365_actualcost`, `op365_committedcost`, `op365_progresspct`, `op365_customerid`, `op365_projectmanagerid`.
+2. Compute:
+   - Remaining budget = `op365_budgettotal` - `op365_actualcost` - `op365_committedcost`.
+   - Budget used % = (`op365_actualcost` + `op365_committedcost`) / `op365_budgettotal`.
+   - Margin on contract = `op365_contractvalue` - `op365_budgettotal`.
+3. Read the WBS phases (`op365_wbsnode` with `op365_projectid` = the project and empty `op365_parentid`): `op365_code`, `op365_name`, `op365_budgethours`, `op365_actualhours`, `op365_budgettotal`, `op365_progresspct`, `op365_enddate`. Flag a node when `op365_actualhours` > `op365_budgethours`, or when `op365_enddate` is past and `op365_progresspct` < 100.
+4. If the project has a reference baseline (`op365_baseline` with `op365_isreference` = Yes), compare its `op365_baselinenode` budget and end dates with the current nodes and report the differences.
+5. Count open purchase requests (`op365_purchaserequest` with status Submitted 365000000) and purchase orders not yet received (`op365_purchaseorder` with status Sent 365000000 or Confirmed 365000001).
+
+## Output
+A short summary in the user's language: status, dates, budget vs actual vs committed (table), remaining budget, the flagged WBS nodes, and open purchases. Amounts in the record currency. End with at most two suggested next checks.
+
+## Rules
+- Some cost columns are protected by column security (Cost Visibility profile). If a value is empty because the user cannot see it, say so; do not estimate it.
+- `op365_actualcost` counts only approved hours and material usage; draft or submitted hours are not included.

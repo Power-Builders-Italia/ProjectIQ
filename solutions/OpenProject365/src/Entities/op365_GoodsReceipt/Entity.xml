@@ -326,7 +326,7 @@
             <displayname description="Delivery Note Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date of the supplier delivery note (DDT)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DeliveryNoteNumber">
@@ -366,7 +366,7 @@
             <displayname description="Delivery Note Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Number of the supplier delivery note (DDT)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_GoodsReceiptId">
@@ -442,7 +442,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Notes on the delivery, e.g. damaged goods" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -521,7 +521,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project the goods are for" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseOrderId">
@@ -560,7 +560,7 @@
             <displayname description="Purchase Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order the goods were delivered against" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ReceiptDate">
@@ -600,7 +600,7 @@
             <displayname description="Receipt Date" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date the goods arrived" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

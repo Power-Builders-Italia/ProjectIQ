@@ -71,7 +71,7 @@
             <displayname description="Is Decision Maker" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Yes when the contact takes purchasing or project decisions for the account" languagecode="1033" />
           </Descriptions>
         </attribute>
       </attributes>

@@ -342,7 +342,7 @@
             <displayname description="Dependency Type" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Finish-to-Start: the successor starts after the predecessor ends" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_LagDays">
@@ -382,7 +382,7 @@
             <displayname description="Lag (Days)" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Days between the end of the predecessor and the start of the successor" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -461,7 +461,7 @@
             <displayname description="Predecessor" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Node that must finish first" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -500,7 +500,7 @@
             <displayname description="Project" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Project of the two linked nodes" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SuccessorId">
@@ -539,7 +539,7 @@
             <displayname description="Successor" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Node that starts after the predecessor" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsDependencyId">

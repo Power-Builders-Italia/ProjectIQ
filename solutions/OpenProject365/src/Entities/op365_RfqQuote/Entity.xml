@@ -365,7 +365,7 @@
             <displayname description="Invitation" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier invitation the quote belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -445,7 +445,7 @@
             <displayname description="Notes" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier notes on the quoted line" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Price">
@@ -607,7 +607,7 @@
             <displayname description="Request Line" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase request line being quoted" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_RfqQuoteId">
@@ -684,7 +684,7 @@
             <displayname description="Unit" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the quoted price" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

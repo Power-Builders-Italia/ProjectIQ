@@ -366,7 +366,7 @@
             <displayname description="Code" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Item code as written on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_LineNumber">
@@ -406,7 +406,7 @@
             <displayname description="Line Number" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Line number on the invoice" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -485,7 +485,7 @@
             <displayname description="Order Line" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order line the invoice line refers to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Quantity">
@@ -525,7 +525,7 @@
             <displayname description="Quantity" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Invoiced quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierInvoiceId">
@@ -564,7 +564,7 @@
             <displayname description="Supplier Invoice" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Supplier invoice the line belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierInvoiceLineId">
@@ -725,7 +725,7 @@
             <displayname description="Unit Price" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Invoiced unit price" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_unitprice_Base">
@@ -807,7 +807,7 @@
             <displayname description="Unit of Measure" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Unit of measure of the quantity" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_VatRate">
@@ -847,7 +847,7 @@
             <displayname description="VAT Rate %" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="VAT rate of the line in percent" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

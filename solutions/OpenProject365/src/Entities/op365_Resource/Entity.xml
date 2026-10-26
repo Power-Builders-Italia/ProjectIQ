@@ -526,7 +526,7 @@
             <displayname description="Role" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Job role of the resource, e.g. engineer, technician" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_UserId">
@@ -565,7 +565,7 @@
             <displayname description="User" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="User account of the resource; empty for people without a license" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WeeklyHours">
@@ -605,7 +605,7 @@
             <displayname description="Weekly Hours" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Contract hours per week, used for resource load" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WorkingDays">

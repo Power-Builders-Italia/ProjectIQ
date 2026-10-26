@@ -367,7 +367,7 @@
             <displayname description="Hourly Cost" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Hourly cost of the resource from Valid From" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_hourlycost_Base">
@@ -525,7 +525,7 @@
             <displayname description="Resource" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Resource the cost belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ValidFrom">
@@ -565,7 +565,7 @@
             <displayname description="Valid From" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Date from which the hourly cost applies" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

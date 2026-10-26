@@ -325,7 +325,7 @@
             <displayname description="Goods Receipt" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Goods receipt the line belongs to" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_GoodsReceiptLineId">
@@ -441,7 +441,7 @@
             <displayname description="Order Line" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order line the quantity was received against" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Quantity">
@@ -481,7 +481,7 @@
             <displayname description="Quantity" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Quantity received" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">
