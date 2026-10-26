@@ -1,6 +1,6 @@
 import * as React from "react";
 import { makeStyles, ProgressBar } from "@fluentui/react-components";
-import { CellRendererOverrides, CellRendererProps, GetRendererParams } from "../types";
+import { CellRendererOverrides, CellRendererProps, ColumnDataType, GetRendererParams } from "../types";
 import { isProgressColumn, progressLabel, progressPercent } from "../../shared/progress";
 
 // Brand green bar on a light grey track (mockup A, single colour)
@@ -22,13 +22,19 @@ const ProgressCell: React.FC<{ pct: number }> = ({ pct }) => {
     );
 };
 
+const logged = new Set<string>();
+
 const renderProgress = (props: CellRendererProps, params: GetRendererParams) => {
-    if (!isProgressColumn(params.colDefs[params.columnIndex]?.name)) return undefined; // default renderer
-    const pct = progressPercent(props.value);
+    const col = params.colDefs[params.columnIndex];
+    if (!isProgressColumn(col?.name) && !isProgressColumn(col?.colId)) return undefined; // default renderer
+    const pct = progressPercent(props.value, props.formattedValue);
+    if (!logged.has(col.name)) {
+        logged.add(col.name);
+        console.info("[OP365.ProgressBar] column", col.name, col.dataType, typeof props.value, pct);
+    }
     return pct === null ? undefined : <ProgressCell pct={pct} />;
 };
 
-export const cellRendererOverrides: CellRendererOverrides = {
-    Decimal: renderProgress,
-    FloatingPoint: renderProgress,
-};
+// Decimal is the type of Progress %; the other numeric types cover a column whose type the grid reports differently
+const NUMERIC: ColumnDataType[] = ["Decimal", "FloatingPoint", "Integer", "Currency"];
+export const cellRendererOverrides: CellRendererOverrides = Object.fromEntries(NUMERIC.map(t => [t, renderProgress]));

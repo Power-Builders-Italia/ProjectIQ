@@ -14,6 +14,8 @@ test("value is clamped to 0-100 and empty stays empty", () => {
     expect(progressPercent(null)).toBeNull();
     expect(progressPercent(undefined)).toBeNull();
     expect(progressPercent("abc")).toBeNull();
+    expect(progressPercent("43,62")).toBe(43.62);
+    expect(progressPercent(null, "4.36")).toBe(4.36);
 });
 
 test("label is the whole percent", () => {

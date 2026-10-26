@@ -10,6 +10,7 @@ export interface CellRendererProps {
 
 export interface ColumnDefinition {
     readonly name: string;
+    readonly colId?: string;
     readonly dataType: string;
 }
 
@@ -18,7 +19,7 @@ export interface GetRendererParams {
     readonly columnIndex: number;
 }
 
-export type ColumnDataType = "Decimal" | "FloatingPoint" | "Integer";
+export type ColumnDataType = "Decimal" | "FloatingPoint" | "Integer" | "Currency";
 
 export type CellRendererOverrides = Partial<Record<ColumnDataType,
     (props: CellRendererProps, params: GetRendererParams) => React.ReactElement | null | undefined>>;

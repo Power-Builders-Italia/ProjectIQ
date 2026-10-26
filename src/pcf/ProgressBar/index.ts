@@ -7,6 +7,7 @@ export class ProgressBar implements ComponentFramework.ReactControl<IInputs, IOu
     public init(context: ComponentFramework.Context<IInputs>): void {
         // The Power Apps grid passes an event name: answer it with the cell renderers
         const eventName = context.parameters.EventName.raw;
+        console.info("[OP365.ProgressBar] init", eventName);
         if (eventName) {
             const customizer: PAOneGridCustomizer = { cellRendererOverrides };
             // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
