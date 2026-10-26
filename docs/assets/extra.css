@@ -1,0 +1,61 @@
+/* Documentation website colours, taken from the Open Project 365 logo (assets/logo.png) */
+:root {
+  --op365-green: #0c723d;
+  --op365-green-dark: #015e32;
+  --op365-red: #d3010f;
+  --op365-grey: #5b5959;
+  --op365-grey-light: #dfe0e2;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--op365-green);
+  --md-primary-fg-color--light: #0a8739;
+  --md-primary-fg-color--dark: var(--op365-green-dark);
+  --md-accent-fg-color: var(--op365-red);
+  --md-typeset-a-color: var(--op365-green);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--op365-green-dark);
+  --md-primary-fg-color--light: var(--op365-green);
+  --md-primary-fg-color--dark: #013f22;
+  --md-accent-fg-color: #ff4a52;
+  --md-typeset-a-color: #3fbf73;
+}
+
+/* White header so the full-colour logo stays readable; the tab bar carries the green */
+[data-md-color-scheme="default"] .md-header {
+  background-color: #fff;
+  color: var(--op365-grey);
+  border-bottom: 3px solid var(--op365-red);
+}
+[data-md-color-scheme="default"] .md-header .md-search__input {
+  background-color: var(--op365-grey-light);
+  color: var(--op365-grey);
+}
+[data-md-color-scheme="default"] .md-header .md-search__input::placeholder,
+[data-md-color-scheme="default"] .md-header .md-search__icon {
+  color: var(--op365-grey);
+}
+.md-header__button.md-logo img {
+  height: 2.4rem;
+}
+.md-header__topic:first-child {
+  font-weight: 700;
+}
+[data-md-color-scheme="default"] .md-header__topic:first-child {
+  color: var(--op365-green);
+}
+
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Headings in the brand grey, table headers in light grey */
+[data-md-color-scheme="default"] .md-typeset h1,
+[data-md-color-scheme="default"] .md-typeset h2 {
+  color: var(--op365-grey);
+}
+[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  background-color: var(--op365-grey-light);
+}
