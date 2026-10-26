@@ -10,3 +10,4 @@ generated/
 .env
 __pycache__/
 TestResults/
+build/

@@ -84,6 +84,28 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
 
 The `build` workflow builds and tests the plugins and the PCF controls and packs the solution on every PR. It also runs the Solution Checker when these repository secrets exist (Settings > Secrets and variables > Actions): `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an app registration that is an application user of the dev environment). The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
 
+## Documentation website (GitHub Pages)
+
+The manuals are also published as a website at <https://power-builders-italia.github.io/open-project-365/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.
+
+```mermaid
+flowchart LR
+    MD[README.md + docs/**] -->|tools/docs/build_site.py| SRC[build/site-src]
+    SRC -->|mkdocs build --strict| SITE[build/site]
+    SITE -->|pages workflow, push to main| GH[GitHub Pages]
+```
+
+- `tools/docs/build_site.py` stages the files: the README becomes the home page, links to files outside `docs/` (CONTRIBUTING, copilot, LICENSE) point to GitHub. The sources are never changed.
+- `mkdocs.yml` holds the menu (one tab per language plus Technical): add a new manual there too. Mermaid diagrams and the `#anchors` of the manuals work as on GitHub.
+- The `pages` workflow builds the site on pull requests that touch the docs (`--strict` fails on broken links) and publishes it on every push to `main` (or Actions > pages > Run workflow).
+- One-time setup: Settings > Pages > Build and deployment > Source **GitHub Actions**. The `github-pages` environment is created on the first run.
+- Local preview:
+
+  ```bash
+  pip install -r tools/docs/requirements.txt
+  python3 tools/docs/build_site.py && mkdocs serve -f mkdocs.yml
+  ```
+
 ## Environments
 
 | Environment | Status |
@@ -100,10 +122,10 @@ The repository is meant to be public: environment URLs, tenant, app and connecti
   - Variables: `TEST_ENVIRONMENT_URL` (default target URL), `OP365_DATAVERSE_CONNECTION_ID` (Dataverse connection id in Test, Power Apps > Connections > the connection's URL).
   - Optional variables for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing variable is left out, so Test keeps its current value (or the default).
   - Secrets: move `PP_CLIENT_SECRET` (and the other `PP_*`) here when the Solution Checker gets its own app registration; until then they stay repository secrets, used by `build` on pull requests from branches of this repository (pull requests from forks never receive secrets).
-- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`). Never use `pull_request_target`.
+- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`); only the `deploy` job of `pages` gets `pages: write` and `id-token: write`, as GitHub Pages requires. Never use `pull_request_target`.
 - **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.
 - **Branch protection on `main`**: pull request required, review from code owners ([CODEOWNERS](../.github/CODEOWNERS)), `build` checks required.
 - **Code security**: secret scanning and push protection on; Dependabot alerts on; CodeQL default setup.
-- **Dependabot version updates** ([dependabot.yml](../.github/dependabot.yml)): weekly grouped PRs for actions, PCF (npm) and plugins (NuGet). Fluent UI and React are never bumped (they must match the PCF platform libraries) and majors are skipped for npm and NuGet.
+- **Dependabot version updates** ([dependabot.yml](../.github/dependabot.yml)): weekly grouped PRs for actions, PCF (npm), plugins (NuGet) and the documentation website (pip, no MkDocs major). Fluent UI and React are never bumped (they must match the PCF platform libraries) and majors are skipped for npm and NuGet.
 - Vulnerability reports: [SECURITY.md](../SECURITY.md).
 
