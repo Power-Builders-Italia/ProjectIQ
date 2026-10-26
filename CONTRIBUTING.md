@@ -9,7 +9,7 @@ Every pull request that changes a functional behaviour — tables, fields, forms
 1. update the affected manual(s) in **English first** (`docs/en/`), then apply the same change to `docs/it/`, `docs/fr/` and `docs/de/`;
 2. keep the four versions **structurally identical** (same sections, tables, diagrams and order), so that a reader can switch language at any point;
 3. write UI labels, button names and error messages **in English, exactly as they appear on screen**, also in the translated manuals (add a translation in brackets where it helps);
-4. add a new manual in all four languages, and a row in the **User manuals** table of [README.md](README.md), when a new functional area is introduced;
+4. add a new manual in all four languages, and a row in the **User manuals** table of [README.md](README.md), when a new functional area is introduced, and add it to the menu of the documentation website in [mkdocs.yml](mkdocs.yml);
 5. update [docs/data-model.md](docs/data-model.md) when tables or columns change, and [docs/dev-environment.md](docs/dev-environment.md) when setup or deployment changes;
 6. run the documentation check locally:
 

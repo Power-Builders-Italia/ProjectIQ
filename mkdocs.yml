@@ -1,0 +1,117 @@
+# Documentation website, published on GitHub Pages by .github/workflows/pages.yml.
+# The sources are the Markdown files in the repository: tools/docs/build_site.py stages them in build/site-src.
+# Local preview: python3 tools/docs/build_site.py && mkdocs serve
+site_name: Open Project 365
+site_description: Project management on Microsoft Dataverse and Power Apps - user manuals in English, Italian, French and German
+site_url: https://power-builders-italia.github.io/open-project-365/
+repo_url: https://github.com/Power-Builders-Italia/open-project-365
+repo_name: Power-Builders-Italia/open-project-365
+edit_uri: edit/main/docs/
+copyright: Copyright 2026 Power Builders Italia - Apache License 2.0
+docs_dir: build/site-src
+site_dir: build/site
+hooks:
+  - tools/docs/site_hooks.py
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - toc.follow
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: [en, it, fr, de]
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+      # Same heading ids as GitHub (lower case, accents kept), so the #anchors in the manuals work on both
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+validation:
+  links:
+    anchors: warn
+
+nav:
+  - Home: index.md
+  - English:
+      - en/getting-started.md
+      - en/master-data.md
+      - en/projects-and-team.md
+      - en/wbs-and-planning.md
+      - en/resource-load.md
+      - en/time-tracking.md
+      - en/materials-and-costs.md
+      - en/purchasing.md
+      - en/supplier-portal.md
+      - en/administration.md
+      - en/copilot.md
+  - Italiano:
+      - it/getting-started.md
+      - it/master-data.md
+      - it/projects-and-team.md
+      - it/wbs-and-planning.md
+      - it/resource-load.md
+      - it/time-tracking.md
+      - it/materials-and-costs.md
+      - it/purchasing.md
+      - it/supplier-portal.md
+      - it/administration.md
+      - it/copilot.md
+  - Français:
+      - fr/getting-started.md
+      - fr/master-data.md
+      - fr/projects-and-team.md
+      - fr/wbs-and-planning.md
+      - fr/resource-load.md
+      - fr/time-tracking.md
+      - fr/materials-and-costs.md
+      - fr/purchasing.md
+      - fr/supplier-portal.md
+      - fr/administration.md
+      - fr/copilot.md
+  - Deutsch:
+      - de/getting-started.md
+      - de/master-data.md
+      - de/projects-and-team.md
+      - de/wbs-and-planning.md
+      - de/resource-load.md
+      - de/time-tracking.md
+      - de/materials-and-costs.md
+      - de/purchasing.md
+      - de/supplier-portal.md
+      - de/administration.md
+      - de/copilot.md
+  - Technical:
+      - dev-environment.md
+      - data-model.md
+      - adr/0001-copilot-work-iq-read-only.md

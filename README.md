@@ -36,7 +36,7 @@ flowchart LR
 
 ## User manuals
 
-The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
+The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages, also as a website at <https://power-builders-italia.github.io/open-project-365/>, and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
 
 | Manual | English | Italiano | Français | Deutsch |
 |---|---|---|---|---|
@@ -66,7 +66,7 @@ Technical documentation (English): [Development environment setup](docs/dev-envi
 | `docs` | User manuals (`docs/<language>/`), [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md), ADRs |
 | `tools/dataverse` | Scripts that create schema in the dev environment via the Web API |
 | `tools/pcf` | Push of the PCF controls to an environment |
-| `tools/docs` | Documentation consistency check |
+| `tools/docs` | Documentation consistency check and [documentation website](docs/dev-environment.md#documentation-website-github-pages) build |
 
 ## Keeping the documentation aligned
 

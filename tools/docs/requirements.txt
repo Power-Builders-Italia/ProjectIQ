@@ -1,0 +1,3 @@
+# Documentation website (mkdocs.yml); Dependabot keeps it up to date
+mkdocs==1.6.1  # MkDocs 2 drops the plugin system used by Material: stay on 1.x
+mkdocs-material==9.7.6
