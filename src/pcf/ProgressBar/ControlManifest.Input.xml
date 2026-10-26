@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="ProgressBar" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="ProgressBar" version="1.0.2" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Power Apps grid customizer: set as "Customizer control" of the grid; it renders the Progress % cells as a bar. -->
     <property name="EventName" display-name-key="Property_EventName" of-type="SingleLine.Text" usage="bound" required="true" />

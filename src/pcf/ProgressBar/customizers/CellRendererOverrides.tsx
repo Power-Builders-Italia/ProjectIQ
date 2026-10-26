@@ -23,9 +23,16 @@ const ProgressCell: React.FC<{ pct: number }> = ({ pct }) => {
 };
 
 const logged = new Set<string>();
+const seen = new Set<string>();
 
 const renderProgress = (props: CellRendererProps, params: GetRendererParams) => {
     const col = params.colDefs[params.columnIndex];
+    const key = `${col?.name}:${col?.dataType}`;
+    if (!seen.has(key)) {
+        seen.add(key);
+        const t = (window as unknown as Record<string, { columns: string[] } | undefined>).OP365ProgressBar;
+        t?.columns.push(key);
+    }
     if (!isProgressColumn(col?.name) && !isProgressColumn(col?.colId)) return undefined; // default renderer
     const pct = progressPercent(props.value, props.formattedValue);
     if (!logged.has(col.name)) {
