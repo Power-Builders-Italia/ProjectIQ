@@ -20,16 +20,18 @@ SETTINGS = dict(EnableEditing='no', DisableChildItemsEditing='no', EnableFilteri
                 ShowAvatar='yes', ShowFooter='yes', ShowColumnHeaders='yes', EnableStatusColumn='yes')
 
 
-def grid(ff):
+def grid(ff=None):
     params = '<data-set name="Items"><columnsDefaultView /></data-set>'
     params += ''.join(f'<{k} static="true" type="Enum">{v}</{k}>' for k, v in SETTINGS.items())
     params += f'<GridCustomizerControlFullName static="true" type="SingleLine.Text">{CUSTOMIZER}</GridCustomizerControlFullName>'
-    return f'<customControl formFactor="{ff}" name="Microsoft.PowerApps.PowerAppsOneGrid"><parameters>{params}</parameters></customControl>'
+    factor = '' if ff is None else f' formFactor="{ff}"'
+    return f'<customControl{factor} name="Microsoft.PowerApps.PowerAppsOneGrid"><parameters>{params}</parameters></customControl>'
 
 
 XML = ('<controlDescriptions><controlDescription>'
        f'<customControl id="{CLASSIC_GRID}"><parameters /></customControl>'
-       + ''.join(grid(ff) for ff in (0, 1, 2)) + '</controlDescription></controlDescriptions>')
+       # the entry without formFactor is the one the grid reads (the classic Controls tab writes it too)
+       + grid() + ''.join(grid(ff) for ff in (0, 1, 2)) + '</controlDescription></controlDescriptions>')
 
 for table in TABLES:
     rows = S.get(API + f"customcontroldefaultconfigs?$select=customcontroldefaultconfigid"
