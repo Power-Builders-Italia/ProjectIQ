@@ -305,6 +305,7 @@ python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugi
 python3 tools/dataverse/phase3_smoke.py
 python3 tools/dataverse/phase4_smoke.py
 python3 tools/dataverse/seed_demo.py           # optional demo data (--clean removes it)
+python3 tools/dataverse/seed_test.py           # optional large English test dataset (--clean removes it)
 ```
 
 Ribbon buttons are solution XML: after export/unpack run `python3 tools/dataverse/ribbon.py`, pack and import into Dev.
