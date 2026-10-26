@@ -84,10 +84,4 @@ form(T, 'Absence', [tab('General', [('100%', [
                            'op365_hours', 'op365_name', 'ownerid']),
     section(T, 'Notes', ['op365_notes'], columns=1)])])], replace='Information')
 
-T = 'op365_settings'
-form(T, 'Settings', [tab('General', [('100%', [
-    section(T, 'Company', ['op365_name', 'ownerid']),
-    section(T, 'Time Tracking', ['op365_timeapprovalenabled']),
-    section(T, 'Purchasing', ['op365_purchaserequestthreshold'])])])], replace='Information')
-
 ok(S.post(API + 'PublishAllXml', json={}), 'publish')

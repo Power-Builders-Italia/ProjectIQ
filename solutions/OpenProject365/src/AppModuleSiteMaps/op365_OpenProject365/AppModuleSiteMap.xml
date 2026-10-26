@@ -149,11 +149,6 @@
         <Titles>
           <Title LCID="1033" Title="Company" />
         </Titles>
-        <SubArea Id="op365_settingssub" Entity="op365_settings">
-          <Titles>
-            <Title LCID="1033" Title="Settings" />
-          </Titles>
-        </SubArea>
         <SubArea Id="op365_resourcecosts" Entity="op365_resourcecost">
           <Titles>
             <Title LCID="1033" Title="Resource Costs" />

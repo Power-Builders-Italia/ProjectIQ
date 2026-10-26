@@ -28,18 +28,24 @@ jobs:
     env:
       TARGET_URL: ${{ inputs.target-url || vars.TEST_ENVIRONMENT_URL }}
       OP365_DATAVERSE_CONNECTION_ID: ${{ vars.OP365_DATAVERSE_CONNECTION_ID }}
+      OP365_TIME_APPROVAL_ENABLED: ${{ vars.OP365_TIME_APPROVAL_ENABLED }}
+      OP365_PURCHASE_REQUEST_THRESHOLD: ${{ vars.OP365_PURCHASE_REQUEST_THRESHOLD }}
+      OP365_PURCHASING_APPROVER: ${{ vars.OP365_PURCHASING_APPROVER }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Resolve target and deployment settings
-        # #{NAME}# tokens in the settings file are replaced with the variable NAME, so ids stay out of the repo
+        # #{NAME}# tokens in the settings file are replaced with the variable NAME, so ids stay out of the repo;
+        # environment variables left empty are dropped, so the target keeps its current value (or the default)
         shell: pwsh
         run: |
           if (-not $env:TARGET_URL) { throw 'Set the target-url input or the TEST_ENVIRONMENT_URL variable' }
           $text = Get-Content 'deployment/${{ inputs.settings }}.settings.json' -Raw
           $text = [regex]::Replace($text, '#\{(\w+)\}#', { param($m) [Environment]::GetEnvironmentVariable($m.Groups[1].Value) })
           if ($text -match '"ConnectionId":\s*""') { throw 'A connection id variable is not set (see docs/dev-environment.md)' }
+          $settings = $text | ConvertFrom-Json
+          $settings.EnvironmentVariables = @($settings.EnvironmentVariables | Where-Object { $_.Value })
           New-Item -ItemType Directory -Force out | Out-Null
-          Set-Content out/deployment.settings.json $text
+          Set-Content out/deployment.settings.json ($settings | ConvertTo-Json -Depth 5)
       - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
       - name: Set solution version in Dev
         uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
@@ -69,6 +75,8 @@ jobs:
           tenant-id: ${{ secrets.PP_TENANT_ID }}
           solution-file: out/OpenProject365_managed.zip
           publish-changes: true
+          # upgrade: components removed from the solution (e.g. the former op365_settings table) are deleted in the target
+          stage-and-upgrade: true
           # plugin steps are imported disabled unless activated
           activate-plugins: true
           run-asynchronously: true

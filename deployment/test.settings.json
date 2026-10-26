@@ -1,5 +1,18 @@
 {
-  "EnvironmentVariables": [],
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "op365_TimeApprovalEnabled",
+      "Value": "#{OP365_TIME_APPROVAL_ENABLED}#"
+    },
+    {
+      "SchemaName": "op365_PurchaseRequestThreshold",
+      "Value": "#{OP365_PURCHASE_REQUEST_THRESHOLD}#"
+    },
+    {
+      "SchemaName": "op365_PurchasingApprover",
+      "Value": "#{OP365_PURCHASING_APPROVER}#"
+    }
+  ],
   "ConnectionReferences": [
     {
       "LogicalName": "op365_dataverse",

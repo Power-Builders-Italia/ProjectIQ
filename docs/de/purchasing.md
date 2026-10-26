@@ -39,7 +39,7 @@ Nummern werden beim Speichern automatisch vergeben: Bedarfsanforderungen `PR-000
 | Eine Bedarfsanforderung anlegen | Ein Manager oder Contributor des Projekts, ein Administrator (als Anforderer werden Sie eingetragen) |
 | Eine Anforderung einreichen | Der Anforderer, ein Manager des Projekts, ein Administrator |
 | Bis zur Schwelle genehmigen / ablehnen | Der Projektleiter (aktueller Genehmiger), jeder Manager des Projekts, ein Administrator |
-| Über der Schwelle genehmigen / ablehnen (zweite Stufe) | Der in Settings festgelegte **Purchasing Approver** oder ein Administrator |
+| Über der Schwelle genehmigen / ablehnen (zweite Stufe) | Der in den [Umgebungsvariablen](administration.md#unternehmenseinstellungen) festgelegte **Purchasing Approver** oder ein Administrator |
 | Eine Anforderung stornieren | Der Anforderer, ein Manager des Projekts, ein Administrator |
 | Angebotsanfragen und Bestellungen anlegen, versenden, vergeben, Bestellstatus ändern | Ein Manager des Projekts, ein Administrator |
 | Wareneingänge buchen | Ein Manager oder Contributor des Projekts, ein Administrator |
@@ -86,7 +86,7 @@ Der **Estimated Amount** der Anforderung ist die Summe der Positionsbeträge.
 
 Klicken Sie auf **Submit**. Die Anforderung wird **Submitted**, ihr Inhalt wird gesperrt (nur die Justification kann noch ergänzt werden), und die Anwendung hält im Abschnitt *Approval* drei Dinge fest:
 
-- **Above Threshold**: ob der geschätzte Betrag die **Purchase Request Threshold** (Einkaufsschwelle) in Settings überschreitet;
+- **Above Threshold**: ob der geschätzte Betrag die **Purchase Request Threshold** (Einkaufsschwelle, [Umgebungsvariable](administration.md#unternehmenseinstellungen)) überschreitet;
 - **Over Budget**: ob Ist-Kosten + Obligo + diese Anforderung das Budget des PSP-Elements (oder des Projekts, wenn kein Element gesetzt ist) überschreiten;
 - **Current Approver**: der Projektleiter, der die Benachrichtigung „Purchase request to approve“ erhält.
 
@@ -115,7 +115,7 @@ stateDiagram-v2
 | Stufe | Wer entscheidet | Was bei Approve passiert |
 |---|---|---|
 | **Manager** (erste) | Projektleiter / Manager des Projekts | Liegt die Anforderung **nicht** über der Schwelle → **Approved**. Liegt sie darüber → sie geht auf die Stufe **Administrator** über, *Manager Approved By/On* werden festgehalten, und die Genehmiger der zweiten Stufe werden benachrichtigt |
-| **Administrator** (zweite) | Purchasing Approver aus Settings (falls gesetzt), sonst jeder OP365 Administrator | → **Approved** |
+| **Administrator** (zweite) | Purchasing Approver aus der Umgebungsvariable (falls gesetzt), sonst jeder OP365 Administrator | → **Approved** |
 
 Ist die Person, die auf der ersten Stufe genehmigt, bereits Genehmiger der zweiten Stufe, wird die Anforderung direkt genehmigt.
 

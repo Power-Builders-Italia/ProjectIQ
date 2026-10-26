@@ -25,11 +25,20 @@ erDiagram
 | `op365_resource` | Name | – | Role, HourlyCost (secured), UserId, WeeklyHours (0–80), WorkingDays (multi-choice) |
 | `op365_resourcecost` | Name | ResourceId + ValidFrom | ValidFrom, HourlyCost (secured) |
 | `op365_absence` | Name | – | AbsenceType, FromDate, ToDate, Hours, Notes |
-| `op365_settings` | Name | – | TimeApprovalEnabled, PurchaseRequestThreshold (single row) |
 
 All custom tables are user-owned, with notes and auditing enabled. Choice values start at 365000000.
 
 Account contactcount and spend, Item usagecount and spend are filled from Phase 4.
+
+### Company settings (environment variables)
+
+Company-wide settings are environment variables of the solution, created by `tools/dataverse/settings_env.py` (they replaced the single-row table `op365_settings`). The definitions carry only the default; each environment has its own current value. The plugins read the current value, else the default (`Settings.cs`).
+
+| Schema name | Type | Default | Read by |
+|---|---|---|---|
+| `op365_TimeApprovalEnabled` | Yes/No | yes | Submit of time entries |
+| `op365_PurchaseRequestThreshold` | Number | – | Submit of purchase requests (Above Threshold) |
+| `op365_PurchasingApprover` | Text (User Name or primary email) | – | Second-level approval of purchase requests, decision of supplier invoices |
 
 ## Phase 2 – Projects, team, WBS, baselines
 
@@ -177,7 +186,7 @@ erDiagram
 | `op365_purchaseorderline` | – | Item, WBS node, quantity, price, amount, received quantity |
 | `op365_goodsreceipt` (+ lines) | GR-##### | Delivery note number and date; each line creates the material usage on the project (actual cost) |
 | `op365_supplierinvoice` (+ lines) | INV-##### | Passive invoice container (manual XML/PDF, SDI later). Status: To Review, Approved, Rejected |
-| Settings, Account, Item, Project (+) | – | Purchasing approver and threshold; supplier spend and contact count; item usage count and spend; project committed cost |
+| Account, Item, Project (+) | – | Supplier spend and contact count; item usage count and spend; project committed cost |
 
 ```mermaid
 stateDiagram-v2
@@ -291,6 +300,7 @@ python3 tools/dataverse/phase4_forms.py
 python3 tools/dataverse/phase4_dashboard.py
 python3 tools/dataverse/flows.py              # connection reference + Daily time reminder (off)
 python3 tools/dataverse/app.py                  # also publishes (views are read back in their published state)
+python3 tools/dataverse/settings_env.py         # company settings environment variables; removes the former op365_settings table
 python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugins, clean up after themselves
 python3 tools/dataverse/phase3_smoke.py
 python3 tools/dataverse/phase4_smoke.py

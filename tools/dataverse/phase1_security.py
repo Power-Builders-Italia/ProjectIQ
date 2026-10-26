@@ -9,7 +9,7 @@ from dv import S, API
 
 ALL = ['Create', 'Read', 'Write', 'Delete', 'Append', 'AppendTo', 'Assign', 'Share']
 F1_TABLES = ['op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
-             'op365_resourcecost', 'op365_absence', 'op365_settings']
+             'op365_resourcecost', 'op365_absence']
 MASTER = ['account', 'contact']
 
 ROLES = {

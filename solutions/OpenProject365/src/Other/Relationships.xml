@@ -19,7 +19,6 @@
   <EntityRelationship Name="business_unit_op365_rfq" />
   <EntityRelationship Name="business_unit_op365_rfqinvitation" />
   <EntityRelationship Name="business_unit_op365_rfqquote" />
-  <EntityRelationship Name="business_unit_op365_settings" />
   <EntityRelationship Name="business_unit_op365_supplierdocument" />
   <EntityRelationship Name="business_unit_op365_supplierinvoice" />
   <EntityRelationship Name="business_unit_op365_supplierinvoiceline" />
@@ -67,8 +66,6 @@
   <EntityRelationship Name="lk_op365_rfqinvitation_modifiedby" />
   <EntityRelationship Name="lk_op365_rfqquote_createdby" />
   <EntityRelationship Name="lk_op365_rfqquote_modifiedby" />
-  <EntityRelationship Name="lk_op365_settings_createdby" />
-  <EntityRelationship Name="lk_op365_settings_modifiedby" />
   <EntityRelationship Name="lk_op365_supplierdocument_createdby" />
   <EntityRelationship Name="lk_op365_supplierdocument_modifiedby" />
   <EntityRelationship Name="lk_op365_supplierinvoice_createdby" />
@@ -137,7 +134,6 @@
   <EntityRelationship Name="op365_systemuser_purchaserequest_managerapprovedbyid" />
   <EntityRelationship Name="op365_systemuser_purchaserequest_requesterid" />
   <EntityRelationship Name="op365_systemuser_resource_userid" />
-  <EntityRelationship Name="op365_systemuser_settings_purchasingapproverid" />
   <EntityRelationship Name="op365_systemuser_supplierinvoice_decidedbyid" />
   <EntityRelationship Name="op365_systemuser_timeentry_decidedbyid" />
   <EntityRelationship Name="op365_wbsnode_baselinenode_wbsnodeid" />
@@ -168,7 +164,6 @@
   <EntityRelationship Name="owner_op365_rfq" />
   <EntityRelationship Name="owner_op365_rfqinvitation" />
   <EntityRelationship Name="owner_op365_rfqquote" />
-  <EntityRelationship Name="owner_op365_settings" />
   <EntityRelationship Name="owner_op365_supplierdocument" />
   <EntityRelationship Name="owner_op365_supplierinvoice" />
   <EntityRelationship Name="owner_op365_supplierinvoiceline" />
@@ -195,7 +190,6 @@
   <EntityRelationship Name="team_op365_rfq" />
   <EntityRelationship Name="team_op365_rfqinvitation" />
   <EntityRelationship Name="team_op365_rfqquote" />
-  <EntityRelationship Name="team_op365_settings" />
   <EntityRelationship Name="team_op365_supplierdocument" />
   <EntityRelationship Name="team_op365_supplierinvoice" />
   <EntityRelationship Name="team_op365_supplierinvoiceline" />
@@ -217,7 +211,6 @@
   <EntityRelationship Name="TransactionCurrency_op365_ResourceCost" />
   <EntityRelationship Name="TransactionCurrency_op365_RfqInvitation" />
   <EntityRelationship Name="TransactionCurrency_op365_RfqQuote" />
-  <EntityRelationship Name="TransactionCurrency_op365_Settings" />
   <EntityRelationship Name="TransactionCurrency_op365_SupplierInvoice" />
   <EntityRelationship Name="TransactionCurrency_op365_SupplierInvoiceLine" />
   <EntityRelationship Name="TransactionCurrency_op365_TimeEntry" />
@@ -241,7 +234,6 @@
   <EntityRelationship Name="user_op365_rfq" />
   <EntityRelationship Name="user_op365_rfqinvitation" />
   <EntityRelationship Name="user_op365_rfqquote" />
-  <EntityRelationship Name="user_op365_settings" />
   <EntityRelationship Name="user_op365_supplierdocument" />
   <EntityRelationship Name="user_op365_supplierinvoice" />
   <EntityRelationship Name="user_op365_supplierinvoiceline" />

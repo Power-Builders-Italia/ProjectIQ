@@ -77,13 +77,12 @@ SITEMAP = '<SiteMap IntroducedVersion="7.0.0.0">' + ''.join([
             entity('op365_resources', 'op365_resource', 'Resources')])]),
     area('op365_settingsarea', 'Settings', [
         group('op365_company', 'Company', [
-            entity('op365_settingssub', 'op365_settings', 'Settings'),
             entity('op365_resourcecosts', 'op365_resourcecost', 'Resource Costs'),
             entity('op365_projectmembers', 'op365_projectmember', 'Project Members')])]),
 ]) + '</SiteMap>'
 
 TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_supplierdocument', 'op365_resource',
-          'op365_resourcecost', 'op365_absence', 'op365_settings',
+          'op365_resourcecost', 'op365_absence',
           'op365_project', 'op365_projectmember', 'op365_wbsnode', 'op365_wbsdependency', 'op365_wbsallocation',
           'op365_baseline', 'op365_baselinenode', 'op365_timeentry', 'op365_materialusage',
           'op365_purchaserequest', 'op365_purchaserequestline', 'op365_rfq', 'op365_rfqinvitation', 'op365_rfqquote',

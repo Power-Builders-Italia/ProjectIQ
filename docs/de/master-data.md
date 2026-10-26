@@ -7,7 +7,7 @@ Stammdaten sind die Informationen, auf die sich jeder andere Teil von Open Proje
 
 > Feld- und Schaltflächennamen stehen auf Englisch, so wie sie auf dem Bildschirm erscheinen.
 
-Alle Stammdaten befinden sich im Bereich **Master Data**, Gruppe **Records**: **Customers**, **Suppliers**, **Contacts**, **Items**, **Resources**. Die Stundensätze der Ressourcen und die Unternehmenseinstellungen befinden sich im Bereich **Settings** (siehe [Administration](administration.md)).
+Alle Stammdaten befinden sich im Bereich **Master Data**, Gruppe **Records**: **Customers**, **Suppliers**, **Contacts**, **Items**, **Resources**. Die Stundensätze der Ressourcen befinden sich im Bereich **Settings**; die Unternehmenseinstellungen sind Umgebungsvariablen (siehe [Administration](administration.md#unternehmenseinstellungen)).
 
 ## Wie die Stammdaten zusammenhängen
 

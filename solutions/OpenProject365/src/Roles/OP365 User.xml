@@ -42,7 +42,6 @@
     <RolePrivilege name="prvAppendToop365_Rfq" level="Basic" />
     <RolePrivilege name="prvAppendToop365_RfqInvitation" level="Basic" />
     <RolePrivilege name="prvAppendToop365_RfqQuote" level="Basic" />
-    <RolePrivilege name="prvAppendToop365_Settings" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierInvoice" level="Basic" />
     <RolePrivilege name="prvAppendToop365_SupplierInvoiceLine" level="Basic" />
@@ -106,7 +105,6 @@
     <RolePrivilege name="prvReadop365_Rfq" level="Basic" />
     <RolePrivilege name="prvReadop365_RfqInvitation" level="Basic" />
     <RolePrivilege name="prvReadop365_RfqQuote" level="Basic" />
-    <RolePrivilege name="prvReadop365_Settings" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
     <RolePrivilege name="prvReadop365_SupplierInvoice" level="Basic" />
     <RolePrivilege name="prvReadop365_SupplierInvoiceLine" level="Basic" />

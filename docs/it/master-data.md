@@ -5,7 +5,7 @@
 
 Le anagrafiche sono le informazioni su cui si basa tutto il resto di Open Project 365: le aziende per cui lavori e da cui compri, le persone con cui parli, gli articoli che acquisti e consumi, le risorse di cui pianifichi e registri le ore. Tenerle pulite e complete è ciò che rende affidabili costi, acquisti e pianificazione. Questo manuale spiega ogni tipo di record, a cosa serve ciascun campo e le regole che l'applicazione applica in automatico.
 
-Tutte le anagrafiche stanno nell'area **Master Data**, gruppo **Records**: **Customers** (clienti), **Suppliers** (fornitori), **Contacts** (contatti), **Items** (articoli), **Resources** (risorse). I costi orari delle risorse e le impostazioni aziendali sono nell'area **Settings** (vedi [Amministrazione](administration.md)).
+Tutte le anagrafiche stanno nell'area **Master Data**, gruppo **Records**: **Customers** (clienti), **Suppliers** (fornitori), **Contacts** (contatti), **Items** (articoli), **Resources** (risorse). I costi orari delle risorse sono nell'area **Settings**; le impostazioni aziendali sono variabili d'ambiente (vedi [Amministrazione](administration.md#impostazioni-aziendali)).
 
 > I nomi di campi e pulsanti sono in inglese, come appaiono a schermo.
 

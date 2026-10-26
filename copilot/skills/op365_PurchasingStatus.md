@@ -24,5 +24,5 @@ Copilot cannot submit, approve, send, award, receive or cancel anything: these s
 5. **Invoices to review?** Supplier invoices in To Review: show supplier, `op365_invoicenumber`, `op365_invoicedate`, `op365_totalamount`, and whether the linked order is Received.
 
 ## Rules
-- Over Budget means actual + committed + this request exceed the budget; Above Threshold means the request needs the purchasing approver set in Settings.
+- Over Budget means actual + committed + this request exceed the budget; Above Threshold means the request needs the purchasing approver (environment variable `op365_PurchasingApprover`).
 - Amounts protected by column security (Spend) may be empty for the user: say so.

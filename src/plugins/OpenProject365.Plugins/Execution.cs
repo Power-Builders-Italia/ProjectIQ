@@ -141,7 +141,7 @@ namespace OpenProject365.Plugins
     /// <summary>
     /// Custom API op365_SubmitTimeEntries (unbound). Input TimeEntryIds (string array). Output Count (int).
     /// Draft or Rejected entries of the caller (or any entry for an administrator) become Submitted, or Approved
-    /// directly when time approval is off in Settings. Project managers get an in-app notification.
+    /// directly when the time approval environment variable is off. Project managers get an in-app notification.
     /// </summary>
     public class SubmitTimeEntries : PluginBase
     {
@@ -150,7 +150,7 @@ namespace OpenProject365.Plugins
             var system = context.SystemService;
             var caller = context.Execution.InitiatingUserId;
             var admin = Rules.IsAdmin(system, caller);
-            var approval = Rules.TimeApprovalEnabled(system);
+            var approval = Settings.TimeApprovalEnabled(system);
             var now = DateTime.UtcNow;
             var projects = new System.Collections.Generic.Dictionary<Guid, int>();
             foreach (var id in Rules.Ids(context.Execution.InputParameters, "TimeEntryIds"))

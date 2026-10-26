@@ -190,7 +190,7 @@ Esempio: il costo di Marco è 35,00 €/h fino al 30 giugno e 38,50 €/h dal 1 
 
 | Impostazione | Dove | Effetto |
 |---|---|---|
-| **Time Approval Enabled** | Settings → Company → Settings | Attivo (predefinito): le ore inviate attendono l'approvazione. Disattivo: **Submit** approva subito le registrazioni (contano subito nei consuntivi) |
+| **Time Approval Enabled** | Variabile d'ambiente `op365_TimeApprovalEnabled` ([Amministrazione](administration.md#impostazioni-aziendali)) | Yes (predefinito): le ore inviate attendono l'approvazione. No: **Submit** approva subito le registrazioni (contano subito nei consuntivi) |
 | **User** sulla Resource | Master Data → Resources | Collega una persona alla sua risorsa: necessario per usare il foglio ore |
 | **Weekly Hours**, **Working Days** | Resource | Ore attese (promemoria, totale settimanale) |
 | **Absences** | Planning → Absences | Riducono le ore attese; le chiusure aziendali sospendono i promemoria |

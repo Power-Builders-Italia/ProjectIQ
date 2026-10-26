@@ -13,7 +13,7 @@ Ce manuel s'adresse aux personnes qui mettent en place et exploitent Open Projec
 flowchart TD
     A[1. Environnement avec la solution<br/>Open Project 365] --> B[2. Utilisateurs : Basic User +<br/>rôle OP365]
     B --> C[3. Profil Cost Visibility<br/>aux managers et contrôleurs]
-    C --> D[4. Ligne Settings : approbation des heures,<br/>seuil et approbateur achats]
+    C --> D[4. Variables d'environnement : approbation des heures,<br/>seuil et approbateur achats]
     D --> E[5. Données de référence : clients,<br/>fournisseurs, articles, ressources]
     E --> F[6. Coûts des ressources et<br/>User relié aux ressources]
     F --> G[7. Fermetures d'entreprise<br/>de l'année]
@@ -26,7 +26,7 @@ flowchart TD
 | 1 | Centre d'administration Power Platform | Un environnement Dataverse par entreprise. La solution est installée par l'informatique (voir [dev environment](../dev-environment.md)) |
 | 2 | Centre d'administration Power Platform → Users | [Rôles de sécurité](#rôles-de-sécurité) |
 | 3 | Centre d'administration Power Platform → Column security profiles | [Visibilité des coûts](#visibilité-des-coûts) |
-| 4 | Settings → Company → Settings | [Paramètres de l'entreprise](#paramètres-de-lentreprise) |
+| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Paramètres de l'entreprise](#paramètres-de-lentreprise) |
 | 5 | Master Data | [Données de référence](master-data.md) |
 | 6 | Master Data → Resources | [Données de référence](master-data.md#ressources) |
 | 7 | Projects → Planning → Absences (sans ressource) | [Données de référence](master-data.md#absences-et-fermetures-dentreprise) |
@@ -86,16 +86,30 @@ Attribuez le profil (centre d'administration Power Platform → *Settings* → *
 
 ## Paramètres de l'entreprise
 
-**Settings → Company → Settings** contient une **ligne unique** avec les réglages valables pour toute l'entreprise. Créez-la une fois si elle n'existe pas ; n'en créez pas de seconde.
+Les réglages valables pour toute l'entreprise sont des **variables d'environnement** (environment variables) de la solution Open Project 365. Chaque environnement (Dev, Test, Production) a ses propres valeurs : un environnement de test peut par exemple ignorer l'approbation des heures sans toucher à la production. Ils ne se trouvent pas dans l'application : un administrateur Power Platform ou un maker de l'environnement les modifie.
 
-| Champ | Par défaut | Effet |
-|---|---|---|
-| **Name** | – | Nom de l'entreprise |
-| **Time Approval Enabled** | Activé (aussi quand la ligne n'existe pas) | Activé : les heures soumises attendent l'approbation d'un chef de projet. Désactivé : **Submit** approuve immédiatement les heures |
-| **Purchase Request Threshold** | Vide | Montant au-delà duquel une demande d'achat nécessite aussi une approbation de second niveau. Vide ou 0 = jamais |
-| **Purchasing Approver** | Vide | L'utilisateur qui approuve les demandes au-dessus du seuil et décide des factures fournisseurs. Vide = tous les OP365 Administrator |
+```mermaid
+flowchart LR
+    DEF[Définition dans la solution<br/>avec sa Default Value] --> VAL{Current Value<br/>dans l'environnement ?}
+    VAL -->|oui| USE[La Current Value est utilisée]
+    VAL -->|non| DFL[La Default Value est utilisée]
+```
 
-Les modifications s'appliquent immédiatement aux nouvelles soumissions ; les demandes déjà soumises gardent le niveau d'approbation qui leur a été attribué.
+Pour modifier une valeur :
+
+1. Ouvrez [Power Apps](https://make.powerapps.com), sélectionnez l'environnement, puis **Solutions** → **Open Project 365** (ou **Default Solution**) → **Environment variables**.
+2. Ouvrez la variable et, sous **Current Value**, cliquez sur **+ New value** (ou modifiez la valeur existante). Ne modifiez pas la **Default Value** d'une solution gérée.
+3. **Save**. La modification s'applique à la soumission suivante ; aucune publication n'est nécessaire.
+
+| Variable d'environnement | Nom affiché | Type | Par défaut | Effet |
+|---|---|---|---|---|
+| `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes : les heures soumises attendent l'approbation d'un chef de projet. No : **Submit** approuve immédiatement les heures |
+| `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Vide | Montant au-delà duquel une demande d'achat nécessite aussi une approbation de second niveau. Vide ou 0 = jamais |
+| `op365_PurchasingApprover` | **Purchasing Approver** | Text | Vide | **User Name** (p. ex. `anna.rossi@contoso.com`) ou e-mail principal de l'utilisateur qui approuve les demandes au-dessus du seuil et décide des factures fournisseurs. Vide, ou aucun utilisateur actif avec ce nom = tous les OP365 Administrator |
+
+Le Purchasing Approver est un nom d'utilisateur et non une recherche (lookup), car les identifiants des utilisateurs diffèrent dans chaque environnement. Les demandes déjà soumises gardent le niveau d'approbation qui leur a été attribué.
+
+En Test, l'informatique peut aussi définir les valeurs au déploiement, via les deployment settings (voir [environnement de développement](../dev-environment.md#github-repository-security)) ; une valeur définie là écrase celle de l'environnement à chaque déploiement.
 
 ## Autres données de l'entreprise dans la zone Settings
 
@@ -153,7 +167,7 @@ Quand l'informatique déploie une nouvelle version :
 2. Désactivez sa **Resource** (ses heures et coûts passés restent).
 3. Désactivez l'utilisateur dans le centre d'administration Power Platform / Microsoft 365.
 4. Réattribuez les enregistrements dont elle est propriétaire (Assign) si nécessaire.
-5. Si elle était **Purchasing Approver** ou chef de projet, mettez à jour les Settings et les projets.
+5. Si elle était **Purchasing Approver** ou chef de projet, mettez à jour la [variable d'environnement](#paramètres-de-lentreprise) et les projets.
 
 ## Dépannage
 
@@ -164,5 +178,5 @@ Quand l'informatique déploie une nouvelle version :
 | Coûts vides pour un manager | Profil Cost Visibility manquant | Ajoutez l'utilisateur au profil |
 | Personne ne reçoit le rappel quotidien | Flux désactivé ou connexion rompue | Vérifiez le flux et sa connexion |
 | Totaux non mis à jour après un import | Étapes de plug-in désactivées | Activez les étapes de plug-in |
-| Les demandes au-dessus du seuil vont à tous les administrateurs | Purchasing Approver vide | Renseignez-le dans les Settings |
+| Les demandes au-dessus du seuil vont à tous les administrateurs | Purchasing Approver vide, ou pas le User Name d'un utilisateur actif | Renseignez la [variable d'environnement](#paramètres-de-lentreprise) |
 | Les fournisseurs voient « This area is reserved to suppliers » | Rôle web Supplier manquant ou non connectés | Attribuez le rôle web au contact |

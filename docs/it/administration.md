@@ -13,7 +13,7 @@ Questo manuale è per chi configura e gestisce Open Project 365 in un'azienda: a
 flowchart TD
     A[1. Ambiente con la soluzione<br/>Open Project 365] --> B[2. Utenti: Basic User +<br/>ruolo OP365]
     B --> C[3. Profilo Cost Visibility<br/>a manager e controller]
-    C --> D[4. Riga Settings: approvazione ore,<br/>soglia e approvatore acquisti]
+    C --> D[4. Variabili d'ambiente: approvazione ore,<br/>soglia e approvatore acquisti]
     D --> E[5. Anagrafiche: clienti,<br/>fornitori, articoli, risorse]
     E --> F[6. Costi delle risorse e<br/>User collegato alle risorse]
     F --> G[7. Chiusure aziendali<br/>dell'anno]
@@ -26,7 +26,7 @@ flowchart TD
 | 1 | Power Platform admin center | Un ambiente Dataverse per azienda. La soluzione viene installata dall'IT (vedi [dev environment](../dev-environment.md)) |
 | 2 | Power Platform admin center → Users | [Ruoli di sicurezza](#ruoli-di-sicurezza) |
 | 3 | Power Platform admin center → Column security profiles | [Visibilità dei costi](#visibilità-dei-costi) |
-| 4 | Settings → Company → Settings | [Impostazioni aziendali](#impostazioni-aziendali) |
+| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Impostazioni aziendali](#impostazioni-aziendali) |
 | 5 | Master Data | [Anagrafiche](master-data.md) |
 | 6 | Master Data → Resources | [Anagrafiche](master-data.md#risorse) |
 | 7 | Projects → Planning → Absences (senza risorsa) | [Anagrafiche](master-data.md#assenze-e-chiusure-aziendali) |
@@ -86,16 +86,30 @@ Assegna il profilo (Power Platform admin center → *Settings* → *Users + perm
 
 ## Impostazioni aziendali
 
-**Settings → Company → Settings** contiene un'**unica riga** con gli interruttori validi per tutta l'azienda. Creala una volta se non esiste; non crearne una seconda.
+Gli interruttori validi per tutta l'azienda sono **variabili d'ambiente** (environment variables) della soluzione Open Project 365. Ogni ambiente (Dev, Test, Produzione) ha i propri valori: un ambiente di test può ad esempio saltare l'approvazione delle ore senza toccare la produzione. Non si trovano nell'app: le modifica un amministratore Power Platform o un maker dell'ambiente.
 
-| Campo | Predefinito | Effetto |
-|---|---|---|
-| **Name** | – | Nome dell'azienda |
-| **Time Approval Enabled** | Attivo (anche quando la riga non esiste) | Attivo: le ore inviate attendono l'approvazione di un project manager. Disattivo: **Submit** approva subito le ore |
-| **Purchase Request Threshold** | Vuoto | Importo oltre il quale una richiesta d'acquisto richiede anche l'approvazione di secondo livello. Vuoto o 0 = mai |
-| **Purchasing Approver** | Vuoto | L'utente che approva le richieste sopra soglia e decide le fatture fornitori. Vuoto = tutti gli OP365 Administrator |
+```mermaid
+flowchart LR
+    DEF[Definizione nella soluzione<br/>con il suo Default Value] --> VAL{Current Value<br/>nell'ambiente?}
+    VAL -->|sì| USE[Si usa il Current Value]
+    VAL -->|no| DFL[Si usa il Default Value]
+```
 
-Le modifiche valgono subito per i nuovi invii; le richieste già inviate mantengono il livello di approvazione assegnato.
+Per cambiare un valore:
+
+1. Apri [Power Apps](https://make.powerapps.com), seleziona l'ambiente, poi **Solutions** → **Open Project 365** (o **Default Solution**) → **Environment variables**.
+2. Apri la variabile e, sotto **Current Value**, fai clic su **+ New value** (o modifica quello esistente). Non cambiare il **Default Value** di una soluzione gestita.
+3. **Save**. La modifica vale dall'invio successivo; non serve pubblicare.
+
+| Variabile d'ambiente | Nome visualizzato | Tipo | Predefinito | Effetto |
+|---|---|---|---|---|
+| `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes: le ore inviate attendono l'approvazione di un project manager. No: **Submit** approva subito le ore |
+| `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Vuoto | Importo oltre il quale una richiesta d'acquisto richiede anche l'approvazione di secondo livello. Vuoto o 0 = mai |
+| `op365_PurchasingApprover` | **Purchasing Approver** | Text | Vuoto | **User Name** (es. `anna.rossi@contoso.com`) o email principale dell'utente che approva le richieste sopra soglia e decide le fatture fornitori. Vuoto, o nessun utente attivo con quel nome = tutti gli OP365 Administrator |
+
+Il Purchasing Approver è un nome utente e non una lookup perché gli id degli utenti cambiano in ogni ambiente. Le richieste già inviate mantengono il livello di approvazione assegnato.
+
+In Test l'IT può impostare i valori anche al momento del rilascio, tramite le deployment settings (vedi [ambiente di sviluppo](../dev-environment.md#github-repository-security)); un valore impostato lì sovrascrive quello dell'ambiente a ogni rilascio.
 
 ## Altri dati aziendali nell'area Settings
 
@@ -153,7 +167,7 @@ Quando l'IT distribuisce una nuova versione:
 2. Disattiva la sua **Resource** (ore e costi passati restano).
 3. Disabilita l'utente nel Power Platform admin center / Microsoft 365.
 4. Riassegna i record di cui è proprietaria (Assign) se serve.
-5. Se era il **Purchasing Approver** o un project manager, aggiorna le Settings e i progetti.
+5. Se era il **Purchasing Approver** o un project manager, aggiorna la [variabile d'ambiente](#impostazioni-aziendali) e i progetti.
 
 ## Risoluzione dei problemi
 
@@ -164,5 +178,5 @@ Quando l'IT distribuisce una nuova versione:
 | Costi vuoti per un manager | Manca il profilo Cost Visibility | Aggiungi l'utente al profilo |
 | Nessuno riceve il promemoria giornaliero | Flusso spento o connessione non valida | Controlla il flusso e la sua connessione |
 | Totali non aggiornati dopo un'importazione | Step dei plugin disattivati | Attiva gli step dei plugin |
-| Le richieste sopra soglia vanno a tutti gli amministratori | Purchasing Approver vuoto | Impostalo nelle Settings |
+| Le richieste sopra soglia vanno a tutti gli amministratori | Purchasing Approver vuoto, o non è lo User Name di un utente attivo | Imposta la [variabile d'ambiente](#impostazioni-aziendali) |
 | I fornitori vedono "This area is reserved to suppliers" | Manca il web role Supplier o non hanno effettuato l'accesso | Assegna il web role al contatto |

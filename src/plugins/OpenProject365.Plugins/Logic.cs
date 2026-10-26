@@ -79,7 +79,7 @@ namespace OpenProject365.Plugins
 
     public static class PurchaseMath
     {
-        /// <summary>Above the Settings threshold (no threshold = never).</summary>
+        /// <summary>Above the Purchase Request Threshold (no threshold = never).</summary>
         public static bool AboveThreshold(decimal estimated, decimal? threshold) => threshold.HasValue && threshold.Value > 0m && estimated > threshold.Value;
 
         /// <summary>Actual + committed + the request exceed the budget (no budget = never).</summary>
@@ -117,6 +117,32 @@ namespace OpenProject365.Plugins
                 return hasReceipts ? "Cancel the goods receipts before cancelling the order." : null;
             if (to == Received) return "An order becomes Received when all its lines are received.";
             return "This status change is not allowed for the purchase order.";
+        }
+    }
+
+    /// <summary>Values of the op365_ environment variables (Dataverse stores them as text).</summary>
+    public static class EnvironmentValue
+    {
+        /// <summary>The current value wins over the default; blank means not set.</summary>
+        public static string Effective(string current, string defaultValue)
+        {
+            if (!string.IsNullOrWhiteSpace(current)) return current.Trim();
+            return string.IsNullOrWhiteSpace(defaultValue) ? null : defaultValue.Trim();
+        }
+
+        public static bool Bool(string value, bool fallback)
+        {
+            if (value == null) return fallback;
+            var v = value.Trim().ToLowerInvariant();
+            if (v == "yes" || v == "true" || v == "1") return true;
+            if (v == "no" || v == "false" || v == "0") return false;
+            return fallback;
+        }
+
+        public static decimal? Number(string value)
+        {
+            decimal n;
+            return value != null && decimal.TryParse(value.Trim(), System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out n) ? n : (decimal?)null;
         }
     }
 }

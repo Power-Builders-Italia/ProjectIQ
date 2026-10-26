@@ -158,11 +158,4 @@ form(T, 'Supplier Invoice Line', [tab('General', [('100%', [
     section(T, 'Line', ['op365_supplierinvoiceid', 'op365_linenumber', 'op365_code', 'op365_name', 'op365_quantity', 'op365_uom',
                         'op365_unitprice', 'op365_totalprice', 'op365_vatrate', 'op365_orderlineid'])])])], replace='Information')
 
-# ---------- Settings: second-level purchasing approver (the form was defined in phase1_forms.py) ----------
-T = 'op365_settings'
-form(T, 'Settings', [tab('General', [('100%', [
-    section(T, 'Company', ['op365_name', 'ownerid']),
-    section(T, 'Time Tracking', ['op365_timeapprovalenabled']),
-    section(T, 'Purchasing', ['op365_purchaserequestthreshold', 'op365_purchasingapproverid'])])])], replace='Information')
-
 ok(S.post(API + 'PublishAllXml', json={}), 'publish')

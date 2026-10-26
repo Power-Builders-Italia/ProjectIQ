@@ -103,7 +103,6 @@
       <RootComponent type="1" schemaName="op365_rfq" behavior="0" />
       <RootComponent type="1" schemaName="op365_rfqinvitation" behavior="0" />
       <RootComponent type="1" schemaName="op365_rfqquote" behavior="0" />
-      <RootComponent type="1" schemaName="op365_settings" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierdocument" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierinvoice" behavior="0" />
       <RootComponent type="1" schemaName="op365_supplierinvoiceline" behavior="0" />

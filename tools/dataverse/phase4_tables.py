@@ -186,8 +186,6 @@ LOOKUPS = [
   ('op365_supplierinvoice', 'DecidedById', 'Decided By', 'systemuser', False, False),
   ('op365_supplierinvoiceline', 'SupplierInvoiceId', 'Supplier Invoice', 'op365_supplierinvoice', True, True),
   ('op365_supplierinvoiceline', 'OrderLineId', 'Order Line', 'op365_purchaseorderline', False, False),
-  ('op365_settings', 'PurchasingApproverId', 'Purchasing Approver',
-   'systemuser', False, False),
 ]
 
 # status reasons of the active state (value 1 is the default one); only the Custom APIs change them

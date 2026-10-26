@@ -5,7 +5,7 @@
 
 Les données de référence sont les informations sur lesquelles repose tout le reste d'Open Project 365 : les entreprises pour lesquelles vous travaillez et chez qui vous achetez, les personnes avec qui vous échangez, les articles que vous achetez et consommez, et les ressources dont vous planifiez et saisissez les heures. Les tenir propres et complètes, c'est ce qui rend fiables les coûts, les achats et le planning. Ce manuel décrit chaque type d'enregistrement, l'usage de chaque champ et les règles que l'application applique automatiquement.
 
-Toutes les données de référence se trouvent dans la zone **Master Data**, groupe **Records** : **Customers** (clients), **Suppliers** (fournisseurs), **Contacts**, **Items** (articles), **Resources** (ressources). Les coûts horaires des ressources et les paramètres de l'entreprise sont dans la zone **Settings** (voir [Administration](administration.md)).
+Toutes les données de référence se trouvent dans la zone **Master Data**, groupe **Records** : **Customers** (clients), **Suppliers** (fournisseurs), **Contacts**, **Items** (articles), **Resources** (ressources). Les coûts horaires des ressources sont dans la zone **Settings** ; les paramètres de l'entreprise sont des variables d'environnement (voir [Administration](administration.md#paramètres-de-lentreprise)).
 
 > Les noms des champs et des boutons sont en anglais, comme à l'écran.
 

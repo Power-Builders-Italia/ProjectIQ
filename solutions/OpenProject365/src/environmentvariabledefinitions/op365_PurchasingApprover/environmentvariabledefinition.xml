@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="op365_PurchasingApprover">
+  <description default="User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides supplier invoices. Empty = every OP365 Administrator.">
+    <label description="User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides supplier invoices. Empty = every OP365 Administrator." languagecode="1033" />
+  </description>
+  <displayname default="Purchasing Approver">
+    <label description="Purchasing Approver" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.8.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

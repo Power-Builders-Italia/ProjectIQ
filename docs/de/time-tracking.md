@@ -190,7 +190,7 @@ Beispiel: Marcos Kosten betragen 35,00 €/h bis 30. Juni und 38,50 €/h ab 1. 
 
 | Einstellung | Wo | Wirkung |
 |---|---|---|
-| **Time Approval Enabled** | Settings → Company → Settings | An (Standard): Eingereichte Stunden warten auf Genehmigung. Aus: **Submit** genehmigt die Einträge sofort (sie zählen direkt in den Ist-Werten) |
+| **Time Approval Enabled** | Umgebungsvariable `op365_TimeApprovalEnabled` ([Administration](administration.md#unternehmenseinstellungen)) | Yes (Standard): Eingereichte Stunden warten auf Genehmigung. No: **Submit** genehmigt die Einträge sofort (sie zählen direkt in den Ist-Werten) |
 | **User** auf der Ressource | Master Data → Resources | Verknüpft eine Person mit ihrer Ressource: erforderlich für den Stundenzettel |
 | **Weekly Hours**, **Working Days** | Ressource | Erwartete Stunden (Erinnerung, Wochensumme) |
 | **Absences** | Planning → Absences | Verringern die erwarteten Stunden; Betriebsschließungen setzen die Erinnerungen aus |
