@@ -31,7 +31,8 @@ def D(days):
 def call(method, url, **kw):
     for attempt in range(6):
         r = S.request(method, API + url, **kw)
-        if r.status_code in (429, 502, 503, 504) or (r.status_code == 500 and 'deadlock' in r.text.lower()):
+        if r.status_code in (429, 502, 503, 504) or (r.status_code == 500 and any(
+                w in r.text.lower() for w in ('deadlock', 'timeout', 'try again'))):
             time.sleep(int(r.headers.get('Retry-After', 2 ** attempt)))
             continue
         return r
@@ -415,31 +416,41 @@ def phone():
 # ====================================================================================================================
 # Clean
 # ====================================================================================================================
+def delete(es, ids):
+    """Deletes one by one (cascades on projects are heavy) and retries what failed; returns what is left."""
+    for _ in range(3):
+        left = []
+        for i in ids:
+            r = call('DELETE', f'{es}({i})')
+            if r.status_code >= 300 and r.status_code != 404:
+                left.append(i)
+        if not left:
+            return []
+        ids = left
+        time.sleep(5)
+    print(f'  could not delete {len(ids)} {es}:', r.text[:200])
+    return ids
+
+
 def clean():
     names = {n for n, *_ in CUSTOMERS + SUPPLIERS}
-    accounts = [a for a in get('accounts?$select=accountid,name') if a['name'] in names]
-    ids = {a['accountid'] for a in accounts}
-    for i in get('op365_supplierinvoices?$select=op365_supplierinvoiceid,_op365_supplierid_value'):
-        if i['_op365_supplierid_value'] in ids:
-            call('DELETE', f"op365_supplierinvoices({i['op365_supplierinvoiceid']})")
-    projects = [p for p in get('op365_projects?$select=op365_projectid,_op365_customerid_value') if p['_op365_customerid_value'] in ids]
-    parallel(lambda p: call('DELETE', f"op365_projects({p['op365_projectid']})"), projects)
+    accounts = [a['accountid'] for a in get('accounts?$select=accountid,name') if a['name'] in names]
+    ids = set(accounts)
+    delete('op365_supplierinvoices', [i['op365_supplierinvoiceid'] for i in get('op365_supplierinvoices?$select=op365_supplierinvoiceid,_op365_supplierid_value')
+                                      if i['_op365_supplierid_value'] in ids])
+    titles = {n for n, *_ in PROJECTS}
+    projects = [p['op365_projectid'] for p in get('op365_projects?$select=op365_projectid,op365_name,_op365_customerid_value')
+                if p['_op365_customerid_value'] in ids or p['op365_name'] in titles]
+    delete('op365_projects', projects)
     codes = {c for c, *_ in ITEMS}
-    parallel(lambda i: call('DELETE', f"op365_items({i['op365_itemid']})"),
-             [i for i in get('op365_items?$select=op365_itemid,op365_code') if i['op365_code'] in codes])
+    delete('op365_items', [i['op365_itemid'] for i in get('op365_items?$select=op365_itemid,op365_code') if i['op365_code'] in codes])
     absences = {n for n, *_ in ABSENCES}
-    for a in get('op365_absences?$select=op365_absenceid,op365_name'):
-        if a['op365_name'] in absences:
-            call('DELETE', f"op365_absences({a['op365_absenceid']})")
+    delete('op365_absences', [a['op365_absenceid'] for a in get('op365_absences?$select=op365_absenceid,op365_name') if a['op365_name'] in absences])
     people = {n for _, n, *_ in RESOURCES}
-    for r in get('op365_resources?$select=op365_resourceid,op365_name'):
-        if r['op365_name'] in people:
-            call('DELETE', f"op365_resources({r['op365_resourceid']})")
-    contacts = [c for c in get('contacts?$select=contactid,_parentcustomerid_value') if c['_parentcustomerid_value'] in ids]
-    parallel(lambda c: call('DELETE', f"contacts({c['contactid']})"), contacts)
-    parallel(lambda a: call('DELETE', f"accounts({a['accountid']})"), accounts)
+    delete('op365_resources', [r['op365_resourceid'] for r in get('op365_resources?$select=op365_resourceid,op365_name') if r['op365_name'] in people])
+    delete('contacts', [c['contactid'] for c in get('contacts?$select=contactid,_parentcustomerid_value') if c['_parentcustomerid_value'] in ids])
+    delete('accounts', accounts)
     print(f'test data deleted: {len(accounts)} accounts, {len(projects)} projects')
-
 
 clean()
 if '--clean' in sys.argv:
