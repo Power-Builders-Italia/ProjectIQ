@@ -9,6 +9,8 @@ import { buildTree, flatten, parentIds, WbsNode } from "../shared/wbs";
 import { hostRecordId, loadNodes, updateNode } from "../shared/data";
 import { isoDay, toDay } from "../shared/dates";
 import { EditableCell } from "../shared/EditableCell";
+import { ProgressCell } from "../shared/ProgressCell";
+import { progressLabel } from "../shared/progress";
 
 const useStyles = makeStyles({
     root: { display: "flex", flexDirection: "column", gap: tokens.spacingVerticalS, width: "100%" },
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
     parent: { fontWeight: tokens.fontWeightSemibold },
     rolled: { color: tokens.colorNeutralForeground2, fontStyle: "italic" },
     num: { textAlign: "right" },
+    progress: { minWidth: "160px" },
     selected: { backgroundColor: tokens.colorNeutralBackground1Selected },
     total: { fontWeight: tokens.fontWeightSemibold, borderTop: `2px solid ${tokens.colorNeutralStroke1}` },
     spacer: { width: "24px", display: "inline-block" },
@@ -151,7 +154,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                 <TableHeaderCell className={styles.num}>{s("Col_Materials")}</TableHeaderCell>
                                 <TableHeaderCell className={styles.num}>{s("Col_Other")}</TableHeaderCell>
                                 <TableHeaderCell className={styles.num}>{s("Col_Total")}</TableHeaderCell>
-                                <TableHeaderCell className={styles.num}>{s("Col_Progress")}</TableHeaderCell>
+                                <TableHeaderCell className={styles.progress}>{s("Col_Progress")}</TableHeaderCell>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -181,7 +184,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                             <TableCell className={styles.num}>{rolled(decimal(n.totalHours))}</TableCell>
                                             <TableCell /><TableCell /><TableCell />
                                             <TableCell className={styles.num}>{rolled(money(n.totalBudget))}</TableCell>
-                                            <TableCell className={styles.num}>{rolled(decimal(n.rollProgress))}</TableCell>
+                                            <TableCell><ProgressCell pct={n.rollProgress} label={rolled(progressLabel(n.rollProgress))} /></TableCell>
                                         </> : <>
                                             <TableCell>
                                                 <EditableCell type="date" disabled={disabled} display={date(n.start)} value={n.start === undefined ? "" : isoDay(n.start)}
@@ -196,7 +199,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                             <TableCell className={styles.num}>{numberCell(n, "op365_budgetmaterials", n.budgetMaterials, s("Col_Materials"), money)}</TableCell>
                                             <TableCell className={styles.num}>{numberCell(n, "op365_budgetother", n.budgetOther, s("Col_Other"), money)}</TableCell>
                                             <TableCell className={styles.num}>{money(n.totalBudget)}</TableCell>
-                                            <TableCell className={styles.num}>{numberCell(n, "op365_progresspct", n.progress, s("Col_Progress"), decimal)}</TableCell>
+                                            <TableCell><ProgressCell pct={n.progress} label={numberCell(n, "op365_progresspct", n.progress, s("Col_Progress"), progressLabel)} /></TableCell>
                                         </>}
                                     </TableRow>
                                 );

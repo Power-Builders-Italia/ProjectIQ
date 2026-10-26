@@ -49,8 +49,9 @@ def lbl(text):
     return f'<labels><label description="{escape(text)}" languagecode="1033" /></labels>'
 
 
-def field_cell(table, name, pcf=None):
-    """name ending with '!' = read-only. pcf: field code component (e.g. op365_OP365.CostSummary) on every form factor."""
+def field_cell(table, name, pcf=None, showlabel=False):
+    """name ending with '!' = read-only. pcf: field code component (e.g. op365_OP365.CostSummary) on every form factor;
+    showlabel keeps the field label next to the component."""
     disabled = name.endswith('!')
     name = name.rstrip('!')
     a = attr(table, name)
@@ -61,7 +62,7 @@ def field_cell(table, name, pcf=None):
     if pcf:
         uid = gid()
         extra += f' uniqueid="{uid}"'
-        cell = ' showlabel="false"'
+        cell = '' if showlabel else ' showlabel="false"'
         _descriptions.append(
             f'<controlDescription forControl="{uid}">'
             f'<customControl id="{cls}"><parameters><datafieldname>{name}</datafieldname></parameters></customControl>'
@@ -116,10 +117,16 @@ def timeline_cell():
 
 
 def section(table, title, items, columns=2, grid=None):
-    """items: column names, or ('subgrid', id, label, target, relationship, ...) / ('timeline',) / ('pcf', column, control).
+    """items: column names, or ('subgrid', id, label, target, relationship, ...) / ('timeline',) / ('pcf', column, control);
+    ('field', column, control) is a labelled column drawn by a field code component, laid out like a column name.
     grid: explicit columns attribute (dashboards use '111')."""
     rows, pending = [], []
     for it in items:
+        if isinstance(it, tuple) and it[0] == 'field':
+            pending.append(field_cell(table, it[1], it[2], showlabel=True))
+            if len(pending) == columns:
+                rows.append(pending); pending = []
+            continue
         if isinstance(it, tuple):
             if pending:
                 rows.append(pending); pending = []
@@ -133,7 +140,7 @@ def section(table, title, items, columns=2, grid=None):
             rows.append(pending); pending = []
     if pending:
         rows.append(pending)
-    special = any(isinstance(i, tuple) for i in items)
+    special = any(isinstance(i, tuple) and i[0] != 'field' for i in items)
     cols = grid or (1 if special else columns)
     body = ''.join('<row>' + ''.join(r) + '</row>' for r in rows)
     return (f'<section name="{title.lower().replace(" ", "_")}" showlabel="true" showbar="false" columns="{cols}" '
