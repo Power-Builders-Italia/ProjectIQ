@@ -49,6 +49,8 @@ Per passare tra Offer, In Progress e Suspended, cambia il campo **Status Reason*
 | **Suspended Projects** | Commesse sospese |
 | **Closed Projects** | Commesse finite e offerte perse |
 
+In tutte le viste dei progetti la colonna **Progress %** è disegnata come una barra verde da 0 a 100, con accanto la percentuale arrotondata, così si confronta a colpo d'occhio a che punto è ogni commessa. La stessa barra compare nelle viste dei nodi WBS (WBS Node). Ordinamento e filtri sulla colonna funzionano come su qualsiasi colonna numerica; un valore vuoto mostra una cella vuota.
+
 Vedi solo i progetti di cui sei proprietario, quelli in cui sei membro del team e — con il ruolo *OP365 Administrator* — tutti i progetti (vedi [Chi vede un progetto](#chi-vede-un-progetto)).
 
 ## Creare un progetto

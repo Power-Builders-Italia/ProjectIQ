@@ -60,7 +60,7 @@ Technical documentation (English): [Development environment setup](docs/dev-envi
 |---|---|
 | `solutions/OpenProject365` | Unpacked Dataverse solution (`pac solution unpack`) |
 | `src/plugins` | C# plugins and Custom API implementations |
-| `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison) |
+| `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison, ProgressBar) |
 | `src/webresources` | Form scripts and dialogs |
 | `portal` | Power Pages supplier portal |
 | `docs` | User manuals (`docs/<language>/`), [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md), ADRs |

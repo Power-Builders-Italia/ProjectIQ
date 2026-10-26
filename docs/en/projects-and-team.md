@@ -47,6 +47,8 @@ To change between Offer, In Progress and Suspended, change the **Status Reason**
 | **Suspended Projects** | Jobs on hold |
 | **Closed Projects** | Finished jobs and lost offers |
 
+In every project view the **Progress %** column is drawn as a green bar from 0 to 100, with the rounded percentage next to it, so you can compare at a glance how far each job has gone. The same bar appears in the WBS Node views. Sorting and filtering on the column work as on any number column; an empty value shows an empty cell.
+
 You see only the projects you own, the projects where you are a team member, and — with the *OP365 Administrator* role — all projects (see [Who sees a project](#who-sees-a-project)).
 
 ## Creating a project

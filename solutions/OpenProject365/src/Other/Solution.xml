@@ -128,6 +128,7 @@
       <RootComponent type="62" schemaName="op365_OpenProject365" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.CostSummary" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.GanttChart" behavior="0" />
+      <RootComponent type="66" schemaName="op365_OP365.ProgressBar" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.QuoteComparison" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.ResourceLoad" behavior="0" />
       <RootComponent type="66" schemaName="op365_OP365.TimeApproval" behavior="0" />
@@ -229,6 +230,18 @@
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="op365_OpenProject365" displayName="Open Project 365" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2610.3003)">
+          <package appName="Base Custom Controls" version="9.0.2610.3003">BaseCustomControlsCore (9.0.2610.3003)</package>
+        </Required>
+        <Dependent type="68" id="{e708b5be-7e8d-49b2-bca4-ca849457acc7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2610.3003)">
+          <package appName="Base Custom Controls" version="9.0.2610.3003">BaseCustomControlsCore (9.0.2610.3003)</package>
+        </Required>
+        <Dependent type="68" id="{ef3f8b77-8eec-4284-849e-09adbac780bb}" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="OP365" constructor="ProgressBar" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+    <external-service-usage enabled="false" />
+    <!-- Power Apps grid customizer: set as "Customizer control" of the grid; it renders the Progress % cells as a bar. -->
+    <property name="EventName" display-name-key="Property_EventName" of-type="SingleLine.Text" usage="bound" required="true" />
+    <resources>
+      <code path="index.ts" order="1" />
+      <platform-library name="React" version="16.14.0" />
+      <platform-library name="Fluent" version="9.46.2" />
+      <resx path="strings/ProgressBar.1033.resx" version="1.0.0" />
+    </resources>
+  </control>
+</manifest>
