@@ -89,7 +89,9 @@ La tab WBS del progetto mostra l'intero albero come griglia espandibile.
 | **Budget Hours** | Modificabile in linea | Somma dei nodi sottostanti |
 | **Labour**, **Materials**, **Other** | Modificabili in linea | – |
 | **Budget Total** | Calcolato | Somma dei nodi sottostanti |
-| **Progress %** | Modificabile in linea | Avanzamento delle foglie sottostanti pesato sul budget |
+| **Progress %** | Barra verde da 0 a 100; clicca la percentuale per modificarla in linea | Avanzamento delle foglie sottostanti pesato sul budget, come barra |
+
+Gli importi sono mostrati nella valuta del progetto.
 
 L'ultima riga mostra il **Total** di ore e budget dell'intero progetto. I valori aggregati sono in grigio; passa il mouse sopra per vedere il suggerimento "Includes child nodes".
 

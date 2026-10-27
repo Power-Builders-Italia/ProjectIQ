@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{4ed8a137-5fde-5bbd-ba55-5848a2431467}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{afb5bca2-1f00-569e-99b7-462a54f29fb9}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="invitation" showlabel="true" showbar="false" columns="1" id="{264562b7-0c61-5f93-9478-0ab832b41d7b}">
+                <section name="invitation" showlabel="true" showbar="false" columns="1" id="{782a89c0-b9ed-5621-ba45-eac0da1d172b}">
                   <labels>
                     <label description="Invitation" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{2201eb1a-5b57-5d64-9cbe-92420a1e2c73}">
+                      <cell id="{bfc2fe76-d1c2-5c70-a353-6a1e8ab9ffef}">
                         <labels>
                           <label description="RFQ" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{bfc2fe76-d1c2-5c70-a353-6a1e8ab9ffef}">
+                      <cell id="{099c96eb-f369-5f18-80a5-d241d2787d19}">
                         <labels>
                           <label description="Supplier" languagecode="1033" />
                         </labels>
@@ -36,7 +36,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{099c96eb-f369-5f18-80a5-d241d2787d19}">
+                      <cell id="{9670b4ce-c6d0-58d5-8612-b80c7146b420}">
                         <labels>
                           <label description="Email" languagecode="1033" />
                         </labels>
@@ -44,7 +44,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9670b4ce-c6d0-58d5-8612-b80c7146b420}">
+                      <cell id="{868a2c99-f662-52e6-b3aa-8da8c722fed4}">
                         <labels>
                           <label description="Status Reason" languagecode="1033" />
                         </labels>
@@ -52,7 +52,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{868a2c99-f662-52e6-b3aa-8da8c722fed4}">
+                      <cell id="{3f97d833-86e8-55a9-8348-1174b696699a}">
                         <labels>
                           <label description="Invited On" languagecode="1033" />
                         </labels>
@@ -60,7 +60,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{3f97d833-86e8-55a9-8348-1174b696699a}">
+                      <cell id="{264562b7-0c61-5f93-9478-0ab832b41d7b}">
                         <labels>
                           <label description="Responded On" languagecode="1033" />
                         </labels>
@@ -73,13 +73,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="answer" showlabel="true" showbar="false" columns="1" id="{67d4d375-a9e1-5acd-8179-3c305c571f38}">
+                <section name="answer" showlabel="true" showbar="false" columns="1" id="{4ed8a137-5fde-5bbd-ba55-5848a2431467}">
                   <labels>
                     <label description="Answer" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{782a89c0-b9ed-5621-ba45-eac0da1d172b}">
+                      <cell id="{66ea631c-d4c2-51a5-a62c-57a942889ffc}">
                         <labels>
                           <label description="Quoted Amount" languagecode="1033" />
                         </labels>
@@ -87,7 +87,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{66ea631c-d4c2-51a5-a62c-57a942889ffc}">
+                      <cell id="{930545df-7b58-5a72-8654-9c52f2f3e4b3}">
                         <labels>
                           <label description="Delivery Days" languagecode="1033" />
                         </labels>
@@ -95,7 +95,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{930545df-7b58-5a72-8654-9c52f2f3e4b3}">
+                      <cell id="{67d4d375-a9e1-5acd-8179-3c305c571f38}">
                         <labels>
                           <label description="Supplier Notes" languagecode="1033" />
                         </labels>
@@ -108,20 +108,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="quotes" id="{93f0f019-b97d-56a7-90a9-2603e441ea6c}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="quotes" id="{d5fce64d-7062-5b82-8785-ed0f60057c84}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Quotes" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="quotes" showlabel="true" showbar="false" columns="1" id="{4938f491-7cff-5a61-8391-0c86845e8b6b}">
+                <section name="quotes" showlabel="true" showbar="false" columns="1" id="{93f0f019-b97d-56a7-90a9-2603e441ea6c}">
                   <labels>
                     <label description="Quotes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{afb5bca2-1f00-569e-99b7-462a54f29fb9}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{4938f491-7cff-5a61-8391-0c86845e8b6b}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Quotes" languagecode="1033" />
                         </labels>

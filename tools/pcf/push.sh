@@ -5,7 +5,7 @@ set -euo pipefail
 SRC="$(cd "$(dirname "$0")/../../src/pcf" && pwd)"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
-for control in ${*:-WbsTreeGrid GanttChart WeeklyTimesheet TimeApproval ResourceLoad CostSummary QuoteComparison ProgressBar ProgressField}; do
+for control in ${*:-WbsTreeGrid GanttChart WeeklyTimesheet TimeApproval ResourceLoad CostSummary QuoteComparison ProgressField}; do
   dir="$STAGE/$control"
   mkdir -p "$dir"
   cp -r "$SRC/$control" "$SRC/shared" "$SRC"/{package.json,pcfconfig.json,tsconfig.json,eslint.config.mjs} "$dir/"

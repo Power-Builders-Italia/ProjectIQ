@@ -47,8 +47,6 @@ To change between Offer, In Progress and Suspended, change the **Status Reason**
 | **Suspended Projects** | Jobs on hold |
 | **Closed Projects** | Finished jobs and lost offers |
 
-In every project view the **Progress %** column is drawn as a green bar from 0 to 100, with the rounded percentage next to it, so you can compare at a glance how far each job has gone. The same bar appears in the WBS Node views. Sorting and filtering on the column work as on any number column; an empty value shows an empty cell.
-
 You see only the projects you own, the projects where you are a team member, and — with the *OP365 Administrator* role — all projects (see [Who sees a project](#who-sees-a-project)).
 
 ## Creating a project
@@ -76,7 +74,7 @@ You see only the projects you own, the projects where you are a team member, and
 | **Actual Cost** | Approved labour cost + material cost recorded on the project | Calculated |
 | **Actual Hours** | Approved hours recorded on the project | Calculated |
 | **Committed Cost** | Value of the lines of sent or confirmed purchase orders not yet received | Calculated |
-| **Progress %** | Overall progress, from the WBS | Calculated |
+| **Progress %** | Overall progress, from the WBS, shown as a green bar from 0 to 100 with the rounded percentage | Calculated |
 | **Description** | Scope, notes, anything useful | You |
 
 The right-hand column shows the **Timeline**: notes, mentions (`@name`) and activities (calls, tasks, appointments, emails) about the project.

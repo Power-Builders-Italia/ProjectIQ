@@ -49,8 +49,6 @@ Um zwischen Offer, In Progress und Suspended zu wechseln, ändern Sie das Feld *
 | **Suspended Projects** | Ruhende Aufträge |
 | **Closed Projects** | Beendete Aufträge und verlorene Angebote |
 
-In allen Projektansichten wird die Spalte **Progress %** als grüner Balken von 0 bis 100 dargestellt, daneben der gerundete Prozentwert, sodass Sie auf einen Blick vergleichen können, wie weit jeder Auftrag ist. Derselbe Balken erscheint in den Ansichten der PSP-Elemente (WBS Node). Sortieren und Filtern der Spalte funktionieren wie bei jeder Zahlenspalte; ein leerer Wert ergibt eine leere Zelle.
-
 Sie sehen nur die Projekte, deren Besitzer Sie sind, die Projekte, in denen Sie Teammitglied sind, und — mit der Rolle *OP365 Administrator* — alle Projekte (siehe [Wer ein Projekt sieht](#wer-ein-projekt-sieht)).
 
 ## Ein Projekt anlegen
@@ -78,7 +76,7 @@ Sie sehen nur die Projekte, deren Besitzer Sie sind, die Projekte, in denen Sie 
 | **Actual Cost** | Genehmigte Personalkosten + im Projekt erfasste Materialkosten | Berechnet |
 | **Actual Hours** | Im Projekt erfasste genehmigte Stunden | Berechnet |
 | **Committed Cost** | Wert der noch nicht gelieferten Positionen versandter oder bestätigter Bestellungen (Obligo) | Berechnet |
-| **Progress %** | Gesamtfortschritt, aus dem PSP | Berechnet |
+| **Progress %** | Gesamtfortschritt, aus dem PSP, als grüner Balken von 0 bis 100 mit gerundetem Prozentwert | Berechnet |
 | **Description** | Leistungsumfang, Notizen, alles Nützliche | Sie |
 
 Die rechte Spalte zeigt die **Timeline**: Notizen, Erwähnungen (`@name`) und Aktivitäten (Telefonate, Aufgaben, Termine, E-Mails) zum Projekt.

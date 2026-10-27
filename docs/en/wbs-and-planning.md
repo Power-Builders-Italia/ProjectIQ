@@ -87,7 +87,9 @@ The WBS tab of the project shows the whole tree as an expandable grid.
 | **Budget Hours** | Editable inline | Sum of the nodes below |
 | **Labour**, **Materials**, **Other** | Editable inline | – |
 | **Budget Total** | Calculated | Sum of the nodes below |
-| **Progress %** | Editable inline | Budget-weighted progress of the leaves below |
+| **Progress %** | Green bar from 0 to 100; click the percentage to edit it inline | Budget-weighted progress of the leaves below, as a bar |
+
+Amounts are shown in the currency of the project.
 
 The last row shows the **Total** of hours and budget for the whole project. Rolled-up values are shown in grey; hover over them to see the "Includes child nodes" tooltip.
 

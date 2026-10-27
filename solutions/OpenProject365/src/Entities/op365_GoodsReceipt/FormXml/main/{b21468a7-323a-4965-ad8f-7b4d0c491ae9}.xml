@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{87dbbac9-a9a1-5d57-a46c-3fdccf5161c0}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{a5e06ad8-b21a-5de9-af98-51392f8b14e3}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
-                <section name="receipt" showlabel="true" showbar="false" columns="2" id="{bdedacf7-2f82-581d-b0cb-7e18dfed9350}">
+                <section name="receipt" showlabel="true" showbar="false" columns="2" id="{8bb45321-b03c-55fb-96bf-d6c633060bcd}">
                   <labels>
                     <label description="Receipt" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{01268aa8-4563-5a7a-8dcd-7df28c8d9dcc}">
+                      <cell id="{3b1992e8-8953-5461-8553-d0270dcab9fe}">
                         <labels>
                           <label description="Number" languagecode="1033" />
                         </labels>
                         <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="true" />
                       </cell>
-                      <cell id="{3b1992e8-8953-5461-8553-d0270dcab9fe}">
+                      <cell id="{930bb1a8-817d-5d6f-be9c-9026befe58bf}">
                         <labels>
                           <label description="Purchase Order" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{930bb1a8-817d-5d6f-be9c-9026befe58bf}">
+                      <cell id="{8fbb0dd6-ec80-5a45-8ef7-0ec5c57f9be6}">
                         <labels>
                           <label description="Project" languagecode="1033" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" disabled="true" />
                       </cell>
-                      <cell id="{8fbb0dd6-ec80-5a45-8ef7-0ec5c57f9be6}">
+                      <cell id="{3d0bdee0-6d62-56a1-843e-84a8f2d87ab1}">
                         <labels>
                           <label description="Receipt Date" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{3d0bdee0-6d62-56a1-843e-84a8f2d87ab1}">
+                      <cell id="{502fda50-a7ed-55a3-80d6-1438445c299a}">
                         <labels>
                           <label description="Delivery Note Number" languagecode="1033" />
                         </labels>
                         <control id="op365_deliverynotenumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_deliverynotenumber" />
                       </cell>
-                      <cell id="{502fda50-a7ed-55a3-80d6-1438445c299a}">
+                      <cell id="{bdedacf7-2f82-581d-b0cb-7e18dfed9350}">
                         <labels>
                           <label description="Delivery Note Date" languagecode="1033" />
                         </labels>
@@ -63,13 +63,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{5955edf0-bf99-51b6-9821-8eec0144f3b0}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{9bdc54f2-4f7d-5377-92d7-7b1a96b17eb9}">
                   <labels>
                     <label description="Notes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{8bb45321-b03c-55fb-96bf-d6c633060bcd}">
+                      <cell id="{5955edf0-bf99-51b6-9821-8eec0144f3b0}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
                         </labels>
@@ -78,13 +78,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="lines" showlabel="true" showbar="false" columns="1" id="{114016c2-9b3b-5446-8f9f-f64bf8ee04fe}">
+                <section name="lines" showlabel="true" showbar="false" columns="1" id="{4ffc5ec0-6c8d-53d7-9d69-ad6ca3ee516c}">
                   <labels>
                     <label description="Lines" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{9bdc54f2-4f7d-5377-92d7-7b1a96b17eb9}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{114016c2-9b3b-5446-8f9f-f64bf8ee04fe}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Lines" languagecode="1033" />
                         </labels>
@@ -113,13 +113,13 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{95c7945b-7a2c-5040-887b-5604cc078050}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{87dbbac9-a9a1-5d57-a46c-3fdccf5161c0}">
                   <labels>
                     <label description="Timeline" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4ffc5ec0-6c8d-53d7-9d69-ad6ca3ee516c}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{95c7945b-7a2c-5040-887b-5604cc078050}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Timeline" languagecode="1033" />
                         </labels>

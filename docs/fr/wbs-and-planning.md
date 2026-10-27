@@ -89,7 +89,9 @@ L'onglet WBS du projet affiche l'arbre complet sous forme de grille dépliable.
 | **Budget Hours** | Modifiable en ligne | Somme des nœuds inférieurs |
 | **Labour**, **Materials**, **Other** | Modifiables en ligne | – |
 | **Budget Total** | Calculé | Somme des nœuds inférieurs |
-| **Progress %** | Modifiable en ligne | Avancement des feuilles inférieures pondéré par le budget |
+| **Progress %** | Barre verte de 0 à 100 ; cliquez sur le pourcentage pour le modifier en ligne | Avancement des feuilles inférieures pondéré par le budget, sous forme de barre |
+
+Les montants sont affichés dans la devise du projet.
 
 La dernière ligne affiche le **Total** des heures et du budget de tout le projet. Les valeurs cumulées sont en gris ; survolez-les pour voir l'info-bulle « Includes child nodes ».
 

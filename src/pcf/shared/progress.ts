@@ -1,14 +1,7 @@
-/** Progress columns rendered as a bar in the Power Apps grid (Project and WBS Node: op365_progresspct). */
-export const isProgressColumn = (name: string | undefined): boolean => !!name && /progresspct/i.test(name);
-
 /** Bar fill in percent, clamped to 0-100; null when the cell is empty. */
-export function progressPercent(value: unknown, formatted?: string): number | null {
-    if (value === null || value === undefined || value === "") {
-        if (!formatted) return null;
-        value = formatted;
-    }
-    // the grid may hand over the formatted text ("43,62" with a comma decimal separator)
-    const n = typeof value === "number" ? value : Number(String(value).replace(/[\s%]/g, "").replace(",", "."));
+export function progressPercent(value: unknown): number | null {
+    if (value === null || value === undefined || value === "") return null;
+    const n = typeof value === "number" ? value : Number(value);
     if (!isFinite(n)) return null;
     return Math.min(100, Math.max(0, n));
 }

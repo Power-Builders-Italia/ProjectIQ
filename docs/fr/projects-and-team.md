@@ -49,8 +49,6 @@ Pour passer entre Offer, In Progress et Suspended, modifiez le champ **Status Re
 | **Suspended Projects** | Affaires suspendues |
 | **Closed Projects** | Affaires terminées et offres perdues |
 
-Dans toutes les vues des projets, la colonne **Progress %** est dessinée comme une barre verte de 0 à 100, avec le pourcentage arrondi à côté, pour comparer d'un coup d'œil l'avancement de chaque affaire. La même barre apparaît dans les vues des nœuds WBS (WBS Node). Le tri et les filtres sur la colonne fonctionnent comme sur toute colonne numérique ; une valeur vide affiche une cellule vide.
-
 Vous ne voyez que les projets dont vous êtes propriétaire, ceux dont vous êtes membre de l'équipe et — avec le rôle *OP365 Administrator* — tous les projets (voir [Qui voit un projet](#qui-voit-un-projet)).
 
 ## Créer un projet
@@ -78,7 +76,7 @@ Vous ne voyez que les projets dont vous êtes propriétaire, ceux dont vous ête
 | **Actual Cost** | Coût de la main-d'œuvre approuvée + coût des matériaux saisis sur le projet | Calculé |
 | **Actual Hours** | Heures approuvées saisies sur le projet | Calculé |
 | **Committed Cost** | Valeur des lignes des commandes envoyées ou confirmées non encore reçues | Calculé |
-| **Progress %** | Avancement global, issu de la WBS | Calculé |
+| **Progress %** | Avancement global, issu de la WBS, affiché comme une barre verte de 0 à 100 avec le pourcentage arrondi | Calculé |
 | **Description** | Périmètre, notes, tout ce qui est utile | Vous |
 
 La colonne de droite affiche la **Timeline** : notes, mentions (`@nom`) et activités (appels, tâches, rendez-vous, e-mails) sur le projet.
