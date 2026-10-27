@@ -28,7 +28,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Wareneingang – Ansicht für erweiterte Suche" languagecode="1031" />
       <LocalizedName description="Goods Receipt Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Réception de marchandises - Vue Recherche avancée" languagecode="1036" />
+      <LocalizedName description="Ricevimento merci - Visualizzazione Ricerca avanzata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

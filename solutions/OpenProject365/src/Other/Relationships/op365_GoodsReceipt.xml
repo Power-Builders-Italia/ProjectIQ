@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Goods receipt the line belongs to" languagecode="1033" />
+        <Description description="Wareneingang, zu dem die Position gehört" languagecode="1031" />
+        <Description description="Réception à laquelle appartient la ligne" languagecode="1036" />
+        <Description description="Ricevimento a cui appartiene la riga" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

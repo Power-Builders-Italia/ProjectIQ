@@ -1,9 +1,15 @@
 <environmentvariabledefinition schemaname="op365_PurchasingApprover">
   <description default="User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides supplier invoices. Empty = every OP365 Administrator.">
+    <label description="Benutzername (UPN) oder primäre E-Mail des Benutzers, der Bestellanforderungen über dem Schwellenwert genehmigt und über Lieferantenrechnungen entscheidet. Leer = alle OP365-Administratoren." languagecode="1031" />
     <label description="User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides supplier invoices. Empty = every OP365 Administrator." languagecode="1033" />
+    <label description="Nom d'utilisateur (UPN) ou e-mail principal de l'utilisateur qui approuve les demandes d'achat au-delà du seuil et statue sur les factures fournisseur. Vide = tous les administrateurs OP365." languagecode="1036" />
+    <label description="Nome utente (UPN) o e-mail principale dell'utente che approva le RDA oltre la soglia e decide le fatture fornitore. Vuoto = tutti gli amministratori OP365." languagecode="1040" />
   </description>
   <displayname default="Purchasing Approver">
+    <label description="Einkaufsgenehmiger" languagecode="1031" />
     <label description="Purchasing Approver" languagecode="1033" />
+    <label description="Approbateur achats" languagecode="1036" />
+    <label description="Approvatore acquisti" languagecode="1040" />
   </displayname>
   <introducedversion>1.0.8.0</introducedversion>
   <iscustomizable>1</iscustomizable>

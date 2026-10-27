@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Mein Materialverbrauch" languagecode="1031" />
       <LocalizedName description="My Material Usage" languagecode="1033" />
+      <LocalizedName description="Mes consommations de matériel" languagecode="1036" />
+      <LocalizedName description="I miei consumi materiale" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Mein aktiver Materialverbrauch" languagecode="1031" />
       <Description description="Active Material Usage owned by me" languagecode="1033" />
+      <Description description="Mes consommations de matériel actives" languagecode="1036" />
+      <Description description="I miei consumi materiale attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

@@ -33,7 +33,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Angebotspositionen" languagecode="1031" />
       <LocalizedName description="RFQ Quotes" languagecode="1033" />
+      <LocalizedName description="Offres" languagecode="1036" />
+      <LocalizedName description="Offerte" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

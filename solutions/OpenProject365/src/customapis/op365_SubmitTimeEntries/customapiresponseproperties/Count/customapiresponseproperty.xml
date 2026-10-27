@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="Count">
   <description default="Number of entries submitted">
+    <label description="Anzahl eingereichter Einträge" languagecode="1031" />
     <label description="Number of entries submitted" languagecode="1033" />
+    <label description="Nombre de saisies soumises" languagecode="1036" />
+    <label description="Numero di registrazioni inviate" languagecode="1040" />
   </description>
   <displayname default="Count">
+    <label description="Anzahl" languagecode="1031" />
     <label description="Count" languagecode="1033" />
+    <label description="Nombre" languagecode="1036" />
+    <label description="Numero" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_SubmitTimeEntries.Count</name>

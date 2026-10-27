@@ -36,11 +36,17 @@
     <LocLabel Id="op365.goodsreceipt.CancelReceipt.Label">
       <Titles>
         <Title description="Cancel Receipt" languagecode="1033" />
+        <Title description="Eingang stornieren" languagecode="1031" />
+        <Title description="Annulla ricevimento" languagecode="1040" />
+        <Title description="Annuler la réception" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.goodsreceipt.CancelReceipt.Tip">
       <Titles>
         <Title description="Delete the receipt and its material usage" languagecode="1033" />
+        <Title description="Eingang und zugehörigen Materialverbrauch löschen" languagecode="1031" />
+        <Title description="Elimina il ricevimento e i relativi consumi materiale" languagecode="1040" />
+        <Title description="Supprimer la réception et sa consommation de matériel" languagecode="1036" />
       </Titles>
     </LocLabel>
   </LocLabels>

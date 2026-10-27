@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Kostenübersicht</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Budget im Vergleich zu den Istkosten des Projekts nach PSP-Zweig, mit Prognose bei Fertigstellung</value>
+  </data>
+  <data name="Property_Value" xml:space="preserve">
+    <value>Istkosten</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Die Kostenübersicht konnte nicht geladen werden</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Speichern Sie das Projekt, um seine Kosten zu sehen.</value>
+  </data>
+  <data name="Kpi_Contract" xml:space="preserve">
+    <value>Vertragswert</value>
+  </data>
+  <data name="Kpi_Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="Kpi_Actual" xml:space="preserve">
+    <value>Istkosten</value>
+  </data>
+  <data name="Kpi_Eac" xml:space="preserve">
+    <value>Prognose bei Fertigstellung</value>
+  </data>
+  <data name="Kpi_Eac_Tip" xml:space="preserve">
+    <value>Istkosten / Fortschritt</value>
+  </data>
+  <data name="Kpi_Margin" xml:space="preserve">
+    <value>Erwartete Marge</value>
+  </data>
+  <data name="Labour" xml:space="preserve">
+    <value>Arbeit</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Column_Branch" xml:space="preserve">
+    <value>PSP-Zweig</value>
+  </data>
+  <data name="Column_Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="Column_Actual" xml:space="preserve">
+    <value>Ist</value>
+  </data>
+  <data name="Column_Variance" xml:space="preserve">
+    <value>Abweichung</value>
+  </data>
+  <data name="Column_Spent" xml:space="preserve">
+    <value>Verbraucht</value>
+  </data>
+  <data name="Column_Hours" xml:space="preserve">
+    <value>Stunden (Ist / Budget)</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Keinem PSP-Element zugeordnet</value>
+  </data>
+</root>

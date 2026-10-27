@@ -42,7 +42,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive Angebotsanfragen" languagecode="1031" />
       <LocalizedName description="Quick Find Active Requests for Quotation" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : demandes de prix actives" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida richieste di offerta attive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

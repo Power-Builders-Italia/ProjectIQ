@@ -51,10 +51,16 @@
   </presentationdescription>
   <isdefault>0</isdefault>
   <LocalizedNames>
+    <LocalizedName description="Ausgaben nach Lieferant" languagecode="1031" />
     <LocalizedName description="Spend by Supplier" languagecode="1033" />
+    <LocalizedName description="Dépenses par fournisseur" languagecode="1036" />
+    <LocalizedName description="Spesa per fornitore" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Nicht stornierte Bestellungen nach Lieferant" languagecode="1031" />
     <Description description="Purchase orders not cancelled, by supplier" languagecode="1033" />
+    <Description description="Commandes non annulées, par fournisseur" languagecode="1036" />
+    <Description description="Ordini non annullati, per fornitore" languagecode="1040" />
   </Descriptions>
   <IsCustomizable>1</IsCustomizable>
   <IntroducedVersion>1.0.4.0</IntroducedVersion>

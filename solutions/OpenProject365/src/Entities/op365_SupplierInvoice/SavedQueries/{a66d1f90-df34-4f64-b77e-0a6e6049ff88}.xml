@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Lieferantenrechnung – Suchansicht" languagecode="1031" />
       <LocalizedName description="Supplier Invoice Lookup View" languagecode="1033" />
+      <LocalizedName description="Facture fournisseur - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Fattura fornitore - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

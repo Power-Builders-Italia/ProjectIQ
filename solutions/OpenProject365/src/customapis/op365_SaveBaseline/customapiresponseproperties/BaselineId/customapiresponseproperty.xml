@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="BaselineId">
   <description default="Id of the new baseline">
+    <label description="ID des neuen Basisplans" languagecode="1031" />
     <label description="Id of the new baseline" languagecode="1033" />
+    <label description="ID du nouveau planning de référence" languagecode="1036" />
+    <label description="ID della nuova baseline" languagecode="1040" />
   </description>
   <displayname default="Baseline Id">
+    <label description="Basisplan-ID" languagecode="1031" />
     <label description="Baseline Id" languagecode="1033" />
+    <label description="ID du planning de référence" languagecode="1036" />
+    <label description="ID baseline" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_SaveBaseline.BaselineId</name>

@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="SupplierIds">
   <description default="Suppliers to invite; default preferred and item suppliers">
+    <label description="Einzuladende Lieferanten; Standard bevorzugte und Artikellieferanten" languagecode="1031" />
     <label description="Suppliers to invite; default preferred and item suppliers" languagecode="1033" />
+    <label description="Fournisseurs à inviter ; par défaut fournisseurs préférés et fournisseurs d'article" languagecode="1036" />
+    <label description="Fornitori da invitare; predefiniti i fornitori preferiti e degli articoli" languagecode="1040" />
   </description>
   <displayname default="SupplierIds">
+    <label description="LieferantIds" languagecode="1031" />
     <label description="SupplierIds" languagecode="1033" />
+    <label description="IdsFournisseurs" languagecode="1036" />
+    <label description="IdFornitori" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

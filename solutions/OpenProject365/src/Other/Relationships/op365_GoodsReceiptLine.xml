@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Goods receipt line the material came from" languagecode="1033" />
+        <Description description="Wareneingangsposition, aus der das Material stammt" languagecode="1031" />
+        <Description description="Ligne de réception d'où provient le matériel" languagecode="1036" />
+        <Description description="Riga di ricevimento da cui proviene il materiale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

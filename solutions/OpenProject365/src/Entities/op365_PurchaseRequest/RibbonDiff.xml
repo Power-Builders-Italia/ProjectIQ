@@ -183,61 +183,97 @@
     <LocLabel Id="op365.purchaserequest.Approve.Label">
       <Titles>
         <Title description="Approve" languagecode="1033" />
+        <Title description="Approva" languagecode="1040" />
+        <Title description="Genehmigen" languagecode="1031" />
+        <Title description="Approuver" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.Approve.Tip">
       <Titles>
         <Title description="Approve the request (above the threshold it goes to the purchasing approver)" languagecode="1033" />
+        <Title description="Approva la richiesta (oltre la soglia passa all'approvatore acquisti)" languagecode="1040" />
+        <Title description="Anforderung genehmigen (über dem Schwellenwert geht sie an den Einkaufsgenehmiger)" languagecode="1031" />
+        <Title description="Approuver la demande (au-delà du seuil, elle passe à l'approbateur achats)" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CancelRequest.Label">
       <Titles>
         <Title description="Cancel Request" languagecode="1033" />
+        <Title description="Anforderung stornieren" languagecode="1031" />
+        <Title description="Annuler la demande" languagecode="1036" />
+        <Title description="Annulla richiesta" languagecode="1040" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CancelRequest.Tip">
       <Titles>
         <Title description="Cancel the request" languagecode="1033" />
+        <Title description="Anforderung stornieren" languagecode="1031" />
+        <Title description="Annulla la richiesta" languagecode="1040" />
+        <Title description="Annuler la demande" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CreateOrder.Label">
       <Titles>
         <Title description="Create Order" languagecode="1033" />
+        <Title description="Bestellung erstellen" languagecode="1031" />
+        <Title description="Crea ordine" languagecode="1040" />
+        <Title description="Créer la commande" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CreateOrder.Tip">
       <Titles>
         <Title description="Create a purchase order to the preferred supplier" languagecode="1033" />
+        <Title description="Bestellung an den bevorzugten Lieferanten erstellen" languagecode="1031" />
+        <Title description="Crea un ordine al fornitore preferito" languagecode="1040" />
+        <Title description="Créer une commande au fournisseur préféré" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CreateRfq.Label">
       <Titles>
         <Title description="Create RFQ" languagecode="1033" />
+        <Title description="Angebotsanfrage erstellen" languagecode="1031" />
+        <Title description="Crea RdO" languagecode="1040" />
+        <Title description="Créer une demande de prix" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.CreateRfq.Tip">
       <Titles>
         <Title description="Ask suppliers for quotations" languagecode="1033" />
+        <Title description="Lieferanten um Angebote bitten" languagecode="1031" />
+        <Title description="Demander des offres aux fournisseurs" languagecode="1036" />
+        <Title description="Chiedi offerte ai fornitori" languagecode="1040" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.Reject.Label">
       <Titles>
         <Title description="Reject" languagecode="1033" />
+        <Title description="Rejeter" languagecode="1036" />
+        <Title description="Rifiuta" languagecode="1040" />
+        <Title description="Ablehnen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.Reject.Tip">
       <Titles>
         <Title description="Reject the request with a note" languagecode="1033" />
+        <Title description="Rejeter la demande avec une note" languagecode="1036" />
+        <Title description="Rifiuta la richiesta con una nota" languagecode="1040" />
+        <Title description="Anforderung mit Notiz ablehnen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.Submit.Label">
       <Titles>
         <Title description="Submit" languagecode="1033" />
+        <Title description="Soumettre" languagecode="1036" />
+        <Title description="Invia" languagecode="1040" />
+        <Title description="Einreichen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaserequest.Submit.Tip">
       <Titles>
         <Title description="Send the request to the project manager for approval" languagecode="1033" />
+        <Title description="Anforderung zur Genehmigung an den Projektleiter senden" languagecode="1031" />
+        <Title description="Invia la richiesta al capo commessa per l'approvazione" languagecode="1040" />
+        <Title description="Envoyer la demande au chef de projet pour approbation" languagecode="1036" />
       </Titles>
     </LocLabel>
   </LocLabels>

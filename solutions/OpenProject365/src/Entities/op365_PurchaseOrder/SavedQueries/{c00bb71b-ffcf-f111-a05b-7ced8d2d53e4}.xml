@@ -46,7 +46,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Eingegangene Bestellungen" languagecode="1031" />
       <LocalizedName description="Received Purchase Orders" languagecode="1033" />
+      <LocalizedName description="Commandes reçues" languagecode="1036" />
+      <LocalizedName description="Ordini ricevuti" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

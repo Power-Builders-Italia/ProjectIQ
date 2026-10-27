@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{d7496e54-8e10-5906-a501-ca085908f5fb}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="absence" showlabel="true" showbar="false" columns="2" id="{3325fde0-c12d-512f-94ec-171e761d2b12}">
                   <labels>
+                    <label description="Abwesenheit" languagecode="1031" />
                     <label description="Absence" languagecode="1033" />
+                    <label description="Absence" languagecode="1036" />
+                    <label description="Assenza" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{9eaf7efe-5c42-58ca-9dc7-9ea9c9253fb9}">
                         <labels>
                           <label description="Resource" languagecode="1033" />
+                          <label description="Risorsa" languagecode="1040" />
+                          <label description="Ressource" languagecode="1031" />
+                          <label description="Ressource" languagecode="1036" />
                         </labels>
                         <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
                       </cell>
                       <cell id="{496528f9-685f-5310-961f-fcbd105908f8}">
                         <labels>
                           <label description="Absence Type" languagecode="1033" />
+                          <label description="Tipo assenza" languagecode="1040" />
+                          <label description="Abwesenheitsart" languagecode="1031" />
+                          <label description="Type d'absence" languagecode="1036" />
                         </labels>
                         <control id="op365_absencetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_absencetype" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{45dd7045-2e54-5ce1-a00d-86088016b245}">
                         <labels>
                           <label description="From" languagecode="1033" />
+                          <label description="Da" languagecode="1040" />
+                          <label description="Von" languagecode="1031" />
+                          <label description="De" languagecode="1036" />
                         </labels>
                         <control id="op365_fromdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_fromdate" />
                       </cell>
                       <cell id="{f584205c-585d-5906-bc6d-459564fd9c3c}">
                         <labels>
                           <label description="To" languagecode="1033" />
+                          <label description="A" languagecode="1040" />
+                          <label description="Bis" languagecode="1031" />
+                          <label description="À" languagecode="1036" />
                         </labels>
                         <control id="op365_todate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_todate" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{ce337176-4e81-5308-9994-69efebc54fbf}">
                         <labels>
                           <label description="Hours" languagecode="1033" />
+                          <label description="Ore" languagecode="1040" />
+                          <label description="Stunden" languagecode="1031" />
+                          <label description="Heures" languagecode="1036" />
                         </labels>
                         <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
                       </cell>
                       <cell id="{9552d607-4f6c-5b0c-ad74-72805e28a91a}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -65,6 +89,9 @@
                       <cell id="{ae8961c7-a99b-54cf-b2e3-9556843ccb3b}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -73,13 +100,19 @@
                 </section>
                 <section name="notes" showlabel="true" showbar="false" columns="1" id="{e655a71c-c27a-5351-a502-f0abd3284a43}">
                   <labels>
+                    <label description="Hinweise" languagecode="1031" />
                     <label description="Notes" languagecode="1033" />
+                    <label description="Remarques" languagecode="1036" />
+                    <label description="Note" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{b876d74e-b971-56a2-8cc7-aec14da9f483}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
+                          <label description="Note" languagecode="1040" />
+                          <label description="Hinweise" languagecode="1031" />
+                          <label description="Remarques" languagecode="1036" />
                         </labels>
                         <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
                       </cell>
@@ -95,7 +128,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Abwesenheit" languagecode="1031" />
       <LocalizedName description="Absence" languagecode="1033" />
+      <LocalizedName description="Absence" languagecode="1036" />
+      <LocalizedName description="Assenza" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

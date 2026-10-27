@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Materialverbrauch nach Projekt" languagecode="1031" />
       <LocalizedName description="Material Usage by Project" languagecode="1033" />
+      <LocalizedName description="Consommation de matériel par projet" languagecode="1036" />
+      <LocalizedName description="Consumi materiale per commessa" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

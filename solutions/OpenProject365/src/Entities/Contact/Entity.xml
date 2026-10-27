@@ -50,6 +50,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Is Decision Maker" languagecode="1033" />
+              <displayname description="Ist Entscheidungsträger" languagecode="1031" />
+              <displayname description="Est décideur" languagecode="1036" />
+              <displayname description="È decisore" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -58,20 +61,32 @@
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Is Decision Maker" languagecode="1033" />
+            <displayname description="Ist Entscheidungsträger" languagecode="1031" />
+            <displayname description="Est décideur" languagecode="1036" />
+            <displayname description="È decisore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Yes when the contact takes purchasing or project decisions for the account" languagecode="1033" />
+            <Description description="Ja, wenn der Kontakt Einkaufs- oder Projektentscheidungen für die Firma trifft" languagecode="1031" />
+            <Description description="Oui si le contact prend des décisions d'achat ou de projet pour le compte" languagecode="1036" />
+            <Description description="Sì se il contatto prende decisioni di acquisto o di commessa per l'account" languagecode="1040" />
           </Descriptions>
         </attribute>
       </attributes>

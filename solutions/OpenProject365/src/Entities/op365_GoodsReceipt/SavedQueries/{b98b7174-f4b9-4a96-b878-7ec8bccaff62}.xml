@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive Wareneingänge" languagecode="1031" />
       <LocalizedName description="Quick Find Active Goods Receipts" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : réceptions de marchandises actives" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida ricevimenti merci attivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

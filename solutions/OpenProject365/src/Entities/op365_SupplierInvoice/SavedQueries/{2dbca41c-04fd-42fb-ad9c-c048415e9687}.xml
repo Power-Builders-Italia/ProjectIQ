@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Lieferantenrechnungen" languagecode="1031" />
       <LocalizedName description="Inactive Supplier Invoices" languagecode="1033" />
+      <LocalizedName description="Factures fournisseur inactives" languagecode="1036" />
+      <LocalizedName description="Fatture fornitore inattive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

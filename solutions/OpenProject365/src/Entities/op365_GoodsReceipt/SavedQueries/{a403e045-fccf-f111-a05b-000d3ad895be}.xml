@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Wareneingänge" languagecode="1031" />
       <LocalizedName description="My Goods Receipts" languagecode="1033" />
+      <LocalizedName description="Mes réceptions de marchandises" languagecode="1036" />
+      <LocalizedName description="I miei ricevimenti merci" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Wareneingänge" languagecode="1031" />
       <Description description="Active Goods Receipts owned by me" languagecode="1033" />
+      <Description description="Mes réceptions actives" languagecode="1036" />
+      <Description description="I miei ricevimenti attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

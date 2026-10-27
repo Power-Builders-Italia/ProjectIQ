@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Angebotspositionen" languagecode="1031" />
       <LocalizedName description="My RFQ Quotes" languagecode="1033" />
+      <LocalizedName description="Mes offres" languagecode="1036" />
+      <LocalizedName description="Le mie offerte" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Angebotspositionen" languagecode="1031" />
       <Description description="Active RFQ Quotes owned by me" languagecode="1033" />
+      <Description description="Mes offres actives" languagecode="1036" />
+      <Description description="Le mie offerte attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

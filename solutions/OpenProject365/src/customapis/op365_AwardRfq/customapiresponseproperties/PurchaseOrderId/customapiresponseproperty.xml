@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="PurchaseOrderId">
   <description default="New purchase order">
+    <label description="Neue Bestellung" languagecode="1031" />
     <label description="New purchase order" languagecode="1033" />
+    <label description="Nouvelle commande" languagecode="1036" />
+    <label description="Nuovo ordine" languagecode="1040" />
   </description>
   <displayname default="PurchaseOrderId">
+    <label description="BestellungId" languagecode="1031" />
     <label description="PurchaseOrderId" languagecode="1033" />
+    <label description="IdCommande" languagecode="1036" />
+    <label description="IdOrdine" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_AwardRfq.PurchaseOrderId</name>

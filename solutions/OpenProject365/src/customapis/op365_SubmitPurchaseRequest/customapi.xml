@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
   <description default="Submits a draft or rejected purchase request to the project manager">
+    <label description="Reicht eine Bestellanforderung im Entwurf oder abgelehnt beim Projektleiter ein" languagecode="1031" />
     <label description="Submits a draft or rejected purchase request to the project manager" languagecode="1033" />
+    <label description="Soumet une demande d'achat en brouillon ou rejetée au chef de projet" languagecode="1036" />
+    <label description="Invia al capo commessa una RDA in bozza o rifiutata" languagecode="1040" />
   </description>
   <displayname default="Submit Purchase Request">
+    <label description="Bestellanforderung einreichen" languagecode="1031" />
     <label description="Submit Purchase Request" languagecode="1033" />
+    <label description="Soumettre la demande d'achat" languagecode="1036" />
+    <label description="Invia RDA" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order the goods were delivered against" languagecode="1033" />
+        <Description description="Bestellung, zu der die Waren geliefert wurden" languagecode="1031" />
+        <Description description="Commande au titre de laquelle les marchandises ont été livrées" languagecode="1036" />
+        <Description description="Ordine a fronte del quale è stata consegnata la merce" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order the line belongs to" languagecode="1033" />
+        <Description description="Bestellung, zu der die Position gehört" languagecode="1031" />
+        <Description description="Commande à laquelle appartient la ligne" languagecode="1036" />
+        <Description description="Ordine a cui appartiene la riga" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order created when the RFQ was awarded" languagecode="1033" />
+        <Description description="Bei der Vergabe der Angebotsanfrage erstellte Bestellung" languagecode="1031" />
+        <Description description="Commande créée lors de l'attribution de la demande de prix" languagecode="1036" />
+        <Description description="Ordine creato all'aggiudicazione della RdO" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order the invoice refers to" languagecode="1033" />
+        <Description description="Bestellung, auf die sich die Rechnung bezieht" languagecode="1031" />
+        <Description description="Commande à laquelle se rapporte la facture" languagecode="1036" />
+        <Description description="Ordine a cui si riferisce la fattura" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier invitation that won the RFQ" languagecode="1033" />
+        <Description description="Lieferanteneinladung, die die Angebotsanfrage gewonnen hat" languagecode="1031" />
+        <Description description="Invitation fournisseur ayant remporté la demande de prix" languagecode="1036" />
+        <Description description="Invito fornitore che ha vinto la RdO" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier invitation the quote belongs to" languagecode="1033" />
+        <Description description="Lieferanteneinladung, zu der das Angebot gehört" languagecode="1031" />
+        <Description description="Invitation fournisseur à laquelle appartient l'offre" languagecode="1036" />
+        <Description description="Invito fornitore a cui appartiene l'offerta" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Zeiteinträge" languagecode="1031" />
       <LocalizedName description="All Time Entries" languagecode="1033" />
+      <LocalizedName description="Toutes les saisies de temps" languagecode="1036" />
+      <LocalizedName description="Tutte le registrazioni ore" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

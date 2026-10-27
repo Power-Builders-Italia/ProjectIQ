@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Basisplan – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="Baseline Associated View" languagecode="1033" />
+      <LocalizedName description="Planning de référence - Vue associée" languagecode="1036" />
+      <LocalizedName description="Baseline - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

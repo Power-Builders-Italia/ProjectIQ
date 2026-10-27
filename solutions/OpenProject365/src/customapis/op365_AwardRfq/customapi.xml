@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_rfq</boundentitylogicalname>
   <description default="Awards the request for quotation to a supplier and creates the purchase order">
+    <label description="Vergibt die Angebotsanfrage an einen Lieferanten und erstellt die Bestellung" languagecode="1031" />
     <label description="Awards the request for quotation to a supplier and creates the purchase order" languagecode="1033" />
+    <label description="Attribue la demande de prix à un fournisseur et crée la commande" languagecode="1036" />
+    <label description="Aggiudica la richiesta di offerta a un fornitore e crea l'ordine" languagecode="1040" />
   </description>
   <displayname default="Award RFQ">
+    <label description="Angebotsanfrage vergeben" languagecode="1031" />
     <label description="Award RFQ" languagecode="1033" />
+    <label description="Attribuer la demande de prix" languagecode="1036" />
+    <label description="Aggiudica RdO" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

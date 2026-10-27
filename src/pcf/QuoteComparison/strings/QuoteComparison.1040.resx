@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+      <data name="Control_Name" xml:space="preserve">
+    <value>Confronto offerte</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Righe della richiesta rispetto ai prezzi offerti da ogni fornitore, con miglior prezzo e aggiudicazione</value>
+  </data>
+  <data name="Property_Value" xml:space="preserve">
+    <value>Risposte</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossibile caricare le offerte</value>
+  </data>
+  <data name="Save_Rfq" xml:space="preserve">
+    <value>Salva la richiesta di offerta per confrontare le offerte.</value>
+  </data>
+  <data name="Column_Line" xml:space="preserve">
+    <value>Riga</value>
+  </data>
+  <data name="Column_Quantity" xml:space="preserve">
+    <value>Quantità</value>
+  </data>
+  <data name="Column_Best" xml:space="preserve">
+    <value>Miglior prezzo</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totale</value>
+  </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Consegna</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>{0} giorni</value>
+  </data>
+  <data name="Not_Quoted" xml:space="preserve">
+    <value>–</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>{0} righe su {1}</value>
+  </data>
+  <data name="Best_Total" xml:space="preserve">
+    <value>Miglior totale</value>
+  </data>
+  <data name="Award" xml:space="preserve">
+    <value>Aggiudica</value>
+  </data>
+  <data name="Award_Confirm" xml:space="preserve">
+    <value>Aggiudicare la richiesta di offerta a {0} e creare l'ordine?</value>
+  </data>
+  <data name="Award_Done" xml:space="preserve">
+    <value>Ordine creato.</value>
+  </data>
+  <data name="No_Lines" xml:space="preserve">
+    <value>La RDA non ha righe.</value>
+  </data>
+  <data name="No_Invitations" xml:space="preserve">
+    <value>Invita i fornitori per confrontare le loro offerte.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="Status_Invited" xml:space="preserve">
+    <value>Invitato</value>
+  </data>
+  <data name="Status_ToInvite" xml:space="preserve">
+    <value>Da invitare</value>
+  </data>
+  <data name="Status_Responded" xml:space="preserve">
+    <value>Risposto</value>
+  </data>
+  <data name="Status_Declined" xml:space="preserve">
+    <value>Declinato</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+</root>

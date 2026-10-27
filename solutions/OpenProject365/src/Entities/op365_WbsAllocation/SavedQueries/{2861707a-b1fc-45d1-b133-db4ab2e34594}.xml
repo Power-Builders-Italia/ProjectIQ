@@ -33,7 +33,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Zuordnungen" languagecode="1031" />
       <LocalizedName description="WBS Allocations" languagecode="1033" />
+      <LocalizedName description="Affectations WBS" languagecode="1036" />
+      <LocalizedName description="Allocazioni WBS" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

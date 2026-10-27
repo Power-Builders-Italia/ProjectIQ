@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_supplierinvoice</boundentitylogicalname>
   <description default="Approves or rejects a supplier invoice">
+    <label description="Genehmigt oder lehnt eine Lieferantenrechnung ab" languagecode="1031" />
     <label description="Approves or rejects a supplier invoice" languagecode="1033" />
+    <label description="Approuve ou rejette une facture fournisseur" languagecode="1036" />
+    <label description="Approva o rifiuta una fattura fornitore" languagecode="1040" />
   </description>
   <displayname default="Decide Supplier Invoice">
+    <label description="Über Lieferantenrechnung entscheiden" languagecode="1031" />
     <label description="Decide Supplier Invoice" languagecode="1033" />
+    <label description="Statuer sur la facture fournisseur" languagecode="1036" />
+    <label description="Decidi fattura fornitore" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

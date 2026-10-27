@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Ressourcenkosten" languagecode="1031" />
       <LocalizedName description="My Resource Costs" languagecode="1033" />
+      <LocalizedName description="Mes coûts de ressource" languagecode="1036" />
+      <LocalizedName description="I miei costi risorsa" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Ressourcenkosten" languagecode="1031" />
       <Description description="Active Resource Costs owned by me" languagecode="1033" />
+      <Description description="Mes coûts de ressource actifs" languagecode="1036" />
+      <Description description="I miei costi risorsa attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

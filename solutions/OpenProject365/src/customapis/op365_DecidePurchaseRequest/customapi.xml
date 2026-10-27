@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
   <description default="Approves or rejects a submitted purchase request (above the threshold a second approval is needed)">
+    <label description="Genehmigt oder lehnt eine eingereichte Bestellanforderung ab (über dem Schwellenwert ist eine zweite Genehmigung nötig)" languagecode="1031" />
     <label description="Approves or rejects a submitted purchase request (above the threshold a second approval is needed)" languagecode="1033" />
+    <label description="Approuve ou rejette une demande d'achat soumise (au-delà du seuil, une seconde approbation est nécessaire)" languagecode="1036" />
+    <label description="Approva o rifiuta una RDA inviata (oltre la soglia serve una seconda approvazione)" languagecode="1040" />
   </description>
   <displayname default="Decide Purchase Request">
+    <label description="Über Bestellanforderung entscheiden" languagecode="1031" />
     <label description="Decide Purchase Request" languagecode="1033" />
+    <label description="Statuer sur la demande d'achat" languagecode="1036" />
+    <label description="Decidi RDA" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

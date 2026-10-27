@@ -35,7 +35,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Basispläne" languagecode="1031" />
       <LocalizedName description="Baselines" languagecode="1033" />
+      <LocalizedName description="Plannings de référence" languagecode="1036" />
+      <LocalizedName description="Baseline" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

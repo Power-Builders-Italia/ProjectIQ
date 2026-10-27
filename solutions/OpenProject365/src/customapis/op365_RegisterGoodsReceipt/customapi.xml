@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaseorder</boundentitylogicalname>
   <description default="Registers a goods receipt and the material usage of the received lines">
+    <label description="Erfasst einen Wareneingang und den Materialverbrauch der eingegangenen Positionen" languagecode="1031" />
     <label description="Registers a goods receipt and the material usage of the received lines" languagecode="1033" />
+    <label description="Enregistre une réception et la consommation de matériel des lignes reçues" languagecode="1036" />
+    <label description="Registra un ricevimento e i consumi materiale delle righe ricevute" languagecode="1040" />
   </description>
   <displayname default="Register Goods Receipt">
+    <label description="Wareneingang erfassen" languagecode="1031" />
     <label description="Register Goods Receipt" languagecode="1033" />
+    <label description="Enregistrer la réception" languagecode="1036" />
+    <label description="Registra ricevimento merci" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

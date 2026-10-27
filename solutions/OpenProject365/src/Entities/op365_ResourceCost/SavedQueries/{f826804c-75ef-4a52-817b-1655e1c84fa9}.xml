@@ -34,7 +34,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Aktive Ressourcenkosten" languagecode="1031" />
       <LocalizedName description="Active Resource Costs" languagecode="1033" />
+      <LocalizedName description="Coûts de ressource actifs" languagecode="1036" />
+      <LocalizedName description="Costi risorsa attivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

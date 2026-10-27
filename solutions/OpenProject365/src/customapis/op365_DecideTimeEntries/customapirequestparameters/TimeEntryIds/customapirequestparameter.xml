@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="TimeEntryIds">
   <description default="Ids of the time entries">
+    <label description="IDs der Zeiteinträge" languagecode="1031" />
     <label description="Ids of the time entries" languagecode="1033" />
+    <label description="ID des saisies de temps" languagecode="1036" />
+    <label description="ID delle registrazioni ore" languagecode="1040" />
   </description>
   <displayname default="TimeEntryIds">
+    <label description="ZeiteintragIds" languagecode="1031" />
     <label description="TimeEntryIds" languagecode="1033" />
+    <label description="IdsSaisiesTemps" languagecode="1036" />
+    <label description="IdRegistrazioniOre" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

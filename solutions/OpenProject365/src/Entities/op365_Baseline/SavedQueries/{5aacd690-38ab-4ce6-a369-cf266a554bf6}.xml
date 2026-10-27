@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Basispläne" languagecode="1031" />
       <LocalizedName description="Inactive Baselines" languagecode="1033" />
+      <LocalizedName description="Plannings de référence inactifs" languagecode="1036" />
+      <LocalizedName description="Baseline inattive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

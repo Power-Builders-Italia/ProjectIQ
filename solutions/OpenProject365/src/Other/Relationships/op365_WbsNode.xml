@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Current node the saved values refer to" languagecode="1033" />
+        <Description description="Aktuelles Element, auf das sich die gespeicherten Werte beziehen" languagecode="1031" />
+        <Description description="Nœud actuel auquel se rapportent les valeurs enregistrées" languagecode="1036" />
+        <Description description="Nodo attuale a cui si riferiscono i valori salvati" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="WBS node that used the material" languagecode="1033" />
+        <Description description="PSP-Element, das das Material verwendet hat" languagecode="1031" />
+        <Description description="Nœud WBS ayant utilisé le matériel" languagecode="1036" />
+        <Description description="Nodo WBS che ha usato il materiale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="WBS node whose budget the line uses" languagecode="1033" />
+        <Description description="PSP-Element, dessen Budget die Position verwendet" languagecode="1031" />
+        <Description description="Nœud WBS dont le budget est utilisé par la ligne" languagecode="1036" />
+        <Description description="Nodo WBS il cui budget è usato dalla riga" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="WBS node whose budget the purchase uses" languagecode="1033" />
+        <Description description="PSP-Element, dessen Budget der Einkauf verwendet" languagecode="1031" />
+        <Description description="Nœud WBS dont le budget est utilisé par l'achat" languagecode="1036" />
+        <Description description="Nodo WBS il cui budget è usato dall'acquisto" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -159,6 +171,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="WBS node the hours were worked on" languagecode="1033" />
+        <Description description="PSP-Element, an dem die Stunden geleistet wurden" languagecode="1031" />
+        <Description description="Nœud WBS sur lequel les heures ont été travaillées" languagecode="1036" />
+        <Description description="Nodo WBS su cui sono state lavorate le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -194,6 +209,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Node the hours are planned on" languagecode="1033" />
+        <Description description="Element, für das die Stunden geplant sind" languagecode="1031" />
+        <Description description="Nœud sur lequel les heures sont prévues" languagecode="1036" />
+        <Description description="Nodo su cui sono pianificate le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -229,6 +247,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Node that must finish first" languagecode="1033" />
+        <Description description="Element, das zuerst enden muss" languagecode="1031" />
+        <Description description="Nœud qui doit se terminer en premier" languagecode="1036" />
+        <Description description="Nodo che deve finire per primo" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -264,6 +285,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Node that starts after the predecessor" languagecode="1033" />
+        <Description description="Element, das nach dem Vorgänger beginnt" languagecode="1031" />
+        <Description description="Nœud qui commence après le prédécesseur" languagecode="1036" />
+        <Description description="Nodo che inizia dopo il predecessore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -299,6 +323,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Parent node in the work breakdown structure; empty for a top-level phase" languagecode="1033" />
+        <Description description="Übergeordnetes Element im Projektstrukturplan; leer für eine Phase der obersten Ebene" languagecode="1031" />
+        <Description description="Nœud parent dans la structure de découpage du projet ; vide pour une phase de premier niveau" languagecode="1036" />
+        <Description description="Nodo padre nella WBS; vuoto per una fase di primo livello" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

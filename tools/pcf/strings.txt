@@ -148,3 +148,6 @@ WeeklyTimesheet|Status_Draft|Entwurf|Brouillon|Bozza
 WeeklyTimesheet|Status_Submitted|Eingereicht|Soumis|Inviato
 WeeklyTimesheet|Status_Approved|Genehmigt|Approuvé|Approvato
 WeeklyTimesheet|Status_Rejected|Abgelehnt|Rejeté|Rifiutato
+ProgressField|Control_Name|Fortschrittsfeld|Champ d'avancement|Campo avanzamento
+ProgressField|Control_Description|Zeigt ein Feld Fortschritt % als Balken von 0 bis 100|Affiche un champ Avancement % sous forme de barre de 0 à 100|Mostra un campo Avanzamento % come barra da 0 a 100
+ProgressField|Property_Value|Fortschritt %|Avancement %|Avanzamento %

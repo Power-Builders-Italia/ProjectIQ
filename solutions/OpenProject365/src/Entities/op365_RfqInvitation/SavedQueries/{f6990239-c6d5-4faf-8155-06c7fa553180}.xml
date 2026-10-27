@@ -41,7 +41,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Angebotseinladungen" languagecode="1031" />
       <LocalizedName description="RFQ Invitations" languagecode="1033" />
+      <LocalizedName description="Invitations à soumissionner" languagecode="1036" />
+      <LocalizedName description="Inviti RdO" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

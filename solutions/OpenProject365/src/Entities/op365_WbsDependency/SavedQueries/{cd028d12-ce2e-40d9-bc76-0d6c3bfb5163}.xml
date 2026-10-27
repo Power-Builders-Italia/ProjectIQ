@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Abhängigkeit – Suchansicht" languagecode="1031" />
       <LocalizedName description="WBS Dependency Lookup View" languagecode="1033" />
+      <LocalizedName description="Dépendance WBS - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Dipendenza WBS - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

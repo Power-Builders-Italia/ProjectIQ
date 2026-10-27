@@ -46,7 +46,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Zu prüfende Rechnungen" languagecode="1031" />
       <LocalizedName description="Invoices to Review" languagecode="1033" />
+      <LocalizedName description="Factures à examiner" languagecode="1036" />
+      <LocalizedName description="Fatture da verificare" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

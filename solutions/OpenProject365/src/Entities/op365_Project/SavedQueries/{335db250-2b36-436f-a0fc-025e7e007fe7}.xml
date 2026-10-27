@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Projekte" languagecode="1031" />
       <LocalizedName description="My Projects" languagecode="1033" />
+      <LocalizedName description="Mes projets" languagecode="1036" />
+      <LocalizedName description="Le mie commesse" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Projekte" languagecode="1031" />
       <Description description="Active Projects owned by me" languagecode="1033" />
+      <Description description="Mes projets actifs" languagecode="1036" />
+      <Description description="Le mie commesse attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

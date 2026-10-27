@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Artikel" languagecode="1031" />
       <LocalizedName description="My Items" languagecode="1033" />
+      <LocalizedName description="Mes articles" languagecode="1036" />
+      <LocalizedName description="I miei articoli" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Artikel" languagecode="1031" />
       <Description description="Active Items owned by me" languagecode="1033" />
+      <Description description="Mes articles actifs" languagecode="1036" />
+      <Description description="I miei articoli attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

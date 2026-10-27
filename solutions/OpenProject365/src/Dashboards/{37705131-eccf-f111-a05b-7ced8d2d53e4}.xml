@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <LocalizedNames>
+    <LocalizedName description="Stundenzettel" languagecode="1031" />
     <LocalizedName description="Timesheet" languagecode="1033" />
+    <LocalizedName description="Feuille de temps" languagecode="1036" />
+    <LocalizedName description="Foglio ore" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Wöchentliche Zeiterfassung des aktuellen Benutzers" languagecode="1031" />
     <Description description="Weekly time entry of the current user" languagecode="1033" />
+    <Description description="Saisie hebdomadaire des heures de l'utilisateur actuel" languagecode="1036" />
+    <Description description="Registrazione ore settimanale dell'utente corrente" languagecode="1040" />
   </Descriptions>
   <FormId>{37705131-eccf-f111-a05b-7ced8d2d53e4}</FormId>
   <IsCustomizable>1</IsCustomizable>
@@ -15,20 +21,29 @@
         <tabs>
           <tab name="timesheet" id="{6ddebc3c-d280-5644-8b58-3f4bb7ad4fda}" expanded="true" showlabel="true" verticallayout="true">
             <labels>
+              <label description="Stundenzettel" languagecode="1031" />
               <label description="Timesheet" languagecode="1033" />
+              <label description="Feuille de temps" languagecode="1036" />
+              <label description="Foglio ore" languagecode="1040" />
             </labels>
             <columns>
               <column width="100%">
                 <sections>
                   <section name="timesheet" showlabel="true" showbar="false" columns="111" id="{59da6614-efb3-594e-9e52-7e1a651b7e30}">
                     <labels>
+                      <label description="Stundenzettel" languagecode="1031" />
                       <label description="Timesheet" languagecode="1033" />
+                      <label description="Feuille de temps" languagecode="1036" />
+                      <label description="Foglio ore" languagecode="1040" />
                     </labels>
                     <rows>
                       <row>
                         <cell id="{0c7f00af-5853-5c26-b028-3d6c0849ebab}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Timesheet" languagecode="1033" />
+                            <label description="Foglio ore" languagecode="1040" />
+                            <label description="Stundenzettel" languagecode="1031" />
+                            <label description="Feuille de temps" languagecode="1036" />
                           </labels>
                           <control id="Board" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{d53f18bc-a6e9-5131-b3fa-534b7248972a}">
                             <parameters>

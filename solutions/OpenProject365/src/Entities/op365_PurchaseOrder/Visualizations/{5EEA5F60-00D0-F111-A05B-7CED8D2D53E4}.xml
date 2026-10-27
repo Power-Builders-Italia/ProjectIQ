@@ -42,10 +42,16 @@
   </presentationdescription>
   <isdefault>0</isdefault>
   <LocalizedNames>
+    <LocalizedName description="Bestellungen nach Status" languagecode="1031" />
     <LocalizedName description="Purchase Orders by Status" languagecode="1033" />
+    <LocalizedName description="Commandes par statut" languagecode="1036" />
+    <LocalizedName description="Ordini per stato" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Anzahl der Bestellungen nach Status" languagecode="1031" />
     <Description description="Number of purchase orders by status" languagecode="1033" />
+    <Description description="Nombre de commandes par statut" languagecode="1036" />
+    <Description description="Numero di ordini per stato" languagecode="1040" />
   </Descriptions>
   <IsCustomizable>1</IsCustomizable>
   <IntroducedVersion>1.0.4.0</IntroducedVersion>

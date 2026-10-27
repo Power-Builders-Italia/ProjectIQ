@@ -22,9 +22,15 @@
   <ModernFlowType>0</ModernFlowType>
   <PrimaryEntity>none</PrimaryEntity>
   <LocalizedNames>
+    <LocalizedName languagecode="1031" description="Tägliche Zeiterinnerung" />
     <LocalizedName languagecode="1033" description="Daily time reminder" />
+    <LocalizedName languagecode="1036" description="Rappel quotidien des heures" />
+    <LocalizedName languagecode="1040" description="Promemoria giornaliero ore" />
   </LocalizedNames>
   <Descriptions>
+    <Description languagecode="1031" description="Arbeitstage um 17:30 Uhr (Europa/Rom): erinnert Benutzer, die heute weniger Stunden als erwartet erfasst haben" />
     <Description languagecode="1033" description="Working days at 17:30 (Europe/Rome): reminds the users who recorded fewer hours than expected today" />
+    <Description languagecode="1036" description="Jours ouvrés à 17h30 (Europe/Rome) : rappelle les utilisateurs ayant saisi moins d'heures que prévu aujourd'hui" />
+    <Description languagecode="1040" description="Giorni lavorativi alle 17:30 (Europa/Roma): ricorda agli utenti che oggi hanno registrato meno ore del previsto" />
   </Descriptions>
 </Workflow>

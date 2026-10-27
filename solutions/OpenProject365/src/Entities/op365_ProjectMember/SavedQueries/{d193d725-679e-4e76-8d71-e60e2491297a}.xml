@@ -28,7 +28,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Projektmitglied – Ansicht für erweiterte Suche" languagecode="1031" />
       <LocalizedName description="Project Member Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Membre du projet - Vue Recherche avancée" languagecode="1036" />
+      <LocalizedName description="Membro commessa - Visualizzazione Ricerca avanzata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

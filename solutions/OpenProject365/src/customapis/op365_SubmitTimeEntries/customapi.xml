@@ -2,10 +2,16 @@
   <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
   <bindingtype>0</bindingtype>
   <description default="Submits draft or rejected time entries for approval (approves them when time approval is off)">
+    <label description="Reicht Zeiteinträge im Entwurf oder abgelehnt zur Genehmigung ein (genehmigt sie, wenn die Zeitgenehmigung deaktiviert ist)" languagecode="1031" />
     <label description="Submits draft or rejected time entries for approval (approves them when time approval is off)" languagecode="1033" />
+    <label description="Soumet les saisies de temps en brouillon ou rejetées pour approbation (les approuve si l'approbation des heures est désactivée)" languagecode="1036" />
+    <label description="Invia in approvazione le registrazioni ore in bozza o rifiutate (le approva se l'approvazione ore è disattivata)" languagecode="1040" />
   </description>
   <displayname default="Submit Time Entries">
+    <label description="Zeiteinträge einreichen" languagecode="1031" />
     <label description="Submit Time Entries" languagecode="1033" />
+    <label description="Soumettre les saisies de temps" languagecode="1036" />
+    <label description="Invia registrazioni ore" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="KeepReference">
   <description default="Keep the current reference baseline instead of replacing it (default false)">
+    <label description="Aktuellen Referenz-Basisplan beibehalten statt ersetzen (Standard: false)" languagecode="1031" />
     <label description="Keep the current reference baseline instead of replacing it (default false)" languagecode="1033" />
+    <label description="Conserver le planning de référence actuel au lieu de le remplacer (par défaut false)" languagecode="1036" />
+    <label description="Mantieni la baseline di riferimento attuale invece di sostituirla (predefinito false)" languagecode="1040" />
   </description>
   <displayname default="KeepReference">
+    <label description="ReferenzBeibehalten" languagecode="1031" />
     <label description="KeepReference" languagecode="1033" />
+    <label description="ConserverRéférence" languagecode="1036" />
+    <label description="MantieniRiferimento" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

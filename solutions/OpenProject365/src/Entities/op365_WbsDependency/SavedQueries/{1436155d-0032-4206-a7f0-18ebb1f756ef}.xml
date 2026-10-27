@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive PSP-Abhängigkeiten" languagecode="1031" />
       <LocalizedName description="Inactive WBS Dependencies" languagecode="1033" />
+      <LocalizedName description="Dépendances WBS inactives" languagecode="1036" />
+      <LocalizedName description="Dipendenze WBS inattive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

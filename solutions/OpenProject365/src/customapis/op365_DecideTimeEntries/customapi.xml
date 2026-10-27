@@ -2,10 +2,16 @@
   <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
   <bindingtype>0</bindingtype>
   <description default="Approves or rejects submitted time entries (project managers and administrators)">
+    <label description="Genehmigt oder lehnt eingereichte Zeiteinträge ab (Projektleiter und Administratoren)" languagecode="1031" />
     <label description="Approves or rejects submitted time entries (project managers and administrators)" languagecode="1033" />
+    <label description="Approuve ou rejette les saisies de temps soumises (chefs de projet et administrateurs)" languagecode="1036" />
+    <label description="Approva o rifiuta le registrazioni ore inviate (capi commessa e amministratori)" languagecode="1040" />
   </description>
   <displayname default="Decide Time Entries">
+    <label description="Über Zeiteinträge entscheiden" languagecode="1031" />
     <label description="Decide Time Entries" languagecode="1033" />
+    <label description="Statuer sur les saisies de temps" languagecode="1036" />
+    <label description="Decidi registrazioni ore" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

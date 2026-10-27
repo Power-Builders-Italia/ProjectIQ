@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{d63f0614-c490-5ca3-a822-3006edf4d957}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="project_member" showlabel="true" showbar="false" columns="2" id="{4d94da11-5b2b-5442-b0ea-80353df99fa8}">
                   <labels>
+                    <label description="Projektmitglied" languagecode="1031" />
                     <label description="Project Member" languagecode="1033" />
+                    <label description="Membre du projet" languagecode="1036" />
+                    <label description="Membro commessa" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{3670ea40-2ae0-5a65-88df-3eadab9b2c7f}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
                       <cell id="{f231f50d-3108-5939-b0f8-394155d96f9a}">
                         <labels>
                           <label description="User" languagecode="1033" />
+                          <label description="Utente" languagecode="1040" />
+                          <label description="Benutzer" languagecode="1031" />
+                          <label description="Utilisateur" languagecode="1036" />
                         </labels>
                         <control id="op365_userid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_userid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{8f8da02d-8d40-5bfa-b32c-9364f463f3c8}">
                         <labels>
                           <label description="Project Role" languagecode="1033" />
+                          <label description="Ruolo in commessa" languagecode="1040" />
+                          <label description="Projektrolle" languagecode="1031" />
+                          <label description="Rôle dans le projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectrole" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_projectrole" />
                       </cell>
                       <cell id="{3b0283ec-cf06-5dca-8d1b-7ac81d848a3f}">
                         <labels>
                           <label description="Hourly Rate" languagecode="1033" />
+                          <label description="Tariffa oraria" languagecode="1040" />
+                          <label description="Stundensatz" languagecode="1031" />
+                          <label description="Taux horaire" languagecode="1036" />
                         </labels>
                         <control id="op365_hourlyrate" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_hourlyrate" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{383573f3-77c9-548d-907f-6da6642e9592}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
                       <cell id="{1c1b56ce-3405-5186-8bf2-80d579d03aa4}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -72,7 +96,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Projektmitglied" languagecode="1031" />
       <LocalizedName description="Project Member" languagecode="1033" />
+      <LocalizedName description="Membre du projet" languagecode="1036" />
+      <LocalizedName description="Membro commessa" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

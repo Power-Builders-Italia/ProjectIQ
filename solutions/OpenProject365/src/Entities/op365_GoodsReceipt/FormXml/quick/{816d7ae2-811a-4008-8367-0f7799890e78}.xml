@@ -16,13 +16,19 @@
               <sections>
                 <section showlabel="false" showbar="false" IsUserDefined="0" id="{6b0f0441-8b12-4aaf-a968-26741f120d68}">
                   <labels>
+                    <label description="ALLGEMEIN" languagecode="1031" />
                     <label description="GENERAL" languagecode="1033" />
+                    <label description="GÉNÉRAL" languagecode="1036" />
+                    <label description="GENERALE" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{396f5ce9-de7c-4897-95fa-ddf65d4ad9c9}">
                         <labels>
                           <label description="Number" languagecode="1033" />
+                          <label description="Numero" languagecode="1040" />
+                          <label description="Nummer" languagecode="1031" />
+                          <label description="Numéro" languagecode="1036" />
                         </labels>
                         <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" />
                       </cell>
@@ -31,6 +37,9 @@
                       <cell id="{b8320c2a-91c0-4330-b983-25d5cdd73ace}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -46,7 +55,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Informationen" languagecode="1031" />
       <LocalizedName description="Information" languagecode="1033" />
+      <LocalizedName description="Informations" languagecode="1036" />
+      <LocalizedName description="Informazioni" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

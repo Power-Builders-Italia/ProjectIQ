@@ -9,26 +9,38 @@
       <tabs>
         <tab name="summary" id="{a44dc5e5-be8e-5517-bcf5-d0b63ac799cc}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Zusammenfassung" languagecode="1031" />
             <label description="Summary" languagecode="1033" />
+            <label description="Résumé" languagecode="1036" />
+            <label description="Riepilogo" languagecode="1040" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
                 <section name="supplier" showlabel="true" showbar="false" columns="2" id="{21cfc6a3-8f80-548f-bf16-0512c9e65836}">
                   <labels>
+                    <label description="Lieferant" languagecode="1031" />
                     <label description="Supplier" languagecode="1033" />
+                    <label description="Fournisseur" languagecode="1036" />
+                    <label description="Produttore" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{eda829c7-4ad8-55c5-a75d-e1856da6f80e}">
                         <labels>
                           <label description="Account Name" languagecode="1033" />
+                          <label description="Nome account" languagecode="1040" />
+                          <label description="Firmenname" languagecode="1031" />
+                          <label description="Nom du compte" languagecode="1036" />
                         </labels>
                         <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" />
                       </cell>
                       <cell id="{fcfbfd1a-1d68-5b8e-9fbc-250ff581cfdb}">
                         <labels>
                           <label description="Is Supplier" languagecode="1033" />
+                          <label description="È fornitore" languagecode="1040" />
+                          <label description="Ist Lieferant" languagecode="1031" />
+                          <label description="Est fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_issupplier" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_issupplier" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{b4459f15-e812-5ecc-8ba0-9996ab2141fa}">
                         <labels>
                           <label description="Supplier Status" languagecode="1033" />
+                          <label description="Stato fornitore" languagecode="1040" />
+                          <label description="Lieferantenstatus" languagecode="1031" />
+                          <label description="Statut du fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_supplierstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_supplierstatus" />
                       </cell>
                       <cell id="{d5ade2fa-635d-5b20-8aa7-e642da399ef0}">
                         <labels>
                           <label description="Supplier Category" languagecode="1033" />
+                          <label description="Categoria fornitore" languagecode="1040" />
+                          <label description="Lieferantenkategorie" languagecode="1031" />
+                          <label description="Catégorie de fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_suppliercategory" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_suppliercategory" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{b8d48fc3-0f00-5602-afb9-41713e06bba5}">
                         <labels>
                           <label description="VAT Number" languagecode="1033" />
+                          <label description="Partita IVA" languagecode="1040" />
+                          <label description="USt-IdNr." languagecode="1031" />
+                          <label description="N° de TVA" languagecode="1036" />
                         </labels>
                         <control id="op365_vatnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_vatnumber" />
                       </cell>
                       <cell id="{a344da78-1720-5bfd-b2a9-df5054bad159}">
                         <labels>
                           <label description="Tax Code" languagecode="1033" />
+                          <label description="Codice fiscale" languagecode="1040" />
+                          <label description="Steuernummer" languagecode="1031" />
+                          <label description="Code fiscal" languagecode="1036" />
                         </labels>
                         <control id="op365_taxcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_taxcode" />
                       </cell>
@@ -65,12 +89,18 @@
                       <cell id="{33b739c0-e284-5950-9210-b471f7333320}">
                         <labels>
                           <label description="Primary Contact" languagecode="1033" />
+                          <label description="Contatto primario" languagecode="1040" />
+                          <label description="Primärer Kontakt" languagecode="1031" />
+                          <label description="Contact principal" languagecode="1036" />
                         </labels>
                         <control id="primarycontactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="primarycontactid" />
                       </cell>
                       <cell id="{83f1e8b8-f8a3-5c03-897a-658cd7935649}">
                         <labels>
                           <label description="Main Phone" languagecode="1033" />
+                          <label description="Telefono principale" languagecode="1040" />
+                          <label description="Telefon 1" languagecode="1031" />
+                          <label description="Téléphone principal" languagecode="1036" />
                         </labels>
                         <control id="telephone1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="telephone1" />
                       </cell>
@@ -79,12 +109,18 @@
                       <cell id="{49e2053b-b063-5fb9-be37-12bb8350ecf7}">
                         <labels>
                           <label description="Email" languagecode="1033" />
+                          <label description="E-mail" languagecode="1040" />
+                          <label description="E-Mail" languagecode="1031" />
+                          <label description="Courrier électronique" languagecode="1036" />
                         </labels>
                         <control id="emailaddress1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="emailaddress1" />
                       </cell>
                       <cell id="{42b2cf12-5472-5c99-80f6-e6487d83b006}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -93,19 +129,28 @@
                 </section>
                 <section name="address" showlabel="true" showbar="false" columns="2" id="{1be5e8f6-1170-58b5-8697-f2d1384e5313}">
                   <labels>
+                    <label description="Adresse" languagecode="1031" />
                     <label description="Address" languagecode="1033" />
+                    <label description="Adresse" languagecode="1036" />
+                    <label description="Indirizzo" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{cc1f8978-b562-5665-80fa-c597a7f76a34}">
                         <labels>
                           <label description="Address 1: Street 1" languagecode="1033" />
+                          <label description="Indirizzo 1: via 1" languagecode="1040" />
+                          <label description="Adresse 1: Straße 1" languagecode="1031" />
+                          <label description="Adresse 1 : Rue 1" languagecode="1036" />
                         </labels>
                         <control id="address1_line1" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_line1" />
                       </cell>
                       <cell id="{ff8ad564-d785-555e-94dd-498488239ecf}">
                         <labels>
                           <label description="Address 1: City" languagecode="1033" />
+                          <label description="Indirizzo 1: città" languagecode="1040" />
+                          <label description="Adresse 1: Ort" languagecode="1031" />
+                          <label description="Adresse 1 : Ville" languagecode="1036" />
                         </labels>
                         <control id="address1_city" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_city" />
                       </cell>
@@ -114,12 +159,18 @@
                       <cell id="{2c992910-3baa-5bbd-913f-900889572abc}">
                         <labels>
                           <label description="Address 1: ZIP/Postal Code" languagecode="1033" />
+                          <label description="Indirizzo 1: CAP" languagecode="1040" />
+                          <label description="Adresse 1: Postleitzahl" languagecode="1031" />
+                          <label description="Adresse 1 : Code postal" languagecode="1036" />
                         </labels>
                         <control id="address1_postalcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_postalcode" />
                       </cell>
                       <cell id="{41cea538-143c-5f1f-9c46-baa93f337685}">
                         <labels>
                           <label description="Address 1: State/Province" languagecode="1033" />
+                          <label description="Indirizzo 1: provincia" languagecode="1040" />
+                          <label description="Adresse 1: Bundesland/Kanton" languagecode="1031" />
+                          <label description="Adresse 1 : Département/province" languagecode="1036" />
                         </labels>
                         <control id="address1_stateorprovince" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_stateorprovince" />
                       </cell>
@@ -128,6 +179,9 @@
                       <cell id="{475561dd-0aaf-5ab2-bd47-550ae1ac4372}">
                         <labels>
                           <label description="Address 1: Country/Region" languagecode="1033" />
+                          <label description="Indirizzo 1: paese" languagecode="1040" />
+                          <label description="Adresse 1: Land/Region" languagecode="1031" />
+                          <label description="Adresse 1 : Pays/région" languagecode="1036" />
                         </labels>
                         <control id="address1_country" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="address1_country" />
                       </cell>
@@ -136,19 +190,28 @@
                 </section>
                 <section name="payment" showlabel="true" showbar="false" columns="2" id="{216b0a01-6edd-5065-8d36-6de8e84d1eb6}">
                   <labels>
+                    <label description="Zahlung" languagecode="1031" />
                     <label description="Payment" languagecode="1033" />
+                    <label description="Paiement" languagecode="1036" />
+                    <label description="Pagamento" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{ff52f425-e820-5f0e-b4dc-06e786c9a820}">
                         <labels>
                           <label description="Payment Terms" languagecode="1033" />
+                          <label description="Condizioni di pagamento" languagecode="1040" />
+                          <label description="Zahlungsbedingungen" languagecode="1031" />
+                          <label description="Conditions de paiement" languagecode="1036" />
                         </labels>
                         <control id="op365_paymentterms" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentterms" />
                       </cell>
                       <cell id="{d7c8cd46-cc8b-5df7-bbfe-399920734b71}">
                         <labels>
                           <label description="IBAN" languagecode="1033" />
+                          <label description="IBAN" languagecode="1040" />
+                          <label description="IBAN" languagecode="1031" />
+                          <label description="IBAN" languagecode="1036" />
                         </labels>
                         <control id="op365_iban" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_iban" />
                       </cell>
@@ -157,12 +220,18 @@
                       <cell id="{48a41c4e-1054-59b5-b5a9-3e4123b5af4f}">
                         <labels>
                           <label description="PEC" languagecode="1033" />
+                          <label description="PEC" languagecode="1040" />
+                          <label description="PEC" languagecode="1031" />
+                          <label description="PEC" languagecode="1036" />
                         </labels>
                         <control id="op365_pec" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_pec" />
                       </cell>
                       <cell id="{49a02f2a-a9a6-5a24-b455-0658e554e6ef}">
                         <labels>
                           <label description="Language" languagecode="1033" />
+                          <label description="Lingua" languagecode="1040" />
+                          <label description="Sprache" languagecode="1031" />
+                          <label description="Langue" languagecode="1036" />
                         </labels>
                         <control id="op365_language" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_language" />
                       </cell>
@@ -175,13 +244,19 @@
               <sections>
                 <section name="timeline" showlabel="true" showbar="false" columns="1" id="{2d33254f-56e3-54e0-9d86-8b1fb6ff481b}">
                   <labels>
+                    <label description="Zeitachse" languagecode="1031" />
                     <label description="Timeline" languagecode="1033" />
+                    <label description="Chronologie" languagecode="1036" />
+                    <label description="Sequenza temporale" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{204c4c38-ae27-524a-9128-b42e5fc8ecc9}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
+                          <label description="Zeitachse" languagecode="1031" />
                           <label description="Timeline" languagecode="1033" />
+                          <label description="Chronologie" languagecode="1036" />
+                          <label description="Sequenza temporale" languagecode="1040" />
                         </labels>
                         <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
@@ -194,26 +269,38 @@
         </tab>
         <tab name="documents" id="{99a9b131-3a80-57b7-ab6d-0d9cc007a45d}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Dokumente" languagecode="1031" />
             <label description="Documents" languagecode="1033" />
+            <label description="Documents" languagecode="1036" />
+            <label description="Documenti" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="document_alerts" showlabel="true" showbar="false" columns="2" id="{bf4e4048-9c0c-5c73-aaca-f7b616b3c078}">
                   <labels>
+                    <label description="Dokumentwarnungen" languagecode="1031" />
                     <label description="Document Alerts" languagecode="1033" />
+                    <label description="Alertes documents" languagecode="1036" />
+                    <label description="Avvisi documenti" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{d31da6a3-fbf4-5ea8-ac26-06999a9662ad}">
                         <labels>
                           <label description="Expired Documents" languagecode="1033" />
+                          <label description="Documenti scaduti" languagecode="1040" />
+                          <label description="Abgelaufene Dokumente" languagecode="1031" />
+                          <label description="Documents expirés" languagecode="1036" />
                         </labels>
                         <control id="op365_expireddocs" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_expireddocs" />
                       </cell>
                       <cell id="{a941f584-b249-5f02-a99c-b022ec64ee84}">
                         <labels>
                           <label description="Expiring Documents" languagecode="1033" />
+                          <label description="Documenti in scadenza" languagecode="1040" />
+                          <label description="Ablaufende Dokumente" languagecode="1031" />
+                          <label description="Documents arrivant à expiration" languagecode="1036" />
                         </labels>
                         <control id="op365_expiringdocs" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_expiringdocs" />
                       </cell>
@@ -222,13 +309,19 @@
                 </section>
                 <section name="documents" showlabel="true" showbar="false" columns="1" id="{6b4055e5-9cd5-5efd-9e4f-cdedd4086ed3}">
                   <labels>
+                    <label description="Dokumente" languagecode="1031" />
                     <label description="Documents" languagecode="1033" />
+                    <label description="Documents" languagecode="1036" />
+                    <label description="Documenti" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{58f39b47-87de-5da0-aa75-f41af03f0b8b}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Documents" languagecode="1033" />
+                          <label description="Documenti" languagecode="1040" />
+                          <label description="Dokumente" languagecode="1031" />
+                          <label description="Documents" languagecode="1036" />
                         </labels>
                         <control id="Documents" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -257,20 +350,29 @@
         </tab>
         <tab name="item_prices" id="{0c28ca99-b1dc-594c-a00a-a9e3d0ee8ac1}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Artikelpreise" languagecode="1031" />
             <label description="Item Prices" languagecode="1033" />
+            <label description="Prix des articles" languagecode="1036" />
+            <label description="Prezzi articoli" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="item_prices" showlabel="true" showbar="false" columns="1" id="{8c5f7573-7c10-598a-871f-59c94a0e2b97}">
                   <labels>
+                    <label description="Artikelpreise" languagecode="1031" />
                     <label description="Item Prices" languagecode="1033" />
+                    <label description="Prix des articles" languagecode="1036" />
+                    <label description="Prezzi articoli" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{8709ed37-40a1-5bd0-a9f7-4ba8a4150478}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Item Prices" languagecode="1033" />
+                          <label description="Prezzi articoli" languagecode="1040" />
+                          <label description="Artikelpreise" languagecode="1031" />
+                          <label description="Prix des articles" languagecode="1036" />
                         </labels>
                         <control id="ItemPrices" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -299,20 +401,29 @@
         </tab>
         <tab name="contacts" id="{351af88b-81b6-5df2-be04-ca606d08effe}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Kontakte" languagecode="1031" />
             <label description="Contacts" languagecode="1033" />
+            <label description="Contacts" languagecode="1036" />
+            <label description="Contatti" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="contacts" showlabel="true" showbar="false" columns="1" id="{daedea93-f1af-5cd6-ae56-962df73031b1}">
                   <labels>
+                    <label description="Kontakte" languagecode="1031" />
                     <label description="Contacts" languagecode="1033" />
+                    <label description="Contacts" languagecode="1036" />
+                    <label description="Contatti" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{175d13d4-7711-56a8-8cd4-8f5ad7aece8c}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Contacts" languagecode="1033" />
+                          <label description="Contatti" languagecode="1040" />
+                          <label description="Kontakte" languagecode="1031" />
+                          <label description="Contacts" languagecode="1036" />
                         </labels>
                         <control id="Contacts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -354,10 +465,16 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Lieferant" languagecode="1031" />
       <LocalizedName description="Supplier" languagecode="1033" />
+      <LocalizedName description="Fournisseur" languagecode="1036" />
+      <LocalizedName description="Produttore" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Firma als Lieferant (Open Project 365)" languagecode="1031" />
       <Description description="Account as supplier (Open Project 365)" languagecode="1033" />
+      <Description description="Compte fournisseur (Open Project 365)" languagecode="1036" />
+      <Description description="Account come fornitore (Open Project 365)" languagecode="1040" />
     </Descriptions>
   </systemform>
 </forms>

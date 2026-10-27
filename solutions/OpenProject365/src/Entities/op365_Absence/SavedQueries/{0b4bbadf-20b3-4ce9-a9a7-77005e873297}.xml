@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Abwesenheit – Suchansicht" languagecode="1031" />
       <LocalizedName description="Absence Lookup View" languagecode="1033" />
+      <LocalizedName description="Absence - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Assenza - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

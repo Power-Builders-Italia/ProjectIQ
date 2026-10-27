@@ -45,7 +45,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Offene Bestellungen" languagecode="1031" />
       <LocalizedName description="Open Purchase Orders" languagecode="1033" />
+      <LocalizedName description="Commandes ouvertes" languagecode="1036" />
+      <LocalizedName description="Ordini aperti" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

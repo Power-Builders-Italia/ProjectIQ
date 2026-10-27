@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="Count">
   <description default="Number of reminders sent">
+    <label description="Anzahl gesendeter Erinnerungen" languagecode="1031" />
     <label description="Number of reminders sent" languagecode="1033" />
+    <label description="Nombre de rappels envoyés" languagecode="1036" />
+    <label description="Numero di promemoria inviati" languagecode="1040" />
   </description>
   <displayname default="Count">
+    <label description="Anzahl" languagecode="1031" />
     <label description="Count" languagecode="1033" />
+    <label description="Nombre" languagecode="1036" />
+    <label description="Numero" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_SendTimeReminders.Count</name>

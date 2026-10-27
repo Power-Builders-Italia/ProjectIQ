@@ -3,20 +3,32 @@
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
+      <LocalizedName description="Open Project 365" languagecode="1031" />
       <LocalizedName description="Open Project 365" languagecode="1033" />
+      <LocalizedName description="Open Project 365" languagecode="1036" />
+      <LocalizedName description="Open Project 365" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Projekt- und Auftragsmanagement auf Microsoft Dataverse" languagecode="1031" />
       <Description description="Project and job management on Microsoft Dataverse" languagecode="1033" />
+      <Description description="Gestion de projets et d'affaires sur Microsoft Dataverse" languagecode="1036" />
+      <Description description="Gestione progetti e commesse su Microsoft Dataverse" languagecode="1040" />
     </Descriptions>
     <Version>1.0.1.0</Version>
     <Managed>0</Managed>
     <Publisher>
       <UniqueName>PowerBuildersItalia</UniqueName>
       <LocalizedNames>
+        <LocalizedName description="Power Builders Italia" languagecode="1031" />
         <LocalizedName description="Power Builders Italia" languagecode="1033" />
+        <LocalizedName description="Power Builders Italia" languagecode="1036" />
+        <LocalizedName description="Power Builders Italia" languagecode="1040" />
       </LocalizedNames>
       <Descriptions>
+        <Description description="Herausgeber von Open Project 365" languagecode="1031" />
         <Description description="Publisher of Open Project 365" languagecode="1033" />
+        <Description description="Éditeur d'Open Project 365" languagecode="1036" />
+        <Description description="Autore di Open Project 365" languagecode="1040" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>

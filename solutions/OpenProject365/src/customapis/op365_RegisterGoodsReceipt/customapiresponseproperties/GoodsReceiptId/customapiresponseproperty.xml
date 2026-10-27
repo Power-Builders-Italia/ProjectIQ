@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="GoodsReceiptId">
   <description default="New goods receipt">
+    <label description="Neuer Wareneingang" languagecode="1031" />
     <label description="New goods receipt" languagecode="1033" />
+    <label description="Nouvelle réception" languagecode="1036" />
+    <label description="Nuovo ricevimento" languagecode="1040" />
   </description>
   <displayname default="GoodsReceiptId">
+    <label description="WareneingangId" languagecode="1031" />
     <label description="GoodsReceiptId" languagecode="1033" />
+    <label description="IdRéception" languagecode="1036" />
+    <label description="IdRicevimento" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_RegisterGoodsReceipt.GoodsReceiptId</name>

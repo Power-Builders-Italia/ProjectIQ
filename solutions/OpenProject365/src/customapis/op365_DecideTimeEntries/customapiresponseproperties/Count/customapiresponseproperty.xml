@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="Count">
   <description default="Number of entries decided">
+    <label description="Anzahl entschiedener Einträge" languagecode="1031" />
     <label description="Number of entries decided" languagecode="1033" />
+    <label description="Nombre de saisies traitées" languagecode="1036" />
+    <label description="Numero di registrazioni decise" languagecode="1040" />
   </description>
   <displayname default="Count">
+    <label description="Anzahl" languagecode="1031" />
     <label description="Count" languagecode="1033" />
+    <label description="Nombre" languagecode="1036" />
+    <label description="Numero" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_DecideTimeEntries.Count</name>

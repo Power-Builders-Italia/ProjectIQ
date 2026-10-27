@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Ressource – Suchansicht" languagecode="1031" />
       <LocalizedName description="Resource Lookup View" languagecode="1033" />
+      <LocalizedName description="Ressource - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Risorsa - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>
