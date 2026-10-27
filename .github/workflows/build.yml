@@ -41,9 +41,6 @@ jobs:
 
   solution:
     runs-on: windows-latest
-    env:
-      # Solution Checker runs only when the service principal secrets are configured
-      HAS_CHECKER: ${{ secrets.PP_CLIENT_SECRET != '' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
@@ -61,8 +58,33 @@ jobs:
           solution-folder: solutions/OpenProject365SupplierPortal/src
           solution-file: out/OpenProject365SupplierPortal.zip
           solution-type: Unmanaged
+      - name: Upload solution package
+        if: hashFiles('out/OpenProject365.zip') != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: OpenProject365-unmanaged
+          path: out/*.zip
+
+  # Solution Checker: only after a merge to main, in the GitHub environment solution-checker (deployment
+  # branches: main), whose secrets are invisible to pull requests and to workflows on other branches
+  checker:
+    needs: solution
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    environment: solution-checker
+    env:
+      # runs only when the service principal secrets are configured in the environment
+      HAS_CHECKER: ${{ secrets.PP_CLIENT_SECRET != '' }}
+    steps:
+      - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        if: env.HAS_CHECKER == 'true'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: env.HAS_CHECKER == 'true'
+        with:
+          name: OpenProject365-unmanaged
+          path: out
       - name: Solution Checker
-        if: env.HAS_CHECKER == 'true' && hashFiles('out/OpenProject365.zip') != ''
+        if: env.HAS_CHECKER == 'true'
         uses: microsoft/powerplatform-actions/check-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
@@ -72,7 +94,7 @@ jobs:
           path: out/OpenProject365.zip
           checker-logs-artifact-name: solution-checker-logs
       - name: Solution Checker findings
-        if: env.HAS_CHECKER == 'true' && hashFiles('out/OpenProject365.zip') != ''
+        if: env.HAS_CHECKER == 'true'
         shell: pwsh
         run: |
           $out = Join-Path $env:RUNNER_TEMP 'PowerAppsChecker'
@@ -87,9 +109,3 @@ jobs:
               }
             }
           }
-      - name: Upload solution package
-        if: hashFiles('out/OpenProject365.zip') != ''
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: OpenProject365-unmanaged
-          path: out/*.zip
