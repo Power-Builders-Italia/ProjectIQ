@@ -17,4 +17,4 @@ How to keep them aligned: [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 - [Development environment setup](dev-environment.md)
 - [Data model](data-model.md)
-- Architecture Decision Records go in `docs/adr/`: [0001 Copilot and Work IQ, read-only first](adr/0001-copilot-work-iq-read-only.md).
+- Architecture Decision Records go in `docs/adr/`: [0001 Copilot and Work IQ, read-only first](adr/0001-copilot-work-iq-read-only.md), [0002 Deploy to Dev from main, with drift check](adr/0002-deploy-dev.md).
