@@ -76,7 +76,7 @@ Vedi solo i progetti di cui sei proprietario, quelli in cui sei membro del team 
 | **Actual Cost** | Costo della manodopera approvata + costo dei materiali registrati sul progetto | Calcolato |
 | **Actual Hours** | Ore approvate registrate sul progetto | Calcolato |
 | **Committed Cost** | Valore delle righe degli ordini inviati o confermati non ancora ricevute | Calcolato |
-| **Progress %** | Avanzamento complessivo, dalla WBS | Calcolato |
+| **Progress %** | Avanzamento complessivo, dalla WBS, mostrato come barra verde da 0 a 100 con la percentuale arrotondata | Calcolato |
 | **Description** | Ambito, note, tutto ciò che serve | Tu |
 
 La colonna di destra mostra la **Timeline**: note, menzioni (`@nome`) e attività (telefonate, task, appuntamenti, email) sul progetto.

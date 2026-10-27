@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="CostSummary" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="CostSummary" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Bound to Actual Cost on the Project form; WBS nodes and cost totals are read through the Web API. -->
     <property name="value" display-name-key="Property_Value" of-type="Currency" usage="bound" required="true" />

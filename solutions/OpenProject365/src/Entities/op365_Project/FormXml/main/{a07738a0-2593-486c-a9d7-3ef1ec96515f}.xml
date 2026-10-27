@@ -7,7 +7,7 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="summary" id="{e93d829e-52f0-56f3-8507-04429b073be1}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="summary" id="{970fa188-3b10-5060-a666-ea7d8d62f3d3}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Summary" languagecode="1033" />
           </labels>
@@ -77,7 +77,7 @@
                     </row>
                   </rows>
                 </section>
-                <section name="budget_and_progress" showlabel="true" showbar="false" columns="2" id="{63817470-4d0b-5188-99ea-7561106347f4}">
+                <section name="budget_and_progress" showlabel="true" showbar="false" columns="2" id="{15432de3-8dab-5cf2-a6d2-d75f33b75a7b}">
                   <labels>
                     <label description="Budget and Progress" languagecode="1033" />
                   </labels>
@@ -117,22 +117,22 @@
                         </labels>
                         <control id="op365_committedcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_committedcost" disabled="true" />
                       </cell>
-                      <cell id="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}">
+                      <cell id="{63817470-4d0b-5188-99ea-7561106347f4}">
                         <labels>
                           <label description="Progress %" languagecode="1033" />
                         </labels>
-                        <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" disabled="true" />
+                        <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" disabled="true" uniqueid="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}" />
                       </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="description" showlabel="true" showbar="false" columns="1" id="{9539674e-6aef-5a4f-91c8-3188d7f20f8e}">
+                <section name="description" showlabel="true" showbar="false" columns="1" id="{01b76300-1263-5b45-8c7d-b61e962221bf}">
                   <labels>
                     <label description="Description" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{15432de3-8dab-5cf2-a6d2-d75f33b75a7b}">
+                      <cell id="{9539674e-6aef-5a4f-91c8-3188d7f20f8e}">
                         <labels>
                           <label description="Description" languagecode="1033" />
                         </labels>
@@ -145,13 +145,13 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{8b3371c6-6a8b-512e-867e-d00a05414ce6}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{e93d829e-52f0-56f3-8507-04429b073be1}">
                   <labels>
                     <label description="Timeline" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{01b76300-1263-5b45-8c7d-b61e962221bf}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{8b3371c6-6a8b-512e-867e-d00a05414ce6}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Timeline" languagecode="1033" />
                         </labels>
@@ -164,24 +164,24 @@
             </column>
           </columns>
         </tab>
-        <tab name="wbs" id="{098b0cfe-68d8-576c-b6b5-f1adf63f22c5}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="wbs" id="{22081641-e94f-56af-8e99-b6b2da516bb5}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="WBS" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="wbs" showlabel="true" showbar="false" columns="1" id="{a11a0e2c-04e4-51da-b2c4-5259470c4c5b}">
+                <section name="wbs" showlabel="true" showbar="false" columns="1" id="{098b0cfe-68d8-576c-b6b5-f1adf63f22c5}">
                   <labels>
                     <label description="WBS" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{d2842545-1d68-5dba-bbd7-da7618448d6e}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{a11a0e2c-04e4-51da-b2c4-5259470c4c5b}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="WBS" languagecode="1033" />
                         </labels>
-                        <control id="WbsTree" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{970fa188-3b10-5060-a666-ea7d8d62f3d3}">
+                        <control id="WbsTree" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{d2842545-1d68-5dba-bbd7-da7618448d6e}">
                           <parameters>
                             <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
                             <IsUserView>false</IsUserView>
@@ -206,24 +206,24 @@
             </column>
           </columns>
         </tab>
-        <tab name="gantt" id="{5f0c42f1-d162-5375-8c18-0fe3767f2b36}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="gantt" id="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Gantt" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="gantt" showlabel="true" showbar="false" columns="1" id="{46ea03cd-d1d0-5507-ae66-d7cfe5affb3e}">
+                <section name="gantt" showlabel="true" showbar="false" columns="1" id="{d8fb0fb2-fbf9-5c6b-8a19-3950e5f2148e}">
                   <labels>
                     <label description="Gantt" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{46ea03cd-d1d0-5507-ae66-d7cfe5affb3e}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Gantt" languagecode="1033" />
                         </labels>
-                        <control id="Gantt" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{22081641-e94f-56af-8e99-b6b2da516bb5}">
+                        <control id="Gantt" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}">
                           <parameters>
                             <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
                             <IsUserView>false</IsUserView>
@@ -244,13 +244,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="baselines" showlabel="true" showbar="false" columns="1" id="{24ed5893-9734-571f-a80c-9b06626b7502}">
+                <section name="baselines" showlabel="true" showbar="false" columns="1" id="{5f0c42f1-d162-5375-8c18-0fe3767f2b36}">
                   <labels>
                     <label description="Baselines" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{d8fb0fb2-fbf9-5c6b-8a19-3950e5f2148e}" showlabel="true" rowspan="5" colspan="1" auto="false">
+                      <cell id="{24ed5893-9734-571f-a80c-9b06626b7502}" showlabel="true" rowspan="5" colspan="1" auto="false">
                         <labels>
                           <label description="Baselines" languagecode="1033" />
                         </labels>
@@ -279,24 +279,24 @@
             </column>
           </columns>
         </tab>
-        <tab name="costs" id="{25cfe49f-cf05-5fcd-bbd6-5b9665c552fa}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="costs" id="{bdd825d8-70da-592b-92e4-120a1e0a7296}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Costs" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="cost_summary" showlabel="true" showbar="false" columns="1" id="{f9e2368c-0925-56f2-8468-a1d1b4ab8fb6}">
+                <section name="cost_summary" showlabel="true" showbar="false" columns="1" id="{25cfe49f-cf05-5fcd-bbd6-5b9665c552fa}">
                   <labels>
                     <label description="Cost Summary" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0199ffed-44ac-5b02-840c-3748dce2d5e4}" showlabel="false">
+                      <cell id="{f9e2368c-0925-56f2-8468-a1d1b4ab8fb6}" showlabel="false">
                         <labels>
                           <label description="Actual Cost" languagecode="1033" />
                         </labels>
-                        <control id="op365_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_actualcost" uniqueid="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}" />
+                        <control id="op365_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_actualcost" uniqueid="{0199ffed-44ac-5b02-840c-3748dce2d5e4}" />
                       </cell>
                     </row>
                   </rows>
@@ -305,20 +305,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="time" id="{877b29bf-5e16-5eda-86da-54357534c5d6}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="time" id="{5d288688-8518-5e96-9d05-8319eb81c6d0}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Time" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="time_entries" showlabel="true" showbar="false" columns="1" id="{1cec0b78-3ba5-5d2c-bc17-196e40213510}">
+                <section name="time_entries" showlabel="true" showbar="false" columns="1" id="{877b29bf-5e16-5eda-86da-54357534c5d6}">
                   <labels>
                     <label description="Time Entries" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{bdd825d8-70da-592b-92e4-120a1e0a7296}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                      <cell id="{1cec0b78-3ba5-5d2c-bc17-196e40213510}" showlabel="true" rowspan="12" colspan="1" auto="false">
                         <labels>
                           <label description="Time Entries" languagecode="1033" />
                         </labels>
@@ -347,20 +347,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="materials" id="{951ccbe5-d273-5d59-a26a-c6e25052432e}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="materials" id="{0f3e748d-94c2-50d2-830d-d0b5f249c283}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Materials" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="material_usage" showlabel="true" showbar="false" columns="1" id="{89223e53-c760-5990-ba8b-6ad8a614c433}">
+                <section name="material_usage" showlabel="true" showbar="false" columns="1" id="{951ccbe5-d273-5d59-a26a-c6e25052432e}">
                   <labels>
                     <label description="Material Usage" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5d288688-8518-5e96-9d05-8319eb81c6d0}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                      <cell id="{89223e53-c760-5990-ba8b-6ad8a614c433}" showlabel="true" rowspan="12" colspan="1" auto="false">
                         <labels>
                           <label description="Material Usage" languagecode="1033" />
                         </labels>
@@ -389,20 +389,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="purchasing" id="{9b271b8b-b25e-5763-9e35-8b15127c6f5b}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="purchasing" id="{efc7be7d-6e35-5ecf-8cd0-7432de15e6ce}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Purchasing" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="purchase_requests" showlabel="true" showbar="false" columns="1" id="{05eff4a9-474e-593f-b78d-cbe9fbb4d408}">
+                <section name="purchase_requests" showlabel="true" showbar="false" columns="1" id="{5c5cb016-7f7d-5757-bae7-f853408c4dd9}">
                   <labels>
                     <label description="Purchase Requests" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0f3e748d-94c2-50d2-830d-d0b5f249c283}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                      <cell id="{05eff4a9-474e-593f-b78d-cbe9fbb4d408}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Purchase Requests" languagecode="1033" />
                         </labels>
@@ -427,13 +427,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="purchase_orders" showlabel="true" showbar="false" columns="1" id="{64b91cf9-99f9-5dbb-8b9d-67d20abf6012}">
+                <section name="purchase_orders" showlabel="true" showbar="false" columns="1" id="{9b271b8b-b25e-5763-9e35-8b15127c6f5b}">
                   <labels>
                     <label description="Purchase Orders" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5c5cb016-7f7d-5757-bae7-f853408c4dd9}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                      <cell id="{64b91cf9-99f9-5dbb-8b9d-67d20abf6012}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Purchase Orders" languagecode="1033" />
                         </labels>
@@ -462,20 +462,20 @@
             </column>
           </columns>
         </tab>
-        <tab name="team" id="{9a9b041a-9199-5f9d-93ad-8ba40e2439ea}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="team" id="{6b62d9df-793b-5040-a630-c6abd309b53c}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Team" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="team" showlabel="true" showbar="false" columns="1" id="{dad7f09c-6a26-58b5-8371-085e886f92ee}">
+                <section name="team" showlabel="true" showbar="false" columns="1" id="{9a9b041a-9199-5f9d-93ad-8ba40e2439ea}">
                   <labels>
                     <label description="Team" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{efc7be7d-6e35-5ecf-8cd0-7432de15e6ce}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{dad7f09c-6a26-58b5-8371-085e886f92ee}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Project Members" languagecode="1033" />
                         </labels>
@@ -506,7 +506,29 @@
         </tab>
       </tabs>
       <controlDescriptions>
-        <controlDescription forControl="{970fa188-3b10-5060-a666-ea7d8d62f3d3}">
+        <controlDescription forControl="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}">
+          <customControl id="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}">
+            <parameters>
+              <datafieldname>op365_progresspct</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{d2842545-1d68-5dba-bbd7-da7618448d6e}">
           <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
             <parameters>
               <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
@@ -564,7 +586,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{22081641-e94f-56af-8e99-b6b2da516bb5}">
+        <controlDescription forControl="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}">
           <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
             <parameters>
               <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
@@ -622,7 +644,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}">
+        <controlDescription forControl="{0199ffed-44ac-5b02-840c-3748dce2d5e4}">
           <customControl id="{533B9E00-756B-4312-95A0-DC888637AC78}">
             <parameters>
               <datafieldname>op365_actualcost</datafieldname>
