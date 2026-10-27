@@ -52,7 +52,7 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
 | Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |
 
-Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Data model](docs/data-model.md).
+Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Environments and deployment](docs/dev-environment.md#environments-and-deployment) · [Data model](docs/data-model.md).
 
 ## Repository layout
 
