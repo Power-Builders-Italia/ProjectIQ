@@ -37,7 +37,7 @@ type NumberField = "op365_budgethours" | "op365_budgetlabour" | "op365_budgetmat
 export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactElement {
     const styles = useStyles();
     const s = (key: string): string => context.resources.getString(key);
-    const projectId = hostRecordId(context as ComponentFramework.Context<unknown>);
+    const projectId = hostRecordId(context);
     const theme = (context as unknown as { fluentDesignLanguage?: { tokenTheme?: Theme } }).fluentDesignLanguage?.tokenTheme ?? webLightTheme;
 
     const [roots, setRoots] = React.useState<WbsNode[]>([]);

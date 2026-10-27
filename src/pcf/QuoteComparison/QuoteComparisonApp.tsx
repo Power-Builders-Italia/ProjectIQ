@@ -35,7 +35,7 @@ export function QuoteComparisonApp({ context, refreshKey }: Props): React.ReactE
     const styles = useStyles();
     const s = (key: string): string => context.resources.getString(key);
     const theme = (context as unknown as { fluentDesignLanguage?: { tokenTheme?: Theme } }).fluentDesignLanguage?.tokenTheme ?? webLightTheme;
-    const rfqId = hostRecordId(context as ComponentFramework.Context<unknown>);
+    const rfqId = hostRecordId(context);
     const width = context.mode.allocatedWidth;
     const fill: React.CSSProperties = { width: width > 0 ? `${width}px` : "100%" };
 
@@ -102,7 +102,7 @@ export function QuoteComparisonApp({ context, refreshKey }: Props): React.ReactE
                     {loading && <Spinner size="tiny" />}
                 </Toolbar>
                 {error && <MessageBar intent="error"><MessageBarBody>{error}</MessageBarBody></MessageBar>}
-                {c && c.rows.length === 0 && <MessageBar><MessageBarBody>{s("No_Lines")}</MessageBarBody></MessageBar>}
+                {c?.rows.length === 0 && <MessageBar><MessageBarBody>{s("No_Lines")}</MessageBarBody></MessageBar>}
                 {c && c.rows.length > 0 && invitations.length === 0 && <MessageBar><MessageBarBody>{s("No_Invitations")}</MessageBarBody></MessageBar>}
                 {c && c.rows.length > 0 && invitations.length > 0 && (
                     <div className={styles.scroll}>

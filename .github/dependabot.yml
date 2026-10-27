@@ -26,6 +26,9 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+      # 0.6 requires ESLint 10, but pcf-scripts accepts only ESLint 8 or 9
+      - dependency-name: "@microsoft/eslint-plugin-power-apps"
+        versions: [">=0.6.0"]
     groups:
       pcf:
         patterns: ["*"]
