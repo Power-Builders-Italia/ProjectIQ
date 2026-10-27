@@ -76,7 +76,7 @@ Sie sehen nur die Projekte, deren Besitzer Sie sind, die Projekte, in denen Sie 
 | **Actual Cost** | Genehmigte Personalkosten + im Projekt erfasste Materialkosten | Berechnet |
 | **Actual Hours** | Im Projekt erfasste genehmigte Stunden | Berechnet |
 | **Committed Cost** | Wert der noch nicht gelieferten Positionen versandter oder bestätigter Bestellungen (Obligo) | Berechnet |
-| **Progress %** | Gesamtfortschritt, aus dem PSP | Berechnet |
+| **Progress %** | Gesamtfortschritt, aus dem PSP, als grüner Balken von 0 bis 100 mit gerundetem Prozentwert | Berechnet |
 | **Description** | Leistungsumfang, Notizen, alles Nützliche | Sie |
 
 Die rechte Spalte zeigt die **Timeline**: Notizen, Erwähnungen (`@name`) und Aktivitäten (Telefonate, Aufgaben, Termine, E-Mails) zum Projekt.

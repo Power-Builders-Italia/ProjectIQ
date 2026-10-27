@@ -5,7 +5,7 @@ import {
 } from "@fluentui/react-components";
 import { IInputs } from "./generated/ManifestTypes";
 import { buildTree } from "../shared/wbs";
-import { hostRecordId, loadNodes } from "../shared/data";
+import { currencySymbol, hostRecordId, loadNodes } from "../shared/data";
 import { loadProjectCosts } from "../shared/execution";
 import { costSummary, CostSummary as Summary } from "../shared/cost";
 
@@ -39,6 +39,7 @@ export function CostSummaryApp({ context, refreshKey }: Props): React.ReactEleme
     const [summary, setSummary] = React.useState<Summary>();
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState<string>();
+    const [symbol, setSymbol] = React.useState<string>();
 
     React.useEffect(() => {
         if (!projectId) { setLoading(false); return; }
@@ -46,8 +47,10 @@ export function CostSummaryApp({ context, refreshKey }: Props): React.ReactEleme
         const load = async (): Promise<void> => {
             setLoading(true);
             try {
-                const [items, costs] = await Promise.all([loadNodes(context.webAPI, projectId), loadProjectCosts(context.webAPI, projectId)]);
+                const [items, costs, sym] = await Promise.all([loadNodes(context.webAPI, projectId), loadProjectCosts(context.webAPI, projectId),
+                    currencySymbol(context.webAPI, "op365_project", projectId)]);
                 if (cancelled) return;
+                setSymbol(sym);
                 const nodeCost = [...costs.nodeActuals.values()].reduce((t, a) => t + a.actualCost, 0);
                 const nodeHours = [...costs.nodeActuals.values()].reduce((t, a) => t + a.actualHours, 0);
                 setSummary(costSummary(buildTree(items), costs.nodeActuals, {
@@ -68,7 +71,8 @@ export function CostSummaryApp({ context, refreshKey }: Props): React.ReactEleme
     if (!projectId) {
         return <FluentProvider theme={theme}><MessageBar><MessageBarBody>{s("Save_Project")}</MessageBarBody></MessageBar></FluentProvider>;
     }
-    const money = (v: number): string => context.formatting.formatCurrency(v, 0);
+    // amounts in the project currency (#33)
+    const money = (v: number): string => context.formatting.formatCurrency(v, 0, symbol);
     const hours = (v: number): string => context.formatting.formatDecimal(v, 1);
     const pct = (v: number): string => `${Math.round(v * 100)}%`;
 

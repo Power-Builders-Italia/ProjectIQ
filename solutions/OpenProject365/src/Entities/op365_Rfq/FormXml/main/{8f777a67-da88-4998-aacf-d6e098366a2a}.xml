@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{488d990f-81ec-5a56-8236-803806dd88c1}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{bd4001c2-be25-54c3-9c0e-d2631c9266e0}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
-                <section name="request_for_quotation" showlabel="true" showbar="false" columns="2" id="{10d1b612-5795-5944-aaae-c27058d6803c}">
+                <section name="request_for_quotation" showlabel="true" showbar="false" columns="2" id="{0f0a3dc2-69e3-594d-98f3-5c9dbaa6ed7c}">
                   <labels>
                     <label description="Request for Quotation" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{46cdc423-bf97-51ed-ac66-91e9be7712eb}">
+                      <cell id="{f974c780-60ad-5e93-82ae-684ace9b5ec5}">
                         <labels>
                           <label description="Number" languagecode="1033" />
                         </labels>
                         <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="true" />
                       </cell>
-                      <cell id="{f974c780-60ad-5e93-82ae-684ace9b5ec5}">
+                      <cell id="{238ef477-798d-559e-a870-80d7a3e15f6a}">
                         <labels>
                           <label description="Status Reason" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{238ef477-798d-559e-a870-80d7a3e15f6a}">
+                      <cell id="{31551efb-2be9-5b15-a879-a645519b8acf}">
                         <labels>
                           <label description="Purchase Request" languagecode="1033" />
                         </labels>
                         <control id="op365_purchaserequestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaserequestid" />
                       </cell>
-                      <cell id="{31551efb-2be9-5b15-a879-a645519b8acf}">
+                      <cell id="{b666c034-b200-5d93-922b-7ab3c02973a6}">
                         <labels>
                           <label description="Project" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b666c034-b200-5d93-922b-7ab3c02973a6}">
+                      <cell id="{56433f9e-557d-539c-bc82-4f2089c830de}">
                         <labels>
                           <label description="Deadline" languagecode="1033" />
                         </labels>
                         <control id="op365_deadline" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_deadline" />
                       </cell>
-                      <cell id="{56433f9e-557d-539c-bc82-4f2089c830de}">
+                      <cell id="{10d1b612-5795-5944-aaae-c27058d6803c}">
                         <labels>
                           <label description="Responses" languagecode="1033" />
                         </labels>
@@ -63,13 +63,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{ed214fcf-4167-514b-bb98-84b6dcd9914e}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{f1737e1e-d2c6-519f-8466-bdf404ee5d66}">
                   <labels>
                     <label description="Notes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0f0a3dc2-69e3-594d-98f3-5c9dbaa6ed7c}">
+                      <cell id="{ed214fcf-4167-514b-bb98-84b6dcd9914e}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
                         </labels>
@@ -78,13 +78,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="invitations" showlabel="true" showbar="false" columns="1" id="{95a7d130-6e7c-5658-95f9-f64dbd992ca1}">
+                <section name="invitations" showlabel="true" showbar="false" columns="1" id="{7638c7bd-f96c-58b4-b62f-f9d726726800}">
                   <labels>
                     <label description="Invitations" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{f1737e1e-d2c6-519f-8466-bdf404ee5d66}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                      <cell id="{95a7d130-6e7c-5658-95f9-f64dbd992ca1}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Invitations" languagecode="1033" />
                         </labels>
@@ -113,13 +113,13 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="outcome" showlabel="true" showbar="false" columns="1" id="{0a50dd54-cfda-5c00-85db-3af3ebb556fc}">
+                <section name="outcome" showlabel="true" showbar="false" columns="1" id="{3eead8c3-1011-5738-ba8c-18d46e8e8a5e}">
                   <labels>
                     <label description="Outcome" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{7638c7bd-f96c-58b4-b62f-f9d726726800}">
+                      <cell id="{000aebc9-32bf-5e7a-8212-1482f7844356}">
                         <labels>
                           <label description="Sent On" languagecode="1033" />
                         </labels>
@@ -127,7 +127,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{000aebc9-32bf-5e7a-8212-1482f7844356}">
+                      <cell id="{4eb37213-7f60-5b19-aa1b-3ba1d3e2acd9}">
                         <labels>
                           <label description="Awarded On" languagecode="1033" />
                         </labels>
@@ -135,7 +135,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{4eb37213-7f60-5b19-aa1b-3ba1d3e2acd9}">
+                      <cell id="{a0367b12-3975-5816-9270-71f919f8d0a6}">
                         <labels>
                           <label description="Winning Invitation" languagecode="1033" />
                         </labels>
@@ -143,7 +143,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{a0367b12-3975-5816-9270-71f919f8d0a6}">
+                      <cell id="{c9691b2e-b7fb-556a-80e3-4e6a261c6c02}">
                         <labels>
                           <label description="Purchase Order" languagecode="1033" />
                         </labels>
@@ -151,7 +151,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{c9691b2e-b7fb-556a-80e3-4e6a261c6c02}">
+                      <cell id="{0a50dd54-cfda-5c00-85db-3af3ebb556fc}">
                         <labels>
                           <label description="Cancelled On" languagecode="1033" />
                         </labels>
@@ -160,13 +160,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{e22205c4-b835-56dc-bf8b-977c68c32e63}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{488d990f-81ec-5a56-8236-803806dd88c1}">
                   <labels>
                     <label description="Timeline" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{3eead8c3-1011-5738-ba8c-18d46e8e8a5e}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{e22205c4-b835-56dc-bf8b-977c68c32e63}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Timeline" languagecode="1033" />
                         </labels>
@@ -179,24 +179,24 @@
             </column>
           </columns>
         </tab>
-        <tab name="quote_comparison" id="{262acae5-a8a3-5fc4-97be-c342ade9f3df}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="quote_comparison" id="{2201eb1a-5b57-5d64-9cbe-92420a1e2c73}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="Quote Comparison" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="quote_comparison" showlabel="true" showbar="false" columns="1" id="{51d1a8f4-a6ca-5e8c-a46a-e2621e32872a}">
+                <section name="quote_comparison" showlabel="true" showbar="false" columns="1" id="{262acae5-a8a3-5fc4-97be-c342ade9f3df}">
                   <labels>
                     <label description="Quote Comparison" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{a4c847e3-5e94-51b8-a627-0b7c41735e82}" showlabel="false">
+                      <cell id="{51d1a8f4-a6ca-5e8c-a46a-e2621e32872a}" showlabel="false">
                         <labels>
                           <label description="Responses" languagecode="1033" />
                         </labels>
-                        <control id="op365_responsecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_responsecount" uniqueid="{bd4001c2-be25-54c3-9c0e-d2631c9266e0}" />
+                        <control id="op365_responsecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_responsecount" uniqueid="{a4c847e3-5e94-51b8-a627-0b7c41735e82}" />
                       </cell>
                     </row>
                   </rows>
@@ -207,7 +207,7 @@
         </tab>
       </tabs>
       <controlDescriptions>
-        <controlDescription forControl="{bd4001c2-be25-54c3-9c0e-d2631c9266e0}">
+        <controlDescription forControl="{a4c847e3-5e94-51b8-a627-0b7c41735e82}">
           <customControl id="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}">
             <parameters>
               <datafieldname>op365_responsecount</datafieldname>

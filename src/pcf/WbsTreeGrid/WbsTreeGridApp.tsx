@@ -6,9 +6,11 @@ import {
 import { AddIcon, ChevronDownIcon, ChevronRightIcon, CollapseIcon, ExpandIcon, RefreshIcon } from "../shared/icons";
 import { IInputs } from "./generated/ManifestTypes";
 import { buildTree, flatten, parentIds, WbsNode } from "../shared/wbs";
-import { hostRecordId, loadNodes, updateNode } from "../shared/data";
+import { currencySymbol, hostRecordId, loadNodes, updateNode } from "../shared/data";
 import { isoDay, toDay } from "../shared/dates";
 import { EditableCell } from "../shared/EditableCell";
+import { ProgressCell } from "../shared/ProgressCell";
+import { progressLabel } from "../shared/progress";
 
 const useStyles = makeStyles({
     root: { display: "flex", flexDirection: "column", gap: tokens.spacingVerticalS, width: "100%" },
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
     parent: { fontWeight: tokens.fontWeightSemibold },
     rolled: { color: tokens.colorNeutralForeground2, fontStyle: "italic" },
     num: { textAlign: "right" },
+    progress: { minWidth: "160px" },
     selected: { backgroundColor: tokens.colorNeutralBackground1Selected },
     total: { fontWeight: tokens.fontWeightSemibold, borderTop: `2px solid ${tokens.colorNeutralStroke1}` },
     spacer: { width: "24px", display: "inline-block" },
@@ -43,6 +46,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
     const [collapsed, setCollapsed] = React.useState<Set<string>>(new Set());
     const [selected, setSelected] = React.useState<string>();
     const [reload, setReload] = React.useState(0);
+    const [symbol, setSymbol] = React.useState<string>();
 
     React.useEffect(() => {
         if (!projectId) { setLoading(false); return; }
@@ -50,8 +54,8 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
         const load = async (): Promise<void> => {
             setLoading(true);
             try {
-                const items = await loadNodes(context.webAPI, projectId);
-                if (!cancelled) { setRoots(buildTree(items)); setError(undefined); }
+                const [items, sym] = await Promise.all([loadNodes(context.webAPI, projectId), currencySymbol(context.webAPI, "op365_project", projectId)]);
+                if (!cancelled) { setRoots(buildTree(items)); setSymbol(sym); setError(undefined); }
             } catch (e) {
                 if (!cancelled) setError(`${s("Error_Load")}: ${(e as Error).message}`);
             } finally {
@@ -62,7 +66,8 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
         return () => { cancelled = true; };
     }, [projectId, refreshKey, reload]);
 
-    const money = (v: number): string => context.formatting.formatCurrency(v, 2);
+    // amounts in the project currency (#33)
+    const money = (v: number): string => context.formatting.formatCurrency(v, 2, symbol);
     const decimal = (v: number): string => context.formatting.formatDecimal(v, 2);
     const date = (d?: number): string => (d === undefined ? "" : context.formatting.formatDateShort(new Date(isoDay(d) + "T12:00:00")));
 
@@ -151,7 +156,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                 <TableHeaderCell className={styles.num}>{s("Col_Materials")}</TableHeaderCell>
                                 <TableHeaderCell className={styles.num}>{s("Col_Other")}</TableHeaderCell>
                                 <TableHeaderCell className={styles.num}>{s("Col_Total")}</TableHeaderCell>
-                                <TableHeaderCell className={styles.num}>{s("Col_Progress")}</TableHeaderCell>
+                                <TableHeaderCell className={styles.progress}>{s("Col_Progress")}</TableHeaderCell>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -181,7 +186,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                             <TableCell className={styles.num}>{rolled(decimal(n.totalHours))}</TableCell>
                                             <TableCell /><TableCell /><TableCell />
                                             <TableCell className={styles.num}>{rolled(money(n.totalBudget))}</TableCell>
-                                            <TableCell className={styles.num}>{rolled(decimal(n.rollProgress))}</TableCell>
+                                            <TableCell><ProgressCell pct={n.rollProgress} label={rolled(progressLabel(n.rollProgress))} /></TableCell>
                                         </> : <>
                                             <TableCell>
                                                 <EditableCell type="date" disabled={disabled} display={date(n.start)} value={n.start === undefined ? "" : isoDay(n.start)}
@@ -196,7 +201,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
                                             <TableCell className={styles.num}>{numberCell(n, "op365_budgetmaterials", n.budgetMaterials, s("Col_Materials"), money)}</TableCell>
                                             <TableCell className={styles.num}>{numberCell(n, "op365_budgetother", n.budgetOther, s("Col_Other"), money)}</TableCell>
                                             <TableCell className={styles.num}>{money(n.totalBudget)}</TableCell>
-                                            <TableCell className={styles.num}>{numberCell(n, "op365_progresspct", n.progress, s("Col_Progress"), decimal)}</TableCell>
+                                            <TableCell><ProgressCell pct={n.progress} label={numberCell(n, "op365_progresspct", n.progress, s("Col_Progress"), progressLabel)} /></TableCell>
                                         </>}
                                     </TableRow>
                                 );

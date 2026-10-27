@@ -7,26 +7,26 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{e866d982-82df-5316-b223-78341934e101}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{01268aa8-4563-5a7a-8dcd-7df28c8d9dcc}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="line" showlabel="true" showbar="false" columns="2" id="{f2764760-c751-51ac-9c4e-20bbedb504b4}">
+                <section name="line" showlabel="true" showbar="false" columns="2" id="{8aee358c-1197-5bf2-83c1-f7523e415251}">
                   <labels>
                     <label description="Line" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{85edc394-276c-5b9b-beed-a5f35ff48982}">
+                      <cell id="{0db11215-2e46-5c67-9663-ed38878bed7a}">
                         <labels>
                           <label description="Purchase Order" languagecode="1033" />
                         </labels>
                         <control id="op365_purchaseorderid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaseorderid" />
                       </cell>
-                      <cell id="{0db11215-2e46-5c67-9663-ed38878bed7a}">
+                      <cell id="{2b4da7cc-f023-5214-a99e-e00a79205d12}">
                         <labels>
                           <label description="Item" languagecode="1033" />
                         </labels>
@@ -34,13 +34,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{2b4da7cc-f023-5214-a99e-e00a79205d12}">
+                      <cell id="{e426b454-0894-565d-8ead-8adb6cb46e1b}">
                         <labels>
                           <label description="Description" languagecode="1033" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
-                      <cell id="{e426b454-0894-565d-8ead-8adb6cb46e1b}">
+                      <cell id="{60f1ca9d-c83c-51a9-89e0-e66511d74be8}">
                         <labels>
                           <label description="WBS Node" languagecode="1033" />
                         </labels>
@@ -48,13 +48,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{60f1ca9d-c83c-51a9-89e0-e66511d74be8}">
+                      <cell id="{da75d161-1804-5892-90e6-910370ae1af1}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />
                         </labels>
                         <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" />
                       </cell>
-                      <cell id="{da75d161-1804-5892-90e6-910370ae1af1}">
+                      <cell id="{b6d2a802-1361-57b8-8169-fd5665eba770}">
                         <labels>
                           <label description="Unit of Measure" languagecode="1033" />
                         </labels>
@@ -62,13 +62,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b6d2a802-1361-57b8-8169-fd5665eba770}">
+                      <cell id="{32d389cd-1fc1-5ecc-8ca9-6962eed6bb18}">
                         <labels>
                           <label description="Unit Price" languagecode="1033" />
                         </labels>
                         <control id="op365_price" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_price" />
                       </cell>
-                      <cell id="{32d389cd-1fc1-5ecc-8ca9-6962eed6bb18}">
+                      <cell id="{d4137dbc-ec7e-5cdb-afdf-c97a3ff8ae1f}">
                         <labels>
                           <label description="Amount" languagecode="1033" />
                         </labels>
@@ -76,13 +76,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{d4137dbc-ec7e-5cdb-afdf-c97a3ff8ae1f}">
+                      <cell id="{0c027fca-561d-5cbf-8e75-0ec464fe29fd}">
                         <labels>
                           <label description="Received Quantity" languagecode="1033" />
                         </labels>
                         <control id="op365_receivedquantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_receivedquantity" disabled="true" />
                       </cell>
-                      <cell id="{0c027fca-561d-5cbf-8e75-0ec464fe29fd}">
+                      <cell id="{3d18b198-eeb8-5d8d-9d68-8af96abbc6f1}">
                         <labels>
                           <label description="Sort Order" languagecode="1033" />
                         </labels>
@@ -90,7 +90,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{3d18b198-eeb8-5d8d-9d68-8af96abbc6f1}">
+                      <cell id="{f2764760-c751-51ac-9c4e-20bbedb504b4}">
                         <labels>
                           <label description="Request Line" languagecode="1033" />
                         </labels>
@@ -99,13 +99,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{169c7e72-0fbd-558d-87b8-30aefa034d67}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{e866d982-82df-5316-b223-78341934e101}">
                   <labels>
                     <label description="Notes" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{8aee358c-1197-5bf2-83c1-f7523e415251}">
+                      <cell id="{169c7e72-0fbd-558d-87b8-30aefa034d67}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
                         </labels>

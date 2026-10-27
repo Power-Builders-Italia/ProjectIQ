@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="OP365" constructor="ProgressField" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+    <external-service-usage enabled="false" />
+    <!-- Bound to Progress % on the Project form: read-only bar from 0 to 100 -->
+    <property name="value" display-name-key="Property_Value" of-type="Decimal" usage="bound" required="true" />
+    <resources>
+      <code path="index.ts" order="1" />
+      <platform-library name="React" version="16.14.0" />
+      <platform-library name="Fluent" version="9.46.2" />
+      <resx path="strings/ProgressField.1033.resx" version="1.0.0" />
+    </resources>
+  </control>
+</manifest>
