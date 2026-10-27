@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Element – Suchansicht" languagecode="1031" />
       <LocalizedName description="WBS Node Lookup View" languagecode="1033" />
+      <LocalizedName description="Nœud WBS - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Nodo WBS - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

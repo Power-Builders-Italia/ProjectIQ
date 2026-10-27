@@ -39,7 +39,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Angebotsanfragen" languagecode="1031" />
       <LocalizedName description="All RFQs" languagecode="1033" />
+      <LocalizedName description="Toutes les demandes de prix" languagecode="1036" />
+      <LocalizedName description="Tutte le richieste di offerta" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

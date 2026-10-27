@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Wareneingang – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="Goods Receipt Associated View" languagecode="1033" />
+      <LocalizedName description="Réception de marchandises - Vue associée" languagecode="1036" />
+      <LocalizedName description="Ricevimento merci - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

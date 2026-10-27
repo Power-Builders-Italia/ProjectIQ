@@ -7,7 +7,7 @@ const num = (v: unknown): number => (typeof v === "number" ? v : 0);
 
 export const RFQ_SENT = 365000000;
 
-export interface RfqData { status: number; lines: QuoteLine[]; invitations: QuoteInvitation[]; quotes: Quote[] }
+export interface RfqData { status: number; lines: QuoteLine[]; invitations: QuoteInvitation[]; quotes: Quote[]; currencySymbol?: string }
 
 export async function loadRfq(api: WebApi, rfqId: string): Promise<RfqData> {
     const rfq = await api.retrieveRecord("op365_rfq", rfqId, "?$select=statuscode,_op365_purchaserequestid_value");
@@ -23,11 +23,15 @@ export async function loadRfq(api: WebApi, rfqId: string): Promise<RfqData> {
             "<fetch><entity name='op365_rfqquote'><attribute name='op365_price' /><attribute name='op365_invitationid' />" +
             "<attribute name='op365_requestlineid' /><filter><condition attribute='statecode' operator='eq' value='0' />" +
             "<condition attribute='op365_price' operator='not-null' /></filter>" +
+            "<link-entity name='transactioncurrency' from='transactioncurrencyid' to='transactioncurrencyid' link-type='outer' alias='cur'>" +
+            "<attribute name='currencysymbol' /></link-entity>" +
             "<link-entity name='op365_rfqinvitation' from='op365_rfqinvitationid' to='op365_invitationid'>" +
             `<filter><condition attribute='op365_rfqid' operator='eq' value='${rfqId}' /></filter></link-entity></entity></fetch>`)),
     ]);
     return {
         status: num(rfq.statuscode),
+        // quotes of one RFQ share the currency: use the first one's symbol (#33)
+        currencySymbol: (quotes.entities.find(r => r["cur.currencysymbol"])?.["cur.currencysymbol"] as string | undefined) || undefined,
         lines: lines.entities.map(r => ({
             id: r.op365_purchaserequestlineid as string, name: (r.op365_name as string) || "", quantity: num(r.op365_quantity),
             uom: (r.op365_uom as string) || "", sortOrder: num(r.op365_sortorder),

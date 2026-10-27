@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Lieferantendokument – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="Supplier Document Associated View" languagecode="1033" />
+      <LocalizedName description="Document fournisseur - Vue associée" languagecode="1036" />
+      <LocalizedName description="Documento fornitore - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

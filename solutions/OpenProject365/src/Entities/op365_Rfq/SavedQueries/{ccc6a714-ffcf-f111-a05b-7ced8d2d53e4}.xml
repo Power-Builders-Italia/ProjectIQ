@@ -44,7 +44,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Vergebene Angebotsanfragen" languagecode="1031" />
       <LocalizedName description="Awarded RFQs" languagecode="1033" />
+      <LocalizedName description="Demandes de prix attribuées" languagecode="1036" />
+      <LocalizedName description="RdO aggiudicate" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

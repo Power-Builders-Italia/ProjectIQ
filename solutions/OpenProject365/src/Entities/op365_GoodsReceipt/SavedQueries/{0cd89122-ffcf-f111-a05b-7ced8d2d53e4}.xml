@@ -37,7 +37,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Wareneingänge nach Bestellung" languagecode="1031" />
       <LocalizedName description="Goods Receipts by Order" languagecode="1033" />
+      <LocalizedName description="Réceptions par commande" languagecode="1036" />
+      <LocalizedName description="Ricevimenti per ordine" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

@@ -41,7 +41,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Bestellungen" languagecode="1031" />
       <LocalizedName description="All Purchase Orders" languagecode="1033" />
+      <LocalizedName description="Toutes les commandes" languagecode="1036" />
+      <LocalizedName description="Tutti gli ordini" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

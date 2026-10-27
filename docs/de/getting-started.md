@@ -156,7 +156,7 @@ Viele Datensätze folgen einem Ablauf (Zeiteinträge, Bedarfsanforderungen, Best
 
 ## Sprache
 
-Die Anwendung wird derzeit auf **Englisch** ausgeliefert; italienische, französische und deutsche Übersetzungen der Benutzeroberfläche sind geplant. Diese Handbücher sind bereits in allen vier Sprachen verfügbar. In den italienischen, französischen und deutschen Handbüchern stehen Schaltflächen- und Feldnamen auf Englisch, so wie sie auf dem Bildschirm erscheinen, mit einer Übersetzung, wo es hilft.
+Die Benutzeroberfläche ist auf **Englisch, Italienisch, Französisch und Deutsch** verfügbar. Jeder Benutzer wählt die Sprache unter **Einstellungen (Zahnradsymbol) > Personalisierungseinstellungen > Sprachen > Sprache der Benutzeroberfläche**; Tabellen, Felder, Ansichten, Schaltflächen, die Projektsteuerelemente (PSP, Gantt, Zeiterfassung...), Dialoge, Fehlermeldungen und Benachrichtigungen folgen dieser Auswahl. Diese Handbücher sind in allen vier Sprachen verfügbar; einige Schaltflächen- und Feldnamen können noch auf Englisch erscheinen, mit einer Übersetzung, wo es hilft.
 
 ## Nächste Schritte
 

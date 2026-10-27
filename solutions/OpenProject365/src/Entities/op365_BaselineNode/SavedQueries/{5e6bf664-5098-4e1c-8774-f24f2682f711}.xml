@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Basisplan-Elemente" languagecode="1031" />
       <LocalizedName description="My Baseline Nodes" languagecode="1033" />
+      <LocalizedName description="Mes éléments de référence" languagecode="1036" />
+      <LocalizedName description="I miei nodi baseline" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Basisplan-Elemente" languagecode="1031" />
       <Description description="Active Baseline Nodes owned by me" languagecode="1033" />
+      <Description description="Mes éléments de référence actifs" languagecode="1036" />
+      <Description description="I miei nodi baseline attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

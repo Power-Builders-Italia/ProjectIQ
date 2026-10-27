@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Abwesenheit – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="Absence Associated View" languagecode="1033" />
+      <LocalizedName description="Absence - Vue associée" languagecode="1036" />
+      <LocalizedName description="Assenza - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

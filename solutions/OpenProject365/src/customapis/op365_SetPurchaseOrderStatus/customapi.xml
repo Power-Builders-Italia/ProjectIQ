@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaseorder</boundentitylogicalname>
   <description default="Moves a purchase order to Sent, Confirmed, Draft or Cancelled">
+    <label description="Setzt eine Bestellung auf Gesendet, Bestätigt, Entwurf oder Storniert" languagecode="1031" />
     <label description="Moves a purchase order to Sent, Confirmed, Draft or Cancelled" languagecode="1033" />
+    <label description="Passe une commande à Envoyée, Confirmée, Brouillon ou Annulée" languagecode="1036" />
+    <label description="Porta un ordine a Inviato, Confermato, Bozza o Annullato" languagecode="1040" />
   </description>
   <displayname default="Set Purchase Order Status">
+    <label description="Bestellstatus festlegen" languagecode="1031" />
     <label description="Set Purchase Order Status" languagecode="1033" />
+    <label description="Définir le statut de la commande" languagecode="1036" />
+    <label description="Imposta stato ordine" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

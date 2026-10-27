@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase request line the order line comes from" languagecode="1033" />
+        <Description description="Anforderungsposition, aus der die Bestellposition stammt" languagecode="1031" />
+        <Description description="Ligne de demande d'où provient la ligne de commande" languagecode="1036" />
+        <Description description="Riga RDA da cui proviene la riga ordine" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase request line being quoted" languagecode="1033" />
+        <Description description="Angebotene Anforderungsposition" languagecode="1031" />
+        <Description description="Ligne de demande chiffrée" languagecode="1036" />
+        <Description description="Riga di richiesta quotata" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

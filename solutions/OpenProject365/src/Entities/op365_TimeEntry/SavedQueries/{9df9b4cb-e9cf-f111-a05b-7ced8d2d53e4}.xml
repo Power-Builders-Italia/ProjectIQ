@@ -41,7 +41,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Zeiteinträge nach Projekt" languagecode="1031" />
       <LocalizedName description="Time Entries by Project" languagecode="1033" />
+      <LocalizedName description="Saisies de temps par projet" languagecode="1036" />
+      <LocalizedName description="Registrazioni ore per commessa" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

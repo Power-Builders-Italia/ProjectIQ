@@ -7,86 +7,122 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{87dbbac9-a9a1-5d57-a46c-3fdccf5161c0}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{a5e06ad8-b21a-5de9-af98-51392f8b14e3}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
-                <section name="receipt" showlabel="true" showbar="false" columns="2" id="{bdedacf7-2f82-581d-b0cb-7e18dfed9350}">
+                <section name="receipt" showlabel="true" showbar="false" columns="2" id="{8bb45321-b03c-55fb-96bf-d6c633060bcd}">
                   <labels>
+                    <label description="Eingang" languagecode="1031" />
                     <label description="Receipt" languagecode="1033" />
+                    <label description="Réception" languagecode="1036" />
+                    <label description="Ricevimento" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{01268aa8-4563-5a7a-8dcd-7df28c8d9dcc}">
+                      <cell id="{3b1992e8-8953-5461-8553-d0270dcab9fe}">
                         <labels>
                           <label description="Number" languagecode="1033" />
+                          <label description="Numero" languagecode="1040" />
+                          <label description="Nummer" languagecode="1031" />
+                          <label description="Numéro" languagecode="1036" />
                         </labels>
                         <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="true" />
                       </cell>
-                      <cell id="{3b1992e8-8953-5461-8553-d0270dcab9fe}">
+                      <cell id="{930bb1a8-817d-5d6f-be9c-9026befe58bf}">
                         <labels>
                           <label description="Purchase Order" languagecode="1033" />
+                          <label description="Ordine di acquisto" languagecode="1040" />
+                          <label description="Bestellung" languagecode="1031" />
+                          <label description="Commande d'achat" languagecode="1036" />
                         </labels>
                         <control id="op365_purchaseorderid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaseorderid" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{930bb1a8-817d-5d6f-be9c-9026befe58bf}">
+                      <cell id="{8fbb0dd6-ec80-5a45-8ef7-0ec5c57f9be6}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" disabled="true" />
                       </cell>
-                      <cell id="{8fbb0dd6-ec80-5a45-8ef7-0ec5c57f9be6}">
+                      <cell id="{3d0bdee0-6d62-56a1-843e-84a8f2d87ab1}">
                         <labels>
                           <label description="Receipt Date" languagecode="1033" />
+                          <label description="Data ricevimento" languagecode="1040" />
+                          <label description="Eingangsdatum" languagecode="1031" />
+                          <label description="Date de réception" languagecode="1036" />
                         </labels>
                         <control id="op365_receiptdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_receiptdate" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{3d0bdee0-6d62-56a1-843e-84a8f2d87ab1}">
+                      <cell id="{502fda50-a7ed-55a3-80d6-1438445c299a}">
                         <labels>
                           <label description="Delivery Note Number" languagecode="1033" />
+                          <label description="Numero DDT" languagecode="1040" />
+                          <label description="Lieferscheinnummer" languagecode="1031" />
+                          <label description="Numéro du bon de livraison" languagecode="1036" />
                         </labels>
                         <control id="op365_deliverynotenumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_deliverynotenumber" />
                       </cell>
-                      <cell id="{502fda50-a7ed-55a3-80d6-1438445c299a}">
+                      <cell id="{bdedacf7-2f82-581d-b0cb-7e18dfed9350}">
                         <labels>
                           <label description="Delivery Note Date" languagecode="1033" />
+                          <label description="Data DDT" languagecode="1040" />
+                          <label description="Lieferscheindatum" languagecode="1031" />
+                          <label description="Date du bon de livraison" languagecode="1036" />
                         </labels>
                         <control id="op365_deliverynotedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_deliverynotedate" />
                       </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="notes" showlabel="true" showbar="false" columns="1" id="{5955edf0-bf99-51b6-9821-8eec0144f3b0}">
+                <section name="notes" showlabel="true" showbar="false" columns="1" id="{9bdc54f2-4f7d-5377-92d7-7b1a96b17eb9}">
                   <labels>
+                    <label description="Hinweise" languagecode="1031" />
                     <label description="Notes" languagecode="1033" />
+                    <label description="Remarques" languagecode="1036" />
+                    <label description="Note" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{8bb45321-b03c-55fb-96bf-d6c633060bcd}">
+                      <cell id="{5955edf0-bf99-51b6-9821-8eec0144f3b0}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
+                          <label description="Note" languagecode="1040" />
+                          <label description="Hinweise" languagecode="1031" />
+                          <label description="Remarques" languagecode="1036" />
                         </labels>
                         <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
                       </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="lines" showlabel="true" showbar="false" columns="1" id="{114016c2-9b3b-5446-8f9f-f64bf8ee04fe}">
+                <section name="lines" showlabel="true" showbar="false" columns="1" id="{4ffc5ec0-6c8d-53d7-9d69-ad6ca3ee516c}">
                   <labels>
+                    <label description="Positionen" languagecode="1031" />
                     <label description="Lines" languagecode="1033" />
+                    <label description="Lignes" languagecode="1036" />
+                    <label description="Righe" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{9bdc54f2-4f7d-5377-92d7-7b1a96b17eb9}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{114016c2-9b3b-5446-8f9f-f64bf8ee04fe}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Lines" languagecode="1033" />
+                          <label description="Righe" languagecode="1040" />
+                          <label description="Positionen" languagecode="1031" />
+                          <label description="Lignes" languagecode="1036" />
                         </labels>
                         <control id="Lines" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -113,15 +149,21 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{95c7945b-7a2c-5040-887b-5604cc078050}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{87dbbac9-a9a1-5d57-a46c-3fdccf5161c0}">
                   <labels>
+                    <label description="Zeitachse" languagecode="1031" />
                     <label description="Timeline" languagecode="1033" />
+                    <label description="Chronologie" languagecode="1036" />
+                    <label description="Sequenza temporale" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4ffc5ec0-6c8d-53d7-9d69-ad6ca3ee516c}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{95c7945b-7a2c-5040-887b-5604cc078050}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
+                          <label description="Zeitachse" languagecode="1031" />
                           <label description="Timeline" languagecode="1033" />
+                          <label description="Chronologie" languagecode="1036" />
+                          <label description="Sequenza temporale" languagecode="1040" />
                         </labels>
                         <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
@@ -137,7 +179,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Wareneingang" languagecode="1031" />
       <LocalizedName description="Goods Receipt" languagecode="1033" />
+      <LocalizedName description="Réception de marchandises" languagecode="1036" />
+      <LocalizedName description="Ricevimento merci" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

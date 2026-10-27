@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Zuordnung – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="WBS Allocation Associated View" languagecode="1033" />
+      <LocalizedName description="Affectation WBS - Vue associée" languagecode="1036" />
+      <LocalizedName description="Allocazione WBS - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

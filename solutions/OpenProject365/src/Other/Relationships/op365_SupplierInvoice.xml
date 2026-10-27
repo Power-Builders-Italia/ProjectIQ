@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier invoice the line belongs to" languagecode="1033" />
+        <Description description="Lieferantenrechnung, zu der die Position gehört" languagecode="1031" />
+        <Description description="Facture fournisseur à laquelle appartient la ligne" languagecode="1036" />
+        <Description description="Fattura fornitore a cui appartiene la riga" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

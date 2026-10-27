@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Date">
   <description default="Date">
+    <label description="Datum" languagecode="1031" />
     <label description="Date" languagecode="1033" />
+    <label description="Date" languagecode="1036" />
+    <label description="Data" languagecode="1040" />
   </description>
   <displayname default="Date">
+    <label description="Datum" languagecode="1031" />
     <label description="Date" languagecode="1033" />
+    <label description="Date" languagecode="1036" />
+    <label description="Data" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

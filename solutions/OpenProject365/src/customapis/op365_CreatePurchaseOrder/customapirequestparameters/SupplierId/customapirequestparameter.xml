@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="SupplierId">
   <description default="Supplier; default the preferred supplier">
+    <label description="Lieferant; Standard der bevorzugte Lieferant" languagecode="1031" />
     <label description="Supplier; default the preferred supplier" languagecode="1033" />
+    <label description="Fournisseur ; par défaut le fournisseur préféré" languagecode="1036" />
+    <label description="Fornitore; predefinito il fornitore preferito" languagecode="1040" />
   </description>
   <displayname default="SupplierId">
+    <label description="LieferantId" languagecode="1031" />
     <label description="SupplierId" languagecode="1033" />
+    <label description="IdFournisseur" languagecode="1036" />
+    <label description="IdFornitore" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

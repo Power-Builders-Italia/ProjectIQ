@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Bestellanforderungen" languagecode="1031" />
       <LocalizedName description="Inactive Purchase Requests" languagecode="1033" />
+      <LocalizedName description="Demandes d'achat inactives" languagecode="1036" />
+      <LocalizedName description="RDA inattive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

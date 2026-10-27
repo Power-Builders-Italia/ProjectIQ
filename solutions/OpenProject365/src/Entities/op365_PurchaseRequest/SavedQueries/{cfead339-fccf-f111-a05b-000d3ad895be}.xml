@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Bestellanforderungen" languagecode="1031" />
       <LocalizedName description="My Purchase Requests" languagecode="1033" />
+      <LocalizedName description="Mes demandes d'achat" languagecode="1036" />
+      <LocalizedName description="Le mie richieste di acquisto" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Bestellanforderungen" languagecode="1031" />
       <Description description="Active Purchase Requests owned by me" languagecode="1033" />
+      <Description description="Mes demandes d'achat actives" languagecode="1036" />
+      <Description description="Le mie RDA attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

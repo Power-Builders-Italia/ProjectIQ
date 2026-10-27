@@ -47,7 +47,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Zu entscheidende Bestellanforderungen" languagecode="1031" />
       <LocalizedName description="Purchase Requests to Decide" languagecode="1033" />
+      <LocalizedName description="Demandes d'achat à traiter" languagecode="1036" />
+      <LocalizedName description="RDA da decidere" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

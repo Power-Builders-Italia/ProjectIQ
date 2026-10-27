@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Artikellieferanten" languagecode="1031" />
       <LocalizedName description="Inactive Item Suppliers" languagecode="1033" />
+      <LocalizedName description="Fournisseurs d'article inactifs" languagecode="1036" />
+      <LocalizedName description="Fornitori articolo inattivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

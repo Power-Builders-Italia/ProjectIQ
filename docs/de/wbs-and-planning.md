@@ -89,7 +89,9 @@ Die Registerkarte WBS des Projekts zeigt den ganzen Baum als aufklappbares Raste
 | **Budget Hours** | Direkt bearbeitbar | Summe der darunterliegenden Elemente |
 | **Labour**, **Materials**, **Other** | Direkt bearbeitbar | – |
 | **Budget Total** | Berechnet | Summe der darunterliegenden Elemente |
-| **Progress %** | Direkt bearbeitbar | Budgetgewichteter Fortschritt der darunterliegenden Blätter |
+| **Progress %** | Grüner Balken von 0 bis 100; zum Bearbeiten auf den Prozentwert klicken | Budgetgewichteter Fortschritt der darunterliegenden Blätter, als Balken |
+
+Beträge werden in der Währung des Projekts angezeigt.
 
 Die letzte Zeile zeigt die **Total** (Summe) der Stunden und des Budgets für das ganze Projekt. Verdichtete Werte sind grau dargestellt; fahren Sie mit der Maus darüber, um den Tooltip „Includes child nodes“ (enthält Unterelemente) zu sehen.
 

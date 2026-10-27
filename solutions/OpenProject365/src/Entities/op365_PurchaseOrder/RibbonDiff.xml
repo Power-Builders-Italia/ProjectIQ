@@ -155,51 +155,81 @@
     <LocLabel Id="op365.purchaseorder.CancelOrder.Label">
       <Titles>
         <Title description="Cancel Order" languagecode="1033" />
+        <Title description="Bestellung stornieren" languagecode="1031" />
+        <Title description="Annuler la commande" languagecode="1036" />
+        <Title description="Annulla ordine" languagecode="1040" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.CancelOrder.Tip">
       <Titles>
         <Title description="Cancel the order" languagecode="1033" />
+        <Title description="Annuler la commande" languagecode="1036" />
+        <Title description="Annulla l'ordine" languagecode="1040" />
+        <Title description="Bestellung stornieren" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.ConfirmOrder.Label">
       <Titles>
         <Title description="Confirm" languagecode="1033" />
+        <Title description="Confirmer" languagecode="1036" />
+        <Title description="Conferma" languagecode="1040" />
+        <Title description="Bestätigen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.ConfirmOrder.Tip">
       <Titles>
         <Title description="Record the supplier confirmation" languagecode="1033" />
+        <Title description="Enregistrer la confirmation du fournisseur" languagecode="1036" />
+        <Title description="Registra la conferma del fornitore" languagecode="1040" />
+        <Title description="Lieferantenbestätigung erfassen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.RegisterReceipt.Label">
       <Titles>
         <Title description="Register Receipt" languagecode="1033" />
+        <Title description="Eingang erfassen" languagecode="1031" />
+        <Title description="Registra ricevimento" languagecode="1040" />
+        <Title description="Enregistrer la réception" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.RegisterReceipt.Tip">
       <Titles>
         <Title description="Register the goods received and their material usage" languagecode="1033" />
+        <Title description="Registra la merce ricevuta e i relativi consumi materiale" languagecode="1040" />
+        <Title description="Enregistrer les marchandises reçues et leur consommation de matériel" languagecode="1036" />
+        <Title description="Eingegangene Waren und deren Materialverbrauch erfassen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.ReopenOrder.Label">
       <Titles>
         <Title description="Back to Draft" languagecode="1033" />
+        <Title description="Zurück zu Entwurf" languagecode="1031" />
+        <Title description="Torna a bozza" languagecode="1040" />
+        <Title description="Retour au brouillon" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.ReopenOrder.Tip">
       <Titles>
         <Title description="Move the order back to Draft to change it" languagecode="1033" />
+        <Title description="Riporta l'ordine in bozza per modificarlo" languagecode="1040" />
+        <Title description="Remettre la commande en brouillon pour la modifier" languagecode="1036" />
+        <Title description="Bestellung zur Änderung auf Entwurf zurücksetzen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.SendOrder.Label">
       <Titles>
         <Title description="Send to Supplier" languagecode="1033" />
+        <Title description="An Lieferanten senden" languagecode="1031" />
+        <Title description="Envoyer au fournisseur" languagecode="1036" />
+        <Title description="Invia al fornitore" languagecode="1040" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.purchaseorder.SendOrder.Tip">
       <Titles>
         <Title description="Mark the order as sent: its lines can no longer change" languagecode="1033" />
+        <Title description="Segna l'ordine come inviato: le righe non si possono più modificare" languagecode="1040" />
+        <Title description="Bestellung als gesendet markieren: Ihre Positionen können nicht mehr geändert werden" languagecode="1031" />
+        <Title description="Marquer la commande comme envoyée : ses lignes ne peuvent plus être modifiées" languagecode="1036" />
       </Titles>
     </LocLabel>
   </LocLabels>

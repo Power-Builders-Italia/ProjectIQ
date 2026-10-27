@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Deadline">
   <description default="Deadline; default in 7 days">
+    <label description="Frist; Standard in 7 Tagen" languagecode="1031" />
     <label description="Deadline; default in 7 days" languagecode="1033" />
+    <label description="Échéance ; par défaut dans 7 jours" languagecode="1036" />
+    <label description="Scadenza; predefinita tra 7 giorni" languagecode="1040" />
   </description>
   <displayname default="Deadline">
+    <label description="Frist" languagecode="1031" />
     <label description="Deadline" languagecode="1033" />
+    <label description="Échéance" languagecode="1036" />
+    <label description="Scadenza" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

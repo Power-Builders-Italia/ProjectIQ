@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{4b7085a8-ced7-5541-b8a0-fdd78f02c0f4}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="resource" showlabel="true" showbar="false" columns="2" id="{013e4dd0-d29b-50fb-93c4-f1a89862b7a9}">
                   <labels>
+                    <label description="Ressource" languagecode="1031" />
                     <label description="Resource" languagecode="1033" />
+                    <label description="Ressource" languagecode="1036" />
+                    <label description="Risorsa" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{2070a753-bdd0-57c7-a146-e20f4cef556d}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
                       <cell id="{0282b8af-ce4b-58a3-b7e4-423843811ccf}">
                         <labels>
                           <label description="Role" languagecode="1033" />
+                          <label description="Ruolo" languagecode="1040" />
+                          <label description="Rolle" languagecode="1031" />
+                          <label description="Rôle" languagecode="1036" />
                         </labels>
                         <control id="op365_role" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_role" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{8c5aaaaa-1e8c-5e79-a238-dddce3eee71b}">
                         <labels>
                           <label description="User" languagecode="1033" />
+                          <label description="Utente" languagecode="1040" />
+                          <label description="Benutzer" languagecode="1031" />
+                          <label description="Utilisateur" languagecode="1036" />
                         </labels>
                         <control id="op365_userid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_userid" />
                       </cell>
                       <cell id="{0d15804f-3cce-520a-8c1c-95b5360e336e}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -51,19 +69,28 @@
                 </section>
                 <section name="capacity_and_cost" showlabel="true" showbar="false" columns="2" id="{06680723-7920-500f-aa57-a0ad17d2b772}">
                   <labels>
+                    <label description="Kapazität und Kosten" languagecode="1031" />
                     <label description="Capacity and Cost" languagecode="1033" />
+                    <label description="Capacité et coût" languagecode="1036" />
+                    <label description="Capacità e costo" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{af479113-7a86-5f9c-8c33-d8b54c211385}">
                         <labels>
                           <label description="Weekly Hours" languagecode="1033" />
+                          <label description="Ore settimanali" languagecode="1040" />
+                          <label description="Wochenstunden" languagecode="1031" />
+                          <label description="Heures hebdomadaires" languagecode="1036" />
                         </labels>
                         <control id="op365_weeklyhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_weeklyhours" />
                       </cell>
                       <cell id="{0eb08e01-8fdc-5ea1-a8d2-fe7d794ae2d3}">
                         <labels>
                           <label description="Hourly Cost" languagecode="1033" />
+                          <label description="Costo orario" languagecode="1040" />
+                          <label description="Stundenkosten" languagecode="1031" />
+                          <label description="Coût horaire" languagecode="1036" />
                         </labels>
                         <control id="op365_hourlycost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_hourlycost" />
                       </cell>
@@ -72,6 +99,9 @@
                       <cell id="{074e72a2-2607-5385-a2f9-df83c69e6dba}">
                         <labels>
                           <label description="Working Days" languagecode="1033" />
+                          <label description="Giorni lavorativi" languagecode="1040" />
+                          <label description="Arbeitstage" languagecode="1031" />
+                          <label description="Jours ouvrés" languagecode="1036" />
                         </labels>
                         <control id="op365_workingdays" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_workingdays" />
                       </cell>
@@ -84,20 +114,29 @@
         </tab>
         <tab name="costs" id="{4b4f8fdc-aa07-5b3b-b472-83f6c1bfbf6f}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Kosten" languagecode="1031" />
             <label description="Costs" languagecode="1033" />
+            <label description="Coûts" languagecode="1036" />
+            <label description="Costi" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="hourly_costs" showlabel="true" showbar="false" columns="1" id="{9263e758-22af-597c-909a-1342d309b0ba}">
                   <labels>
+                    <label description="Stundenkosten" languagecode="1031" />
                     <label description="Hourly Costs" languagecode="1033" />
+                    <label description="Coûts horaires" languagecode="1036" />
+                    <label description="Costi orari" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{ab53de14-2c5d-5108-8ae6-c91b7ea4ca07}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Hourly Costs" languagecode="1033" />
+                          <label description="Costi orari" languagecode="1040" />
+                          <label description="Stundenkosten" languagecode="1031" />
+                          <label description="Coûts horaires" languagecode="1036" />
                         </labels>
                         <control id="Costs" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -126,20 +165,29 @@
         </tab>
         <tab name="absences" id="{945802b2-3853-549c-bde8-34f2a91b9855}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Abwesenheiten" languagecode="1031" />
             <label description="Absences" languagecode="1033" />
+            <label description="Absences" languagecode="1036" />
+            <label description="Assenze" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="absences" showlabel="true" showbar="false" columns="1" id="{7d108ebc-3125-5a86-9b56-6140e24bb6d7}">
                   <labels>
+                    <label description="Abwesenheiten" languagecode="1031" />
                     <label description="Absences" languagecode="1033" />
+                    <label description="Absences" languagecode="1036" />
+                    <label description="Assenze" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{16c2a76a-92e2-5ae1-a778-36d619ad4ab8}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
-                          <label description="Absences" languagecode="1033" />
+                          <label description="Resource Costs" languagecode="1033" />
+                          <label description="Costi risorsa" languagecode="1040" />
+                          <label description="Ressourcenkosten" languagecode="1031" />
+                          <label description="Coûts de ressource" languagecode="1036" />
                         </labels>
                         <control id="Absences" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -171,7 +219,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Ressource" languagecode="1031" />
       <LocalizedName description="Resource" languagecode="1033" />
+      <LocalizedName description="Ressource" languagecode="1036" />
+      <LocalizedName description="Risorsa" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

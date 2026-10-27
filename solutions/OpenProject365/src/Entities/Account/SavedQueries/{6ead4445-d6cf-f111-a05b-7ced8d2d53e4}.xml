@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Gesperrte Lieferanten" languagecode="1031" />
       <LocalizedName description="Blocked Suppliers" languagecode="1033" />
+      <LocalizedName description="Fournisseurs bloqués" languagecode="1036" />
+      <LocalizedName description="Fornitori bloccati" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

@@ -156,7 +156,7 @@ Molti record seguono un flusso (registrazioni ore, richieste d'acquisto, ordini,
 
 ## Lingua
 
-L'applicazione è oggi distribuita in **inglese**; sono pianificate le traduzioni dell'interfaccia in italiano, francese e tedesco. Questi manuali sono già disponibili in tutte e quattro le lingue.
+L'interfaccia è disponibile in **inglese, italiano, francese e tedesco**. Ogni utente sceglie la lingua in **Impostazioni (icona a ingranaggio) > Impostazioni di personalizzazione > Lingue > Lingua interfaccia utente**; tabelle, campi, viste, pulsanti, i controlli di commessa (WBS, Gantt, foglio ore...), le finestre di dialogo, i messaggi di errore e le notifiche seguono questa scelta. Questi manuali sono disponibili in tutte e quattro le lingue; alcuni nomi di pulsanti e campi possono comparire ancora in inglese, con la traduzione dove aiuta.
 
 ## Prossimi passi
 

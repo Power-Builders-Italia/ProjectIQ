@@ -9,20 +9,29 @@
       <tabs>
         <tab name="general" id="{d16425cb-8504-5ccb-a0bc-d3061749a59e}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="time" showlabel="true" showbar="false" columns="1" id="{ca72de87-ea32-528e-b093-c7906d59f17c}">
                   <labels>
+                    <label description="Zeit" languagecode="1031" />
                     <label description="Time" languagecode="1033" />
+                    <label description="Temps" languagecode="1036" />
+                    <label description="Ore" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{29230598-a7b2-5a38-893a-96112f61e370}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
@@ -31,6 +40,9 @@
                       <cell id="{2377f130-42ad-5e03-8f5f-6c2c20756791}">
                         <labels>
                           <label description="WBS Node" languagecode="1033" />
+                          <label description="Nodo WBS" languagecode="1040" />
+                          <label description="PSP-Element" languagecode="1031" />
+                          <label description="Nœud WBS" languagecode="1036" />
                         </labels>
                         <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
                       </cell>
@@ -39,6 +51,9 @@
                       <cell id="{93d1ca4d-d5c8-5bbb-9f8e-d802543058bd}">
                         <labels>
                           <label description="Date" languagecode="1033" />
+                          <label description="Data" languagecode="1040" />
+                          <label description="Datum" languagecode="1031" />
+                          <label description="Date" languagecode="1036" />
                         </labels>
                         <control id="op365_entrydate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_entrydate" />
                       </cell>
@@ -47,6 +62,9 @@
                       <cell id="{d07e83f1-c715-5083-b815-d8f8acad9e34}">
                         <labels>
                           <label description="Hours" languagecode="1033" />
+                          <label description="Ore" languagecode="1040" />
+                          <label description="Stunden" languagecode="1031" />
+                          <label description="Heures" languagecode="1036" />
                         </labels>
                         <control id="op365_hours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_hours" />
                       </cell>
@@ -55,6 +73,9 @@
                       <cell id="{c2eb1196-afb1-57c5-9a10-f33b3628d7cb}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
+                          <label description="Note" languagecode="1040" />
+                          <label description="Hinweise" languagecode="1031" />
+                          <label description="Remarques" languagecode="1036" />
                         </labels>
                         <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
                       </cell>
@@ -80,7 +101,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Schnelle Zeiterfassung" languagecode="1031" />
       <LocalizedName description="Quick Time Entry" languagecode="1033" />
+      <LocalizedName description="Saisie rapide des heures" languagecode="1036" />
+      <LocalizedName description="Registrazione ore rapida" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

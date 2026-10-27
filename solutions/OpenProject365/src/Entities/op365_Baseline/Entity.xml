@@ -5,12 +5,21 @@
     <entity Name="op365_Baseline">
       <LocalizedNames>
         <LocalizedName description="Baseline" languagecode="1033" />
+        <LocalizedName description="Basisplan" languagecode="1031" />
+        <LocalizedName description="Planning de référence" languagecode="1036" />
+        <LocalizedName description="Baseline" languagecode="1040" />
       </LocalizedNames>
       <LocalizedCollectionNames>
         <LocalizedCollectionName description="Baselines" languagecode="1033" />
+        <LocalizedCollectionName description="Basispläne" languagecode="1031" />
+        <LocalizedCollectionName description="Plannings de référence" languagecode="1036" />
+        <LocalizedCollectionName description="Baseline" languagecode="1040" />
       </LocalizedCollectionNames>
       <Descriptions>
         <Description description="Snapshot of the WBS budget and dates of a project" languagecode="1033" />
+        <Description description="Momentaufnahme des PSP-Budgets und der Termine eines Projekts" languagecode="1031" />
+        <Description description="Instantané du budget et des dates du WBS d'un projet" languagecode="1036" />
+        <Description description="Istantanea di budget e date della WBS di una commessa" languagecode="1040" />
       </Descriptions>
       <attributes>
         <attribute PhysicalName="CreatedBy">
@@ -47,9 +56,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By" languagecode="1033" />
+            <displayname description="Erstellt von" languagecode="1031" />
+            <displayname description="Créé par" languagecode="1036" />
+            <displayname description="Autore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOn">
@@ -87,9 +102,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Created On" languagecode="1033" />
+            <displayname description="Erstellt am" languagecode="1031" />
+            <displayname description="Créé le" languagecode="1036" />
+            <displayname description="Data creazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was created." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Erstellung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de création de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOnBehalfBy">
@@ -126,9 +147,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By (Delegate)" languagecode="1033" />
+            <displayname description="Erstellt von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Créé par (délégué)" languagecode="1036" />
+            <displayname description="Autore (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ImportSequenceNumber">
@@ -166,9 +193,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Import Sequence Number" languagecode="1033" />
+            <displayname description="Importsequenznummer" languagecode="1031" />
+            <displayname description="Numéro séquentiel d'importation" languagecode="1036" />
+            <displayname description="Numero sequenza importazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Sequence number of the import that created this record." languagecode="1033" />
+            <Description description="Sequenznummer des Imports, der diesen Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Numéro de séquence de l'importation qui a créé cet enregistrement." languagecode="1036" />
+            <Description description="Numero di sequenza dell'importazione che ha creato questo record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedBy">
@@ -205,9 +238,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By" languagecode="1033" />
+            <displayname description="Geändert von" languagecode="1031" />
+            <displayname description="Modifié par" languagecode="1036" />
+            <displayname description="Autore modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOn">
@@ -245,9 +284,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Modified On" languagecode="1033" />
+            <displayname description="Geändert am" languagecode="1031" />
+            <displayname description="Modifié le" languagecode="1036" />
+            <displayname description="Data modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was modified." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Änderung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de modification de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di modifica del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOnBehalfBy">
@@ -284,9 +329,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By (Delegate)" languagecode="1033" />
+            <displayname description="Geändert von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Modifié par (délégué)" languagecode="1036" />
+            <displayname description="Autore modifica (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_BaselineId">
@@ -321,9 +372,15 @@
           <IsLocalizable>0</IsLocalizable>
           <displaynames>
             <displayname description="Baseline" languagecode="1033" />
+            <displayname description="Basisplan" languagecode="1031" />
+            <displayname description="Planning de référence" languagecode="1036" />
+            <displayname description="Baseline" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for entity instances" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner für Entitätsinstanzen" languagecode="1031" />
+            <Description description="Identificateur unique des instances d'entité" languagecode="1036" />
+            <Description description="Identificatore univoco delle istanze dell'entità" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Description">
@@ -360,9 +417,15 @@
           <MaxLength>4000</MaxLength>
           <displaynames>
             <displayname description="Description" languagecode="1033" />
+            <displayname description="Beschreibung" languagecode="1031" />
+            <displayname description="Description" languagecode="1036" />
+            <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Why the baseline was saved, e.g. contract signed" languagecode="1033" />
+            <Description description="Warum der Basisplan gespeichert wurde, z. B. Vertrag unterzeichnet" languagecode="1031" />
+            <Description description="Motif de l'enregistrement de la référence, p. ex. contrat signé" languagecode="1036" />
+            <Description description="Perché è stata salvata la baseline, es. contratto firmato" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsReference">
@@ -402,28 +465,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Is Reference" languagecode="1033" />
+              <displayname description="Ist Referenz" languagecode="1031" />
+              <displayname description="Est la référence" languagecode="1036" />
+              <displayname description="È di riferimento" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Baseline compared with the current plan; only one per project" languagecode="1033" />
+              <Description description="Mit dem aktuellen Plan verglichener Basisplan; nur einer pro Projekt" languagecode="1031" />
+              <Description description="Planning de référence comparé au plan actuel ; un seul par projet" languagecode="1036" />
+              <Description description="Baseline confrontata con il piano attuale; una sola per commessa" languagecode="1040" />
             </Descriptions>
             <options>
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Is Reference" languagecode="1033" />
+            <displayname description="Ist Referenz" languagecode="1031" />
+            <displayname description="Est la référence" languagecode="1036" />
+            <displayname description="È di riferimento" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Baseline compared with the current plan; only one per project" languagecode="1033" />
+            <Description description="Mit dem aktuellen Plan verglichener Basisplan; nur einer pro Projekt" languagecode="1031" />
+            <Description description="Planning de référence comparé au plan actuel ; un seul par projet" languagecode="1036" />
+            <Description description="Baseline confrontata con il piano attuale; una sola per commessa" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Name">
@@ -461,6 +542,9 @@
           <Length>1700</Length>
           <displaynames>
             <displayname description="Name" languagecode="1033" />
+            <displayname description="Name" languagecode="1031" />
+            <displayname description="Nom" languagecode="1036" />
+            <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
@@ -500,9 +584,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Project" languagecode="1033" />
+            <displayname description="Projekt" languagecode="1031" />
+            <displayname description="Projet" languagecode="1036" />
+            <displayname description="Commessa" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Project the baseline is a snapshot of" languagecode="1033" />
+            <Description description="Projekt, von dem der Basisplan eine Momentaufnahme ist" languagecode="1031" />
+            <Description description="Projet dont la référence est un instantané" languagecode="1036" />
+            <Description description="Commessa di cui la baseline è un'istantanea" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">
@@ -540,9 +630,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Record Created On" languagecode="1033" />
+            <displayname description="Datensatz erstellt am" languagecode="1031" />
+            <displayname description="Enregistrement créé le" languagecode="1036" />
+            <displayname description="Data creazione record" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time that the record was migrated." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Migration des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de la migration de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di migrazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwnerId">
@@ -582,9 +678,15 @@
           </LookupTypes>
           <displaynames>
             <displayname description="Owner" languagecode="1033" />
+            <displayname description="Besitzer" languagecode="1031" />
+            <displayname description="Propriétaire" languagecode="1036" />
+            <displayname description="Proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Owner Id" languagecode="1033" />
+            <Description description="Besitzer-ID" languagecode="1031" />
+            <Description description="ID du propriétaire" languagecode="1036" />
+            <Description description="ID proprietario" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningBusinessUnit">
@@ -621,9 +723,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Business Unit" languagecode="1033" />
+            <displayname description="Besitzer (Unternehmenseinheit)" languagecode="1031" />
+            <displayname description="Division propriétaire" languagecode="1036" />
+            <displayname description="Business Unit proprietaria" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the business unit that owns the record" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner der Unternehmenseinheit, die Besitzer des Datensatzes ist" languagecode="1031" />
+            <Description description="Identificateur unique de la division propriétaire de l'enregistrement" languagecode="1036" />
+            <Description description="Identificatore univoco della business unit proprietaria del record" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningTeam">
@@ -660,9 +768,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Team" languagecode="1033" />
+            <displayname description="Besitzer (Team)" languagecode="1031" />
+            <displayname description="Équipe propriétaire" languagecode="1036" />
+            <displayname description="Team proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the team that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Teams, das Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'équipe propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco del team proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningUser">
@@ -699,9 +813,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning User" languagecode="1033" />
+            <displayname description="Besitzer (Benutzer)" languagecode="1031" />
+            <displayname description="Utilisateur propriétaire" languagecode="1036" />
+            <displayname description="Utente proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statecode">
@@ -740,28 +860,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status" languagecode="1033" />
+              <displayname description="Status" languagecode="1031" />
+              <displayname description="Statut" languagecode="1036" />
+              <displayname description="Stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Status of the Baseline" languagecode="1033" />
+              <Description description="Status des Basisplans" languagecode="1031" />
+              <Description description="Statut du planning de référence" languagecode="1036" />
+              <Description description="Stato della baseline" languagecode="1040" />
             </Descriptions>
             <states>
               <state value="0" defaultstatus="1" invariantname="Active" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </state>
               <state value="1" defaultstatus="2" invariantname="Inactive" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </state>
             </states>
           </optionset>
           <displaynames>
             <displayname description="Status" languagecode="1033" />
+            <displayname description="Status" languagecode="1031" />
+            <displayname description="Statut" languagecode="1036" />
+            <displayname description="Stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Status of the Baseline" languagecode="1033" />
+            <Description description="Status des Basisplans" languagecode="1031" />
+            <Description description="Statut du planning de référence" languagecode="1036" />
+            <Description description="Stato della baseline" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statuscode">
@@ -800,28 +938,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status Reason" languagecode="1033" />
+              <displayname description="Statusgrund" languagecode="1031" />
+              <displayname description="Raison du statut" languagecode="1036" />
+              <displayname description="Motivo stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Reason for the status of the Baseline" languagecode="1033" />
+              <Description description="Grund für den Status des Basisplans" languagecode="1031" />
+              <Description description="Raison du statut du planning de référence" languagecode="1036" />
+              <Description description="Motivo dello stato della baseline" languagecode="1040" />
             </Descriptions>
             <statuses>
               <status value="1" state="0" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </status>
             </statuses>
           </optionset>
           <displaynames>
             <displayname description="Status Reason" languagecode="1033" />
+            <displayname description="Statusgrund" languagecode="1031" />
+            <displayname description="Raison du statut" languagecode="1036" />
+            <displayname description="Motivo stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Reason for the status of the Baseline" languagecode="1033" />
+            <Description description="Grund für den Status des Basisplans" languagecode="1031" />
+            <Description description="Raison du statut du planning de référence" languagecode="1036" />
+            <Description description="Motivo dello stato della baseline" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="TimeZoneRuleVersionNumber">
@@ -858,9 +1014,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Time Zone Rule Version Number" languagecode="1033" />
+            <displayname description="Versionsnummer der Zeitzonenregel" languagecode="1031" />
+            <displayname description="Numéro de version de la règle du fuseau horaire" languagecode="1036" />
+            <displayname description="Numero di versione regola fuso orario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="For internal use only." languagecode="1033" />
+            <Description description="Nur zur internen Verwendung." languagecode="1031" />
+            <Description description="Utilisation interne uniquement." languagecode="1036" />
+            <Description description="Solo per uso interno." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="UTCConversionTimeZoneCode">
@@ -897,9 +1059,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="UTC Conversion Time Zone Code" languagecode="1033" />
+            <displayname description="Zeitzonencode für die UTC-Konvertierung" languagecode="1031" />
+            <displayname description="Code de fuseau horaire pour la conversion UTC" languagecode="1036" />
+            <displayname description="Codice fuso orario conversione UTC" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Time zone code that was in use when the record was created." languagecode="1033" />
+            <Description description="Zeitzonencode, der bei Erstellung des Datensatzes verwendet wurde." languagecode="1031" />
+            <Description description="Code de fuseau horaire utilisé à la création de l’enregistrement." languagecode="1036" />
+            <Description description="Codice di fuso orario utilizzato al momento della creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
       </attributes>

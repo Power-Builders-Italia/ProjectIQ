@@ -1,9 +1,15 @@
 <environmentvariabledefinition schemaname="op365_PurchaseRequestThreshold">
   <description default="Amount above which a purchase request also needs second-level approval. Empty or 0 = never.">
+    <label description="Betrag, ab dem eine Bestellanforderung auch eine Genehmigung der zweiten Ebene benötigt. Leer oder 0 = nie." languagecode="1031" />
     <label description="Amount above which a purchase request also needs second-level approval. Empty or 0 = never." languagecode="1033" />
+    <label description="Montant au-delà duquel une demande d'achat nécessite aussi une approbation de second niveau. Vide ou 0 = jamais." languagecode="1036" />
+    <label description="Importo oltre il quale una RDA richiede anche l'approvazione di secondo livello. Vuoto o 0 = mai." languagecode="1040" />
   </description>
   <displayname default="Purchase Request Threshold">
+    <label description="Schwellenwert für Bestellanforderungen" languagecode="1031" />
     <label description="Purchase Request Threshold" languagecode="1033" />
+    <label description="Seuil des demandes d'achat" languagecode="1036" />
+    <label description="Soglia RDA" languagecode="1040" />
   </displayname>
   <introducedversion>1.0.8.0</introducedversion>
   <iscustomizable>1</iscustomizable>

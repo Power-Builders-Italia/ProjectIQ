@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_rfq</boundentitylogicalname>
   <description default="Sends the request for quotation to the invited suppliers">
+    <label description="Sendet die Angebotsanfrage an die eingeladenen Lieferanten" languagecode="1031" />
     <label description="Sends the request for quotation to the invited suppliers" languagecode="1033" />
+    <label description="Envoie la demande de prix aux fournisseurs invités" languagecode="1036" />
+    <label description="Invia la richiesta di offerta ai fornitori invitati" languagecode="1040" />
   </description>
   <displayname default="Send RFQ">
+    <label description="Angebotsanfrage senden" languagecode="1031" />
     <label description="Send RFQ" languagecode="1033" />
+    <label description="Envoyer la demande de prix" languagecode="1036" />
+    <label description="Invia RdO" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

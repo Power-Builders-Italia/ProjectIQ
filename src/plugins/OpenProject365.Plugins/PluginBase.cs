@@ -16,9 +16,12 @@ namespace OpenProject365.Plugins
             {
                 Run(context);
             }
-            catch (InvalidPluginExecutionException)
+            catch (InvalidPluginExecutionException ex)
             {
-                throw;
+                // messages are English in the code: show them in the user's language
+                var message = Text.Translate(ex.Message, UserLanguage.Column(context.SystemService, context.Execution.InitiatingUserId));
+                if (message == ex.Message) throw;
+                throw new InvalidPluginExecutionException(message, ex);
             }
             catch (Exception ex)
             {

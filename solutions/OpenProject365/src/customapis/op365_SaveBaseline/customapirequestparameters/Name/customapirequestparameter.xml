@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Name">
   <description default="Baseline name; default &quot;Baseline &lt;date&gt;&quot;">
+    <label description="Name des Basisplans; Standard „Basisplan &lt;Datum&gt;“" languagecode="1031" />
     <label description="Baseline name; default &quot;Baseline &lt;date&gt;&quot;" languagecode="1033" />
+    <label description="Nom du planning de référence ; par défaut « Référence &lt;date&gt; »" languagecode="1036" />
+    <label description="Nome della baseline; predefinito &quot;Baseline &lt;data&gt;&quot;" languagecode="1040" />
   </description>
   <displayname default="Name">
+    <label description="Name" languagecode="1031" />
     <label description="Name" languagecode="1033" />
+    <label description="Nom" languagecode="1036" />
+    <label description="Nome" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Approvazione ore</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Registrazioni ore inviate raggruppate per risorsa e settimana, con approva e rifiuta</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Registrazioni ore</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossibile caricare le registrazioni ore</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approva</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Rifiuta</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>{0} registrazioni approvate.</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>{0} registrazioni rifiutate.</value>
+  </data>
+  <data name="Nothing_To_Approve" xml:space="preserve">
+    <value>Nessuna registrazione ore in attesa di approvazione.</value>
+  </data>
+  <data name="Select_All" xml:space="preserve">
+    <value>Seleziona tutto</value>
+  </data>
+  <data name="Column_Resource" xml:space="preserve">
+    <value>Risorsa</value>
+  </data>
+  <data name="Column_Week" xml:space="preserve">
+    <value>Settimana</value>
+  </data>
+  <data name="Column_Hours" xml:space="preserve">
+    <value>Ore</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Espandi</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Comprimi</value>
+  </data>
+  <data name="Reject_Title" xml:space="preserve">
+    <value>Rifiuta {0} registrazioni ore</value>
+  </data>
+  <data name="Reject_Note" xml:space="preserve">
+    <value>Motivo (inviato alla risorsa)</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+</root>

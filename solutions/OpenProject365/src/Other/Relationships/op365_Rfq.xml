@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="RFQ the invitation belongs to" languagecode="1033" />
+        <Description description="Angebotsanfrage, zu der die Einladung gehört" languagecode="1031" />
+        <Description description="Demande de prix à laquelle appartient l'invitation" languagecode="1036" />
+        <Description description="RdO a cui appartiene l'invito" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

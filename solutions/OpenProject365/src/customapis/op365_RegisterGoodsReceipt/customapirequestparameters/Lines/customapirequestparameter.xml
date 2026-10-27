@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Lines">
   <description default="&quot;orderLineId=quantity&quot;; default everything still to receive">
+    <label description="&quot;orderLineId=quantity&quot;; Standard: alles noch zu empfangen" languagecode="1031" />
     <label description="&quot;orderLineId=quantity&quot;; default everything still to receive" languagecode="1033" />
+    <label description="&quot;orderLineId=quantity&quot; ; par défaut tout ce qui reste à recevoir" languagecode="1036" />
+    <label description="&quot;orderLineId=quantity&quot;; predefinito tutto ciò che resta da ricevere" languagecode="1040" />
   </description>
   <displayname default="Lines">
+    <label description="Positionen" languagecode="1031" />
     <label description="Lines" languagecode="1033" />
+    <label description="Lignes" languagecode="1036" />
+    <label description="Righe" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

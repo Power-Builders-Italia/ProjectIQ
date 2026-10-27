@@ -71,21 +71,33 @@
     <LocLabel Id="op365.supplierinvoice.ApproveInvoice.Label">
       <Titles>
         <Title description="Approve" languagecode="1033" />
+        <Title description="Approva" languagecode="1040" />
+        <Title description="Genehmigen" languagecode="1031" />
+        <Title description="Approuver" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierinvoice.ApproveInvoice.Tip">
       <Titles>
         <Title description="Approve the invoice" languagecode="1033" />
+        <Title description="Approva la fattura" languagecode="1040" />
+        <Title description="Rechnung genehmigen" languagecode="1031" />
+        <Title description="Approuver la facture" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierinvoice.RejectInvoice.Label">
       <Titles>
         <Title description="Reject" languagecode="1033" />
+        <Title description="Rifiuta" languagecode="1040" />
+        <Title description="Ablehnen" languagecode="1031" />
+        <Title description="Rejeter" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierinvoice.RejectInvoice.Tip">
       <Titles>
         <Title description="Reject the invoice with a note" languagecode="1033" />
+        <Title description="Rechnung mit Notiz ablehnen" languagecode="1031" />
+        <Title description="Rejeter la facture avec une note" languagecode="1036" />
+        <Title description="Rifiuta la fattura con una nota" languagecode="1040" />
       </Titles>
     </LocLabel>
   </LocLabels>

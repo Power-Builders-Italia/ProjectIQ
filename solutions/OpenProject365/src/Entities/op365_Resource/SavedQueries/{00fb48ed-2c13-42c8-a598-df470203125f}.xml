@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Ressourcen" languagecode="1031" />
       <LocalizedName description="My Resources" languagecode="1033" />
+      <LocalizedName description="Mes ressources" languagecode="1036" />
+      <LocalizedName description="Le mie risorse" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Ressourcen" languagecode="1031" />
       <Description description="Active Resources owned by me" languagecode="1033" />
+      <Description description="Mes ressources actives" languagecode="1036" />
+      <Description description="Le mie risorse attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

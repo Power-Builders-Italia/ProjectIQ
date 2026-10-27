@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Angebotsanfragen" languagecode="1031" />
       <LocalizedName description="Inactive Requests for Quotation" languagecode="1033" />
+      <LocalizedName description="Demandes de prix inactives" languagecode="1036" />
+      <LocalizedName description="Richieste di offerta inattive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

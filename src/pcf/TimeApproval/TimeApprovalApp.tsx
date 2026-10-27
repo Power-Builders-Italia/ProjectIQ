@@ -5,7 +5,7 @@ import {
     Toolbar, ToolbarButton, makeStyles, tokens, webLightTheme, Theme,
 } from "@fluentui/react-components";
 import { IInputs } from "./generated/ManifestTypes";
-import { fromDay } from "../shared/dates";
+import { fromDay, userLocale } from "../shared/dates";
 import { ApprovalGroup, groupForApproval, PendingEntry, selectedIds } from "../shared/approval";
 import { callAction, loadPending } from "../shared/execution";
 import { CheckmarkIcon, ChevronDownIcon, ChevronRightIcon, DismissIcon, RefreshIcon } from "../shared/icons";
@@ -92,7 +92,7 @@ export function TimeApprovalApp({ context, refreshKey }: Props): React.ReactElem
         if (next.has(key)) next.delete(key); else next.add(key);
         update(next);
     };
-    const day = (d: number, opts: Intl.DateTimeFormatOptions): string => fromDay(d).toLocaleDateString(undefined, { timeZone: "UTC", ...opts });
+    const day = (d: number, opts: Intl.DateTimeFormatOptions): string => fromDay(d).toLocaleDateString(userLocale(context.userSettings.languageId), { timeZone: "UTC", ...opts });
     const hours = (h: number): string => context.formatting.formatDecimal(h, 2).replace(/[.,]00$/, "");
     const allSelected = groups.length > 0 && groups.every(g => groupSel.has(g.key));
 

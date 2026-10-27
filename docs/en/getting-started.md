@@ -154,7 +154,7 @@ Many records follow a workflow (time entries, purchase requests, orders, invoice
 
 ## Language
 
-The application is currently delivered in **English**; Italian, French and German translations of the user interface are planned. These manuals are already available in all four languages. In the Italian, French and German manuals, button and field names are written in English, as they appear on screen, with a translation where it helps.
+The user interface is available in **English, Italian, French and German**. Each user picks the language in **Settings (gear icon) > Personalization Settings > Languages > User Interface Language**; tables, fields, views, buttons, the project controls (WBS, Gantt, timesheet...), dialogs, error messages and notifications follow that choice. These manuals are available in all four languages; in the Italian, French and German manuals some button and field names may still appear in English, with a translation where it helps.
 
 ## Next steps
 

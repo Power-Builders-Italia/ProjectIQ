@@ -7,62 +7,86 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{4ed8a137-5fde-5bbd-ba55-5848a2431467}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{afb5bca2-1f00-569e-99b7-462a54f29fb9}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="invitation" showlabel="true" showbar="false" columns="1" id="{264562b7-0c61-5f93-9478-0ab832b41d7b}">
+                <section name="invitation" showlabel="true" showbar="false" columns="1" id="{782a89c0-b9ed-5621-ba45-eac0da1d172b}">
                   <labels>
+                    <label description="Einladung" languagecode="1031" />
                     <label description="Invitation" languagecode="1033" />
+                    <label description="Invitation" languagecode="1036" />
+                    <label description="Invito" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{2201eb1a-5b57-5d64-9cbe-92420a1e2c73}">
+                      <cell id="{bfc2fe76-d1c2-5c70-a353-6a1e8ab9ffef}">
                         <labels>
                           <label description="RFQ" languagecode="1033" />
+                          <label description="RdO" languagecode="1040" />
+                          <label description="Angebotsanfrage" languagecode="1031" />
+                          <label description="Demande de prix" languagecode="1036" />
                         </labels>
                         <control id="op365_rfqid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_rfqid" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{bfc2fe76-d1c2-5c70-a353-6a1e8ab9ffef}">
+                      <cell id="{099c96eb-f369-5f18-80a5-d241d2787d19}">
                         <labels>
                           <label description="Supplier" languagecode="1033" />
+                          <label description="Produttore" languagecode="1040" />
+                          <label description="Lieferant" languagecode="1031" />
+                          <label description="Fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{099c96eb-f369-5f18-80a5-d241d2787d19}">
+                      <cell id="{9670b4ce-c6d0-58d5-8612-b80c7146b420}">
                         <labels>
                           <label description="Email" languagecode="1033" />
+                          <label description="E-mail" languagecode="1040" />
+                          <label description="E-Mail" languagecode="1031" />
+                          <label description="Courrier électronique" languagecode="1036" />
                         </labels>
                         <control id="op365_email" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_email" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9670b4ce-c6d0-58d5-8612-b80c7146b420}">
+                      <cell id="{868a2c99-f662-52e6-b3aa-8da8c722fed4}">
                         <labels>
                           <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
                         </labels>
                         <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{868a2c99-f662-52e6-b3aa-8da8c722fed4}">
+                      <cell id="{3f97d833-86e8-55a9-8348-1174b696699a}">
                         <labels>
                           <label description="Invited On" languagecode="1033" />
+                          <label description="Invitato il" languagecode="1040" />
+                          <label description="Eingeladen am" languagecode="1031" />
+                          <label description="Invité le" languagecode="1036" />
                         </labels>
                         <control id="op365_invitedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_invitedon" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{3f97d833-86e8-55a9-8348-1174b696699a}">
+                      <cell id="{264562b7-0c61-5f93-9478-0ab832b41d7b}">
                         <labels>
                           <label description="Responded On" languagecode="1033" />
+                          <label description="Risposto il" languagecode="1040" />
+                          <label description="Beantwortet am" languagecode="1031" />
+                          <label description="Répondu le" languagecode="1036" />
                         </labels>
                         <control id="op365_respondedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_respondedon" disabled="true" />
                       </cell>
@@ -73,31 +97,43 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="answer" showlabel="true" showbar="false" columns="1" id="{67d4d375-a9e1-5acd-8179-3c305c571f38}">
+                <section name="answer" showlabel="true" showbar="false" columns="1" id="{4ed8a137-5fde-5bbd-ba55-5848a2431467}">
                   <labels>
+                    <label description="Antwort" languagecode="1031" />
                     <label description="Answer" languagecode="1033" />
+                    <label description="Réponse" languagecode="1036" />
+                    <label description="Risposta" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{782a89c0-b9ed-5621-ba45-eac0da1d172b}">
+                      <cell id="{66ea631c-d4c2-51a5-a62c-57a942889ffc}">
                         <labels>
                           <label description="Quoted Amount" languagecode="1033" />
+                          <label description="Importo offerto" languagecode="1040" />
+                          <label description="Angebotener Betrag" languagecode="1031" />
+                          <label description="Montant proposé" languagecode="1036" />
                         </labels>
                         <control id="op365_quotedamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_quotedamount" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{66ea631c-d4c2-51a5-a62c-57a942889ffc}">
+                      <cell id="{930545df-7b58-5a72-8654-9c52f2f3e4b3}">
                         <labels>
                           <label description="Delivery Days" languagecode="1033" />
+                          <label description="Giorni di consegna" languagecode="1040" />
+                          <label description="Liefertage" languagecode="1031" />
+                          <label description="Délai de livraison (jours)" languagecode="1036" />
                         </labels>
                         <control id="op365_deliverydays" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_deliverydays" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{930545df-7b58-5a72-8654-9c52f2f3e4b3}">
+                      <cell id="{67d4d375-a9e1-5acd-8179-3c305c571f38}">
                         <labels>
                           <label description="Supplier Notes" languagecode="1033" />
+                          <label description="Note fornitore" languagecode="1040" />
+                          <label description="Lieferantennotizen" languagecode="1031" />
+                          <label description="Notes du fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_suppliernotes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_suppliernotes" />
                       </cell>
@@ -108,22 +144,31 @@
             </column>
           </columns>
         </tab>
-        <tab name="quotes" id="{93f0f019-b97d-56a7-90a9-2603e441ea6c}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="quotes" id="{d5fce64d-7062-5b82-8785-ed0f60057c84}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Angebote" languagecode="1031" />
             <label description="Quotes" languagecode="1033" />
+            <label description="Offres" languagecode="1036" />
+            <label description="Offerte" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="quotes" showlabel="true" showbar="false" columns="1" id="{4938f491-7cff-5a61-8391-0c86845e8b6b}">
+                <section name="quotes" showlabel="true" showbar="false" columns="1" id="{93f0f019-b97d-56a7-90a9-2603e441ea6c}">
                   <labels>
+                    <label description="Angebote" languagecode="1031" />
                     <label description="Quotes" languagecode="1033" />
+                    <label description="Offres" languagecode="1036" />
+                    <label description="Offerte" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{afb5bca2-1f00-569e-99b7-462a54f29fb9}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{4938f491-7cff-5a61-8391-0c86845e8b6b}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Quotes" languagecode="1033" />
+                          <label description="Offerte" languagecode="1040" />
+                          <label description="Angebote" languagecode="1031" />
+                          <label description="Offres" languagecode="1036" />
                         </labels>
                         <control id="Quotes" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -155,7 +200,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Angebotseinladung" languagecode="1031" />
       <LocalizedName description="RFQ Invitation" languagecode="1033" />
+      <LocalizedName description="Invitation à soumissionner" languagecode="1036" />
+      <LocalizedName description="Invito RdO" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

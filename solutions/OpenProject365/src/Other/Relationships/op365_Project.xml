@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the baseline is a snapshot of" languagecode="1033" />
+        <Description description="Projekt, von dem der Basisplan eine Momentaufnahme ist" languagecode="1031" />
+        <Description description="Projet dont la référence est un instantané" languagecode="1036" />
+        <Description description="Commessa di cui la baseline è un'istantanea" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the goods are for" languagecode="1033" />
+        <Description description="Projekt, für das die Waren bestimmt sind" languagecode="1031" />
+        <Description description="Projet auquel les marchandises sont destinées" languagecode="1036" />
+        <Description description="Commessa a cui è destinata la merce" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project that used the material" languagecode="1033" />
+        <Description description="Projekt, das das Material verwendet hat" languagecode="1031" />
+        <Description description="Projet ayant utilisé le matériel" languagecode="1036" />
+        <Description description="Commessa che ha usato il materiale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the member works on" languagecode="1033" />
+        <Description description="Projekt, an dem das Mitglied arbeitet" languagecode="1031" />
+        <Description description="Projet sur lequel travaille le membre" languagecode="1036" />
+        <Description description="Commessa su cui lavora il membro" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -159,6 +171,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the order is for" languagecode="1033" />
+        <Description description="Projekt, für das die Bestellung ist" languagecode="1031" />
+        <Description description="Projet concerné par la commande" languagecode="1036" />
+        <Description description="Commessa a cui si riferisce l'ordine" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -194,6 +209,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the purchase is for" languagecode="1033" />
+        <Description description="Projekt, für das der Einkauf ist" languagecode="1031" />
+        <Description description="Projet concerné par l'achat" languagecode="1036" />
+        <Description description="Commessa a cui si riferisce l'acquisto" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -229,6 +247,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the RFQ is for" languagecode="1033" />
+        <Description description="Projekt, für das die Angebotsanfrage ist" languagecode="1031" />
+        <Description description="Projet concerné par la demande de prix" languagecode="1036" />
+        <Description description="Commessa a cui si riferisce la RdO" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -264,6 +285,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the invoice is charged to" languagecode="1033" />
+        <Description description="Projekt, dem die Rechnung belastet wird" languagecode="1031" />
+        <Description description="Projet imputé de la facture" languagecode="1036" />
+        <Description description="Commessa a cui è imputata la fattura" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -299,6 +323,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the hours were worked on" languagecode="1033" />
+        <Description description="Projekt, an dem die Stunden geleistet wurden" languagecode="1031" />
+        <Description description="Projet sur lequel les heures ont été travaillées" languagecode="1036" />
+        <Description description="Commessa su cui sono state lavorate le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -334,6 +361,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project of the two linked nodes" languagecode="1033" />
+        <Description description="Projekt der beiden verknüpften Elemente" languagecode="1031" />
+        <Description description="Projet des deux nœuds liés" languagecode="1036" />
+        <Description description="Commessa dei due nodi collegati" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -369,6 +399,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project the node belongs to" languagecode="1033" />
+        <Description description="Projekt, zu dem das Element gehört" languagecode="1031" />
+        <Description description="Projet auquel appartient le nœud" languagecode="1036" />
+        <Description description="Commessa a cui appartiene il nodo" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

@@ -39,7 +39,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Abwesenheiten" languagecode="1031" />
       <LocalizedName description="Absences" languagecode="1033" />
+      <LocalizedName description="Absences" languagecode="1036" />
+      <LocalizedName description="Assenze" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Lieferantenrechnungspositionen" languagecode="1031" />
       <LocalizedName description="Supplier Invoice Lines" languagecode="1033" />
+      <LocalizedName description="Lignes de facture fournisseur" languagecode="1036" />
+      <LocalizedName description="Righe fattura fornitore" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Angebotseinladungen" languagecode="1031" />
       <LocalizedName description="Inactive RFQ Invitations" languagecode="1033" />
+      <LocalizedName description="Invitations à soumissionner inactives" languagecode="1036" />
+      <LocalizedName description="Inviti RdO inattivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

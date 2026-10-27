@@ -35,7 +35,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Projektmitglieder" languagecode="1031" />
       <LocalizedName description="Project Members" languagecode="1033" />
+      <LocalizedName description="Membres du projet" languagecode="1036" />
+      <LocalizedName description="Membri commessa" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

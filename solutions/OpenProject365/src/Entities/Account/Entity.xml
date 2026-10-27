@@ -41,9 +41,15 @@
           <Length>40</Length>
           <displaynames>
             <displayname description="Account Number" languagecode="1033" />
+            <displayname description="Numero account" languagecode="1040" />
+            <displayname description="Firmennummer" languagecode="1031" />
+            <displayname description="Numéro de compte" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type an ID number or code for the account to quickly search and identify the account in system views." languagecode="1033" />
+            <Description description="Digitare un numero ID o un codice per l'account per cercare e identificare rapidamente l'account nelle visualizzazioni di sistema." languagecode="1040" />
+            <Description description="Geben Sie eine ID-Nummer oder einen ID-Code für die Firma ein, um es in Systemansichten schnell suchen und erkennen zu können." languagecode="1031" />
+            <Description description="Tapez un numéro d'identification pour le compte pour le rechercher et l'identifier dans les vues système." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Address1_City">
@@ -75,9 +81,15 @@
           <Length>160</Length>
           <displaynames>
             <displayname description="Address 1: City" languagecode="1033" />
+            <displayname description="Indirizzo 1: città" languagecode="1040" />
+            <displayname description="Adresse 1: Ort" languagecode="1031" />
+            <displayname description="Adresse 1 : Ville" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type the city for the primary address." languagecode="1033" />
+            <Description description="Digitare la città per l'indirizzo primario." languagecode="1040" />
+            <Description description="Geben Sie den Ort für die primäre Adresse ein." languagecode="1031" />
+            <Description description="Tapez la ville de l'adresse principale." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="EMailAddress1">
@@ -108,9 +120,15 @@
           <Length>200</Length>
           <displaynames>
             <displayname description="Email" languagecode="1033" />
+            <displayname description="E-mail" languagecode="1040" />
+            <displayname description="E-Mail" languagecode="1031" />
+            <displayname description="Courrier électronique" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type the primary email address for the account." languagecode="1033" />
+            <Description description="Digitare l'indirizzo e-mail primario per l'account." languagecode="1040" />
+            <Description description="Geben Sie die primäre E-Mail-Adresse für die Firma ein." languagecode="1031" />
+            <Description description="Tapez l'adresse de messagerie principale pour le compte." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Name">
@@ -141,9 +159,15 @@
           <Length>320</Length>
           <displaynames>
             <displayname description="Account Name" languagecode="1033" />
+            <displayname description="Nome account" languagecode="1040" />
+            <displayname description="Firmenname" languagecode="1031" />
+            <displayname description="Nom du compte" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type the company or business name." languagecode="1033" />
+            <Description description="Digitare il nome della società o dell'azienda." languagecode="1040" />
+            <Description description="Geben Sie den Namen des Unternehmens oder der Firma ein." languagecode="1031" />
+            <Description description="Tapez le nom de la société ou de la division." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ContactCount">
@@ -181,9 +205,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Contacts" languagecode="1033" />
+            <displayname description="Kontakte" languagecode="1031" />
+            <displayname description="Contacts" languagecode="1036" />
+            <displayname description="Contatti" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Set by plugin" languagecode="1033" />
+            <Description description="Vom Plug-in gesetzt" languagecode="1031" />
+            <Description description="Défini par le plug-in" languagecode="1036" />
+            <Description description="Impostato dal plug-in" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ContractValueTotal">
@@ -222,9 +252,15 @@
           <AccuracySource>2</AccuracySource>
           <displaynames>
             <displayname description="Contract Value Total" languagecode="1033" />
+            <displayname description="Vertragswert gesamt" languagecode="1031" />
+            <displayname description="Valeur totale du contrat" languagecode="1036" />
+            <displayname description="Valore contratto totale" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Sum of the contract value of the customer projects. Set by plugin" languagecode="1033" />
+            <Description description="Summe der Vertragswerte der Kundenprojekte. Vom Plug-in gesetzt" languagecode="1031" />
+            <Description description="Somme des valeurs de contrat des projets du client. Défini par le plug-in" languagecode="1036" />
+            <Description description="Somma dei valori contratto delle commesse del cliente. Impostato dal plug-in" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_contractvaluetotal_Base">
@@ -264,9 +300,15 @@
           <CalculationOf>op365_ContractValueTotal</CalculationOf>
           <displaynames>
             <displayname description="Contract Value Total (Base)" languagecode="1033" />
+            <displayname description="Vertragswert gesamt (Basis)" languagecode="1031" />
+            <displayname description="Valeur totale du contrat (base)" languagecode="1036" />
+            <displayname description="Valore contratto totale (base)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Value of the Contract Value Total in base currency." languagecode="1033" />
+            <Description description="Wert des Vertragswerts gesamt in der Basiswährung." languagecode="1031" />
+            <Description description="Valeur de la valeur totale du contrat dans la devise de base." languagecode="1036" />
+            <Description description="Valore del valore contratto totale nella valuta di base." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_CustomerType">
@@ -306,6 +348,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Customer Type" languagecode="1033" />
+              <displayname description="Kundentyp" languagecode="1031" />
+              <displayname description="Type de client" languagecode="1036" />
+              <displayname description="Tipo cliente" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -314,20 +359,32 @@
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Prospect" languagecode="1033" />
+                  <label description="Interessent" languagecode="1031" />
+                  <label description="Prospect" languagecode="1036" />
+                  <label description="Potenziale cliente" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Customer" languagecode="1033" />
+                  <label description="Kunde" languagecode="1031" />
+                  <label description="Client" languagecode="1036" />
+                  <label description="Cliente" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Customer Type" languagecode="1033" />
+            <displayname description="Kundentyp" languagecode="1031" />
+            <displayname description="Type de client" languagecode="1036" />
+            <displayname description="Tipo cliente" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Prospect (potential customer) or Customer (has or had projects)" languagecode="1033" />
+            <Description description="Interessent (potenzieller Kunde) oder Kunde (hat oder hatte Projekte)" languagecode="1031" />
+            <Description description="Prospect (client potentiel) ou client (a ou a eu des projets)" languagecode="1036" />
+            <Description description="Prospect (cliente potenziale) o cliente (ha o ha avuto commesse)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExpiredDocs">
@@ -365,9 +422,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Expired Documents" languagecode="1033" />
+            <displayname description="Abgelaufene Dokumente" languagecode="1031" />
+            <displayname description="Documents expirés" languagecode="1036" />
+            <displayname description="Documenti scaduti" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Updated daily by flow" languagecode="1033" />
+            <Description description="Täglich vom Flow aktualisiert" languagecode="1031" />
+            <Description description="Mis à jour quotidiennement par le flux" languagecode="1036" />
+            <Description description="Aggiornato ogni giorno dal flusso" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExpiringDocs">
@@ -405,9 +468,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Expiring Documents" languagecode="1033" />
+            <displayname description="Ablaufende Dokumente" languagecode="1031" />
+            <displayname description="Documents arrivant à expiration" languagecode="1036" />
+            <displayname description="Documenti in scadenza" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Updated daily by flow" languagecode="1033" />
+            <Description description="Täglich vom Flow aktualisiert" languagecode="1031" />
+            <Description description="Mis à jour quotidiennement par le flux" languagecode="1036" />
+            <Description description="Aggiornato ogni giorno dal flusso" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Iban">
@@ -445,9 +514,15 @@
           <Length>68</Length>
           <displaynames>
             <displayname description="IBAN" languagecode="1033" />
+            <displayname description="IBAN" languagecode="1031" />
+            <displayname description="IBAN" languagecode="1036" />
+            <displayname description="IBAN" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Bank account (IBAN) for payments to the supplier" languagecode="1033" />
+            <Description description="Bankkonto (IBAN) für Zahlungen an den Lieferanten" languagecode="1031" />
+            <Description description="Compte bancaire (IBAN) pour les paiements au fournisseur" languagecode="1036" />
+            <Description description="Conto bancario (IBAN) per i pagamenti al fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsCustomer">
@@ -487,6 +562,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Is Customer" languagecode="1033" />
+              <displayname description="Ist Kunde" languagecode="1031" />
+              <displayname description="Est client" languagecode="1036" />
+              <displayname description="È cliente" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -495,20 +573,32 @@
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Is Customer" languagecode="1033" />
+            <displayname description="Ist Kunde" languagecode="1031" />
+            <displayname description="Est client" languagecode="1036" />
+            <displayname description="È cliente" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Yes when the account is a customer that can own projects" languagecode="1033" />
+            <Description description="Ja, wenn die Firma ein Kunde ist, der Projekte haben kann" languagecode="1031" />
+            <Description description="Oui si le compte est un client pouvant avoir des projets" languagecode="1036" />
+            <Description description="Sì se l'account è un cliente che può avere commesse" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IsSupplier">
@@ -548,6 +638,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Is Supplier" languagecode="1033" />
+              <displayname description="Ist Lieferant" languagecode="1031" />
+              <displayname description="Est fournisseur" languagecode="1036" />
+              <displayname description="È fornitore" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -556,20 +649,32 @@
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Is Supplier" languagecode="1033" />
+            <displayname description="Ist Lieferant" languagecode="1031" />
+            <displayname description="Est fournisseur" languagecode="1036" />
+            <displayname description="È fornitore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Yes when the account is a supplier that can receive RFQs and purchase orders" languagecode="1033" />
+            <Description description="Ja, wenn die Firma ein Lieferant ist, der Angebotsanfragen und Bestellungen erhalten kann" languagecode="1031" />
+            <Description description="Oui si le compte est un fournisseur pouvant recevoir des demandes de prix et des commandes" languagecode="1036" />
+            <Description description="Sì se l'account è un fornitore che può ricevere RdO e ordini" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Language">
@@ -609,38 +714,62 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Language" languagecode="1033" />
+              <displayname description="Sprache" languagecode="1031" />
+              <displayname description="Langue" languagecode="1036" />
+              <displayname description="Lingua" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Language for documents and emails sent to the account" languagecode="1033" />
+              <Description description="Sprache für Dokumente und E-Mails an die Firma" languagecode="1031" />
+              <Description description="Langue des documents et e-mails envoyés au compte" languagecode="1036" />
+              <Description description="Lingua per documenti ed e-mail inviati all'account" languagecode="1040" />
             </Descriptions>
             <options>
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Italian" languagecode="1033" />
+                  <label description="Italienisch" languagecode="1031" />
+                  <label description="Italien" languagecode="1036" />
+                  <label description="Italiano" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="English" languagecode="1033" />
+                  <label description="Englisch" languagecode="1031" />
+                  <label description="Anglais" languagecode="1036" />
+                  <label description="Inglese" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000002" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="German" languagecode="1033" />
+                  <label description="Deutsch" languagecode="1031" />
+                  <label description="Allemand" languagecode="1036" />
+                  <label description="Tedesco" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000003" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="French" languagecode="1033" />
+                  <label description="Französisch" languagecode="1031" />
+                  <label description="Français" languagecode="1036" />
+                  <label description="Francese" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Language" languagecode="1033" />
+            <displayname description="Sprache" languagecode="1031" />
+            <displayname description="Langue" languagecode="1036" />
+            <displayname description="Lingua" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Language for documents and emails sent to the account" languagecode="1033" />
+            <Description description="Sprache für Dokumente und E-Mails an die Firma" languagecode="1031" />
+            <Description description="Langue des documents et e-mails envoyés au compte" languagecode="1036" />
+            <Description description="Lingua per documenti ed e-mail inviati all'account" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PaymentTerms">
@@ -678,9 +807,15 @@
           <Length>200</Length>
           <displaynames>
             <displayname description="Payment Terms" languagecode="1033" />
+            <displayname description="Zahlungsbedingungen" languagecode="1031" />
+            <displayname description="Conditions de paiement" languagecode="1036" />
+            <displayname description="Condizioni di pagamento" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Agreed payment terms, e.g. 60 days end of month" languagecode="1033" />
+            <Description description="Vereinbarte Zahlungsbedingungen, z. B. 60 Tage Monatsende" languagecode="1031" />
+            <Description description="Conditions de paiement convenues, p. ex. 60 jours fin de mois" languagecode="1036" />
+            <Description description="Condizioni di pagamento concordate, es. 60 giorni fine mese" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Pec">
@@ -718,9 +853,15 @@
           <Length>200</Length>
           <displaynames>
             <displayname description="PEC" languagecode="1033" />
+            <displayname description="PEC" languagecode="1031" />
+            <displayname description="PEC" languagecode="1036" />
+            <displayname description="PEC" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Certified email address" languagecode="1033" />
+            <Description description="Zertifizierte E-Mail-Adresse" languagecode="1031" />
+            <Description description="Adresse e-mail certifiée" languagecode="1036" />
+            <Description description="Indirizzo PEC" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectCount">
@@ -758,9 +899,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Project Count" languagecode="1033" />
+            <displayname description="Anzahl Projekte" languagecode="1031" />
+            <displayname description="Nombre de projets" languagecode="1036" />
+            <displayname description="Numero commesse" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Number of projects of the customer. Set by plugin" languagecode="1033" />
+            <Description description="Anzahl der Projekte des Kunden. Vom Plug-in gesetzt" languagecode="1031" />
+            <Description description="Nombre de projets du client. Défini par le plug-in" languagecode="1036" />
+            <Description description="Numero di commesse del cliente. Impostato dal plug-in" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Spend">
@@ -799,9 +946,15 @@
           <AccuracySource>2</AccuracySource>
           <displaynames>
             <displayname description="Spend" languagecode="1033" />
+            <displayname description="Ausgaben" languagecode="1031" />
+            <displayname description="Dépenses" languagecode="1036" />
+            <displayname description="Spesa" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Purchase orders not cancelled. Set by plugin" languagecode="1033" />
+            <Description description="Nicht stornierte Bestellungen. Vom Plug-in gesetzt" languagecode="1031" />
+            <Description description="Commandes non annulées. Défini par le plug-in" languagecode="1036" />
+            <Description description="Ordini non annullati. Impostato dal plug-in" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_spend_Base">
@@ -841,9 +994,15 @@
           <CalculationOf>op365_Spend</CalculationOf>
           <displaynames>
             <displayname description="Spend (Base)" languagecode="1033" />
+            <displayname description="Ausgaben (Basis)" languagecode="1031" />
+            <displayname description="Dépenses (base)" languagecode="1036" />
+            <displayname description="Spesa (base)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Value of the Spend in base currency." languagecode="1033" />
+            <Description description="Wert der Ausgaben in der Basiswährung." languagecode="1031" />
+            <Description description="Valeur des dépenses dans la devise de base." languagecode="1036" />
+            <Description description="Valore della spesa nella valuta di base." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierCategory">
@@ -881,9 +1040,15 @@
           <Length>200</Length>
           <displaynames>
             <displayname description="Supplier Category" languagecode="1033" />
+            <displayname description="Lieferantenkategorie" languagecode="1031" />
+            <displayname description="Catégorie de fournisseur" languagecode="1036" />
+            <displayname description="Categoria fornitore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Free-text category of goods or services supplied" languagecode="1033" />
+            <Description description="Freitext-Kategorie der gelieferten Waren oder Leistungen" languagecode="1031" />
+            <Description description="Catégorie libre des biens ou services fournis" languagecode="1036" />
+            <Description description="Categoria libera dei beni o servizi forniti" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierStatus">
@@ -923,6 +1088,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Supplier Status" languagecode="1033" />
+              <displayname description="Lieferantenstatus" languagecode="1031" />
+              <displayname description="Statut du fournisseur" languagecode="1036" />
+              <displayname description="Stato fornitore" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -931,20 +1099,32 @@
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Blocked" languagecode="1033" />
+                  <label description="Gesperrt" languagecode="1031" />
+                  <label description="Bloqué" languagecode="1036" />
+                  <label description="Bloccato" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Supplier Status" languagecode="1033" />
+            <displayname description="Lieferantenstatus" languagecode="1031" />
+            <displayname description="Statut du fournisseur" languagecode="1036" />
+            <displayname description="Stato fornitore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Active suppliers can be invited and ordered from; Blocked suppliers cannot" languagecode="1033" />
+            <Description description="Aktive Lieferanten können eingeladen und beauftragt werden, gesperrte nicht" languagecode="1031" />
+            <Description description="Les fournisseurs actifs peuvent être invités et recevoir des commandes ; les fournisseurs bloqués non" languagecode="1036" />
+            <Description description="I fornitori attivi possono essere invitati e ricevere ordini; quelli bloccati no" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TaxCode">
@@ -982,9 +1162,15 @@
           <Length>40</Length>
           <displaynames>
             <displayname description="Tax Code" languagecode="1033" />
+            <displayname description="Steuernummer" languagecode="1031" />
+            <displayname description="Code fiscal" languagecode="1036" />
+            <displayname description="Codice fiscale" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Italian tax code (Codice Fiscale)" languagecode="1033" />
+            <Description description="Italienische Steuernummer (Codice Fiscale)" languagecode="1031" />
+            <Description description="Code fiscal italien (Codice Fiscale)" languagecode="1036" />
+            <Description description="Codice fiscale" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_VatNumber">
@@ -1022,9 +1208,15 @@
           <Length>40</Length>
           <displaynames>
             <displayname description="VAT Number" languagecode="1033" />
+            <displayname description="USt-IdNr." languagecode="1031" />
+            <displayname description="N° de TVA" languagecode="1036" />
+            <displayname description="Partita IVA" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="VAT registration number (Partita IVA)" languagecode="1033" />
+            <Description description="Umsatzsteuer-Identifikationsnummer (Partita IVA)" languagecode="1031" />
+            <Description description="Numéro de TVA (Partita IVA)" languagecode="1036" />
+            <Description description="Partita IVA" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="PrimaryContactId">
@@ -1056,9 +1248,15 @@
           </LookupTypes>
           <displaynames>
             <displayname description="Primary Contact" languagecode="1033" />
+            <displayname description="Contatto primario" languagecode="1040" />
+            <displayname description="Primärer Kontakt" languagecode="1031" />
+            <displayname description="Contact principal" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Choose the primary contact for the account to provide quick access to contact details." languagecode="1033" />
+            <Description description="Scegliere il contatto primario per l'account per fornire accesso rapido ai dettagli di contatto." languagecode="1040" />
+            <Description description="Wählen Sie den primären Kontakt für die Firma aus, um den schnellen Zugriff auf Kontaktdetails zu ermöglichen." languagecode="1031" />
+            <Description description="Choisissez le contact principal pour le compte pour fournir un accès rapide aux détails du contact." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="StateCode">
@@ -1089,28 +1287,46 @@
             <IntroducedVersion>5.0.0.0</IntroducedVersion>
             <displaynames>
               <displayname description="Status" languagecode="1033" />
+              <displayname description="Stato" languagecode="1040" />
+              <displayname description="Status" languagecode="1031" />
+              <displayname description="Statut" languagecode="1036" />
             </displaynames>
             <Descriptions>
               <Description description="Status of the account." languagecode="1033" />
+              <Description description="Stato dell'account." languagecode="1040" />
+              <Description description="Status der Firma." languagecode="1031" />
+              <Description description="Statut du compte." languagecode="1036" />
             </Descriptions>
             <states>
               <state value="0" defaultstatus="1" invariantname="Active" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Attiva" languagecode="1040" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
                 </labels>
               </state>
               <state value="1" defaultstatus="2" invariantname="Inactive" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inattiva" languagecode="1040" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
                 </labels>
               </state>
             </states>
           </optionset>
           <displaynames>
             <displayname description="Status" languagecode="1033" />
+            <displayname description="Stato" languagecode="1040" />
+            <displayname description="Status" languagecode="1031" />
+            <displayname description="Statut" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Shows whether the account is active or inactive. Inactive accounts are read-only and can't be edited unless they are reactivated." languagecode="1033" />
+            <Description description="Mostra se l'account è attivo o inattivo. Gli account inattivi sono di sola lettura e non possono essere modificati a meno che non vengano riattivati." languagecode="1040" />
+            <Description description="Zeigt, ob die Firma aktiv oder inaktiv ist. Inaktive Firmen sind schreibgeschützt und können erst nach ihrer Reaktivierung bearbeitet werden." languagecode="1031" />
+            <Description description="Indique si le compte est actif ou inactif. Les comptes inactifs sont en lecture seule et ne peuvent pas être modifiés avant d'être réactivés." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Telephone1">
@@ -1141,9 +1357,15 @@
           <Length>100</Length>
           <displaynames>
             <displayname description="Main Phone" languagecode="1033" />
+            <displayname description="Telefono principale" languagecode="1040" />
+            <displayname description="Telefon 1" languagecode="1031" />
+            <displayname description="Téléphone principal" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type the main phone number for this account." languagecode="1033" />
+            <Description description="Digitare il numero di telefono principale per questo account." languagecode="1040" />
+            <Description description="Geben Sie die Haupttelefonnummer für diese Firma ein." languagecode="1031" />
+            <Description description="Tapez le numéro de téléphone principal pour ce compte." languagecode="1036" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Telephone2">
@@ -1174,9 +1396,15 @@
           <Length>100</Length>
           <displaynames>
             <displayname description="Other Phone" languagecode="1033" />
+            <displayname description="Altro telefono" languagecode="1040" />
+            <displayname description="Telefon 2" languagecode="1031" />
+            <displayname description="Autre téléphone" languagecode="1036" />
           </displaynames>
           <Descriptions>
             <Description description="Type a second phone number for this account." languagecode="1033" />
+            <Description description="Digitare un secondo numero di telefono per questo account." languagecode="1040" />
+            <Description description="Geben Sie eine zweite Telefonnummer für diese Firma ein." languagecode="1031" />
+            <Description description="Tapez un deuxième numéro de téléphone pour ce compte." languagecode="1036" />
           </Descriptions>
         </attribute>
       </attributes>

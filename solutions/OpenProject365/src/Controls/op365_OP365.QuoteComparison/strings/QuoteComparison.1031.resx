@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+      <data name="Control_Name" xml:space="preserve">
+    <value>Angebotsvergleich</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Anforderungspositionen im Vergleich zu den Preisen jedes Lieferanten, mit bestem Preis und Vergabe</value>
+  </data>
+  <data name="Property_Value" xml:space="preserve">
+    <value>Antworten</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Die Angebote konnten nicht geladen werden</value>
+  </data>
+  <data name="Save_Rfq" xml:space="preserve">
+    <value>Speichern Sie die Angebotsanfrage, um Angebote zu vergleichen.</value>
+  </data>
+  <data name="Column_Line" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Column_Quantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+  <data name="Column_Best" xml:space="preserve">
+    <value>Bester Preis</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Summe</value>
+  </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Lieferung</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>{0} Tage</value>
+  </data>
+  <data name="Not_Quoted" xml:space="preserve">
+    <value>–</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>{0} von {1} Positionen</value>
+  </data>
+  <data name="Best_Total" xml:space="preserve">
+    <value>Beste Summe</value>
+  </data>
+  <data name="Award" xml:space="preserve">
+    <value>Vergeben</value>
+  </data>
+  <data name="Award_Confirm" xml:space="preserve">
+    <value>Angebotsanfrage an {0} vergeben und die Bestellung erstellen?</value>
+  </data>
+  <data name="Award_Done" xml:space="preserve">
+    <value>Bestellung erstellt.</value>
+  </data>
+  <data name="No_Lines" xml:space="preserve">
+    <value>Die Bestellanforderung hat keine Positionen.</value>
+  </data>
+  <data name="No_Invitations" xml:space="preserve">
+    <value>Laden Sie Lieferanten ein, um ihre Angebote zu vergleichen.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Status_Invited" xml:space="preserve">
+    <value>Eingeladen</value>
+  </data>
+  <data name="Status_ToInvite" xml:space="preserve">
+    <value>Einzuladen</value>
+  </data>
+  <data name="Status_Responded" xml:space="preserve">
+    <value>Beantwortet</value>
+  </data>
+  <data name="Status_Declined" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+</root>

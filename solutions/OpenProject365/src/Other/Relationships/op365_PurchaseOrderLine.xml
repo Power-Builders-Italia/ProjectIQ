@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order line the quantity was received against" languagecode="1033" />
+        <Description description="Bestellposition, für die die Menge eingegangen ist" languagecode="1031" />
+        <Description description="Ligne de commande au titre de laquelle la quantité a été reçue" languagecode="1036" />
+        <Description description="Riga ordine a fronte della quale è stata ricevuta la quantità" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase order line the invoice line refers to" languagecode="1033" />
+        <Description description="Bestellposition, auf die sich die Rechnungsposition bezieht" languagecode="1031" />
+        <Description description="Ligne de commande à laquelle se rapporte la ligne de facture" languagecode="1036" />
+        <Description description="Riga ordine a cui si riferisce la riga fattura" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

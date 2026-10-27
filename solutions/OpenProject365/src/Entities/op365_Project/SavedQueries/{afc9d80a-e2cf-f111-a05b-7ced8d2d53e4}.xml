@@ -50,7 +50,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Ausgesetzte Projekte" languagecode="1031" />
       <LocalizedName description="Suspended Projects" languagecode="1033" />
+      <LocalizedName description="Projets suspendus" languagecode="1036" />
+      <LocalizedName description="Commesse sospese" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

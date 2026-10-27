@@ -19,12 +19,12 @@
 </style>
 </head>
 <body>
-  <label for="note">Reason</label>
+  <label for="note" data-t>Reason</label>
   <textarea id="note" placeholder="Explain why it is rejected" maxlength="4000"></textarea>
   <div id="error" class="error" role="alert"></div>
   <div class="actions">
-    <button id="cancel" type="button">Cancel</button>
-    <button id="ok" class="primary" type="button" disabled>Reject</button>
+    <button id="cancel" type="button" data-t>Cancel</button>
+    <button id="ok" class="primary" type="button" disabled data-t>Reject</button>
   </div>
 <script>
 (function () {
@@ -32,6 +32,17 @@
   var params = new URLSearchParams(new URLSearchParams(location.search).get("data") || "");
   var note = document.getElementById("note"), ok = document.getElementById("ok"), error = document.getElementById("error");
   var xrm = window.parent && window.parent.Xrm;
+  // English text -> [German, French, Italian], in the user's Dataverse language
+  var TEXT = {
+    "Reason": ["Grund", "Motif", "Motivo"],
+    "Explain why it is rejected": ["Begründen Sie die Ablehnung", "Expliquez le motif du rejet", "Spiega il motivo del rifiuto"],
+    "Cancel": ["Abbrechen", "Annuler", "Annulla"],
+    "Reject": ["Ablehnen", "Rejeter", "Rifiuta"]
+  };
+  var col = xrm ? { 1031: 0, 1036: 1, 1040: 2 }[xrm.Utility.getGlobalContext().userSettings.languageId] : undefined;
+  function t(text) { return col === undefined || !TEXT[text] ? text : TEXT[text][col]; }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-t]"), function (e) { e.textContent = t(e.textContent); });
+  note.placeholder = t(note.placeholder);
   function close() { window.close(); }
   note.addEventListener("input", function () { ok.disabled = !note.value.trim(); });
   document.getElementById("cancel").addEventListener("click", close);

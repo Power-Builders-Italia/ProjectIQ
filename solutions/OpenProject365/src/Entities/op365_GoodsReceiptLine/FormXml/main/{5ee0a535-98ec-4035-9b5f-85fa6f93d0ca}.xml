@@ -7,42 +7,60 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="general" id="{5149cb24-0345-5d11-bfcf-b7931f7de4eb}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="general" id="{717a9b5f-e0fb-5807-a46b-d20d7dfc783e}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="line" showlabel="true" showbar="false" columns="2" id="{91798eaf-23b7-5e12-9a77-cbf86e30e3a9}">
+                <section name="line" showlabel="true" showbar="false" columns="2" id="{5149cb24-0345-5d11-bfcf-b7931f7de4eb}">
                   <labels>
+                    <label description="Position" languagecode="1031" />
                     <label description="Line" languagecode="1033" />
+                    <label description="Ligne" languagecode="1036" />
+                    <label description="Riga" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{a5e06ad8-b21a-5de9-af98-51392f8b14e3}">
+                      <cell id="{615b9f1f-0d9b-5b16-bd51-8cf81edeced0}">
                         <labels>
                           <label description="Goods Receipt" languagecode="1033" />
+                          <label description="Ricevimento merci" languagecode="1040" />
+                          <label description="Wareneingang" languagecode="1031" />
+                          <label description="Réception de marchandises" languagecode="1036" />
                         </labels>
                         <control id="op365_goodsreceiptid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_goodsreceiptid" disabled="true" />
                       </cell>
-                      <cell id="{615b9f1f-0d9b-5b16-bd51-8cf81edeced0}">
+                      <cell id="{64ee688c-06fd-57fb-8ec4-8b6908196540}">
                         <labels>
                           <label description="Order Line" languagecode="1033" />
+                          <label description="Riga ordine" languagecode="1040" />
+                          <label description="Bestellposition" languagecode="1031" />
+                          <label description="Ligne de commande" languagecode="1036" />
                         </labels>
                         <control id="op365_orderlineid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_orderlineid" disabled="true" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{64ee688c-06fd-57fb-8ec4-8b6908196540}">
+                      <cell id="{17bb4843-690d-51ce-8ef4-26449e842ae9}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />
+                          <label description="Quantità" languagecode="1040" />
+                          <label description="Menge" languagecode="1031" />
+                          <label description="Quantité" languagecode="1036" />
                         </labels>
                         <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" disabled="true" />
                       </cell>
-                      <cell id="{17bb4843-690d-51ce-8ef4-26449e842ae9}">
+                      <cell id="{91798eaf-23b7-5e12-9a77-cbf86e30e3a9}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" disabled="true" />
                       </cell>
@@ -58,7 +76,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Wareneingangsposition" languagecode="1031" />
       <LocalizedName description="Goods Receipt Line" languagecode="1033" />
+      <LocalizedName description="Ligne de réception" languagecode="1036" />
+      <LocalizedName description="Riga ricevimento" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

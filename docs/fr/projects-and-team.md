@@ -76,7 +76,7 @@ Vous ne voyez que les projets dont vous êtes propriétaire, ceux dont vous ête
 | **Actual Cost** | Coût de la main-d'œuvre approuvée + coût des matériaux saisis sur le projet | Calculé |
 | **Actual Hours** | Heures approuvées saisies sur le projet | Calculé |
 | **Committed Cost** | Valeur des lignes des commandes envoyées ou confirmées non encore reçues | Calculé |
-| **Progress %** | Avancement global, issu de la WBS | Calculé |
+| **Progress %** | Avancement global, issu de la WBS, affiché comme une barre verte de 0 à 100 avec le pourcentage arrondi | Calculé |
 | **Description** | Périmètre, notes, tout ce qui est utile | Vous |
 
 La colonne de droite affiche la **Timeline** : notes, mentions (`@nom`) et activités (appels, tâches, rendez-vous, e-mails) sur le projet.

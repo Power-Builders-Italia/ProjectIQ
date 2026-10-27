@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Grille arborescente WBS</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>WBS du projet dépliable avec modification en ligne du budget, des dates et de l'avancement</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Nœuds WBS</value>
+  </data>
+  <data name="Col_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Col_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Col_Start" xml:space="preserve">
+    <value>Début</value>
+  </data>
+  <data name="Col_End" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="Col_Hours" xml:space="preserve">
+    <value>Heures budgétées</value>
+  </data>
+  <data name="Col_Labour" xml:space="preserve">
+    <value>Main-d'œuvre</value>
+  </data>
+  <data name="Col_Materials" xml:space="preserve">
+    <value>Matériel</value>
+  </data>
+  <data name="Col_Other" xml:space="preserve">
+    <value>Autres</value>
+  </data>
+  <data name="Col_Total" xml:space="preserve">
+    <value>Budget total</value>
+  </data>
+  <data name="Col_Progress" xml:space="preserve">
+    <value>Avancement %</value>
+  </data>
+  <data name="Add_Node" xml:space="preserve">
+    <value>Nouveau nœud</value>
+  </data>
+  <data name="Add_Child" xml:space="preserve">
+    <value>Nouveau nœud enfant</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="Expand_All" xml:space="preserve">
+    <value>Tout développer</value>
+  </data>
+  <data name="Collapse_All" xml:space="preserve">
+    <value>Tout réduire</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Aucun nœud WBS pour l'instant. Utilisez Nouveau nœud pour créer le premier.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Enregistrez le projet pour construire son WBS.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossible de charger le WBS</value>
+  </data>
+  <data name="Error_Save" xml:space="preserve">
+    <value>Impossible d'enregistrer la modification</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Rolled_Up" xml:space="preserve">
+    <value>Inclut les nœuds enfants</value>
+  </data>
+</root>

@@ -44,7 +44,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Lieferanten" languagecode="1031" />
       <LocalizedName description="All Suppliers" languagecode="1033" />
+      <LocalizedName description="Tous les fournisseurs" languagecode="1036" />
+      <LocalizedName description="Tutti i fornitori" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

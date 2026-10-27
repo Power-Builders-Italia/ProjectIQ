@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine PSP-Zuordnungen" languagecode="1031" />
       <LocalizedName description="My WBS Allocations" languagecode="1033" />
+      <LocalizedName description="Mes affectations WBS" languagecode="1036" />
+      <LocalizedName description="Le mie allocazioni WBS" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven PSP-Zuordnungen" languagecode="1031" />
       <Description description="Active WBS Allocations owned by me" languagecode="1033" />
+      <Description description="Mes affectations WBS actives" languagecode="1036" />
+      <Description description="Le mie allocazioni WBS attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

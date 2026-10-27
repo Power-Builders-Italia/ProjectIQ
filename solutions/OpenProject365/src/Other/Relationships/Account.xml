@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier proposed by default when the item is requested or ordered" languagecode="1033" />
+        <Description description="Standardmäßig vorgeschlagener Lieferant, wenn der Artikel angefordert oder bestellt wird" languagecode="1031" />
+        <Description description="Fournisseur proposé par défaut lorsque l'article est demandé ou commandé" languagecode="1036" />
+        <Description description="Fornitore proposto per default quando l'articolo viene richiesto o ordinato" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier offering the item" languagecode="1033" />
+        <Description description="Lieferant, der den Artikel anbietet" languagecode="1031" />
+        <Description description="Fournisseur proposant l'article" languagecode="1036" />
+        <Description description="Fornitore che offre l'articolo" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier the material came from" languagecode="1033" />
+        <Description description="Lieferant, von dem das Material stammt" languagecode="1031" />
+        <Description description="Fournisseur d'où provient le matériel" languagecode="1036" />
+        <Description description="Fornitore da cui proviene il materiale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Customer the project is for" languagecode="1033" />
+        <Description description="Kunde, für den das Projekt ist" languagecode="1031" />
+        <Description description="Client du projet" languagecode="1036" />
+        <Description description="Cliente della commessa" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -159,6 +171,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier the order is placed with" languagecode="1033" />
+        <Description description="Lieferant, bei dem die Bestellung aufgegeben wird" languagecode="1031" />
+        <Description description="Fournisseur auprès duquel la commande est passée" languagecode="1036" />
+        <Description description="Fornitore a cui è intestato l'ordine" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -194,6 +209,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier suggested by the requester" languagecode="1033" />
+        <Description description="Vom Anforderer vorgeschlagener Lieferant" languagecode="1031" />
+        <Description description="Fournisseur suggéré par le demandeur" languagecode="1036" />
+        <Description description="Fornitore suggerito dal richiedente" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -229,6 +247,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Invited supplier" languagecode="1033" />
+        <Description description="Eingeladener Lieferant" languagecode="1031" />
+        <Description description="Fournisseur invité" languagecode="1036" />
+        <Description description="Fornitore invitato" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -264,6 +285,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier the compliance document belongs to" languagecode="1033" />
+        <Description description="Lieferant, zu dem das Compliance-Dokument gehört" languagecode="1031" />
+        <Description description="Fournisseur auquel appartient le document de conformité" languagecode="1036" />
+        <Description description="Fornitore a cui appartiene il documento di conformità" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -299,6 +323,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Supplier who issued the invoice" languagecode="1033" />
+        <Description description="Lieferant, der die Rechnung ausgestellt hat" languagecode="1031" />
+        <Description description="Fournisseur ayant émis la facture" languagecode="1036" />
+        <Description description="Fornitore che ha emesso la fattura" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

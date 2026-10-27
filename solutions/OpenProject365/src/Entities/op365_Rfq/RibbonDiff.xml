@@ -77,21 +77,33 @@
     <LocLabel Id="op365.rfq.CancelRfq.Label">
       <Titles>
         <Title description="Cancel RFQ" languagecode="1033" />
+        <Title description="Annulla RdO" languagecode="1040" />
+        <Title description="Annuler la demande de prix" languagecode="1036" />
+        <Title description="Angebotsanfrage stornieren" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.rfq.CancelRfq.Tip">
       <Titles>
         <Title description="Cancel the request for quotation" languagecode="1033" />
+        <Title description="Angebotsanfrage stornieren" languagecode="1031" />
+        <Title description="Annulla la richiesta di offerta" languagecode="1040" />
+        <Title description="Annuler la demande de prix" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.rfq.Send.Label">
       <Titles>
         <Title description="Send" languagecode="1033" />
+        <Title description="Invia" languagecode="1040" />
+        <Title description="Envoyer" languagecode="1036" />
+        <Title description="Senden" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.rfq.Send.Tip">
       <Titles>
         <Title description="Invite the suppliers to quote" languagecode="1033" />
+        <Title description="Lieferanten zur Angebotsabgabe einladen" languagecode="1031" />
+        <Title description="Inviter les fournisseurs à soumettre une offre" languagecode="1036" />
+        <Title description="Invita i fornitori a fare un'offerta" languagecode="1040" />
       </Titles>
     </LocLabel>
   </LocLabels>

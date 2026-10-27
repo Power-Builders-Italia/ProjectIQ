@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
   <description default="Creates a request for quotation with supplier invitations from an approved purchase request">
+    <label description="Erstellt eine Angebotsanfrage mit Lieferanteneinladungen aus einer genehmigten Bestellanforderung" languagecode="1031" />
     <label description="Creates a request for quotation with supplier invitations from an approved purchase request" languagecode="1033" />
+    <label description="Crée une demande de prix avec invitations fournisseurs à partir d'une demande d'achat approuvée" languagecode="1036" />
+    <label description="Crea una richiesta di offerta con inviti ai fornitori da una RDA approvata" languagecode="1040" />
   </description>
   <displayname default="Create RFQ">
+    <label description="Angebotsanfrage erstellen" languagecode="1031" />
     <label description="Create RFQ" languagecode="1033" />
+    <label description="Créer une demande de prix" languagecode="1036" />
+    <label description="Crea RdO" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

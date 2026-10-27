@@ -7,28 +7,40 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="summary" id="{e93d829e-52f0-56f3-8507-04429b073be1}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="summary" id="{970fa188-3b10-5060-a666-ea7d8d62f3d3}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Zusammenfassung" languagecode="1031" />
             <label description="Summary" languagecode="1033" />
+            <label description="Résumé" languagecode="1036" />
+            <label description="Riepilogo" languagecode="1040" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
                 <section name="project" showlabel="true" showbar="false" columns="2" id="{e0fb8dde-7d09-55e8-af09-f901b3657ec1}">
                   <labels>
+                    <label description="Projekt" languagecode="1031" />
                     <label description="Project" languagecode="1033" />
+                    <label description="Projet" languagecode="1036" />
+                    <label description="Commessa" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{7513607a-ed26-5fd9-9587-5a323db9ed85}">
                         <labels>
                           <label description="Code" languagecode="1033" />
+                          <label description="Codice" languagecode="1040" />
+                          <label description="Code" languagecode="1031" />
+                          <label description="Code" languagecode="1036" />
                         </labels>
                         <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
                       </cell>
                       <cell id="{39dcc993-e425-5777-b0dc-256d77fc1cc1}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{46cdcae7-140a-5019-8171-7ed549bee3d0}">
                         <labels>
                           <label description="Customer" languagecode="1033" />
+                          <label description="Cliente" languagecode="1040" />
+                          <label description="Kunde" languagecode="1031" />
+                          <label description="Client" languagecode="1036" />
                         </labels>
                         <control id="op365_customerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_customerid" />
                       </cell>
                       <cell id="{8c2ecaa2-4617-5d1f-b78a-e0d4cdb6a508}">
                         <labels>
                           <label description="Project Manager" languagecode="1033" />
+                          <label description="Capo commessa" languagecode="1040" />
+                          <label description="Projektleiter" languagecode="1031" />
+                          <label description="Chef de projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectmanagerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectmanagerid" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{28f92b8f-7e3c-5b3d-a4b1-abdfb1683188}">
                         <labels>
                           <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
                         </labels>
                         <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" />
                       </cell>
                       <cell id="{7e8269b1-61d7-5847-995e-a9f2a0ba36a2}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -65,33 +89,48 @@
                       <cell id="{5138a672-981d-5b35-b767-c290fd7f0af8}">
                         <labels>
                           <label description="Start Date" languagecode="1033" />
+                          <label description="Data inizio" languagecode="1040" />
+                          <label description="Startdatum" languagecode="1031" />
+                          <label description="Date de début" languagecode="1036" />
                         </labels>
                         <control id="op365_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_startdate" />
                       </cell>
                       <cell id="{a03ef881-fac2-59c4-9c16-42b71911c487}">
                         <labels>
                           <label description="End Date" languagecode="1033" />
+                          <label description="Data fine" languagecode="1040" />
+                          <label description="Enddatum" languagecode="1031" />
+                          <label description="Date de fin" languagecode="1036" />
                         </labels>
                         <control id="op365_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_enddate" />
                       </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="budget_and_progress" showlabel="true" showbar="false" columns="2" id="{63817470-4d0b-5188-99ea-7561106347f4}">
+                <section name="budget_and_progress" showlabel="true" showbar="false" columns="2" id="{15432de3-8dab-5cf2-a6d2-d75f33b75a7b}">
                   <labels>
+                    <label description="Budget und Fortschritt" languagecode="1031" />
                     <label description="Budget and Progress" languagecode="1033" />
+                    <label description="Budget et avancement" languagecode="1036" />
+                    <label description="Budget e avanzamento" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{93031fdd-fbaf-5586-a82b-5e6ac5a33123}">
                         <labels>
                           <label description="Contract Value" languagecode="1033" />
+                          <label description="Valore contratto" languagecode="1040" />
+                          <label description="Vertragswert" languagecode="1031" />
+                          <label description="Valeur du contrat" languagecode="1036" />
                         </labels>
                         <control id="op365_contractvalue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_contractvalue" />
                       </cell>
                       <cell id="{6bd18b37-d1e1-56b6-90e7-9d2f69324b6c}">
                         <labels>
                           <label description="Budget Total" languagecode="1033" />
+                          <label description="Budget totale" languagecode="1040" />
+                          <label description="Budget gesamt" languagecode="1031" />
+                          <label description="Budget total" languagecode="1036" />
                         </labels>
                         <control id="op365_budgettotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgettotal" />
                       </cell>
@@ -100,12 +139,18 @@
                       <cell id="{f0b450b5-49ac-545d-ab50-f3d88f5cc0b3}">
                         <labels>
                           <label description="Actual Cost" languagecode="1033" />
+                          <label description="Costo effettivo" languagecode="1040" />
+                          <label description="Istkosten" languagecode="1031" />
+                          <label description="Coût réel" languagecode="1036" />
                         </labels>
                         <control id="op365_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_actualcost" disabled="true" />
                       </cell>
                       <cell id="{a31c5aeb-43f3-542d-9061-1b761fefa093}">
                         <labels>
                           <label description="Actual Hours" languagecode="1033" />
+                          <label description="Ore effettive" languagecode="1040" />
+                          <label description="Iststunden" languagecode="1031" />
+                          <label description="Heures réelles" languagecode="1036" />
                         </labels>
                         <control id="op365_actualhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_actualhours" disabled="true" />
                       </cell>
@@ -114,27 +159,39 @@
                       <cell id="{a45c2ba7-0d94-50fd-99ae-443bfab2e800}">
                         <labels>
                           <label description="Committed Cost" languagecode="1033" />
+                          <label description="Costo impegnato" languagecode="1040" />
+                          <label description="Obligo" languagecode="1031" />
+                          <label description="Coût engagé" languagecode="1036" />
                         </labels>
                         <control id="op365_committedcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_committedcost" disabled="true" />
                       </cell>
-                      <cell id="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}">
+                      <cell id="{63817470-4d0b-5188-99ea-7561106347f4}">
                         <labels>
                           <label description="Progress %" languagecode="1033" />
+                          <label description="Avanzamento %" languagecode="1040" />
+                          <label description="Fortschritt %" languagecode="1031" />
+                          <label description="Avancement %" languagecode="1036" />
                         </labels>
-                        <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" disabled="true" />
+                        <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" disabled="true" uniqueid="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}" />
                       </cell>
                     </row>
                   </rows>
                 </section>
-                <section name="description" showlabel="true" showbar="false" columns="1" id="{9539674e-6aef-5a4f-91c8-3188d7f20f8e}">
+                <section name="description" showlabel="true" showbar="false" columns="1" id="{01b76300-1263-5b45-8c7d-b61e962221bf}">
                   <labels>
+                    <label description="Beschreibung" languagecode="1031" />
                     <label description="Description" languagecode="1033" />
+                    <label description="Description" languagecode="1036" />
+                    <label description="Descrizione" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{15432de3-8dab-5cf2-a6d2-d75f33b75a7b}">
+                      <cell id="{9539674e-6aef-5a4f-91c8-3188d7f20f8e}">
                         <labels>
                           <label description="Description" languagecode="1033" />
+                          <label description="Descrizione" languagecode="1040" />
+                          <label description="Beschreibung" languagecode="1031" />
+                          <label description="Description" languagecode="1036" />
                         </labels>
                         <control id="op365_description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_description" />
                       </cell>
@@ -145,15 +202,21 @@
             </column>
             <column width="40%">
               <sections>
-                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{8b3371c6-6a8b-512e-867e-d00a05414ce6}">
+                <section name="timeline" showlabel="true" showbar="false" columns="1" id="{e93d829e-52f0-56f3-8507-04429b073be1}">
                   <labels>
+                    <label description="Zeitachse" languagecode="1031" />
                     <label description="Timeline" languagecode="1033" />
+                    <label description="Chronologie" languagecode="1036" />
+                    <label description="Sequenza temporale" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{01b76300-1263-5b45-8c7d-b61e962221bf}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{8b3371c6-6a8b-512e-867e-d00a05414ce6}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
+                          <label description="Zeitachse" languagecode="1031" />
                           <label description="Timeline" languagecode="1033" />
+                          <label description="Chronologie" languagecode="1036" />
+                          <label description="Sequenza temporale" languagecode="1040" />
                         </labels>
                         <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" disabled="false" />
                       </cell>
@@ -164,24 +227,33 @@
             </column>
           </columns>
         </tab>
-        <tab name="wbs" id="{098b0cfe-68d8-576c-b6b5-f1adf63f22c5}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="wbs" id="{22081641-e94f-56af-8e99-b6b2da516bb5}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="PSP" languagecode="1031" />
             <label description="WBS" languagecode="1033" />
+            <label description="WBS" languagecode="1036" />
+            <label description="WBS" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="wbs" showlabel="true" showbar="false" columns="1" id="{a11a0e2c-04e4-51da-b2c4-5259470c4c5b}">
+                <section name="wbs" showlabel="true" showbar="false" columns="1" id="{098b0cfe-68d8-576c-b6b5-f1adf63f22c5}">
                   <labels>
+                    <label description="PSP" languagecode="1031" />
                     <label description="WBS" languagecode="1033" />
+                    <label description="WBS" languagecode="1036" />
+                    <label description="WBS" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{d2842545-1d68-5dba-bbd7-da7618448d6e}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{a11a0e2c-04e4-51da-b2c4-5259470c4c5b}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="WBS" languagecode="1033" />
+                          <label description="WBS" languagecode="1040" />
+                          <label description="PSP" languagecode="1031" />
+                          <label description="WBS" languagecode="1036" />
                         </labels>
-                        <control id="WbsTree" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{970fa188-3b10-5060-a666-ea7d8d62f3d3}">
+                        <control id="WbsTree" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{d2842545-1d68-5dba-bbd7-da7618448d6e}">
                           <parameters>
                             <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
                             <IsUserView>false</IsUserView>
@@ -206,24 +278,33 @@
             </column>
           </columns>
         </tab>
-        <tab name="gantt" id="{5f0c42f1-d162-5375-8c18-0fe3767f2b36}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="gantt" id="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Gantt" languagecode="1031" />
             <label description="Gantt" languagecode="1033" />
+            <label description="Gantt" languagecode="1036" />
+            <label description="Gantt" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="gantt" showlabel="true" showbar="false" columns="1" id="{46ea03cd-d1d0-5507-ae66-d7cfe5affb3e}">
+                <section name="gantt" showlabel="true" showbar="false" columns="1" id="{d8fb0fb2-fbf9-5c6b-8a19-3950e5f2148e}">
                   <labels>
+                    <label description="Gantt" languagecode="1031" />
                     <label description="Gantt" languagecode="1033" />
+                    <label description="Gantt" languagecode="1036" />
+                    <label description="Gantt" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}" showlabel="false" rowspan="20" colspan="1" auto="false">
+                      <cell id="{46ea03cd-d1d0-5507-ae66-d7cfe5affb3e}" showlabel="false" rowspan="20" colspan="1" auto="false">
                         <labels>
                           <label description="Gantt" languagecode="1033" />
+                          <label description="Gantt" languagecode="1040" />
+                          <label description="Gantt" languagecode="1031" />
+                          <label description="Gantt" languagecode="1036" />
                         </labels>
-                        <control id="Gantt" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{22081641-e94f-56af-8e99-b6b2da516bb5}">
+                        <control id="Gantt" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}">
                           <parameters>
                             <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
                             <IsUserView>false</IsUserView>
@@ -244,15 +325,21 @@
                     </row>
                   </rows>
                 </section>
-                <section name="baselines" showlabel="true" showbar="false" columns="1" id="{24ed5893-9734-571f-a80c-9b06626b7502}">
+                <section name="baselines" showlabel="true" showbar="false" columns="1" id="{5f0c42f1-d162-5375-8c18-0fe3767f2b36}">
                   <labels>
+                    <label description="Basispläne" languagecode="1031" />
                     <label description="Baselines" languagecode="1033" />
+                    <label description="Plannings de référence" languagecode="1036" />
+                    <label description="Baseline" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{d8fb0fb2-fbf9-5c6b-8a19-3950e5f2148e}" showlabel="true" rowspan="5" colspan="1" auto="false">
+                      <cell id="{24ed5893-9734-571f-a80c-9b06626b7502}" showlabel="true" rowspan="5" colspan="1" auto="false">
                         <labels>
                           <label description="Baselines" languagecode="1033" />
+                          <label description="Baseline" languagecode="1040" />
+                          <label description="Basispläne" languagecode="1031" />
+                          <label description="Plannings de référence" languagecode="1036" />
                         </labels>
                         <control id="Baselines" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -279,24 +366,33 @@
             </column>
           </columns>
         </tab>
-        <tab name="costs" id="{25cfe49f-cf05-5fcd-bbd6-5b9665c552fa}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="costs" id="{bdd825d8-70da-592b-92e4-120a1e0a7296}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Kosten" languagecode="1031" />
             <label description="Costs" languagecode="1033" />
+            <label description="Coûts" languagecode="1036" />
+            <label description="Costi" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="cost_summary" showlabel="true" showbar="false" columns="1" id="{f9e2368c-0925-56f2-8468-a1d1b4ab8fb6}">
+                <section name="cost_summary" showlabel="true" showbar="false" columns="1" id="{25cfe49f-cf05-5fcd-bbd6-5b9665c552fa}">
                   <labels>
+                    <label description="Kostenübersicht" languagecode="1031" />
                     <label description="Cost Summary" languagecode="1033" />
+                    <label description="Synthèse des coûts" languagecode="1036" />
+                    <label description="Riepilogo costi" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0199ffed-44ac-5b02-840c-3748dce2d5e4}" showlabel="false">
+                      <cell id="{f9e2368c-0925-56f2-8468-a1d1b4ab8fb6}" showlabel="false">
                         <labels>
                           <label description="Actual Cost" languagecode="1033" />
+                          <label description="Costo effettivo" languagecode="1040" />
+                          <label description="Istkosten" languagecode="1031" />
+                          <label description="Coût réel" languagecode="1036" />
                         </labels>
-                        <control id="op365_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_actualcost" uniqueid="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}" />
+                        <control id="op365_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_actualcost" uniqueid="{0199ffed-44ac-5b02-840c-3748dce2d5e4}" />
                       </cell>
                     </row>
                   </rows>
@@ -305,22 +401,31 @@
             </column>
           </columns>
         </tab>
-        <tab name="time" id="{877b29bf-5e16-5eda-86da-54357534c5d6}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="time" id="{5d288688-8518-5e96-9d05-8319eb81c6d0}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Zeit" languagecode="1031" />
             <label description="Time" languagecode="1033" />
+            <label description="Temps" languagecode="1036" />
+            <label description="Ore" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="time_entries" showlabel="true" showbar="false" columns="1" id="{1cec0b78-3ba5-5d2c-bc17-196e40213510}">
+                <section name="time_entries" showlabel="true" showbar="false" columns="1" id="{877b29bf-5e16-5eda-86da-54357534c5d6}">
                   <labels>
+                    <label description="Zeiteinträge" languagecode="1031" />
                     <label description="Time Entries" languagecode="1033" />
+                    <label description="Saisies de temps" languagecode="1036" />
+                    <label description="Registrazioni ore" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{bdd825d8-70da-592b-92e4-120a1e0a7296}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                      <cell id="{1cec0b78-3ba5-5d2c-bc17-196e40213510}" showlabel="true" rowspan="12" colspan="1" auto="false">
                         <labels>
                           <label description="Time Entries" languagecode="1033" />
+                          <label description="Registrazioni ore" languagecode="1040" />
+                          <label description="Zeiteinträge" languagecode="1031" />
+                          <label description="Saisies de temps" languagecode="1036" />
                         </labels>
                         <control id="TimeEntries" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -347,22 +452,31 @@
             </column>
           </columns>
         </tab>
-        <tab name="materials" id="{951ccbe5-d273-5d59-a26a-c6e25052432e}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="materials" id="{0f3e748d-94c2-50d2-830d-d0b5f249c283}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Material" languagecode="1031" />
             <label description="Materials" languagecode="1033" />
+            <label description="Matériel" languagecode="1036" />
+            <label description="Materiali" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="material_usage" showlabel="true" showbar="false" columns="1" id="{89223e53-c760-5990-ba8b-6ad8a614c433}">
+                <section name="material_usage" showlabel="true" showbar="false" columns="1" id="{951ccbe5-d273-5d59-a26a-c6e25052432e}">
                   <labels>
+                    <label description="Materialverbrauch" languagecode="1031" />
                     <label description="Material Usage" languagecode="1033" />
+                    <label description="Consommations de matériel" languagecode="1036" />
+                    <label description="Consumi materiale" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5d288688-8518-5e96-9d05-8319eb81c6d0}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                      <cell id="{89223e53-c760-5990-ba8b-6ad8a614c433}" showlabel="true" rowspan="12" colspan="1" auto="false">
                         <labels>
                           <label description="Material Usage" languagecode="1033" />
+                          <label description="Consumi materiale" languagecode="1040" />
+                          <label description="Materialverbrauch" languagecode="1031" />
+                          <label description="Consommations de matériel" languagecode="1036" />
                         </labels>
                         <control id="Materials" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -389,22 +503,31 @@
             </column>
           </columns>
         </tab>
-        <tab name="purchasing" id="{9b271b8b-b25e-5763-9e35-8b15127c6f5b}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="purchasing" id="{efc7be7d-6e35-5ecf-8cd0-7432de15e6ce}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Einkauf" languagecode="1031" />
             <label description="Purchasing" languagecode="1033" />
+            <label description="Achats" languagecode="1036" />
+            <label description="Acquisti" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="purchase_requests" showlabel="true" showbar="false" columns="1" id="{05eff4a9-474e-593f-b78d-cbe9fbb4d408}">
+                <section name="purchase_requests" showlabel="true" showbar="false" columns="1" id="{5c5cb016-7f7d-5757-bae7-f853408c4dd9}">
                   <labels>
+                    <label description="Bestellanforderungen" languagecode="1031" />
                     <label description="Purchase Requests" languagecode="1033" />
+                    <label description="Demandes d'achat" languagecode="1036" />
+                    <label description="Richieste di acquisto" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{0f3e748d-94c2-50d2-830d-d0b5f249c283}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                      <cell id="{05eff4a9-474e-593f-b78d-cbe9fbb4d408}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Purchase Requests" languagecode="1033" />
+                          <label description="Richieste di acquisto" languagecode="1040" />
+                          <label description="Bestellanforderungen" languagecode="1031" />
+                          <label description="Demandes d'achat" languagecode="1036" />
                         </labels>
                         <control id="PurchaseRequests" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -427,15 +550,21 @@
                     </row>
                   </rows>
                 </section>
-                <section name="purchase_orders" showlabel="true" showbar="false" columns="1" id="{64b91cf9-99f9-5dbb-8b9d-67d20abf6012}">
+                <section name="purchase_orders" showlabel="true" showbar="false" columns="1" id="{9b271b8b-b25e-5763-9e35-8b15127c6f5b}">
                   <labels>
+                    <label description="Bestellungen" languagecode="1031" />
                     <label description="Purchase Orders" languagecode="1033" />
+                    <label description="Commandes d'achat" languagecode="1036" />
+                    <label description="Ordini di acquisto" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5c5cb016-7f7d-5757-bae7-f853408c4dd9}" showlabel="true" rowspan="6" colspan="1" auto="false">
+                      <cell id="{64b91cf9-99f9-5dbb-8b9d-67d20abf6012}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Purchase Orders" languagecode="1033" />
+                          <label description="Ordini di acquisto" languagecode="1040" />
+                          <label description="Bestellungen" languagecode="1031" />
+                          <label description="Commandes d'achat" languagecode="1036" />
                         </labels>
                         <control id="PurchaseOrders" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -462,22 +591,31 @@
             </column>
           </columns>
         </tab>
-        <tab name="team" id="{9a9b041a-9199-5f9d-93ad-8ba40e2439ea}" expanded="true" showlabel="true" verticallayout="true">
+        <tab name="team" id="{6b62d9df-793b-5040-a630-c6abd309b53c}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Team" languagecode="1031" />
             <label description="Team" languagecode="1033" />
+            <label description="Équipe" languagecode="1036" />
+            <label description="Team" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section name="team" showlabel="true" showbar="false" columns="1" id="{dad7f09c-6a26-58b5-8371-085e886f92ee}">
+                <section name="team" showlabel="true" showbar="false" columns="1" id="{9a9b041a-9199-5f9d-93ad-8ba40e2439ea}">
                   <labels>
+                    <label description="Team" languagecode="1031" />
                     <label description="Team" languagecode="1033" />
+                    <label description="Équipe" languagecode="1036" />
+                    <label description="Team" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{efc7be7d-6e35-5ecf-8cd0-7432de15e6ce}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                      <cell id="{dad7f09c-6a26-58b5-8371-085e886f92ee}" showlabel="true" rowspan="10" colspan="1" auto="false">
                         <labels>
                           <label description="Project Members" languagecode="1033" />
+                          <label description="Membri commessa" languagecode="1040" />
+                          <label description="Projektmitglieder" languagecode="1031" />
+                          <label description="Membres du projet" languagecode="1036" />
                         </labels>
                         <control id="Team" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -506,7 +644,29 @@
         </tab>
       </tabs>
       <controlDescriptions>
-        <controlDescription forControl="{970fa188-3b10-5060-a666-ea7d8d62f3d3}">
+        <controlDescription forControl="{91f011d3-1b6c-5d62-a1f9-8752d95c80ad}">
+          <customControl id="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}">
+            <parameters>
+              <datafieldname>op365_progresspct</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="op365_OP365.ProgressField">
+            <parameters>
+              <value>op365_progresspct</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{d2842545-1d68-5dba-bbd7-da7618448d6e}">
           <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
             <parameters>
               <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
@@ -564,7 +724,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{22081641-e94f-56af-8e99-b6b2da516bb5}">
+        <controlDescription forControl="{317b2f1e-bca0-5ee5-9871-91f9b4d4a085}">
           <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
             <parameters>
               <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
@@ -622,7 +782,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{19cdf35f-9e2a-5895-aaa1-8170e91133eb}">
+        <controlDescription forControl="{0199ffed-44ac-5b02-840c-3748dce2d5e4}">
           <customControl id="{533B9E00-756B-4312-95A0-DC888637AC78}">
             <parameters>
               <datafieldname>op365_actualcost</datafieldname>
@@ -649,7 +809,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Projekt" languagecode="1031" />
       <LocalizedName description="Project" languagecode="1033" />
+      <LocalizedName description="Projet" languagecode="1036" />
+      <LocalizedName description="Commessa" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

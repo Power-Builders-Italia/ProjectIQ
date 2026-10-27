@@ -5,12 +5,21 @@
     <entity Name="op365_SupplierDocument">
       <LocalizedNames>
         <LocalizedName description="Supplier Document" languagecode="1033" />
+        <LocalizedName description="Lieferantendokument" languagecode="1031" />
+        <LocalizedName description="Document fournisseur" languagecode="1036" />
+        <LocalizedName description="Documento fornitore" languagecode="1040" />
       </LocalizedNames>
       <LocalizedCollectionNames>
         <LocalizedCollectionName description="Supplier Documents" languagecode="1033" />
+        <LocalizedCollectionName description="Lieferantendokumente" languagecode="1031" />
+        <LocalizedCollectionName description="Documents fournisseur" languagecode="1036" />
+        <LocalizedCollectionName description="Documenti fornitore" languagecode="1040" />
       </LocalizedCollectionNames>
       <Descriptions>
         <Description description="Compliance document of a supplier (DURC, certifications, insurance...)" languagecode="1033" />
+        <Description description="Compliance-Dokument eines Lieferanten (DURC, Zertifizierungen, Versicherung ...)" languagecode="1031" />
+        <Description description="Document de conformité d'un fournisseur (DURC, certifications, assurance...)" languagecode="1036" />
+        <Description description="Documento di conformità di un fornitore (DURC, certificazioni, assicurazione...)" languagecode="1040" />
       </Descriptions>
       <attributes>
         <attribute PhysicalName="CreatedBy">
@@ -47,9 +56,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By" languagecode="1033" />
+            <displayname description="Erstellt von" languagecode="1031" />
+            <displayname description="Créé par" languagecode="1036" />
+            <displayname description="Autore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOn">
@@ -87,9 +102,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Created On" languagecode="1033" />
+            <displayname description="Erstellt am" languagecode="1031" />
+            <displayname description="Créé le" languagecode="1036" />
+            <displayname description="Data creazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was created." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Erstellung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de création de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOnBehalfBy">
@@ -126,9 +147,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By (Delegate)" languagecode="1033" />
+            <displayname description="Erstellt von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Créé par (délégué)" languagecode="1036" />
+            <displayname description="Autore (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ImportSequenceNumber">
@@ -166,9 +193,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Import Sequence Number" languagecode="1033" />
+            <displayname description="Importsequenznummer" languagecode="1031" />
+            <displayname description="Numéro séquentiel d'importation" languagecode="1036" />
+            <displayname description="Numero sequenza importazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Sequence number of the import that created this record." languagecode="1033" />
+            <Description description="Sequenznummer des Imports, der diesen Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Numéro de séquence de l'importation qui a créé cet enregistrement." languagecode="1036" />
+            <Description description="Numero di sequenza dell'importazione che ha creato questo record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedBy">
@@ -205,9 +238,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By" languagecode="1033" />
+            <displayname description="Geändert von" languagecode="1031" />
+            <displayname description="Modifié par" languagecode="1036" />
+            <displayname description="Autore modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOn">
@@ -245,9 +284,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Modified On" languagecode="1033" />
+            <displayname description="Geändert am" languagecode="1031" />
+            <displayname description="Modifié le" languagecode="1036" />
+            <displayname description="Data modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was modified." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Änderung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de modification de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di modifica del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOnBehalfBy">
@@ -284,9 +329,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By (Delegate)" languagecode="1033" />
+            <displayname description="Geändert von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Modifié par (délégué)" languagecode="1036" />
+            <displayname description="Autore modifica (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Description">
@@ -324,6 +375,9 @@
           <Length>1700</Length>
           <displaynames>
             <displayname description="Description" languagecode="1033" />
+            <displayname description="Beschreibung" languagecode="1031" />
+            <displayname description="Description" languagecode="1036" />
+            <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
@@ -366,6 +420,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Document Type" languagecode="1033" />
+              <displayname description="Dokumenttyp" languagecode="1031" />
+              <displayname description="Type de document" languagecode="1036" />
+              <displayname description="Tipo documento" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="" languagecode="1033" />
@@ -374,37 +431,58 @@
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="DURC" languagecode="1033" />
+                  <label description="DURC" languagecode="1031" />
+                  <label description="DURC" languagecode="1036" />
+                  <label description="DURC" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Company Report" languagecode="1033" />
+                  <label description="Unternehmensbericht" languagecode="1031" />
+                  <label description="Rapport d'entreprise" languagecode="1036" />
+                  <label description="Report aziendale" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000002" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Certification" languagecode="1033" />
+                  <label description="Zertifizierung" languagecode="1031" />
+                  <label description="Certification" languagecode="1036" />
+                  <label description="Certificazione" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000003" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Insurance" languagecode="1033" />
+                  <label description="Versicherung" languagecode="1031" />
+                  <label description="Assurances" languagecode="1036" />
+                  <label description="Editoria e stampa" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000004" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Contract" languagecode="1033" />
+                  <label description="Vertrag" languagecode="1031" />
+                  <label description="Contrat" languagecode="1036" />
+                  <label description="Contratto" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000005" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Other" languagecode="1033" />
+                  <label description="Sonstiges" languagecode="1031" />
+                  <label description="Autre" languagecode="1036" />
+                  <label description="Altro" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Document Type" languagecode="1033" />
+            <displayname description="Dokumenttyp" languagecode="1031" />
+            <displayname description="Type de document" languagecode="1036" />
+            <displayname description="Tipo documento" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
@@ -445,9 +523,15 @@
           <Behavior>2</Behavior>
           <displaynames>
             <displayname description="Expiry Date" languagecode="1033" />
+            <displayname description="Ablaufdatum" languagecode="1031" />
+            <displayname description="Date d'expiration" languagecode="1036" />
+            <displayname description="Data di scadenza" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date the document expires; expired documents count in Expired Documents on the supplier" languagecode="1033" />
+            <Description description="Ablaufdatum des Dokuments; abgelaufene Dokumente zählen beim Lieferanten unter „Abgelaufene Dokumente“" languagecode="1031" />
+            <Description description="Date d'expiration du document ; les documents expirés comptent dans Documents expirés sur le fournisseur" languagecode="1036" />
+            <Description description="Data di scadenza del documento; i documenti scaduti contano in Documenti scaduti sul fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExternalUrl">
@@ -485,9 +569,15 @@
           <Length>1000</Length>
           <displaynames>
             <displayname description="External URL" languagecode="1033" />
+            <displayname description="Externe URL" languagecode="1031" />
+            <displayname description="URL externe" languagecode="1036" />
+            <displayname description="URL esterno" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Link to the document when it is stored outside Dataverse" languagecode="1033" />
+            <Description description="Link zum Dokument, wenn es außerhalb von Dataverse gespeichert ist" languagecode="1031" />
+            <Description description="Lien vers le document lorsqu'il est stocké hors de Dataverse" languagecode="1036" />
+            <Description description="Link al documento quando è archiviato fuori da Dataverse" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_File">
@@ -523,9 +613,15 @@
           <MaxValue>32768</MaxValue>
           <displaynames>
             <displayname description="File" languagecode="1033" />
+            <displayname description="Datei" languagecode="1031" />
+            <displayname description="Fichier" languagecode="1036" />
+            <displayname description="File" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Scanned or PDF copy of the document" languagecode="1033" />
+            <Description description="Gescannte oder PDF-Kopie des Dokuments" languagecode="1031" />
+            <Description description="Copie numérisée ou PDF du document" languagecode="1036" />
+            <Description description="Copia scansionata o PDF del documento" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IssueDate">
@@ -563,9 +659,15 @@
           <Behavior>2</Behavior>
           <displaynames>
             <displayname description="Issue Date" languagecode="1033" />
+            <displayname description="Ausstellungsdatum" languagecode="1031" />
+            <displayname description="Date d'émission" languagecode="1036" />
+            <displayname description="Data di emissione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date the document was issued" languagecode="1033" />
+            <Description description="Ausstellungsdatum des Dokuments" languagecode="1031" />
+            <Description description="Date d'émission du document" languagecode="1036" />
+            <Description description="Data di emissione del documento" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -602,9 +704,15 @@
           <MaxLength>4000</MaxLength>
           <displaynames>
             <displayname description="Notes" languagecode="1033" />
+            <displayname description="Hinweise" languagecode="1031" />
+            <displayname description="Remarques" languagecode="1036" />
+            <displayname description="Note" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Free-text notes on the document" languagecode="1033" />
+            <Description description="Freitext-Notizen zum Dokument" languagecode="1031" />
+            <Description description="Notes libres sur le document" languagecode="1036" />
+            <Description description="Note libere sul documento" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -642,9 +750,15 @@
           <Length>100</Length>
           <displaynames>
             <displayname description="Number" languagecode="1033" />
+            <displayname description="Nummer" languagecode="1031" />
+            <displayname description="Numéro" languagecode="1036" />
+            <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Document number or protocol" languagecode="1033" />
+            <Description description="Dokumentnummer oder Protokoll" languagecode="1031" />
+            <Description description="Numéro de document ou protocole" languagecode="1036" />
+            <Description description="Numero documento o protocollo" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierDocumentId">
@@ -679,9 +793,15 @@
           <IsLocalizable>0</IsLocalizable>
           <displaynames>
             <displayname description="Supplier Document" languagecode="1033" />
+            <displayname description="Lieferantendokument" languagecode="1031" />
+            <displayname description="Document fournisseur" languagecode="1036" />
+            <displayname description="Documento fornitore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for entity instances" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner für Entitätsinstanzen" languagecode="1031" />
+            <Description description="Identificateur unique des instances d'entité" languagecode="1036" />
+            <Description description="Identificatore univoco delle istanze dell'entità" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierId">
@@ -718,9 +838,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Supplier" languagecode="1033" />
+            <displayname description="Lieferant" languagecode="1031" />
+            <displayname description="Fournisseur" languagecode="1036" />
+            <displayname description="Produttore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Supplier the compliance document belongs to" languagecode="1033" />
+            <Description description="Lieferant, zu dem das Compliance-Dokument gehört" languagecode="1031" />
+            <Description description="Fournisseur auquel appartient le document de conformité" languagecode="1036" />
+            <Description description="Fornitore a cui appartiene il documento di conformità" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">
@@ -758,9 +884,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Record Created On" languagecode="1033" />
+            <displayname description="Datensatz erstellt am" languagecode="1031" />
+            <displayname description="Enregistrement créé le" languagecode="1036" />
+            <displayname description="Data creazione record" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time that the record was migrated." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Migration des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de la migration de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di migrazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwnerId">
@@ -800,9 +932,15 @@
           </LookupTypes>
           <displaynames>
             <displayname description="Owner" languagecode="1033" />
+            <displayname description="Besitzer" languagecode="1031" />
+            <displayname description="Propriétaire" languagecode="1036" />
+            <displayname description="Proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Owner Id" languagecode="1033" />
+            <Description description="Besitzer-ID" languagecode="1031" />
+            <Description description="ID du propriétaire" languagecode="1036" />
+            <Description description="ID proprietario" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningBusinessUnit">
@@ -839,9 +977,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Business Unit" languagecode="1033" />
+            <displayname description="Besitzer (Unternehmenseinheit)" languagecode="1031" />
+            <displayname description="Division propriétaire" languagecode="1036" />
+            <displayname description="Business Unit proprietaria" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the business unit that owns the record" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner der Unternehmenseinheit, die Besitzer des Datensatzes ist" languagecode="1031" />
+            <Description description="Identificateur unique de la division propriétaire de l'enregistrement" languagecode="1036" />
+            <Description description="Identificatore univoco della business unit proprietaria del record" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningTeam">
@@ -878,9 +1022,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Team" languagecode="1033" />
+            <displayname description="Besitzer (Team)" languagecode="1031" />
+            <displayname description="Équipe propriétaire" languagecode="1036" />
+            <displayname description="Team proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the team that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Teams, das Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'équipe propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco del team proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningUser">
@@ -917,9 +1067,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning User" languagecode="1033" />
+            <displayname description="Besitzer (Benutzer)" languagecode="1031" />
+            <displayname description="Utilisateur propriétaire" languagecode="1036" />
+            <displayname description="Utente proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statecode">
@@ -958,28 +1114,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status" languagecode="1033" />
+              <displayname description="Status" languagecode="1031" />
+              <displayname description="Statut" languagecode="1036" />
+              <displayname description="Stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Status of the Supplier Document" languagecode="1033" />
+              <Description description="Status des Lieferantendokuments" languagecode="1031" />
+              <Description description="Statut du document fournisseur" languagecode="1036" />
+              <Description description="Stato del documento fornitore" languagecode="1040" />
             </Descriptions>
             <states>
               <state value="0" defaultstatus="1" invariantname="Active" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </state>
               <state value="1" defaultstatus="2" invariantname="Inactive" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </state>
             </states>
           </optionset>
           <displaynames>
             <displayname description="Status" languagecode="1033" />
+            <displayname description="Status" languagecode="1031" />
+            <displayname description="Statut" languagecode="1036" />
+            <displayname description="Stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Status of the Supplier Document" languagecode="1033" />
+            <Description description="Status des Lieferantendokuments" languagecode="1031" />
+            <Description description="Statut du document fournisseur" languagecode="1036" />
+            <Description description="Stato del documento fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statuscode">
@@ -1018,28 +1192,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status Reason" languagecode="1033" />
+              <displayname description="Statusgrund" languagecode="1031" />
+              <displayname description="Raison du statut" languagecode="1036" />
+              <displayname description="Motivo stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Reason for the status of the Supplier Document" languagecode="1033" />
+              <Description description="Grund für den Status des Lieferantendokuments" languagecode="1031" />
+              <Description description="Raison du statut du document fournisseur" languagecode="1036" />
+              <Description description="Motivo dello stato del documento fornitore" languagecode="1040" />
             </Descriptions>
             <statuses>
               <status value="1" state="0" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </status>
             </statuses>
           </optionset>
           <displaynames>
             <displayname description="Status Reason" languagecode="1033" />
+            <displayname description="Statusgrund" languagecode="1031" />
+            <displayname description="Raison du statut" languagecode="1036" />
+            <displayname description="Motivo stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Reason for the status of the Supplier Document" languagecode="1033" />
+            <Description description="Grund für den Status des Lieferantendokuments" languagecode="1031" />
+            <Description description="Raison du statut du document fournisseur" languagecode="1036" />
+            <Description description="Motivo dello stato del documento fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="TimeZoneRuleVersionNumber">
@@ -1076,9 +1268,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Time Zone Rule Version Number" languagecode="1033" />
+            <displayname description="Versionsnummer der Zeitzonenregel" languagecode="1031" />
+            <displayname description="Numéro de version de la règle du fuseau horaire" languagecode="1036" />
+            <displayname description="Numero di versione regola fuso orario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="For internal use only." languagecode="1033" />
+            <Description description="Nur zur internen Verwendung." languagecode="1031" />
+            <Description description="Utilisation interne uniquement." languagecode="1036" />
+            <Description description="Solo per uso interno." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="UTCConversionTimeZoneCode">
@@ -1115,9 +1313,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="UTC Conversion Time Zone Code" languagecode="1033" />
+            <displayname description="Zeitzonencode für die UTC-Konvertierung" languagecode="1031" />
+            <displayname description="Code de fuseau horaire pour la conversion UTC" languagecode="1036" />
+            <displayname description="Codice fuso orario conversione UTC" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Time zone code that was in use when the record was created." languagecode="1033" />
+            <Description description="Zeitzonencode, der bei Erstellung des Datensatzes verwendet wurde." languagecode="1031" />
+            <Description description="Code de fuseau horaire utilisé à la création de l’enregistrement." languagecode="1036" />
+            <Description description="Codice di fuso orario utilizzato al momento della creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
       </attributes>

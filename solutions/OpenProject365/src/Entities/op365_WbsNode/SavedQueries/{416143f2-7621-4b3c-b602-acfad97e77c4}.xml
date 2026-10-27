@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine PSP-Elemente" languagecode="1031" />
       <LocalizedName description="My WBS Nodes" languagecode="1033" />
+      <LocalizedName description="Mes nœuds WBS" languagecode="1036" />
+      <LocalizedName description="I miei nodi WBS" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven PSP-Elemente" languagecode="1031" />
       <Description description="Active WBS Nodes owned by me" languagecode="1033" />
+      <Description description="Mes nœuds WBS actifs" languagecode="1036" />
+      <Description description="I miei nodi WBS attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="ReceiptDate">
   <description default="Receipt date; default today">
+    <label description="Eingangsdatum; Standard heute" languagecode="1031" />
     <label description="Receipt date; default today" languagecode="1033" />
+    <label description="Date de réception ; par défaut aujourd'hui" languagecode="1036" />
+    <label description="Data ricevimento; predefinita oggi" languagecode="1040" />
   </description>
   <displayname default="ReceiptDate">
+    <label description="Eingangsdatum" languagecode="1031" />
     <label description="ReceiptDate" languagecode="1033" />
+    <label description="DateRéception" languagecode="1036" />
+    <label description="DataRicevimento" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{fbd91fd0-945d-53be-8788-7e6d726ae3ed}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="baseline_node" showlabel="true" showbar="false" columns="2" id="{003feb79-159f-56fa-99bb-93c3c5152c4b}">
                   <labels>
+                    <label description="Basisplan-Element" languagecode="1031" />
                     <label description="Baseline Node" languagecode="1033" />
+                    <label description="Élément de référence" languagecode="1036" />
+                    <label description="Nodo baseline" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{daf68a2e-3790-5d39-9f09-265bb877287f}">
                         <labels>
                           <label description="Baseline" languagecode="1033" />
+                          <label description="Baseline" languagecode="1040" />
+                          <label description="Basisplan" languagecode="1031" />
+                          <label description="Planning de référence" languagecode="1036" />
                         </labels>
                         <control id="op365_baselineid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_baselineid" />
                       </cell>
                       <cell id="{49da5a8f-bd05-5e62-8940-6bbadf5f2236}">
                         <labels>
                           <label description="WBS Node" languagecode="1033" />
+                          <label description="Nodo WBS" languagecode="1040" />
+                          <label description="PSP-Element" languagecode="1031" />
+                          <label description="Nœud WBS" languagecode="1036" />
                         </labels>
                         <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{dd4b7bb6-4386-5a0a-af06-f35ff7345290}">
                         <labels>
                           <label description="Code" languagecode="1033" />
+                          <label description="Codice" languagecode="1040" />
+                          <label description="Code" languagecode="1031" />
+                          <label description="Code" languagecode="1036" />
                         </labels>
                         <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
                       </cell>
                       <cell id="{8e6b4c9f-2b73-5bf1-9a0d-70e3c4a46ba8}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{151858fa-cf51-576d-a2fb-05b9661e5579}">
                         <labels>
                           <label description="Budget Hours" languagecode="1033" />
+                          <label description="Ore a budget" languagecode="1040" />
+                          <label description="Budgetstunden" languagecode="1031" />
+                          <label description="Heures budgétées" languagecode="1036" />
                         </labels>
                         <control id="op365_budgethours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_budgethours" />
                       </cell>
                       <cell id="{5e7fe744-9e77-55db-9094-e6909358076e}">
                         <labels>
                           <label description="Budget Total" languagecode="1033" />
+                          <label description="Budget totale" languagecode="1040" />
+                          <label description="Budget gesamt" languagecode="1031" />
+                          <label description="Budget total" languagecode="1036" />
                         </labels>
                         <control id="op365_budgettotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgettotal" />
                       </cell>
@@ -65,12 +89,18 @@
                       <cell id="{714f40b7-1156-5db2-8d22-f7bf70cb2d91}">
                         <labels>
                           <label description="Start Date" languagecode="1033" />
+                          <label description="Data inizio" languagecode="1040" />
+                          <label description="Startdatum" languagecode="1031" />
+                          <label description="Date de début" languagecode="1036" />
                         </labels>
                         <control id="op365_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_startdate" />
                       </cell>
                       <cell id="{eaf918f6-d2e6-509a-8e59-ca444446d90e}">
                         <labels>
                           <label description="End Date" languagecode="1033" />
+                          <label description="Data fine" languagecode="1040" />
+                          <label description="Enddatum" languagecode="1031" />
+                          <label description="Date de fin" languagecode="1036" />
                         </labels>
                         <control id="op365_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_enddate" />
                       </cell>
@@ -86,7 +116,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Basisplan-Element" languagecode="1031" />
       <LocalizedName description="Baseline Node" languagecode="1033" />
+      <LocalizedName description="Élément de référence" languagecode="1036" />
+      <LocalizedName description="Nodo baseline" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

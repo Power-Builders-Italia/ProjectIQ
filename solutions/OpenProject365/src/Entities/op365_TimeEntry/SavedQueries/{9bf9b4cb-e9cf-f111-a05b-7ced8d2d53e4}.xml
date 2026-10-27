@@ -46,7 +46,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Zu genehmigende Zeiteinträge" languagecode="1031" />
       <LocalizedName description="Time Entries to Approve" languagecode="1033" />
+      <LocalizedName description="Saisies de temps à approuver" languagecode="1036" />
+      <LocalizedName description="Registrazioni ore da approvare" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

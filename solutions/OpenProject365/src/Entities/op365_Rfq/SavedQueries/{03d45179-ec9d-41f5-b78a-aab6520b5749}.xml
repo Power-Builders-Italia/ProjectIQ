@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Angebotsanfrage – Suchansicht" languagecode="1031" />
       <LocalizedName description="Request for Quotation Lookup View" languagecode="1033" />
+      <LocalizedName description="Demande de prix - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Richiesta di offerta - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

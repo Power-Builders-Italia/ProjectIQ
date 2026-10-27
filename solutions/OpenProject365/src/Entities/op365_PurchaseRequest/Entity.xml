@@ -5,12 +5,21 @@
     <entity Name="op365_PurchaseRequest">
       <LocalizedNames>
         <LocalizedName description="Purchase Request" languagecode="1033" />
+        <LocalizedName description="Bestellanforderung" languagecode="1031" />
+        <LocalizedName description="Demande d'achat" languagecode="1036" />
+        <LocalizedName description="Richiesta di acquisto" languagecode="1040" />
       </LocalizedNames>
       <LocalizedCollectionNames>
         <LocalizedCollectionName description="Purchase Requests" languagecode="1033" />
+        <LocalizedCollectionName description="Bestellanforderungen" languagecode="1031" />
+        <LocalizedCollectionName description="Demandes d'achat" languagecode="1036" />
+        <LocalizedCollectionName description="Richieste di acquisto" languagecode="1040" />
       </LocalizedCollectionNames>
       <Descriptions>
         <Description description="Request to buy materials or services for a project" languagecode="1033" />
+        <Description description="Anforderung zum Einkauf von Material oder Leistungen für ein Projekt" languagecode="1031" />
+        <Description description="Demande d'achat de matériel ou de services pour un projet" languagecode="1036" />
+        <Description description="Richiesta di acquisto di materiali o servizi per una commessa" languagecode="1040" />
       </Descriptions>
       <attributes>
         <attribute PhysicalName="CreatedBy">
@@ -47,9 +56,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By" languagecode="1033" />
+            <displayname description="Erstellt von" languagecode="1031" />
+            <displayname description="Créé par" languagecode="1036" />
+            <displayname description="Autore" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOn">
@@ -87,9 +102,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Created On" languagecode="1033" />
+            <displayname description="Erstellt am" languagecode="1031" />
+            <displayname description="Créé le" languagecode="1036" />
+            <displayname description="Data creazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was created." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Erstellung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de création de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedOnBehalfBy">
@@ -126,9 +147,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Created By (Delegate)" languagecode="1033" />
+            <displayname description="Erstellt von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Créé par (délégué)" languagecode="1036" />
+            <displayname description="Autore (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who created the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a créé l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha creato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ExchangeRate">
@@ -166,9 +193,15 @@
           <Accuracy>12</Accuracy>
           <displaynames>
             <displayname description="Exchange Rate" languagecode="1033" />
+            <displayname description="Wechselkurs" languagecode="1031" />
+            <displayname description="Taux de change" languagecode="1036" />
+            <displayname description="Tasso di cambio" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Exchange rate for the currency associated with the entity with respect to the base currency." languagecode="1033" />
+            <Description description="Wechselkurs der Währung der Entität in Bezug auf die Basiswährung." languagecode="1031" />
+            <Description description="Taux de change de la devise associée à l'entité par rapport à la devise de base." languagecode="1036" />
+            <Description description="Tasso di cambio della valuta associata all'entità rispetto alla valuta di base." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ImportSequenceNumber">
@@ -206,9 +239,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Import Sequence Number" languagecode="1033" />
+            <displayname description="Importsequenznummer" languagecode="1031" />
+            <displayname description="Numéro séquentiel d'importation" languagecode="1036" />
+            <displayname description="Numero sequenza importazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Sequence number of the import that created this record." languagecode="1033" />
+            <Description description="Sequenznummer des Imports, der diesen Datensatz erstellt hat." languagecode="1031" />
+            <Description description="Numéro de séquence de l'importation qui a créé cet enregistrement." languagecode="1036" />
+            <Description description="Numero di sequenza dell'importazione che ha creato questo record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedBy">
@@ -245,9 +284,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By" languagecode="1033" />
+            <displayname description="Geändert von" languagecode="1031" />
+            <displayname description="Modifié par" languagecode="1036" />
+            <displayname description="Autore modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOn">
@@ -285,9 +330,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Modified On" languagecode="1033" />
+            <displayname description="Geändert am" languagecode="1031" />
+            <displayname description="Modifié le" languagecode="1036" />
+            <displayname description="Data modifica" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time when the record was modified." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Änderung des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de modification de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di modifica del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="ModifiedOnBehalfBy">
@@ -324,9 +375,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Modified By (Delegate)" languagecode="1033" />
+            <displayname description="Geändert von (Stellvertreter)" languagecode="1031" />
+            <displayname description="Modifié par (délégué)" languagecode="1036" />
+            <displayname description="Autore modifica (delegato)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the delegate user who modified the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des delegierten Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur délégué qui a modifié l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente delegato che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_AboveThreshold">
@@ -366,28 +423,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Above Threshold" languagecode="1033" />
+              <displayname description="Über Schwellenwert" languagecode="1031" />
+              <displayname description="Au-dessus du seuil" languagecode="1036" />
+              <displayname description="Sopra soglia" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Estimated amount above the Settings threshold. Set on submit" languagecode="1033" />
+              <Description description="Geschätzter Betrag über dem Schwellenwert der Einstellungen. Beim Einreichen gesetzt" languagecode="1031" />
+              <Description description="Montant estimé au-dessus du seuil des paramètres. Défini à la soumission" languagecode="1036" />
+              <Description description="Importo stimato sopra la soglia delle impostazioni. Impostato all'invio" languagecode="1040" />
             </Descriptions>
             <options>
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Above Threshold" languagecode="1033" />
+            <displayname description="Über Schwellenwert" languagecode="1031" />
+            <displayname description="Au-dessus du seuil" languagecode="1036" />
+            <displayname description="Sopra soglia" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Estimated amount above the Settings threshold. Set on submit" languagecode="1033" />
+            <Description description="Geschätzter Betrag über dem Schwellenwert der Einstellungen. Beim Einreichen gesetzt" languagecode="1031" />
+            <Description description="Montant estimé au-dessus du seuil des paramètres. Défini à la soumission" languagecode="1036" />
+            <Description description="Importo stimato sopra la soglia delle impostazioni. Impostato all'invio" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ApprovalLevel">
@@ -427,28 +502,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Approval Level" languagecode="1033" />
+              <displayname description="Genehmigungsebene" languagecode="1031" />
+              <displayname description="Niveau d'approbation" languagecode="1036" />
+              <displayname description="Livello di approvazione" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Manager, or Administrator above the threshold" languagecode="1033" />
+              <Description description="Projektleiter oder, über dem Schwellenwert, Administrator" languagecode="1031" />
+              <Description description="Chef de projet ou, au-delà du seuil, administrateur" languagecode="1036" />
+              <Description description="Capo commessa o, oltre la soglia, amministratore" languagecode="1040" />
             </Descriptions>
             <options>
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Manager" languagecode="1033" />
+                  <label description="Manager" languagecode="1031" />
+                  <label description="Directeur" languagecode="1036" />
+                  <label description="Responsabile" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Administrator" languagecode="1033" />
+                  <label description="Administrator" languagecode="1031" />
+                  <label description="Administrateur" languagecode="1036" />
+                  <label description="Amministratore" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Approval Level" languagecode="1033" />
+            <displayname description="Genehmigungsebene" languagecode="1031" />
+            <displayname description="Niveau d'approbation" languagecode="1036" />
+            <displayname description="Livello di approvazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Manager, or Administrator above the threshold" languagecode="1033" />
+            <Description description="Projektleiter oder, über dem Schwellenwert, Administrator" languagecode="1031" />
+            <Description description="Chef de projet ou, au-delà du seuil, administrateur" languagecode="1036" />
+            <Description description="Capo commessa o, oltre la soglia, amministratore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_CurrentApproverId">
@@ -485,9 +578,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Current Approver" languagecode="1033" />
+            <displayname description="Aktueller Genehmiger" languagecode="1031" />
+            <displayname description="Approbateur actuel" languagecode="1036" />
+            <displayname description="Approvatore attuale" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="User who must approve the request now" languagecode="1033" />
+            <Description description="Benutzer, der die Anforderung jetzt genehmigen muss" languagecode="1031" />
+            <Description description="Utilisateur qui doit maintenant approuver la demande" languagecode="1036" />
+            <Description description="Utente che deve approvare ora la richiesta" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedById">
@@ -524,9 +623,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Decided By" languagecode="1033" />
+            <displayname description="Entschieden von" languagecode="1031" />
+            <displayname description="Décidé par" languagecode="1036" />
+            <displayname description="Deciso da" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="User who took the final decision" languagecode="1033" />
+            <Description description="Benutzer, der die endgültige Entscheidung getroffen hat" languagecode="1031" />
+            <Description description="Utilisateur ayant pris la décision finale" languagecode="1036" />
+            <Description description="Utente che ha preso la decisione finale" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecidedOn">
@@ -564,9 +669,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Decided On" languagecode="1033" />
+            <displayname description="Entschieden am" languagecode="1031" />
+            <displayname description="Décidé le" languagecode="1036" />
+            <displayname description="Deciso il" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="When the request was finally approved or rejected" languagecode="1033" />
+            <Description description="Wann die Anforderung endgültig genehmigt oder abgelehnt wurde" languagecode="1031" />
+            <Description description="Date d'approbation ou de rejet définitif de la demande" languagecode="1036" />
+            <Description description="Quando la richiesta è stata approvata o rifiutata in via definitiva" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DecisionNote">
@@ -603,9 +714,15 @@
           <MaxLength>4000</MaxLength>
           <displaynames>
             <displayname description="Decision Note" languagecode="1033" />
+            <displayname description="Entscheidungsnotiz" languagecode="1031" />
+            <displayname description="Note de décision" languagecode="1036" />
+            <displayname description="Nota decisione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Reason given by the approver, required when rejecting" languagecode="1033" />
+            <Description description="Vom Genehmiger angegebener Grund, bei Ablehnung erforderlich" languagecode="1031" />
+            <Description description="Motif indiqué par l'approbateur, obligatoire en cas de rejet" languagecode="1036" />
+            <Description description="Motivo indicato dall'approvatore, obbligatorio in caso di rifiuto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_EstimatedAmount">
@@ -644,9 +761,15 @@
           <AccuracySource>2</AccuracySource>
           <displaynames>
             <displayname description="Estimated Amount" languagecode="1033" />
+            <displayname description="Geschätzter Betrag" languagecode="1031" />
+            <displayname description="Montant estimé" languagecode="1036" />
+            <displayname description="Importo stimato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Sum of the lines. Set by plugin" languagecode="1033" />
+            <Description description="Summe der Positionen. Vom Plug-in gesetzt" languagecode="1031" />
+            <Description description="Somme des lignes. Défini par le plug-in" languagecode="1036" />
+            <Description description="Somma delle righe. Impostato dal plug-in" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_estimatedamount_Base">
@@ -686,9 +809,15 @@
           <CalculationOf>op365_EstimatedAmount</CalculationOf>
           <displaynames>
             <displayname description="Estimated Amount (Base)" languagecode="1033" />
+            <displayname description="Geschätzter Betrag (Basis)" languagecode="1031" />
+            <displayname description="Montant estimé (base)" languagecode="1036" />
+            <displayname description="Importo stimato (base)" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Value of the Estimated Amount in base currency." languagecode="1033" />
+            <Description description="Wert des geschätzten Betrags in der Basiswährung." languagecode="1031" />
+            <Description description="Valeur du montant estimé dans la devise de base." languagecode="1036" />
+            <Description description="Valore dell'importo stimato nella valuta di base." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Justification">
@@ -725,9 +854,15 @@
           <MaxLength>4000</MaxLength>
           <displaynames>
             <displayname description="Justification" languagecode="1033" />
+            <displayname description="Begründung" languagecode="1031" />
+            <displayname description="Justification" languagecode="1036" />
+            <displayname description="Motivazione" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Why the purchase is needed" languagecode="1033" />
+            <Description description="Warum der Einkauf benötigt wird" languagecode="1031" />
+            <Description description="Motif de l'achat" languagecode="1036" />
+            <Description description="Perché serve l'acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ManagerApprovedById">
@@ -764,9 +899,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Manager Approved By" languagecode="1033" />
+            <displayname description="Vom Projektleiter genehmigt von" languagecode="1031" />
+            <displayname description="Approuvé par le chef de projet" languagecode="1036" />
+            <displayname description="Approvato dal capo commessa" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Project manager who approved the request" languagecode="1033" />
+            <Description description="Projektleiter, der die Anforderung genehmigt hat" languagecode="1031" />
+            <Description description="Chef de projet ayant approuvé la demande" languagecode="1036" />
+            <Description description="Capo commessa che ha approvato la richiesta" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ManagerApprovedOn">
@@ -804,9 +945,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Manager Approved On" languagecode="1033" />
+            <displayname description="Vom Projektleiter genehmigt am" languagecode="1031" />
+            <displayname description="Approuvé par le chef de projet le" languagecode="1036" />
+            <displayname description="Approvato dal capo commessa il" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="When the project manager approved the request" languagecode="1033" />
+            <Description description="Wann der Projektleiter die Anforderung genehmigt hat" languagecode="1031" />
+            <Description description="Date d'approbation de la demande par le chef de projet" languagecode="1036" />
+            <Description description="Quando il capo commessa ha approvato la richiesta" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_NeededBy">
@@ -844,9 +991,15 @@
           <Behavior>2</Behavior>
           <displaynames>
             <displayname description="Needed By" languagecode="1033" />
+            <displayname description="Benötigt bis" languagecode="1031" />
+            <displayname description="Nécessaire pour le" languagecode="1036" />
+            <displayname description="Necessario entro" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date by which the goods or services are needed" languagecode="1033" />
+            <Description description="Datum, bis zu dem die Waren oder Leistungen benötigt werden" languagecode="1031" />
+            <Description description="Date à laquelle les biens ou services sont nécessaires" languagecode="1036" />
+            <Description description="Data entro cui servono i beni o servizi" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Number">
@@ -884,6 +1037,9 @@
           <Length>40</Length>
           <displaynames>
             <displayname description="Number" languagecode="1033" />
+            <displayname description="Nummer" languagecode="1031" />
+            <displayname description="Numéro" languagecode="1036" />
+            <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
@@ -926,28 +1082,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Over Budget" languagecode="1033" />
+              <displayname description="Budget überschritten" languagecode="1031" />
+              <displayname description="Hors budget" languagecode="1036" />
+              <displayname description="Fuori budget" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Actual + committed + this request exceed the budget. Set on submit" languagecode="1033" />
+              <Description description="Ist + Obligo + diese Anforderung überschreiten das Budget. Beim Einreichen gesetzt" languagecode="1031" />
+              <Description description="Réel + engagé + cette demande dépassent le budget. Défini à la soumission" languagecode="1036" />
+              <Description description="Consuntivo + impegnato + questa richiesta superano il budget. Impostato all'invio" languagecode="1040" />
             </Descriptions>
             <options>
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="Over Budget" languagecode="1033" />
+            <displayname description="Budget überschritten" languagecode="1031" />
+            <displayname description="Hors budget" languagecode="1036" />
+            <displayname description="Fuori budget" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Actual + committed + this request exceed the budget. Set on submit" languagecode="1033" />
+            <Description description="Ist + Obligo + diese Anforderung überschreiten das Budget. Beim Einreichen gesetzt" languagecode="1031" />
+            <Description description="Réel + engagé + cette demande dépassent le budget. Défini à la soumission" languagecode="1036" />
+            <Description description="Consuntivo + impegnato + questa richiesta superano il budget. Impostato all'invio" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PreferredSupplierId">
@@ -984,9 +1158,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Preferred Supplier" languagecode="1033" />
+            <displayname description="Bevorzugter Lieferant" languagecode="1031" />
+            <displayname description="Fournisseur préféré" languagecode="1036" />
+            <displayname description="Fornitore preferito" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Supplier suggested by the requester" languagecode="1033" />
+            <Description description="Vom Anforderer vorgeschlagener Lieferant" languagecode="1031" />
+            <Description description="Fournisseur suggéré par le demandeur" languagecode="1036" />
+            <Description description="Fornitore suggerito dal richiedente" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -1023,9 +1203,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Project" languagecode="1033" />
+            <displayname description="Projekt" languagecode="1031" />
+            <displayname description="Projet" languagecode="1036" />
+            <displayname description="Commessa" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Project the purchase is for" languagecode="1033" />
+            <Description description="Projekt, für das der Einkauf ist" languagecode="1031" />
+            <Description description="Projet concerné par l'achat" languagecode="1036" />
+            <Description description="Commessa a cui si riferisce l'acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PurchaseRequestId">
@@ -1060,9 +1246,15 @@
           <IsLocalizable>0</IsLocalizable>
           <displaynames>
             <displayname description="Purchase Request" languagecode="1033" />
+            <displayname description="Bestellanforderung" languagecode="1031" />
+            <displayname description="Demande d'achat" languagecode="1036" />
+            <displayname description="Richiesta di acquisto" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for entity instances" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner für Entitätsinstanzen" languagecode="1031" />
+            <Description description="Identificateur unique des instances d'entité" languagecode="1036" />
+            <Description description="Identificatore univoco delle istanze dell'entità" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_RequesterId">
@@ -1099,9 +1291,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Requester" languagecode="1033" />
+            <displayname description="Anforderer" languagecode="1031" />
+            <displayname description="Demandeur" languagecode="1036" />
+            <displayname description="Richiedente" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="User who asked for the purchase" languagecode="1033" />
+            <Description description="Benutzer, der den Einkauf angefordert hat" languagecode="1031" />
+            <Description description="Utilisateur ayant demandé l'achat" languagecode="1036" />
+            <Description description="Utente che ha richiesto l'acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SubmittedOn">
@@ -1139,9 +1337,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Submitted On" languagecode="1033" />
+            <displayname description="Eingereicht am" languagecode="1031" />
+            <displayname description="Soumis le" languagecode="1036" />
+            <displayname description="Inviato il" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="When the request was submitted for approval" languagecode="1033" />
+            <Description description="Wann die Anforderung zur Genehmigung eingereicht wurde" languagecode="1031" />
+            <Description description="Date de soumission de la demande pour approbation" languagecode="1036" />
+            <Description description="Quando la richiesta è stata inviata in approvazione" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Title">
@@ -1179,9 +1383,15 @@
           <Length>400</Length>
           <displaynames>
             <displayname description="Title" languagecode="1033" />
+            <displayname description="Titel" languagecode="1031" />
+            <displayname description="Titre" languagecode="1036" />
+            <displayname description="Titolo" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Short title of what is requested" languagecode="1033" />
+            <Description description="Kurzbezeichnung des Angeforderten" languagecode="1031" />
+            <Description description="Titre court de l'objet demandé" languagecode="1036" />
+            <Description description="Titolo breve di ciò che si richiede" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_WbsNodeId">
@@ -1218,9 +1428,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="WBS Node" languagecode="1033" />
+            <displayname description="PSP-Element" languagecode="1031" />
+            <displayname description="Nœud WBS" languagecode="1036" />
+            <displayname description="Nodo WBS" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="WBS node whose budget the purchase uses" languagecode="1033" />
+            <Description description="PSP-Element, dessen Budget der Einkauf verwendet" languagecode="1031" />
+            <Description description="Nœud WBS dont le budget est utilisé par l'achat" languagecode="1036" />
+            <Description description="Nodo WBS il cui budget è usato dall'acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">
@@ -1258,9 +1474,15 @@
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Record Created On" languagecode="1033" />
+            <displayname description="Datensatz erstellt am" languagecode="1031" />
+            <displayname description="Enregistrement créé le" languagecode="1036" />
+            <displayname description="Data creazione record" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Date and time that the record was migrated." languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Migration des Datensatzes." languagecode="1031" />
+            <Description description="Date et heure de la migration de l'enregistrement." languagecode="1036" />
+            <Description description="Data e ora di migrazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwnerId">
@@ -1300,9 +1522,15 @@
           </LookupTypes>
           <displaynames>
             <displayname description="Owner" languagecode="1033" />
+            <displayname description="Besitzer" languagecode="1031" />
+            <displayname description="Propriétaire" languagecode="1036" />
+            <displayname description="Proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Owner Id" languagecode="1033" />
+            <Description description="Besitzer-ID" languagecode="1031" />
+            <Description description="ID du propriétaire" languagecode="1036" />
+            <Description description="ID proprietario" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningBusinessUnit">
@@ -1339,9 +1567,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Business Unit" languagecode="1033" />
+            <displayname description="Besitzer (Unternehmenseinheit)" languagecode="1031" />
+            <displayname description="Division propriétaire" languagecode="1036" />
+            <displayname description="Business Unit proprietaria" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the business unit that owns the record" languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner der Unternehmenseinheit, die Besitzer des Datensatzes ist" languagecode="1031" />
+            <Description description="Identificateur unique de la division propriétaire de l'enregistrement" languagecode="1036" />
+            <Description description="Identificatore univoco della business unit proprietaria del record" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningTeam">
@@ -1378,9 +1612,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning Team" languagecode="1033" />
+            <displayname description="Besitzer (Team)" languagecode="1031" />
+            <displayname description="Équipe propriétaire" languagecode="1036" />
+            <displayname description="Team proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the team that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Teams, das Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'équipe propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco del team proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OwningUser">
@@ -1417,9 +1657,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Owning User" languagecode="1033" />
+            <displayname description="Besitzer (Benutzer)" languagecode="1031" />
+            <displayname description="Utilisateur propriétaire" languagecode="1036" />
+            <displayname description="Utente proprietario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+            <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+            <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statecode">
@@ -1458,28 +1704,46 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status" languagecode="1033" />
+              <displayname description="Status" languagecode="1031" />
+              <displayname description="Statut" languagecode="1036" />
+              <displayname description="Stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Status of the Purchase Request" languagecode="1033" />
+              <Description description="Status der Bestellanforderung" languagecode="1031" />
+              <Description description="Statut de la demande d'achat" languagecode="1036" />
+              <Description description="Stato della richiesta di acquisto" languagecode="1040" />
             </Descriptions>
             <states>
               <state value="0" defaultstatus="1" invariantname="Active" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
+                  <label description="Aktiv" languagecode="1031" />
+                  <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </state>
               <state value="1" defaultstatus="2" invariantname="Inactive" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </state>
             </states>
           </optionset>
           <displaynames>
             <displayname description="Status" languagecode="1033" />
+            <displayname description="Status" languagecode="1031" />
+            <displayname description="Statut" languagecode="1036" />
+            <displayname description="Stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Status of the Purchase Request" languagecode="1033" />
+            <Description description="Status der Bestellanforderung" languagecode="1031" />
+            <Description description="Statut de la demande d'achat" languagecode="1036" />
+            <Description description="Stato della richiesta di acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="statuscode">
@@ -1518,53 +1782,86 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="Status Reason" languagecode="1033" />
+              <displayname description="Statusgrund" languagecode="1031" />
+              <displayname description="Raison du statut" languagecode="1036" />
+              <displayname description="Motivo stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Reason for the status of the Purchase Request" languagecode="1033" />
+              <Description description="Grund für den Status der Bestellanforderung" languagecode="1031" />
+              <Description description="Raison du statut de la demande d'achat" languagecode="1036" />
+              <Description description="Motivo dello stato della richiesta di acquisto" languagecode="1040" />
             </Descriptions>
             <statuses>
               <status value="1" state="0" IsHidden="0">
                 <labels>
                   <label description="Draft" languagecode="1033" />
+                  <label description="Entwurf" languagecode="1031" />
+                  <label description="Brouillon" languagecode="1036" />
+                  <label description="Bozza" languagecode="1040" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
+                  <label description="Inaktiv" languagecode="1031" />
+                  <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </status>
               <status value="365000000" state="0" IsHidden="0">
                 <labels>
                   <label description="Submitted" languagecode="1033" />
+                  <label description="Eingereicht" languagecode="1031" />
+                  <label description="Soumis" languagecode="1036" />
+                  <label description="Inviato" languagecode="1040" />
                 </labels>
               </status>
               <status value="365000001" state="0" IsHidden="0">
                 <labels>
                   <label description="Approved" languagecode="1033" />
+                  <label description="Genehmigt" languagecode="1031" />
+                  <label description="Approuvé" languagecode="1036" />
+                  <label description="Approvato" languagecode="1040" />
                 </labels>
               </status>
               <status value="365000002" state="0" IsHidden="0">
                 <labels>
                   <label description="Rejected" languagecode="1033" />
+                  <label description="Abgelehnt" languagecode="1031" />
+                  <label description="Rejeté" languagecode="1036" />
+                  <label description="Rifiutato" languagecode="1040" />
                 </labels>
               </status>
               <status value="365000003" state="0" IsHidden="0">
                 <labels>
                   <label description="Cancelled" languagecode="1033" />
+                  <label description="Storniert" languagecode="1031" />
+                  <label description="Annulé" languagecode="1036" />
+                  <label description="Annullato" languagecode="1040" />
                 </labels>
               </status>
               <status value="365000004" state="0" IsHidden="0">
                 <labels>
                   <label description="Ordered" languagecode="1033" />
+                  <label description="Bestellt" languagecode="1031" />
+                  <label description="Commandé" languagecode="1036" />
+                  <label description="Ordinato" languagecode="1040" />
                 </labels>
               </status>
             </statuses>
           </optionset>
           <displaynames>
             <displayname description="Status Reason" languagecode="1033" />
+            <displayname description="Statusgrund" languagecode="1031" />
+            <displayname description="Raison du statut" languagecode="1036" />
+            <displayname description="Motivo stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Reason for the status of the Purchase Request" languagecode="1033" />
+            <Description description="Grund für den Status der Bestellanforderung" languagecode="1031" />
+            <Description description="Raison du statut de la demande d'achat" languagecode="1036" />
+            <Description description="Motivo dello stato della richiesta di acquisto" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="TimeZoneRuleVersionNumber">
@@ -1601,9 +1898,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="Time Zone Rule Version Number" languagecode="1033" />
+            <displayname description="Versionsnummer der Zeitzonenregel" languagecode="1031" />
+            <displayname description="Numéro de version de la règle du fuseau horaire" languagecode="1036" />
+            <displayname description="Numero di versione regola fuso orario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="For internal use only." languagecode="1033" />
+            <Description description="Nur zur internen Verwendung." languagecode="1031" />
+            <Description description="Utilisation interne uniquement." languagecode="1036" />
+            <Description description="Solo per uso interno." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="TransactionCurrencyId">
@@ -1640,9 +1943,15 @@
           <LookupTypes />
           <displaynames>
             <displayname description="Currency" languagecode="1033" />
+            <displayname description="Währung" languagecode="1031" />
+            <displayname description="Devise" languagecode="1036" />
+            <displayname description="Valuta" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier of the currency associated with the entity." languagecode="1033" />
+            <Description description="Eindeutiger Bezeichner der Währung der Entität." languagecode="1031" />
+            <Description description="Identificateur unique de la devise associée à l'entité." languagecode="1036" />
+            <Description description="Identificatore univoco della valuta associata all'entità." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="UTCConversionTimeZoneCode">
@@ -1679,9 +1988,15 @@
           <MaxValue>2147483647</MaxValue>
           <displaynames>
             <displayname description="UTC Conversion Time Zone Code" languagecode="1033" />
+            <displayname description="Zeitzonencode für die UTC-Konvertierung" languagecode="1031" />
+            <displayname description="Code de fuseau horaire pour la conversion UTC" languagecode="1036" />
+            <displayname description="Codice fuso orario conversione UTC" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Time zone code that was in use when the record was created." languagecode="1033" />
+            <Description description="Zeitzonencode, der bei Erstellung des Datensatzes verwendet wurde." languagecode="1031" />
+            <Description description="Code de fuseau horaire utilisé à la création de l’enregistrement." languagecode="1036" />
+            <Description description="Codice di fuso orario utilizzato al momento della creazione del record." languagecode="1040" />
           </Descriptions>
         </attribute>
       </attributes>

@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="InvitationId">
   <description default="Winning invitation">
+    <label description="Gewinnende Einladung" languagecode="1031" />
     <label description="Winning invitation" languagecode="1033" />
+    <label description="Invitation retenue" languagecode="1036" />
+    <label description="Invito vincitore" languagecode="1040" />
   </description>
   <displayname default="InvitationId">
+    <label description="EinladungId" languagecode="1031" />
     <label description="InvitationId" languagecode="1033" />
+    <label description="IdInvitation" languagecode="1036" />
+    <label description="IdInvito" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

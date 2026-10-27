@@ -34,7 +34,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive Projektmitglieder" languagecode="1031" />
       <LocalizedName description="Quick Find Active Project Members" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : membres du projet actifs" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida membri commessa attivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

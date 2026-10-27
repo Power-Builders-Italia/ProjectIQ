@@ -28,7 +28,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Angebotseinladung – Ansicht für erweiterte Suche" languagecode="1031" />
       <LocalizedName description="RFQ Invitation Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Invitation à soumissionner - Vue Recherche avancée" languagecode="1036" />
+      <LocalizedName description="Invito RdO - Visualizzazione Ricerca avanzata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

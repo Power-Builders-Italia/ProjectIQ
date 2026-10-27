@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_rfq</boundentitylogicalname>
   <description default="Cancels a draft or sent request for quotation">
+    <label description="Storniert eine Angebotsanfrage im Entwurf oder versendet" languagecode="1031" />
     <label description="Cancels a draft or sent request for quotation" languagecode="1033" />
+    <label description="Annule une demande de prix en brouillon ou envoyée" languagecode="1036" />
+    <label description="Annulla una richiesta di offerta in bozza o inviata" languagecode="1040" />
   </description>
   <displayname default="Cancel RFQ">
+    <label description="Angebotsanfrage stornieren" languagecode="1031" />
     <label description="Cancel RFQ" languagecode="1033" />
+    <label description="Annuler la demande de prix" languagecode="1036" />
+    <label description="Annulla RdO" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

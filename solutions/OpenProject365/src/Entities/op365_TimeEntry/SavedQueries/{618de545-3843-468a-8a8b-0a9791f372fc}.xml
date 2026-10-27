@@ -45,7 +45,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive Zeiteinträge" languagecode="1031" />
       <LocalizedName description="Quick Find Active Time Entries" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : saisies de temps actives" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida registrazioni ore attive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

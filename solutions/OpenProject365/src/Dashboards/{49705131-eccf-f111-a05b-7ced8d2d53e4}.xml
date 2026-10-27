@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <LocalizedNames>
+    <LocalizedName description="Ressourcenauslastung" languagecode="1031" />
     <LocalizedName description="Resource Load" languagecode="1033" />
+    <LocalizedName description="Charge des ressources" languagecode="1036" />
+    <LocalizedName description="Carico risorse" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Zugeordnete Stunden im Verhältnis zur Kapazität pro Woche" languagecode="1031" />
     <Description description="Allocated hours against capacity by week" languagecode="1033" />
+    <Description description="Heures affectées par rapport à la capacité par semaine" languagecode="1036" />
+    <Description description="Ore allocate rispetto alla capacità per settimana" languagecode="1040" />
   </Descriptions>
   <FormId>{49705131-eccf-f111-a05b-7ced8d2d53e4}</FormId>
   <IsCustomizable>1</IsCustomizable>
@@ -15,20 +21,29 @@
         <tabs>
           <tab name="resource_load" id="{c897a348-5f12-55fd-acb7-f75de94f977e}" expanded="true" showlabel="true" verticallayout="true">
             <labels>
+              <label description="Ressourcenauslastung" languagecode="1031" />
               <label description="Resource Load" languagecode="1033" />
+              <label description="Charge des ressources" languagecode="1036" />
+              <label description="Carico risorse" languagecode="1040" />
             </labels>
             <columns>
               <column width="100%">
                 <sections>
                   <section name="resource_load" showlabel="true" showbar="false" columns="111" id="{c7d9a69e-93a4-52a6-8a73-bddca097ed32}">
                     <labels>
+                      <label description="Ressourcenauslastung" languagecode="1031" />
                       <label description="Resource Load" languagecode="1033" />
+                      <label description="Charge des ressources" languagecode="1036" />
+                      <label description="Carico risorse" languagecode="1040" />
                     </labels>
                     <rows>
                       <row>
                         <cell id="{e1e940c0-db73-5a01-9cfa-bdd2fcdbbbbd}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Resource Load" languagecode="1033" />
+                            <label description="Carico risorse" languagecode="1040" />
+                            <label description="Ressourcenauslastung" languagecode="1031" />
+                            <label description="Charge des ressources" languagecode="1036" />
                           </labels>
                           <control id="Board" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{f9386c06-0bef-5fa9-a4cf-1c0b603719ec}">
                             <parameters>

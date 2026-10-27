@@ -1,9 +1,15 @@
 <customapiresponseproperty uniquename="RfqId">
   <description default="New request for quotation">
+    <label description="Neue Angebotsanfrage" languagecode="1031" />
     <label description="New request for quotation" languagecode="1033" />
+    <label description="Nouvelle demande de prix" languagecode="1036" />
+    <label description="Nuova richiesta di offerta" languagecode="1040" />
   </description>
   <displayname default="RfqId">
+    <label description="AngebotsanfrageId" languagecode="1031" />
     <label description="RfqId" languagecode="1033" />
+    <label description="IdDemandeDePrix" languagecode="1036" />
+    <label description="IdRdO" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_CreateRfq.RfqId</name>

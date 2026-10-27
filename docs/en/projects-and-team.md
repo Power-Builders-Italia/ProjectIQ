@@ -74,7 +74,7 @@ You see only the projects you own, the projects where you are a team member, and
 | **Actual Cost** | Approved labour cost + material cost recorded on the project | Calculated |
 | **Actual Hours** | Approved hours recorded on the project | Calculated |
 | **Committed Cost** | Value of the lines of sent or confirmed purchase orders not yet received | Calculated |
-| **Progress %** | Overall progress, from the WBS | Calculated |
+| **Progress %** | Overall progress, from the WBS, shown as a green bar from 0 to 100 with the rounded percentage | Calculated |
 | **Description** | Scope, notes, anything useful | You |
 
 The right-hand column shows the **Timeline**: notes, mentions (`@name`) and activities (calls, tasks, appointments, emails) about the project.
