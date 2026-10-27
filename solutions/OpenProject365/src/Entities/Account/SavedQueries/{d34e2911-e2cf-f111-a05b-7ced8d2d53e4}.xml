@@ -44,7 +44,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Kunden ohne Projekte" languagecode="1031" />
       <LocalizedName description="Customers without Projects" languagecode="1033" />
+      <LocalizedName description="Clients sans projet" languagecode="1036" />
+      <LocalizedName description="Clienti senza commesse" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

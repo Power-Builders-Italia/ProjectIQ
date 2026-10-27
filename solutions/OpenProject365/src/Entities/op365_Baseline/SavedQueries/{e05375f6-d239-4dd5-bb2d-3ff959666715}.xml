@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Basispläne" languagecode="1031" />
       <LocalizedName description="My Baselines" languagecode="1033" />
+      <LocalizedName description="Mes plannings de référence" languagecode="1036" />
+      <LocalizedName description="Le mie baseline" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Basispläne" languagecode="1031" />
       <Description description="Active Baselines owned by me" languagecode="1033" />
+      <Description description="Mes plannings de référence actifs" languagecode="1036" />
+      <Description description="Le mie baseline attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

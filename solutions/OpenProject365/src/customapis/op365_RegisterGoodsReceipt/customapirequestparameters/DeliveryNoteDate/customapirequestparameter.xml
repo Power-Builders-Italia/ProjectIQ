@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="DeliveryNoteDate">
   <description default="Delivery note date">
+    <label description="Lieferscheindatum" languagecode="1031" />
     <label description="Delivery note date" languagecode="1033" />
+    <label description="Date du bon de livraison" languagecode="1036" />
+    <label description="Data DDT" languagecode="1040" />
   </description>
   <displayname default="DeliveryNoteDate">
+    <label description="Lieferscheindatum" languagecode="1031" />
     <label description="DeliveryNoteDate" languagecode="1033" />
+    <label description="DateBonLivraison" languagecode="1036" />
+    <label description="DataDDT" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Bestellanforderungsposition – Suchansicht" languagecode="1031" />
       <LocalizedName description="Purchase Request Line Lookup View" languagecode="1033" />
+      <LocalizedName description="Ligne de demande d'achat - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Riga RDA - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

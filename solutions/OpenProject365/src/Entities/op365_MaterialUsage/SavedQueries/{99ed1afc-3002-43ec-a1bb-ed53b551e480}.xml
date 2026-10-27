@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Materialverbrauch – Zugeordnete Ansicht" languagecode="1031" />
       <LocalizedName description="Material Usage Associated View" languagecode="1033" />
+      <LocalizedName description="Consommation de matériel - Vue associée" languagecode="1036" />
+      <LocalizedName description="Consumo materiale - Visualizzazione associata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

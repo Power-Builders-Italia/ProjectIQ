@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Bestellpositionen" languagecode="1031" />
       <LocalizedName description="My Purchase Order Lines" languagecode="1033" />
+      <LocalizedName description="Mes lignes de commande" languagecode="1036" />
+      <LocalizedName description="Le mie righe ordine" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Bestellpositionen" languagecode="1031" />
       <Description description="Active Purchase Order Lines owned by me" languagecode="1033" />
+      <Description description="Mes lignes de commande actives" languagecode="1036" />
+      <Description description="Le mie righe ordine attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{46cdc423-bf97-51ed-ac66-91e9be7712eb}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="line" showlabel="true" showbar="false" columns="2" id="{8f8035d5-a2a3-5f56-9848-21b19614ac4c}">
                   <labels>
+                    <label description="Position" languagecode="1031" />
                     <label description="Line" languagecode="1033" />
+                    <label description="Ligne" languagecode="1036" />
+                    <label description="Riga" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{91af7fa3-ba3c-5c65-b6fa-f3f75f881439}">
                         <labels>
                           <label description="Purchase Request" languagecode="1033" />
+                          <label description="Richiesta di acquisto" languagecode="1040" />
+                          <label description="Bestellanforderung" languagecode="1031" />
+                          <label description="Demande d'achat" languagecode="1036" />
                         </labels>
                         <control id="op365_purchaserequestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaserequestid" />
                       </cell>
                       <cell id="{641d0bf9-d428-5637-ab15-b54b766dc937}">
                         <labels>
                           <label description="Item" languagecode="1033" />
+                          <label description="Articolo" languagecode="1040" />
+                          <label description="Artikel" languagecode="1031" />
+                          <label description="Article" languagecode="1036" />
                         </labels>
                         <control id="op365_itemid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_itemid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{5d9627f3-19bb-506a-a3e0-0ad8dc08884c}">
                         <labels>
                           <label description="Description" languagecode="1033" />
+                          <label description="Descrizione" languagecode="1040" />
+                          <label description="Beschreibung" languagecode="1031" />
+                          <label description="Description" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
                       <cell id="{6d065cd2-96d2-5a25-83b5-6b0e628c1316}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />
+                          <label description="Quantità" languagecode="1040" />
+                          <label description="Menge" languagecode="1031" />
+                          <label description="Quantité" languagecode="1036" />
                         </labels>
                         <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{119d60b8-09ca-5833-87de-c6cb38c63317}">
                         <labels>
                           <label description="Unit of Measure" languagecode="1033" />
+                          <label description="Unità di misura" languagecode="1040" />
+                          <label description="Maßeinheit" languagecode="1031" />
+                          <label description="Unité de mesure" languagecode="1036" />
                         </labels>
                         <control id="op365_uom" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_uom" />
                       </cell>
                       <cell id="{669d0528-b079-5aad-a315-c5b4bbfabf8c}">
                         <labels>
                           <label description="Estimated Price" languagecode="1033" />
+                          <label description="Prezzo stimato" languagecode="1040" />
+                          <label description="Geschätzter Preis" languagecode="1031" />
+                          <label description="Prix estimé" languagecode="1036" />
                         </labels>
                         <control id="op365_estimatedprice" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_estimatedprice" />
                       </cell>
@@ -65,12 +89,18 @@
                       <cell id="{166369d0-d675-5546-82aa-d7abc408a63d}">
                         <labels>
                           <label description="Amount" languagecode="1033" />
+                          <label description="Importo" languagecode="1040" />
+                          <label description="Betrag" languagecode="1031" />
+                          <label description="Montant" languagecode="1036" />
                         </labels>
                         <control id="op365_amount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_amount" disabled="true" />
                       </cell>
                       <cell id="{026bf1e1-bf2e-57ed-ab8b-797d636f786d}">
                         <labels>
                           <label description="Sort Order" languagecode="1033" />
+                          <label description="Ordinamento" languagecode="1040" />
+                          <label description="Sortierreihenfolge" languagecode="1031" />
+                          <label description="Ordre de tri" languagecode="1036" />
                         </labels>
                         <control id="op365_sortorder" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_sortorder" />
                       </cell>
@@ -79,13 +109,19 @@
                 </section>
                 <section name="notes" showlabel="true" showbar="false" columns="1" id="{bc8a6f35-3cf6-5ab5-b282-990eef656dc1}">
                   <labels>
+                    <label description="Hinweise" languagecode="1031" />
                     <label description="Notes" languagecode="1033" />
+                    <label description="Remarques" languagecode="1036" />
+                    <label description="Note" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{83d124b6-dbe8-5e34-a3e5-8b2a50b85d80}">
                         <labels>
                           <label description="Notes" languagecode="1033" />
+                          <label description="Note" languagecode="1040" />
+                          <label description="Hinweise" languagecode="1031" />
+                          <label description="Remarques" languagecode="1036" />
                         </labels>
                         <control id="op365_notes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_notes" />
                       </cell>
@@ -101,7 +137,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Bestellanforderungsposition" languagecode="1031" />
       <LocalizedName description="Purchase Request Line" languagecode="1033" />
+      <LocalizedName description="Ligne de demande d'achat" languagecode="1036" />
+      <LocalizedName description="Riga RDA" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{940006df-dd07-5c98-8204-4a0a01c9e1b7}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="wbs_node" showlabel="true" showbar="false" columns="2" id="{588a02b0-4d61-5cd0-9af9-fc406b22e5a7}">
                   <labels>
+                    <label description="PSP-Element" languagecode="1031" />
                     <label description="WBS Node" languagecode="1033" />
+                    <label description="Nœud WBS" languagecode="1036" />
+                    <label description="Nodo WBS" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{f7425843-a350-5752-a1b8-13964e68bcfd}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
                       <cell id="{740ad7b3-1eea-529d-9954-04e1841a46e7}">
                         <labels>
                           <label description="Parent Node" languagecode="1033" />
+                          <label description="Nodo padre" languagecode="1040" />
+                          <label description="Übergeordnetes Element" languagecode="1031" />
+                          <label description="Nœud parent" languagecode="1036" />
                         </labels>
                         <control id="op365_parentid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_parentid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{c0acb951-4b5e-5534-9fcf-1bcde1fb0a33}">
                         <labels>
                           <label description="Code" languagecode="1033" />
+                          <label description="Codice" languagecode="1040" />
+                          <label description="Code" languagecode="1031" />
+                          <label description="Code" languagecode="1036" />
                         </labels>
                         <control id="op365_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_code" />
                       </cell>
                       <cell id="{f581ebd3-5669-5498-b82c-6bd6009025bc}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{f87edcfa-6261-561f-a53f-a8ba695c5260}">
                         <labels>
                           <label description="Owner Resource" languagecode="1033" />
+                          <label description="Risorsa responsabile" languagecode="1040" />
+                          <label description="Verantwortliche Ressource" languagecode="1031" />
+                          <label description="Ressource responsable" languagecode="1036" />
                         </labels>
                         <control id="op365_ownerresourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_ownerresourceid" />
                       </cell>
                       <cell id="{b79c4f70-8e56-5f37-9a36-5c9a56109fce}">
                         <labels>
                           <label description="Sort Order" languagecode="1033" />
+                          <label description="Ordinamento" languagecode="1040" />
+                          <label description="Sortierreihenfolge" languagecode="1031" />
+                          <label description="Ordre de tri" languagecode="1036" />
                         </labels>
                         <control id="op365_sortorder" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_sortorder" />
                       </cell>
@@ -65,12 +89,18 @@
                       <cell id="{9df2ed4c-f725-55e4-859e-13f829697f9c}">
                         <labels>
                           <label description="Start Date" languagecode="1033" />
+                          <label description="Data inizio" languagecode="1040" />
+                          <label description="Startdatum" languagecode="1031" />
+                          <label description="Date de début" languagecode="1036" />
                         </labels>
                         <control id="op365_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_startdate" />
                       </cell>
                       <cell id="{85a94296-917e-5b83-aa72-624153495c1b}">
                         <labels>
                           <label description="End Date" languagecode="1033" />
+                          <label description="Data fine" languagecode="1040" />
+                          <label description="Enddatum" languagecode="1031" />
+                          <label description="Date de fin" languagecode="1036" />
                         </labels>
                         <control id="op365_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_enddate" />
                       </cell>
@@ -79,12 +109,18 @@
                       <cell id="{183d3ef2-7864-5348-bca2-93a12dbf38d8}">
                         <labels>
                           <label description="Progress %" languagecode="1033" />
+                          <label description="Avanzamento %" languagecode="1040" />
+                          <label description="Fortschritt %" languagecode="1031" />
+                          <label description="Avancement %" languagecode="1036" />
                         </labels>
                         <control id="op365_progresspct" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_progresspct" />
                       </cell>
                       <cell id="{907ca7a7-3d06-5c83-b7aa-518d41aa45e4}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -97,26 +133,38 @@
         </tab>
         <tab name="budget" id="{c65752be-2179-5a07-9d49-029f348351ee}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Budget" languagecode="1031" />
             <label description="Budget" languagecode="1033" />
+            <label description="Budget" languagecode="1036" />
+            <label description="Budget" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="budget" showlabel="true" showbar="false" columns="2" id="{2eaada7a-b0f3-5916-9ec6-cc18287553ed}">
                   <labels>
+                    <label description="Budget" languagecode="1031" />
                     <label description="Budget" languagecode="1033" />
+                    <label description="Budget" languagecode="1036" />
+                    <label description="Budget" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{2c14883e-7fc2-5f88-a5e8-b60b5f80327f}">
                         <labels>
                           <label description="Budget Hours" languagecode="1033" />
+                          <label description="Ore a budget" languagecode="1040" />
+                          <label description="Budgetstunden" languagecode="1031" />
+                          <label description="Heures budgétées" languagecode="1036" />
                         </labels>
                         <control id="op365_budgethours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_budgethours" />
                       </cell>
                       <cell id="{f3f99e75-6c3b-576e-a5fd-f95318f119af}">
                         <labels>
                           <label description="Actual Hours" languagecode="1033" />
+                          <label description="Ore effettive" languagecode="1040" />
+                          <label description="Iststunden" languagecode="1031" />
+                          <label description="Heures réelles" languagecode="1036" />
                         </labels>
                         <control id="op365_actualhours" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_actualhours" />
                       </cell>
@@ -125,12 +173,18 @@
                       <cell id="{2b5985de-a7e3-5c40-9fc6-443fab0ce090}">
                         <labels>
                           <label description="Budget Labour" languagecode="1033" />
+                          <label description="Budget manodopera" languagecode="1040" />
+                          <label description="Budget Arbeit" languagecode="1031" />
+                          <label description="Budget main-d'œuvre" languagecode="1036" />
                         </labels>
                         <control id="op365_budgetlabour" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetlabour" />
                       </cell>
                       <cell id="{e9e1cd6b-422e-52c0-b527-d7ccc8f986fa}">
                         <labels>
                           <label description="Budget Materials" languagecode="1033" />
+                          <label description="Budget materiali" languagecode="1040" />
+                          <label description="Budget Material" languagecode="1031" />
+                          <label description="Budget matériel" languagecode="1036" />
                         </labels>
                         <control id="op365_budgetmaterials" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetmaterials" />
                       </cell>
@@ -139,12 +193,18 @@
                       <cell id="{260250f5-b45a-512d-9e6e-edf302535f47}">
                         <labels>
                           <label description="Budget Other" languagecode="1033" />
+                          <label description="Budget altro" languagecode="1040" />
+                          <label description="Budget Sonstiges" languagecode="1031" />
+                          <label description="Budget autres" languagecode="1036" />
                         </labels>
                         <control id="op365_budgetother" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgetother" />
                       </cell>
                       <cell id="{73ca7c19-9c21-53e8-bf30-4e4a57894d3a}">
                         <labels>
                           <label description="Budget Total" languagecode="1033" />
+                          <label description="Budget totale" languagecode="1040" />
+                          <label description="Budget gesamt" languagecode="1031" />
+                          <label description="Budget total" languagecode="1036" />
                         </labels>
                         <control id="op365_budgettotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_budgettotal" />
                       </cell>
@@ -157,20 +217,29 @@
         </tab>
         <tab name="dependencies" id="{801571c3-129f-58f2-8e6e-2f03c7d89fe1}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Abhängigkeiten" languagecode="1031" />
             <label description="Dependencies" languagecode="1033" />
+            <label description="Dépendances" languagecode="1036" />
+            <label description="Dipendenze" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="predecessors" showlabel="true" showbar="false" columns="1" id="{145ea74e-1ff4-5ef8-9e83-bf425f10181b}">
                   <labels>
+                    <label description="Vorgänger" languagecode="1031" />
                     <label description="Predecessors" languagecode="1033" />
+                    <label description="Prédécesseurs" languagecode="1036" />
+                    <label description="Predecessori" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{94a63124-897e-5ec1-ae1a-3ea865da1afb}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Predecessors" languagecode="1033" />
+                          <label description="Predecessori" languagecode="1040" />
+                          <label description="Vorgänger" languagecode="1031" />
+                          <label description="Prédécesseurs" languagecode="1036" />
                         </labels>
                         <control id="Predecessors" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -195,13 +264,19 @@
                 </section>
                 <section name="successors" showlabel="true" showbar="false" columns="1" id="{1fcd91f6-dc11-5998-b65a-d1286fcea714}">
                   <labels>
+                    <label description="Nachfolger" languagecode="1031" />
                     <label description="Successors" languagecode="1033" />
+                    <label description="Successeurs" languagecode="1036" />
+                    <label description="Successori" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{46b5c296-6671-5b5d-a6d2-b7bae81cdc8a}" showlabel="true" rowspan="6" colspan="1" auto="false">
                         <labels>
                           <label description="Successors" languagecode="1033" />
+                          <label description="Successori" languagecode="1040" />
+                          <label description="Nachfolger" languagecode="1031" />
+                          <label description="Successeurs" languagecode="1036" />
                         </labels>
                         <control id="Successors" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -230,20 +305,29 @@
         </tab>
         <tab name="allocations" id="{2cc48aae-7cc5-551e-8b8b-91f7b8947e15}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Zuordnungen" languagecode="1031" />
             <label description="Allocations" languagecode="1033" />
+            <label description="Affectations" languagecode="1036" />
+            <label description="Allocazioni" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="allocations" showlabel="true" showbar="false" columns="1" id="{dff3238a-25de-56b4-89e0-8da193b402b4}">
                   <labels>
+                    <label description="Zuordnungen" languagecode="1031" />
                     <label description="Allocations" languagecode="1033" />
+                    <label description="Affectations" languagecode="1036" />
+                    <label description="Allocazioni" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{4024b603-8b9d-5bb7-9abc-ca4acd50b8bd}" showlabel="true" rowspan="8" colspan="1" auto="false">
                         <labels>
                           <label description="Allocations" languagecode="1033" />
+                          <label description="Allocazioni" languagecode="1040" />
+                          <label description="Zuordnungen" languagecode="1031" />
+                          <label description="Affectations" languagecode="1036" />
                         </labels>
                         <control id="Allocations" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -285,7 +369,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="PSP-Element" languagecode="1031" />
       <LocalizedName description="WBS Node" languagecode="1033" />
+      <LocalizedName description="Nœud WBS" languagecode="1036" />
+      <LocalizedName description="Nodo WBS" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

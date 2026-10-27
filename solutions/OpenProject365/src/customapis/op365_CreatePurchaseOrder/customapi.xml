@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
   <description default="Creates a draft purchase order from an approved purchase request">
+    <label description="Erstellt eine Bestellung im Entwurf aus einer genehmigten Bestellanforderung" languagecode="1031" />
     <label description="Creates a draft purchase order from an approved purchase request" languagecode="1033" />
+    <label description="Crée une commande brouillon à partir d'une demande d'achat approuvée" languagecode="1036" />
+    <label description="Crea un ordine in bozza da una RDA approvata" languagecode="1040" />
   </description>
   <displayname default="Create Purchase Order">
+    <label description="Bestellung erstellen" languagecode="1031" />
     <label description="Create Purchase Order" languagecode="1033" />
+    <label description="Créer une commande" languagecode="1036" />
+    <label description="Crea ordine di acquisto" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

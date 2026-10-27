@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Bestellposition – Suchansicht" languagecode="1031" />
       <LocalizedName description="Purchase Order Line Lookup View" languagecode="1033" />
+      <LocalizedName description="Ligne de commande - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Riga ordine - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

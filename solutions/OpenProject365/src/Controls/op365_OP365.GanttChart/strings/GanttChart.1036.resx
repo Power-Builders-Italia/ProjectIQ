@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Diagramme de Gantt</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Gantt du WBS du projet avec dépendances, chemin critique et comparaison à la référence</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Nœuds WBS</value>
+  </data>
+  <data name="Zoom_Week" xml:space="preserve">
+    <value>Semaines</value>
+  </data>
+  <data name="Zoom_Month" xml:space="preserve">
+    <value>Mois</value>
+  </data>
+  <data name="Zoom_Quarter" xml:space="preserve">
+    <value>Trimestres</value>
+  </data>
+  <data name="Baseline" xml:space="preserve">
+    <value>Référence</value>
+  </data>
+  <data name="Baseline_None" xml:space="preserve">
+    <value>Aucune référence</value>
+  </data>
+  <data name="Baseline_Reference" xml:space="preserve">
+    <value>(référence)</value>
+  </data>
+  <data name="Critical_Path" xml:space="preserve">
+    <value>Chemin critique</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Aujourd'hui</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Aucun nœud WBS n'a encore de dates de début et de fin.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Enregistrez le projet pour voir son Gantt.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossible de charger le planning</value>
+  </data>
+  <data name="Tip_Dates" xml:space="preserve">
+    <value>Dates</value>
+  </data>
+  <data name="Tip_Progress" xml:space="preserve">
+    <value>Avancement</value>
+  </data>
+  <data name="Tip_Float" xml:space="preserve">
+    <value>Marge (jours)</value>
+  </data>
+  <data name="Tip_Critical" xml:space="preserve">
+    <value>Sur le chemin critique</value>
+  </data>
+  <data name="Tip_Baseline" xml:space="preserve">
+    <value>Référence</value>
+  </data>
+  <data name="Tip_Late" xml:space="preserve">
+    <value>Décalé par les dépendances au</value>
+  </data>
+  <data name="Loop_Warning" xml:space="preserve">
+    <value>Certaines dépendances forment une boucle et ont été ignorées.</value>
+  </data>
+</root>

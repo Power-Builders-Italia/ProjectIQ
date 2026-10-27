@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Item the conditions refer to" languagecode="1033" />
+        <Description description="Artikel, auf den sich die Konditionen beziehen" languagecode="1031" />
+        <Description description="Article auquel se rapportent les conditions" languagecode="1036" />
+        <Description description="Articolo a cui si riferiscono le condizioni" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Item used" languagecode="1033" />
+        <Description description="Verwendeter Artikel" languagecode="1031" />
+        <Description description="Article utilisé" languagecode="1036" />
+        <Description description="Articolo utilizzato" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Ordered item; empty for a service or a free-text line" languagecode="1033" />
+        <Description description="Bestellter Artikel; leer bei einer Leistung oder einer Freitextposition" languagecode="1031" />
+        <Description description="Article commandé ; vide pour un service ou une ligne libre" languagecode="1036" />
+        <Description description="Articolo ordinato; vuoto per un servizio o una riga a testo libero" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Requested item; empty for a service or a free-text line" languagecode="1033" />
+        <Description description="Angeforderter Artikel; leer bei einer Leistung oder einer Freitextposition" languagecode="1031" />
+        <Description description="Article demandé ; vide pour un service ou une ligne libre" languagecode="1036" />
+        <Description description="Articolo richiesto; vuoto per un servizio o una riga a testo libero" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

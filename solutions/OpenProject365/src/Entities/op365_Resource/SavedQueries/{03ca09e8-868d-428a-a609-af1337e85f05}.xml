@@ -37,7 +37,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Aktive Ressourcen" languagecode="1031" />
       <LocalizedName description="Active Resources" languagecode="1033" />
+      <LocalizedName description="Ressources actives" languagecode="1036" />
+      <LocalizedName description="Risorse attive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

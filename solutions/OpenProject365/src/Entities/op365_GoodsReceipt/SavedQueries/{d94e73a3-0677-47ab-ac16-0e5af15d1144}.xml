@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Wareneingang – Suchansicht" languagecode="1031" />
       <LocalizedName description="Goods Receipt Lookup View" languagecode="1033" />
+      <LocalizedName description="Réception de marchandises - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Ricevimento merci - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

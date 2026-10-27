@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Ressourcenkosten – Suchansicht" languagecode="1031" />
       <LocalizedName description="Resource Cost Lookup View" languagecode="1033" />
+      <LocalizedName description="Coût de ressource - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Costo risorsa - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

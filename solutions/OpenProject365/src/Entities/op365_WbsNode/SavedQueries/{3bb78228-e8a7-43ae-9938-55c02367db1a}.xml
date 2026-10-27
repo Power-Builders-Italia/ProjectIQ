@@ -34,7 +34,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive PSP-Elemente" languagecode="1031" />
       <LocalizedName description="Quick Find Active WBS Nodes" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : nœuds WBS actifs" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida nodi WBS attivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

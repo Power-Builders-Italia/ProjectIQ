@@ -156,7 +156,7 @@ De nombreux enregistrements suivent un circuit (saisies d'heures, demandes d'ach
 
 ## Langue
 
-L'application est aujourd'hui livrée en **anglais** ; les traductions italienne, française et allemande de l'interface sont prévues. Ces manuels sont déjà disponibles dans les quatre langues.
+L'interface est disponible en **anglais, italien, français et allemand**. Chaque utilisateur choisit la langue dans **Paramètres (icône d'engrenage) > Paramètres de personnalisation > Langues > Langue de l'interface utilisateur** ; tables, champs, vues, boutons, les contrôles du projet (WBS, Gantt, feuille de temps...), les boîtes de dialogue, les messages d'erreur et les notifications suivent ce choix. Ces manuels sont disponibles dans les quatre langues ; certains noms de boutons et de champs peuvent encore apparaître en anglais, avec une traduction lorsque c'est utile.
 
 ## Et ensuite
 

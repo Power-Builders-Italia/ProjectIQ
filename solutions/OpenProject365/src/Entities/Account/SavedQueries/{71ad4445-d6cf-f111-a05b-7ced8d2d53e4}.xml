@@ -44,7 +44,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Lieferanten mit Dokumentwarnungen" languagecode="1031" />
       <LocalizedName description="Suppliers with Document Alerts" languagecode="1033" />
+      <LocalizedName description="Fournisseurs avec alertes documents" languagecode="1036" />
+      <LocalizedName description="Fornitori con avvisi documenti" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

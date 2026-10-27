@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Offene Angebotsanfragen" languagecode="1031" />
       <LocalizedName description="Open RFQs" languagecode="1033" />
+      <LocalizedName description="Demandes de prix ouvertes" languagecode="1036" />
+      <LocalizedName description="RdO aperte" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

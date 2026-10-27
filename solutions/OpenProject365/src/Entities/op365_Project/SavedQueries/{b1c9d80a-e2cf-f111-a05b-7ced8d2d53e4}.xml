@@ -47,7 +47,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Abgeschlossene Projekte" languagecode="1031" />
       <LocalizedName description="Closed Projects" languagecode="1033" />
+      <LocalizedName description="Projets clôturés" languagecode="1036" />
+      <LocalizedName description="Commesse chiuse" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

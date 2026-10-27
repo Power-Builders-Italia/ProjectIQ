@@ -32,10 +32,16 @@
     <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
   </AppModuleRoleMaps>
   <LocalizedNames>
+    <LocalizedName description="Open Project 365" languagecode="1031" />
     <LocalizedName description="Open Project 365" languagecode="1033" />
+    <LocalizedName description="Open Project 365" languagecode="1036" />
+    <LocalizedName description="Open Project 365" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Projekte, Planung, Zeiten, Material und Einkauf auf Dataverse" languagecode="1031" />
     <Description description="Projects, planning, time, materials and purchasing on Dataverse" languagecode="1033" />
+    <Description description="Projets, planification, temps, matériel et achats sur Dataverse" languagecode="1036" />
+    <Description description="Commesse, pianificazione, ore, materiali e acquisti su Dataverse" languagecode="1040" />
   </Descriptions>
   <appsettings>
     <appsetting settingdefinitionid.uniquename="AppChannel">

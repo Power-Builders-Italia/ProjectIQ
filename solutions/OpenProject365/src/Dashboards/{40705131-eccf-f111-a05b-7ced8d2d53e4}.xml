@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <LocalizedNames>
+    <LocalizedName description="Zeitgenehmigung" languagecode="1031" />
     <LocalizedName description="Time Approval" languagecode="1033" />
+    <LocalizedName description="Approbation des heures" languagecode="1036" />
+    <LocalizedName description="Approvazione ore" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Eingereichte Zeiteinträge zur Genehmigung" languagecode="1031" />
     <Description description="Submitted time entries to approve" languagecode="1033" />
+    <Description description="Saisies de temps soumises à approuver" languagecode="1036" />
+    <Description description="Registrazioni ore inviate da approvare" languagecode="1040" />
   </Descriptions>
   <FormId>{40705131-eccf-f111-a05b-7ced8d2d53e4}</FormId>
   <IsCustomizable>1</IsCustomizable>
@@ -15,20 +21,29 @@
         <tabs>
           <tab name="time_approval" id="{2132ee6d-b545-57ff-99e7-6d847ca4fb7d}" expanded="true" showlabel="true" verticallayout="true">
             <labels>
+              <label description="Zeitgenehmigung" languagecode="1031" />
               <label description="Time Approval" languagecode="1033" />
+              <label description="Approbation des heures" languagecode="1036" />
+              <label description="Approvazione ore" languagecode="1040" />
             </labels>
             <columns>
               <column width="100%">
                 <sections>
                   <section name="time_approval" showlabel="true" showbar="false" columns="111" id="{1accf03b-7b92-56a8-a34f-0670bcbf45a4}">
                     <labels>
+                      <label description="Zeitgenehmigung" languagecode="1031" />
                       <label description="Time Approval" languagecode="1033" />
+                      <label description="Approbation des heures" languagecode="1036" />
+                      <label description="Approvazione ore" languagecode="1040" />
                     </labels>
                     <rows>
                       <row>
                         <cell id="{70af8e5b-5f14-5e0a-a50d-9b5bc050f1e4}" showlabel="false" rowspan="30" colspan="3" auto="false">
                           <labels>
                             <label description="Time Approval" languagecode="1033" />
+                            <label description="Approvazione ore" languagecode="1040" />
+                            <label description="Zeitgenehmigung" languagecode="1031" />
+                            <label description="Approbation des heures" languagecode="1036" />
                           </labels>
                           <control id="Board" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{a4fc77f1-09f9-5022-bad3-370f7fd7e16d}">
                             <parameters>

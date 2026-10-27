@@ -6,7 +6,7 @@ import {
 } from "@fluentui/react-components";
 import { IInputs } from "./generated/ManifestTypes";
 import { EditableCell } from "../shared/EditableCell";
-import { fromDay, toDay } from "../shared/dates";
+import { fromDay, toDay, userLocale } from "../shared/dates";
 import {
     buildTimesheet, Cell, cellChange, cellEditable, parseHours, STATUS, submittable, TimeEntry, TimesheetRow, weekStart,
 } from "../shared/timesheet";
@@ -162,7 +162,7 @@ export function WeeklyTimesheetApp({ context, refreshKey }: Props): React.ReactE
     };
 
     const fmtDay = (day: number, opts: Intl.DateTimeFormatOptions): string =>
-        fromDay(day).toLocaleDateString(undefined, { timeZone: "UTC", ...opts });
+        fromDay(day).toLocaleDateString(userLocale(context.userSettings.languageId), { timeZone: "UTC", ...opts });
     const hours = (h: number): string => (h ? context.formatting.formatDecimal(h, 2).replace(/[.,]00$/, "") : "");
 
     if (me && !me.resourceId) {

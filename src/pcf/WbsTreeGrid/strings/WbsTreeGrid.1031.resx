@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>PSP-Baumraster</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Aufklappbarer PSP des Projekts mit Inline-Bearbeitung von Budget, Terminen und Fortschritt</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>PSP-Elemente</value>
+  </data>
+  <data name="Col_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Col_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Col_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Col_End" xml:space="preserve">
+    <value>Ende</value>
+  </data>
+  <data name="Col_Hours" xml:space="preserve">
+    <value>Budgetstunden</value>
+  </data>
+  <data name="Col_Labour" xml:space="preserve">
+    <value>Arbeit</value>
+  </data>
+  <data name="Col_Materials" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Col_Other" xml:space="preserve">
+    <value>Sonstiges</value>
+  </data>
+  <data name="Col_Total" xml:space="preserve">
+    <value>Budget gesamt</value>
+  </data>
+  <data name="Col_Progress" xml:space="preserve">
+    <value>Fortschritt %</value>
+  </data>
+  <data name="Add_Node" xml:space="preserve">
+    <value>Neues Element</value>
+  </data>
+  <data name="Add_Child" xml:space="preserve">
+    <value>Neues untergeordnetes Element</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Expand_All" xml:space="preserve">
+    <value>Alle erweitern</value>
+  </data>
+  <data name="Collapse_All" xml:space="preserve">
+    <value>Alle reduzieren</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Noch keine PSP-Elemente. Mit „Neues Element“ das erste anlegen.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Speichern Sie das Projekt, um seinen PSP aufzubauen.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Der PSP konnte nicht geladen werden</value>
+  </data>
+  <data name="Error_Save" xml:space="preserve">
+    <value>Die Änderung konnte nicht gespeichert werden</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Summe</value>
+  </data>
+  <data name="Rolled_Up" xml:space="preserve">
+    <value>Enthält untergeordnete Elemente</value>
+  </data>
+</root>

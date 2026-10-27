@@ -28,7 +28,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Basisplan – Ansicht für erweiterte Suche" languagecode="1031" />
       <LocalizedName description="Baseline Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Planning de référence - Vue Recherche avancée" languagecode="1036" />
+      <LocalizedName description="Baseline - Visualizzazione Ricerca avanzata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

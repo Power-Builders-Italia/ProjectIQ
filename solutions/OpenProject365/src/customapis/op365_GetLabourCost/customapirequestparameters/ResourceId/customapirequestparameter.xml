@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="ResourceId">
   <description default="Resource">
+    <label description="Ressource" languagecode="1031" />
     <label description="Resource" languagecode="1033" />
+    <label description="Ressource" languagecode="1036" />
+    <label description="Risorsa" languagecode="1040" />
   </description>
   <displayname default="ResourceId">
+    <label description="RessourceId" languagecode="1031" />
     <label description="ResourceId" languagecode="1033" />
+    <label description="IdRessource" languagecode="1036" />
+    <label description="IdRisorsa" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktiver Materialverbrauch" languagecode="1031" />
       <LocalizedName description="Inactive Material Usage" languagecode="1033" />
+      <LocalizedName description="Consommations de matériel inactives" languagecode="1036" />
+      <LocalizedName description="Consumi materiale inattivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

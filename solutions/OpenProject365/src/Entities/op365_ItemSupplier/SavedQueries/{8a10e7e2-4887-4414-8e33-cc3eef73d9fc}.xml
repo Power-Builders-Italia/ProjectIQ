@@ -39,7 +39,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Aktive Artikellieferanten" languagecode="1031" />
       <LocalizedName description="Active Item Suppliers" languagecode="1033" />
+      <LocalizedName description="Fournisseurs d'article actifs" languagecode="1036" />
+      <LocalizedName description="Fornitori articolo attivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

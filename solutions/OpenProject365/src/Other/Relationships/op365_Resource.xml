@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Absent resource; empty for a company closure" languagecode="1033" />
+        <Description description="Abwesende Ressource; leer bei Betriebsschließung" languagecode="1031" />
+        <Description description="Ressource absente ; vide pour une fermeture de l'entreprise" languagecode="1036" />
+        <Description description="Risorsa assente; vuoto per una chiusura aziendale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Resource the cost belongs to" languagecode="1033" />
+        <Description description="Ressource, zu der die Kosten gehören" languagecode="1031" />
+        <Description description="Ressource à laquelle appartient le coût" languagecode="1036" />
+        <Description description="Risorsa a cui appartiene il costo" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Resource who worked the hours" languagecode="1033" />
+        <Description description="Ressource, die die Stunden geleistet hat" languagecode="1031" />
+        <Description description="Ressource ayant travaillé les heures" languagecode="1036" />
+        <Description description="Risorsa che ha lavorato le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -124,6 +133,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Resource whose hours are planned" languagecode="1033" />
+        <Description description="Ressource, deren Stunden geplant sind" languagecode="1031" />
+        <Description description="Ressource dont les heures sont prévues" languagecode="1036" />
+        <Description description="Risorsa di cui sono pianificate le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -159,6 +171,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Resource responsible for the node" languagecode="1033" />
+        <Description description="Für das Element verantwortliche Ressource" languagecode="1031" />
+        <Description description="Ressource responsable du nœud" languagecode="1036" />
+        <Description description="Risorsa responsabile del nodo" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

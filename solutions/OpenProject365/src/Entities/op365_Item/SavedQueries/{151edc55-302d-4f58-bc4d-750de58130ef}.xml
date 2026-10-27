@@ -43,7 +43,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Artikel" languagecode="1031" />
       <LocalizedName description="All Items" languagecode="1033" />
+      <LocalizedName description="Tous les articles" languagecode="1036" />
+      <LocalizedName description="Tutti gli articoli" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

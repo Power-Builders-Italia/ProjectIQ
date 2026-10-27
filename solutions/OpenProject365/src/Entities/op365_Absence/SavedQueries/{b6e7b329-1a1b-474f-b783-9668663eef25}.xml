@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Abwesenheiten" languagecode="1031" />
       <LocalizedName description="My Absences" languagecode="1033" />
+      <LocalizedName description="Mes absences" languagecode="1036" />
+      <LocalizedName description="Le mie assenze" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Abwesenheiten" languagecode="1031" />
       <Description description="Active Absences owned by me" languagecode="1033" />
+      <Description description="Mes absences actives" languagecode="1036" />
+      <Description description="Le mie assenze attive" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

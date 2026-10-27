@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>op365_goodsreceipt</boundentitylogicalname>
   <description default="Deletes a goods receipt with its material usage and restores the order quantities">
+    <label description="Löscht einen Wareneingang mit seinem Materialverbrauch und stellt die Bestellmengen wieder her" languagecode="1031" />
     <label description="Deletes a goods receipt with its material usage and restores the order quantities" languagecode="1033" />
+    <label description="Supprime une réception avec sa consommation de matériel et rétablit les quantités de la commande" languagecode="1036" />
+    <label description="Elimina un ricevimento con i relativi consumi materiale e ripristina le quantità dell'ordine" languagecode="1040" />
   </description>
   <displayname default="Cancel Goods Receipt">
+    <label description="Wareneingang stornieren" languagecode="1031" />
     <label description="Cancel Goods Receipt" languagecode="1033" />
+    <label description="Annuler la réception" languagecode="1036" />
+    <label description="Annulla ricevimento" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

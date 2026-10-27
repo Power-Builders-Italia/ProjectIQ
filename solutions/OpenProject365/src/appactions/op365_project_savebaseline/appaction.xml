@@ -3,16 +3,28 @@
     <uniquename>op365_OpenProject365</uniquename>
   </appmoduleid>
   <buttonaccessibilitytext default="Save Baseline">
+    <label description="Basisplan speichern" languagecode="1031" />
     <label description="Save Baseline" languagecode="1033" />
+    <label description="Enregistrer la référence" languagecode="1036" />
+    <label description="Salva baseline" languagecode="1040" />
   </buttonaccessibilitytext>
   <buttonlabeltext default="Save Baseline">
+    <label description="Basisplan speichern" languagecode="1031" />
     <label description="Save Baseline" languagecode="1033" />
+    <label description="Enregistrer la référence" languagecode="1036" />
+    <label description="Salva baseline" languagecode="1040" />
   </buttonlabeltext>
   <buttontooltipdescription default="Save the current WBS budget and dates as the reference baseline">
+    <label description="Aktuelles PSP-Budget und Termine als Referenz-Basisplan speichern" languagecode="1031" />
     <label description="Save the current WBS budget and dates as the reference baseline" languagecode="1033" />
+    <label description="Enregistrer le budget et les dates actuels du WBS comme planning de référence" languagecode="1036" />
+    <label description="Salva budget e date attuali della WBS come baseline di riferimento" languagecode="1040" />
   </buttontooltipdescription>
   <buttontooltiptitle default="Save Baseline">
+    <label description="Basisplan speichern" languagecode="1031" />
     <label description="Save Baseline" languagecode="1033" />
+    <label description="Enregistrer la référence" languagecode="1036" />
+    <label description="Salva baseline" languagecode="1040" />
   </buttontooltiptitle>
   <context>1</context>
   <contextentity>

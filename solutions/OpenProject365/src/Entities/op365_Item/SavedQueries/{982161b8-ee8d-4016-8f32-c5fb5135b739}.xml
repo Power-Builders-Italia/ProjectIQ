@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Artikel" languagecode="1031" />
       <LocalizedName description="Inactive Items" languagecode="1033" />
+      <LocalizedName description="Articles inactifs" languagecode="1036" />
+      <LocalizedName description="Articoli inattivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

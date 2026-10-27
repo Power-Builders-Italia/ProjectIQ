@@ -2,10 +2,16 @@
   <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
   <bindingtype>0</bindingtype>
   <description default="Notifies the users who recorded fewer hours than expected on the date (daily time reminder flow)">
+    <label description="Benachrichtigt Benutzer, die am Datum weniger Stunden als erwartet erfasst haben (Flow für die tägliche Zeiterinnerung)" languagecode="1031" />
     <label description="Notifies the users who recorded fewer hours than expected on the date (daily time reminder flow)" languagecode="1033" />
+    <label description="Avertit les utilisateurs ayant saisi moins d'heures que prévu à la date (flux de rappel quotidien)" languagecode="1036" />
+    <label description="Avvisa gli utenti che hanno registrato meno ore del previsto nella data (flusso promemoria giornaliero)" languagecode="1040" />
   </description>
   <displayname default="Send Time Reminders">
+    <label description="Zeiterinnerungen senden" languagecode="1031" />
     <label description="Send Time Reminders" languagecode="1033" />
+    <label description="Envoyer les rappels d'heures" languagecode="1036" />
+    <label description="Invia promemoria ore" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

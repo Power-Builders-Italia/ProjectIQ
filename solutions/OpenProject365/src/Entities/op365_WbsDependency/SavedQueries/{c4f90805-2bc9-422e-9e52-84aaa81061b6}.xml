@@ -34,7 +34,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Schnellsuche: aktive PSP-Abhängigkeiten" languagecode="1031" />
       <LocalizedName description="Quick Find Active WBS Dependencies" languagecode="1033" />
+      <LocalizedName description="Recherche rapide : dépendances WBS actives" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida dipendenze WBS attive" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

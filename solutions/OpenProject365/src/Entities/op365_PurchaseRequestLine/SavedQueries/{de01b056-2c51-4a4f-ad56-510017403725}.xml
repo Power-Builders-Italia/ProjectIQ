@@ -40,7 +40,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Bestellanforderungspositionen" languagecode="1031" />
       <LocalizedName description="Purchase Request Lines" languagecode="1033" />
+      <LocalizedName description="Lignes de demande d'achat" languagecode="1036" />
+      <LocalizedName description="Righe RDA" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

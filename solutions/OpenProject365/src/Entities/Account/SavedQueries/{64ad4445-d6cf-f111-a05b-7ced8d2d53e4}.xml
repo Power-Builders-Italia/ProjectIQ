@@ -42,7 +42,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Interessenten" languagecode="1031" />
       <LocalizedName description="Prospects" languagecode="1033" />
+      <LocalizedName description="Prospects" languagecode="1036" />
+      <LocalizedName description="Prospect" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

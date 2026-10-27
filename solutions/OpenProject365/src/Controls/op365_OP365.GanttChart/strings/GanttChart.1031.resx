@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Gantt-Diagramm</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Gantt des Projekt-PSP mit Abhängigkeiten, kritischem Pfad und Basisplanvergleich</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>PSP-Elemente</value>
+  </data>
+  <data name="Zoom_Week" xml:space="preserve">
+    <value>Wochen</value>
+  </data>
+  <data name="Zoom_Month" xml:space="preserve">
+    <value>Monate</value>
+  </data>
+  <data name="Zoom_Quarter" xml:space="preserve">
+    <value>Quartale</value>
+  </data>
+  <data name="Baseline" xml:space="preserve">
+    <value>Basisplan</value>
+  </data>
+  <data name="Baseline_None" xml:space="preserve">
+    <value>Kein Basisplan</value>
+  </data>
+  <data name="Baseline_Reference" xml:space="preserve">
+    <value>(Referenz)</value>
+  </data>
+  <data name="Critical_Path" xml:space="preserve">
+    <value>Kritischer Pfad</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Heute</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Noch kein PSP-Element hat Start- und Enddatum.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Speichern Sie das Projekt, um sein Gantt zu sehen.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Der Plan konnte nicht geladen werden</value>
+  </data>
+  <data name="Tip_Dates" xml:space="preserve">
+    <value>Termine</value>
+  </data>
+  <data name="Tip_Progress" xml:space="preserve">
+    <value>Fortschritt</value>
+  </data>
+  <data name="Tip_Float" xml:space="preserve">
+    <value>Puffer (Tage)</value>
+  </data>
+  <data name="Tip_Critical" xml:space="preserve">
+    <value>Auf dem kritischen Pfad</value>
+  </data>
+  <data name="Tip_Baseline" xml:space="preserve">
+    <value>Basisplan</value>
+  </data>
+  <data name="Tip_Late" xml:space="preserve">
+    <value>Durch Abhängigkeiten verschoben auf</value>
+  </data>
+  <data name="Loop_Warning" xml:space="preserve">
+    <value>Einige Abhängigkeiten bilden eine Schleife und wurden ignoriert.</value>
+  </data>
+</root>

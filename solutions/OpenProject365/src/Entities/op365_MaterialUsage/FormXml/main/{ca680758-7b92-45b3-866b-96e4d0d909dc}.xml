@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{b2ebcf2e-0578-56c8-82c3-5f271fd5ae80}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="60%">
               <sections>
                 <section name="usage" showlabel="true" showbar="false" columns="2" id="{b99d4b4f-ff87-5001-9495-75d64a7113ef}">
                   <labels>
+                    <label description="Verbrauch" languagecode="1031" />
                     <label description="Usage" languagecode="1033" />
+                    <label description="Consommation" languagecode="1036" />
+                    <label description="Consumo" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{723bf8a8-9eb4-5c5d-b4dc-0eb9d498fffd}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
                       <cell id="{810125fe-63e9-5aad-85a5-23125ff46dce}">
                         <labels>
                           <label description="WBS Node" languagecode="1033" />
+                          <label description="Nodo WBS" languagecode="1040" />
+                          <label description="PSP-Element" languagecode="1031" />
+                          <label description="Nœud WBS" languagecode="1036" />
                         </labels>
                         <control id="op365_wbsnodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_wbsnodeid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{8706fa75-9806-585c-84e3-ceb26be4e156}">
                         <labels>
                           <label description="Date" languagecode="1033" />
+                          <label description="Data" languagecode="1040" />
+                          <label description="Datum" languagecode="1031" />
+                          <label description="Date" languagecode="1036" />
                         </labels>
                         <control id="op365_usagedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_usagedate" />
                       </cell>
                       <cell id="{99c0004e-3efd-5111-a742-14c1003366c5}">
                         <labels>
                           <label description="Item" languagecode="1033" />
+                          <label description="Articolo" languagecode="1040" />
+                          <label description="Artikel" languagecode="1031" />
+                          <label description="Article" languagecode="1036" />
                         </labels>
                         <control id="op365_itemid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_itemid" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{ebca80dd-1094-5693-8e2a-3f0ffabe1283}">
                         <labels>
                           <label description="Description" languagecode="1033" />
+                          <label description="Descrizione" languagecode="1040" />
+                          <label description="Beschreibung" languagecode="1031" />
+                          <label description="Description" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
                       <cell id="{e1969bb3-d44b-5633-b85f-8cec4c9c927c}">
                         <labels>
                           <label description="Supplier" languagecode="1033" />
+                          <label description="Produttore" languagecode="1040" />
+                          <label description="Lieferant" languagecode="1031" />
+                          <label description="Fournisseur" languagecode="1036" />
                         </labels>
                         <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
                       </cell>
@@ -65,12 +89,18 @@
                       <cell id="{06e71ec3-cfc1-5361-ab8a-0cb030ed4536}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />
+                          <label description="Quantità" languagecode="1040" />
+                          <label description="Menge" languagecode="1031" />
+                          <label description="Quantité" languagecode="1036" />
                         </labels>
                         <control id="op365_quantity" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="op365_quantity" />
                       </cell>
                       <cell id="{7eff92e0-bb19-5143-a2a3-be1cd1585a88}">
                         <labels>
                           <label description="Unit of Measure" languagecode="1033" />
+                          <label description="Unità di misura" languagecode="1040" />
+                          <label description="Maßeinheit" languagecode="1031" />
+                          <label description="Unité de mesure" languagecode="1036" />
                         </labels>
                         <control id="op365_uom" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_uom" />
                       </cell>
@@ -83,13 +113,19 @@
               <sections>
                 <section name="cost" showlabel="true" showbar="false" columns="1" id="{d244ab9b-4864-5394-a485-d83a814a2d1a}">
                   <labels>
+                    <label description="Kosten" languagecode="1031" />
                     <label description="Cost" languagecode="1033" />
+                    <label description="Coût" languagecode="1036" />
+                    <label description="Costo" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{91104352-af93-5061-a20a-4bc9882d2923}">
                         <labels>
                           <label description="Unit Cost" languagecode="1033" />
+                          <label description="Costo unitario" languagecode="1040" />
+                          <label description="Stückkosten" languagecode="1031" />
+                          <label description="Coût unitaire" languagecode="1036" />
                         </labels>
                         <control id="op365_unitcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_unitcost" />
                       </cell>
@@ -98,6 +134,9 @@
                       <cell id="{3c790c32-b945-5093-a58d-90a1e3acc1e0}">
                         <labels>
                           <label description="Total Cost" languagecode="1033" />
+                          <label description="Costo totale" languagecode="1040" />
+                          <label description="Gesamtkosten" languagecode="1031" />
+                          <label description="Coût total" languagecode="1036" />
                         </labels>
                         <control id="op365_totalcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_totalcost" disabled="true" />
                       </cell>
@@ -106,6 +145,9 @@
                       <cell id="{add148ea-7fcd-5d03-9802-f10ff3419f25}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -131,7 +173,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Materialverbrauch" languagecode="1031" />
       <LocalizedName description="Material Usage" languagecode="1033" />
+      <LocalizedName description="Consommations de matériel" languagecode="1036" />
+      <LocalizedName description="Consumi materiale" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

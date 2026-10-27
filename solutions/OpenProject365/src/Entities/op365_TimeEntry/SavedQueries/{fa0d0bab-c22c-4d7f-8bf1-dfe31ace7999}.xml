@@ -28,7 +28,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Zeiteintrag – Ansicht für erweiterte Suche" languagecode="1031" />
       <LocalizedName description="Time Entry Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Saisie de temps - Vue Recherche avancée" languagecode="1036" />
+      <LocalizedName description="Registrazione ore - Visualizzazione Ricerca avanzata" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

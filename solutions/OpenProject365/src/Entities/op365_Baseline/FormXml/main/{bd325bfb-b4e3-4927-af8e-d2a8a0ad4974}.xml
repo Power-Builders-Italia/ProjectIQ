@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{be7e6eb3-4a7d-5997-ae0b-266f3f94ab8d}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="baseline" showlabel="true" showbar="false" columns="2" id="{c534f9da-c99b-5e37-bd5a-e73738411b8a}">
                   <labels>
+                    <label description="Basisplan" languagecode="1031" />
                     <label description="Baseline" languagecode="1033" />
+                    <label description="Planning de référence" languagecode="1036" />
+                    <label description="Baseline" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{f68b3d80-2541-5409-bf5a-bacf035d1f5f}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
                       <cell id="{ac0404c5-1bcb-5381-b489-558b7a2dacf2}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{1fd7e312-659b-5b31-8574-2971b24d5568}">
                         <labels>
                           <label description="Is Reference" languagecode="1033" />
+                          <label description="È di riferimento" languagecode="1040" />
+                          <label description="Ist Referenz" languagecode="1031" />
+                          <label description="Est la référence" languagecode="1036" />
                         </labels>
                         <control id="op365_isreference" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_isreference" />
                       </cell>
                       <cell id="{11c7b06c-3c9c-5ccf-a54f-fe880a107373}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -51,13 +69,19 @@
                 </section>
                 <section name="description" showlabel="true" showbar="false" columns="1" id="{61ed97e9-5118-5ced-b226-728c90650c9f}">
                   <labels>
+                    <label description="Beschreibung" languagecode="1031" />
                     <label description="Description" languagecode="1033" />
+                    <label description="Description" languagecode="1036" />
+                    <label description="Descrizione" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{bb2c32d1-da55-531f-9afd-93c314dd680d}">
                         <labels>
                           <label description="Description" languagecode="1033" />
+                          <label description="Descrizione" languagecode="1040" />
+                          <label description="Beschreibung" languagecode="1031" />
+                          <label description="Description" languagecode="1036" />
                         </labels>
                         <control id="op365_description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_description" />
                       </cell>
@@ -66,13 +90,19 @@
                 </section>
                 <section name="nodes" showlabel="true" showbar="false" columns="1" id="{bf597c1d-c6f4-5099-9875-145feff742be}">
                   <labels>
+                    <label description="Elemente" languagecode="1031" />
                     <label description="Nodes" languagecode="1033" />
+                    <label description="Nœuds" languagecode="1036" />
+                    <label description="Nodi" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{6a091992-bb0e-5655-b26e-4ae7d2ad0d36}" showlabel="true" rowspan="15" colspan="1" auto="false">
                         <labels>
                           <label description="Nodes" languagecode="1033" />
+                          <label description="Nodi" languagecode="1040" />
+                          <label description="Elemente" languagecode="1031" />
+                          <label description="Nœuds" languagecode="1036" />
                         </labels>
                         <control id="Nodes" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                           <parameters>
@@ -104,7 +134,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Basisplan" languagecode="1031" />
       <LocalizedName description="Baseline" languagecode="1033" />
+      <LocalizedName description="Planning de référence" languagecode="1036" />
+      <LocalizedName description="Baseline" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

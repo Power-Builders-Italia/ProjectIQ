@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Wochen-Stundenzettel</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Wöchentliches Zeiterfassungsraster des aktuellen Benutzers nach Projekt und Aufgabe, mit Einreichung zur Genehmigung</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Zeiteinträge</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Der Stundenzettel konnte nicht geladen werden</value>
+  </data>
+  <data name="Error_Hours" xml:space="preserve">
+    <value>Geben Sie Stunden zwischen 0 und 24 ein.</value>
+  </data>
+  <data name="No_Resource" xml:space="preserve">
+    <value>Ihr Benutzer ist mit keiner Ressource verknüpft. Bitten Sie einen Administrator, „Benutzer“ in Ihrer Ressource festzulegen.</value>
+  </data>
+  <data name="Previous_Week" xml:space="preserve">
+    <value>Vorherige Woche</value>
+  </data>
+  <data name="Next_Week" xml:space="preserve">
+    <value>Nächste Woche</value>
+  </data>
+  <data name="This_Week" xml:space="preserve">
+    <value>Diese Woche</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Submit_Week" xml:space="preserve">
+    <value>Woche einreichen</value>
+  </data>
+  <data name="Submitted" xml:space="preserve">
+    <value>{0} Einträge eingereicht.</value>
+  </data>
+  <data name="Column_Line" xml:space="preserve">
+    <value>Projekt / Aufgabe</value>
+  </data>
+  <data name="Column_Total" xml:space="preserve">
+    <value>Summe</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Wochenstunden</value>
+  </data>
+  <data name="Pick_Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="Pick_Task" xml:space="preserve">
+    <value>Aufgabe (optional)</value>
+  </data>
+  <data name="Add_Line" xml:space="preserve">
+    <value>Zeile hinzufügen</value>
+  </data>
+  <data name="Status_Draft" xml:space="preserve">
+    <value>Entwurf</value>
+  </data>
+  <data name="Status_Submitted" xml:space="preserve">
+    <value>Eingereicht</value>
+  </data>
+  <data name="Status_Approved" xml:space="preserve">
+    <value>Genehmigt</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+</root>

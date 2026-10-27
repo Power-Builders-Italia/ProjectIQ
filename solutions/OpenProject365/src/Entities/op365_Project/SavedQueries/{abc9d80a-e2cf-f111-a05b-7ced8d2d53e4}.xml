@@ -50,7 +50,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Projekte in Bearbeitung" languagecode="1031" />
       <LocalizedName description="In Progress Projects" languagecode="1033" />
+      <LocalizedName description="Projets en cours" languagecode="1036" />
+      <LocalizedName description="Commesse in corso" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

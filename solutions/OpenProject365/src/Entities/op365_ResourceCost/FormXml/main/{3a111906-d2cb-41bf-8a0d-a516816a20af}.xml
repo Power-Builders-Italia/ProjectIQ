@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{60b3e3e7-0f24-5258-9dd8-06d63d4c82b1}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="resource_cost" showlabel="true" showbar="false" columns="2" id="{171ced9a-5e5e-50fb-a8b7-f3a03b1d5682}">
                   <labels>
+                    <label description="Ressourcenkosten" languagecode="1031" />
                     <label description="Resource Cost" languagecode="1033" />
+                    <label description="Coût de ressource" languagecode="1036" />
+                    <label description="Costo risorsa" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{07fc3f33-3639-54b6-bbe4-73e5f3a89d59}">
                         <labels>
                           <label description="Resource" languagecode="1033" />
+                          <label description="Risorsa" languagecode="1040" />
+                          <label description="Ressource" languagecode="1031" />
+                          <label description="Ressource" languagecode="1036" />
                         </labels>
                         <control id="op365_resourceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_resourceid" />
                       </cell>
                       <cell id="{422b7adc-43b1-5048-b6ce-d440ed5e9a54}">
                         <labels>
                           <label description="Valid From" languagecode="1033" />
+                          <label description="Valido dal" languagecode="1040" />
+                          <label description="Gültig ab" languagecode="1031" />
+                          <label description="Valide à partir du" languagecode="1036" />
                         </labels>
                         <control id="op365_validfrom" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_validfrom" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{507c2627-b26c-56a2-a751-1ab0e77c1a9b}">
                         <labels>
                           <label description="Hourly Cost" languagecode="1033" />
+                          <label description="Costo orario" languagecode="1040" />
+                          <label description="Stundenkosten" languagecode="1031" />
+                          <label description="Coût horaire" languagecode="1036" />
                         </labels>
                         <control id="op365_hourlycost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_hourlycost" />
                       </cell>
                       <cell id="{e4983593-c18e-5768-a5ed-8114414b9ffc}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -51,6 +69,9 @@
                       <cell id="{08c3d415-b980-56a7-ac02-ecd9066c7026}">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
@@ -66,7 +87,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Ressourcenkosten" languagecode="1031" />
       <LocalizedName description="Resource Cost" languagecode="1033" />
+      <LocalizedName description="Coût de ressource" languagecode="1036" />
+      <LocalizedName description="Costo risorsa" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

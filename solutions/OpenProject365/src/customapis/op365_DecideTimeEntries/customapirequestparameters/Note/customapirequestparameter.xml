@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Note">
   <description default="Decision note; required to reject">
+    <label description="Entscheidungsnotiz; für eine Ablehnung erforderlich" languagecode="1031" />
     <label description="Decision note; required to reject" languagecode="1033" />
+    <label description="Note de décision ; obligatoire pour rejeter" languagecode="1036" />
+    <label description="Nota della decisione; obbligatoria per rifiutare" languagecode="1040" />
   </description>
   <displayname default="Note">
+    <label description="Notiz" languagecode="1031" />
     <label description="Note" languagecode="1033" />
+    <label description="Note" languagecode="1036" />
+    <label description="Nota" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

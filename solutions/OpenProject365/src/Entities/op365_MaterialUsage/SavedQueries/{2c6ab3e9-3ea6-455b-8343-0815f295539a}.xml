@@ -30,7 +30,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Materialverbrauch – Suchansicht" languagecode="1031" />
       <LocalizedName description="Material Usage Lookup View" languagecode="1033" />
+      <LocalizedName description="Consommation de matériel - Vue de recherche" languagecode="1036" />
+      <LocalizedName description="Consumo materiale - Visualizzazione ricerca" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

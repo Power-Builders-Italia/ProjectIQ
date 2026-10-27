@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Griglia ad albero WBS</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>WBS espandibile della commessa con modifica in linea di budget, date e avanzamento</value>
+  </data>
+  <data name="Dataset_Name" xml:space="preserve">
+    <value>Nodi WBS</value>
+  </data>
+  <data name="Col_Code" xml:space="preserve">
+    <value>Codice</value>
+  </data>
+  <data name="Col_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Col_Start" xml:space="preserve">
+    <value>Inizio</value>
+  </data>
+  <data name="Col_End" xml:space="preserve">
+    <value>Fine</value>
+  </data>
+  <data name="Col_Hours" xml:space="preserve">
+    <value>Ore a budget</value>
+  </data>
+  <data name="Col_Labour" xml:space="preserve">
+    <value>Manodopera</value>
+  </data>
+  <data name="Col_Materials" xml:space="preserve">
+    <value>Materiali</value>
+  </data>
+  <data name="Col_Other" xml:space="preserve">
+    <value>Altro</value>
+  </data>
+  <data name="Col_Total" xml:space="preserve">
+    <value>Budget totale</value>
+  </data>
+  <data name="Col_Progress" xml:space="preserve">
+    <value>Avanzamento %</value>
+  </data>
+  <data name="Add_Node" xml:space="preserve">
+    <value>Nuovo nodo</value>
+  </data>
+  <data name="Add_Child" xml:space="preserve">
+    <value>Nuovo nodo figlio</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="Expand_All" xml:space="preserve">
+    <value>Espandi tutto</value>
+  </data>
+  <data name="Collapse_All" xml:space="preserve">
+    <value>Comprimi tutto</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Ancora nessun nodo WBS. Usa Nuovo nodo per creare il primo.</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Salva la commessa per costruirne la WBS.</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossibile caricare la WBS</value>
+  </data>
+  <data name="Error_Save" xml:space="preserve">
+    <value>Impossibile salvare la modifica</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Totale</value>
+  </data>
+  <data name="Rolled_Up" xml:space="preserve">
+    <value>Include i nodi figli</value>
+  </data>
+</root>

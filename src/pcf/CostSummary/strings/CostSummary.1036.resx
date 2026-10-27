@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+    <data name="Control_Name" xml:space="preserve">
+    <value>Synthèse des coûts</value>
+  </data>
+  <data name="Control_Description" xml:space="preserve">
+    <value>Budget comparé au coût réel du projet par branche WBS, avec estimation à l'achèvement</value>
+  </data>
+  <data name="Property_Value" xml:space="preserve">
+    <value>Coût réel</value>
+  </data>
+  <data name="Error_Load" xml:space="preserve">
+    <value>Impossible de charger la synthèse des coûts</value>
+  </data>
+  <data name="Save_Project" xml:space="preserve">
+    <value>Enregistrez le projet pour voir ses coûts.</value>
+  </data>
+  <data name="Kpi_Contract" xml:space="preserve">
+    <value>Valeur du contrat</value>
+  </data>
+  <data name="Kpi_Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="Kpi_Actual" xml:space="preserve">
+    <value>Coût réel</value>
+  </data>
+  <data name="Kpi_Eac" xml:space="preserve">
+    <value>Estimation à l'achèvement</value>
+  </data>
+  <data name="Kpi_Eac_Tip" xml:space="preserve">
+    <value>Coût réel / avancement</value>
+  </data>
+  <data name="Kpi_Margin" xml:space="preserve">
+    <value>Marge prévue</value>
+  </data>
+  <data name="Labour" xml:space="preserve">
+    <value>Main-d'œuvre</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Matériel</value>
+  </data>
+  <data name="Column_Branch" xml:space="preserve">
+    <value>Branche WBS</value>
+  </data>
+  <data name="Column_Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="Column_Actual" xml:space="preserve">
+    <value>Réel</value>
+  </data>
+  <data name="Column_Variance" xml:space="preserve">
+    <value>Écart</value>
+  </data>
+  <data name="Column_Spent" xml:space="preserve">
+    <value>Consommé</value>
+  </data>
+  <data name="Column_Hours" xml:space="preserve">
+    <value>Heures (réel / budget)</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Non affecté à un nœud WBS</value>
+  </data>
+</root>

@@ -9,26 +9,38 @@
       <tabs>
         <tab name="general" id="{6430911d-3d38-5ee5-a8a5-93dba8af4b39}" expanded="true" showlabel="true" verticallayout="true">
           <labels>
+            <label description="Allgemein" languagecode="1031" />
             <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
                 <section name="dependency" showlabel="true" showbar="false" columns="2" id="{a9457cba-979e-5e34-99dd-16d1096e9a56}">
                   <labels>
+                    <label description="Abhängigkeit" languagecode="1031" />
                     <label description="Dependency" languagecode="1033" />
+                    <label description="Dépendance" languagecode="1036" />
+                    <label description="Dipendenza" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{8be624a1-3536-5971-bd0d-c23c17aa0a2d}">
                         <labels>
                           <label description="Predecessor" languagecode="1033" />
+                          <label description="Predecessore" languagecode="1040" />
+                          <label description="Vorgänger" languagecode="1031" />
+                          <label description="Prédécesseur" languagecode="1036" />
                         </labels>
                         <control id="op365_predecessorid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_predecessorid" />
                       </cell>
                       <cell id="{5c4fd2f0-6025-57ca-80a1-7f67f81bba5a}">
                         <labels>
                           <label description="Successor" languagecode="1033" />
+                          <label description="Successore" languagecode="1040" />
+                          <label description="Nachfolger" languagecode="1031" />
+                          <label description="Successeur" languagecode="1036" />
                         </labels>
                         <control id="op365_successorid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_successorid" />
                       </cell>
@@ -37,12 +49,18 @@
                       <cell id="{ee9a45e3-9b05-5a5d-96e6-16f1c6c22269}">
                         <labels>
                           <label description="Dependency Type" languagecode="1033" />
+                          <label description="Tipo dipendenza" languagecode="1040" />
+                          <label description="Abhängigkeitstyp" languagecode="1031" />
+                          <label description="Type de dépendance" languagecode="1036" />
                         </labels>
                         <control id="op365_dependencytype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_dependencytype" />
                       </cell>
                       <cell id="{c139ca70-b251-5d91-9bd5-a53be7b5a8f5}">
                         <labels>
                           <label description="Lag (Days)" languagecode="1033" />
+                          <label description="Ritardo (giorni)" languagecode="1040" />
+                          <label description="Verzögerung (Tage)" languagecode="1031" />
+                          <label description="Décalage (jours)" languagecode="1036" />
                         </labels>
                         <control id="op365_lagdays" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="op365_lagdays" />
                       </cell>
@@ -51,12 +69,18 @@
                       <cell id="{bfad7862-0af9-5e63-9160-65734236d6e4}">
                         <labels>
                           <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
                         </labels>
                         <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
                       </cell>
                       <cell id="{e68f78e2-f547-5b70-98dd-5bc959e65e29}">
                         <labels>
                           <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
                         </labels>
                         <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" />
                       </cell>
@@ -72,7 +96,10 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="PSP-Abhängigkeit" languagecode="1031" />
       <LocalizedName description="WBS Dependency" languagecode="1033" />
+      <LocalizedName description="Dépendance WBS" languagecode="1036" />
+      <LocalizedName description="Dipendenza WBS" languagecode="1040" />
     </LocalizedNames>
   </systemform>
 </forms>

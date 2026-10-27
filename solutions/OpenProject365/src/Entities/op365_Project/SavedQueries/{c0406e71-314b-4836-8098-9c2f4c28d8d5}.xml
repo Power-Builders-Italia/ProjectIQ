@@ -47,7 +47,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Alle Projekte" languagecode="1031" />
       <LocalizedName description="All Projects" languagecode="1033" />
+      <LocalizedName description="Tous les projets" languagecode="1036" />
+      <LocalizedName description="Tutte le commesse" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

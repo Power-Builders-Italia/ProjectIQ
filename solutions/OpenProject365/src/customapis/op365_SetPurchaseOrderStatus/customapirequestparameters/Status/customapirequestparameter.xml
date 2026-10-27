@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="Status">
   <description default="Sent, Confirmed, Draft or Cancelled">
+    <label description="Gesendet, Bestätigt, Entwurf oder Storniert" languagecode="1031" />
     <label description="Sent, Confirmed, Draft or Cancelled" languagecode="1033" />
+    <label description="Envoyée, Confirmée, Brouillon ou Annulée" languagecode="1036" />
+    <label description="Inviato, Confermato, Bozza o Annullato" languagecode="1040" />
   </description>
   <displayname default="Status">
+    <label description="Status" languagecode="1031" />
     <label description="Status" languagecode="1033" />
+    <label description="Statut" languagecode="1036" />
+    <label description="Stato" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

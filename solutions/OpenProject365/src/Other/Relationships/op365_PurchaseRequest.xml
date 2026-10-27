@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase request the order comes from" languagecode="1033" />
+        <Description description="Bestellanforderung, aus der die Bestellung stammt" languagecode="1031" />
+        <Description description="Demande d'achat d'où provient la commande" languagecode="1036" />
+        <Description description="RDA da cui proviene l'ordine" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -54,6 +57,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Purchase request the line belongs to" languagecode="1033" />
+        <Description description="Bestellanforderung, zu der die Position gehört" languagecode="1031" />
+        <Description description="Demande d'achat à laquelle appartient la ligne" languagecode="1036" />
+        <Description description="RDA a cui appartiene la riga" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -89,6 +95,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Approved purchase request the RFQ comes from" languagecode="1033" />
+        <Description description="Genehmigte Bestellanforderung, aus der die Angebotsanfrage stammt" languagecode="1031" />
+        <Description description="Demande d'achat approuvée à l'origine de la demande de prix" languagecode="1036" />
+        <Description description="RDA approvata da cui nasce la richiesta di offerta" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>

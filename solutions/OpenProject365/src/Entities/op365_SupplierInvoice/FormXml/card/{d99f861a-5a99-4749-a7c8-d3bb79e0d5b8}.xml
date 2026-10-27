@@ -16,7 +16,10 @@
               <sections>
                 <section name="ColorStrip" showlabel="false" showbar="false" columns="1" IsUserDefined="0" id="{ea5269cb-c21e-45b9-bc0f-bfcd56412719}">
                   <labels>
+                    <label description="Farbstreifen" languagecode="1031" />
                     <label description="ColorStrip" languagecode="1033" />
+                    <label description="Bande de couleurs" languagecode="1036" />
+                    <label description="Striscia colori" languagecode="1040" />
                   </labels>
                 </section>
               </sections>
@@ -25,13 +28,19 @@
               <sections>
                 <section name="CardHeader" showlabel="false" showbar="false" columns="111" id="{2885b5ee-a3ca-46eb-9379-bf4bc3156d36}" IsUserDefined="0">
                   <labels>
+                    <label description="Kopfzeile" languagecode="1031" />
                     <label description="Header" languagecode="1033" />
+                    <label description="En-tête" languagecode="1036" />
+                    <label description="Intestazione" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{589000d6-dc19-4f38-988a-ce54f9b04097}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
                         </labels>
                         <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
                       </cell>
@@ -50,13 +59,19 @@
                 </section>
                 <section name="CardDetails" showlabel="false" showbar="false" columns="1" id="{5fa305cc-83d8-4553-bba5-ba7b422ac412}" IsUserDefined="0">
                   <labels>
+                    <label description="Details" languagecode="1031" />
                     <label description="Details" languagecode="1033" />
+                    <label description="Détails" languagecode="1036" />
+                    <label description="Dettagli" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{39717002-172d-40f6-9bde-1396203edc10}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Number" languagecode="1033" />
+                          <label description="Numero" languagecode="1040" />
+                          <label description="Nummer" languagecode="1031" />
+                          <label description="Numéro" languagecode="1036" />
                         </labels>
                         <control id="op365_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_number" disabled="false" />
                       </cell>
@@ -65,19 +80,28 @@
                 </section>
                 <section name="CardFooter" showlabel="false" columns="1111" showbar="false" id="{e9bd890b-20c6-4e44-897f-c9aa11d0be9d}" IsUserDefined="0">
                   <labels>
+                    <label description="Fußzeile" languagecode="1031" />
                     <label description="Footer" languagecode="1033" />
+                    <label description="Pied de page" languagecode="1036" />
+                    <label description="Piè di pagina" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
                       <cell id="{6ad302ea-86aa-4f07-8a30-f46adc695d32}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Owner" languagecode="1033" />
+                          <label description="Proprietario" languagecode="1040" />
+                          <label description="Besitzer" languagecode="1031" />
+                          <label description="Propriétaire" languagecode="1036" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                       </cell>
                       <cell id="{70311d37-71e9-4040-8233-269a67f63ad0}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Created On" languagecode="1033" />
+                          <label description="Data creazione" languagecode="1040" />
+                          <label description="Erstellt am" languagecode="1031" />
+                          <label description="Créé le" languagecode="1036" />
                         </labels>
                         <control id="createdon" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdon" disabled="false" />
                       </cell>
@@ -103,10 +127,16 @@
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
+      <LocalizedName description="Informationen" languagecode="1031" />
       <LocalizedName description="Information" languagecode="1033" />
+      <LocalizedName description="Informations" languagecode="1036" />
+      <LocalizedName description="Informazioni" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Ein Kartenformular für diese Entität." languagecode="1031" />
       <Description description="A card form for this entity." languagecode="1033" />
+      <Description description="Un formulaire de carte pour cette entité." languagecode="1036" />
+      <Description description="Un modulo scheda per questa entità." languagecode="1040" />
     </Descriptions>
   </systemform>
 </forms>

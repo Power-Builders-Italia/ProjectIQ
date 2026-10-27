@@ -1,9 +1,15 @@
 <customapirequestparameter uniquename="DeliveryNoteNumber">
   <description default="Delivery note number">
+    <label description="Lieferscheinnummer" languagecode="1031" />
     <label description="Delivery note number" languagecode="1033" />
+    <label description="Numéro du bon de livraison" languagecode="1036" />
+    <label description="Numero DDT" languagecode="1040" />
   </description>
   <displayname default="DeliveryNoteNumber">
+    <label description="Lieferscheinnummer" languagecode="1031" />
     <label description="DeliveryNoteNumber" languagecode="1033" />
+    <label description="NuméroBonLivraison" languagecode="1036" />
+    <label description="NumeroDDT" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>1</isoptional>

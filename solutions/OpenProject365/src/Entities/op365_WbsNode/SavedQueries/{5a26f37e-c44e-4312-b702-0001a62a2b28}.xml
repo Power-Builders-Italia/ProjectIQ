@@ -48,7 +48,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Elemente nach Projekt" languagecode="1031" />
       <LocalizedName description="WBS Nodes by Project" languagecode="1033" />
+      <LocalizedName description="Nœuds WBS par projet" languagecode="1036" />
+      <LocalizedName description="Nodi WBS per commessa" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

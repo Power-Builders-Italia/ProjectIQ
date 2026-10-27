@@ -18,6 +18,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Scanned or PDF copy of the document" languagecode="1033" />
+        <Description description="Gescannte oder PDF-Kopie des Dokuments" languagecode="1031" />
+        <Description description="Copie numérisée ou PDF du document" languagecode="1036" />
+        <Description description="Copia scansionata o PDF del documento" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -39,6 +42,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="FatturaPA XML or PDF, attached by hand" languagecode="1033" />
+        <Description description="FatturaPA-XML oder PDF, manuell angehängt" languagecode="1031" />
+        <Description description="XML FatturaPA ou PDF, joint manuellement" languagecode="1036" />
+        <Description description="XML FatturaPA o PDF, allegato a mano" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>

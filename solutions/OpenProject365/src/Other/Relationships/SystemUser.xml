@@ -17,6 +17,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -37,6 +40,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -57,6 +63,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -77,6 +86,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -97,6 +109,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -117,6 +132,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -137,6 +155,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -157,6 +178,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -177,6 +201,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -197,6 +224,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -217,6 +247,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -237,6 +270,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -257,6 +293,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -277,6 +316,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -297,6 +339,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -317,6 +362,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -337,6 +385,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -357,6 +408,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -377,6 +431,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -397,6 +454,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -417,6 +477,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -437,6 +500,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -457,6 +523,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -477,6 +546,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -497,6 +569,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -517,6 +592,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -537,6 +615,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -557,6 +638,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -577,6 +661,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -597,6 +684,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -617,6 +707,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -637,6 +730,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -657,6 +753,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -677,6 +776,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -697,6 +799,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -717,6 +822,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -737,6 +845,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -757,6 +868,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -777,6 +891,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -797,6 +914,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -817,6 +937,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -837,6 +960,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -857,6 +983,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -877,6 +1006,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -897,6 +1029,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -917,6 +1052,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -937,6 +1075,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -957,6 +1098,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -977,6 +1121,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -997,6 +1144,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1017,6 +1167,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who created the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz erstellt hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a créé l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha creato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1037,6 +1190,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier of the user who modified the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der den Datensatz geändert hat." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur qui a modifié l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente che ha modificato il record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1059,6 +1215,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User responsible for the project" languagecode="1033" />
+        <Description description="Für das Projekt verantwortlicher Benutzer" languagecode="1031" />
+        <Description description="Utilisateur responsable du projet" languagecode="1036" />
+        <Description description="Utente responsabile della commessa" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1094,6 +1253,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who is a member of the project" languagecode="1033" />
+        <Description description="Benutzer, der Mitglied des Projekts ist" languagecode="1031" />
+        <Description description="Utilisateur membre du projet" languagecode="1036" />
+        <Description description="Utente membro della commessa" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1129,6 +1291,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who must approve the request now" languagecode="1033" />
+        <Description description="Benutzer, der die Anforderung jetzt genehmigen muss" languagecode="1031" />
+        <Description description="Utilisateur qui doit maintenant approuver la demande" languagecode="1036" />
+        <Description description="Utente che deve approvare ora la richiesta" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1164,6 +1329,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who took the final decision" languagecode="1033" />
+        <Description description="Benutzer, der die endgültige Entscheidung getroffen hat" languagecode="1031" />
+        <Description description="Utilisateur ayant pris la décision finale" languagecode="1036" />
+        <Description description="Utente che ha preso la decisione finale" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1199,6 +1367,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Project manager who approved the request" languagecode="1033" />
+        <Description description="Projektleiter, der die Anforderung genehmigt hat" languagecode="1031" />
+        <Description description="Chef de projet ayant approuvé la demande" languagecode="1036" />
+        <Description description="Capo commessa che ha approvato la richiesta" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1234,6 +1405,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who asked for the purchase" languagecode="1033" />
+        <Description description="Benutzer, der den Einkauf angefordert hat" languagecode="1031" />
+        <Description description="Utilisateur ayant demandé l'achat" languagecode="1036" />
+        <Description description="Utente che ha richiesto l'acquisto" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1269,6 +1443,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User account of the resource; empty for people without a license" languagecode="1033" />
+        <Description description="Benutzerkonto der Ressource; leer bei Personen ohne Lizenz" languagecode="1031" />
+        <Description description="Compte utilisateur de la ressource ; vide pour les personnes sans licence" languagecode="1036" />
+        <Description description="Account utente della risorsa; vuoto per le persone senza licenza" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1304,6 +1481,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who approved or rejected the invoice" languagecode="1033" />
+        <Description description="Benutzer, der die Rechnung genehmigt oder abgelehnt hat" languagecode="1031" />
+        <Description description="Utilisateur ayant approuvé ou rejeté la facture" languagecode="1036" />
+        <Description description="Utente che ha approvato o rifiutato la fattura" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1339,6 +1519,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="User who approved or rejected the hours" languagecode="1033" />
+        <Description description="Benutzer, der die Stunden genehmigt oder abgelehnt hat" languagecode="1031" />
+        <Description description="Utilisateur ayant approuvé ou rejeté les heures" languagecode="1036" />
+        <Description description="Utente che ha approvato o rifiutato le ore" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
@@ -1372,6 +1555,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1392,6 +1578,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1412,6 +1601,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1432,6 +1624,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1452,6 +1647,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1472,6 +1670,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1492,6 +1693,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1512,6 +1716,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1532,6 +1739,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1552,6 +1762,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1572,6 +1785,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1592,6 +1808,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1612,6 +1831,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1632,6 +1854,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1652,6 +1877,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1672,6 +1900,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1692,6 +1923,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1712,6 +1946,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1732,6 +1969,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1752,6 +1992,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1772,6 +2015,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1792,6 +2038,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1812,6 +2061,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1832,6 +2084,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1852,6 +2107,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
@@ -1872,6 +2130,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Unique identifier for the user that owns the record." languagecode="1033" />
+        <Description description="Eindeutiger Bezeichner des Benutzers, der Besitzer des Datensatzes ist." languagecode="1031" />
+        <Description description="Identificateur unique de l'utilisateur propriétaire de l'enregistrement." languagecode="1036" />
+        <Description description="Identificatore univoco dell'utente proprietario del record." languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>

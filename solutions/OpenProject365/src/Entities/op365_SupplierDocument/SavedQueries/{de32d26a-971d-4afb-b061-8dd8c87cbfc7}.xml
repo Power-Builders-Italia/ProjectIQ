@@ -21,10 +21,16 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Meine Lieferantendokumente" languagecode="1031" />
       <LocalizedName description="My Supplier Documents" languagecode="1033" />
+      <LocalizedName description="Mes documents fournisseur" languagecode="1036" />
+      <LocalizedName description="I miei documenti fornitore" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Meine aktiven Lieferantendokumente" languagecode="1031" />
       <Description description="Active Supplier Documents owned by me" languagecode="1033" />
+      <Description description="Mes documents fournisseur actifs" languagecode="1036" />
+      <Description description="I miei documenti fornitore attivi" languagecode="1040" />
     </Descriptions>
   </savedquery>
 </savedqueries>

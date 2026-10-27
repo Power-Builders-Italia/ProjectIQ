@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <LocalizedNames>
+    <LocalizedName description="Ausgaben" languagecode="1031" />
     <LocalizedName description="Spend" languagecode="1033" />
+    <LocalizedName description="Dépenses" languagecode="1036" />
+    <LocalizedName description="Spesa" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
+    <Description description="Einkaufsausgaben nach Lieferant und Projekt, offene Bestellungen und zu prüfende Rechnungen" languagecode="1031" />
     <Description description="Purchasing spend by supplier and project, open orders and invoices to review" languagecode="1033" />
+    <Description description="Dépenses d'achat par fournisseur et projet, commandes ouvertes et factures à examiner" languagecode="1036" />
+    <Description description="Spesa acquisti per fornitore e commessa, ordini aperti e fatture da verificare" languagecode="1040" />
   </Descriptions>
   <FormId>{62ea5f60-00d0-f111-a05b-7ced8d2d53e4}</FormId>
   <IsCustomizable>1</IsCustomizable>
@@ -15,20 +21,29 @@
         <tabs>
           <tab name="spend" id="{cb90411c-e8f8-5922-a3f5-6dd614056442}" expanded="true" showlabel="false" verticallayout="true">
             <labels>
+              <label description="Ausgaben" languagecode="1031" />
               <label description="Spend" languagecode="1033" />
+              <label description="Dépenses" languagecode="1036" />
+              <label description="Spesa" languagecode="1040" />
             </labels>
             <columns>
               <column width="100%">
                 <sections>
                   <section name="charts" showlabel="false" showbar="false" columns="111" id="{21c26467-5a83-5cc0-9acd-721265bdcc03}">
                     <labels>
+                      <label description="Diagramme" languagecode="1031" />
                       <label description="charts" languagecode="1033" />
+                      <label description="graphiques" languagecode="1036" />
+                      <label description="grafici" languagecode="1040" />
                     </labels>
                     <rows>
                       <row>
                         <cell id="{6fcdadb5-3ec8-5392-877e-e9ec756f334b}" showlabel="true" rowspan="12" colspan="1" auto="false">
                           <labels>
                             <label description="Spend by Supplier" languagecode="1033" />
+                            <label description="Spesa per fornitore" languagecode="1040" />
+                            <label description="Ausgaben nach Lieferant" languagecode="1031" />
+                            <label description="Dépenses par fournisseur" languagecode="1036" />
                           </labels>
                           <control id="BySupplier" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                             <parameters>
@@ -50,6 +65,9 @@
                         <cell id="{7e8c0a20-978a-5950-aaff-7af14ed02c64}" showlabel="true" rowspan="12" colspan="1" auto="false">
                           <labels>
                             <label description="Spend by Project" languagecode="1033" />
+                            <label description="Spesa per commessa" languagecode="1040" />
+                            <label description="Ausgaben nach Projekt" languagecode="1031" />
+                            <label description="Dépenses par projet" languagecode="1036" />
                           </labels>
                           <control id="ByProject" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                             <parameters>
@@ -71,6 +89,9 @@
                         <cell id="{bf405963-0868-5040-9961-83c7dd600b28}" showlabel="true" rowspan="12" colspan="1" auto="false">
                           <labels>
                             <label description="Purchase Orders by Status" languagecode="1033" />
+                            <label description="Ordini per stato" languagecode="1040" />
+                            <label description="Bestellungen nach Status" languagecode="1031" />
+                            <label description="Commandes par statut" languagecode="1036" />
                           </labels>
                           <control id="ByStatus" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                             <parameters>
@@ -94,13 +115,19 @@
                   </section>
                   <section name="lists" showlabel="false" showbar="false" columns="11" id="{eb47ee1f-df6a-5f5d-981c-889bf048f18d}">
                     <labels>
+                      <label description="Listen" languagecode="1031" />
                       <label description="lists" languagecode="1033" />
+                      <label description="listes" languagecode="1036" />
+                      <label description="elenchi" languagecode="1040" />
                     </labels>
                     <rows>
                       <row>
                         <cell id="{f5434846-c80c-5db6-8a69-b4c52bf15500}" showlabel="true" rowspan="10" colspan="1" auto="false">
                           <labels>
                             <label description="Open Purchase Orders" languagecode="1033" />
+                            <label description="Ordini aperti" languagecode="1040" />
+                            <label description="Offene Bestellungen" languagecode="1031" />
+                            <label description="Commandes ouvertes" languagecode="1036" />
                           </labels>
                           <control id="OpenOrders" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                             <parameters>
@@ -122,6 +149,9 @@
                         <cell id="{b295f650-dedf-5301-ad1b-2e2df30c706b}" showlabel="true" rowspan="10" colspan="1" auto="false">
                           <labels>
                             <label description="Invoices to Review" languagecode="1033" />
+                            <label description="Fatture da verificare" languagecode="1040" />
+                            <label description="Zu prüfende Rechnungen" languagecode="1031" />
+                            <label description="Factures à examiner" languagecode="1036" />
                           </labels>
                           <control id="InvoicesToReview" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
                             <parameters>

@@ -46,7 +46,10 @@
     </fetchxml>
     <IntroducedVersion>1.0.4.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Abgelehnte Rechnungen" languagecode="1031" />
       <LocalizedName description="Rejected Invoices" languagecode="1033" />
+      <LocalizedName description="Factures rejetées" languagecode="1036" />
+      <LocalizedName description="Fatture rifiutate" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

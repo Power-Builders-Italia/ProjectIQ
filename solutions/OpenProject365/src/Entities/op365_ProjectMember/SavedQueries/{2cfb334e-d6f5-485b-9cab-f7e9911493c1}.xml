@@ -31,7 +31,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="Inaktive Projektmitglieder" languagecode="1031" />
       <LocalizedName description="Inactive Project Members" languagecode="1033" />
+      <LocalizedName description="Membres de projet inactifs" languagecode="1036" />
+      <LocalizedName description="Membri commessa inattivi" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

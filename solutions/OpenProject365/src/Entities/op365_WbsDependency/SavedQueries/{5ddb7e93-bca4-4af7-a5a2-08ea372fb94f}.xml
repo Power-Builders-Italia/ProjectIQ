@@ -35,7 +35,10 @@
     </fetchxml>
     <IntroducedVersion>1.0</IntroducedVersion>
     <LocalizedNames>
+      <LocalizedName description="PSP-Abhängigkeiten" languagecode="1031" />
       <LocalizedName description="WBS Dependencies" languagecode="1033" />
+      <LocalizedName description="Dépendances WBS" languagecode="1036" />
+      <LocalizedName description="Dipendenze WBS" languagecode="1040" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

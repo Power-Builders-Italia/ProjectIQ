@@ -1,10 +1,16 @@
 <environmentvariabledefinition schemaname="op365_TimeApprovalEnabled">
   <defaultvalue>yes</defaultvalue>
   <description default="Yes: submitted hours wait for the approval of a project manager. No: Submit approves hours immediately.">
+    <label description="Ja: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. Nein: Einreichen genehmigt die Stunden sofort." languagecode="1031" />
     <label description="Yes: submitted hours wait for the approval of a project manager. No: Submit approves hours immediately." languagecode="1033" />
+    <label description="Oui : les heures soumises attendent l'approbation d'un chef de projet. Non : Soumettre approuve immédiatement les heures." languagecode="1036" />
+    <label description="Sì: le ore inviate attendono l'approvazione di un capo commessa. No: Invia approva subito le ore." languagecode="1040" />
   </description>
   <displayname default="Time Approval Enabled">
+    <label description="Zeitgenehmigung aktiviert" languagecode="1031" />
     <label description="Time Approval Enabled" languagecode="1033" />
+    <label description="Approbation des heures activée" languagecode="1036" />
+    <label description="Approvazione ore attiva" languagecode="1040" />
   </displayname>
   <introducedversion>1.0.8.0</introducedversion>
   <iscustomizable>1</iscustomizable>

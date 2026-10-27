@@ -2,10 +2,16 @@
   <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
   <bindingtype>0</bindingtype>
   <description default="Hourly cost of a resource on a date (requires the Cost Visibility profile)">
+    <label description="Stundenkosten einer Ressource an einem Datum (erfordert das Profil Kostensichtbarkeit)" languagecode="1031" />
     <label description="Hourly cost of a resource on a date (requires the Cost Visibility profile)" languagecode="1033" />
+    <label description="Coût horaire d'une ressource à une date (nécessite le profil Visibilité des coûts)" languagecode="1036" />
+    <label description="Costo orario di una risorsa a una data (richiede il profilo Visibilità costi)" languagecode="1040" />
   </description>
   <displayname default="Get Labour Cost">
+    <label description="Arbeitskosten abrufen" languagecode="1031" />
     <label description="Get Labour Cost" languagecode="1033" />
+    <label description="Obtenir le coût de main-d'œuvre" languagecode="1036" />
+    <label description="Ottieni costo manodopera" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>1</isfunction>

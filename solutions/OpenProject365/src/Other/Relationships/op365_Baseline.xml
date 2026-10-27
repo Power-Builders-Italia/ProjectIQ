@@ -19,6 +19,9 @@
     <RelationshipDescription>
       <Descriptions>
         <Description description="Baseline the values belong to" languagecode="1033" />
+        <Description description="Basisplan, zu dem die Werte gehören" languagecode="1031" />
+        <Description description="Planning de référence auquel appartiennent les valeurs" languagecode="1036" />
+        <Description description="Baseline a cui appartengono i valori" languagecode="1040" />
       </Descriptions>
     </RelationshipDescription>
     <EntityRelationshipRoles>
