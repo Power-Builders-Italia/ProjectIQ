@@ -142,7 +142,9 @@ def main(argv=None) -> int:
             f.write(report)
     if args.files:
         lines = [f"A {p}" for p in diff.added] + [f"D {p}" for p in diff.removed] + [f"M {p}" for p in diff.changed]
-        args.files.write_text("".join(line + "\n" for line in lines), encoding="utf-8")
+        # LF on every platform: the list is written on Windows and read by bash on Linux (drift-pr)
+        with args.files.open("w", encoding="utf-8", newline="\n") as f:
+            f.writelines(line + "\n" for line in lines)
     sys.stdout.write(report.encode(sys.stdout.encoding or "utf-8", "replace").decode(sys.stdout.encoding or "utf-8"))
     return 1 if diff.drift else 0
 

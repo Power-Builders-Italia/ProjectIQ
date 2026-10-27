@@ -103,6 +103,7 @@ class CompareTests(unittest.TestCase):
         listing = self.base.parent / "files.txt"
         with redirect_stdout(io.StringIO()):
             main([str(self.base), str(self.cur), "--files", str(listing)])
+        self.assertNotIn(b"\r", listing.read_bytes())  # read by bash on Linux after a Windows run
         self.assertEqual(listing.read_text(encoding="utf-8").splitlines(),
                          ["A OpenProject365/src/new.xml", "D OpenProject365/src/old.xml", "M OpenProject365/src/a.xml"])
 

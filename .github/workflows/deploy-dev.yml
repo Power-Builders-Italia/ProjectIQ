@@ -321,6 +321,7 @@ jobs:
           # only the files the comparison found different: the rest of the export differs from the repository
           # only in what the comparison ignores (line endings, Italian labels of standard components, built files)
           while read -r change path; do
+            path=${path%$'\r'}
             case $change in
               A|M) mkdir -p "solutions/$(dirname "$path")"; cp "$EXPORT/$path" "solutions/$path" ;;
               D) git rm -q "solutions/$path" ;;
