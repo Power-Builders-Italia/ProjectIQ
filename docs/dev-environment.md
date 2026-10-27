@@ -123,7 +123,7 @@ flowchart LR
 
 ## Environments and deployment
 
-Changes flow one way: they are made in **Dev**, reviewed in the **repository** and installed in **Test** as a managed solution. Nothing is deployed automatically: every step below is started by a person.
+Changes are made in **Dev**, reviewed in the **repository** and installed in **Test** as a managed solution. After every merge, `deploy-dev` brings `main` back into Dev, so Dev and `main` stay aligned ([ADR 0002](adr/0002-deploy-dev.md)). Every deployment waits for the approval of a person.
 
 ```mermaid
 flowchart LR
@@ -131,15 +131,16 @@ flowchart LR
     R -->|"3 build checks<br/>squash merge"| R
     D -->|"4 deploy-test<br/>export managed from Dev"| T[("Test<br/>managed")]
     R -. "4 run from main,<br/>approval in environment test" .-> T
+    R -->|"3b deploy-dev<br/>approval in environment dev"| D
 ```
 
 | Environment | Solution | How it is updated |
 |---|---|---|
-| Dev (`<dev-org>.crm4.dynamics.com`, secret `PP_ENVIRONMENT_URL`) | unmanaged | by hand: maker portal, `tools/dataverse/*.py`, `plugins.py`, `tools/pcf/push.sh`, `tools/portal/supplier_portal.py` |
+| Dev (`<dev-org>.crm4.dynamics.com`, secret `PP_ENVIRONMENT_URL`) | unmanaged | by hand for the work in progress (maker portal, `tools/dataverse/*.py`, `plugins.py`, `tools/pcf/push.sh`, `tools/portal/supplier_portal.py`); with `deploy-dev` after each merge in `main` |
 | Test (`<test-org>.crm4.dynamics.com`, secret `TEST_ENVIRONMENT_URL`) | managed | only with the `deploy-test` workflow |
 | Build | — | not needed: CI only packs and checks |
 
-**The `deploy-test` workflow exports the solutions from Dev, not from the repository.** Test receives what Dev contains when the workflow runs. Before deploying, Dev and `main` must match: export every change made in Dev and merge it, and push to Dev every code change merged in `main` (plugins, PCF controls).
+**The `deploy-test` workflow exports the solutions from Dev, not from the repository.** Test receives what Dev contains when the workflow runs. Before deploying, Dev and `main` must match: export every change made in Dev and merge it, and let `deploy-dev` install `main` into Dev (step 3b).
 
 ### Roles
 
@@ -147,6 +148,7 @@ flowchart LR
 |---|---|---|
 | Contributor | change Dev, open pull requests | System Customizer (or higher) in Dev; *Triage* on the repository (pull requests from a fork) or *Write* |
 | Maintainer | review and merge pull requests, run `deploy-test` | *Write* or *Admin* on the repository |
+| Dev approver | approve each run of `deploy-dev` | required reviewer of the GitHub environment `dev` |
 | Test approver | approve each run of `deploy-test` | required reviewer of the GitHub environment `test` |
 
 ### 1. Change Dev
@@ -185,6 +187,23 @@ pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solu
 - Merge with **Squash and merge** (the only method allowed).
 - After the merge, `checker` runs the Solution Checker and `pages` publishes the documentation website.
 
+### 3b. Deploy to Dev
+
+`deploy-dev` starts by itself after a merge that touches `solutions/`, `src/plugins/`, `src/pcf/` or `src/webresources/` (or Actions > deploy-dev > Run workflow). The Dev approver opens the run, **Review deployments**, selects `dev` and **Approve and deploy**. The workflow:
+
+1. exports both solutions from Dev and compares them with the repository at the tag `dev-deployed`, the last commit installed in Dev (`tools/alm/compare_solution.py`: the solution version, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared);
+2. if they differ, imports nothing: it opens a draft pull request `Dev drift since <commit>` with the Dev export, from a branch `drift/<date>` started at that commit, and the run fails. Review it, merge it (or remove the changes from Dev) and run `deploy-dev` again;
+3. otherwise imports both solutions packed from `main` (unmanaged, Dev keeps its environment variables and connections), registers the plugins built from source with `plugins.py`, pushes the PCF controls built from source with `push.sh` and publishes;
+4. exports again and checks that Dev now matches `main`; then the `tag` job moves `dev-deployed` to the commit just installed.
+
+| Input (Run workflow) | Use |
+|---|---|
+| `check-only` | only compare Dev with the repository (step 1, and the drift pull request if they differ); import nothing |
+| `baseline` | commit that matches Dev, needed on the first run, when the tag `dev-deployed` does not exist yet |
+| `skip-drift-check` | import without comparing: only to recover after a run that failed during the import |
+
+An unmanaged import does not delete components: to remove a component, delete it in Dev too, then export and merge as usual.
+
 ### 4. Deploy to Test
 
 Before you start: Dev matches `main` (see above), and the secrets of the environment `test` are set ([GitHub repository security](#github-repository-security)).
@@ -211,7 +230,11 @@ Never customize Test: an unmanaged layer on top of the managed solution hides th
 | *Branch "…" is not allowed to deploy to test due to environment protection rules* | run the workflow from `main` |
 | *Set the TEST_ENVIRONMENT_URL secret of the GitHub environment test* | add the secret to the environment `test` |
 | *The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)* | add the id of the Dataverse connection in Test ([Cloud flows](#cloud-flows)) |
-| A change merged in `main` is missing in Test | it was not in Dev when the workflow ran: push it to Dev (step 1) and deploy again |
+| A change merged in `main` is missing in Test | it was not in Dev when the workflow ran: run `deploy-dev` (step 3b) and deploy again |
+| *No tag dev-deployed: run the workflow with the baseline input (the commit that matches Dev)* | first run of `deploy-dev`: Run workflow with `baseline` (and `check-only` to try it first) |
+| *Dev has changes not in main: see the draft pull request* | step 3b.2: review the drift pull request, merge it or remove the changes from Dev, run `deploy-dev` again |
+| *Dev does not match main after the import: see the summary* | a component was not applied, or Dev changed during the run: read the summary of the run, fix and run again; the tag did not move |
+| `deploy-dev` reports drift right after a run that failed during the import | the failed run left Dev half updated: run `deploy-dev` with `skip-drift-check` |
 | Test has a component that is not in the repository | it was in Dev but never exported: export it (step 2) or remove it from Dev, then deploy again |
 
 ### Test data
@@ -231,6 +254,7 @@ The repository is public: environment URLs, tenant, app and connection ids and u
 - **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
   - Secrets: `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (the app registration, application user in Dev and Test), `TEST_ENVIRONMENT_URL` (target URL; the workflow has no input to override it, so a user who can run it cannot deploy to another environment), `OP365_DATAVERSE_CONNECTION_ID` (Dataverse connection id in Test, Power Apps > Connections > the connection's URL).
   - Optional secrets for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing secret is left out, so Test keeps its current value (or the default).
+- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` runs in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `tag` jobs need no secrets: they use `GITHUB_TOKEN` with write access in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
 - **Environment `solution-checker`**: deployment branches limited to `main`, no reviewer; secrets `PP_*` for the Solution Checker (see [CI and Solution Checker](#ci-and-solution-checker)).
 - **Collaborators**: give the *Triage* role and let them open pull requests from forks; *Write* lets a user run `deploy-test` (still gated by the `test` reviewer).
 - **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`); only the `deploy` job of `pages` gets `pages: write` and `id-token: write`, as GitHub Pages requires. Never use `pull_request_target`.
