@@ -1,6 +1,6 @@
 # ADR 0002: Deploy to Dev from main, with drift check
 
-- Status: proposed (2026-10-27)
+- Status: accepted (2026-10-27)
 - Scope: a `deploy-dev` workflow that installs the content of `main` into the Dev environment
 
 ## Context
@@ -79,6 +79,7 @@ Compares two unpacked solution folders file by file after normalizing:
 | Ignore the `<Version>` element of `Other/Solution.xml` | `deploy-test` changes the version in Dev on every run |
 | Ignore labels with `languagecode="1040"` in components not prefixed `op365_` (e.g. `Account`, `Contact`, `SystemUser`) | the Dev language pack adds them; the labels of `op365_` components are wanted translations and stay compared |
 | Normalize line endings and trailing whitespace | export on Windows, repository edited anywhere |
+| Compare only the presence, not the content, of built files: `PluginAssemblies/**/*.dll` and `Controls/**/bundle.js` | `deploy-dev` installs them built from source, so their bytes never match the copies in the repository; code drift is not customization drift |
 
 Output: exit code, the list of added, removed and changed files, and a short diff per changed file (capped) for the job summary. Unit tests with sample folders in `tools/alm/test_compare_solution.py`, run by the `code` job of `build`.
 
@@ -100,4 +101,4 @@ Output: exit code, the list of added, removed and changed files, and a short dif
 - An unmanaged import does not delete components removed from the repository: delete them in Dev as well (the drift check then passes, since the export matches).
 - A pull request opened with `GITHUB_TOKEN` does not start other workflows: on a drift pull request the checks start after the next push to its branch.
 - New one-time setup: environment `dev` with its secrets and reviewer, and the first run with `check-only` + `baseline`.
-- Documentation: [Environments and deployment](../dev-environment.md#environments-and-deployment) gains the Dev step and the `dev` environment; this ADR moves to accepted when the workflow is merged.
+- Documentation: [Environments and deployment](../dev-environment.md#environments-and-deployment) gains the Dev step and the `dev` environment when the workflow is merged.
