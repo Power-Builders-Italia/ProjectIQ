@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="GanttChart" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="GanttChart" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Bound to the WBS Nodes subgrid of the Project form; nodes, dependencies and baselines are read through the Web API. -->
     <data-set name="nodes" display-name-key="Dataset_Name" />
@@ -9,6 +9,9 @@
       <platform-library name="React" version="16.14.0" />
       <platform-library name="Fluent" version="9.46.2" />
       <resx path="strings/GanttChart.1033.resx" version="1.0.0" />
+      <resx path="strings/GanttChart.1031.resx" version="1.0.0" />
+      <resx path="strings/GanttChart.1036.resx" version="1.0.0" />
+      <resx path="strings/GanttChart.1040.resx" version="1.0.0" />
     </resources>
     <feature-usage>
       <uses-feature name="WebAPI" required="true" />

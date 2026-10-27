@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../OpenProject365.Plugins/Logic.cs" Link="Logic.cs" />
+    <Compile Include="../OpenProject365.Plugins/Text.cs" Link="Text.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />

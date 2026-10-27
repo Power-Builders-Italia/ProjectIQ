@@ -73,6 +73,10 @@ namespace OpenProject365.Plugins
         {
             try
             {
+                var column = UserLanguage.Column(context.SystemService, userId);
+                title = Text.Translate(title, column);
+                body = Text.Translate(body, column);
+                actionTitle = Text.Translate(actionTitle, column);
                 var notification = new Entity("appnotification")
                 {
                     ["title"] = title,
@@ -155,6 +159,26 @@ namespace OpenProject365.Plugins
                 result[node] = (result.ContainsKey(node) ? result[node] : 0m) + amount;
             }
             return result;
+        }
+    }
+
+    /// <summary>Language of a user for the messages of <see cref="Text"/>.</summary>
+    internal static class UserLanguage
+    {
+        /// <summary>Column of the user's interface language (personal options); 0 when it cannot be read.</summary>
+        public static int Column(IOrganizationService system, Guid userId)
+        {
+            try
+            {
+                var query = new QueryExpression("usersettings") { ColumnSet = new ColumnSet("uilanguageid"), TopCount = 1 };
+                query.Criteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
+                var settings = system.RetrieveMultiple(query).Entities.FirstOrDefault();
+                return Text.Column(settings?.GetAttributeValue<int?>("uilanguageid") ?? 0);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

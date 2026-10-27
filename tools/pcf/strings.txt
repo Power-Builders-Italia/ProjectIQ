@@ -1,0 +1,150 @@
+CostSummary|Control_Name|Kostenübersicht|Synthèse des coûts|Riepilogo costi
+CostSummary|Control_Description|Budget im Vergleich zu den Istkosten des Projekts nach PSP-Zweig, mit Prognose bei Fertigstellung|Budget comparé au coût réel du projet par branche WBS, avec estimation à l'achèvement|Budget rispetto al costo effettivo della commessa per ramo WBS, con stima a finire
+CostSummary|Property_Value|Istkosten|Coût réel|Costo effettivo
+CostSummary|Error_Load|Die Kostenübersicht konnte nicht geladen werden|Impossible de charger la synthèse des coûts|Impossibile caricare il riepilogo costi
+CostSummary|Save_Project|Speichern Sie das Projekt, um seine Kosten zu sehen.|Enregistrez le projet pour voir ses coûts.|Salva la commessa per vederne i costi.
+CostSummary|Kpi_Contract|Vertragswert|Valeur du contrat|Valore contratto
+CostSummary|Kpi_Budget|Budget|Budget|Budget
+CostSummary|Kpi_Actual|Istkosten|Coût réel|Costo effettivo
+CostSummary|Kpi_Eac|Prognose bei Fertigstellung|Estimation à l'achèvement|Stima a finire
+CostSummary|Kpi_Eac_Tip|Istkosten / Fortschritt|Coût réel / avancement|Costo effettivo / avanzamento
+CostSummary|Kpi_Margin|Erwartete Marge|Marge prévue|Margine atteso
+CostSummary|Labour|Arbeit|Main-d'œuvre|Manodopera
+CostSummary|Materials|Material|Matériel|Materiali
+CostSummary|Column_Branch|PSP-Zweig|Branche WBS|Ramo WBS
+CostSummary|Column_Budget|Budget|Budget|Budget
+CostSummary|Column_Actual|Ist|Réel|Effettivo
+CostSummary|Column_Variance|Abweichung|Écart|Scostamento
+CostSummary|Column_Spent|Verbraucht|Consommé|Speso
+CostSummary|Column_Hours|Stunden (Ist / Budget)|Heures (réel / budget)|Ore (effettive / budget)
+CostSummary|Unassigned|Keinem PSP-Element zugeordnet|Non affecté à un nœud WBS|Non assegnato a un nodo WBS
+GanttChart|Control_Name|Gantt-Diagramm|Diagramme de Gantt|Diagramma di Gantt
+GanttChart|Control_Description|Gantt des Projekt-PSP mit Abhängigkeiten, kritischem Pfad und Basisplanvergleich|Gantt du WBS du projet avec dépendances, chemin critique et comparaison à la référence|Gantt della WBS di commessa con dipendenze, percorso critico e confronto con la baseline
+GanttChart|Dataset_Name|PSP-Elemente|Nœuds WBS|Nodi WBS
+GanttChart|Zoom_Week|Wochen|Semaines|Settimane
+GanttChart|Zoom_Month|Monate|Mois|Mesi
+GanttChart|Zoom_Quarter|Quartale|Trimestres|Trimestri
+GanttChart|Baseline|Basisplan|Référence|Baseline
+GanttChart|Baseline_None|Kein Basisplan|Aucune référence|Nessuna baseline
+GanttChart|Baseline_Reference|(Referenz)|(référence)|(riferimento)
+GanttChart|Critical_Path|Kritischer Pfad|Chemin critique|Percorso critico
+GanttChart|Refresh|Aktualisieren|Actualiser|Aggiorna
+GanttChart|Today|Heute|Aujourd'hui|Oggi
+GanttChart|Empty|Noch kein PSP-Element hat Start- und Enddatum.|Aucun nœud WBS n'a encore de dates de début et de fin.|Nessun nodo WBS ha ancora date di inizio e fine.
+GanttChart|Save_Project|Speichern Sie das Projekt, um sein Gantt zu sehen.|Enregistrez le projet pour voir son Gantt.|Salva la commessa per vederne il Gantt.
+GanttChart|Error_Load|Der Plan konnte nicht geladen werden|Impossible de charger le planning|Impossibile caricare il piano
+GanttChart|Tip_Dates|Termine|Dates|Date
+GanttChart|Tip_Progress|Fortschritt|Avancement|Avanzamento
+GanttChart|Tip_Float|Puffer (Tage)|Marge (jours)|Margine (giorni)
+GanttChart|Tip_Critical|Auf dem kritischen Pfad|Sur le chemin critique|Sul percorso critico
+GanttChart|Tip_Baseline|Basisplan|Référence|Baseline
+GanttChart|Tip_Late|Durch Abhängigkeiten verschoben auf|Décalé par les dépendances au|Spostato dalle dipendenze al
+GanttChart|Loop_Warning|Einige Abhängigkeiten bilden eine Schleife und wurden ignoriert.|Certaines dépendances forment une boucle et ont été ignorées.|Alcune dipendenze formano un ciclo e sono state ignorate.
+QuoteComparison|Control_Name|Angebotsvergleich|Comparaison des offres|Confronto offerte
+QuoteComparison|Control_Description|Anforderungspositionen im Vergleich zu den Preisen jedes Lieferanten, mit bestem Preis und Vergabe|Lignes de la demande comparées aux prix de chaque fournisseur, avec le meilleur prix et l'attribution|Righe della richiesta rispetto ai prezzi offerti da ogni fornitore, con miglior prezzo e aggiudicazione
+QuoteComparison|Property_Value|Antworten|Réponses|Risposte
+QuoteComparison|Error_Load|Die Angebote konnten nicht geladen werden|Impossible de charger les offres|Impossibile caricare le offerte
+QuoteComparison|Save_Rfq|Speichern Sie die Angebotsanfrage, um Angebote zu vergleichen.|Enregistrez la demande de prix pour comparer les offres.|Salva la richiesta di offerta per confrontare le offerte.
+QuoteComparison|Column_Line|Position|Ligne|Riga
+QuoteComparison|Column_Quantity|Menge|Quantité|Quantità
+QuoteComparison|Column_Best|Bester Preis|Meilleur prix|Miglior prezzo
+QuoteComparison|Total|Summe|Total|Totale
+QuoteComparison|Delivery|Lieferung|Livraison|Consegna
+QuoteComparison|Days|{0} Tage|{0} jours|{0} giorni
+QuoteComparison|Not_Quoted|–|–|–
+QuoteComparison|Incomplete|{0} von {1} Positionen|{0} lignes sur {1}|{0} righe su {1}
+QuoteComparison|Best_Total|Beste Summe|Meilleur total|Miglior totale
+QuoteComparison|Award|Vergeben|Attribuer|Aggiudica
+QuoteComparison|Award_Confirm|Angebotsanfrage an {0} vergeben und die Bestellung erstellen?|Attribuer la demande de prix à {0} et créer la commande ?|Aggiudicare la richiesta di offerta a {0} e creare l'ordine?
+QuoteComparison|Award_Done|Bestellung erstellt.|Commande créée.|Ordine creato.
+QuoteComparison|No_Lines|Die Bestellanforderung hat keine Positionen.|La demande d'achat n'a pas de lignes.|La RDA non ha righe.
+QuoteComparison|No_Invitations|Laden Sie Lieferanten ein, um ihre Angebote zu vergleichen.|Invitez des fournisseurs pour comparer leurs offres.|Invita i fornitori per confrontare le loro offerte.
+QuoteComparison|Refresh|Aktualisieren|Actualiser|Aggiorna
+QuoteComparison|Status_Invited|Eingeladen|Invité|Invitato
+QuoteComparison|Status_ToInvite|Einzuladen|À inviter|Da invitare
+QuoteComparison|Status_Responded|Beantwortet|Répondu|Risposto
+QuoteComparison|Status_Declined|Abgelehnt|Décliné|Declinato
+QuoteComparison|Cancel|Abbrechen|Annuler|Annulla
+ResourceLoad|Control_Name|Ressourcenauslastung|Charge des ressources|Carico risorse
+ResourceLoad|Control_Description|Zugeordnete PSP-Stunden im Vergleich zur Kapazität nach Ressource und Woche|Heures WBS affectées par rapport à la capacité, par ressource et par semaine|Ore WBS allocate rispetto alla capacità per risorsa e settimana
+ResourceLoad|Dataset_Name|Ressourcen|Ressources|Risorse
+ResourceLoad|Error_Load|Die Ressourcenauslastung konnte nicht geladen werden|Impossible de charger la charge des ressources|Impossibile caricare il carico risorse
+ResourceLoad|Previous|Zurück|Précédent|Precedente
+ResourceLoad|Next|Weiter|Suivant|Successivo
+ResourceLoad|This_Week|Diese Woche|Cette semaine|Questa settimana
+ResourceLoad|Weeks|{0} Wochen|{0} semaines|{0} settimane
+ResourceLoad|Refresh|Aktualisieren|Actualiser|Aggiorna
+ResourceLoad|Allocated|Zugeordnet|Affecté|Allocato
+ResourceLoad|Capacity|Kapazität|capacité|capacità
+ResourceLoad|Column_Resource|Ressource|Ressource|Risorsa
+ResourceLoad|Unscheduled|Ohne Termine|Sans dates|Senza date
+ResourceLoad|Unscheduled_Tip|Zugeordnete Stunden in PSP-Elementen ohne Start- und Enddatum|Heures affectées sur des nœuds WBS sans dates de début et de fin|Ore allocate su nodi WBS senza date di inizio e fine
+ResourceLoad|Level_free|Unter 50 %|Moins de 50 %|Sotto il 50%
+ResourceLoad|Level_ok|50–90 %|50-90 %|50-90%
+ResourceLoad|Level_full|90–100 %|90-100 %|90-100%
+ResourceLoad|Level_over|Über 100 %|Plus de 100 %|Oltre il 100%
+TimeApproval|Control_Name|Zeitgenehmigung|Approbation des heures|Approvazione ore
+TimeApproval|Control_Description|Eingereichte Zeiteinträge nach Ressource und Woche gruppiert, mit Genehmigen und Ablehnen|Saisies de temps soumises regroupées par ressource et par semaine, avec approbation et rejet|Registrazioni ore inviate raggruppate per risorsa e settimana, con approva e rifiuta
+TimeApproval|Dataset_Name|Zeiteinträge|Saisies de temps|Registrazioni ore
+TimeApproval|Error_Load|Die Zeiteinträge konnten nicht geladen werden|Impossible de charger les saisies de temps|Impossibile caricare le registrazioni ore
+TimeApproval|Refresh|Aktualisieren|Actualiser|Aggiorna
+TimeApproval|Approve|Genehmigen|Approuver|Approva
+TimeApproval|Reject|Ablehnen|Rejeter|Rifiuta
+TimeApproval|Approved|{0} Einträge genehmigt.|{0} saisies approuvées.|{0} registrazioni approvate.
+TimeApproval|Rejected|{0} Einträge abgelehnt.|{0} saisies rejetées.|{0} registrazioni rifiutate.
+TimeApproval|Nothing_To_Approve|Keine Zeiteinträge warten auf Genehmigung.|Aucune saisie de temps n'attend d'approbation.|Nessuna registrazione ore in attesa di approvazione.
+TimeApproval|Select_All|Alle auswählen|Tout sélectionner|Seleziona tutto
+TimeApproval|Column_Resource|Ressource|Ressource|Risorsa
+TimeApproval|Column_Week|Woche|Semaine|Settimana
+TimeApproval|Column_Hours|Stunden|Heures|Ore
+TimeApproval|Expand|Erweitern|Développer|Espandi
+TimeApproval|Collapse|Reduzieren|Réduire|Comprimi
+TimeApproval|Reject_Title|{0} Zeiteinträge ablehnen|Rejeter {0} saisies de temps|Rifiuta {0} registrazioni ore
+TimeApproval|Reject_Note|Grund (wird an die Ressource gesendet)|Motif (envoyé à la ressource)|Motivo (inviato alla risorsa)
+TimeApproval|Cancel|Abbrechen|Annuler|Annulla
+WbsTreeGrid|Control_Name|PSP-Baumraster|Grille arborescente WBS|Griglia ad albero WBS
+WbsTreeGrid|Control_Description|Aufklappbarer PSP des Projekts mit Inline-Bearbeitung von Budget, Terminen und Fortschritt|WBS du projet dépliable avec modification en ligne du budget, des dates et de l'avancement|WBS espandibile della commessa con modifica in linea di budget, date e avanzamento
+WbsTreeGrid|Dataset_Name|PSP-Elemente|Nœuds WBS|Nodi WBS
+WbsTreeGrid|Col_Code|Code|Code|Codice
+WbsTreeGrid|Col_Name|Name|Nom|Nome
+WbsTreeGrid|Col_Start|Start|Début|Inizio
+WbsTreeGrid|Col_End|Ende|Fin|Fine
+WbsTreeGrid|Col_Hours|Budgetstunden|Heures budgétées|Ore a budget
+WbsTreeGrid|Col_Labour|Arbeit|Main-d'œuvre|Manodopera
+WbsTreeGrid|Col_Materials|Material|Matériel|Materiali
+WbsTreeGrid|Col_Other|Sonstiges|Autres|Altro
+WbsTreeGrid|Col_Total|Budget gesamt|Budget total|Budget totale
+WbsTreeGrid|Col_Progress|Fortschritt %|Avancement %|Avanzamento %
+WbsTreeGrid|Add_Node|Neues Element|Nouveau nœud|Nuovo nodo
+WbsTreeGrid|Add_Child|Neues untergeordnetes Element|Nouveau nœud enfant|Nuovo nodo figlio
+WbsTreeGrid|Refresh|Aktualisieren|Actualiser|Aggiorna
+WbsTreeGrid|Expand_All|Alle erweitern|Tout développer|Espandi tutto
+WbsTreeGrid|Collapse_All|Alle reduzieren|Tout réduire|Comprimi tutto
+WbsTreeGrid|Empty|Noch keine PSP-Elemente. Mit „Neues Element“ das erste anlegen.|Aucun nœud WBS pour l'instant. Utilisez Nouveau nœud pour créer le premier.|Ancora nessun nodo WBS. Usa Nuovo nodo per creare il primo.
+WbsTreeGrid|Save_Project|Speichern Sie das Projekt, um seinen PSP aufzubauen.|Enregistrez le projet pour construire son WBS.|Salva la commessa per costruirne la WBS.
+WbsTreeGrid|Error_Load|Der PSP konnte nicht geladen werden|Impossible de charger le WBS|Impossibile caricare la WBS
+WbsTreeGrid|Error_Save|Die Änderung konnte nicht gespeichert werden|Impossible d'enregistrer la modification|Impossibile salvare la modifica
+WbsTreeGrid|Totals|Summe|Total|Totale
+WbsTreeGrid|Rolled_Up|Enthält untergeordnete Elemente|Inclut les nœuds enfants|Include i nodi figli
+WeeklyTimesheet|Control_Name|Wochen-Stundenzettel|Feuille de temps hebdomadaire|Foglio ore settimanale
+WeeklyTimesheet|Control_Description|Wöchentliches Zeiterfassungsraster des aktuellen Benutzers nach Projekt und Aufgabe, mit Einreichung zur Genehmigung|Grille hebdomadaire de saisie des heures de l'utilisateur actuel par projet et tâche, avec soumission pour approbation|Griglia settimanale delle ore dell'utente corrente per commessa e attività, con invio in approvazione
+WeeklyTimesheet|Dataset_Name|Zeiteinträge|Saisies de temps|Registrazioni ore
+WeeklyTimesheet|Error_Load|Der Stundenzettel konnte nicht geladen werden|Impossible de charger la feuille de temps|Impossibile caricare il foglio ore
+WeeklyTimesheet|Error_Hours|Geben Sie Stunden zwischen 0 und 24 ein.|Saisissez des heures entre 0 et 24.|Inserisci ore tra 0 e 24.
+WeeklyTimesheet|No_Resource|Ihr Benutzer ist mit keiner Ressource verknüpft. Bitten Sie einen Administrator, „Benutzer“ in Ihrer Ressource festzulegen.|Votre utilisateur n'est lié à aucune ressource. Demandez à un administrateur de renseigner Utilisateur sur votre ressource.|Il tuo utente non è collegato a una risorsa. Chiedi a un amministratore di impostare Utente sulla tua risorsa.
+WeeklyTimesheet|Previous_Week|Vorherige Woche|Semaine précédente|Settimana precedente
+WeeklyTimesheet|Next_Week|Nächste Woche|Semaine suivante|Settimana successiva
+WeeklyTimesheet|This_Week|Diese Woche|Cette semaine|Questa settimana
+WeeklyTimesheet|Refresh|Aktualisieren|Actualiser|Aggiorna
+WeeklyTimesheet|Submit_Week|Woche einreichen|Soumettre la semaine|Invia settimana
+WeeklyTimesheet|Submitted|{0} Einträge eingereicht.|{0} saisies soumises.|{0} registrazioni inviate.
+WeeklyTimesheet|Column_Line|Projekt / Aufgabe|Projet / tâche|Commessa / attività
+WeeklyTimesheet|Column_Total|Summe|Total|Totale
+WeeklyTimesheet|Capacity|Wochenstunden|Heures hebdomadaires|Ore settimanali
+WeeklyTimesheet|Pick_Project|Projekt|Projet|Commessa
+WeeklyTimesheet|Pick_Task|Aufgabe (optional)|Tâche (facultatif)|Attività (facoltativa)
+WeeklyTimesheet|Add_Line|Zeile hinzufügen|Ajouter une ligne|Aggiungi riga
+WeeklyTimesheet|Status_Draft|Entwurf|Brouillon|Bozza
+WeeklyTimesheet|Status_Submitted|Eingereicht|Soumis|Inviato
+WeeklyTimesheet|Status_Approved|Genehmigt|Approuvé|Approvato
+WeeklyTimesheet|Status_Rejected|Abgelehnt|Rejeté|Rifiutato

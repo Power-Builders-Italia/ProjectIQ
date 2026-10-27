@@ -30,20 +30,20 @@
 </head>
 <body>
   <div class="fields">
-    <label>Receipt date <input id="date" type="date" /></label>
-    <label>Delivery note number <input id="dn" type="text" maxlength="50" /></label>
-    <label>Delivery note date <input id="dndate" type="date" /></label>
+    <label><span data-t>Receipt date</span> <input id="date" type="date" /></label>
+    <label><span data-t>Delivery note number</span> <input id="dn" type="text" maxlength="50" /></label>
+    <label><span data-t>Delivery note date</span> <input id="dndate" type="date" /></label>
   </div>
   <div class="lines">
     <table>
-      <thead><tr><th>Line</th><th class="num">Ordered</th><th class="num">Received</th><th class="num">Receive now</th></tr></thead>
-      <tbody id="rows"><tr><td colspan="4" class="muted">Loading...</td></tr></tbody>
+      <thead><tr><th data-t>Line</th><th class="num" data-t>Ordered</th><th class="num" data-t>Received</th><th class="num" data-t>Receive now</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="4" class="muted" data-t>Loading...</td></tr></tbody>
     </table>
   </div>
   <div id="error" class="error" role="alert"></div>
   <div class="actions">
-    <span><button id="all" class="link" type="button">Receive all</button><button id="none" class="link" type="button">Clear</button></span>
-    <div><button id="cancel" type="button">Cancel</button><button id="ok" class="primary" type="button" disabled>Register</button></div>
+    <span><button id="all" class="link" type="button" data-t>Receive all</button><button id="none" class="link" type="button" data-t>Clear</button></span>
+    <div><button id="cancel" type="button" data-t>Cancel</button><button id="ok" class="primary" type="button" disabled data-t>Register</button></div>
   </div>
 <script>
 (function () {
@@ -51,6 +51,26 @@
   var params = new URLSearchParams(new URLSearchParams(location.search).get("data") || "");
   var orderId = params.get("id");
   var xrm = window.parent && window.parent.Xrm;
+  // English text -> [German, French, Italian], in the user's Dataverse language
+  var TEXT = {
+    "Receipt date": ["Eingangsdatum", "Date de réception", "Data ricevimento"],
+    "Delivery note number": ["Lieferscheinnummer", "Numéro du bon de livraison", "Numero DDT"],
+    "Delivery note date": ["Lieferscheindatum", "Date du bon de livraison", "Data DDT"],
+    "Line": ["Position", "Ligne", "Riga"],
+    "Ordered": ["Bestellt", "Commandé", "Ordinato"],
+    "Received": ["Erhalten", "Reçu", "Ricevuto"],
+    "Receive now": ["Jetzt empfangen", "Recevoir maintenant", "Ricevi ora"],
+    "Loading...": ["Wird geladen...", "Chargement...", "Caricamento..."],
+    "The order has no lines.": ["Die Bestellung hat keine Positionen.", "La commande n'a pas de lignes.", "L'ordine non ha righe."],
+    "Receive all": ["Alles empfangen", "Tout recevoir", "Ricevi tutto"],
+    "Clear": ["Leeren", "Effacer", "Azzera"],
+    "Cancel": ["Abbrechen", "Annuler", "Annulla"],
+    "Register": ["Erfassen", "Enregistrer", "Registra"]
+  };
+  var col = xrm ? { 1031: 0, 1036: 1, 1040: 2 }[xrm.Utility.getGlobalContext().userSettings.languageId] : undefined;
+  function t(text) { return col === undefined || !TEXT[text] ? text : TEXT[text][col]; }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-t]"), function (e) { e.textContent = t(e.textContent); });
+  var locale = col === undefined ? undefined : ["de-DE", "fr-FR", "it-IT"][col];
   var base = (xrm ? xrm.Utility.getGlobalContext().getClientUrl() : location.origin) + "/api/data/v9.2/";
   var headers = { "Content-Type": "application/json; charset=utf-8", Accept: "application/json", "OData-Version": "4.0", "OData-MaxVersion": "4.0" };
   var rows = document.getElementById("rows"), ok = document.getElementById("ok"), error = document.getElementById("error");
@@ -60,7 +80,7 @@
     return fetch(base + path, { method: body ? "POST" : "GET", credentials: "same-origin", headers: headers, body: body ? JSON.stringify(body) : undefined })
       .then(function (r) { return r.text().then(function (t) { var j = t ? JSON.parse(t) : {}; if (!r.ok) { throw new Error(j.error && j.error.message || r.statusText); } return j; }); });
   }
-  function fmt(v) { return Number(v || 0).toLocaleString(undefined, { maximumFractionDigits: 3 }); }
+  function fmt(v) { return Number(v || 0).toLocaleString(locale, { maximumFractionDigits: 3 }); }
   function inputs() { return Array.prototype.slice.call(rows.querySelectorAll("input")); }
   function update() { ok.disabled = !inputs().some(function (i) { return Number(i.value) > 0; }); }
 
@@ -79,12 +99,12 @@
         var input = document.createElement("input");
         input.type = "number"; input.min = "0"; input.step = "any"; input.max = String(left); input.value = String(left);
         input.dataset.id = l.op365_purchaseorderlineid; input.dataset.left = String(left); input.disabled = left === 0;
-        input.setAttribute("aria-label", "Receive now: " + l.op365_name);
+        input.setAttribute("aria-label", t("Receive now") + ": " + l.op365_name);
         input.addEventListener("input", update);
         tr.children[3].appendChild(input);
         rows.appendChild(tr);
       });
-      if (!lines.length) { rows.innerHTML = "<tr><td colspan='4' class='muted'>The order has no lines.</td></tr>"; }
+      if (!lines.length) { rows.innerHTML = "<tr><td colspan='4' class='muted'>" + t("The order has no lines.") + "</td></tr>"; }
       update();
     }, function (e) { error.textContent = e.message; });
 

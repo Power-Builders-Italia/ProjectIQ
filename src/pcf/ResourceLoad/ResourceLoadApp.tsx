@@ -4,7 +4,7 @@ import {
     makeStyles, tokens, webLightTheme, Theme,
 } from "@fluentui/react-components";
 import { IInputs } from "./generated/ManifestTypes";
-import { fromDay, toDay } from "../shared/dates";
+import { fromDay, toDay, userLocale } from "../shared/dates";
 import { weekStart } from "../shared/timesheet";
 import { level, LoadLevel, resourceLoad, ResourceLoadRow, WeekLoad } from "../shared/load";
 import { loadLoadData } from "../shared/execution";
@@ -71,7 +71,7 @@ export function ResourceLoadApp({ context, refreshKey }: Props): React.ReactElem
         return () => { cancelled = true; };
     }, [first, weeks, refreshKey, reload]);
 
-    const day = (d: number, opts: Intl.DateTimeFormatOptions): string => fromDay(d).toLocaleDateString(undefined, { timeZone: "UTC", ...opts });
+    const day = (d: number, opts: Intl.DateTimeFormatOptions): string => fromDay(d).toLocaleDateString(userLocale(context.userSettings.languageId), { timeZone: "UTC", ...opts });
     const h = (v: number): string => String(Math.round(v));
     const levelClass: Record<LoadLevel, string> = { free: styles.free, ok: styles.ok, full: styles.full, over: styles.over };
     const tip = (w: WeekLoad): string => {

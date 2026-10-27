@@ -19,3 +19,10 @@ export function fromDay(day: number): Date {
 export function isoDay(day: number): string {
     return fromDay(day).toISOString().substring(0, 10);
 }
+
+const LOCALES: Record<number, string> = { 1031: "de-DE", 1033: "en-US", 1036: "fr-FR", 1040: "it-IT" };
+
+/** Locale for day and month names in the user's Dataverse language (the browser locale for any other language). */
+export function userLocale(languageId: number | undefined): string | undefined {
+    return languageId === undefined ? undefined : LOCALES[languageId];
+}

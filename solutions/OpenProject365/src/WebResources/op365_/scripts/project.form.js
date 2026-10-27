@@ -4,21 +4,34 @@ var OP365 = OP365 || {};
 (function () {
     "use strict";
 
+    // English text -> [German, French, Italian]
+    var TEXT = {
+        "Save the project before saving a baseline.": ["Speichern Sie das Projekt, bevor Sie einen Basisplan speichern.", "Enregistrez le projet avant d'enregistrer un planning de référence.", "Salva la commessa prima di salvare una baseline."],
+        "Save Baseline": ["Basisplan speichern", "Enregistrer le planning de référence", "Salva baseline"],
+        "Save the current WBS budget and dates as a new reference baseline?": ["Aktuelles PSP-Budget und Termine als neuen Basisplan speichern?", "Enregistrer le budget et les dates actuels du WBS comme nouveau planning de référence ?", "Salvare budget e date attuali della WBS come nuova baseline di riferimento?"],
+        "Saving baseline...": ["Basisplan wird gespeichert...", "Enregistrement du planning de référence...", "Salvataggio baseline..."],
+        "Baseline saved.": ["Basisplan gespeichert.", "Planning de référence enregistré.", "Baseline salvata."]
+    };
+    function t(text) {
+        var col = { 1031: 0, 1036: 1, 1040: 2 }[Xrm.Utility.getGlobalContext().userSettings.languageId];
+        return col === undefined || !TEXT[text] ? text : TEXT[text][col];
+    }
+
     OP365.Project = {
         saveBaseline: function (form) {
             var id = form.data.entity.getId().replace(/[{}]/g, "");
             if (!id) {
-                Xrm.Navigation.openAlertDialog({ text: "Save the project before saving a baseline." });
+                Xrm.Navigation.openAlertDialog({ text: t("Save the project before saving a baseline.") });
                 return;
             }
             var confirm = {
-                title: "Save Baseline",
-                text: "Save the current WBS budget and dates as a new reference baseline?",
-                confirmButtonLabel: "Save Baseline"
+                title: t("Save Baseline"),
+                text: t("Save the current WBS budget and dates as a new reference baseline?"),
+                confirmButtonLabel: t("Save Baseline")
             };
             Xrm.Navigation.openConfirmDialog(confirm).then(function (result) {
                 if (!result.confirmed) { return; }
-                Xrm.Utility.showProgressIndicator("Saving baseline...");
+                Xrm.Utility.showProgressIndicator(t("Saving baseline..."));
                 var request = {
                     entity: { entityType: "op365_project", id: id },
                     getMetadata: function () {
@@ -36,7 +49,7 @@ var OP365 = OP365 || {};
                         var grid = form.getControl(name);
                         if (grid) { grid.refresh(); }
                     });
-                    form.ui.setFormNotification("Baseline saved.", "INFO", "op365_baseline");
+                    form.ui.setFormNotification(t("Baseline saved."), "INFO", "op365_baseline");
                 }, function (error) {
                     Xrm.Utility.closeProgressIndicator();
                     Xrm.Navigation.openErrorDialog({ message: error.message });
