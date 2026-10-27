@@ -2,7 +2,8 @@
 
 - column and lookup descriptions, read by the Dataverse semantic model;
 - Microsoft Copilot on the Open Project 365 app, so Dataverse indexes the app tables;
-- business skills from copilot/skills/*.md, added to the OpenProject365 solution.
+- business skills from copilot/skills/*.md, added to the OpenProject365 solution;
+- Dataverse search on the tables in scope: Copilot and Cowork read records through the search index.
 
 The semantic model glossary and table scope have no documented API: see docs/en/copilot.md.
 Idempotent: run again after changing a description or a skill.
@@ -15,6 +16,8 @@ NS = 'Microsoft.Dynamics.CRM.'
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 APP = 'op365_OpenProject365'
 SKILL_COMPONENT = 10441  # solutioncomponentdefinitions: Skill
+# out of the semantic model scope (docs/adr/0001): not added to the search index
+NOT_INDEXED = {'op365_resourcecost', 'op365_baselinenode', 'op365_wbsdependency'}
 
 
 def L(t):
@@ -296,6 +299,21 @@ def descriptions():
             ok(S.put(url, json=a, headers=hdr), f'description {table}.{col}')
 
 
+def search_index():
+    # without it the semantic model knows the tables but Copilot finds no records
+    for table in DESCRIPTIONS:
+        if table in NOT_INDEXED:
+            continue
+        url = API + f"EntityDefinitions(LogicalName='{table}')"
+        e = S.get(url).json()
+        if e.get('SyncToExternalSearchIndex'):
+            print('skip search', table); continue
+        e['SyncToExternalSearchIndex'] = True
+        for k in [k for k in e if k.startswith('@odata.') and k != '@odata.type']:
+            e.pop(k)
+        ok(S.put(url, json=e, headers={'MSCRM.MergeLabels': 'true'}), 'search ' + table)
+
+
 def copilot_on_app():
     # app setting behind "Microsoft Copilot in model-driven apps" (app designer > Settings > Features);
     # turning it on makes Dataverse index the app tables and provision the app semantic model
@@ -351,6 +369,7 @@ def skills():
 
 if __name__ == '__main__':
     descriptions()
+    search_index()
     ok(S.post(API + 'PublishAllXml', json={}), 'publish')
     copilot_on_app()
     skills()

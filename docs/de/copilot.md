@@ -60,7 +60,7 @@ flowchart TD
 |---|---|---|---|
 | 1 | Microsoft 365-Administrator | Microsoft 365 admin center → **Copilot** → **Settings** → **Business Applications data in Work IQ available to Copilot** | **All users** oder die Entra-Gruppen der Benutzer von Open Project 365 |
 | 2 | Power Platform-Administrator | Power Platform admin center → Umgebung → **Work IQ** | Aktiv. Außerdem prüfen, dass **Dataverse search** auf **On** oder **Default** steht |
-| 3 | IT | Import der Lösung (siehe [dev environment](../dev-environment.md#copilot-and-work-iq), auf Englisch) | Die Lösung aktiviert **Microsoft Copilot in model-driven apps** für die App Open Project 365 und fügt die Business Skills hinzu |
+| 3 | IT | Import der Lösung (siehe [dev environment](../dev-environment.md#copilot-and-work-iq), auf Englisch) | Die Lösung aktiviert **Microsoft Copilot in model-driven apps** für die App Open Project 365, fügt die Business Skills hinzu und nimmt die Tabellen im Umfang in den **Dataverse search**-Index auf: ohne Index kennt Copilot die Tabellen, findet aber keine Datensätze |
 | 4 | – | – | Die erste Generierung des semantischen Modells dauert bis zu zwei Stunden |
 | 5 | System Administrator | Power Apps → **Semantic model** | Siehe [Semantisches Modell abstimmen](#semantisches-modell-abstimmen) |
 | 6 | System Administrator | Power Apps → **Business skills (preview)** | Siehe [Business Skills](#business-skills) |
@@ -83,7 +83,7 @@ Das semantische Modell der App heißt `M365_Primary_model_op365_OpenProject365` 
 
 | Tabelle | Warum sie ausgeschlossen wird |
 |---|---|
-| Resource Cost | Stundensätze: vertraulich und für die Antworten nicht nötig |
+| Resource Cost | Stundensätze: vertraulich und für die Antworten nicht nötig. Auch nicht im Dataverse search-Index |
 | Settings | Unternehmenskonfiguration (eine einzige Zeile) |
 | Baseline Node | In einer Baseline gespeicherte Werte: Sie doppeln den PSP und verwirren Fragen zum aktuellen Plan |
 | WBS Dependency | Gantt-Verknüpfungen: Rauschen für fachliche Fragen |

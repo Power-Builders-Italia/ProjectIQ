@@ -57,6 +57,7 @@ After a solution import check that plugin steps are enabled: an interrupted impo
 - Writes the descriptions of the custom columns and lookups (the `DESCRIPTIONS` table in the script): the Dataverse semantic model reads them, so keep a description on every new column.
 - Sets the app setting `m365copilotmodelappenabled` = 2 (**Microsoft Copilot in model-driven apps** on) on the Open Project 365 app; with it Dataverse indexes the app tables and creates the semantic model of the app (`M365_Primary_model_op365_OpenProject365` in Dev).
 - Creates or updates the business skills from `copilot/skills/*.md` (front matter `name` and `description`, body = instructions) as **Organization** skills (`ispersonal` = No) and adds them to the solution (component type 10441). The unique name is the file name.
+- Turns on **Dataverse search** (`SyncToExternalSearchIndex`) for the tables in scope, all except Resource Cost, Baseline Node and WBS Dependency: Copilot reads records through the search index, so a new table in scope must be added there too.
 
 Run it after the table scripts, then export and unpack the solution. The script is idempotent.
 
