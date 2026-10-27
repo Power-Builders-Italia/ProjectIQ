@@ -85,3 +85,9 @@ export function hostRecordId(context: ComponentFramework.Context<unknown>): stri
     const id = info?.entityId;
     return id ? id.replace(/[{}]/g, "").toLowerCase() : undefined;
 }
+
+/** Symbol of the record's currency (transactioncurrencyid), for formatCurrency; undefined uses the user's default. */
+export async function currencySymbol(api: WebApi, table: string, id: string): Promise<string | undefined> {
+    const r = await api.retrieveRecord(table, id, "?$select=_transactioncurrencyid_value&$expand=transactioncurrencyid($select=currencysymbol)");
+    return (r.transactioncurrencyid as { currencysymbol?: string } | null | undefined)?.currencysymbol || undefined;
+}

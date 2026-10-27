@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="QuoteComparison" version="1.0.0" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="QuoteComparison" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Bound to Responses on the RFQ form; lines, invitations and quotes are read through the Web API. -->
     <property name="value" display-name-key="Property_Value" of-type="Whole.None" usage="bound" required="true" />

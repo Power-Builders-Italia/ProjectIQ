@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="OP365" constructor="WbsTreeGrid" version="1.0.1" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
+  <control namespace="OP365" constructor="WbsTreeGrid" version="1.0.2" display-name-key="Control_Name" description-key="Control_Description" control-type="virtual">
     <external-service-usage enabled="false" />
     <!-- Bound to the WBS Nodes subgrid of the Project form; rows are read through the Web API to build the full tree. -->
     <data-set name="nodes" display-name-key="Dataset_Name" />

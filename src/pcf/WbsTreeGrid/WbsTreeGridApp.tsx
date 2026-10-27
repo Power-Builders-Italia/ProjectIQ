@@ -6,7 +6,7 @@ import {
 import { AddIcon, ChevronDownIcon, ChevronRightIcon, CollapseIcon, ExpandIcon, RefreshIcon } from "../shared/icons";
 import { IInputs } from "./generated/ManifestTypes";
 import { buildTree, flatten, parentIds, WbsNode } from "../shared/wbs";
-import { hostRecordId, loadNodes, updateNode } from "../shared/data";
+import { currencySymbol, hostRecordId, loadNodes, updateNode } from "../shared/data";
 import { isoDay, toDay } from "../shared/dates";
 import { EditableCell } from "../shared/EditableCell";
 import { ProgressCell } from "../shared/ProgressCell";
@@ -46,6 +46,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
     const [collapsed, setCollapsed] = React.useState<Set<string>>(new Set());
     const [selected, setSelected] = React.useState<string>();
     const [reload, setReload] = React.useState(0);
+    const [symbol, setSymbol] = React.useState<string>();
 
     React.useEffect(() => {
         if (!projectId) { setLoading(false); return; }
@@ -53,8 +54,8 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
         const load = async (): Promise<void> => {
             setLoading(true);
             try {
-                const items = await loadNodes(context.webAPI, projectId);
-                if (!cancelled) { setRoots(buildTree(items)); setError(undefined); }
+                const [items, sym] = await Promise.all([loadNodes(context.webAPI, projectId), currencySymbol(context.webAPI, "op365_project", projectId)]);
+                if (!cancelled) { setRoots(buildTree(items)); setSymbol(sym); setError(undefined); }
             } catch (e) {
                 if (!cancelled) setError(`${s("Error_Load")}: ${(e as Error).message}`);
             } finally {
@@ -65,7 +66,8 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
         return () => { cancelled = true; };
     }, [projectId, refreshKey, reload]);
 
-    const money = (v: number): string => context.formatting.formatCurrency(v, 2);
+    // amounts in the project currency (#33)
+    const money = (v: number): string => context.formatting.formatCurrency(v, 2, symbol);
     const decimal = (v: number): string => context.formatting.formatDecimal(v, 2);
     const date = (d?: number): string => (d === undefined ? "" : context.formatting.formatDateShort(new Date(isoDay(d) + "T12:00:00")));
 

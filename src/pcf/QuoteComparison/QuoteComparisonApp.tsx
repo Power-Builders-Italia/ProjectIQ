@@ -39,7 +39,7 @@ export function QuoteComparisonApp({ context, refreshKey }: Props): React.ReactE
     const width = context.mode.allocatedWidth;
     const fill: React.CSSProperties = { width: width > 0 ? `${width}px` : "100%" };
 
-    const [data, setData] = React.useState<{ status: number; comparison: Comparison }>();
+    const [data, setData] = React.useState<{ status: number; comparison: Comparison; symbol?: string }>();
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState<string>();
     const [reload, setReload] = React.useState(0);
@@ -54,7 +54,7 @@ export function QuoteComparisonApp({ context, refreshKey }: Props): React.ReactE
             try {
                 const rfq = await loadRfq(context.webAPI, rfqId);
                 if (cancelled) return;
-                setData({ status: rfq.status, comparison: compareQuotes(rfq.lines, rfq.invitations, rfq.quotes) });
+                setData({ status: rfq.status, comparison: compareQuotes(rfq.lines, rfq.invitations, rfq.quotes), symbol: rfq.currencySymbol });
                 setError(undefined);
             } catch (e) {
                 if (!cancelled) setError(`${s("Error_Load")}: ${(e as Error).message}`);
@@ -69,7 +69,8 @@ export function QuoteComparisonApp({ context, refreshKey }: Props): React.ReactE
     if (!rfqId) {
         return <FluentProvider theme={theme}><MessageBar><MessageBarBody>{s("Save_Rfq")}</MessageBarBody></MessageBar></FluentProvider>;
     }
-    const money = (v: number): string => context.formatting.formatCurrency(v, 2);
+    // amounts in the quotes' currency (#33)
+    const money = (v: number): string => context.formatting.formatCurrency(v, 2, data?.symbol);
     const qty = (v: number): string => context.formatting.formatDecimal(v, v % 1 === 0 ? 0 : 3);
 
     const doAward = async (): Promise<void> => {
