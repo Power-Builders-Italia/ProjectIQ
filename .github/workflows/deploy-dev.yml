@@ -282,3 +282,71 @@ jobs:
             exit 1
           fi
           cat verify.md >> "$GITHUB_STEP_SUMMARY"
+
+  # Dev has changes main does not know about: branch from the baseline with the Dev export, draft pull request, fail
+  drift-pr:
+    needs: deploy
+    if: needs.deploy.outputs.drift == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dev-export
+          path: ${{ runner.temp }}/dev-export
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: drift-summary
+          path: ${{ runner.temp }}/drift-summary
+      - name: Branch and draft pull request
+        env:
+          BASELINE: ${{ needs.deploy.outputs.baseline }}
+          EXPORT: ${{ runner.temp }}/dev-export
+          SUMMARY: ${{ runner.temp }}/drift-summary/summary.md
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          short=${BASELINE::7}
+          branch="drift/$(date -u +%Y%m%d-%H%M)"
+          git switch -c "$branch" "$BASELINE"
+          for solution in OpenProject365 OpenProject365SupplierPortal; do
+            rm -rf "solutions/$solution/src"
+            cp -r "$EXPORT/$solution/src" "solutions/$solution/src"
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A solutions
+          git commit -m "Dev drift since $short"
+          git push origin "$branch"
+          {
+            echo "Dev holds changes that are not in \`main\`, found by deploy-dev (run ${{ github.run_id }}) against \`$short\`. Nothing was imported into Dev."
+            echo
+            echo "Review the changes, keep or drop them, merge \`main\` into this branch if it conflicts, then merge and run deploy-dev again."
+            echo "Checks start after the next push to this branch (pull requests opened by GitHub Actions do not start workflows)."
+            echo
+            cat "$SUMMARY"
+          } > pr.md
+          gh pr create --draft --base main --head "$branch" --title "Dev drift since $short" --body-file pr.md
+      - name: Fail the run
+        run: |
+          echo "::error::Dev has changes not in main: see the draft pull request"
+          exit 1
+
+  # Dev matches main: move the tag to the commit just installed
+  tag:
+    needs: deploy
+    if: needs.deploy.result == 'success' && needs.deploy.outputs.drift == 'false' && inputs.check-only != true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Move dev-deployed
+        run: |
+          git tag -f dev-deployed "$GITHUB_SHA"
+          git push -f origin refs/tags/dev-deployed
+          echo "dev-deployed → \`$GITHUB_SHA\`" >> "$GITHUB_STEP_SUMMARY"
