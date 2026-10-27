@@ -1,0 +1,284 @@
+name: deploy-dev
+
+# Installs the content of main into Dev (ADR 0002, docs/adr/0002-deploy-dev.md).
+# 1. Exports OpenProject365 and OpenProject365SupplierPortal from Dev and compares them with the repository at the tag
+#    dev-deployed (the last commit installed in Dev). A difference means Dev holds changes main does not know about:
+#    nothing is imported, the drift-pr job opens a draft pull request with the Dev export and the run fails.
+# 2. Otherwise imports both solutions packed from main (unmanaged), registers the plugins and pushes the PCF controls
+#    built from source, exports again to verify that Dev matches main, and the tag job moves dev-deployed to this commit.
+# Runs after every merge that touches the solution or the code, and waits for a reviewer of the GitHub environment dev.
+on:
+  push:
+    branches: [main]
+    paths: ['solutions/**', 'src/plugins/**', 'src/pcf/**', 'src/webresources/**']
+  workflow_dispatch:
+    inputs:
+      check-only:
+        description: Only compare Dev with the repository, import nothing
+        type: boolean
+        default: false
+      baseline:
+        description: Commit that matches Dev, used when the tag dev-deployed does not exist yet (first run)
+        type: string
+        default: ''
+      skip-drift-check:
+        description: Import without comparing first (recovery after a failed run)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    # GitHub environment dev: required reviewer, deployment branches main, PP_* secrets of the Dev application user
+    environment: dev
+    outputs:
+      drift: ${{ steps.compare.outputs.drift }}
+      baseline: ${{ steps.baseline.outputs.baseline }}
+    env:
+      CHECK_ONLY: ${{ inputs.check-only == true }}
+      SKIP_DRIFT: ${{ inputs.skip-drift-check == true }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Resolve baseline
+        id: baseline
+        if: env.SKIP_DRIFT != 'true'
+        shell: bash
+        env:
+          BASELINE_INPUT: ${{ inputs.baseline }}
+        run: |
+          if sha=$(git rev-parse -q --verify 'refs/tags/dev-deployed^{commit}'); then :;
+          elif [ -n "$BASELINE_INPUT" ]; then sha=$(git rev-parse --verify "$BASELINE_INPUT^{commit}");
+          else echo "::error::No tag dev-deployed: run the workflow with the baseline input (the commit that matches Dev)"; exit 1; fi
+          echo "baseline=$sha" >> "$GITHUB_OUTPUT"
+          echo "Baseline: \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
+      - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+
+      # 1. Drift check
+      - name: Export Dev
+        if: env.SKIP_DRIFT != 'true'
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/dev/OpenProject365.zip
+          managed: false
+      - name: Export Dev portal
+        if: env.SKIP_DRIFT != 'true'
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/dev/OpenProject365SupplierPortal.zip
+          managed: false
+      - name: Unpack Dev
+        if: env.SKIP_DRIFT != 'true'
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365.zip
+          solution-folder: dev/solutions/OpenProject365/src
+          solution-type: Unmanaged
+      - name: Unpack Dev portal
+        if: env.SKIP_DRIFT != 'true'
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365SupplierPortal.zip
+          solution-folder: dev/solutions/OpenProject365SupplierPortal/src
+          solution-type: Unmanaged
+      - name: Compare Dev with the baseline
+        id: compare
+        shell: bash
+        env:
+          BASELINE: ${{ steps.baseline.outputs.baseline }}
+        run: |
+          if [ "$SKIP_DRIFT" = true ]; then
+            echo "drift=false" >> "$GITHUB_OUTPUT"
+            echo "Drift check skipped (skip-drift-check)." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          mkdir -p base
+          git archive "$BASELINE" solutions | tar -x -C base
+          set +e
+          python tools/alm/compare_solution.py base/solutions dev/solutions --summary summary.md > /dev/null
+          code=$?
+          set -e
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          case $code in
+            0) echo "drift=false" >> "$GITHUB_OUTPUT" ;;
+            1) echo "drift=true" >> "$GITHUB_OUTPUT" ;;
+            *) echo "::error::The comparison could not run (exit $code)"; exit 1 ;;
+          esac
+      - name: Upload Dev export
+        if: steps.compare.outputs.drift == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dev-export
+          path: dev/solutions
+      - name: Upload drift summary
+        if: steps.compare.outputs.drift == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: drift-summary
+          path: summary.md
+
+      # 2. Import main (only when Dev has no drift and this is not a check-only run)
+      - name: Web resources from src/webresources
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: pwsh
+        run: |
+          # src/webresources is the source; the copies in the solution keep their .data.xml
+          $targets = Get-ChildItem solutions/OpenProject365/src/WebResources -Recurse -File | Where-Object { $_.Extension -ne '.xml' }
+          foreach ($file in Get-ChildItem src/webresources -File) {
+            $targets | Where-Object { $_.Name -eq $file.Name } | ForEach-Object { Copy-Item $file.FullName $_.FullName -Force }
+          }
+      - name: Pack main
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/pack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-folder: solutions/OpenProject365/src
+          solution-file: out/main/OpenProject365.zip
+          solution-type: Unmanaged
+      - name: Pack main portal
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/pack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-folder: solutions/OpenProject365SupplierPortal/src
+          solution-file: out/main/OpenProject365SupplierPortal.zip
+          solution-type: Unmanaged
+      - name: Import into Dev
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/import-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-file: out/main/OpenProject365.zip
+          publish-changes: true
+          # unmanaged, no deployment settings: Dev keeps its environment variables and connections
+          activate-plugins: true
+          run-asynchronously: true
+          max-async-wait-time: 60
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        with:
+          dotnet-version: '10.0.x'
+      - name: Plugins from source
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: bash
+        env:
+          PAC_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
+          PAC_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+          PAC_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PAC_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+        run: |
+          dotnet build src/plugins/OpenProject365.Plugins -c Release
+          python -m pip install --quiet requests
+          python tools/dataverse/plugins.py
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: src/pcf/package-lock.json
+      - name: PCF controls from source
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: bash
+        env:
+          PP_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+          PP_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+        run: |
+          (cd src/pcf && npm ci)
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          pac auth create --name dev --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
+            --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
+          tools/pcf/push.sh
+      - name: Import portal into Dev
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/import-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-file: out/main/OpenProject365SupplierPortal.zip
+          publish-changes: true
+          run-asynchronously: true
+          max-async-wait-time: 60
+      - name: Publish customizations
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/publish-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+
+      # 3. Verify: Dev must now match main
+      - name: Export Dev after import
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/verify/OpenProject365.zip
+          managed: false
+      - name: Export Dev portal after import
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/verify/OpenProject365SupplierPortal.zip
+          managed: false
+      - name: Unpack Dev after import
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/verify/OpenProject365.zip
+          solution-folder: verify/solutions/OpenProject365/src
+          solution-type: Unmanaged
+      - name: Unpack Dev portal after import
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/verify/OpenProject365SupplierPortal.zip
+          solution-folder: verify/solutions/OpenProject365SupplierPortal/src
+          solution-type: Unmanaged
+      - name: Verify Dev matches main
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: bash
+        run: |
+          echo "#### After the import" >> "$GITHUB_STEP_SUMMARY"
+          if ! python tools/alm/compare_solution.py solutions verify/solutions --summary verify.md > /dev/null; then
+            cat verify.md >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::Dev does not match main after the import: see the summary"
+            exit 1
+          fi
+          cat verify.md >> "$GITHUB_STEP_SUMMARY"

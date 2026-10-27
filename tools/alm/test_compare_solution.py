@@ -77,6 +77,10 @@ class CompareTests(unittest.TestCase):
         self.assertEqual(diff.added, ["OpenProject365/src/new.xml"])
         self.assertEqual(diff.removed, ["OpenProject365/src/old.xml"])
 
+    def test_files_outside_src_ignored(self):
+        self.put(self.base, "OpenProject365/OpenProject365.cdsproj", "<Project/>")
+        self.assertFalse(compare_trees(self.base, self.cur).drift)
+
     def test_cli_exit_codes(self):
         rel = "OpenProject365/src/Other/Customizations.xml"
         self.both(rel, "<a/>\n", "<a/>\n")

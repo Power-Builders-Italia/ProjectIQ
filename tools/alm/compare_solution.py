@@ -53,8 +53,13 @@ def normalize(rel_path: str, data: bytes) -> bytes:
     return data
 
 
+IN_SRC = re.compile(r"^[^/]+/src/")
+
+
 def _files(root: Path) -> dict:
-    return {p.relative_to(root).as_posix(): p for p in root.rglob("*") if p.is_file()}
+    # only <Solution>/src is exported; project files beside it (e.g. the .cdsproj) are not
+    files = ((p.relative_to(root).as_posix(), p) for p in root.rglob("*") if p.is_file())
+    return {rel: p for rel, p in files if IN_SRC.match(rel)}
 
 
 def _compare(baseline: Path, current: Path):
