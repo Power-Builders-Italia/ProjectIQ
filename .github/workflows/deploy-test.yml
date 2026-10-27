@@ -8,11 +8,9 @@ name: deploy-test
 # Actions logs of a public repository are public and only secrets are masked).
 on:
   workflow_dispatch:
+    # No target URL input: the target is always the TEST_ENVIRONMENT_URL secret of the chosen GitHub environment,
+    # so whoever can run the workflow cannot point the app registration at another environment
     inputs:
-      target-url:
-        description: Target environment URL (empty = secret TEST_ENVIRONMENT_URL)
-        default: ''
-        required: false
       settings:
         description: Deployment settings file in deployment/ (without .settings.json); also the GitHub environment name
         default: test
@@ -27,7 +25,7 @@ jobs:
     # GitHub environment: protection rules (required reviewers, main only) and environment-scoped secrets (PP_* included)
     environment: ${{ inputs.settings }}
     env:
-      TARGET_URL: ${{ inputs.target-url || secrets.TEST_ENVIRONMENT_URL }}
+      TARGET_URL: ${{ secrets.TEST_ENVIRONMENT_URL }}
       OP365_DATAVERSE_CONNECTION_ID: ${{ secrets.OP365_DATAVERSE_CONNECTION_ID }}
       OP365_TIME_APPROVAL_ENABLED: ${{ secrets.OP365_TIME_APPROVAL_ENABLED }}
       OP365_PURCHASE_REQUEST_THRESHOLD: ${{ secrets.OP365_PURCHASE_REQUEST_THRESHOLD }}
@@ -39,7 +37,7 @@ jobs:
         # Power Platform environment variables left empty are dropped, so the target keeps its current value (or the default)
         shell: pwsh
         run: |
-          if (-not $env:TARGET_URL) { throw 'Set the target-url input or the TEST_ENVIRONMENT_URL secret' }
+          if (-not $env:TARGET_URL) { throw 'Set the TEST_ENVIRONMENT_URL secret of the GitHub environment ${{ inputs.settings }}' }
           $text = Get-Content 'deployment/${{ inputs.settings }}.settings.json' -Raw
           $text = [regex]::Replace($text, '#\{(\w+)\}#', { param($m) [Environment]::GetEnvironmentVariable($m.Groups[1].Value) })
           if ($text -match '"ConnectionId":\s*""') { throw 'The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)' }

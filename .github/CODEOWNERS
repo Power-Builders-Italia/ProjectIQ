@@ -1,2 +1,2 @@
-# Code owners review every change; see docs/dev-environment.md (GitHub repository security)
+# Code owners are requested as reviewers on every pull request (approval not required by the ruleset); see docs/dev-environment.md (GitHub repository security)
 * @pborg-mc
