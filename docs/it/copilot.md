@@ -60,7 +60,7 @@ flowchart TD
 |---|---|---|---|
 | 1 | Amministratore Microsoft 365 | Microsoft 365 admin center → **Copilot** → **Settings** → **Business Applications data in Work IQ available to Copilot** | **All users**, oppure i gruppi Entra degli utenti di Open Project 365 |
 | 2 | Amministratore Power Platform | Power Platform admin center → ambiente → **Work IQ** | Attivo. Verificare anche che **Dataverse search** sia **On** o **Default** |
-| 3 | IT | Importazione della soluzione (vedi [dev environment](../dev-environment.md#copilot-and-work-iq), in inglese) | La soluzione attiva **Microsoft Copilot in model-driven apps** per l'app Open Project 365 e aggiunge le business skill |
+| 3 | IT | Importazione della soluzione (vedi [dev environment](../dev-environment.md#copilot-and-work-iq), in inglese) | La soluzione attiva **Microsoft Copilot in model-driven apps** per l'app Open Project 365, aggiunge le business skill e mette le tabelle in perimetro nell'indice di **Dataverse search**: senza indice Copilot conosce le tabelle ma non trova i record |
 | 4 | – | – | La prima generazione del modello semantico richiede fino a due ore |
 | 5 | System Administrator | Power Apps → **Semantic model** | Vedi [Ottimizzare il modello semantico](#ottimizzare-il-modello-semantico) |
 | 6 | System Administrator | Power Apps → **Business skills (preview)** | Vedi [Business skill](#business-skill) |
@@ -83,7 +83,7 @@ Il modello semantico dell'app si chiama `M365_Primary_model_op365_OpenProject365
 
 | Tabella | Perché è esclusa |
 |---|---|
-| Resource Cost | Costi orari: dati sensibili, non servono per rispondere alle domande |
+| Resource Cost | Costi orari: dati sensibili, non servono per rispondere alle domande. Esclusa anche dall'indice di Dataverse search |
 | Settings | Configurazione aziendale (riga unica) |
 | Baseline Node | Valori salvati in una baseline: duplicano la WBS e confondono le domande sul piano attuale |
 | WBS Dependency | Legami del Gantt: rumore per le domande di business |

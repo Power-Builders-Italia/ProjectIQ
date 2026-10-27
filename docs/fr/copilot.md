@@ -60,7 +60,7 @@ flowchart TD
 |---|---|---|---|
 | 1 | Administrateur Microsoft 365 | Microsoft 365 admin center → **Copilot** → **Settings** → **Business Applications data in Work IQ available to Copilot** | **All users**, ou les groupes Entra des utilisateurs d'Open Project 365 |
 | 2 | Administrateur Power Platform | Power Platform admin center → environnement → **Work IQ** | Activé. Vérifier aussi que **Dataverse search** est sur **On** ou **Default** |
-| 3 | IT | Import de la solution (voir [dev environment](../dev-environment.md#copilot-and-work-iq), en anglais) | La solution active **Microsoft Copilot in model-driven apps** pour l'application Open Project 365 et ajoute les compétences métier |
+| 3 | IT | Import de la solution (voir [dev environment](../dev-environment.md#copilot-and-work-iq), en anglais) | La solution active **Microsoft Copilot in model-driven apps** pour l'application Open Project 365, ajoute les compétences métier et place les tables du périmètre dans l'index **Dataverse search** : sans index, Copilot connaît les tables mais ne trouve aucun enregistrement |
 | 4 | – | – | La première génération du modèle sémantique prend jusqu'à deux heures |
 | 5 | System Administrator | Power Apps → **Semantic model** | Voir [Ajuster le modèle sémantique](#ajuster-le-modèle-sémantique) |
 | 6 | System Administrator | Power Apps → **Business skills (preview)** | Voir [Compétences métier](#compétences-métier) |
@@ -83,7 +83,7 @@ Le modèle sémantique de l'application s'appelle `M365_Primary_model_op365_Open
 
 | Table | Pourquoi elle est exclue |
 |---|---|
-| Resource Cost | Coûts horaires : sensibles, et inutiles pour répondre aux questions |
+| Resource Cost | Coûts horaires : sensibles, et inutiles pour répondre aux questions. Exclue aussi de l'index Dataverse search |
 | Settings | Configuration de l'entreprise (une seule ligne) |
 | Baseline Node | Valeurs enregistrées dans une baseline : elles dupliquent la WBS et brouillent les questions sur le plan actuel |
 | WBS Dependency | Liens du Gantt : du bruit pour les questions métier |

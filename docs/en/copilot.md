@@ -60,7 +60,7 @@ flowchart TD
 |---|---|---|---|
 | 1 | Microsoft 365 admin | Microsoft 365 admin center → **Copilot** → **Settings** → **Business Applications data in Work IQ available to Copilot** | **All users**, or the Entra groups of the Open Project 365 users |
 | 2 | Power Platform admin | Power Platform admin center → environment → **Work IQ** | On. Also check that **Dataverse search** is **On** or **Default** |
-| 3 | IT | Solution import (see [dev environment](../dev-environment.md#copilot-and-work-iq)) | The solution turns on **Microsoft Copilot in model-driven apps** for the Open Project 365 app and adds the business skills |
+| 3 | IT | Solution import (see [dev environment](../dev-environment.md#copilot-and-work-iq)) | The solution turns on **Microsoft Copilot in model-driven apps** for the Open Project 365 app, adds the business skills and puts the tables in scope in the **Dataverse search** index: without it Copilot knows the tables but finds no records |
 | 4 | – | – | The first generation of the semantic model takes up to two hours |
 | 5 | System Administrator | Power Apps → **Semantic model** | See [Tune the semantic model](#tune-the-semantic-model) |
 | 6 | System Administrator | Power Apps → **Business skills (preview)** | See [Business skills](#business-skills) |
@@ -83,7 +83,7 @@ The semantic model of the app is named `M365_Primary_model_op365_OpenProject365`
 
 | Table | Why it is excluded |
 |---|---|
-| Resource Cost | Hourly costs: sensitive, and not needed to answer questions |
+| Resource Cost | Hourly costs: sensitive, and not needed to answer questions. Also kept out of the Dataverse search index |
 | Settings | Company configuration (single row) |
 | Baseline Node | Values saved in a baseline: they duplicate the WBS and confuse "current" questions |
 | WBS Dependency | Gantt links: noise for business questions |
