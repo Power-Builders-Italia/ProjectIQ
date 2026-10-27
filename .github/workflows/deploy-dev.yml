@@ -42,6 +42,8 @@ jobs:
       drift: ${{ steps.compare.outputs.drift }}
       baseline: ${{ steps.baseline.outputs.baseline }}
     env:
+      # the exports hold labels in every language: never let Python fall back to the cp1252 console encoding
+      PYTHONUTF8: 1
       CHECK_ONLY: ${{ inputs.check-only == true }}
       SKIP_DRIFT: ${{ inputs.skip-drift-check == true }}
     steps:
@@ -116,7 +118,7 @@ jobs:
           mkdir -p base
           git archive "$BASELINE" solutions | tar -x -C base
           set +e
-          python tools/alm/compare_solution.py base/solutions dev/solutions --summary summary.md > /dev/null
+          python tools/alm/compare_solution.py base/solutions dev/solutions --summary summary.md --files files.txt > /dev/null
           code=$?
           set -e
           cat summary.md >> "$GITHUB_STEP_SUMMARY"
@@ -136,7 +138,9 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: drift-summary
-          path: summary.md
+          path: |
+            summary.md
+            files.txt
 
       # 2. Import main (only when Dev has no drift and this is not a check-only run)
       - name: Web resources from src/webresources
@@ -308,15 +312,20 @@ jobs:
           BASELINE: ${{ needs.deploy.outputs.baseline }}
           EXPORT: ${{ runner.temp }}/dev-export
           SUMMARY: ${{ runner.temp }}/drift-summary/summary.md
+          FILES: ${{ runner.temp }}/drift-summary/files.txt
           GH_TOKEN: ${{ github.token }}
         run: |
           short=${BASELINE::7}
           branch="drift/$(date -u +%Y%m%d-%H%M)"
           git switch -c "$branch" "$BASELINE"
-          for solution in OpenProject365 OpenProject365SupplierPortal; do
-            rm -rf "solutions/$solution/src"
-            cp -r "$EXPORT/$solution/src" "solutions/$solution/src"
-          done
+          # only the files the comparison found different: the rest of the export differs from the repository
+          # only in what the comparison ignores (line endings, Italian labels of standard components, built files)
+          while read -r change path; do
+            case $change in
+              A|M) mkdir -p "solutions/$(dirname "$path")"; cp "$EXPORT/$path" "solutions/$path" ;;
+              D) git rm -q "solutions/$path" ;;
+            esac
+          done < "$FILES"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A solutions

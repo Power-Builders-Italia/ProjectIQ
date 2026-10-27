@@ -5,7 +5,7 @@ import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
 
-from compare_solution import Diff, compare_trees, format_summary, main
+from compare_solution import Diff, check_webresources, compare_trees, format_summary, main
 
 ENTITY = "OpenProject365/src/Entities/{}/Entity.xml"
 LABEL = '            <displayname description="X" languagecode="1040" />\n'
@@ -80,6 +80,42 @@ class CompareTests(unittest.TestCase):
     def test_files_outside_src_ignored(self):
         self.put(self.base, "OpenProject365/OpenProject365.cdsproj", "<Project/>")
         self.assertFalse(compare_trees(self.base, self.cur).drift)
+
+    def test_platform_version_attributes_ignored(self):
+        root = '<ImportExportXml version="{0}" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" OrganizationVersion="{0}" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="{0}" xmlns:xsi="x">\n'
+        for rel in ("OpenProject365/src/Other/Solution.xml", "OpenProject365/src/Other/Customizations.xml"):
+            self.both(rel, root.format("9.2.26102.120") + "</ImportExportXml>\n", root.format("9.2.26103.137") + "</ImportExportXml>\n")
+        self.assertFalse(compare_trees(self.base, self.cur).drift)
+
+    def test_non_cp1252_text_on_cp1252_stdout(self):
+        rel = "OpenProject365/src/Entities/SystemUser/RibbonDiff.xml"
+        self.both(rel, "<a/>\n", "<a>مرحبا</a>\n")
+        raw = io.BytesIO()
+        summary = self.base.parent / "summary.md"
+        with redirect_stdout(io.TextIOWrapper(raw, encoding="cp1252")):
+            self.assertEqual(main([str(self.base), str(self.cur), "--summary", str(summary)]), 1)
+        self.assertIn("مرحبا", summary.read_text(encoding="utf-8"))
+
+    def test_files_list_written(self):
+        self.both("OpenProject365/src/a.xml", "<a/>", "<b/>")
+        self.put(self.cur, "OpenProject365/src/new.xml", "<n/>")
+        self.put(self.base, "OpenProject365/src/old.xml", "<o/>")
+        listing = self.base.parent / "files.txt"
+        with redirect_stdout(io.StringIO()):
+            main([str(self.base), str(self.cur), "--files", str(listing)])
+        self.assertEqual(listing.read_text(encoding="utf-8").splitlines(),
+                         ["A OpenProject365/src/new.xml", "D OpenProject365/src/old.xml", "M OpenProject365/src/a.xml"])
+
+    def test_check_webresources(self):
+        src = self.base.parent / "webresources"
+        self.put(src.parent, "webresources/project.form.js", "var a=1;\n")
+        self.put(self.base, "OpenProject365/src/WebResources/op365_/scripts/project.form.js", "var a=1;\r\n")
+        self.put(src.parent, "webresources/.gitkeep", "")
+        self.assertEqual(check_webresources(src, self.base / "OpenProject365/src/WebResources"), [])
+        self.put(self.base, "OpenProject365/src/WebResources/op365_/scripts/project.form.js", "var a=2;\n")
+        self.assertEqual(check_webresources(src, self.base / "OpenProject365/src/WebResources"), ["project.form.js"])
+        self.put(src.parent, "webresources/missing.js", "x")
+        self.assertIn("missing.js", check_webresources(src, self.base / "OpenProject365/src/WebResources"))
 
     def test_cli_exit_codes(self):
         rel = "OpenProject365/src/Other/Customizations.xml"

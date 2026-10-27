@@ -25,6 +25,9 @@ jobs:
           dotnet-version: '10.0.x'
       - name: ALM tools tests
         run: python3 -m unittest discover -s tools/alm -v
+      - name: Web resources match their copies in the solution
+        # deploy-dev imports src/webresources; the drift check compares the solution copies
+        run: python3 tools/alm/compare_solution.py --check-webresources src/webresources solutions/OpenProject365/src/WebResources
       - name: Plugins build and tests
         run: |
           dotnet build src/plugins/OpenProject365.Plugins -c Release
