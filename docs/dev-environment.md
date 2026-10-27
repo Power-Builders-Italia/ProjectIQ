@@ -191,8 +191,8 @@ pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solu
 
 `deploy-dev` starts by itself after a merge that touches `solutions/`, `src/plugins/`, `src/pcf/` or `src/webresources/` (or Actions > deploy-dev > Run workflow). The Dev approver opens the run, **Review deployments**, selects `dev` and **Approve and deploy**. The workflow:
 
-1. exports both solutions from Dev and compares them with the repository at the tag `dev-deployed`, the last commit installed in Dev (`tools/alm/compare_solution.py`: the solution version, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared);
-2. if they differ, imports nothing: it opens a draft pull request `Dev drift since <commit>` with the Dev export, from a branch `drift/<date>` started at that commit, and the run fails. Review it, merge it (or remove the changes from Dev) and run `deploy-dev` again;
+1. exports both solutions from Dev and looks for changes `main` does not know about (`tools/alm/compare_solution.py`): a file of Dev counts only if it differs both from `main` (so it was not exported) and from the tag `dev-deployed`, the last commit installed in Dev (so Dev is not just behind). Customizing Dev, exporting and merging before the run is therefore fine. The solution version, the platform version attributes, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared;
+2. if there are such changes, imports nothing: it opens a draft pull request `Dev drift since <commit>` with only those files, from a branch `drift/<date>` started at `main`, and the run fails. Review it, merge it (or remove the changes from Dev) and run `deploy-dev` again;
 3. otherwise imports both solutions packed from `main` (unmanaged, Dev keeps its environment variables and connections), registers the plugins built from source with `plugins.py`, pushes the PCF controls built from source with `push.sh` and publishes;
 4. exports again and checks that Dev now matches `main`; then the `tag` job moves `dev-deployed` to the commit just installed.
 

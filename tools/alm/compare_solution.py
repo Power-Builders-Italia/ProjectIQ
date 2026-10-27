@@ -1,9 +1,11 @@
 """Compares two unpacked solution trees (the solutions/ folder) for the deploy-dev drift check (ADR 0002).
 
-Usage:  python tools/alm/compare_solution.py BASELINE CURRENT [--summary FILE] [--files FILE]
+Usage:  python tools/alm/compare_solution.py BASELINE CURRENT [--main MAIN] [--summary FILE] [--files FILE]
         python tools/alm/compare_solution.py --check-webresources SRC_DIR WEBRESOURCES_DIR
 Exit:   0 same, 1 drift, 2 usage error. With --summary the Markdown report is appended to FILE; with --files
-        one line per difference is written to FILE: "A path" (only in CURRENT), "D path" (only in BASELINE), "M path".
+        one line per difference is written to FILE: "A path" (only in CURRENT), "D path" (missing in CURRENT), "M path".
+        With --main only the files of CURRENT that differ from both BASELINE and MAIN count (changes MAIN does not
+        know about), and A/D/M and the diffs are against MAIN.
         --check-webresources exits 1 when a file of SRC_DIR differs from (or is missing in) the solution copy.
 
 Before comparing, each file is normalized: UTF-8 BOM, CRLF and trailing whitespace dropped; the solution
@@ -70,23 +72,34 @@ def _files(root: Path) -> dict:
     return {rel: p for rel, p in files if IN_SRC.match(rel)}
 
 
-def _compare(baseline: Path, current: Path):
+def _read(files: dict, rel: str):
+    return normalize(rel, files[rel].read_bytes()) if rel in files else None
+
+
+def _compare(baseline: Path, current: Path, main: Path = None):
+    """Two-way: every difference between baseline and current. Three-way (main given): only the files where
+    current differs from both baseline and main, i.e. changes main does not know about; reported against main."""
     base, cur = _files(baseline), _files(current)
+    ref = _files(main) if main is not None else base
     diff, texts = Diff(), {}
-    diff.added = sorted(cur.keys() - base.keys())
-    diff.removed = sorted(base.keys() - cur.keys())
-    for rel in sorted(base.keys() & cur.keys()):
-        a, b = normalize(rel, base[rel].read_bytes()), normalize(rel, cur[rel].read_bytes())
-        if a != b:
+    for rel in sorted(base.keys() | cur.keys() | ref.keys()):
+        c, r = _read(cur, rel), _read(ref, rel)
+        if c == r or (main is not None and c == _read(base, rel)):
+            continue
+        if r is None:
+            diff.added.append(rel)
+        elif c is None:
+            diff.removed.append(rel)
+        else:
             diff.changed.append(rel)
-            if _is_text(a) and _is_text(b):
+            if _is_text(r) and _is_text(c):
                 texts[rel] = "\n".join(difflib.unified_diff(
-                    a.decode("utf-8").split("\n"), b.decode("utf-8").split("\n"), "repository", "Dev", lineterm=""))
+                    r.decode("utf-8").split("\n"), c.decode("utf-8").split("\n"), "repository", "Dev", lineterm=""))
     return diff, texts
 
 
-def compare_trees(baseline: Path, current: Path) -> Diff:
-    return _compare(Path(baseline), Path(current))[0]
+def compare_trees(baseline: Path, current: Path, main: Path = None) -> Diff:
+    return _compare(Path(baseline), Path(current), Path(main) if main is not None else None)[0]
 
 
 def format_summary(diff: Diff, diffs: dict, max_lines: int = 40) -> str:
@@ -121,11 +134,12 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("baseline", type=Path)
     parser.add_argument("current", type=Path)
+    parser.add_argument("--main", type=Path, help="three-way: ignore the changes of CURRENT that MAIN already has")
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--files", type=Path)
     parser.add_argument("--check-webresources", action="store_true")
     args = parser.parse_args(argv)
-    for path in (args.baseline, args.current):
+    for path in (args.baseline, args.current, *([args.main] if args.main else [])):
         if not path.is_dir():
             print(f"Not a directory: {path}", file=sys.stderr)
             return 2
@@ -134,7 +148,7 @@ def main(argv=None) -> int:
         for name in bad:
             print(f"{name}: differs from its copy in {args.current} (or the copy is missing)")
         return 1 if bad else 0
-    diff, texts = _compare(args.baseline, args.current)
+    diff, texts = _compare(args.baseline, args.current, args.main)
     report = format_summary(diff, texts)
     # files first: printing can fail on a console that cannot encode the text (cp1252 on Windows)
     if args.summary:

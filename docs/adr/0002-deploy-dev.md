@@ -20,9 +20,9 @@ A workflow `deploy-dev` imports the solutions built from `main` into Dev, after 
 flowchart TB
     T["push to main (solutions/, src/plugins, src/pcf, src/webresources)<br/>or Run workflow"] --> A{"environment dev<br/>required reviewer, main only"}
     A -->|approved| E["deploy job: export Dev, unpack"]
-    E --> C{"compare with the repository<br/>at tag dev-deployed"}
+    E --> C{"three-way compare: Dev, tag dev-deployed, main<br/>Dev differs from both?"}
     C -->|differs| S["upload export as artifact, stop"]
-    S --> P["drift-pr job: branch drift/YYYYMMDD-hhmm<br/>from the tag, draft pull request"]
+    S --> P["drift-pr job: branch drift/YYYYMMDD-hhmm<br/>from main, draft pull request"]
     P --> X["workflow fails"]
     C -->|same| I["1 import OpenProject365 (unmanaged)<br/>2 plugins from source<br/>3 PCF from source<br/>4 import portal solution"]
     I --> V{"export again:<br/>same as main?"}
@@ -32,7 +32,7 @@ flowchart TB
 
 ### Baseline: the tag `dev-deployed`
 
-Drift is measured against the last commit installed in Dev, not against the current `main` (which always differs: it carries what is being deployed). The tag `dev-deployed` marks that commit. It moves only after a successful, verified deployment.
+Drift is a change in Dev that `main` does not know about. The tag `dev-deployed` marks the last commit installed in Dev and moves only after a successful, verified deployment. Each file of the Dev export is compared three ways: equal to `main` → already exported, fine; equal to the tag → Dev is only behind and `main` will update it, fine; different from both → drift. Comparing with the tag alone would flag every change that was exported and merged after the last deployment (the normal daily loop); comparing with `main` alone would flag everything `main` gained since then.
 
 ### Workflow
 
@@ -64,7 +64,7 @@ One job, `deploy`, both checks and imports: every job that uses an environment a
 
 **`drift-pr`** (needs `deploy` with `drift=true`, no secrets)
 
-Downloads `dev-export`, creates branch `drift/YYYYMMDD-hhmm` from the baseline commit, commits the export into `solutions/`, opens a **draft** pull request to `main` listing the differing files, then fails the run. Starting from the baseline makes the pull request show only what changed in Dev; conflicts with newer commits of `main` are solved in the pull request.
+Downloads `dev-export`, creates branch `drift/YYYYMMDD-hhmm` from `main` (the commit of the run), copies there only the files the three-way comparison found (added, changed, deleted in Dev), opens a **draft** pull request to `main`, then fails the run. The pull request shows exactly what Dev has and `main` does not.
 
 **`tag`** (needs `deploy` succeeded, not `check-only`)
 

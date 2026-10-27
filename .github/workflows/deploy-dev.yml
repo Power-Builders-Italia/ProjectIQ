@@ -118,7 +118,8 @@ jobs:
           mkdir -p base
           git archive "$BASELINE" solutions | tar -x -C base
           set +e
-          python tools/alm/compare_solution.py base/solutions dev/solutions --summary summary.md --files files.txt > /dev/null
+          # three-way: a change of Dev counts only if main does not have it (already exported) and Dev is not just behind
+          python tools/alm/compare_solution.py base/solutions dev/solutions --main solutions --summary summary.md --files files.txt > /dev/null
           code=$?
           set -e
           cat summary.md >> "$GITHUB_STEP_SUMMARY"
@@ -317,7 +318,7 @@ jobs:
         run: |
           short=${BASELINE::7}
           branch="drift/$(date -u +%Y%m%d-%H%M)"
-          git switch -c "$branch" "$BASELINE"
+          git switch -c "$branch" "$GITHUB_SHA"
           # only the files the comparison found different: the rest of the export differs from the repository
           # only in what the comparison ignores (line endings, Italian labels of standard components, built files)
           while read -r change path; do
@@ -335,7 +336,7 @@ jobs:
           {
             echo "Dev holds changes that are not in \`main\`, found by deploy-dev (run ${{ github.run_id }}) against \`$short\`. Nothing was imported into Dev."
             echo
-            echo "Review the changes, keep or drop them, merge \`main\` into this branch if it conflicts, then merge and run deploy-dev again."
+            echo "Review the changes against \`main\`, keep or drop them, then merge and run deploy-dev again."
             echo "Checks start after the next push to this branch (pull requests opened by GitHub Actions do not start workflows)."
             echo
             cat "$SUMMARY"

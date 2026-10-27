@@ -5,7 +5,7 @@ import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
 
-from compare_solution import Diff, check_webresources, compare_trees, format_summary, main
+from compare_solution import Diff, _compare, check_webresources, compare_trees, format_summary, main
 
 ENTITY = "OpenProject365/src/Entities/{}/Entity.xml"
 LABEL = '            <displayname description="X" languagecode="1040" />\n'
@@ -15,9 +15,9 @@ class CompareTests(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         root = Path(self._tmp.name)
-        self.base, self.cur = root / "base", root / "cur"
-        self.base.mkdir()
-        self.cur.mkdir()
+        self.base, self.cur, self.main = root / "base", root / "cur", root / "main"
+        for tree in (self.base, self.cur, self.main):
+            tree.mkdir()
 
     def tearDown(self):
         self._tmp.cleanup()
@@ -117,6 +117,41 @@ class CompareTests(unittest.TestCase):
         self.assertEqual(check_webresources(src, self.base / "OpenProject365/src/WebResources"), ["project.form.js"])
         self.put(src.parent, "webresources/missing.js", "x")
         self.assertIn("missing.js", check_webresources(src, self.base / "OpenProject365/src/WebResources"))
+
+    def three(self, rel, base, cur, main):
+        for tree, data in ((self.base, base), (self.cur, cur), (self.main, main)):
+            if data is not None:
+                self.put(tree, rel, data)
+
+    def test_three_way_change_already_in_main_is_not_drift(self):
+        self.three("OpenProject365/src/a.xml", "<a>1</a>", "<a>2</a>", "<a>2</a>")
+        self.assertFalse(compare_trees(self.base, self.cur, self.main).drift)
+
+    def test_three_way_dev_behind_main_is_not_drift(self):
+        self.three("OpenProject365/src/a.xml", "<a>1</a>", "<a>1</a>", "<a>2</a>")
+        self.three("OpenProject365/src/new.xml", None, None, "<n/>")
+        self.assertFalse(compare_trees(self.base, self.cur, self.main).drift)
+
+    def test_three_way_unknown_change_is_drift_against_main(self):
+        rel = "OpenProject365/src/a.xml"
+        self.three(rel, "<a>1</a>", "<a>3</a>", "<a>2</a>")
+        diff, texts = _compare(self.base, self.cur, self.main)
+        self.assertEqual(diff, Diff([], [], [rel]))
+        self.assertIn("-<a>2</a>", texts[rel])  # the diff is against main
+
+    def test_three_way_added_and_deleted_in_dev(self):
+        self.three("OpenProject365/src/dev_only.xml", None, "<d/>", None)
+        self.three("OpenProject365/src/deleted_in_dev.xml", "<x/>", None, "<x/>")
+        diff = compare_trees(self.base, self.cur, self.main)
+        self.assertEqual(diff.added, ["OpenProject365/src/dev_only.xml"])
+        self.assertEqual(diff.removed, ["OpenProject365/src/deleted_in_dev.xml"])
+
+    def test_cli_main_option(self):
+        self.three("OpenProject365/src/a.xml", "<a>1</a>", "<a>2</a>", "<a>2</a>")
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(main([str(self.base), str(self.cur), "--main", str(self.main)]), 0)
+            self.assertEqual(main([str(self.base), str(self.cur)]), 1)
+            self.assertEqual(main([str(self.base), str(self.cur), "--main", str(self.main / "missing")]), 2)
 
     def test_cli_exit_codes(self):
         rel = "OpenProject365/src/Other/Customizations.xml"
