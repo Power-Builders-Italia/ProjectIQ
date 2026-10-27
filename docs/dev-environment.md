@@ -46,7 +46,7 @@ Deploy to dev: `python3 tools/dataverse/plugins.py` registers or updates the ass
 
 ## Cloud flows
 
-`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off. A service principal cannot own connections (InvalidUserPlan), so a user creates the Dataverse connection (service principal authentication is fine) and turns the flow on. In Dev link it to the reference in the solution; in Test the `deploy-test` workflow maps the reference through `deployment/test.settings.json`, whose `#{OP365_DATAVERSE_CONNECTION_ID}#` token is replaced with the variable of the same name of the GitHub environment `test`, so the managed layer stays clean and no environment ids are in the repository. Share the target connection with the application user (Can use) so the import can turn the flow on.
+`tools/dataverse/flows.py` creates the connection reference `op365_dataverse` (Microsoft Dataverse) and the **Daily time reminder** flow (Mon–Fri 17:30, W. Europe) that calls `op365_SendTimeReminders`. The flow is created off. A service principal cannot own connections (InvalidUserPlan), so a user creates the Dataverse connection (service principal authentication is fine) and turns the flow on. In Dev link it to the reference in the solution; in Test the `deploy-test` workflow maps the reference through `deployment/test.settings.json`, whose `#{OP365_DATAVERSE_CONNECTION_ID}#` token is replaced with the secret of the same name of the GitHub environment `test`, so the managed layer stays clean and no environment ids are in the repository. Share the target connection with the application user (Can use) so the import can turn the flow on.
 
 After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
@@ -121,13 +121,98 @@ flowchart LR
   python3 tools/docs/build_site.py && mkdocs serve -f mkdocs.yml
   ```
 
-## Environments
+## Environments and deployment
 
-| Environment | Status |
+Changes flow one way: they are made in **Dev**, reviewed in the **repository** and installed in **Test** as a managed solution. Nothing is deployed automatically: every step below is started by a person.
+
+```mermaid
+flowchart LR
+    D[("Dev<br/>unmanaged")] -->|"1-2 export + unpack<br/>pull request"| R["Repository<br/>main"]
+    R -->|"3 build checks<br/>squash merge"| R
+    D -->|"4 deploy-test<br/>export managed from Dev"| T[("Test<br/>managed")]
+    R -. "4 run from main,<br/>approval in environment test" .-> T
+```
+
+| Environment | Solution | How it is updated |
+|---|---|---|
+| Dev (`<dev-org>.crm4.dynamics.com`, secret `PP_ENVIRONMENT_URL`) | unmanaged | by hand: maker portal, `tools/dataverse/*.py`, `plugins.py`, `tools/pcf/push.sh`, `tools/portal/supplier_portal.py` |
+| Test (`<test-org>.crm4.dynamics.com`, secret `TEST_ENVIRONMENT_URL`) | managed | only with the `deploy-test` workflow |
+| Build | — | not needed: CI only packs and checks |
+
+**The `deploy-test` workflow exports the solutions from Dev, not from the repository.** Test receives what Dev contains when the workflow runs. Before deploying, Dev and `main` must match: export every change made in Dev and merge it, and push to Dev every code change merged in `main` (plugins, PCF controls).
+
+### Roles
+
+| Who | Can | Needs |
+|---|---|---|
+| Contributor | change Dev, open pull requests | System Customizer (or higher) in Dev; *Triage* on the repository (pull requests from a fork) or *Write* |
+| Maintainer | review and merge pull requests, run `deploy-test` | *Write* or *Admin* on the repository |
+| Test approver | approve each run of `deploy-test` | required reviewer of the GitHub environment `test` |
+
+### 1. Change Dev
+
+Work always inside the **Open Project 365** solution (or **Open Project 365 Supplier Portal** for the portal).
+
+| Change | How |
 |---|---|
-| Dev (`<dev-org>.crm4.dynamics.com`, secret `PP_ENVIRONMENT_URL`) | available, unmanaged solution |
-| Test (`<test-org>.crm4.dynamics.com`, secret `TEST_ENVIRONMENT_URL`) | managed solution, deployed with the `deploy-test` workflow (Actions > deploy-test > Run workflow); plugin steps are activated on import |
-| Build | not needed yet: CI only packs and checks |
+| Tables, columns, forms, views, app, security roles | maker portal, or the schema scripts in `tools/dataverse` |
+| Plugins and Custom APIs | `dotnet build src/plugins/OpenProject365.Plugins -c Release`, then `python3 tools/dataverse/plugins.py` ([Code](#code)) |
+| PCF controls | `npm ci && npm run build` in `src/pcf`, then `tools/pcf/push.sh` (optionally only the controls you changed) |
+| Form scripts and dialog pages | edit `src/webresources`, then run the `tools/dataverse/phase*_forms.py` script that uploads the file |
+| Cloud flows | `tools/dataverse/flows.py` ([Cloud flows](#cloud-flows)) |
+| Translations | `tools/dataverse/translations.py` ([Translations](#translations-italian-french-german)) |
+| Copilot | `tools/dataverse/workiq.py` ([Copilot and Work IQ](#copilot-and-work-iq)) |
+| Supplier portal | `tools/portal/supplier_portal.py` ([Supplier portal](#supplier-portal-power-pages)) |
+
+The scripts in `tools/dataverse` read `PAC_ENVIRONMENT_URL`, `PAC_TENANT_ID`, `PAC_CLIENT_ID` and `PAC_CLIENT_SECRET` (an application user of Dev).
+
+### 2. Export to the repository and open a pull request
+
+```powershell
+pac solution export --name OpenProject365 --path out/OpenProject365.zip --managed false
+pac solution unpack --zipfile out/OpenProject365.zip --folder solutions/OpenProject365/src --packagetype Unmanaged --allowDelete true
+pac solution export --name OpenProject365SupplierPortal --path out/OpenProject365SupplierPortal.zip --managed false
+pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solutions/OpenProject365SupplierPortal/src --packagetype Unmanaged --allowDelete true
+```
+
+- Commit on a branch created from `main`; open the pull request with the template.
+- Drop the Italian (1040) labels the Dev language pack adds to standard components, unless they are part of the change.
+- A functional change updates the user manuals in all four languages ([CONTRIBUTING](../CONTRIBUTING.md)); run `python3 tools/docs/check_docs.py`.
+
+### 3. Checks and merge
+
+- On the pull request the `build` workflow runs `docs`, `code` (plugins and PCF build and tests) and `solution` (packs both solutions). All three are required by the `main` ruleset.
+- Merge with **Squash and merge** (the only method allowed).
+- After the merge, `checker` runs the Solution Checker and `pages` publishes the documentation website.
+
+### 4. Deploy to Test
+
+Before you start: Dev matches `main` (see above), and the secrets of the environment `test` are set ([GitHub repository security](#github-repository-security)).
+
+1. **Actions > deploy-test > Run workflow**, branch `main`, settings `test`.
+2. The test approver opens the run, **Review deployments**, selects `test` and **Approve and deploy**.
+3. The workflow, in order:
+   1. sets the version `1.0.<run number>.0` of `OpenProject365` in Dev and exports it as managed;
+   2. imports it into Test with *stage and upgrade* (components removed from the solution are deleted in Test), activates the plugin steps and applies `deployment/test.settings.json`: the `op365_dataverse` connection reference and the company settings come from the secrets of the environment `test` (an empty secret keeps the value in Test);
+   3. does the same for `OpenProject365SupplierPortal`, after the main solution;
+   4. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
+4. After the run:
+   - check in Test that the plugin steps are enabled (an interrupted import can leave them disabled);
+   - clear the portal cache (`/_services/about` > *Clear cache*) and sign in again;
+   - first deployment only: reactivate the portal site (Power Pages > *Inactive sites*) and turn on the **Daily time reminder** flow.
+
+Never customize Test: an unmanaged layer on top of the managed solution hides the next upgrades. Make the change in Dev and deploy again.
+
+### Troubleshooting
+
+| Symptom | Cause and fix |
+|---|---|
+| The run waits with *Waiting for review* | the test approver must approve it (step 4.2) |
+| *Branch "…" is not allowed to deploy to test due to environment protection rules* | run the workflow from `main` |
+| *Set the TEST_ENVIRONMENT_URL secret of the GitHub environment test* | add the secret to the environment `test` |
+| *The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)* | add the id of the Dataverse connection in Test ([Cloud flows](#cloud-flows)) |
+| A change merged in `main` is missing in Test | it was not in Dev when the workflow ran: push it to Dev (step 1) and deploy again |
+| Test has a component that is not in the repository | it was in Dev but never exported: export it (step 2) or remove it from Dev, then deploy again |
 
 ### Test data
 
