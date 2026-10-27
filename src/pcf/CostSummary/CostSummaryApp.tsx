@@ -34,7 +34,7 @@ export function CostSummaryApp({ context, refreshKey }: Props): React.ReactEleme
     const styles = useStyles();
     const s = (key: string): string => context.resources.getString(key);
     const theme = (context as unknown as { fluentDesignLanguage?: { tokenTheme?: Theme } }).fluentDesignLanguage?.tokenTheme ?? webLightTheme;
-    const projectId = hostRecordId(context as ComponentFramework.Context<unknown>);
+    const projectId = hostRecordId(context);
 
     const [summary, setSummary] = React.useState<Summary>();
     const [loading, setLoading] = React.useState(true);
