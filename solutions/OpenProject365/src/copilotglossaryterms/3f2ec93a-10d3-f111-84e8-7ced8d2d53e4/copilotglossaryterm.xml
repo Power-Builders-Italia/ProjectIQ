@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="3f2ec93a-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Compliance document of a supplier with an expiry date (op365_supplierdocument). Synonyms: Italian documento fornitore, DURC, certificazione, polizza; French document fournisseur, attestation, certificat, assurance; German Lieferantendokument, Nachweis, Zertifikat, Versicherung.">
+    <label description="Compliance document of a supplier with an expiry date (op365_supplierdocument). Synonyms: Italian documento fornitore, DURC, certificazione, polizza; French document fournisseur, attestation, certificat, assurance; German Lieferantendokument, Nachweis, Zertifikat, Versicherung." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Supplier document</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Supplier document">
+    <label description="Supplier document" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

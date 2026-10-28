@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="532ec93a-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="User working on a project (op365_projectmember), with the role Manager, Contributor or Reader; the role decides the access to the project records. Synonyms: Italian membro commessa, team di commessa; French membre du projet, équipe projet; German Projektmitglied, Projektteam.">
+    <label description="User working on a project (op365_projectmember), with the role Manager, Contributor or Reader; the role decides the access to the project records. Synonyms: Italian membro commessa, team di commessa; French membre du projet, équipe projet; German Projektmitglied, Projektteam." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Project member</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Project member">
+    <label description="Project member" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

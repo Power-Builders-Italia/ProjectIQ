@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="492ec93a-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Account with Is Customer = Yes (op365_iscustomer). Synonyms: Italian cliente; French client; German Kunde.">
+    <label description="Account with Is Customer = Yes (op365_iscustomer). Synonyms: Italian cliente; French client; German Kunde." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Customer</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Customer">
+    <label description="Customer" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

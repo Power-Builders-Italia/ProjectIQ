@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="1bdfd034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Invoice received from a supplier (op365_supplierinvoice), with the XML or PDF attached; statuses To Review, Approved, Rejected. Synonyms: Italian fattura fornitore, fattura passiva, FatturaPA; French facture fournisseur, facture d'achat; German Lieferantenrechnung, Eingangsrechnung.">
+    <label description="Invoice received from a supplier (op365_supplierinvoice), with the XML or PDF attached; statuses To Review, Approved, Rejected. Synonyms: Italian fattura fornitore, fattura passiva, FatturaPA; French facture fournisseur, facture d'achat; German Lieferantenrechnung, Eingangsrechnung." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Supplier invoice</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Supplier invoice">
+    <label description="Supplier invoice" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

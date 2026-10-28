@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="f8ded034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Snapshot of the WBS budget and dates (op365_baseline); the reference baseline has Is Reference = Yes. Synonyms: Italian baseline, budget congelato, piano di riferimento; French planning de référence, référence; German Basisplan, Baseline.">
+    <label description="Snapshot of the WBS budget and dates (op365_baseline); the reference baseline has Is Reference = Yes. Synonyms: Italian baseline, budget congelato, piano di riferimento; French planning de référence, référence; German Basisplan, Baseline." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Baseline</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Baseline">
+    <label description="Baseline" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

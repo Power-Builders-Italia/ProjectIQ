@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00137">
+<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00144">
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
@@ -14,7 +14,7 @@
       <Description description="Gestion de projets et d'affaires sur Microsoft Dataverse" languagecode="1036" />
       <Description description="Gestione progetti e commesse su Microsoft Dataverse" languagecode="1040" />
     </Descriptions>
-    <Version>1.0.1.0</Version>
+    <Version>1.0.15.0</Version>
     <Managed>0</Managed>
     <Publisher>
       <UniqueName>PowerBuildersItalia</UniqueName>
@@ -242,6 +242,98 @@
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="op365_OpenProject365" displayName="ProjectIQ" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{02dfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{07dfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{0cdfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{11dfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{16dfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{1bdfd034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{3f2ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{442ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{492ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{4e2ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{532ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{582ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{5d2ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{622ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{672ec93a-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{c9e26a2e-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{dfded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{e4ded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{e9ded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{eeded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{f3ded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{f8ded034-10d3-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="DVTableSearch" solution="Active" id="{d976aafd-d6cf-f111-a05d-7ced8d776baf}" />
+        <Dependent type="CopilotGlossaryTerm" id="{fdded034-10d3-f111-84e8-7ced8d2d53e4}" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">

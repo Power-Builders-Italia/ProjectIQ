@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="e4ded034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Hours of a resource on a project and WBS node on a day (op365_timeentry). Only Approved hours count in Actual Hours and Actual Cost. Synonyms: Italian registrazione ore, ore, ore lavorate, rapportino, timesheet, consuntivo ore; French saisie de temps, heures, feuille de temps; German Zeiteintrag, Stunden, Stundenzettel, Zeiterfassung.">
+    <label description="Hours of a resource on a project and WBS node on a day (op365_timeentry). Only Approved hours count in Actual Hours and Actual Cost. Synonyms: Italian registrazione ore, ore, ore lavorate, rapportino, timesheet, consuntivo ore; French saisie de temps, heures, feuille de temps; German Zeiteintrag, Stunden, Stundenzettel, Zeiterfassung." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Time entry</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Time entry">
+    <label description="Time entry" languagecode="1033" />
+  </term>
+</copilotglossaryterm>
