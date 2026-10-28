@@ -1,18 +1,20 @@
 name: publish-appsource
 
-# Builds the AppSource package of ProjectIQ (docs/appsource.md): exports OpenProject365 and OpenProject365SupplierPortal
-# as managed from Dev with the requested version, runs the Solution Checker with the "AppSource Certification" rule set
-# (the one Microsoft uses during certification) and assembles PowerBuildersItalia_ProjectIQ_<version>.zip with
-# tools/alm/build_appsource_package.py. The zip is uploaded as a workflow artifact; uploading it to Azure Blob Storage
-# and submitting it in Partner Center are manual steps.
-# Like deploy-test it exports from Dev, so Dev and main must match first.
-# Only the publisher may run it (docs/appsource.md): the job fails for any other actor, and it runs in the GitHub
-# environment appsource, whose only required reviewer is the publisher (deployment branches: main, PP_* secrets).
+# Builds the AppSource package of ProjectIQ (docs/appsource.md) from the managed solutions of a deploy-test run:
+# AppSource gets exactly the OpenProject365 and OpenProject365SupplierPortal zips that were imported and tested in Test
+# (Test itself cannot export them: they are managed there). Runs the Solution Checker with the "AppSource Certification"
+# rule set (the one Microsoft uses during certification) and assembles PowerBuildersItalia_ProjectIQ_<version>.zip with
+# tools/alm/build_appsource_package.py; the version is the one deploy-test gave both solutions, 1.0.<run number>.0.
+# The zip is uploaded as a workflow artifact; uploading it to Azure Blob Storage and submitting it in Partner Center
+# are manual steps.
+# Only the publisher may run it: the authorize job fails for any other actor, and the package job runs in the GitHub
+# environment appsource, whose only required reviewer is the publisher (deployment branches: main; PP_* secrets of Dev,
+# used only as the Solution Checker's environment).
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: Package and solution version X.Y.Z.W, higher than the last version submitted to AppSource
+      deploy-test-run:
+        description: Run id of the deploy-test run tested in Test (the number in its URL .../actions/runs/<id>)
         required: true
       start-date:
         description: Date the package becomes available on AppSource (MM/DD/YYYY); empty = today
@@ -41,58 +43,42 @@ jobs:
     needs: authorize
     runs-on: windows-latest
     environment: appsource
+    permissions:
+      contents: read
+      # to read the deploy-test run and download its artifact
+      actions: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Check version
+      - name: Check the deploy-test run
+        # Only a successful deploy-test run from main counts: its managed zips are what Test received
+        id: run
         shell: pwsh
         env:
-          VERSION: ${{ inputs.version }}
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.deploy-test-run }}
         run: |
-          if ($env:VERSION -notmatch '^\d+\.\d+\.\d+\.\d+$') { throw "version '$env:VERSION': use X.Y.Z.W" }
+          if ($env:RUN_ID -notmatch '^\d+$') { throw "deploy-test-run '$env:RUN_ID': use the numeric run id" }
+          $run = gh api "repos/${{ github.repository }}/actions/runs/$env:RUN_ID" | ConvertFrom-Json
+          if ($LASTEXITCODE) { throw "run $env:RUN_ID not found" }
+          if ($run.path -ne '.github/workflows/deploy-test.yml') { throw "run $env:RUN_ID is $($run.path), not deploy-test" }
+          if ($run.head_branch -ne 'main') { throw "run $env:RUN_ID ran on $($run.head_branch), not main" }
+          if ($run.conclusion -ne 'success') { throw "run $env:RUN_ID ended with '$($run.conclusion)'" }
+          $version = "1.0.$($run.run_number).0"
+          Write-Output "deploy-test run $($run.run_number) of $($run.created_at): version $version"
+          "version=$version" >> $env:GITHUB_OUTPUT
+      - name: Download the managed solutions of the deploy-test run
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: OpenProject365-managed
+          path: out/solutions
+          run-id: ${{ inputs.deploy-test-run }}
+          github-token: ${{ github.token }}
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '10.0.x'
       - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
           add-tools-to-path: true
-      - name: Set solution versions in Dev
-        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          name: OpenProject365
-          version: ${{ inputs.version }}
-      - name: Set portal solution version in Dev
-        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          name: OpenProject365SupplierPortal
-          version: ${{ inputs.version }}
-      - name: Export managed from Dev
-        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-name: OpenProject365
-          solution-output-file: out/solutions/OpenProject365_managed.zip
-          managed: true
-      - name: Export portal managed from Dev
-        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-name: OpenProject365SupplierPortal
-          solution-output-file: out/solutions/OpenProject365SupplierPortal_managed.zip
-          managed: true
       - name: Solution Checker (AppSource Certification rule set)
         # check-solution has no rule set input: pac is called directly. Critical or high findings fail the job,
         # since they block the certification; all findings are in the appsource-checker artifact.
@@ -130,7 +116,7 @@ jobs:
       - name: Build AppSource package
         shell: pwsh
         env:
-          VERSION: ${{ inputs.version }}
+          VERSION: ${{ steps.run.outputs.version }}
           START_DATE: ${{ inputs.start-date }}
         run: |
           $extra = @()
@@ -140,5 +126,5 @@ jobs:
       - name: Upload AppSource package
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: appsource-package-${{ inputs.version }}
+          name: appsource-package-${{ steps.run.outputs.version }}
           path: out/appsource/*.zip
