@@ -68,7 +68,7 @@ Downloads `dev-export`, creates branch `drift/YYYYMMDD-hhmm` from `main` (the co
 
 **`tag`** (needs `deploy` succeeded, not `check-only`)
 
-`git tag -f dev-deployed <sha>` and `git push -f origin dev-deployed`. The `main` ruleset targets branches only, so it does not block the tag.
+Moves the tag to the commit of the run through the REST API (`PATCH git/refs/tags/dev-deployed`, or `POST git/refs` the first time): a `git push` of the tag is refused to `GITHUB_TOKEN` when the commit changes `.github/workflows`. The `main` ruleset targets branches only, so it does not block the tag.
 
 ### Comparison rules (`tools/alm/compare_solution.py`)
 
