@@ -24,7 +24,7 @@ flowchart LR
 | Part | What it does | Where it comes from |
 |---|---|---|
 | Semantic model | Tells Copilot what the tables, columns and relationships mean | Created by Dataverse for the app when Microsoft Copilot is on; it reads the descriptions of tables and columns, the relationships, the public views and the form names of the solution |
-| Glossary | Maps business words (commessa, RdA, DDT, fattura passiva...) to the tables | Entered by an administrator, see [Semantic model glossary](#semantic-model-glossary) |
+| Glossary | Maps business words (commessa, RdA, DDT, fattura passiva...) to the tables | Loaded by an administrator with a script, see [Semantic model glossary](#semantic-model-glossary) |
 | Business skills | Step-by-step instructions for the common questions | Delivered in the solution, see [Business skills](#business-skills) |
 | Permissions | What each person can see | The usual security roles, project access teams and column security of ProjectIQ |
 
@@ -98,9 +98,8 @@ The semantic model is **not** moved by solutions: repeat these steps in every en
 
 The glossary adds business words that Dataverse cannot infer from the metadata. The full list is kept in the repository in [copilot/glossary.md](../../copilot/glossary.md), with the Italian, French and German synonyms.
 
-1. In the semantic model, select **Glossary** → **Add item**.
-2. For each row of the list, enter **Term** and **Definition**, then add the **Synonyms** in Italian, French and German (open the entry again and select **Edit** if the synonyms field is not on the first screen).
-3. Select **Add term**, then **Regenerate** when all terms are in.
+1. Run `python3 tools/dataverse/workiq.py glossary` against the environment (the same connection settings as the other Dataverse scripts). It creates or updates one entry per row of the list, with the synonyms in the **Definition**; running it again changes only the entries that differ.
+2. In the semantic model, open **Glossary** to check the entries, then select **Regenerate**.
 
 | Term | Italiano | Français | Deutsch |
 |---|---|---|---|

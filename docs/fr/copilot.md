@@ -24,7 +24,7 @@ flowchart LR
 | Élément | Rôle | Origine |
 |---|---|---|
 | Modèle sémantique | Explique à Copilot ce que signifient les tables, les colonnes et les relations | Créé par Dataverse pour l'application quand Microsoft Copilot est activé ; il lit les descriptions des tables et colonnes, les relations, les vues publiques et les noms des formulaires de la solution |
-| Glossaire | Relie les termes métier (commessa, RdA, DDT, fattura passiva...) aux tables | Saisi par un administrateur, voir [Glossaire du modèle sémantique](#glossaire-du-modèle-sémantique) |
+| Glossaire | Relie les termes métier (commessa, RdA, DDT, fattura passiva...) aux tables | Chargé par un administrateur avec un script, voir [Glossaire du modèle sémantique](#glossaire-du-modèle-sémantique) |
 | Compétences métier (business skills) | Instructions pas à pas pour les questions courantes | Livrées dans la solution, voir [Compétences métier](#compétences-métier) |
 | Autorisations | Ce que chaque personne peut voir | Les rôles de sécurité, les équipes d'accès des projets et la sécurité au niveau des colonnes habituels de ProjectIQ |
 
@@ -98,9 +98,8 @@ Le modèle sémantique **n'est pas** transporté par les solutions : répéter c
 
 Le glossaire ajoute les termes métier que Dataverse ne peut pas déduire des métadonnées. La liste complète est conservée dans le dépôt, dans [copilot/glossary.md](../../copilot/glossary.md) (en anglais, avec les synonymes en italien, français et allemand).
 
-1. Dans le modèle sémantique, sélectionner **Glossary** → **Add item**.
-2. Pour chaque ligne de la liste, saisir **Term** et **Definition**, puis ajouter les **Synonyms** en italien, français et allemand (rouvrir l'entrée et sélectionner **Edit** si le champ des synonymes n'est pas sur le premier écran).
-3. Sélectionner **Add term**, puis **Regenerate** quand tous les termes sont saisis.
+1. Exécuter `python3 tools/dataverse/workiq.py glossary` sur l'environnement (mêmes paramètres de connexion que les autres scripts Dataverse). Il crée ou met à jour une entrée par ligne de la liste, avec les synonymes dans la **Definition** ; relancé, il ne modifie que les entrées différentes.
+2. Dans le modèle sémantique, ouvrir **Glossary** pour vérifier les entrées, puis sélectionner **Regenerate**.
 
 | Term | Italiano | Français | Deutsch |
 |---|---|---|---|

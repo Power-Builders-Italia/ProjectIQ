@@ -3,10 +3,11 @@
 - column and lookup descriptions, read by the Dataverse semantic model;
 - Microsoft Copilot on the ProjectIQ app, so Dataverse indexes the app tables;
 - business skills from copilot/skills/*.md, added to the OpenProject365 solution;
-- Dataverse search on the tables in scope: Copilot and Cowork read records through the search index.
+- Dataverse search on the tables in scope: Copilot and Cowork read records through the search index;
+- glossary of the app semantic model from copilot/glossary.md (`glossary` argument: only this step).
 
-The semantic model glossary and table scope have no documented API: see docs/en/copilot.md.
-Idempotent: run again after changing a description or a skill.
+The table scope of the semantic model has no documented API: see docs/en/copilot.md.
+Idempotent: run again after changing a description, a skill or the glossary.
 """
 import os, sys, re
 sys.path.insert(0, os.path.dirname(__file__))
@@ -395,9 +396,42 @@ def skills():
            'skill in solution ' + uname)
 
 
-if __name__ == '__main__':
+def read_glossary():
+    # rows of the table in copilot/glossary.md: Term | Italiano | Français | Deutsch | Definition
+    text = open(os.path.join(ROOT, 'copilot', 'glossary.md'), encoding='utf-8').read()
+    rows = [[c.strip() for c in line.strip().strip('|').split('|')] for line in text.splitlines() if line.startswith('|')]
+    return [dict(zip(('term', 'it', 'fr', 'de', 'definition'), r)) for r in rows[2:]]
+
+
+def glossary():
+    # glossary entries of the app semantic model (copilotglossaryterm, lookup skill = the model);
+    # the semantic model has no ALM yet, so the entries are written in every environment
+    models = S.get(API + f"dvtablesearchs?$select=dvtablesearchid,name&$filter=appmoduleuniquename eq '{APP}' "
+                   "and startswith(name,'M365_')").json()['value']
+    if not models:
+        print('skip glossary (no semantic model yet: turn on Copilot on the app and wait for the generation)'); return
+    model = models[0]['dvtablesearchid']
+    for row in read_glossary():
+        description = (f"{row['definition']} Synonyms: Italian {row['it']}; French {row['fr']}; German {row['de']}.")[:1000]
+        record = {'term': row['term'], 'name': row['term'], 'description': description}
+        found = S.get(API + f"copilotglossaryterms?$select=copilotglossarytermid,name,description&$filter=term eq '{row['term']}' "
+                      f"and _skill_value eq {model}").json()['value']
+        if not found:
+            record['skill@odata.bind'] = f'/dvtablesearchs({model})'
+            ok(S.post(API + 'copilotglossaryterms', json=record), 'glossary ' + row['term'])
+        elif found[0]['description'] != description or found[0]['name'] != row['term']:
+            ok(S.patch(API + f"copilotglossaryterms({found[0]['copilotglossarytermid']})", json=record), 'glossary ' + row['term'])
+        else:
+            print('skip glossary', row['term'])
+    print('glossary written to', models[0]['name'], '- select Regenerate on the semantic model to use it now')
+
+
+if __name__ == '__main__' and 'glossary' in sys.argv:
+    glossary()
+elif __name__ == '__main__':
     descriptions()
     search_index()
     ok(S.post(API + 'PublishAllXml', json={}), 'publish')
     copilot_on_app()
     skills()
+    glossary()
