@@ -5,12 +5,21 @@
     <entity Name="Account">
       <LocalizedNames>
         <LocalizedName description="Account" languagecode="1033" />
+        <LocalizedName description="Firma" languagecode="1031" />
+        <LocalizedName description="Compte" languagecode="1036" />
+        <LocalizedName description="Account" languagecode="1040" />
       </LocalizedNames>
       <LocalizedCollectionNames>
         <LocalizedCollectionName description="Accounts" languagecode="1033" />
+        <LocalizedCollectionName description="Firmen" languagecode="1031" />
+        <LocalizedCollectionName description="Comptes" languagecode="1036" />
+        <LocalizedCollectionName description="Account" languagecode="1040" />
       </LocalizedCollectionNames>
       <Descriptions>
         <Description description="Business that represents a customer or potential customer. The company that is billed in business transactions." languagecode="1033" />
+        <Description description="Ein Geschäft, das einen Kunden oder einen potenziellen Kunden darstellt. Das Unternehmen, mit dem Geschäftstransaktionen abgerechnet werden." languagecode="1031" />
+        <Description description="Entité commerciale qui représente un client ou un prospect. Société facturée dans les transactions professionnelles." languagecode="1036" />
+        <Description description="Azienda che rappresenta un cliente o un potenziale cliente. Società a cui viene intestata la fattura nelle transazioni aziendali." languagecode="1040" />
       </Descriptions>
       <attributes>
         <attribute PhysicalName="AccountNumber">
@@ -41,15 +50,15 @@
           <Length>40</Length>
           <displaynames>
             <displayname description="Account Number" languagecode="1033" />
-            <displayname description="Numero account" languagecode="1040" />
             <displayname description="Firmennummer" languagecode="1031" />
             <displayname description="Numéro de compte" languagecode="1036" />
+            <displayname description="Numero account" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type an ID number or code for the account to quickly search and identify the account in system views." languagecode="1033" />
-            <Description description="Digitare un numero ID o un codice per l'account per cercare e identificare rapidamente l'account nelle visualizzazioni di sistema." languagecode="1040" />
             <Description description="Geben Sie eine ID-Nummer oder einen ID-Code für die Firma ein, um es in Systemansichten schnell suchen und erkennen zu können." languagecode="1031" />
             <Description description="Tapez un numéro d'identification pour le compte pour le rechercher et l'identifier dans les vues système." languagecode="1036" />
+            <Description description="Digitare un numero ID o un codice per l'account per cercare e identificare rapidamente l'account nelle visualizzazioni di sistema." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Address1_City">
@@ -81,15 +90,15 @@
           <Length>160</Length>
           <displaynames>
             <displayname description="Address 1: City" languagecode="1033" />
-            <displayname description="Indirizzo 1: città" languagecode="1040" />
             <displayname description="Adresse 1: Ort" languagecode="1031" />
             <displayname description="Adresse 1 : Ville" languagecode="1036" />
+            <displayname description="Indirizzo 1: città" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type the city for the primary address." languagecode="1033" />
-            <Description description="Digitare la città per l'indirizzo primario." languagecode="1040" />
             <Description description="Geben Sie den Ort für die primäre Adresse ein." languagecode="1031" />
             <Description description="Tapez la ville de l'adresse principale." languagecode="1036" />
+            <Description description="Digitare la città per l'indirizzo primario." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="EMailAddress1">
@@ -120,15 +129,15 @@
           <Length>200</Length>
           <displaynames>
             <displayname description="Email" languagecode="1033" />
-            <displayname description="E-mail" languagecode="1040" />
             <displayname description="E-Mail" languagecode="1031" />
             <displayname description="Courrier électronique" languagecode="1036" />
+            <displayname description="E-mail" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type the primary email address for the account." languagecode="1033" />
-            <Description description="Digitare l'indirizzo e-mail primario per l'account." languagecode="1040" />
             <Description description="Geben Sie die primäre E-Mail-Adresse für die Firma ein." languagecode="1031" />
             <Description description="Tapez l'adresse de messagerie principale pour le compte." languagecode="1036" />
+            <Description description="Digitare l'indirizzo e-mail primario per l'account." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Name">
@@ -159,15 +168,15 @@
           <Length>320</Length>
           <displaynames>
             <displayname description="Account Name" languagecode="1033" />
-            <displayname description="Nome account" languagecode="1040" />
             <displayname description="Firmenname" languagecode="1031" />
             <displayname description="Nom du compte" languagecode="1036" />
+            <displayname description="Nome account" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type the company or business name." languagecode="1033" />
-            <Description description="Digitare il nome della società o dell'azienda." languagecode="1040" />
             <Description description="Geben Sie den Namen des Unternehmens oder der Firma ein." languagecode="1031" />
             <Description description="Tapez le nom de la société ou de la division." languagecode="1036" />
+            <Description description="Digitare il nome della società o dell'azienda." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ContactCount">
@@ -1248,15 +1257,15 @@
           </LookupTypes>
           <displaynames>
             <displayname description="Primary Contact" languagecode="1033" />
-            <displayname description="Contatto primario" languagecode="1040" />
             <displayname description="Primärer Kontakt" languagecode="1031" />
             <displayname description="Contact principal" languagecode="1036" />
+            <displayname description="Contatto primario" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Choose the primary contact for the account to provide quick access to contact details." languagecode="1033" />
-            <Description description="Scegliere il contatto primario per l'account per fornire accesso rapido ai dettagli di contatto." languagecode="1040" />
             <Description description="Wählen Sie den primären Kontakt für die Firma aus, um den schnellen Zugriff auf Kontaktdetails zu ermöglichen." languagecode="1031" />
             <Description description="Choisissez le contact principal pour le compte pour fournir un accès rapide aux détails du contact." languagecode="1036" />
+            <Description description="Scegliere il contatto primario per l'account per fornire accesso rapido ai dettagli di contatto." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="StateCode">
@@ -1287,46 +1296,46 @@
             <IntroducedVersion>5.0.0.0</IntroducedVersion>
             <displaynames>
               <displayname description="Status" languagecode="1033" />
-              <displayname description="Stato" languagecode="1040" />
               <displayname description="Status" languagecode="1031" />
               <displayname description="Statut" languagecode="1036" />
+              <displayname description="Stato" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="Status of the account." languagecode="1033" />
-              <Description description="Stato dell'account." languagecode="1040" />
               <Description description="Status der Firma." languagecode="1031" />
               <Description description="Statut du compte." languagecode="1036" />
+              <Description description="Stato dell'account." languagecode="1040" />
             </Descriptions>
             <states>
               <state value="0" defaultstatus="1" invariantname="Active" IsHidden="0">
                 <labels>
                   <label description="Active" languagecode="1033" />
-                  <label description="Attiva" languagecode="1040" />
                   <label description="Aktiv" languagecode="1031" />
                   <label description="Actif" languagecode="1036" />
+                  <label description="Attiva" languagecode="1040" />
                 </labels>
               </state>
               <state value="1" defaultstatus="2" invariantname="Inactive" IsHidden="0">
                 <labels>
                   <label description="Inactive" languagecode="1033" />
-                  <label description="Inattiva" languagecode="1040" />
                   <label description="Inaktiv" languagecode="1031" />
                   <label description="Inactif" languagecode="1036" />
+                  <label description="Inattiva" languagecode="1040" />
                 </labels>
               </state>
             </states>
           </optionset>
           <displaynames>
             <displayname description="Status" languagecode="1033" />
-            <displayname description="Stato" languagecode="1040" />
             <displayname description="Status" languagecode="1031" />
             <displayname description="Statut" languagecode="1036" />
+            <displayname description="Stato" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Shows whether the account is active or inactive. Inactive accounts are read-only and can't be edited unless they are reactivated." languagecode="1033" />
-            <Description description="Mostra se l'account è attivo o inattivo. Gli account inattivi sono di sola lettura e non possono essere modificati a meno che non vengano riattivati." languagecode="1040" />
             <Description description="Zeigt, ob die Firma aktiv oder inaktiv ist. Inaktive Firmen sind schreibgeschützt und können erst nach ihrer Reaktivierung bearbeitet werden." languagecode="1031" />
             <Description description="Indique si le compte est actif ou inactif. Les comptes inactifs sont en lecture seule et ne peuvent pas être modifiés avant d'être réactivés." languagecode="1036" />
+            <Description description="Mostra se l'account è attivo o inattivo. Gli account inattivi sono di sola lettura e non possono essere modificati a meno che non vengano riattivati." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Telephone1">
@@ -1357,15 +1366,15 @@
           <Length>100</Length>
           <displaynames>
             <displayname description="Main Phone" languagecode="1033" />
-            <displayname description="Telefono principale" languagecode="1040" />
             <displayname description="Telefon 1" languagecode="1031" />
             <displayname description="Téléphone principal" languagecode="1036" />
+            <displayname description="Telefono principale" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type the main phone number for this account." languagecode="1033" />
-            <Description description="Digitare il numero di telefono principale per questo account." languagecode="1040" />
             <Description description="Geben Sie die Haupttelefonnummer für diese Firma ein." languagecode="1031" />
             <Description description="Tapez le numéro de téléphone principal pour ce compte." languagecode="1036" />
+            <Description description="Digitare il numero di telefono principale per questo account." languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="Telephone2">
@@ -1396,15 +1405,15 @@
           <Length>100</Length>
           <displaynames>
             <displayname description="Other Phone" languagecode="1033" />
-            <displayname description="Altro telefono" languagecode="1040" />
             <displayname description="Telefon 2" languagecode="1031" />
             <displayname description="Autre téléphone" languagecode="1036" />
+            <displayname description="Altro telefono" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="Type a second phone number for this account." languagecode="1033" />
-            <Description description="Digitare un secondo numero di telefono per questo account." languagecode="1040" />
             <Description description="Geben Sie eine zweite Telefonnummer für diese Firma ein." languagecode="1031" />
             <Description description="Tapez un deuxième numéro de téléphone pour ce compte." languagecode="1036" />
+            <Description description="Digitare un secondo numero di telefono per questo account." languagecode="1040" />
           </Descriptions>
         </attribute>
       </attributes>
