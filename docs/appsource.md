@@ -9,7 +9,7 @@ Microsoft references: [Plan a Dynamics 365 offer](https://learn.microsoft.com/pa
 ```mermaid
 flowchart LR
     subgraph Repo["Repository (automated)"]
-        A["publish-appsource<br/>workflow"] --> B["Export managed<br/>from Dev"]
+        A["deploy-test run<br/>tested in Test"] --> B["publish-appsource:<br/>same managed zips"]
         B --> C["Solution Checker<br/>AppSource Certification"]
         C --> D["PowerBuildersItalia_ProjectIQ<br/>_version.zip"]
     end
@@ -65,17 +65,28 @@ flowchart TD
 Only the publisher (GitHub user `pborg-mc`) can build a package, with two locks:
 
 - the workflow stops at its first job (`authorize`) when it is started, or re-run, by anyone else;
-- it runs in the GitHub environment **`appsource`**, whose only required reviewer is the publisher, so no run reaches the Dev secrets without the publisher's approval. A change to the workflow on another branch cannot bypass this: the environment only accepts runs from `main`, and `main` changes only through a reviewed pull request.
+- it runs in the GitHub environment **`appsource`**, whose only required reviewer is the publisher, so no run reaches its secrets without the publisher's approval. A change to the workflow on another branch cannot bypass this: the environment only accepts runs from `main`, and `main` changes only through a reviewed pull request.
 
-One-time setup of the environment (Settings → Environments → **New environment** `appsource`): required reviewer **pborg-mc** only, *Prevent self-review* off, deployment branches **`main`** only, secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (same values as the environment `test`).
+One-time setup of the environment (Settings → Environments → **New environment** `appsource`): required reviewer **pborg-mc** only, *Prevent self-review* off, deployment branches **`main`** only, secrets `PP_ENVIRONMENT_URL` (the Dev URL), `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (same app registration as the environment `test`). They are used only to authenticate the Solution Checker, which runs in an environment of the tenant; the workflow changes nothing in Dev.
 
-1. Make sure Dev and `main` match and that the release was tested in Test (`deploy-test`).
-2. In GitHub → **Actions** → **publish-appsource** → **Run workflow**, enter:
-    - **version**: `X.Y.Z.W`, higher than the version last submitted to AppSource (AppSource installs upgrades only when the version grows);
+**The package contains exactly what was tested in Test.** Test cannot export its solutions (they are managed there), so the workflow takes the managed zips that `deploy-test` imported into Test, saved as the `OpenProject365-managed` artifact of that run. The version is the one `deploy-test` gave both solutions, `1.0.<run number>.0`, so it grows with every deployment to Test. Artifacts expire after the repository retention period (90 days by default): build the AppSource package within that time.
+
+```mermaid
+flowchart LR
+    D[("Dev")] -->|"export managed<br/>1.0.N.0"| R["deploy-test run N<br/>artifact OpenProject365-managed"]
+    R -->|import| T[("Test: tested")]
+    R -->|same zips| P["publish-appsource<br/>input: run id"]
+    P --> Z["PowerBuildersItalia_ProjectIQ_1.0.N.0.zip"]
+```
+
+1. Deploy the release to Test with `deploy-test` and test it there.
+2. Copy the **run id** of that `deploy-test` run: the number at the end of its URL, `.../actions/runs/<id>`.
+3. In GitHub → **Actions** → **publish-appsource** → **Run workflow**, enter:
+    - **deploy-test-run**: the run id; the run must be a successful `deploy-test` run from `main`;
     - **start-date** (optional): the date the package becomes available, `MM/DD/YYYY`; empty means today.
-3. Approve the run in the `appsource` environment. The workflow sets the version of both solutions in Dev, exports them as managed, runs the Solution Checker with the **AppSource Certification** rule set (the one Microsoft uses) and builds the package.
-4. The job fails when the checker reports **critical or high** findings: fix them in Dev and run it again. All findings are in the `appsource-checker` artifact.
-5. Download the artifact `appsource-package-<version>`: it contains `PowerBuildersItalia_ProjectIQ_<version>.zip`.
+4. Approve the run in the `appsource` environment. The workflow checks the `deploy-test` run, downloads its managed zips, runs the Solution Checker with the **AppSource Certification** rule set (the one Microsoft uses) and builds the package.
+5. The job fails when the checker reports **critical or high** findings: fix them in Dev, deploy to Test again and use the new run. All findings are in the `appsource-checker` artifact.
+6. Download the artifact `appsource-package-<version>`: it contains `PowerBuildersItalia_ProjectIQ_<version>.zip`.
 
 Local build (same result, needs the .NET SDK and the two managed solution zips in one folder):
 
@@ -182,7 +193,7 @@ What the package cannot do by itself is described for administrators in [Adminis
 
 ## New versions
 
-1. Build a package with a higher version (see [Build the package](#build-the-package)), upload it and create a new SAS URL.
+1. Build a package from a newer `deploy-test` run, which has a higher version (see [Build the package](#build-the-package)), upload it and create a new SAS URL.
 2. Partner Center → the offer → **Technical configuration**: replace the package URL; **Properties**: update **App version**.
 3. **Review and publish**. After certification, customers update from the Power Platform admin center (*Dynamics 365 apps* → ProjectIQ → *Update*).
 
@@ -193,5 +204,6 @@ What the package cannot do by itself is described for administrators in [Adminis
 | Certification: wrong package structure | The AppSource zip must be flat with exactly the five files listed above; always use the zip produced by the workflow, do not re-zip it by hand |
 | Certification: locale mismatch | The `PackageLocale` codes of `input.xml` must match the languages of the solutions (1033, 1040, 1036, 1031) |
 | Partner Center cannot download the package | SAS URL expired or without read permission: generate a new one |
-| `publish-appsource` fails on the version | Use four numbers, e.g. `1.0.20.0`; both solutions must end up with that version |
-| `publish-appsource` fails on the checker | Critical or high findings: read the job log or the `appsource-checker` artifact, fix in Dev, run again |
+| `publish-appsource` refuses the run id | Use the id of a successful `deploy-test` run started from `main` (the number in its URL, not the run number shown in the title) |
+| `publish-appsource` cannot download the artifact | The artifact of that `deploy-test` run expired (retention period, 90 days by default): deploy to Test again and use the new run |
+| `publish-appsource` fails on the checker | Critical or high findings: read the job log or the `appsource-checker` artifact, fix in Dev, deploy to Test again, use the new run |
