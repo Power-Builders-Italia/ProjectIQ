@@ -59,7 +59,7 @@ One job, `deploy`, both checks and imports: every job that uses an environment a
 5. Copy the files of `src/webresources` over their copies in `solutions/OpenProject365/src/WebResources` (identical today; the source wins), pack both solutions from `main` (unmanaged) and import `OpenProject365`: publish, activate plugins, no deployment settings (Dev keeps its environment variables and connections).
 6. `dotnet build` the plugins and run `tools/dataverse/plugins.py` (`PAC_*` from the `PP_*` secrets): the assembly built from source replaces the one exported earlier; steps, images and Custom APIs are created if missing.
 7. `npm ci` in `src/pcf`, `pac auth create` with the service principal, `tools/pcf/push.sh` (all controls).
-8. Import `OpenProject365SupplierPortal` (the imports and `pac pcf push` publish; no separate publish, which would collide with the publish still running in Dataverse).
+8. Import `OpenProject365SupplierPortal` with `pac solution import`, retried up to 3 times on transient Dataverse failures (the imports and `pac pcf push` publish; no separate publish, which would collide with the publish still running in Dataverse).
 9. Verify: export (retried while Dataverse is still busy) and unpack again, compare with `main`. A difference fails the run and leaves the tag where it was.
 
 **`drift-pr`** (needs `deploy` with `drift=true`, no secrets)
