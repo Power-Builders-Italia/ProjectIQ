@@ -5,8 +5,9 @@ name: publish-appsource
 # (the one Microsoft uses during certification) and assembles PowerBuildersItalia_ProjectIQ_<version>.zip with
 # tools/alm/build_appsource_package.py. The zip is uploaded as a workflow artifact; uploading it to Azure Blob Storage
 # and submitting it in Partner Center are manual steps.
-# Like deploy-test it exports from Dev, so Dev and main must match first; it runs in the GitHub environment test
-# (approval, PP_* secrets).
+# Like deploy-test it exports from Dev, so Dev and main must match first.
+# Only the publisher may run it (docs/appsource.md): the job fails for any other actor, and it runs in the GitHub
+# environment appsource, whose only required reviewer is the publisher (deployment branches: main, PP_* secrets).
 on:
   workflow_dispatch:
     inputs:
@@ -21,9 +22,25 @@ permissions:
   contents: read
 
 jobs:
+  # Before the environment approval, so a run started by someone else stops at once
+  authorize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only the publisher may run this workflow
+        env:
+          PUBLISHER: pborg-mc
+          ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          if [ "$ACTOR" != "$PUBLISHER" ] || [ "$TRIGGERING_ACTOR" != "$PUBLISHER" ]; then
+            echo "::error::Only $PUBLISHER can run publish-appsource (run by $TRIGGERING_ACTOR)"
+            exit 1
+          fi
+
   package:
+    needs: authorize
     runs-on: windows-latest
-    environment: test
+    environment: appsource
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check version

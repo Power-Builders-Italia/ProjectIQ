@@ -62,11 +62,18 @@ flowchart TD
 
 ## Build the package
 
+Only the publisher (GitHub user `pborg-mc`) can build a package, with two locks:
+
+- the workflow stops at its first job (`authorize`) when it is started, or re-run, by anyone else;
+- it runs in the GitHub environment **`appsource`**, whose only required reviewer is the publisher, so no run reaches the Dev secrets without the publisher's approval. A change to the workflow on another branch cannot bypass this: the environment only accepts runs from `main`, and `main` changes only through a reviewed pull request.
+
+One-time setup of the environment (Settings → Environments → **New environment** `appsource`): required reviewer **pborg-mc** only, *Prevent self-review* off, deployment branches **`main`** only, secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (same values as the environment `test`).
+
 1. Make sure Dev and `main` match and that the release was tested in Test (`deploy-test`).
 2. In GitHub → **Actions** → **publish-appsource** → **Run workflow**, enter:
     - **version**: `X.Y.Z.W`, higher than the version last submitted to AppSource (AppSource installs upgrades only when the version grows);
     - **start-date** (optional): the date the package becomes available, `MM/DD/YYYY`; empty means today.
-3. Approve the run in the `test` environment. The workflow sets the version of both solutions in Dev, exports them as managed, runs the Solution Checker with the **AppSource Certification** rule set (the one Microsoft uses) and builds the package.
+3. Approve the run in the `appsource` environment. The workflow sets the version of both solutions in Dev, exports them as managed, runs the Solution Checker with the **AppSource Certification** rule set (the one Microsoft uses) and builds the package.
 4. The job fails when the checker reports **critical or high** findings: fix them in Dev and run it again. All findings are in the `appsource-checker` artifact.
 5. Download the artifact `appsource-package-<version>`: it contains `PowerBuildersItalia_ProjectIQ_<version>.zip`.
 
