@@ -411,6 +411,9 @@ def glossary():
     if not models:
         print('skip glossary (no semantic model yet: turn on Copilot on the app and wait for the generation)'); return
     model = models[0]['dvtablesearchid']
+    # glossary terms are solution components that point to this environment's model: keep them out of the
+    # solution (the default MSCRM.SolutionUniqueName header would add them and deploy-dev would see drift)
+    plain = {'MSCRM.SolutionUniqueName': None}
     for row in read_glossary():
         description = (f"{row['definition']} Synonyms: Italian {row['it']}; French {row['fr']}; German {row['de']}.")[:1000]
         record = {'term': row['term'], 'name': row['term'], 'description': description}
@@ -418,9 +421,9 @@ def glossary():
                       f"and _skill_value eq {model}").json()['value']
         if not found:
             record['skill@odata.bind'] = f'/dvtablesearchs({model})'
-            ok(S.post(API + 'copilotglossaryterms', json=record), 'glossary ' + row['term'])
+            ok(S.post(API + 'copilotglossaryterms', json=record, headers=plain), 'glossary ' + row['term'])
         elif found[0]['description'] != description or found[0]['name'] != row['term']:
-            ok(S.patch(API + f"copilotglossaryterms({found[0]['copilotglossarytermid']})", json=record), 'glossary ' + row['term'])
+            ok(S.patch(API + f"copilotglossaryterms({found[0]['copilotglossarytermid']})", json=record, headers=plain), 'glossary ' + row['term'])
         else:
             print('skip glossary', row['term'])
     print('glossary written to', models[0]['name'], '- select Regenerate on the semantic model to use it now')
