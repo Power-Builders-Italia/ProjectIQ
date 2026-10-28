@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/wbs-and-planning.md) · [Français](../fr/wbs-and-planning.md) · [Deutsch](../de/wbs-and-planning.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-The **Work Breakdown Structure (WBS)** splits a project into phases, work packages and tasks. In Open Project 365 the WBS is where the budget is built, where dates and dependencies are planned, where progress is reported and where hours and costs are collected. On top of it sit the **Gantt chart**, with the **critical path**, and the **baselines**, frozen copies of the plan that let you compare what was agreed with what is happening.
+The **Work Breakdown Structure (WBS)** splits a project into phases, work packages and tasks. In ProjectIQ the WBS is where the budget is built, where dates and dependencies are planned, where progress is reported and where hours and costs are collected. On top of it sit the **Gantt chart**, with the **critical path**, and the **baselines**, frozen copies of the plan that let you compare what was agreed with what is happening.
 
 This manual covers the **WBS** and **Gantt** tabs of the project form, the WBS node form, dependencies, allocations and baselines. Planned hours by resource are covered in [Resource load](resource-load.md).
 
@@ -223,7 +223,7 @@ Each project has **at most one reference baseline**: the one the Gantt preselect
 ```mermaid
 sequenceDiagram
     participant PM as Project manager
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     PM->>OP: Save Baseline ("Offer")
     OP-->>PM: Baseline 1 = reference
     PM->>OP: Changes dates and budget

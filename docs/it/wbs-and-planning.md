@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/wbs-and-planning.md) · Italiano · [Français](../fr/wbs-and-planning.md) · [Deutsch](../de/wbs-and-planning.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-La **Work Breakdown Structure (WBS)**, o struttura di scomposizione del lavoro, divide un progetto in fasi, pacchetti di lavoro e attività. In Open Project 365 la WBS è il luogo in cui si costruisce il budget, si pianificano date e dipendenze, si dichiara l'avanzamento e si raccolgono ore e costi. Sopra di essa ci sono il **diagramma di Gantt**, con il **percorso critico**, e le **baseline**, copie congelate del piano che permettono di confrontare ciò che era stato concordato con ciò che sta accadendo.
+La **Work Breakdown Structure (WBS)**, o struttura di scomposizione del lavoro, divide un progetto in fasi, pacchetti di lavoro e attività. In ProjectIQ la WBS è il luogo in cui si costruisce il budget, si pianificano date e dipendenze, si dichiara l'avanzamento e si raccolgono ore e costi. Sopra di essa ci sono il **diagramma di Gantt**, con il **percorso critico**, e le **baseline**, copie congelate del piano che permettono di confrontare ciò che era stato concordato con ciò che sta accadendo.
 
 Questo manuale tratta le tab **WBS** e **Gantt** del form progetto, il form del nodo WBS, le dipendenze, le allocazioni e le baseline. Le ore pianificate per risorsa sono trattate in [Carico risorse](resource-load.md).
 
@@ -225,7 +225,7 @@ Ogni progetto ha **al massimo una baseline di riferimento**: quella che il Gantt
 ```mermaid
 sequenceDiagram
     participant PM as Project manager
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     PM->>OP: Save Baseline ("Offerta")
     OP-->>PM: Baseline 1 = riferimento
     PM->>OP: Modifica date e budget

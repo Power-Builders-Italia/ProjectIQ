@@ -3,7 +3,7 @@
 > **Langue :** [English](../en/purchasing.md) · [Italiano](../it/purchasing.md) · Français · [Deutsch](../de/purchasing.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Les achats sont l'endroit où l'on gagne ou perd la marge d'une affaire : acheter la bonne chose, au bon prix, auprès d'un fournisseur fiable, sans dépasser le budget. Open Project 365 couvre toute la chaîne achats à l'intérieur du projet : un membre de l'équipe **demande** ce dont il a besoin, le chef de projet (et au-delà d'un seuil l'approbateur achats) **approuve**, l'acheteur demande des **devis** aux fournisseurs et les compare, le meilleur devis devient une **commande**, le fournisseur la confirme (y compris depuis le [portail fournisseurs](supplier-portal.md)), la marchandise est **réceptionnée** et devient du coût réel, et la **facture fournisseur** est contrôlée et approuvée.
+Les achats sont l'endroit où l'on gagne ou perd la marge d'une affaire : acheter la bonne chose, au bon prix, auprès d'un fournisseur fiable, sans dépasser le budget. ProjectIQ couvre toute la chaîne achats à l'intérieur du projet : un membre de l'équipe **demande** ce dont il a besoin, le chef de projet (et au-delà d'un seuil l'approbateur achats) **approuve**, l'acheteur demande des **devis** aux fournisseurs et les compare, le meilleur devis devient une **commande**, le fournisseur la confirme (y compris depuis le [portail fournisseurs](supplier-portal.md)), la marchandise est **réceptionnée** et devient du coût réel, et la **facture fournisseur** est contrôlée et approuvée.
 
 Chaque étape met à jour les chiffres du projet : **coût engagé** à l'envoi d'une commande, **coût réel** à la réception, **dépenses** par fournisseur et par article.
 

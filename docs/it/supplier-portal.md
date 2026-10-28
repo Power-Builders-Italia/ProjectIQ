@@ -3,13 +3,13 @@
 > **Lingua:** [English](../en/supplier-portal.md) · Italiano · [Français](../fr/supplier-portal.md) · [Deutsch](../de/supplier-portal.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Il **portale fornitori** è un sito web, realizzato con Microsoft Power Pages sullo stesso database Dataverse di Open Project 365, dove i tuoi fornitori possono lavorare con te senza email e fogli di calcolo che vanno avanti e indietro. Sul portale un fornitore:
+Il **portale fornitori** è un sito web, realizzato con Microsoft Power Pages sullo stesso database Dataverse di ProjectIQ, dove i tuoi fornitori possono lavorare con te senza email e fogli di calcolo che vanno avanti e indietro. Sul portale un fornitore:
 
 - vede le **richieste d'offerta** (RdO) che gli hai inviato, inserisce **prezzi unitari**, **giorni di consegna** e **note**, e invia l'offerta — oppure rinuncia;
 - vede gli **ordini d'acquisto** che gli hai inviato, con righe e importi, e li **conferma**;
 - vede quanto di ogni ordine è già stato **ricevuto**.
 
-Tutto ciò che il fornitore fa è subito visibile in Open Project 365: le offerte compaiono nel Quote Comparison della RdO, le conferme cambiano lo stato dell'ordine.
+Tutto ciò che il fornitore fa è subito visibile in ProjectIQ: le offerte compaiono nel Quote Comparison della RdO, le conferme cambiano lo stato dell'ordine.
 
 Questo manuale ha due parti: la **Parte 1 per i fornitori** (puoi inviarla a loro) e la **Parte 2 per il personale interno**, che dà accesso ai fornitori e segue le loro risposte.
 
@@ -17,7 +17,7 @@ Questo manuale ha due parti: la **Parte 1 per i fornitori** (puoi inviarla a lor
 
 ```mermaid
 sequenceDiagram
-    participant B as Buyer (Open Project 365)
+    participant B as Buyer (ProjectIQ)
     participant DV as Dataverse
     participant S as Fornitore (portale)
     B->>DV: Send RFQ (invito + righe d'offerta vuote)
@@ -103,7 +103,7 @@ Ordini in bozza o annullati e RdO non ancora inviate non vengono mai mostrati. I
 
 Un utente fornitore è un **contatto** la cui **azienda** è l'account del fornitore, con il web role **Supplier**.
 
-1. In Open Project 365 verifica che l'account del fornitore sia **Is Supplier**, **Active** e non **Blocked**, e abbia un'**Email** valida.
+1. In ProjectIQ verifica che l'account del fornitore sia **Is Supplier**, **Active** e non **Blocked**, e abbia un'**Email** valida.
 2. Crea (o apri) il **contatto** della persona, con **Company Name** = il fornitore e la sua email.
 3. In **Power Pages Management** (o nello studio del portale, *Set up → Web roles*) assegna al contatto il web role **Supplier**.
 4. Fai accedere la persona con il metodo configurato sul tuo sito (per esempio invia un **invito** da Power Pages Management → *Invitations*, oppure lasciala registrarsi con l'email che hai registrato).

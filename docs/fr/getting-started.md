@@ -1,15 +1,15 @@
-# Premiers pas avec Open Project 365
+# Premiers pas avec ProjectIQ
 
 > **Langue :** [English](../en/getting-started.md) · [Italiano](../it/getting-started.md) · Français · [Deutsch](../de/getting-started.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Ce guide est la première chose à lire si vous découvrez Open Project 365. Il explique à quoi sert l'application, comment ses différentes parties s'articulent, comment vous repérer dans les écrans et quel manuel ouvrir pour chaque tâche. Les autres manuels détaillent chaque domaine fonctionnel ; celui-ci vous donne la carte.
+Ce guide est la première chose à lire si vous découvrez ProjectIQ. Il explique à quoi sert l'application, comment ses différentes parties s'articulent, comment vous repérer dans les écrans et quel manuel ouvrir pour chaque tâche. Les autres manuels détaillent chaque domaine fonctionnel ; celui-ci vous donne la carte.
 
 > **Note sur les libellés à l'écran.** L'interface de l'application est aujourd'hui en **anglais** (les traductions italienne, française et allemande sont prévues). Dans ce manuel, les noms des boutons, champs et pages sont écrits en anglais, exactement comme à l'écran, avec une traduction lorsque c'est utile.
 
-## Ce que fait Open Project 365
+## Ce que fait ProjectIQ
 
-Open Project 365 est une application de gestion de projets et d'affaires, conçue pour les entreprises qui travaillent à la commande : entreprises du bâtiment et d'installation, bureaux d'études, ateliers, sociétés de services et toute organisation qui doit savoir, pour chaque affaire, **ce qui était prévu, ce qui a été dépensé et ce qui est encore engagé**.
+ProjectIQ est une application de gestion de projets et d'affaires, conçue pour les entreprises qui travaillent à la commande : entreprises du bâtiment et d'installation, bureaux d'études, ateliers, sociétés de services et toute organisation qui doit savoir, pour chaque affaire, **ce qui était prévu, ce qui a été dépensé et ce qui est encore engagé**.
 
 Elle fonctionne dans Microsoft Power Apps comme application pilotée par modèle (model-driven) sur Microsoft Dataverse. Concrètement :
 
@@ -53,7 +53,7 @@ flowchart LR
 
 ## Connexion
 
-1. Ouvrez le lien fourni par votre administrateur (du type `https://<entreprise>.crm4.dynamics.com/main.aspx?appid=...`), ou allez sur [make.powerapps.com](https://make.powerapps.com) → **Apps** et choisissez **Open Project 365**.
+1. Ouvrez le lien fourni par votre administrateur (du type `https://<entreprise>.crm4.dynamics.com/main.aspx?appid=...`), ou allez sur [make.powerapps.com](https://make.powerapps.com) → **Apps** et choisissez **ProjectIQ**.
 2. Connectez-vous avec votre compte professionnel.
 3. Si le message « You don't have permissions » apparaît, demandez à votre administrateur les rôles de sécurité **Basic User** et **OP365 User** (voir [Administration](administration.md#rôles-de-sécurité)).
 
@@ -73,11 +73,11 @@ flowchart TB
     AS[Sélecteur de zone<br/>en bas à gauche] --- N
 ```
 
-- **Sélecteur de zone** (en bas de la navigation de gauche) : change le groupe de pages affiché. Open Project 365 a quatre zones : **Projects** (projets), **Purchasing** (achats), **Master Data** (données de référence) et **Settings** (paramètres).
+- **Sélecteur de zone** (en bas de la navigation de gauche) : change le groupe de pages affiché. ProjectIQ a quatre zones : **Projects** (projets), **Purchasing** (achats), **Master Data** (données de référence) et **Settings** (paramètres).
 - **Navigation de gauche** : les pages de la zone courante.
 - **Vues** : listes d'enregistrements avec colonnes, filtres et tri ; changez de vue avec la liste déroulante à côté du titre.
 - **Formulaires** : un enregistrement, organisé en onglets. Les modifications s'enregistrent avec **Save** (ou Ctrl+S) ; le formulaire enregistre aussi automatiquement après un court délai.
-- **Barre de commandes** : les boutons au-dessus d'une vue ou d'un formulaire (New, Save, Delete et les commandes d'Open Project 365 comme **Submit**, **Approve**, **Save Baseline**).
+- **Barre de commandes** : les boutons au-dessus d'une vue ou d'un formulaire (New, Save, Delete et les commandes de ProjectIQ comme **Submit**, **Approve**, **Save Baseline**).
 - **Tableaux de bord** : pages complètes avec graphiques et composants interactifs (Timesheet, Time Approval, Resource Load, Spend).
 
 ### Le plan de navigation
@@ -118,7 +118,7 @@ flowchart LR
 
 ## Notifications
 
-Open Project 365 utilise les **notifications dans l'application** des applications pilotées par modèle : l'icône en forme de cloche dans la barre du haut. Vous recevez une notification lorsque :
+ProjectIQ utilise les **notifications dans l'application** des applications pilotées par modèle : l'icône en forme de cloche dans la barre du haut. Vous recevez une notification lorsque :
 
 | Événement | Qui est notifié |
 |---|---|
@@ -132,7 +132,7 @@ Les notifications apparaissent dans le panneau de la cloche et, quelques seconde
 
 ## Notes, mentions et chronologie
 
-La plupart des enregistrements d'Open Project 365 ont une **Timeline** (chronologie), généralement dans la colonne de droite du premier onglet du formulaire. Vous pouvez :
+La plupart des enregistrements de ProjectIQ ont une **Timeline** (chronologie), généralement dans la colonne de droite du premier onglet du formulaire. Vous pouvez :
 
 - ajouter des **notes**, avec pièces jointes ;
 - **mentionner un collègue** en tapant `@` suivi de son nom : le collègue est notifié et la note devient un petit fil de commentaires ;

@@ -3,13 +3,13 @@
 > **Language:** English · [Italiano](../it/administration.md) · [Français](../fr/administration.md) · [Deutsch](../de/administration.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-This manual is for the people who set up and run Open Project 365 in a company: functional administrators, IT staff and the Power Platform administrator. It explains how to give people access, how the security model works, what the company settings do, which automations run in the background and what to check after an update. Technical topics (building, deploying, the Dataverse schema) are covered in [Development environment setup](../dev-environment.md) and [Data model](../data-model.md).
+This manual is for the people who set up and run ProjectIQ in a company: functional administrators, IT staff and the Power Platform administrator. It explains how to give people access, how the security model works, what the company settings do, which automations run in the background and what to check after an update. Technical topics (building, deploying, the Dataverse schema) are covered in [Development environment setup](../dev-environment.md) and [Data model](../data-model.md).
 
 ## First setup checklist
 
 ```mermaid
 flowchart TD
-    A[1. Environment with the<br/>Open Project 365 solution] --> B[2. Users: Basic User +<br/>OP365 role]
+    A[1. Environment with the<br/>ProjectIQ solution] --> B[2. Users: Basic User +<br/>OP365 role]
     B --> C[3. Cost Visibility profile<br/>to managers and controllers]
     C --> D[4. Environment variables: time approval,<br/>purchasing threshold and approver]
     D --> E[5. Master data: customers,<br/>suppliers, items, resources]
@@ -24,7 +24,7 @@ flowchart TD
 | 1 | Power Platform admin center | One Dataverse environment per company. The solution is installed by IT (see [dev environment](../dev-environment.md)) |
 | 2 | Power Platform admin center → Users | [Security roles](#security-roles) |
 | 3 | Power Platform admin center → Column security profiles | [Cost visibility](#cost-visibility) |
-| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Company settings](#company-settings) |
+| 4 | Power Apps → Solutions → ProjectIQ → Environment variables | [Company settings](#company-settings) |
 | 5 | Master Data | [Master data](master-data.md) |
 | 6 | Master Data → Resources | [Master data](master-data.md#resources) |
 | 7 | Projects → Planning → Absences (no resource) | [Master data](master-data.md#absences-and-company-closures) |
@@ -37,14 +37,14 @@ Every internal user needs a **Power Apps Premium** licence (or an equivalent lic
 
 ## Security roles
 
-Open Project 365 roles are **additive**: every internal user needs the standard **Basic User** role **plus** one Open Project 365 role.
+ProjectIQ roles are **additive**: every internal user needs the standard **Basic User** role **plus** one ProjectIQ role.
 
 | Role | For | Access |
 |---|---|---|
-| **OP365 Administrator** | Functional administrators, controllers, back office, purchasing approver | Organization-wide: create, read, write, delete, append, assign and share on all Open Project 365 tables, customers, suppliers and contacts. Sees every project. Can approve hours and requests on every project, decide supplier invoices, submit hours for others |
+| **OP365 Administrator** | Functional administrators, controllers, back office, purchasing approver | Organization-wide: create, read, write, delete, append, assign and share on all ProjectIQ tables, customers, suppliers and contacts. Sees every project. Can approve hours and requests on every project, decide supplier invoices, submit hours for others |
 | **OP365 User** | Project managers, team members, buyers | Reads master data organisation-wide; creates and manages their own records; sees the projects they **own** or where they are **members**, with the rights of their project role (see [Projects and team](projects-and-team.md#the-project-team)). Supplier invoices: read only |
 
-The standard **System Administrator** role is treated like OP365 Administrator by all Open Project 365 rules.
+The standard **System Administrator** role is treated like OP365 Administrator by all ProjectIQ rules.
 
 ### What an OP365 User can do, by project role
 
@@ -84,7 +84,7 @@ Assign the profile (Power Platform admin center → *Settings* → *Users + perm
 
 ## Company settings
 
-The company-wide switches are **environment variables** of the Open Project 365 solution. Each environment (Dev, Test, Production) has its own values, so a test environment can, for example, skip time approval without touching production. They are not in the app: a Power Platform administrator or a maker of the environment changes them.
+The company-wide switches are **environment variables** of the ProjectIQ solution. Each environment (Dev, Test, Production) has its own values, so a test environment can, for example, skip time approval without touching production. They are not in the app: a Power Platform administrator or a maker of the environment changes them.
 
 ```mermaid
 flowchart LR
@@ -95,7 +95,7 @@ flowchart LR
 
 To change a value:
 
-1. Open [Power Apps](https://make.powerapps.com), select the environment, then **Solutions** → **Open Project 365** (or **Default Solution**) → **Environment variables**.
+1. Open [Power Apps](https://make.powerapps.com), select the environment, then **Solutions** → **ProjectIQ** (or **Default Solution**) → **Environment variables**.
 2. Open the variable and, under **Current Value**, click **+ New value** (or edit the existing one). Do not change the **Default Value** of a managed solution.
 3. **Save**. The change applies to the next submission; no publish is needed.
 
@@ -118,11 +118,11 @@ In Test, IT can also set the values at deployment time through the deployment se
 
 ## Background automations
 
-Open Project 365 keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Only one automation is scheduled.
+ProjectIQ keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Only one automation is scheduled.
 
 ### Daily time reminder
 
-The **Daily time reminder** is a Power Automate cloud flow in the Open Project 365 solution. From **Monday to Friday at 17:30** (W. Europe time) it calls the action *op365_SendTimeReminders*, which sends the in-app notification "Record your hours" to every active resource with a user who recorded fewer hours than expected for the day (see [Time tracking](time-tracking.md#the-daily-reminder)). No reminders are sent on company closures.
+The **Daily time reminder** is a Power Automate cloud flow in the ProjectIQ solution. From **Monday to Friday at 17:30** (W. Europe time) it calls the action *op365_SendTimeReminders*, which sends the in-app notification "Record your hours" to every active resource with a user who recorded fewer hours than expected for the day (see [Time tracking](time-tracking.md#the-daily-reminder)). No reminders are sent on company closures.
 
 The flow uses the connection reference **op365_dataverse** (Microsoft Dataverse). A service principal cannot own Power Automate connections, so a **user** must:
 
@@ -148,7 +148,7 @@ In-app notifications are on by default in new environments. Users manage them fr
 
 ## Auditing and history
 
-Auditing is enabled on the Open Project 365 tables: once auditing is also on at environment level (Power Platform admin center → *Settings* → *Audit and logs*), every change is recorded and visible in the **Audit history** of each record (Related → Audit history). The timeline of each record keeps notes, mentions and attachments.
+Auditing is enabled on the ProjectIQ tables: once auditing is also on at environment level (Power Platform admin center → *Settings* → *Audit and logs*), every change is recorded and visible in the **Audit history** of each record (Related → Audit history). The timeline of each record keeps notes, mentions and attachments.
 
 ## After an update of the solution
 

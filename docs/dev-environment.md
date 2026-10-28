@@ -2,10 +2,12 @@
 
 The solution lives unpacked in `solutions/OpenProject365/src`. Publisher and solution are defined in `src/Other/Solution.xml`.
 
+The product was renamed from *Open Project 365* to **ProjectIQ** (display names, documentation, website and repository). Technical names keep the original form so that existing environments upgrade in place: solution unique names `OpenProject365` and `OpenProject365SupplierPortal`, publisher `PowerBuildersItalia`, prefix `op365`, app unique name `op365_OpenProject365`, plugin assembly `OpenProject365.Plugins` and the `OP365 …` security roles.
+
 | Item | Value |
 |---|---|
 | Solution unique name | `OpenProject365` |
-| Solution display name | Open Project 365 |
+| Solution display name | ProjectIQ |
 | Publisher unique name | `PowerBuildersItalia` |
 | Publisher prefix | `op365` |
 | Choice value prefix | `36500` (choice values start at 365000000) |
@@ -25,7 +27,7 @@ Alternatively download the `OpenProject365-unmanaged` artifact from the `build` 
 
 ## Daily loop
 
-1. Customize in the dev environment, always inside the **Open Project 365** solution.
+1. Customize in the dev environment, always inside the **ProjectIQ** solution.
 2. Export and unpack back into the repo:
 
 ```powershell
@@ -52,10 +54,10 @@ After a solution import check that plugin steps are enabled: an interrupted impo
 
 ## Copilot and Work IQ
 
-`tools/dataverse/workiq.py` prepares the read-only exposure of Open Project 365 to Microsoft Copilot and Copilot Cowork (Business Applications in Work IQ, preview). Design and decisions: [ADR 0001](adr/0001-copilot-work-iq-read-only.md). User and admin guide: [Copilot and Cowork](en/copilot.md).
+`tools/dataverse/workiq.py` prepares the read-only exposure of ProjectIQ to Microsoft Copilot and Copilot Cowork (Business Applications in Work IQ, preview). Design and decisions: [ADR 0001](adr/0001-copilot-work-iq-read-only.md). User and admin guide: [Copilot and Cowork](en/copilot.md).
 
 - Writes the descriptions of the custom columns and lookups (the `DESCRIPTIONS` table in the script): the Dataverse semantic model reads them, so keep a description on every new column.
-- Sets the app setting `m365copilotmodelappenabled` = 2 (**Microsoft Copilot in model-driven apps** on) on the Open Project 365 app; with it Dataverse indexes the app tables and creates the semantic model of the app (`M365_Primary_model_op365_OpenProject365` in Dev).
+- Sets the app setting `m365copilotmodelappenabled` = 2 (**Microsoft Copilot in model-driven apps** on) on the ProjectIQ app; with it Dataverse indexes the app tables and creates the semantic model of the app (`M365_Primary_model_op365_OpenProject365` in Dev).
 - Creates or updates the business skills from `copilot/skills/*.md` (front matter `name` and `description`, body = instructions) as **Organization** skills (`ispersonal` = No) and adds them to the solution (component type 10441). The unique name is the file name.
 - Turns on **Dataverse search** (`SyncToExternalSearchIndex`) for the tables in scope, all except Resource Cost, Baseline Node and WBS Dependency: Copilot reads records through the search index, so a new table in scope must be added there too.
 
@@ -100,7 +102,7 @@ The `build` workflow builds and tests the plugins and the PCF controls and packs
 
 ## Documentation website (GitHub Pages)
 
-The manuals are also published as a website at <https://power-builders-italia.github.io/open-project-365/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.
+The manuals are also published as a website at <https://power-builders-italia.github.io/projectiq/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.
 
 ```mermaid
 flowchart LR
@@ -110,7 +112,7 @@ flowchart LR
 ```
 
 - `tools/docs/build_site.py` stages the files: the README becomes the home page, links to files outside `docs/` (CONTRIBUTING, copilot, LICENSE) point to GitHub. The sources are never changed.
-- Look and feel: logo and favicon in `docs/assets/` (from the Open Project 365 icon), brand colours (green `#0c723d`, red `#d3010f`, grey `#5b5959`) in `docs/assets/extra.css`.
+- Look and feel: logo and favicon in `docs/assets/` (from the ProjectIQ icon), brand colours (green `#0c723d`, red `#d3010f`, grey `#5b5959`) in `docs/assets/extra.css`.
 - `mkdocs.yml` holds the menu (one tab per language plus Technical): add a new manual there too. Mermaid diagrams and the `#anchors` of the manuals work as on GitHub.
 - The `pages` workflow builds the site on pull requests that touch the docs (`--strict` fails on broken links) and publishes it on every push to `main` (or Actions > pages > Run workflow).
 - One-time setup: Settings > Pages > Build and deployment > Source **GitHub Actions**. The `github-pages` environment is created on the first run.
@@ -153,7 +155,7 @@ flowchart LR
 
 ### 1. Change Dev
 
-Work always inside the **Open Project 365** solution (or **Open Project 365 Supplier Portal** for the portal).
+Work always inside the **ProjectIQ** solution (or **ProjectIQ Supplier Portal** for the portal).
 
 | Change | How |
 |---|---|

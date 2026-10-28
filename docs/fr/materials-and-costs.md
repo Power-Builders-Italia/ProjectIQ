@@ -3,7 +3,7 @@
 > **Langue :** [English](../en/materials-and-costs.md) · [Italiano](../it/materials-and-costs.md) · Français · [Deutsch](../de/materials-and-costs.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Une affaire n'est rentable que si vous savez, à tout moment, combien elle a réellement coûté et combien elle va coûter. Open Project 365 collecte les **coûts réels** de deux sources — heures approuvées et consommations de matériaux — et les combine avec le **coût engagé** des commandes ouvertes et le **budget** de la WBS. La **Cost Summary** (synthèse des coûts) du formulaire projet transforme ces chiffres en prévision : l'estimation à terminaison et la marge attendue.
+Une affaire n'est rentable que si vous savez, à tout moment, combien elle a réellement coûté et combien elle va coûter. ProjectIQ collecte les **coûts réels** de deux sources — heures approuvées et consommations de matériaux — et les combine avec le **coût engagé** des commandes ouvertes et le **budget** de la WBS. La **Cost Summary** (synthèse des coûts) du formulaire projet transforme ces chiffres en prévision : l'estimation à terminaison et la marge attendue.
 
 Ce manuel explique comment saisir les matériaux, comment se forment les coûts réels et engagés et comment lire la synthèse des coûts.
 
@@ -82,7 +82,7 @@ La proposition n'a lieu que lorsque l'article est choisi ou changé ; les change
 
 ### Matériaux issus des réceptions
 
-Quand un acheteur enregistre une réception sur une commande, Open Project 365 crée une consommation par ligne reçue, au **prix de la commande**, sur le projet de la commande et sur le nœud WBS de la ligne. Ces enregistrements sont marqués comme issus de la réception et **ne peuvent être ni modifiés ni supprimés directement** : « This material usage comes from a goods receipt: cancel the receipt to change it. » Pour les corriger, annulez la réception et enregistrez-la de nouveau.
+Quand un acheteur enregistre une réception sur une commande, ProjectIQ crée une consommation par ligne reçue, au **prix de la commande**, sur le projet de la commande et sur le nœud WBS de la ligne. Ces enregistrements sont marqués comme issus de la réception et **ne peuvent être ni modifiés ni supprimés directement** : « This material usage comes from a goods receipt: cancel the receipt to change it. » Pour les corriger, annulez la réception et enregistrez-la de nouveau.
 
 Vous n'avez donc **pas** à saisir deux fois les matériaux achetés : réceptionnez-les, ils deviennent automatiquement du coût réel. Ne saisissez à la main que les matériaux pris en stock ou achetés hors commande.
 

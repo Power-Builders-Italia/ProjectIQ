@@ -1,7 +1,7 @@
 {
   "name": "op365-pcf-controls",
   "version": "1.0.0",
-  "description": "Open Project 365 PCF controls",
+  "description": "ProjectIQ PCF controls",
   "scripts": {
     "build": "pcf-scripts build",
     "clean": "pcf-scripts clean",

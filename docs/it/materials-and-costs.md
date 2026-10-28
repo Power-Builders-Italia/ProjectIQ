@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/materials-and-costs.md) · Italiano · [Français](../fr/materials-and-costs.md) · [Deutsch](../de/materials-and-costs.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Una commessa è redditizia solo se sai, in ogni momento, quanto è costata davvero e quanto costerà. Open Project 365 raccoglie i **costi effettivi** da due fonti — ore approvate e consumi di materiale — e li combina con il **costo impegnato** degli ordini aperti e con il **budget** della WBS. Il **Cost Summary** (riepilogo costi) nel form del progetto trasforma questi numeri in una previsione: la stima a finire e il margine atteso.
+Una commessa è redditizia solo se sai, in ogni momento, quanto è costata davvero e quanto costerà. ProjectIQ raccoglie i **costi effettivi** da due fonti — ore approvate e consumi di materiale — e li combina con il **costo impegnato** degli ordini aperti e con il **budget** della WBS. Il **Cost Summary** (riepilogo costi) nel form del progetto trasforma questi numeri in una previsione: la stima a finire e il margine atteso.
 
 Questo manuale spiega come registrare i materiali, come si formano costi effettivi e impegnati e come leggere il riepilogo costi.
 
@@ -82,7 +82,7 @@ La proposta avviene solo quando l'articolo viene scelto o cambiato; le modifiche
 
 ### Materiale dalle entrate merci
 
-Quando un buyer registra un'entrata merci su un ordine d'acquisto, Open Project 365 crea un consumo per ogni riga ricevuta, al **prezzo d'ordine**, sul progetto dell'ordine e sul nodo WBS della riga d'ordine. Questi record sono marcati come provenienti dall'entrata merci e **non possono essere modificati né eliminati direttamente**: "This material usage comes from a goods receipt: cancel the receipt to change it." Per correggerli, annulla l'entrata merci e registrala di nuovo.
+Quando un buyer registra un'entrata merci su un ordine d'acquisto, ProjectIQ crea un consumo per ogni riga ricevuta, al **prezzo d'ordine**, sul progetto dell'ordine e sul nodo WBS della riga d'ordine. Questi record sono marcati come provenienti dall'entrata merci e **non possono essere modificati né eliminati direttamente**: "This material usage comes from a goods receipt: cancel the receipt to change it." Per correggerli, annulla l'entrata merci e registrala di nuovo.
 
 Quindi **non** devi registrare due volte il materiale acquistato: ricevilo, e diventa costo effettivo automaticamente. Registra a mano solo il materiale preso dal magazzino o acquistato fuori dagli ordini.
 

@@ -1,4 +1,4 @@
-"""Large English test dataset for Open Project 365 (Test environment): 50 customers, 30 suppliers with contacts and
+"""Large English test dataset for ProjectIQ (Test environment): 50 customers, 30 suppliers with contacts and
 compliance documents, 54 items with supplier prices, 18 resources with costs and absences, 23 projects of eleven types
 in every status (Offer, In Progress, Suspended, Closed) with WBS, dependencies, allocations, baselines, time entries in
 every status, material usage, purchasing (requests, RFQs, orders, receipts, supplier invoices) and a project timeline

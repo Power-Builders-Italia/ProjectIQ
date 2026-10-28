@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/projects-and-team.md) · [Italiano](../it/projects-and-team.md) · [Français](../fr/projects-and-team.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Das **Projekt** ist das Herzstück von Open Project 365. Alles andere — der Projektstrukturplan, der Terminplan, die Stunden, das Material, die Einkäufe — gehört zu einem Projekt, und jede Kennzahl, die Sie betrachten (Budget, Ist-Kosten, Obligo, Fortschritt, Marge), ist letztlich eine Kennzahl eines Projekts. Dieses Handbuch erklärt, wie Sie ein Projekt anlegen und durch seinen Lebenszyklus führen, was jedes Feld bedeutet, welche Kennzahlen für Sie berechnet werden und wie das **Projektteam** bestimmt, wer was sehen und tun darf.
+Das **Projekt** ist das Herzstück von ProjectIQ. Alles andere — der Projektstrukturplan, der Terminplan, die Stunden, das Material, die Einkäufe — gehört zu einem Projekt, und jede Kennzahl, die Sie betrachten (Budget, Ist-Kosten, Obligo, Fortschritt, Marge), ist letztlich eine Kennzahl eines Projekts. Dieses Handbuch erklärt, wie Sie ein Projekt anlegen und durch seinen Lebenszyklus führen, was jedes Feld bedeutet, welche Kennzahlen für Sie berechnet werden und wie das **Projektteam** bestimmt, wer was sehen und tun darf.
 
 > Feld- und Schaltflächennamen stehen auf Englisch, so wie sie auf dem Bildschirm erscheinen.
 
@@ -153,7 +153,7 @@ Alle Mitglieder aller Projekte sind für Administratoren außerdem unter **Setti
 
 ### Wer ein Projekt sieht
 
-Open Project 365 verwendet **Zugriffsteams** (Access Teams) von Dataverse: Jedes Projekt hat bis zu drei verborgene Teams, eines pro Projektrolle, und das Hinzufügen eines Mitglieds zum Projekt fügt den Benutzer dem passenden Team hinzu.
+ProjectIQ verwendet **Zugriffsteams** (Access Teams) von Dataverse: Jedes Projekt hat bis zu drei verborgene Teams, eines pro Projektrolle, und das Hinzufügen eines Mitglieds zum Projekt fügt den Benutzer dem passenden Team hinzu.
 
 ```mermaid
 flowchart LR

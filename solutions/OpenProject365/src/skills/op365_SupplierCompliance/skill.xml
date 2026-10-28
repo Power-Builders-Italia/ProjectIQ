@@ -14,11 +14,11 @@ Use this skill for "suppliers with expired DURC", "fornitori con documenti in sc
 A table of suppliers with expired and expiring documents (document, number, expiry date, days left), sorted by expiry date. Blocked suppliers are listed separately.
 
 ## Rules
-- Read-only: to upload a renewed document, the user opens the supplier in the Open Project 365 app, or the supplier uses the supplier portal.</body>
-  <description>Read-only check of supplier compliance documents (DURC, certifications, insurance) in Open Project 365. Use when the user asks which suppliers have expired or expiring documents, or whether a supplier can be used.</description>
+- Read-only: to upload a renewed document, the user opens the supplier in the ProjectIQ app, or the supplier uses the supplier portal.</body>
+  <description>Read-only check of supplier compliance documents (DURC, certifications, insurance) in ProjectIQ. Use when the user asks which suppliers have expired or expiring documents, or whether a supplier can be used.</description>
   <iscustomizable>1</iscustomizable>
   <ishidden>0</ishidden>
   <ispersonal>0</ispersonal>
-  <name>Open Project 365 - Supplier compliance</name>
+  <name>ProjectIQ - Supplier compliance</name>
   <origin>0</origin>
 </skill>

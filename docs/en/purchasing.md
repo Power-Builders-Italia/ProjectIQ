@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/purchasing.md) · [Français](../fr/purchasing.md) · [Deutsch](../de/purchasing.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-Purchases are where job costs are won or lost: buying the right thing, at the right price, from a reliable supplier, without exceeding the budget. Open Project 365 covers the whole purchasing chain inside the project: a team member **requests** what is needed, the project manager (and above a threshold the purchasing approver) **approves**, the buyer asks suppliers for **quotations** and compares them, the winning quote becomes a **purchase order**, the supplier confirms it (also from the [supplier portal](supplier-portal.md)), goods are **received** and become actual cost, and the **supplier invoice** is checked and approved.
+Purchases are where job costs are won or lost: buying the right thing, at the right price, from a reliable supplier, without exceeding the budget. ProjectIQ covers the whole purchasing chain inside the project: a team member **requests** what is needed, the project manager (and above a threshold the purchasing approver) **approves**, the buyer asks suppliers for **quotations** and compares them, the winning quote becomes a **purchase order**, the supplier confirms it (also from the [supplier portal](supplier-portal.md)), goods are **received** and become actual cost, and the **supplier invoice** is checked and approved.
 
 Every step updates the project figures: **committed cost** when an order is sent, **actual cost** when goods are received, **spend** per supplier and item.
 

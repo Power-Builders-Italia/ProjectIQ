@@ -1,4 +1,4 @@
-# Contributing to Open Project 365
+# Contributing to ProjectIQ
 
 ## Documentation is part of every change
 

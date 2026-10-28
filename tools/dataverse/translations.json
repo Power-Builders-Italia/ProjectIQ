@@ -234,15 +234,15 @@
 "Volet de référence du compte",
 "Pannello di riferimento account"
 ],
-"Account as customer (Open Project 365)": [
-"Firma als Kunde (Open Project 365)",
-"Compte client (Open Project 365)",
-"Account come cliente (Open Project 365)"
+"Account as customer (ProjectIQ)": [
+"Firma als Kunde (ProjectIQ)",
+"Compte client (ProjectIQ)",
+"Account come cliente (ProjectIQ)"
 ],
-"Account as supplier (Open Project 365)": [
-"Firma als Lieferant (Open Project 365)",
-"Compte fournisseur (Open Project 365)",
-"Account come fornitore (Open Project 365)"
+"Account as supplier (ProjectIQ)": [
+"Firma als Lieferant (ProjectIQ)",
+"Compte fournisseur (ProjectIQ)",
+"Account come fornitore (ProjectIQ)"
 ],
 "Account for Interactive experience": [
 "Firma für interaktive Funktionen",
@@ -5509,10 +5509,10 @@
 "Ouvrir la boîte aux lettres",
 "Apri cassetta postale"
 ],
-"Open Project 365": [
-"Open Project 365",
-"Open Project 365",
-"Open Project 365"
+"ProjectIQ": [
+"ProjectIQ",
+"ProjectIQ",
+"ProjectIQ"
 ],
 "Open Purchase Orders": [
 "Offene Bestellungen",
@@ -6399,10 +6399,10 @@
 "Copie du profil public",
 "Copia profilo pubblico"
 ],
-"Publisher of Open Project 365": [
-"Herausgeber von Open Project 365",
-"Éditeur d'Open Project 365",
-"Autore di Open Project 365"
+"Publisher of ProjectIQ": [
+"Herausgeber von ProjectIQ",
+"Éditeur de ProjectIQ",
+"Autore di ProjectIQ"
 ],
 "Purchase Order": [
 "Bestellung",

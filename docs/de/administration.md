@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/administration.md) · [Italiano](../it/administration.md) · [Français](../fr/administration.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Dieses Handbuch richtet sich an die Personen, die Open Project 365 in einem Unternehmen einrichten und betreiben: fachliche Administratoren, IT-Mitarbeiter und den Power-Platform-Administrator. Es erklärt, wie Sie Personen Zugriff geben, wie das Sicherheitsmodell funktioniert, was die Unternehmenseinstellungen bewirken, welche Automatisierungen im Hintergrund laufen und was nach einem Update zu prüfen ist. Technische Themen (Build, Bereitstellung, Dataverse-Schema) werden in [Development environment setup](../dev-environment.md) und [Data model](../data-model.md) behandelt (auf Englisch).
+Dieses Handbuch richtet sich an die Personen, die ProjectIQ in einem Unternehmen einrichten und betreiben: fachliche Administratoren, IT-Mitarbeiter und den Power-Platform-Administrator. Es erklärt, wie Sie Personen Zugriff geben, wie das Sicherheitsmodell funktioniert, was die Unternehmenseinstellungen bewirken, welche Automatisierungen im Hintergrund laufen und was nach einem Update zu prüfen ist. Technische Themen (Build, Bereitstellung, Dataverse-Schema) werden in [Development environment setup](../dev-environment.md) und [Data model](../data-model.md) behandelt (auf Englisch).
 
 > Feld- und Schaltflächennamen stehen auf Englisch, so wie sie auf dem Bildschirm erscheinen.
 
@@ -11,7 +11,7 @@ Dieses Handbuch richtet sich an die Personen, die Open Project 365 in einem Unte
 
 ```mermaid
 flowchart TD
-    A[1. Umgebung mit der<br/>Lösung Open Project 365] --> B[2. Benutzer: Basic User +<br/>OP365-Rolle]
+    A[1. Umgebung mit der<br/>Lösung ProjectIQ] --> B[2. Benutzer: Basic User +<br/>OP365-Rolle]
     B --> C[3. Profil Cost Visibility<br/>für Manager und Controller]
     C --> D[4. Umgebungsvariablen: Zeitgenehmigung,<br/>Einkaufsschwelle und Genehmiger]
     D --> E[5. Stammdaten: Kunden,<br/>Lieferanten, Artikel, Ressourcen]
@@ -26,7 +26,7 @@ flowchart TD
 | 1 | Power Platform Admin Center | Eine Dataverse-Umgebung pro Unternehmen. Die Lösung wird von der IT installiert (siehe [Entwicklungsumgebung](../dev-environment.md)) |
 | 2 | Power Platform Admin Center → Users | [Sicherheitsrollen](#sicherheitsrollen) |
 | 3 | Power Platform Admin Center → Column security profiles | [Kostensichtbarkeit](#kostensichtbarkeit) |
-| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Unternehmenseinstellungen](#unternehmenseinstellungen) |
+| 4 | Power Apps → Solutions → ProjectIQ → Environment variables | [Unternehmenseinstellungen](#unternehmenseinstellungen) |
 | 5 | Master Data | [Stammdaten](master-data.md) |
 | 6 | Master Data → Resources | [Stammdaten](master-data.md#ressourcen) |
 | 7 | Projects → Planning → Absences (ohne Ressource) | [Stammdaten](master-data.md#abwesenheiten-und-betriebsschließungen) |
@@ -39,14 +39,14 @@ Jeder interne Benutzer braucht eine **Power Apps Premium**-Lizenz (oder eine gle
 
 ## Sicherheitsrollen
 
-Die Rollen von Open Project 365 sind **additiv**: Jeder interne Benutzer braucht die Standardrolle **Basic User** **plus** eine Rolle von Open Project 365.
+Die Rollen von ProjectIQ sind **additiv**: Jeder interne Benutzer braucht die Standardrolle **Basic User** **plus** eine Rolle von ProjectIQ.
 
 | Rolle | Für | Zugriff |
 |---|---|---|
-| **OP365 Administrator** | Fachliche Administratoren, Controller, Backoffice, Einkaufsgenehmiger | Organisationsweit: Anlegen, Lesen, Schreiben, Löschen, Anfügen, Zuweisen und Freigeben bei allen Tabellen von Open Project 365, Kunden, Lieferanten und Kontakten. Sieht jedes Projekt. Kann Stunden und Anforderungen in jedem Projekt genehmigen, über Lieferantenrechnungen entscheiden, Stunden für andere einreichen |
+| **OP365 Administrator** | Fachliche Administratoren, Controller, Backoffice, Einkaufsgenehmiger | Organisationsweit: Anlegen, Lesen, Schreiben, Löschen, Anfügen, Zuweisen und Freigeben bei allen Tabellen von ProjectIQ, Kunden, Lieferanten und Kontakten. Sieht jedes Projekt. Kann Stunden und Anforderungen in jedem Projekt genehmigen, über Lieferantenrechnungen entscheiden, Stunden für andere einreichen |
 | **OP365 User** | Projektleiter, Teammitglieder, Einkäufer | Liest Stammdaten organisationsweit; legt eigene Datensätze an und verwaltet sie; sieht die Projekte, deren **Besitzer** er ist oder in denen er **Mitglied** ist, mit den Rechten seiner Projektrolle (siehe [Projekte und Team](projects-and-team.md#das-projektteam)). Lieferantenrechnungen: nur lesen |
 
-Die Standardrolle **System Administrator** wird von allen Regeln von Open Project 365 wie OP365 Administrator behandelt.
+Die Standardrolle **System Administrator** wird von allen Regeln von ProjectIQ wie OP365 Administrator behandelt.
 
 ### Was ein OP365 User je nach Projektrolle tun kann
 
@@ -86,7 +86,7 @@ Weisen Sie das Profil (Power Platform Admin Center → *Settings* → *Users + p
 
 ## Unternehmenseinstellungen
 
-Die unternehmensweiten Schalter sind **Umgebungsvariablen** (environment variables) der Lösung Open Project 365. Jede Umgebung (Dev, Test, Produktion) hat eigene Werte, sodass eine Testumgebung zum Beispiel die Zeitgenehmigung überspringen kann, ohne die Produktion zu berühren. Sie sind nicht in der App: Ein Power Platform-Administrator oder ein Maker der Umgebung ändert sie.
+Die unternehmensweiten Schalter sind **Umgebungsvariablen** (environment variables) der Lösung ProjectIQ. Jede Umgebung (Dev, Test, Produktion) hat eigene Werte, sodass eine Testumgebung zum Beispiel die Zeitgenehmigung überspringen kann, ohne die Produktion zu berühren. Sie sind nicht in der App: Ein Power Platform-Administrator oder ein Maker der Umgebung ändert sie.
 
 ```mermaid
 flowchart LR
@@ -97,7 +97,7 @@ flowchart LR
 
 So ändern Sie einen Wert:
 
-1. Öffnen Sie [Power Apps](https://make.powerapps.com), wählen Sie die Umgebung, dann **Solutions** → **Open Project 365** (oder **Default Solution**) → **Environment variables**.
+1. Öffnen Sie [Power Apps](https://make.powerapps.com), wählen Sie die Umgebung, dann **Solutions** → **ProjectIQ** (oder **Default Solution**) → **Environment variables**.
 2. Öffnen Sie die Variable und klicken Sie unter **Current Value** auf **+ New value** (oder bearbeiten Sie den vorhandenen Wert). Ändern Sie nicht den **Default Value** einer verwalteten Lösung.
 3. **Save**. Die Änderung gilt ab der nächsten Einreichung; ein Veröffentlichen ist nicht nötig.
 
@@ -120,11 +120,11 @@ In Test kann die IT die Werte auch bei der Bereitstellung über die Deployment S
 
 ## Automatisierungen im Hintergrund
 
-Open Project 365 hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Nur eine Automatisierung ist zeitgesteuert.
+ProjectIQ hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Nur eine Automatisierung ist zeitgesteuert.
 
 ### Tägliche Stundenerinnerung
 
-Die **Daily time reminder** ist ein Power-Automate-Cloud-Flow in der Lösung Open Project 365. Von **Montag bis Freitag um 17:30** (Zeitzone W. Europe) ruft er die Aktion *op365_SendTimeReminders* auf, die jeder aktiven Ressource mit Benutzer, die für den Tag weniger Stunden als erwartet erfasst hat, die In-App-Benachrichtigung „Record your hours“ sendet (siehe [Zeiterfassung](time-tracking.md#die-tägliche-erinnerung)). An Betriebsschließungen werden keine Erinnerungen gesendet.
+Die **Daily time reminder** ist ein Power-Automate-Cloud-Flow in der Lösung ProjectIQ. Von **Montag bis Freitag um 17:30** (Zeitzone W. Europe) ruft er die Aktion *op365_SendTimeReminders* auf, die jeder aktiven Ressource mit Benutzer, die für den Tag weniger Stunden als erwartet erfasst hat, die In-App-Benachrichtigung „Record your hours“ sendet (siehe [Zeiterfassung](time-tracking.md#die-tägliche-erinnerung)). An Betriebsschließungen werden keine Erinnerungen gesendet.
 
 Der Flow verwendet den Verbindungsverweis **op365_dataverse** (Microsoft Dataverse). Ein Dienstprinzipal kann keine Power-Automate-Verbindungen besitzen, daher muss ein **Benutzer**:
 
@@ -150,7 +150,7 @@ In-App-Benachrichtigungen sind in neuen Umgebungen standardmäßig aktiviert. Be
 
 ## Überwachung und Historie
 
-Die Überwachung (Auditing) ist auf den Tabellen von Open Project 365 aktiviert: Sobald sie auch auf Umgebungsebene eingeschaltet ist (Power Platform Admin Center → *Settings* → *Audit and logs*), wird jede Änderung aufgezeichnet und ist im **Audit history** jedes Datensatzes sichtbar (Related → Audit history). Die Zeitachse jedes Datensatzes bewahrt Notizen, Erwähnungen und Anhänge.
+Die Überwachung (Auditing) ist auf den Tabellen von ProjectIQ aktiviert: Sobald sie auch auf Umgebungsebene eingeschaltet ist (Power Platform Admin Center → *Settings* → *Audit and logs*), wird jede Änderung aufgezeichnet und ist im **Audit history** jedes Datensatzes sichtbar (Related → Audit history). Die Zeitachse jedes Datensatzes bewahrt Notizen, Erwähnungen und Anhänge.
 
 ## Nach einem Update der Lösung
 

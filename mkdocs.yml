@@ -1,11 +1,11 @@
 # Documentation website, published on GitHub Pages by .github/workflows/pages.yml.
 # The sources are the Markdown files in the repository: tools/docs/build_site.py stages them in build/site-src.
 # Local preview: python3 tools/docs/build_site.py && mkdocs serve
-site_name: Open Project 365
+site_name: ProjectIQ
 site_description: Project management on Microsoft Dataverse and Power Apps - user manuals in English, Italian, French and German
-site_url: https://power-builders-italia.github.io/open-project-365/
-repo_url: https://github.com/Power-Builders-Italia/open-project-365
-repo_name: Power-Builders-Italia/open-project-365
+site_url: https://power-builders-italia.github.io/projectiq/
+repo_url: https://github.com/Power-Builders-Italia/projectiq
+repo_name: Power-Builders-Italia/projectiq
 edit_uri: edit/main/docs/
 copyright: Copyright 2026 Power Builders Italia - Apache License 2.0
 docs_dir: build/site-src

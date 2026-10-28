@@ -1,6 +1,6 @@
 # Semantic model glossary
 
-Business terms of Open Project 365 for the Dataverse semantic model (Power Apps → **Semantic model** → `M365_Primary_model_op365_OpenProject365` → **Glossary** → **Add item**).
+Business terms of ProjectIQ for the Dataverse semantic model (Power Apps → **Semantic model** → `M365_Primary_model_op365_OpenProject365` → **Glossary** → **Add item**).
 The glossary has no solution support: enter these entries in every environment, then select **Regenerate** (see [Copilot and Cowork](../docs/en/copilot.md#semantic-model-glossary)).
 
 The app is in English and most users write in Italian, so every term lists the Italian words as synonyms.

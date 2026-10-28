@@ -46,7 +46,7 @@ namespace OpenProject365.Plugins
                 ["teamtemplatename"] = t.Name,
                 ["objecttypecode"] = otc,
                 ["defaultaccessrightsmask"] = t.Mask,
-                ["description"] = "Created by Open Project 365 for project members",
+                ["description"] = "Created by ProjectIQ for project members",
             });
         }
 

@@ -1,8 +1,10 @@
-# Open Project 365
+# ProjectIQ
+
+*Formerly Open Project 365.*
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-**Open Project 365** is a project and job management solution for companies that work on orders, built as a **Power Apps model-driven app** on **Microsoft Dataverse**. It follows every job from the offer to the closing: work breakdown structure and budget, Gantt planning with critical path and baselines, team and resource load, weekly timesheets with approval, materials, purchasing (requests, RFQs, orders, goods receipts, supplier invoices) and a **supplier portal** on Power Pages. Every figure — budget, actual cost, committed cost, progress, estimate at completion and margin — is updated in real time on the project.
+**ProjectIQ** is a project and job management solution for companies that work on orders, built as a **Power Apps model-driven app** on **Microsoft Dataverse**. It follows every job from the offer to the closing: work breakdown structure and budget, Gantt planning with critical path and baselines, team and resource load, weekly timesheets with approval, materials, purchasing (requests, RFQs, orders, goods receipts, supplier invoices) and a **supplier portal** on Power Pages. Every figure — budget, actual cost, committed cost, progress, estimate at completion and margin — is updated in real time on the project.
 
 - Single-tenant: one Dataverse environment per customer company; data is never shared between companies.
 - Licences: Power Apps Premium for internal users; suppliers use the Power Pages portal.
@@ -19,7 +21,7 @@ Construction and installation companies, engineering firms, workshops and servic
 - suppliers answer requests for quotation by e-mail in different formats, so comparing them is manual and error-prone;
 - the project manager discovers the loss of margin only when the job is closed.
 
-Open Project 365 puts the whole life cycle of the job in one place, on the Microsoft 365 / Power Platform stack the company already uses, with security by project team, standard auditing and in-app notifications.
+ProjectIQ puts the whole life cycle of the job in one place, on the Microsoft 365 / Power Platform stack the company already uses, with security by project team, standard auditing and in-app notifications.
 
 ```mermaid
 flowchart LR
@@ -36,7 +38,7 @@ flowchart LR
 
 ## User manuals
 
-The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages, also as a website at <https://power-builders-italia.github.io/open-project-365/>, and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
+The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages, also as a website at <https://power-builders-italia.github.io/projectiq/>, and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
 
 | Manual | English | Italiano | Français | Deutsch |
 |---|---|---|---|---|

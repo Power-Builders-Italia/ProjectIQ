@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/master-data.md) · [Italiano](../it/master-data.md) · [Français](../fr/master-data.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Stammdaten sind die Informationen, auf die sich jeder andere Teil von Open Project 365 stützt: die Unternehmen, für die Sie arbeiten und bei denen Sie einkaufen, die Personen, mit denen Sie sprechen, die Artikel, die Sie einkaufen und verbrauchen, und die Ressourcen, deren Stunden Sie planen und erfassen. Saubere und vollständige Stammdaten machen Kosten, Einkauf und Planung verlässlich. Dieses Handbuch erklärt jeden Datensatztyp, wofür jedes Feld dient und welche Regeln die Anwendung automatisch anwendet.
+Stammdaten sind die Informationen, auf die sich jeder andere Teil von ProjectIQ stützt: die Unternehmen, für die Sie arbeiten und bei denen Sie einkaufen, die Personen, mit denen Sie sprechen, die Artikel, die Sie einkaufen und verbrauchen, und die Ressourcen, deren Stunden Sie planen und erfassen. Saubere und vollständige Stammdaten machen Kosten, Einkauf und Planung verlässlich. Dieses Handbuch erklärt jeden Datensatztyp, wofür jedes Feld dient und welche Regeln die Anwendung automatisch anwendet.
 
 > Feld- und Schaltflächennamen stehen auf Englisch, so wie sie auf dem Bildschirm erscheinen.
 
@@ -106,7 +106,7 @@ Legen Sie Dokumente über die Registerkarte Documents des Lieferanten an (**+ Ne
 
 ## Kontakte
 
-Kontakte sind die Standardkontakte von Dataverse: die Personen, die für Ihre Kunden und Lieferanten arbeiten. Open Project 365 fügt ein Feld hinzu:
+Kontakte sind die Standardkontakte von Dataverse: die Personen, die für Ihre Kunden und Lieferanten arbeiten. ProjectIQ fügt ein Feld hinzu:
 
 - **Is Decision Maker** (ist Entscheider): Haken Sie es bei den Personen an, die entscheiden (zum Beispiel wer das Angebot oder die Bestellung unterschreibt).
 

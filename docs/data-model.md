@@ -252,7 +252,7 @@ OP365 roles are additive: every internal user also needs the standard **Basic Us
 
 ## App
 
-Model-driven app **Open Project 365** (`op365_OpenProject365`).
+Model-driven app **ProjectIQ** (`op365_OpenProject365`).
 
 ```mermaid
 flowchart LR

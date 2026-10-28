@@ -3,7 +3,7 @@
 > **Langue :** [English](../en/resource-load.md) · [Italiano](../it/resource-load.md) · Français · [Deutsch](../de/resource-load.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Savoir *ce qu'il* faut faire, c'est la moitié de la planification ; l'autre moitié, c'est savoir *qui* le fera et s'il en a le temps. Open Project 365 répond à cette seconde question avec les **affectations** (heures d'une ressource prévues sur un nœud WBS) et le tableau de bord **Resource Load**, une carte de chaleur qui compare, semaine par semaine, les heures affectées à chaque ressource sur tous les projets avec les heures dont cette ressource dispose réellement.
+Savoir *ce qu'il* faut faire, c'est la moitié de la planification ; l'autre moitié, c'est savoir *qui* le fera et s'il en a le temps. ProjectIQ répond à cette seconde question avec les **affectations** (heures d'une ressource prévues sur un nœud WBS) et le tableau de bord **Resource Load**, une carte de chaleur qui compare, semaine par semaine, les heures affectées à chaque ressource sur tous les projets avec les heures dont cette ressource dispose réellement.
 
 Ce manuel explique comment affecter les ressources, comment la capacité est calculée, comment lire la carte de chaleur et comment résoudre les surcharges.
 

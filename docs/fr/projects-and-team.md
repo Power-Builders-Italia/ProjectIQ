@@ -3,7 +3,7 @@
 > **Langue :** [English](../en/projects-and-team.md) · [Italiano](../it/projects-and-team.md) · Français · [Deutsch](../de/projects-and-team.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Le **projet** (l'affaire) est le cœur d'Open Project 365. Tout le reste — l'organigramme des tâches, le planning, les heures, les matériaux, les achats — appartient à un projet, et chaque chiffre que vous consultez (budget, coût réel, coût engagé, avancement, marge) est finalement un chiffre de projet. Ce manuel explique comment créer et conduire un projet tout au long de son cycle de vie, ce que signifie chaque champ, quelles valeurs sont calculées pour vous et comment l'**équipe projet** détermine qui peut voir et faire quoi.
+Le **projet** (l'affaire) est le cœur de ProjectIQ. Tout le reste — l'organigramme des tâches, le planning, les heures, les matériaux, les achats — appartient à un projet, et chaque chiffre que vous consultez (budget, coût réel, coût engagé, avancement, marge) est finalement un chiffre de projet. Ce manuel explique comment créer et conduire un projet tout au long de son cycle de vie, ce que signifie chaque champ, quelles valeurs sont calculées pour vous et comment l'**équipe projet** détermine qui peut voir et faire quoi.
 
 Les projets se trouvent dans **Projects → Work → Projects**.
 
@@ -153,7 +153,7 @@ Tous les membres de tous les projets sont aussi visibles par les administrateurs
 
 ### Qui voit un projet
 
-Open Project 365 utilise les **équipes d'accès** (access teams) de Dataverse : chaque projet a jusqu'à trois équipes cachées, une par rôle projet, et ajouter un membre au projet ajoute l'utilisateur à l'équipe correspondante.
+ProjectIQ utilise les **équipes d'accès** (access teams) de Dataverse : chaque projet a jusqu'à trois équipes cachées, une par rôle projet, et ajouter un membre au projet ajoute l'utilisateur à l'équipe correspondante.
 
 ```mermaid
 flowchart LR

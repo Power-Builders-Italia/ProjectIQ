@@ -1,13 +1,13 @@
-# Getting started with Open Project 365
+# Getting started with ProjectIQ
 
 > **Language:** English · [Italiano](../it/getting-started.md) · [Français](../fr/getting-started.md) · [Deutsch](../de/getting-started.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-This guide is the first thing to read if you are new to Open Project 365. It explains what the application is for, how its pieces fit together, how to find your way around the screens, and which manual to open next for each task. The other manuals go into each functional area in depth; this one gives you the map.
+This guide is the first thing to read if you are new to ProjectIQ. It explains what the application is for, how its pieces fit together, how to find your way around the screens, and which manual to open next for each task. The other manuals go into each functional area in depth; this one gives you the map.
 
-## What Open Project 365 does
+## What ProjectIQ does
 
-Open Project 365 is a project and job management application for companies that work on orders ("commesse"): construction and installation companies, engineering firms, workshops, service companies and any business that needs to know, for every job, **what was planned, what has been spent and what is still committed**.
+ProjectIQ is a project and job management application for companies that work on orders ("commesse"): construction and installation companies, engineering firms, workshops, service companies and any business that needs to know, for every job, **what was planned, what has been spent and what is still committed**.
 
 It runs inside Microsoft Power Apps as a model-driven app on Microsoft Dataverse. In practice this means:
 
@@ -51,7 +51,7 @@ flowchart LR
 
 ## Signing in
 
-1. Open the link your administrator gave you (it looks like `https://<company>.crm4.dynamics.com/main.aspx?appid=...`), or go to [make.powerapps.com](https://make.powerapps.com) → **Apps** and choose **Open Project 365**.
+1. Open the link your administrator gave you (it looks like `https://<company>.crm4.dynamics.com/main.aspx?appid=...`), or go to [make.powerapps.com](https://make.powerapps.com) → **Apps** and choose **ProjectIQ**.
 2. Sign in with your company account.
 3. If you see "You don't have permissions", ask your administrator to give you the **Basic User** and **OP365 User** security roles (see [Administration](administration.md#security-roles)).
 
@@ -71,11 +71,11 @@ flowchart TB
     AS[Area switcher<br/>bottom-left] --- N
 ```
 
-- **Area switcher** (bottom of the left navigation): changes the group of pages shown. Open Project 365 has four areas: **Projects**, **Purchasing**, **Master Data** and **Settings**.
+- **Area switcher** (bottom of the left navigation): changes the group of pages shown. ProjectIQ has four areas: **Projects**, **Purchasing**, **Master Data** and **Settings**.
 - **Left navigation**: the pages of the current area.
 - **Views**: lists of records with columns, filters and sorting; switch view with the drop-down next to the view title.
 - **Forms**: one record, organised in tabs. Changes are saved with **Save** (or Ctrl+S); the form also auto-saves after a short time.
-- **Command bar**: the buttons above a view or form (New, Save, Delete, and the Open Project 365 commands such as **Submit**, **Approve**, **Save Baseline**).
+- **Command bar**: the buttons above a view or form (New, Save, Delete, and the ProjectIQ commands such as **Submit**, **Approve**, **Save Baseline**).
 - **Dashboards**: full pages with charts and interactive components (Timesheet, Time Approval, Resource Load, Spend).
 
 ### The navigation map
@@ -116,7 +116,7 @@ flowchart LR
 
 ## Notifications
 
-Open Project 365 uses the **in-app notifications** of model-driven apps: the bell icon in the top bar. You receive a notification when:
+ProjectIQ uses the **in-app notifications** of model-driven apps: the bell icon in the top bar. You receive a notification when:
 
 | Event | Who is notified |
 |---|---|
@@ -130,7 +130,7 @@ Notifications appear in the bell panel and, for a few seconds, as a toast in the
 
 ## Notes, mentions and timeline
 
-Most Open Project 365 records have a **Timeline**, usually in the right-hand column of the first tab of the form. You can:
+Most ProjectIQ records have a **Timeline**, usually in the right-hand column of the first tab of the form. You can:
 
 - add **notes**, with attachments;
 - **mention a colleague** by typing `@` followed by the name: the colleague is notified and the note becomes a lightweight comment thread;

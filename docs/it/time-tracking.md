@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/time-tracking.md) · Italiano · [Français](../fr/time-tracking.md) · [Deutsch](../de/time-tracking.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Le ore sono di solito il costo più grande di una commessa, e il più difficile da raccogliere in tempo. Open Project 365 trasforma la loro registrazione in una routine settimanale: ogni persona compila un **foglio ore settimanale** per progetto e attività, invia la settimana, e i project manager **approvano** o **respingono** le ore da un'unica schermata. Le ore approvate diventano **ore e costo effettivi** dei nodi WBS e del progetto, valorizzate al costo orario valido in quel giorno. Un **promemoria giornaliero** avvisa chi si è dimenticato di registrare.
+Le ore sono di solito il costo più grande di una commessa, e il più difficile da raccogliere in tempo. ProjectIQ trasforma la loro registrazione in una routine settimanale: ogni persona compila un **foglio ore settimanale** per progetto e attività, invia la settimana, e i project manager **approvano** o **respingono** le ore da un'unica schermata. Le ore approvate diventano **ore e costo effettivi** dei nodi WBS e del progetto, valorizzate al costo orario valido in quel giorno. Un **promemoria giornaliero** avvisa chi si è dimenticato di registrare.
 
 Questo manuale è per chi registra ore (parte 1), per i project manager che le approvano (parte 2) e per gli amministratori che configurano il processo (parte 3).
 
@@ -15,7 +15,7 @@ Questo manuale è per chi registra ore (parte 1), per i project manager che le a
 sequenceDiagram
     actor R as Risorsa (membro del team)
     participant TS as Foglio ore
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     actor PM as Project manager
     R->>TS: Inserisce ore per progetto/attivita e giorno
     TS->>OP: Registrazioni salvate come Draft
@@ -195,7 +195,7 @@ Esempio: il costo di Marco è 35,00 €/h fino al 30 giugno e 38,50 €/h dal 1 
 | **Weekly Hours**, **Working Days** | Resource | Ore attese (promemoria, totale settimanale) |
 | **Absences** | Planning → Absences | Riducono le ore attese; le chiusure aziendali sospendono i promemoria |
 | **Hourly Rate** sul Project Member | Progetto → Team | Ricavo delle ore del membro |
-| Flusso **Daily time reminder** | Power Automate, soluzione Open Project 365 | Invia i promemoria (lun–ven 17:30). Vedi [Amministrazione](administration.md#promemoria-giornaliero-delle-ore) |
+| Flusso **Daily time reminder** | Power Automate, soluzione ProjectIQ | Invia i promemoria (lun–ven 17:30). Vedi [Amministrazione](administration.md#promemoria-giornaliero-delle-ore) |
 
 Gli amministratori possono inviare registrazioni per conto di altri e approvare o respingere registrazioni di qualunque progetto.
 

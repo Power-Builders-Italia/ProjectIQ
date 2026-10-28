@@ -3,10 +3,10 @@
   <SolutionManifest>
     <UniqueName>OpenProject365SupplierPortal</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Open Project 365 Supplier Portal" languagecode="1033" />
+      <LocalizedName description="ProjectIQ Supplier Portal" languagecode="1033" />
     </LocalizedNames>
     <Descriptions>
-      <Description description="Power Pages supplier portal: RFQ responses and purchase order confirmation. Depends on Open Project 365." languagecode="1033" />
+      <Description description="Power Pages supplier portal: RFQ responses and purchase order confirmation. Depends on ProjectIQ." languagecode="1033" />
     </Descriptions>
     <Version>1.0.14.0</Version>
     <Managed>0</Managed>
@@ -19,10 +19,10 @@
         <LocalizedName description="Power Builders Italia" languagecode="1040" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Herausgeber von Open Project 365" languagecode="1031" />
-        <Description description="Publisher of Open Project 365" languagecode="1033" />
-        <Description description="Éditeur d'Open Project 365" languagecode="1036" />
-        <Description description="Autore di Open Project 365" languagecode="1040" />
+        <Description description="Herausgeber von ProjectIQ" languagecode="1031" />
+        <Description description="Publisher of ProjectIQ" languagecode="1033" />
+        <Description description="Éditeur de ProjectIQ" languagecode="1036" />
+        <Description description="Autore di ProjectIQ" languagecode="1040" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>

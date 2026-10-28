@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/materials-and-costs.md) · [Français](../fr/materials-and-costs.md) · [Deutsch](../de/materials-and-costs.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-A project is profitable only if you know, at any moment, how much it has really cost and how much it is going to cost. Open Project 365 collects **actual costs** from two sources — approved hours and material usage — and combines them with the **committed cost** of open purchase orders and with the **budget** of the WBS. The **Cost Summary** on the project form turns these figures into a forecast: the estimate at completion and the expected margin.
+A project is profitable only if you know, at any moment, how much it has really cost and how much it is going to cost. ProjectIQ collects **actual costs** from two sources — approved hours and material usage — and combines them with the **committed cost** of open purchase orders and with the **budget** of the WBS. The **Cost Summary** on the project form turns these figures into a forecast: the estimate at completion and the expected margin.
 
 This manual explains how to record materials, how actual and committed costs are built, and how to read the cost summary.
 
@@ -80,7 +80,7 @@ The proposal happens only when the item is chosen or changed; later changes of t
 
 ### Material from goods receipts
 
-When a buyer registers a goods receipt on a purchase order, Open Project 365 creates one material usage per received line, at the **order price**, on the order's project and on the WBS node of the order line. These records are marked as coming from the receipt and **cannot be changed or deleted directly**: "This material usage comes from a goods receipt: cancel the receipt to change it." To fix them, cancel the receipt and register it again.
+When a buyer registers a goods receipt on a purchase order, ProjectIQ creates one material usage per received line, at the **order price**, on the order's project and on the WBS node of the order line. These records are marked as coming from the receipt and **cannot be changed or deleted directly**: "This material usage comes from a goods receipt: cancel the receipt to change it." To fix them, cancel the receipt and register it again.
 
 So you do **not** need to record purchased material twice: receive it, and it becomes actual cost automatically. Record by hand only material taken from stock or bought outside purchase orders.
 

@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/time-tracking.md) · [Français](../fr/time-tracking.md) · [Deutsch](../de/time-tracking.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-Hours are usually the largest cost of a job, and the hardest to collect on time. Open Project 365 makes recording them a weekly routine: every person fills in a **weekly timesheet** by project and task, submits the week, and the project managers **approve** or **reject** the hours from a single screen. Approved hours become **actual hours and actual cost** of the WBS nodes and of the project, valued at the hourly cost that was valid on the day. A **daily reminder** tells people who forgot to record their hours.
+Hours are usually the largest cost of a job, and the hardest to collect on time. ProjectIQ makes recording them a weekly routine: every person fills in a **weekly timesheet** by project and task, submits the week, and the project managers **approve** or **reject** the hours from a single screen. Approved hours become **actual hours and actual cost** of the WBS nodes and of the project, valued at the hourly cost that was valid on the day. A **daily reminder** tells people who forgot to record their hours.
 
 This manual is for everybody who records hours (part 1), for the project managers who approve them (part 2), and for administrators who configure the process (part 3).
 
@@ -13,7 +13,7 @@ This manual is for everybody who records hours (part 1), for the project manager
 sequenceDiagram
     actor R as Resource (team member)
     participant TS as Timesheet
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     actor PM as Project manager
     R->>TS: Types hours by project/task and day
     TS->>OP: Time entries saved as Draft
@@ -193,7 +193,7 @@ Example: Marco's cost is 35.00 €/h until 30 June and 38.50 €/h from 1 July. 
 | **Weekly Hours**, **Working Days** | Resource | Expected hours (reminder, weekly total) |
 | **Absences** | Planning → Absences | Reduce expected hours; company closures suspend reminders |
 | **Hourly Rate** on Project Member | Project → Team | Revenue of the member's hours |
-| **Daily time reminder** flow | Power Automate, solution Open Project 365 | Sends the reminders (Mon–Fri 17:30). See [Administration](administration.md#daily-time-reminder) |
+| **Daily time reminder** flow | Power Automate, solution ProjectIQ | Sends the reminders (Mon–Fri 17:30). See [Administration](administration.md#daily-time-reminder) |
 
 Administrators can submit entries on behalf of others and approve or reject entries of any project.
 

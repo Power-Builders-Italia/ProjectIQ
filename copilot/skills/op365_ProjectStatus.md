@@ -1,11 +1,11 @@
 ---
-name: Open Project 365 - Project status
-description: Read-only health check of a project (commessa) in Open Project 365. Use when the user asks how a project is going, about budget, actual or committed cost, progress, or overruns of a project.
+name: ProjectIQ - Project status
+description: Read-only health check of a project (commessa) in ProjectIQ. Use when the user asks how a project is going, about budget, actual or committed cost, progress, or overruns of a project.
 ---
 # Project status (read-only)
 
 Use this skill when the user asks "how is project X going", "is project X over budget", "commessa X: a che punto siamo", or similar.
-Never create, update or delete records: Open Project 365 is read-only from Copilot. If the user asks to change something, tell them which screen of the Open Project 365 app to use.
+Never create, update or delete records: ProjectIQ is read-only from Copilot. If the user asks to change something, tell them which screen of the ProjectIQ app to use.
 
 ## Inputs
 - Project: name or code (for example PRJ-000123). If it is ambiguous, list the matching projects (`op365_project`: `op365_code`, `op365_name`, customer) and ask which one.

@@ -1,4 +1,4 @@
-"""Demo data for Open Project 365: customers, suppliers, items, resources, three projects with WBS, dependencies,
+"""Demo data for ProjectIQ: customers, suppliers, items, resources, three projects with WBS, dependencies,
 allocations, a baseline, time entries in every status, material usage and purchasing (requests, an awarded RFQ,
 orders, a partial goods receipt and a supplier invoice).
 
