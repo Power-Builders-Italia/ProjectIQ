@@ -230,38 +230,22 @@ jobs:
           publish-changes: true
           run-asynchronously: true
           max-async-wait-time: 60
-      - name: Publish customizations
-        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        uses: microsoft/powerplatform-actions/publish-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-
       # 3. Verify: Dev must now match main
+      # The imports and pac pcf push already publish; Dataverse can still be finishing that publish, and an export
+      # started meanwhile fails with "another [EntityCustomization] running", so the exports are retried.
       - name: Export Dev after import
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-name: OpenProject365
-          solution-output-file: out/verify/OpenProject365.zip
-          managed: false
-      - name: Export Dev portal after import
-        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-name: OpenProject365SupplierPortal
-          solution-output-file: out/verify/OpenProject365SupplierPortal.zip
-          managed: false
+        shell: bash
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          mkdir -p out/verify
+          for solution in OpenProject365 OpenProject365SupplierPortal; do
+            for attempt in 1 2 3 4 5 6 7 8 9 10; do
+              if pac solution export --name "$solution" --path "out/verify/$solution.zip" --managed false --overwrite; then break; fi
+              if [ "$attempt" = 10 ]; then echo "::error::Export of $solution failed 10 times"; exit 1; fi
+              echo "Dataverse busy, retrying in 60 s ($attempt/10)"; sleep 60
+            done
+          done
       - name: Unpack Dev after import
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
         uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
