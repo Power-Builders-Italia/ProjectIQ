@@ -5,12 +5,21 @@
     <entity Name="Contact">
       <LocalizedNames>
         <LocalizedName description="Contact" languagecode="1033" />
+        <LocalizedName description="Kontakt" languagecode="1031" />
+        <LocalizedName description="Contact" languagecode="1036" />
+        <LocalizedName description="Contatto" languagecode="1040" />
       </LocalizedNames>
       <LocalizedCollectionNames>
         <LocalizedCollectionName description="Contacts" languagecode="1033" />
+        <LocalizedCollectionName description="Kontakte" languagecode="1031" />
+        <LocalizedCollectionName description="Contacts" languagecode="1036" />
+        <LocalizedCollectionName description="Contatti" languagecode="1040" />
       </LocalizedCollectionNames>
       <Descriptions>
         <Description description="Person with whom a business unit has a relationship, such as customer, supplier, and colleague." languagecode="1033" />
+        <Description description="Person, mit der eine Unternehmenseinheit eine Geschäftsbeziehung unterhält, wie z.B. ein Kunde, ein Lieferant und ein Kollege." languagecode="1031" />
+        <Description description="Personne liée à une division, telle qu'un client, un fournisseur ou un collègue." languagecode="1036" />
+        <Description description="Persona con cui una Business Unit si relaziona, ad esempio un cliente, un fornitore o un collega." languagecode="1040" />
       </Descriptions>
       <attributes>
         <attribute PhysicalName="op365_IsDecisionMaker">
