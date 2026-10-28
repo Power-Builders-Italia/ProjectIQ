@@ -34,7 +34,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Before the first full run there is no tag dev-deployed, and a run started by a merge has no baseline input:
+  # skip it here, before the approval of environment dev is asked, instead of failing after it
+  precheck:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.check.outputs.go }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Tag or manual run
+        id: check
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] || git rev-parse -q --verify 'refs/tags/dev-deployed^{commit}' > /dev/null; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipped: no tag dev-deployed yet. Run the workflow by hand with the baseline input (the commit that matches Dev)."
+          fi
+
   deploy:
+    needs: precheck
+    if: needs.precheck.outputs.go == 'true'
     runs-on: windows-latest
     # GitHub environment dev: required reviewer, deployment branches main, PP_* secrets of the Dev application user
     environment: dev

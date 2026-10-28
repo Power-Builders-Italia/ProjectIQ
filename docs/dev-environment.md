@@ -199,7 +199,7 @@ pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solu
 | Input (Run workflow) | Use |
 |---|---|
 | `check-only` | only compare Dev with the repository (step 1, and the drift pull request if they differ); import nothing |
-| `baseline` | commit that matches Dev, needed on the first run, when the tag `dev-deployed` does not exist yet |
+| `baseline` | commit that matches Dev, needed on the first run, when the tag `dev-deployed` does not exist yet. Until then the runs started by a merge are skipped (no approval is asked) |
 | `skip-drift-check` | import without comparing: only to recover after a run that failed during the import |
 
 An unmanaged import does not delete components: to remove a component, delete it in Dev too, then export and merge as usual.
