@@ -4,10 +4,10 @@ name: deploy-dev
 # 1. Exports OpenProject365 and OpenProject365SupplierPortal from Dev and compares them with the repository at the baseline:
 #    the commit of the last successful deployment of GitHub environment dev-deployed (the last commit verified in Dev). A difference means Dev holds changes main does not know about:
 #    nothing is imported, the drift-pr job opens a draft pull request with the Dev export and the run fails.
-# 2. Otherwise imports both solutions packed from main (unmanaged), registers the plugins and pushes the PCF controls
-#    built from source, exports again to verify that Dev matches main, and the record job records this commit as a deployment
-#    of environment dev-deployed. A deployment, not a git tag: GITHUB_TOKEN may not create a ref to a commit that changes
-#    .github/workflows, by git push or by the API.
+# 2. Otherwise imports both solutions packed from main (unmanaged) with the PCF bundles built from source, registers the
+#    plugins built from source, exports again to verify that Dev matches main, and the record job records this commit as
+#    a deployment of environment dev-deployed. A deployment, not a git tag: GITHUB_TOKEN may not create a ref to a commit
+#    that changes .github/workflows, by git push or by the API.
 # Runs after every merge that touches the solution or the code, and waits for a reviewer of the GitHub environment dev.
 on:
   push:
@@ -180,6 +180,22 @@ jobs:
           foreach ($file in Get-ChildItem src/webresources -File) {
             $targets | Where-Object { $_.Name -eq $file.Name } | ForEach-Object { Copy-Item $file.FullName $_.FullName -Force }
           }
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: src/pcf/package-lock.json
+      # one import installs the controls: pac pcf push per control took ~30 min and failed now and then with
+      # "There is no active transaction"
+      - name: PCF bundles from source
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: bash
+        run: |
+          (cd src/pcf && npm ci && npm run build -- --buildMode production)
+          if ! python tools/alm/pcf_bundles.py src/pcf/out/controls solutions/OpenProject365/src/Controls; then
+            echo "::error::A PCF control differs from the solution beyond bundle.js: push it to Dev and export"; exit 1
+          fi
       - name: Pack main
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
         uses: microsoft/powerplatform-actions/pack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
@@ -224,27 +240,6 @@ jobs:
           dotnet build src/plugins/OpenProject365.Plugins -c Release
           python -m pip install --quiet requests
           python tools/dataverse/plugins.py
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: src/pcf/package-lock.json
-      - name: PCF controls from source
-        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        shell: bash
-        env:
-          PP_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
-          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
-          PP_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
-          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
-        run: |
-          (cd src/pcf && npm ci)
-          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          pac auth create --name dev --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
-            --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
-          tools/pcf/push.sh
       # pac rather than the import-solution action, so that a transient Dataverse failure (e.g. "no Sandbox Hosts
       # are currently available" from a plug-in running during the import) is retried instead of failing the run.
       - name: Import portal into Dev
@@ -256,9 +251,10 @@ jobs:
           PP_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
           PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
         run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
           export PATH="$PATH:$HOME/.dotnet/tools"
-          # the powerplatform-actions steps clear every pac profile when they end, so the one push.sh used is gone;
-          # this profile is used by the verification export as well
+          # the powerplatform-actions steps clear every pac profile when they end; this one is used by the
+          # verification export as well
           pac auth create --name verify --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
             --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
           for attempt in 1 2 3; do
@@ -268,7 +264,7 @@ jobs:
             echo "Import of OpenProject365SupplierPortal failed, retrying in 60 s ($attempt/3)"; sleep 60
           done
       # 3. Verify: Dev must now match main
-      # The imports and pac pcf push already publish; Dataverse can still be finishing that publish, and an export
+      # The imports already publish; Dataverse can still be finishing that publish, and an export
       # started meanwhile fails with "another [EntityCustomization] running", so the exports are retried.
       - name: Export Dev after import
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
