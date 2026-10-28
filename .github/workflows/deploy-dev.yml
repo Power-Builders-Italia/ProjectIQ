@@ -258,14 +258,22 @@ jobs:
       - name: Export Dev after import
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
         shell: bash
+        env:
+          PP_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+          PP_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
+          # the powerplatform-actions steps clear every pac profile when they end, so the one push.sh used is gone
+          pac auth create --name verify --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
+            --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
           mkdir -p out/verify
           for solution in OpenProject365 OpenProject365SupplierPortal; do
             for attempt in 1 2 3 4 5 6 7 8 9 10; do
               if pac solution export --name "$solution" --path "out/verify/$solution.zip" --managed false --overwrite; then break; fi
               if [ "$attempt" = 10 ]; then echo "::error::Export of $solution failed 10 times"; exit 1; fi
-              echo "Dataverse busy, retrying in 60 s ($attempt/10)"; sleep 60
+              echo "Export of $solution failed (Dataverse may still be busy), retrying in 60 s ($attempt/10)"; sleep 60
             done
           done
       - name: Unpack Dev after import
