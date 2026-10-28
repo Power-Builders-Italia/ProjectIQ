@@ -197,15 +197,15 @@ pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solu
 
 `deploy-dev` starts by itself after a merge that touches `solutions/`, `src/plugins/`, `src/pcf/` or `src/webresources/` (or Actions > deploy-dev > Run workflow). The Dev approver opens the run, **Review deployments**, selects `dev` and **Approve and deploy**. The workflow:
 
-1. exports both solutions from Dev and looks for changes `main` does not know about (`tools/alm/compare_solution.py`): a file of Dev counts only if it differs both from `main` (so it was not exported) and from the tag `dev-deployed`, the last commit installed in Dev (so Dev is not just behind). Customizing Dev, exporting and merging before the run is therefore fine. The solution version, the platform version attributes, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared;
+1. exports both solutions from Dev and looks for changes `main` does not know about (`tools/alm/compare_solution.py`): a file of Dev counts only if it differs both from `main` (so it was not exported) and from the baseline, the commit of the last successful deployment of environment `dev-deployed` (the last commit installed in Dev) (so Dev is not just behind). Customizing Dev, exporting and merging before the run is therefore fine. The solution version, the platform version attributes, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared;
 2. if there are such changes, imports nothing: it opens a draft pull request `Dev drift since <commit>` with only those files, from a branch `drift/<date>` started at `main`, and the run fails. Review it, merge it (or remove the changes from Dev) and run `deploy-dev` again;
 3. otherwise imports both solutions packed from `main` (unmanaged, Dev keeps its environment variables and connections), registers the plugins built from source with `plugins.py`, pushes the PCF controls built from source with `push.sh` and publishes;
-4. exports again and checks that Dev now matches `main`; then the `tag` job moves `dev-deployed` to the commit just installed.
+4. exports again and checks that Dev now matches `main`; then the `record` job records the commit just installed as a deployment of environment `dev-deployed` (Settings > Environments, or the Deployments page of the repository).
 
 | Input (Run workflow) | Use |
 |---|---|
 | `check-only` | only compare Dev with the repository (step 1, and the drift pull request if they differ); import nothing |
-| `baseline` | commit that matches Dev, needed on the first run, when the tag `dev-deployed` does not exist yet. Until then the runs started by a merge are skipped (no approval is asked) |
+| `baseline` | commit that matches Dev, needed on the first run, when environment `dev-deployed` has no deployment yet. Until then the runs started by a merge are skipped (no approval is asked) |
 | `skip-drift-check` | import without comparing: only to recover after a run that failed during the import |
 
 An unmanaged import does not delete components: to remove a component, delete it in Dev too, then export and merge as usual.
@@ -237,9 +237,9 @@ Never customize Test: an unmanaged layer on top of the managed solution hides th
 | *Set the TEST_ENVIRONMENT_URL secret of the GitHub environment test* | add the secret to the environment `test` |
 | *The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)* | add the id of the Dataverse connection in Test ([Cloud flows](#cloud-flows)) |
 | A change merged in `main` is missing in Test | it was not in Dev when the workflow ran: run `deploy-dev` (step 3b) and deploy again |
-| *No tag dev-deployed: run the workflow with the baseline input (the commit that matches Dev)* | first run of `deploy-dev`: Run workflow with `baseline` (and `check-only` to try it first) |
+| *No deployment of dev-deployed: run the workflow with the baseline input (the commit that matches Dev)* | first run of `deploy-dev`: Run workflow with `baseline` (and `check-only` to try it first) |
 | *Dev has changes not in main: see the draft pull request* | step 3b.2: review the drift pull request, merge it or remove the changes from Dev, run `deploy-dev` again |
-| *Dev does not match main after the import: see the summary* | a component was not applied, or Dev changed during the run: read the summary of the run, fix and run again; the tag did not move |
+| *Dev does not match main after the import: see the summary* | a component was not applied, or Dev changed during the run: read the summary of the run, fix and run again; the baseline did not move |
 | `deploy-dev` reports drift right after a run that failed during the import | the failed run left Dev half updated: run `deploy-dev` with `skip-drift-check` |
 | Test has a component that is not in the repository | it was in Dev but never exported: export it (step 2) or remove it from Dev, then deploy again |
 
@@ -260,7 +260,7 @@ The repository is public: environment URLs, tenant, app and connection ids and u
 - **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
   - Secrets: `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (the app registration, application user in Dev and Test), `TEST_ENVIRONMENT_URL` (target URL; the workflow has no input to override it, so a user who can run it cannot deploy to another environment), `OP365_DATAVERSE_CONNECTION_ID` (Dataverse connection id in Test, Power Apps > Connections > the connection's URL).
   - Optional secrets for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing secret is left out, so Test keeps its current value (or the default).
-- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` runs in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `tag` jobs need no secrets: they use `GITHUB_TOKEN` with write access in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
+- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` runs in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
 - **Environment `appsource`**: required reviewer the publisher only (`pborg-mc`), deployment branches limited to `main`; secrets `PP_*` as in `test` (only for the Solution Checker). `publish-appsource` runs in it and also refuses any other actor ([Publishing on Microsoft AppSource](appsource.md#build-the-package)).
 - **Environment `solution-checker`**: deployment branches limited to `main`, no reviewer; secrets `PP_*` for the Solution Checker (see [CI and Solution Checker](#ci-and-solution-checker)).
 - **Collaborators**: give the *Triage* role and let them open pull requests from forks; *Write* lets a user run `deploy-test` (still gated by the `test` reviewer).
