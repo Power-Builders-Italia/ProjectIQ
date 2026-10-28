@@ -342,7 +342,14 @@ jobs:
           while read -r change path; do
             path=${path%$'\r'}
             case $change in
-              A|M) mkdir -p "solutions/$(dirname "$path")"; cp "$EXPORT/$path" "solutions/$path" ;;
+              A|M)
+                mkdir -p "solutions/$(dirname "$path")"
+                cp "$EXPORT/$path" "solutions/$path"
+                # the export has Windows line endings: keep LF when main has the file with LF (or for a new text
+                # file), so that the diff shows only the real changes
+                if grep -Iq . "solutions/$path" && ! git show "HEAD:solutions/$path" 2>/dev/null | grep -q $'\r'; then
+                  sed -i 's/\r$//' "solutions/$path"
+                fi ;;
               D) git rm -q "solutions/$path" ;;
             esac
           done < "$FILES"
