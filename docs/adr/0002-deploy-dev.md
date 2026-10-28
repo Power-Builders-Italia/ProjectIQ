@@ -95,6 +95,7 @@ Output: exit code, the list of added, removed and changed files, and a short dif
 ## Consequences
 
 - Dev follows `main`: a merge in `main` reaches Dev after one approval, and `deploy-test` then exports what `main` contains.
+- `deploy-test` checks the same before exporting: it compares Dev with `main` (two-way, same rules) and deploys nothing if they differ, so neither unexported Dev changes nor merges still missing in Dev reach Test.
 - Customizations made in Dev and not exported can no longer be overwritten or slip into Test unseen: they block `deploy-dev` and become a pull request.
 - Developers keep working in Dev as today and still export and open pull requests; `deploy-dev` does not replace the daily loop.
 - An unmanaged import does not delete components removed from the repository: delete them in Dev as well (the drift check then passes, since the export matches).

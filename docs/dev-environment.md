@@ -146,7 +146,7 @@ flowchart LR
 | Test (`<test-org>.crm4.dynamics.com`, secret `TEST_ENVIRONMENT_URL`) | managed | only with the `deploy-test` workflow |
 | Build | — | not needed: CI only packs and checks |
 
-**The `deploy-test` workflow exports the solutions from Dev, not from the repository.** Test receives what Dev contains when the workflow runs. Before deploying, Dev and `main` must match: export every change made in Dev and merge it, and let `deploy-dev` install `main` into Dev (step 3b).
+**The `deploy-test` workflow exports the solutions from Dev, not from the repository.** Test receives what Dev contains when the workflow runs. Before deploying, Dev and `main` must match: export every change made in Dev and merge it, and let `deploy-dev` install `main` into Dev (step 3b). The workflow checks it first and deploys nothing if they differ.
 
 ### Roles
 
@@ -217,10 +217,11 @@ Before you start: Dev matches `main` (see above), and the secrets of the environ
 1. **Actions > deploy-test > Run workflow**, branch `main`, settings `test`.
 2. The test approver opens the run, **Review deployments**, selects `test` and **Approve and deploy**.
 3. The workflow, in order:
-   1. sets the version `1.0.<run number>.0` of `OpenProject365` in Dev and exports it as managed;
-   2. imports it into Test with *stage and upgrade* (components removed from the solution are deleted in Test), activates the plugin steps and applies `deployment/test.settings.json`: the `op365_dataverse` connection reference and the company settings come from the secrets of the environment `test` (an empty secret keeps the value in Test);
-   3. does the same for `OpenProject365SupplierPortal`, after the main solution;
-   4. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
+   1. exports both solutions unmanaged from Dev and compares them with `main` (`tools/alm/compare_solution.py`, same rules as `deploy-dev`: solution version, platform version attributes, Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared). Any difference stops the run before anything is changed in Dev or Test, and the summary of the run lists the files;
+   2. sets the version `1.0.<run number>.0` of `OpenProject365` in Dev and exports it as managed;
+   3. imports it into Test with *stage and upgrade* (components removed from the solution are deleted in Test), activates the plugin steps and applies `deployment/test.settings.json`: the `op365_dataverse` connection reference and the company settings come from the secrets of the environment `test` (an empty secret keeps the value in Test);
+   4. does the same for `OpenProject365SupplierPortal`, after the main solution;
+   5. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
 4. After the run:
    - check in Test that the plugin steps are enabled (an interrupted import can leave them disabled);
    - clear the portal cache (`/_services/about` > *Clear cache*) and sign in again;
@@ -236,7 +237,7 @@ Never customize Test: an unmanaged layer on top of the managed solution hides th
 | *Branch "…" is not allowed to deploy to test due to environment protection rules* | run the workflow from `main` |
 | *Set the TEST_ENVIRONMENT_URL secret of the GitHub environment test* | add the secret to the environment `test` |
 | *The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)* | add the id of the Dataverse connection in Test ([Cloud flows](#cloud-flows)) |
-| A change merged in `main` is missing in Test | it was not in Dev when the workflow ran: run `deploy-dev` (step 3b) and deploy again |
+| *Dev does not match main: run deploy-dev (it opens a drift pull request if Dev has changes not in main), then deploy again* | Dev has changes not exported, or `main` has merges not yet installed in Dev: run `deploy-dev` (step 3b), handle its drift pull request if it opens one, then run `deploy-test` again |
 | *No deployment of dev-deployed: run the workflow with the baseline input (the commit that matches Dev)* | first run of `deploy-dev`: Run workflow with `baseline` (and `check-only` to try it first) |
 | *Dev has changes not in main: see the draft pull request* | step 3b.2: review the drift pull request, merge it or remove the changes from Dev, run `deploy-dev` again |
 | *Dev does not match main after the import: see the summary* | a component was not applied, or Dev changed during the run: read the summary of the run, fix and run again; the baseline did not move |
