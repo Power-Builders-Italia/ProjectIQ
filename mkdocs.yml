@@ -4,8 +4,8 @@
 site_name: ProjectIQ
 site_description: Project management on Microsoft Dataverse and Power Apps - user manuals in English, Italian, French and German
 site_url: https://power-builders-italia.github.io/projectiq/
-repo_url: https://github.com/Power-Builders-Italia/projectiq
-repo_name: Power-Builders-Italia/projectiq
+repo_url: https://github.com/Power-Builders-Italia/ProjectIQ
+repo_name: Power-Builders-Italia/ProjectIQ
 edit_uri: edit/main/docs/
 copyright: Copyright 2026 Power Builders Italia - Apache License 2.0
 docs_dir: build/site-src

@@ -1,6 +1,6 @@
 """MkDocs hooks for the documentation website (see mkdocs.yml)."""
 
-REPO_URL = 'https://github.com/Power-Builders-Italia/projectiq'
+REPO_URL = 'https://github.com/Power-Builders-Italia/ProjectIQ'
 
 
 def on_page_context(context, page, config, nav):
