@@ -606,7 +606,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Name of the item (article) as it appears on requests and orders" languagecode="1033" />
+            <Description description="Name des Artikels, wie er in Anforderungen und Bestellungen erscheint" languagecode="1031" />
+            <Description description="Nom de l'article tel qu'il apparaît sur les demandes et les commandes" languagecode="1036" />
+            <Description description="Nome dell'articolo come appare su richieste e ordini" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -1468,6 +1471,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Item Code" languagecode="1033" />
+            <displayname description="Artikelcode" languagecode="1031" />
+            <displayname description="Code article" languagecode="1036" />
+            <displayname description="Codice articolo" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

@@ -3,10 +3,11 @@
 - column and lookup descriptions, read by the Dataverse semantic model;
 - Microsoft Copilot on the ProjectIQ app, so Dataverse indexes the app tables;
 - business skills from copilot/skills/*.md, added to the OpenProject365 solution;
-- Dataverse search on the tables in scope: Copilot and Cowork read records through the search index.
+- Dataverse search on the tables in scope: Copilot and Cowork read records through the search index;
+- glossary of the app semantic model from copilot/glossary.md (`glossary` argument: only this step).
 
-The semantic model glossary and table scope have no documented API: see docs/en/copilot.md.
-Idempotent: run again after changing a description or a skill.
+The table scope of the semantic model has no documented API: see docs/en/copilot.md.
+Idempotent: run again after changing a description, a skill or the glossary.
 """
 import os, sys, re
 sys.path.insert(0, os.path.dirname(__file__))
@@ -47,6 +48,7 @@ DESCRIPTIONS = {
     'op365_isdecisionmaker': 'Yes when the contact takes purchasing or project decisions for the account',
   },
   'op365_item': {
+    'op365_name': 'Name of the item (article) as it appears on requests and orders',
     'op365_code': 'Internal item code',
     'op365_category': 'Item category used to group materials',
     'op365_uom': 'Unit of measure of the item, e.g. pcs, m, kg, h',
@@ -55,6 +57,7 @@ DESCRIPTIONS = {
     'op365_defaultsupplierid': 'Supplier proposed by default when the item is requested or ordered',
   },
   'op365_itemsupplier': {
+    'op365_name': 'Short description of the supplier conditions for the item',
     'op365_suppliercode': 'Code of the item in the supplier catalogue',
     'op365_price': 'Unit price agreed with the supplier',
     'op365_leadtimedays': 'Days between order and delivery',
@@ -64,6 +67,8 @@ DESCRIPTIONS = {
     'op365_supplierid': 'Supplier offering the item',
   },
   'op365_supplierdocument': {
+    'op365_description': 'Short description of the document, e.g. DURC and supplier name',
+    'op365_documenttype': 'Kind of compliance document: DURC, Company Report, Certification, Insurance, Contract or Other',
     'op365_number': 'Document number or protocol',
     'op365_issuedate': 'Date the document was issued',
     'op365_expirydate': 'Date the document expires; expired documents count in Expired Documents on the supplier',
@@ -73,16 +78,20 @@ DESCRIPTIONS = {
     'op365_supplierid': 'Supplier the compliance document belongs to',
   },
   'op365_resource': {
+    'op365_name': 'Full name of the resource',
+    'op365_workingdays': 'Days of the week the resource works, used for capacity and missing hours',
     'op365_role': 'Job role of the resource, e.g. engineer, technician',
     'op365_weeklyhours': 'Contract hours per week, used for resource load',
     'op365_userid': 'User account of the resource; empty for people without a license',
   },
   'op365_resourcecost': {
+    'op365_name': 'Short description of the cost period',
     'op365_validfrom': 'Date from which the hourly cost applies',
     'op365_hourlycost': 'Hourly cost of the resource from Valid From',
     'op365_resourceid': 'Resource the cost belongs to',
   },
   'op365_absence': {
+    'op365_name': 'Short description of the absence',
     'op365_absencetype': 'Vacation, Leave, Sickness, or Closure (company closure for everyone)',
     'op365_fromdate': 'First day of the absence',
     'op365_todate': 'Last day of the absence',
@@ -90,6 +99,7 @@ DESCRIPTIONS = {
     'op365_resourceid': 'Absent resource; empty for a company closure',
   },
   'op365_project': {
+    'op365_name': 'Name of the project (commessa); Code is the unique identifier',
     'op365_code': 'Project code, e.g. PRJ-000123',
     'op365_startdate': 'Planned start date of the project',
     'op365_enddate': 'Planned end date of the project',
@@ -99,11 +109,13 @@ DESCRIPTIONS = {
     'op365_projectmanagerid': 'User responsible for the project',
   },
   'op365_projectmember': {
+    'op365_name': 'Full name of the user, set automatically',
     'op365_projectrole': 'Manager, Contributor, or Reader: the access the member has to the project',
     'op365_projectid': 'Project the member works on',
     'op365_userid': 'User who is a member of the project',
   },
   'op365_wbsnode': {
+    'op365_name': 'Name of the phase, activity or task',
     'op365_budgethours': 'Planned hours for the node',
     'op365_budgetlabour': 'Planned labour cost for the node',
     'op365_budgetmaterials': 'Planned materials cost for the node',
@@ -116,6 +128,7 @@ DESCRIPTIONS = {
     'op365_ownerresourceid': 'Resource responsible for the node',
   },
   'op365_wbsdependency': {
+    'op365_name': 'Predecessor → successor, set automatically',
     'op365_dependencytype': 'Finish-to-Start: the successor starts after the predecessor ends',
     'op365_lagdays': 'Days between the end of the predecessor and the start of the successor',
     'op365_projectid': 'Project of the two linked nodes',
@@ -123,15 +136,18 @@ DESCRIPTIONS = {
     'op365_successorid': 'Node that starts after the predecessor',
   },
   'op365_wbsallocation': {
+    'op365_name': 'Short description of the allocation',
     'op365_hours': 'Hours planned for the resource on the node',
     'op365_wbsnodeid': 'Node the hours are planned on',
     'op365_resourceid': 'Resource whose hours are planned',
   },
   'op365_baseline': {
+    'op365_name': 'Name of the baseline; Save Baseline defaults it to the date and time',
     'op365_description': 'Why the baseline was saved, e.g. contract signed',
     'op365_projectid': 'Project the baseline is a snapshot of',
   },
   'op365_baselinenode': {
+    'op365_name': 'Name of the WBS node when the baseline was saved',
     'op365_code': 'Outline code of the node when the baseline was saved',
     'op365_budgethours': 'Budget hours of the node when the baseline was saved',
     'op365_budgettotal': 'Total budget of the node when the baseline was saved',
@@ -141,6 +157,7 @@ DESCRIPTIONS = {
     'op365_wbsnodeid': 'Current node the saved values refer to',
   },
   'op365_timeentry': {
+    'op365_name': 'Resource name and date, set automatically',
     'op365_entrydate': 'Day the hours were worked',
     'op365_hours': 'Hours worked on the day',
     'op365_notes': 'What was done',
@@ -153,6 +170,7 @@ DESCRIPTIONS = {
     'op365_decidedbyid': 'User who approved or rejected the hours',
   },
   'op365_materialusage': {
+    'op365_name': 'Description of the consumed material; defaults to the item name',
     'op365_usagedate': 'Day the material was used',
     'op365_quantity': 'Quantity used',
     'op365_uom': 'Unit of measure of the quantity',
@@ -164,6 +182,7 @@ DESCRIPTIONS = {
     'op365_goodsreceiptlineid': 'Goods receipt line the material came from',
   },
   'op365_purchaserequest': {
+    'op365_number': 'Purchase request number, assigned automatically (PR-00001)',
     'op365_title': 'Short title of what is requested',
     'op365_justification': 'Why the purchase is needed',
     'op365_neededby': 'Date by which the goods or services are needed',
@@ -180,6 +199,7 @@ DESCRIPTIONS = {
     'op365_decidedbyid': 'User who took the final decision',
   },
   'op365_purchaserequestline': {
+    'op365_name': 'Description of the requested item; defaults to the item name',
     'op365_quantity': 'Requested quantity',
     'op365_uom': 'Unit of measure of the quantity',
     'op365_estimatedprice': 'Estimated unit price',
@@ -189,6 +209,7 @@ DESCRIPTIONS = {
     'op365_itemid': 'Requested item; empty for a service or a free-text line',
   },
   'op365_rfq': {
+    'op365_number': 'Request for quotation number, assigned automatically (RFQ-00001)',
     'op365_deadline': 'Last day for suppliers to send their quote',
     'op365_notes': 'Instructions for the suppliers',
     'op365_senton': 'When the RFQ was sent to the suppliers',
@@ -200,6 +221,7 @@ DESCRIPTIONS = {
     'op365_purchaseorderid': 'Purchase order created when the RFQ was awarded',
   },
   'op365_rfqinvitation': {
+    'op365_name': 'Name of the invited supplier, set automatically',
     'op365_email': 'Email address the RFQ is sent to',
     'op365_invitedon': 'When the supplier was invited',
     'op365_respondedon': 'When the supplier answered',
@@ -209,12 +231,14 @@ DESCRIPTIONS = {
     'op365_supplierid': 'Invited supplier',
   },
   'op365_rfqquote': {
+    'op365_name': 'Description of the quoted item, copied from the request line',
     'op365_notes': 'Supplier notes on the quoted line',
     'op365_uom': 'Unit of measure of the quoted price',
     'op365_invitationid': 'Supplier invitation the quote belongs to',
     'op365_requestlineid': 'Purchase request line being quoted',
   },
   'op365_purchaseorder': {
+    'op365_number': 'Purchase order number, assigned automatically (PO-00001)',
     'op365_orderdate': 'Date of the order',
     'op365_expecteddelivery': 'Delivery date expected from the supplier',
     'op365_deliveryplace': 'Where the goods must be delivered',
@@ -231,6 +255,7 @@ DESCRIPTIONS = {
     'op365_purchaserequestid': 'Purchase request the order comes from',
   },
   'op365_purchaseorderline': {
+    'op365_name': 'Description of the ordered item',
     'op365_quantity': 'Ordered quantity',
     'op365_uom': 'Unit of measure of the quantity',
     'op365_price': 'Agreed unit price',
@@ -242,6 +267,7 @@ DESCRIPTIONS = {
     'op365_requestlineid': 'Purchase request line the order line comes from',
   },
   'op365_goodsreceipt': {
+    'op365_number': 'Goods receipt number, assigned automatically (GR-00001)',
     'op365_receiptdate': 'Date the goods arrived',
     'op365_deliverynotenumber': 'Number of the supplier delivery note (DDT)',
     'op365_deliverynotedate': 'Date of the supplier delivery note (DDT)',
@@ -250,11 +276,13 @@ DESCRIPTIONS = {
     'op365_purchaseorderid': 'Purchase order the goods were delivered against',
   },
   'op365_goodsreceiptline': {
+    'op365_name': 'Description of the received item, copied from the purchase order line',
     'op365_quantity': 'Quantity received',
     'op365_goodsreceiptid': 'Goods receipt the line belongs to',
     'op365_orderlineid': 'Purchase order line the quantity was received against',
   },
   'op365_supplierinvoice': {
+    'op365_number': 'Internal number of the supplier invoice, assigned automatically (INV-00001)',
     'op365_invoicenumber': 'Number of the supplier invoice',
     'op365_invoicedate': 'Date of the supplier invoice',
     'op365_sellername': 'Seller name as written on the invoice',
@@ -269,6 +297,7 @@ DESCRIPTIONS = {
     'op365_decidedbyid': 'User who approved or rejected the invoice',
   },
   'op365_supplierinvoiceline': {
+    'op365_name': 'Description of the invoiced goods or service',
     'op365_linenumber': 'Line number on the invoice',
     'op365_code': 'Item code as written on the invoice',
     'op365_quantity': 'Invoiced quantity',
@@ -367,9 +396,42 @@ def skills():
            'skill in solution ' + uname)
 
 
-if __name__ == '__main__':
+def read_glossary():
+    # rows of the table in copilot/glossary.md: Term | Italiano | Français | Deutsch | Definition
+    text = open(os.path.join(ROOT, 'copilot', 'glossary.md'), encoding='utf-8').read()
+    rows = [[c.strip() for c in line.strip().strip('|').split('|')] for line in text.splitlines() if line.startswith('|')]
+    return [dict(zip(('term', 'it', 'fr', 'de', 'definition'), r)) for r in rows[2:]]
+
+
+def glossary():
+    # glossary entries of the app semantic model (copilotglossaryterm, lookup skill = the model);
+    # the semantic model has no ALM yet, so the entries are written in every environment
+    models = S.get(API + f"dvtablesearchs?$select=dvtablesearchid,name&$filter=appmoduleuniquename eq '{APP}' "
+                   "and startswith(name,'M365_')").json()['value']
+    if not models:
+        print('skip glossary (no semantic model yet: turn on Copilot on the app and wait for the generation)'); return
+    model = models[0]['dvtablesearchid']
+    for row in read_glossary():
+        description = (f"{row['definition']} Synonyms: Italian {row['it']}; French {row['fr']}; German {row['de']}.")[:1000]
+        record = {'term': row['term'], 'name': row['term'], 'description': description}
+        found = S.get(API + f"copilotglossaryterms?$select=copilotglossarytermid,name,description&$filter=term eq '{row['term']}' "
+                      f"and _skill_value eq {model}").json()['value']
+        if not found:
+            record['skill@odata.bind'] = f'/dvtablesearchs({model})'
+            ok(S.post(API + 'copilotglossaryterms', json=record), 'glossary ' + row['term'])
+        elif found[0]['description'] != description or found[0]['name'] != row['term']:
+            ok(S.patch(API + f"copilotglossaryterms({found[0]['copilotglossarytermid']})", json=record), 'glossary ' + row['term'])
+        else:
+            print('skip glossary', row['term'])
+    print('glossary written to', models[0]['name'], '- select Regenerate on the semantic model to use it now')
+
+
+if __name__ == '__main__' and 'glossary' in sys.argv:
+    glossary()
+elif __name__ == '__main__':
     descriptions()
     search_index()
     ok(S.post(API + 'PublishAllXml', json={}), 'publish')
     copilot_on_app()
     skills()
+    glossary()

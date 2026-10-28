@@ -56,14 +56,15 @@ After a solution import check that plugin steps are enabled: an interrupted impo
 
 `tools/dataverse/workiq.py` prepares the read-only exposure of ProjectIQ to Microsoft Copilot and Copilot Cowork (Business Applications in Work IQ, preview). Design and decisions: [ADR 0001](adr/0001-copilot-work-iq-read-only.md). User and admin guide: [Copilot and Cowork](en/copilot.md).
 
-- Writes the descriptions of the custom columns and lookups (the `DESCRIPTIONS` table in the script): the Dataverse semantic model reads them, so keep a description on every new column.
+- Writes the descriptions of the custom columns and lookups, primary name columns included (the `DESCRIPTIONS` table in the script): the Dataverse semantic model reads them, so keep a description on every new column and add its German, French and Italian text to `tools/dataverse/translations.json`.
 - Sets the app setting `m365copilotmodelappenabled` = 2 (**Microsoft Copilot in model-driven apps** on) on the ProjectIQ app; with it Dataverse indexes the app tables and creates the semantic model of the app (`M365_Primary_model_op365_OpenProject365` in Dev).
 - Creates or updates the business skills from `copilot/skills/*.md` (front matter `name` and `description`, body = instructions) as **Organization** skills (`ispersonal` = No) and adds them to the solution (component type 10441). The unique name is the file name.
 - Turns on **Dataverse search** (`SyncToExternalSearchIndex`) for the tables in scope, all except Resource Cost, Baseline Node and WBS Dependency: Copilot reads records through the search index, so a new table in scope must be added there too.
+- Writes the glossary of the app semantic model from [copilot/glossary.md](../copilot/glossary.md) (`copilotglossaryterm` records linked to the model, synonyms in the description). The semantic model is not in solutions, so run `workiq.py glossary` (this step only) in every environment once the model exists, then select **Regenerate**.
 
 Run it after the table scripts, then export and unpack the solution. The script is idempotent.
 
-Not in the solution, to configure by hand in every environment (no documented API, no ALM support): Work IQ on the environment, table exclusions and glossary of the semantic model ([copilot/glossary.md](../copilot/glossary.md)), installation of the **Business apps (preview)** plugin. Steps in [Copilot and Cowork](en/copilot.md#set-up-administrators).
+Not in the solution, to configure by hand in every environment (no documented API, no ALM support): Work IQ on the environment, table exclusions of the semantic model, installation of the **Business apps (preview)** plugin. Steps in [Copilot and Cowork](en/copilot.md#set-up-administrators).
 
 When exporting from Dev, drop the Italian (1040) labels the Dev language pack adds to standard components, unless they are part of the change.
 

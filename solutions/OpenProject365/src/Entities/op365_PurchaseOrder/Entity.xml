@@ -655,7 +655,10 @@
             <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase order number, assigned automatically (PO-00001)" languagecode="1033" />
+            <Description description="Bestellnummer, automatisch vergeben (PO-00001)" languagecode="1031" />
+            <Description description="Numéro de commande, attribué automatiquement (PO-00001)" languagecode="1036" />
+            <Description description="Numero dell'ordine di acquisto, assegnato automaticamente (PO-00001)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OrderDate">

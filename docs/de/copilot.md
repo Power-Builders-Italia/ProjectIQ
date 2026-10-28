@@ -24,7 +24,7 @@ flowchart LR
 | Teil | Aufgabe | Herkunft |
 |---|---|---|
 | Semantisches Modell | Erklärt Copilot, was Tabellen, Spalten und Beziehungen bedeuten | Von Dataverse für die App erstellt, wenn Microsoft Copilot aktiviert ist; es liest die Beschreibungen von Tabellen und Spalten, die Beziehungen, die öffentlichen Ansichten und die Formularnamen der Lösung |
-| Glossar | Verknüpft Fachbegriffe (commessa, RdA, DDT, fattura passiva...) mit den Tabellen | Von einem Administrator eingegeben, siehe [Glossar des semantischen Modells](#glossar-des-semantischen-modells) |
+| Glossar | Verknüpft Fachbegriffe (commessa, RdA, DDT, fattura passiva...) mit den Tabellen | Von einem Administrator per Skript geladen, siehe [Glossar des semantischen Modells](#glossar-des-semantischen-modells) |
 | Business Skills | Schritt-für-Schritt-Anweisungen für häufige Fragen | In der Lösung enthalten, siehe [Business Skills](#business-skills) |
 | Berechtigungen | Was jede Person sehen darf | Die üblichen Sicherheitsrollen, Projekt-Zugriffsteams und die Spaltensicherheit von ProjectIQ |
 
@@ -96,22 +96,21 @@ Das semantische Modell wird **nicht** mit Lösungen übertragen: Diese Schritte 
 
 ### Glossar des semantischen Modells
 
-Das Glossar ergänzt Fachbegriffe, die Dataverse nicht aus den Metadaten ableiten kann. Die vollständige Liste liegt im Repository unter [copilot/glossary.md](../../copilot/glossary.md) (auf Englisch, mit italienischen Synonymen).
+Das Glossar ergänzt Fachbegriffe, die Dataverse nicht aus den Metadaten ableiten kann. Die vollständige Liste liegt im Repository unter [copilot/glossary.md](../../copilot/glossary.md) (auf Englisch, mit Synonymen auf Italienisch, Französisch und Deutsch).
 
-1. Im semantischen Modell **Glossary** → **Add item** wählen.
-2. Für jede Zeile der Liste **Term** und **Definition** eingeben, dann die **Synonyms** ergänzen (den Eintrag erneut öffnen und **Edit** wählen, wenn das Feld für Synonyme nicht auf dem ersten Bildschirm steht).
-3. **Add term** wählen, dann **Regenerate**, wenn alle Begriffe erfasst sind.
+1. `python3 tools/dataverse/workiq.py glossary` für die Umgebung ausführen (dieselben Verbindungseinstellungen wie die anderen Dataverse-Skripte). Es legt je Zeile der Liste einen Eintrag an oder aktualisiert ihn, mit den Synonymen in der **Definition**; bei erneutem Ausführen ändert es nur abweichende Einträge.
+2. Im semantischen Modell **Glossary** öffnen, um die Einträge zu prüfen, dann **Regenerate** wählen.
 
-| Term | Synonyme (Beispiele) |
-|---|---|
-| Project | commessa, progetto |
-| Time entry | ore, rapportino, timesheet |
-| Purchase request | RdA, richiesta di acquisto |
-| RFQ | RdO, richiesta di offerta |
-| Purchase order | OdA, ordine fornitore |
-| Goods receipt | entrata merce, DDT |
-| Supplier invoice | fattura passiva |
-| Supplier document | DURC |
+| Term | Italiano | Français | Deutsch |
+|---|---|---|---|
+| Project | commessa, progetto | projet, affaire | Projekt, Auftrag |
+| Time entry | registrazione ore, rapportino, timesheet | saisie de temps, feuille de temps | Zeiteintrag, Stundenzettel |
+| Purchase request | richiesta di acquisto, RdA | demande d'achat, DA | Bestellanforderung, BANF |
+| RFQ | richiesta di offerta, RdO | demande de prix, appel d'offres | Angebotsanfrage, Ausschreibung |
+| Purchase order | ordine di acquisto, OdA | commande d'achat, bon de commande | Bestellung |
+| Goods receipt | ricevimento merci, DDT | réception de marchandises, bon de livraison | Wareneingang, Lieferschein |
+| Supplier invoice | fattura fornitore, fattura passiva | facture fournisseur | Lieferantenrechnung, Eingangsrechnung |
+| Supplier document | documento fornitore, DURC | document fournisseur, attestation | Lieferantendokument, Nachweis |
 
 ## Business Skills
 

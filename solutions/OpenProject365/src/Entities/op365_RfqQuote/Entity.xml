@@ -471,7 +471,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the quoted item, copied from the request line" languagecode="1033" />
+            <Description description="Beschreibung des angebotenen Artikels, aus der Anforderungsposition übernommen" languagecode="1031" />
+            <Description description="Description de l'article chiffré, copiée depuis la ligne de demande" languagecode="1036" />
+            <Description description="Descrizione dell'articolo quotato, copiata dalla riga di richiesta" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">

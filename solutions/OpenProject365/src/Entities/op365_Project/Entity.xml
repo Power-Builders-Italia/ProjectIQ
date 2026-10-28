@@ -1034,7 +1034,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Name of the project (commessa); Code is the unique identifier" languagecode="1033" />
+            <Description description="Name des Projekts; Code ist die eindeutige Kennung" languagecode="1031" />
+            <Description description="Nom du projet ; Code est l'identifiant unique" languagecode="1036" />
+            <Description description="Nome della commessa; Code è l'identificativo univoco" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProgressPct">
@@ -1765,6 +1768,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Project Code" languagecode="1033" />
+            <displayname description="Projektcode" languagecode="1031" />
+            <displayname description="Code du projet" languagecode="1036" />
+            <displayname description="Codice commessa" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

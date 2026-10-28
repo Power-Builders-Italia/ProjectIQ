@@ -494,7 +494,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Predecessor → successor, set automatically" languagecode="1033" />
+            <Description description="Vorgänger → Nachfolger, automatisch gesetzt" languagecode="1031" />
+            <Description description="Prédécesseur → successeur, renseigné automatiquement" languagecode="1036" />
+            <Description description="Predecessore → successore, impostato automaticamente" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_PredecessorId">
@@ -1163,6 +1166,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Predecessor and Successor" languagecode="1033" />
+            <displayname description="Vorgänger und Nachfolger" languagecode="1031" />
+            <displayname description="Prédécesseur et successeur" languagecode="1036" />
+            <displayname description="Predecessore e successore" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

@@ -566,7 +566,10 @@
             <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the ordered item" languagecode="1033" />
+            <Description description="Beschreibung des bestellten Artikels" languagecode="1031" />
+            <Description description="Description de l'article commandé" languagecode="1036" />
+            <Description description="Descrizione dell'articolo ordinato" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">

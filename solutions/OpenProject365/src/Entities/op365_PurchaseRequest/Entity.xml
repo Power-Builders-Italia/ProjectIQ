@@ -1042,7 +1042,10 @@
             <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Purchase request number, assigned automatically (PR-00001)" languagecode="1033" />
+            <Description description="Nummer der Bestellanforderung, automatisch vergeben (PR-00001)" languagecode="1031" />
+            <Description description="Numéro de la demande d'achat, attribué automatiquement (PR-00001)" languagecode="1036" />
+            <Description description="Numero della richiesta di acquisto, assegnato automaticamente (PR-00001)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OverBudget">

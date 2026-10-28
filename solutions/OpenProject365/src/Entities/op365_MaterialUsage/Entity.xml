@@ -559,7 +559,10 @@
             <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the consumed material; defaults to the item name" languagecode="1033" />
+            <Description description="Beschreibung des verbrauchten Materials; standardmäßig der Artikelname" languagecode="1031" />
+            <Description description="Description du matériel consommé ; par défaut le nom de l'article" languagecode="1036" />
+            <Description description="Descrizione del materiale consumato; per default il nome dell'articolo" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">

@@ -661,7 +661,10 @@
             <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the requested item; defaults to the item name" languagecode="1033" />
+            <Description description="Beschreibung des angeforderten Artikels; standardmäßig der Artikelname" languagecode="1031" />
+            <Description description="Description de l'article demandé ; par défaut le nom de l'article" languagecode="1036" />
+            <Description description="Descrizione dell'articolo richiesto; per default il nome dell'articolo" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">

@@ -521,7 +521,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Full name of the resource" languagecode="1033" />
+            <Description description="Vollständiger Name der Ressource" languagecode="1031" />
+            <Description description="Nom complet de la ressource" languagecode="1036" />
+            <Description description="Nome completo della risorsa" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResourceId">
@@ -813,7 +816,10 @@
             <displayname description="Giorni lavorativi" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Days of the week the resource works, used for capacity and missing hours" languagecode="1033" />
+            <Description description="Wochentage, an denen die Ressource arbeitet; für Kapazität und fehlende Stunden verwendet" languagecode="1031" />
+            <Description description="Jours de la semaine travaillés par la ressource, utilisés pour la capacité et les heures manquantes" languagecode="1036" />
+            <Description description="Giorni della settimana in cui la risorsa lavora, usati per capacità e ore mancanti" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="OverriddenCreatedOn">

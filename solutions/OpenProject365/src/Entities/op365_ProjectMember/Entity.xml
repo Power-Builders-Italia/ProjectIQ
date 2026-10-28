@@ -521,7 +521,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Full name of the user, set automatically" languagecode="1033" />
+            <Description description="Vollständiger Name des Benutzers, automatisch gesetzt" languagecode="1031" />
+            <Description description="Nom complet de l'utilisateur, renseigné automatiquement" languagecode="1036" />
+            <Description description="Nome completo dell'utente, impostato automaticamente" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -1274,6 +1277,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Project and User" languagecode="1033" />
+            <displayname description="Projekt und Benutzer" languagecode="1031" />
+            <displayname description="Projet et utilisateur" languagecode="1036" />
+            <displayname description="Commessa e utente" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

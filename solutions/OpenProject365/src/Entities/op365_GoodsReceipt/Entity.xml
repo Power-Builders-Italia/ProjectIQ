@@ -560,7 +560,10 @@
             <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Goods receipt number, assigned automatically (GR-00001)" languagecode="1033" />
+            <Description description="Wareneingangsnummer, automatisch vergeben (GR-00001)" languagecode="1031" />
+            <Description description="Numéro de réception, attribué automatiquement (GR-00001)" languagecode="1036" />
+            <Description description="Numero del ricevimento merci, assegnato automaticamente (GR-00001)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">

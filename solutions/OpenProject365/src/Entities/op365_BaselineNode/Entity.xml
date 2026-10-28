@@ -747,7 +747,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Name of the WBS node when the baseline was saved" languagecode="1033" />
+            <Description description="Name des PSP-Elements beim Speichern des Basisplans" languagecode="1031" />
+            <Description description="Nom du nœud WBS au moment de l'enregistrement du planning de référence" languagecode="1036" />
+            <Description description="Nome del nodo WBS al salvataggio della baseline" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_StartDate">

@@ -2544,6 +2544,11 @@
 "Jours entre la fin du prédécesseur et le début du successeur",
 "Giorni tra la fine del predecessore e l'inizio del successore"
 ],
+"Days of the week the resource works, used for capacity and missing hours": [
+"Wochentage, an denen die Ressource arbeitet; für Kapazität und fehlende Stunden verwendet",
+"Jours de la semaine travaillés par la ressource, utilisés pour la capacité et les heures manquantes",
+"Giorni della settimana in cui la risorsa lavora, usati per capacità e ore mancanti"
+],
 "Deadline": [
 "Frist",
 "Échéance",
@@ -2779,10 +2784,40 @@
 "Description",
 "Descrizione"
 ],
+"Description of the consumed material; defaults to the item name": [
+"Beschreibung des verbrauchten Materials; standardmäßig der Artikelname",
+"Description du matériel consommé ; par défaut le nom de l'article",
+"Descrizione del materiale consumato; per default il nome dell'articolo"
+],
+"Description of the invoiced goods or service": [
+"Beschreibung der berechneten Ware oder Leistung",
+"Description du bien ou du service facturé",
+"Descrizione del bene o servizio fatturato"
+],
+"Description of the ordered item": [
+"Beschreibung des bestellten Artikels",
+"Description de l'article commandé",
+"Descrizione dell'articolo ordinato"
+],
 "Description of the project scope": [
 "Beschreibung des Projektumfangs",
 "Description du périmètre du projet",
 "Descrizione dell'ambito della commessa"
+],
+"Description of the quoted item, copied from the request line": [
+"Beschreibung des angebotenen Artikels, aus der Anforderungsposition übernommen",
+"Description de l'article chiffré, copiée depuis la ligne de demande",
+"Descrizione dell'articolo quotato, copiata dalla riga di richiesta"
+],
+"Description of the received item, copied from the purchase order line": [
+"Beschreibung des empfangenen Artikels, aus der Bestellposition übernommen",
+"Description de l'article reçu, copiée depuis la ligne de commande",
+"Descrizione dell'articolo ricevuto, copiata dalla riga d'ordine"
+],
+"Description of the requested item; defaults to the item name": [
+"Beschreibung des angeforderten Artikels; standardmäßig der Artikelname",
+"Description de l'article demandé ; par défaut le nom de l'article",
+"Descrizione dell'articolo richiesto; per default il nome dell'articolo"
 ],
 "Design, Direction and Creative Management": [
 "Design und Creative Management",
@@ -3529,6 +3564,16 @@
 "Nom complet",
 "Nome completo"
 ],
+"Full name of the resource": [
+"Vollständiger Name der Ressource",
+"Nom complet de la ressource",
+"Nome completo della risorsa"
+],
+"Full name of the user, set automatically": [
+"Vollständiger Name des Benutzers, automatisch gesetzt",
+"Nom complet de l'utilisateur, renseigné automatiquement",
+"Nome completo dell'utente, impostato automaticamente"
+],
 "Full name of the user.": [
 "Vollständiger Name des Benutzers.",
 "Nom complet de l'utilisateur.",
@@ -3648,6 +3693,11 @@
 "Wareneingangsposition, aus der das Material stammt",
 "Ligne de réception d'où provient le matériel",
 "Riga di ricevimento da cui proviene il materiale"
+],
+"Goods receipt number, assigned automatically (GR-00001)": [
+"Wareneingangsnummer, automatisch vergeben (GR-00001)",
+"Numéro de réception, attribué automatiquement (GR-00001)",
+"Numero del ricevimento merci, assegnato automaticamente (GR-00001)"
 ],
 "Goods receipt the line belongs to": [
 "Wareneingang, zu dem die Position gehört",
@@ -4234,6 +4284,11 @@
 "Code article interne",
 "Codice articolo interno"
 ],
+"Internal number of the supplier invoice, assigned automatically (INV-00001)": [
+"Interne Nummer der Lieferantenrechnung, automatisch vergeben (INV-00001)",
+"Numéro interne de la facture fournisseur, attribué automatiquement (INV-00001)",
+"Numero interno della fattura fornitore, assegnato automaticamente (INV-00001)"
+],
 "Investor": [
 "Investor",
 "Investisseur",
@@ -4439,6 +4494,11 @@
 "Article - Vue associée",
 "Articolo - Visualizzazione associata"
 ],
+"Item Code": [
+"Artikelcode",
+"Code article",
+"Codice articolo"
+],
 "Item Lookup View": [
 "Artikel – Suchansicht",
 "Article - Vue de recherche",
@@ -4473,6 +4533,11 @@
 "Artikellieferanten",
 "Fournisseurs d'article",
 "Fornitori articolo"
+],
+"Item and Supplier": [
+"Artikel und Lieferant",
+"Article et fournisseur",
+"Articolo e fornitore"
 ],
 "Item category used to group materials": [
 "Artikelkategorie zur Gruppierung von Materialien",
@@ -4553,6 +4618,11 @@
 "Schlüsselbenutzer, die Aufträge beeinflusst haben, die in den vergangenen zwölf Monaten gewonnen wurden.",
 "Utilisateurs clés ayant influencé les transactions conclues au cours des 12 derniers mois.",
 "Utenti che hanno influenzato in modo determinante le transazioni acquisite negli ultimi 12 mesi."
+],
+"Kind of compliance document: DURC, Company Report, Certification, Insurance, Contract or Other": [
+"Art des Compliance-Dokuments: DURC, Company Report, Certification, Insurance, Contract oder Other",
+"Type de document de conformité : DURC, Company Report, Certification, Insurance, Contract ou Other",
+"Tipo di documento di conformità: DURC, Company Report, Certification, Insurance, Contract o Other"
 ],
 "Labour + materials + other. Set by plugin": [
 "Arbeit + Material + Sonstiges. Vom Plug-in gesetzt",
@@ -5249,10 +5319,40 @@
 "Nom",
 "Nome"
 ],
+"Name of the WBS node when the baseline was saved": [
+"Name des PSP-Elements beim Speichern des Basisplans",
+"Nom du nœud WBS au moment de l'enregistrement du planning de référence",
+"Nome del nodo WBS al salvataggio della baseline"
+],
+"Name of the baseline; Save Baseline defaults it to the date and time": [
+"Name des Basisplans; Save Baseline setzt standardmäßig Datum und Uhrzeit",
+"Nom du planning de référence ; Save Baseline le renseigne par défaut avec la date et l'heure",
+"Nome della baseline; Save Baseline imposta per default data e ora"
+],
+"Name of the invited supplier, set automatically": [
+"Name des eingeladenen Lieferanten, automatisch gesetzt",
+"Nom du fournisseur invité, renseigné automatiquement",
+"Nome del fornitore invitato, impostato automaticamente"
+],
+"Name of the item (article) as it appears on requests and orders": [
+"Name des Artikels, wie er in Anforderungen und Bestellungen erscheint",
+"Nom de l'article tel qu'il apparaît sur les demandes et les commandes",
+"Nome dell'articolo come appare su richieste e ordini"
+],
 "Name of the owner": [
 "Name des Besitzers",
 "Nom du propriétaire",
 "Nome del proprietario"
+],
+"Name of the phase, activity or task": [
+"Name der Phase, Aktivität oder Aufgabe",
+"Nom de la phase, de l'activité ou de la tâche",
+"Nome della fase, attività o task"
+],
+"Name of the project (commessa); Code is the unique identifier": [
+"Name des Projekts; Code ist die eindeutige Kennung",
+"Nom du projet ; Code est l'identifiant unique",
+"Nome della commessa; Code è l'identificativo univoco"
 ],
 "Name to enter for address 1.": [
 "Für 'Adresse 1' einzugebender Name.",
@@ -5508,11 +5608,6 @@
 "Postfach öffnen",
 "Ouvrir la boîte aux lettres",
 "Apri cassetta postale"
-],
-"ProjectIQ": [
-"ProjectIQ",
-"ProjectIQ",
-"ProjectIQ"
 ],
 "Open Purchase Orders": [
 "Offene Bestellungen",
@@ -5969,10 +6064,25 @@
 "Utilisateurs Power Pages",
 "Utenti Power Pages"
 ],
+"Power Pages supplier portal: RFQ responses and purchase order confirmation. Depends on ProjectIQ.": [
+"Power Pages-Lieferantenportal: Antworten auf Angebotsanfragen und Bestätigung von Bestellungen. Erfordert ProjectIQ.",
+"Portail fournisseurs Power Pages : réponses aux demandes de prix et confirmation des commandes. Nécessite ProjectIQ.",
+"Portale fornitori Power Pages: risposte alle richieste di offerta e conferma degli ordini di acquisto. Richiede ProjectIQ."
+],
 "Predecessor": [
 "Vorgänger",
 "Prédécesseur",
 "Predecessore"
+],
+"Predecessor and Successor": [
+"Vorgänger und Nachfolger",
+"Prédécesseur et successeur",
+"Predecessore e successore"
+],
+"Predecessor → successor, set automatically": [
+"Vorgänger → Nachfolger, automatisch gesetzt",
+"Prédécesseur → successeur, renseigné automatiquement",
+"Predecessore → successore, impostato automaticamente"
 ],
 "Predecessors": [
 "Vorgänger",
@@ -6214,6 +6324,11 @@
 "Projet - Vue associée",
 "Commessa - Visualizzazione associata"
 ],
+"Project Code": [
+"Projektcode",
+"Code du projet",
+"Codice commessa"
+],
 "Project Count": [
 "Anzahl Projekte",
 "Nombre de projets",
@@ -6263,6 +6378,11 @@
 "Project Service",
 "Project Service",
 "Project Service"
+],
+"Project and User": [
+"Projekt und Benutzer",
+"Projet et utilisateur",
+"Commessa e utente"
 ],
 "Project and job management on Microsoft Dataverse": [
 "Projekt- und Auftragsmanagement auf Microsoft Dataverse",
@@ -6333,6 +6453,16 @@
 "Projekt, für das der Einkauf ist",
 "Projet concerné par l'achat",
 "Commessa a cui si riferisce l'acquisto"
+],
+"ProjectIQ": [
+"ProjectIQ",
+"ProjectIQ",
+"ProjectIQ"
+],
+"ProjectIQ Supplier Portal": [
+"ProjectIQ Lieferantenportal",
+"Portail fournisseurs ProjectIQ",
+"Portale fornitori ProjectIQ"
 ],
 "Projects": [
 "Projekte",
@@ -6554,6 +6684,11 @@
 "Lignes de commande non annulées. Défini par le plug-in",
 "Righe ordine non annullate. Impostato dal plug-in"
 ],
+"Purchase order number, assigned automatically (PO-00001)": [
+"Bestellnummer, automatisch vergeben (PO-00001)",
+"Numéro de commande, attribué automatiquement (PO-00001)",
+"Numero dell'ordine di acquisto, assegnato automaticamente (PO-00001)"
+],
 "Purchase order the goods were delivered against": [
 "Bestellung, zu der die Waren geliefert wurden",
 "Commande au titre de laquelle les marchandises ont été livrées",
@@ -6598,6 +6733,11 @@
 "Anforderungsposition, aus der die Bestellposition stammt",
 "Ligne de demande d'où provient la ligne de commande",
 "Riga RDA da cui proviene la riga ordine"
+],
+"Purchase request number, assigned automatically (PR-00001)": [
+"Nummer der Bestellanforderung, automatisch vergeben (PR-00001)",
+"Numéro de la demande d'achat, attribué automatiquement (PR-00001)",
+"Numero della richiesta di acquisto, assegnato automaticamente (PR-00001)"
 ],
 "Purchase request the line belongs to": [
 "Bestellanforderung, zu der die Position gehört",
@@ -7299,6 +7439,11 @@
 "Demande de prix - Vue de recherche",
 "Richiesta di offerta - Visualizzazione ricerca"
 ],
+"Request for quotation number, assigned automatically (RFQ-00001)": [
+"Nummer der Angebotsanfrage, automatisch vergeben (RFQ-00001)",
+"Numéro de la demande de prix, attribué automatiquement (RFQ-00001)",
+"Numero della richiesta di offerta, assegnato automaticamente (RFQ-00001)"
+],
 "Request for quotation sent to suppliers": [
 "An Lieferanten gesendete Angebotsanfrage",
 "Demande de prix envoyée aux fournisseurs",
@@ -7388,6 +7533,16 @@
 "Ressource – Suchansicht",
 "Ressource - Vue de recherche",
 "Risorsa - Visualizzazione ricerca"
+],
+"Resource and Valid From": [
+"Ressource und Gültig ab",
+"Ressource et Valide à partir du",
+"Risorsa e Valido dal"
+],
+"Resource name and date, set automatically": [
+"Name der Ressource und Datum, automatisch gesetzt",
+"Nom de la ressource et date, renseignés automatiquement",
+"Nome della risorsa e data, impostati automaticamente"
 ],
 "Resource responsible for the node": [
 "Für das Element verantwortliche Ressource",
@@ -7978,6 +8133,31 @@
 "Versandmethode ",
 "Mode de livraison ",
 "Metodo di spedizione "
+],
+"Short description of the absence": [
+"Kurzbeschreibung der Abwesenheit",
+"Brève description de l'absence",
+"Breve descrizione dell'assenza"
+],
+"Short description of the allocation": [
+"Kurzbeschreibung der Zuordnung",
+"Brève description de l'affectation",
+"Breve descrizione dell'allocazione"
+],
+"Short description of the cost period": [
+"Kurzbeschreibung des Kostenzeitraums",
+"Brève description de la période de coût",
+"Breve descrizione del periodo di costo"
+],
+"Short description of the document, e.g. DURC and supplier name": [
+"Kurzbeschreibung des Dokuments, z. B. DURC und Lieferantenname",
+"Brève description du document, par ex. DURC et nom du fournisseur",
+"Breve descrizione del documento, ad es. DURC e nome del fornitore"
+],
+"Short description of the supplier conditions for the item": [
+"Kurzbeschreibung der Lieferantenkonditionen für den Artikel",
+"Brève description des conditions du fournisseur pour l'article",
+"Breve descrizione delle condizioni del fornitore per l'articolo"
 ],
 "Short title of what is requested": [
 "Kurzbezeichnung des Angeforderten",
@@ -10708,6 +10888,11 @@
 "PSP-Element – Suchansicht",
 "Nœud WBS - Vue de recherche",
 "Nodo WBS - Visualizzazione ricerca"
+],
+"WBS Node and Resource": [
+"PSP-Element und Ressource",
+"Nœud WBS et ressource",
+"Nodo WBS e risorsa"
 ],
 "WBS Nodes": [
 "PSP-Elemente",
