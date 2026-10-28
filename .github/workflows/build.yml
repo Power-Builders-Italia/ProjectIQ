@@ -43,6 +43,8 @@ jobs:
           npm ci
           npm test
           npm run build -- --buildMode production
+      - name: PCF controls match the solution
+        run: python3 tools/alm/pcf_bundles.py --check src/pcf/out/controls solutions/OpenProject365/src/Controls
 
   solution:
     runs-on: windows-latest

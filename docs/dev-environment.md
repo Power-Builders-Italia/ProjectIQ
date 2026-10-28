@@ -199,7 +199,7 @@ pac solution unpack --zipfile out/OpenProject365SupplierPortal.zip --folder solu
 
 1. exports both solutions from Dev and looks for changes `main` does not know about (`tools/alm/compare_solution.py`): a file of Dev counts only if it differs both from `main` (so it was not exported) and from the baseline, the commit of the last successful deployment of environment `dev-deployed` (the last commit installed in Dev) (so Dev is not just behind). Customizing Dev, exporting and merging before the run is therefore fine. The solution version, the platform version attributes, the Italian labels of standard components and the bytes of the plugin assembly and PCF bundles are not compared;
 2. if there are such changes, imports nothing: it opens a draft pull request `Dev drift since <commit>` with only those files, from a branch `drift/<date>` started at `main`, and the run fails. Review it, merge it (or remove the changes from Dev) and run `deploy-dev` again;
-3. otherwise imports both solutions packed from `main` (unmanaged, Dev keeps its environment variables and connections), registers the plugins built from source with `plugins.py`, pushes the PCF controls built from source with `push.sh` and publishes;
+3. otherwise imports both solutions packed from `main` (unmanaged, Dev keeps its environment variables and connections), with the PCF bundles built from source (`tools/alm/pcf_bundles.py` copies each `bundle.js` into the solution before packing), and registers the plugins built from source with `plugins.py`. A control whose manifest or strings changed, or a new control, stops the run: push it to Dev with `tools/pcf/push.sh` and export it first (the `code` check of the pull request reports it too);
 4. exports again and checks that Dev now matches `main`; then the `record` job records the commit just installed as a deployment of environment `dev-deployed` (Settings > Environments, or the Deployments page of the repository).
 
 | Input (Run workflow) | Use |
@@ -240,6 +240,7 @@ Never customize Test: an unmanaged layer on top of the managed solution hides th
 | *No deployment of dev-deployed: run the workflow with the baseline input (the commit that matches Dev)* | first run of `deploy-dev`: Run workflow with `baseline` (and `check-only` to try it first) |
 | *Dev has changes not in main: see the draft pull request* | step 3b.2: review the drift pull request, merge it or remove the changes from Dev, run `deploy-dev` again |
 | *Dev does not match main after the import: see the summary* | a component was not applied, or Dev changed during the run: read the summary of the run, fix and run again; the baseline did not move |
+| *A PCF control differs from the solution beyond bundle.js: push it to Dev and export* | the manifest or the strings of a control (or a new control) are not in `solutions/` yet: `tools/pcf/push.sh <Control>` into Dev, export, merge, run `deploy-dev` again |
 | `deploy-dev` reports drift right after a run that failed during the import | the failed run left Dev half updated: run `deploy-dev` with `skip-drift-check` |
 | Test has a component that is not in the repository | it was in Dev but never exported: export it (step 2) or remove it from Dev, then deploy again |
 

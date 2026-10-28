@@ -24,7 +24,7 @@ flowchart TB
     C -->|differs| S["upload export as artifact, stop"]
     S --> P["drift-pr job: branch drift/YYYYMMDD-hhmm<br/>from main, draft pull request"]
     P --> X["workflow fails"]
-    C -->|same| I["1 import OpenProject365 (unmanaged)<br/>2 plugins from source<br/>3 PCF from source<br/>4 import portal solution"]
+    C -->|same| I["1 PCF bundles from source into the solution<br/>2 import OpenProject365 (unmanaged)<br/>3 plugins from source<br/>4 import portal solution"]
     I --> V{"export again:<br/>same as main?"}
     V -->|yes| G["record job: deployment dev-deployed → commit of main"]
     V -->|no| F["workflow fails, baseline not moved"]
@@ -56,11 +56,10 @@ One job, `deploy`, both checks and imports: every job that uses an environment a
 2. Export `OpenProject365` and `OpenProject365SupplierPortal` unmanaged from Dev and unpack them.
 3. `python3 tools/alm/compare_solution.py <baseline tree> <Dev unpack>` (baseline tree from `git archive`). Exit code 0 = same, 1 = drift; the list of differing files goes to the job summary.
 4. Drift: upload the unpacked export as artifact `dev-export`, set output `drift=true`, stop. `check-only`: stop here in any case.
-5. Copy the files of `src/webresources` over their copies in `solutions/OpenProject365/src/WebResources` (identical today; the source wins), pack both solutions from `main` (unmanaged) and import `OpenProject365`: publish, activate plugins, no deployment settings (Dev keeps its environment variables and connections).
+5. Copy the files of `src/webresources` over their copies in `solutions/OpenProject365/src/WebResources` (identical today; the source wins). `npm ci` and `npm run build` in `src/pcf`, then `tools/alm/pcf_bundles.py` copies each `bundle.js` built from source over the one in `solutions/OpenProject365/src/Controls/op365_OP365.<control>`; it stops the run if a control is missing from the solution or its manifest or strings differ (those are compared by content, so they must reach the repository through a Dev export; the `code` job of `build` runs the same check with `--check`). Pack both solutions from `main` (unmanaged) and import `OpenProject365`: publish, activate plugins, no deployment settings (Dev keeps its environment variables and connections).
 6. `dotnet build` the plugins and run `tools/dataverse/plugins.py` (`PAC_*` from the `PP_*` secrets): the assembly built from source replaces the one exported earlier; steps, images and Custom APIs are created if missing.
-7. `npm ci` in `src/pcf`, `pac auth create` with the service principal, `tools/pcf/push.sh` (all controls).
-8. Import `OpenProject365SupplierPortal` with `pac solution import`, retried up to 3 times on transient Dataverse failures (the imports and `pac pcf push` publish; no separate publish, which would collide with the publish still running in Dataverse).
-9. Verify: export (retried while Dataverse is still busy) and unpack again, compare with `main`. A difference fails the run and leaves the baseline where it was.
+7. Import `OpenProject365SupplierPortal` with `pac solution import`, retried up to 3 times on transient Dataverse failures (the imports publish; no separate publish, which would collide with the publish still running in Dataverse).
+8. Verify: export (retried while Dataverse is still busy) and unpack again, compare with `main`. A difference fails the run and leaves the baseline where it was.
 
 **`drift-pr`** (needs `deploy` with `drift=true`, no secrets)
 
@@ -87,7 +86,7 @@ Output: exit code, the list of added, removed and changed files, and a short dif
 
 | Case | Behaviour |
 |---|---|
-| Import, plugin registration or PCF push fails | run fails, baseline not moved. Dev may be half updated, so the next drift check would report it: run again with `skip-drift-check` (still approved in `dev`) |
+| Import or plugin registration fails | run fails, baseline not moved. Dev may be half updated, so the next drift check would report it: run again with `skip-drift-check` (still approved in `dev`) |
 | No deployment of `dev-deployed` (first run) | run stops and asks for `baseline`: the commit that matches Dev today |
 | Final verification differs | run fails, baseline not moved: a comparison rule is missing or the import did not apply a component; fix and run again |
 | Drift found | draft pull request, run fails, nothing imported |
