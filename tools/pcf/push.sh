@@ -12,5 +12,11 @@ for control in ${*:-WbsTreeGrid GanttChart WeeklyTimesheet TimeApproval Resource
   sed "s#<Name>OP365Controls</Name>#<Name>$control</Name>#" "$SRC/OP365Controls.pcfproj" > "$dir/$control.pcfproj"
   ln -s "$SRC/node_modules" "$dir/node_modules"
   rm -rf "$dir/shared"/*.test.ts
-  (cd "$dir" && pac pcf push --solution-unique-name OpenProject365 --incremental false)
+  # the import of the temporary wrapper solution can fail while Dataverse is still busy with a previous import or
+  # publish ("There is no active transaction"): retry up to 3 times
+  for attempt in 1 2 3; do
+    if (cd "$dir" && pac pcf push --solution-unique-name OpenProject365 --incremental false); then break; fi
+    if [ "$attempt" = 3 ]; then echo "pac pcf push failed 3 times for $control" >&2; exit 1; fi
+    echo "pac pcf push failed for $control, retrying in 60 s ($attempt/3)" >&2; sleep 60
+  done
 done
