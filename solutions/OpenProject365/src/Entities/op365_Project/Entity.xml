@@ -1574,37 +1574,49 @@
               <Description description="Motivo dello stato della commessa" languagecode="1040" />
             </Descriptions>
             <statuses>
-              <status value="1" state="0" IsHidden="0">
+              <status value="1" state="0" Color="#d5f0c5" IsHidden="0">
                 <labels>
                   <label description="In Progress" languagecode="1033" />
                   <label description="In Bearbeitung" languagecode="1031" />
                   <label description="En cours" languagecode="1036" />
                   <label description="In corso" languagecode="1040" />
                 </labels>
+                <Descriptions>
+                  <Description description="" languagecode="1033" />
+                </Descriptions>
               </status>
-              <status value="2" state="1" IsHidden="0">
+              <status value="2" state="1" Color="#c3e7eb" IsHidden="0">
                 <labels>
                   <label description="Closed" languagecode="1033" />
                   <label description="Abgeschlossen" languagecode="1031" />
                   <label description="Clôturé" languagecode="1036" />
                   <label description="Chiusa" languagecode="1040" />
                 </labels>
+                <Descriptions>
+                  <Description description="" languagecode="1033" />
+                </Descriptions>
               </status>
-              <status value="365000000" state="0" IsHidden="0">
+              <status value="365000000" state="0" Color="#f5f5b3" IsHidden="0">
                 <labels>
                   <label description="Offer" languagecode="1033" />
                   <label description="Angebot" languagecode="1031" />
                   <label description="Offre" languagecode="1036" />
                   <label description="Offerta" languagecode="1040" />
                 </labels>
+                <Descriptions>
+                  <Description description="" languagecode="1033" />
+                </Descriptions>
               </status>
-              <status value="365000001" state="0" IsHidden="0">
+              <status value="365000001" state="0" Color="#f5dfc4" IsHidden="0">
                 <labels>
                   <label description="Suspended" languagecode="1033" />
                   <label description="Ausgesetzt" languagecode="1031" />
                   <label description="Suspendu" languagecode="1036" />
                   <label description="Sospesa" languagecode="1040" />
                 </labels>
+                <Descriptions>
+                  <Description description="" languagecode="1033" />
+                </Descriptions>
               </status>
             </statuses>
           </optionset>
