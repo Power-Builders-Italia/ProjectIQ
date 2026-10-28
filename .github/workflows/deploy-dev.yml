@@ -240,22 +240,9 @@ jobs:
           pac auth create --name dev --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
             --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
           tools/pcf/push.sh
+      # pac rather than the import-solution action, so that a transient Dataverse failure (e.g. "no Sandbox Hosts
+      # are currently available" from a plug-in running during the import) is retried instead of failing the run.
       - name: Import portal into Dev
-        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
-        uses: microsoft/powerplatform-actions/import-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
-        with:
-          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
-          app-id: ${{ secrets.PP_CLIENT_ID }}
-          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-file: out/main/OpenProject365SupplierPortal.zip
-          publish-changes: true
-          run-asynchronously: true
-          max-async-wait-time: 60
-      # 3. Verify: Dev must now match main
-      # The imports and pac pcf push already publish; Dataverse can still be finishing that publish, and an export
-      # started meanwhile fails with "another [EntityCustomization] running", so the exports are retried.
-      - name: Export Dev after import
         if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
         shell: bash
         env:
@@ -265,9 +252,25 @@ jobs:
           PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          # the powerplatform-actions steps clear every pac profile when they end, so the one push.sh used is gone
+          # the powerplatform-actions steps clear every pac profile when they end, so the one push.sh used is gone;
+          # this profile is used by the verification export as well
           pac auth create --name verify --environment "$PP_ENVIRONMENT_URL" --tenant "$PP_TENANT_ID" \
             --applicationId "$PP_CLIENT_ID" --clientSecret "$PP_CLIENT_SECRET"
+          for attempt in 1 2 3; do
+            if pac solution import --path out/main/OpenProject365SupplierPortal.zip --publish-changes --activate-plugins \
+              --async --max-async-wait-time 60; then break; fi
+            if [ "$attempt" = 3 ]; then echo "::error::Import of OpenProject365SupplierPortal failed 3 times"; exit 1; fi
+            echo "Import of OpenProject365SupplierPortal failed, retrying in 60 s ($attempt/3)"; sleep 60
+          done
+      # 3. Verify: Dev must now match main
+      # The imports and pac pcf push already publish; Dataverse can still be finishing that publish, and an export
+      # started meanwhile fails with "another [EntityCustomization] running", so the exports are retried.
+      - name: Export Dev after import
+        if: steps.compare.outputs.drift == 'false' && env.CHECK_ONLY != 'true'
+        shell: bash
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          # uses the pac profile created by "Import portal into Dev"
           mkdir -p out/verify
           for solution in OpenProject365 OpenProject365SupplierPortal; do
             for attempt in 1 2 3 4 5 6 7 8 9 10; do
