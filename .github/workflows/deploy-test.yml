@@ -2,6 +2,8 @@ name: deploy-test
 
 # Exports OpenProject365 and then OpenProject365SupplierPortal as managed from Dev (version 1.0.<run>.0)
 # and imports them into Test in that order (the portal uses the main solution's tables).
+# First it exports both unmanaged and compares them with main (tools/alm/compare_solution.py): if Dev holds changes
+# that are not in main, or main changes not yet installed by deploy-dev, nothing is deployed.
 # Uses the PP_* secrets; the app registration must be an application user in both environments.
 # Connection references are mapped by deployment/<settings>.settings.json (connections stay out of the managed layer);
 # its #{NAME}# tokens come from the secrets of the GitHub environment <settings> (secrets, not variables: the
@@ -46,6 +48,59 @@ jobs:
           New-Item -ItemType Directory -Force out | Out-Null
           Set-Content out/deployment.settings.json ($settings | ConvertTo-Json -Depth 5)
       - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      # Dev must match main: Test gets only what was merged and installed in Dev by deploy-dev
+      - name: Export Dev (unmanaged)
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/dev/OpenProject365.zip
+          managed: false
+      - name: Export Dev portal (unmanaged)
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/dev/OpenProject365SupplierPortal.zip
+          managed: false
+      - name: Unpack Dev
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365.zip
+          solution-folder: dev/solutions/OpenProject365/src
+          solution-type: Unmanaged
+      - name: Unpack Dev portal
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365SupplierPortal.zip
+          solution-folder: dev/solutions/OpenProject365SupplierPortal/src
+          solution-type: Unmanaged
+      - name: Compare Dev with main
+        shell: bash
+        env:
+          # the exports hold labels in every language: never let Python fall back to the cp1252 console encoding
+          PYTHONUTF8: 1
+        run: |
+          echo "#### Dev compared with main (\`${GITHUB_SHA::7}\`)" >> "$GITHUB_STEP_SUMMARY"
+          set +e
+          python tools/alm/compare_solution.py solutions dev/solutions --summary summary.md > /dev/null
+          code=$?
+          set -e
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          case $code in
+            0) ;;
+            1) echo "::error::Dev does not match main: run deploy-dev (it opens a drift pull request if Dev has changes not in main), then deploy again"; exit 1 ;;
+            *) echo "::error::The comparison could not run (exit $code)"; exit 1 ;;
+          esac
       - name: Set solution version in Dev
         uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
         with:
