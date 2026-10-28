@@ -3,10 +3,10 @@
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Open Project 365" languagecode="1031" />
-      <LocalizedName description="Open Project 365" languagecode="1033" />
-      <LocalizedName description="Open Project 365" languagecode="1036" />
-      <LocalizedName description="Open Project 365" languagecode="1040" />
+      <LocalizedName description="ProjectIQ" languagecode="1031" />
+      <LocalizedName description="ProjectIQ" languagecode="1033" />
+      <LocalizedName description="ProjectIQ" languagecode="1036" />
+      <LocalizedName description="ProjectIQ" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
       <Description description="Projekt- und Auftragsmanagement auf Microsoft Dataverse" languagecode="1031" />
@@ -25,10 +25,10 @@
         <LocalizedName description="Power Builders Italia" languagecode="1040" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="Herausgeber von Open Project 365" languagecode="1031" />
-        <Description description="Publisher of Open Project 365" languagecode="1033" />
-        <Description description="Éditeur d'Open Project 365" languagecode="1036" />
-        <Description description="Autore di Open Project 365" languagecode="1040" />
+        <Description description="Herausgeber von ProjectIQ" languagecode="1031" />
+        <Description description="Publisher of ProjectIQ" languagecode="1033" />
+        <Description description="Éditeur de ProjectIQ" languagecode="1036" />
+        <Description description="Autore di ProjectIQ" languagecode="1040" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -241,7 +241,7 @@
         <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
-        <Dependent type="80" schemaName="op365_OpenProject365" displayName="Open Project 365" />
+        <Dependent type="80" schemaName="op365_OpenProject365" displayName="ProjectIQ" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">

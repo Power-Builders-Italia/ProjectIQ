@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/master-data.md) · Italiano · [Français](../fr/master-data.md) · [Deutsch](../de/master-data.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Le anagrafiche sono le informazioni su cui si basa tutto il resto di Open Project 365: le aziende per cui lavori e da cui compri, le persone con cui parli, gli articoli che acquisti e consumi, le risorse di cui pianifichi e registri le ore. Tenerle pulite e complete è ciò che rende affidabili costi, acquisti e pianificazione. Questo manuale spiega ogni tipo di record, a cosa serve ciascun campo e le regole che l'applicazione applica in automatico.
+Le anagrafiche sono le informazioni su cui si basa tutto il resto di ProjectIQ: le aziende per cui lavori e da cui compri, le persone con cui parli, gli articoli che acquisti e consumi, le risorse di cui pianifichi e registri le ore. Tenerle pulite e complete è ciò che rende affidabili costi, acquisti e pianificazione. Questo manuale spiega ogni tipo di record, a cosa serve ciascun campo e le regole che l'applicazione applica in automatico.
 
 Tutte le anagrafiche stanno nell'area **Master Data**, gruppo **Records**: **Customers** (clienti), **Suppliers** (fornitori), **Contacts** (contatti), **Items** (articoli), **Resources** (risorse). I costi orari delle risorse sono nell'area **Settings**; le impostazioni aziendali sono variabili d'ambiente (vedi [Amministrazione](administration.md#impostazioni-aziendali)).
 
@@ -106,7 +106,7 @@ Crea i documenti dalla tab Documents del fornitore (**+ New Supplier Document**)
 
 ## Contatti
 
-I contatti sono i contatti standard di Dataverse: le persone che lavorano per i tuoi clienti e fornitori. Open Project 365 aggiunge un campo:
+I contatti sono i contatti standard di Dataverse: le persone che lavorano per i tuoi clienti e fornitori. ProjectIQ aggiunge un campo:
 
 - **Is Decision Maker**: spuntalo per chi decide (per esempio chi firma l'offerta o l'ordine).
 

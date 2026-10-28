@@ -3,19 +3,19 @@
 > **Language:** English · [Italiano](../it/supplier-portal.md) · [Français](../fr/supplier-portal.md) · [Deutsch](../de/supplier-portal.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-The **supplier portal** is a website, built with Microsoft Power Pages on the same Dataverse database as Open Project 365, where your suppliers can work with you without emails and spreadsheets going back and forth. On the portal a supplier:
+The **supplier portal** is a website, built with Microsoft Power Pages on the same Dataverse database as ProjectIQ, where your suppliers can work with you without emails and spreadsheets going back and forth. On the portal a supplier:
 
 - sees the **requests for quotation** (RFQs) you sent them, types **unit prices**, **delivery days** and **notes**, and sends the quote — or declines;
 - sees the **purchase orders** you sent them, with lines and amounts, and **confirms** them;
 - sees how much of each order has already been **received**.
 
-Everything the supplier does is immediately visible in Open Project 365: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status.
+Everything the supplier does is immediately visible in ProjectIQ: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status.
 
 This manual has two parts: **Part 1 for suppliers** (you can send it to them) and **Part 2 for your internal staff**, who give suppliers access and follow their answers.
 
 ```mermaid
 sequenceDiagram
-    participant B as Buyer (Open Project 365)
+    participant B as Buyer (ProjectIQ)
     participant DV as Dataverse
     participant S as Supplier (portal)
     B->>DV: Send RFQ (invitation + empty quote lines)
@@ -101,7 +101,7 @@ Draft and cancelled orders and RFQs not yet sent are never shown. Prices of othe
 
 A supplier user is a **contact** whose **company** is the supplier account, with the **Supplier** web role.
 
-1. In Open Project 365 make sure the supplier account is **Is Supplier**, **Active** and not **Blocked**, and has a valid **Email**.
+1. In ProjectIQ make sure the supplier account is **Is Supplier**, **Active** and not **Blocked**, and has a valid **Email**.
 2. Create (or open) the **contact** of the person, with **Company Name** = the supplier and their email.
 3. In **Power Pages Management** (or the portal studio, *Set up → Web roles*) assign the web role **Supplier** to the contact.
 4. Let the person sign in with the method configured on your site (for example send an **invitation** from Power Pages Management → *Invitations*, or let them register with the email you recorded).

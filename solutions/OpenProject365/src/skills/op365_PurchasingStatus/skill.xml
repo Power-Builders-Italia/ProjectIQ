@@ -2,7 +2,7 @@
   <body># Purchasing status (read-only)
 
 The cycle is: purchase request (RdA) &gt; RFQ (RdO, optional) &gt; purchase order (OdA) &gt; goods receipt (entrata merce, DDT) &gt; supplier invoice (fattura passiva).
-Copilot cannot submit, approve, send, award, receive or cancel anything: these steps run only from the buttons of the Open Project 365 app.
+Copilot cannot submit, approve, send, award, receive or cancel anything: these steps run only from the buttons of the ProjectIQ app.
 
 ## Status values
 | Table | Status reasons (`statuscode`) |
@@ -23,10 +23,10 @@ Copilot cannot submit, approve, send, award, receive or cancel anything: these s
 ## Rules
 - Over Budget means actual + committed + this request exceed the budget; Above Threshold means the request needs the purchasing approver (environment variable `op365_PurchasingApprover`).
 - Amounts protected by column security (Spend) may be empty for the user: say so.</body>
-  <description>Read-only view of the purchasing cycle in Open Project 365 (purchase requests, RFQs, purchase orders, goods receipts, supplier invoices). Use when the user asks where a purchase is, what is waiting for approval, late deliveries, or invoices to review.</description>
+  <description>Read-only view of the purchasing cycle in ProjectIQ (purchase requests, RFQs, purchase orders, goods receipts, supplier invoices). Use when the user asks where a purchase is, what is waiting for approval, late deliveries, or invoices to review.</description>
   <iscustomizable>1</iscustomizable>
   <ishidden>0</ishidden>
   <ispersonal>0</ispersonal>
-  <name>Open Project 365 - Purchasing status</name>
+  <name>ProjectIQ - Purchasing status</name>
   <origin>0</origin>
 </skill>

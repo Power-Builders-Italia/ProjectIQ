@@ -1,6 +1,6 @@
 ---
-name: Open Project 365 - Resource load
-description: Read-only check of planned hours against capacity of resources in Open Project 365. Use when the user asks who is overloaded or available in a period, or carico risorse.
+name: ProjectIQ - Resource load
+description: Read-only check of planned hours against capacity of resources in ProjectIQ. Use when the user asks who is overloaded or available in a period, or carico risorse.
 ---
 # Resource load (read-only)
 

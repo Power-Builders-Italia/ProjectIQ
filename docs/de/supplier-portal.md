@@ -3,13 +3,13 @@
 > **Sprache:** [English](../en/supplier-portal.md) · [Italiano](../it/supplier-portal.md) · [Français](../fr/supplier-portal.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Das **Lieferantenportal** ist eine Website, erstellt mit Microsoft Power Pages auf derselben Dataverse-Datenbank wie Open Project 365, auf der Ihre Lieferanten mit Ihnen zusammenarbeiten können, ohne E-Mails und Tabellen hin und her zu schicken. Im Portal kann ein Lieferant:
+Das **Lieferantenportal** ist eine Website, erstellt mit Microsoft Power Pages auf derselben Dataverse-Datenbank wie ProjectIQ, auf der Ihre Lieferanten mit Ihnen zusammenarbeiten können, ohne E-Mails und Tabellen hin und her zu schicken. Im Portal kann ein Lieferant:
 
 - die **Angebotsanfragen** sehen, die Sie ihm gesendet haben, **Stückpreise**, **Lieferzeit** und **Notizen** eingeben und sein Angebot senden — oder absagen;
 - die **Bestellungen** sehen, die Sie ihm gesendet haben, mit Positionen und Beträgen, und sie **bestätigen**;
 - sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde.
 
-Alles, was der Lieferant tut, ist sofort in Open Project 365 sichtbar: Angebote erscheinen im Quote Comparison der Angebotsanfrage, Bestätigungen ändern den Status der Bestellung.
+Alles, was der Lieferant tut, ist sofort in ProjectIQ sichtbar: Angebote erscheinen im Quote Comparison der Angebotsanfrage, Bestätigungen ändern den Status der Bestellung.
 
 Dieses Handbuch hat zwei Teile: **Teil 1 für Lieferanten** (Sie können ihn an diese weitergeben) und **Teil 2 für Ihre internen Mitarbeiter**, die Lieferanten Zugriff geben und ihre Antworten verfolgen.
 
@@ -17,7 +17,7 @@ Dieses Handbuch hat zwei Teile: **Teil 1 für Lieferanten** (Sie können ihn an 
 
 ```mermaid
 sequenceDiagram
-    participant B as Einkäufer (Open Project 365)
+    participant B as Einkäufer (ProjectIQ)
     participant DV as Dataverse
     participant S as Lieferant (Portal)
     B->>DV: Send RFQ (Einladung + leere Angebotspositionen)
@@ -103,7 +103,7 @@ Bestellungen im Entwurf oder stornierte Bestellungen und nicht versandte Angebot
 
 Ein Lieferantenbenutzer ist ein **Kontakt**, dessen **Unternehmen** der Lieferanten-Account ist, mit der Web-Rolle **Supplier**.
 
-1. Prüfen Sie in Open Project 365, ob der Lieferanten-Account **Is Supplier**, **Active** und nicht **Blocked** ist und eine gültige **Email** hat.
+1. Prüfen Sie in ProjectIQ, ob der Lieferanten-Account **Is Supplier**, **Active** und nicht **Blocked** ist und eine gültige **Email** hat.
 2. Legen Sie den **Kontakt** der Person an (oder öffnen Sie ihn), mit **Company Name** = der Lieferant und ihrer E-Mail-Adresse.
 3. Weisen Sie dem Kontakt in **Power Pages Management** (oder im Studio des Portals, *Set up → Web roles*) die Web-Rolle **Supplier** zu.
 4. Ermöglichen Sie der Person die Anmeldung mit der auf Ihrer Website konfigurierten Methode (zum Beispiel durch Senden einer **Einladung** aus Power Pages Management → *Invitations* oder indem Sie sie sich mit der hinterlegten E-Mail registrieren lassen).

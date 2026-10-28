@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/materials-and-costs.md) · [Italiano](../it/materials-and-costs.md) · [Français](../fr/materials-and-costs.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Ein Projekt ist nur dann rentabel, wenn Sie jederzeit wissen, was es tatsächlich gekostet hat und was es noch kosten wird. Open Project 365 sammelt **Ist-Kosten** aus zwei Quellen — genehmigte Stunden und Materialverbräuche — und kombiniert sie mit dem **Obligo** (Committed Cost) offener Bestellungen und dem **Budget** des PSP. Die **Cost Summary** (Kostenübersicht) im Projektformular macht aus diesen Zahlen eine Prognose: die Kosten bei Fertigstellung und die erwartete Marge.
+Ein Projekt ist nur dann rentabel, wenn Sie jederzeit wissen, was es tatsächlich gekostet hat und was es noch kosten wird. ProjectIQ sammelt **Ist-Kosten** aus zwei Quellen — genehmigte Stunden und Materialverbräuche — und kombiniert sie mit dem **Obligo** (Committed Cost) offener Bestellungen und dem **Budget** des PSP. Die **Cost Summary** (Kostenübersicht) im Projektformular macht aus diesen Zahlen eine Prognose: die Kosten bei Fertigstellung und die erwartete Marge.
 
 Dieses Handbuch erklärt, wie Sie Material erfassen, wie Ist-Kosten und Obligo entstehen und wie Sie die Kostenübersicht lesen.
 
@@ -82,7 +82,7 @@ Der Vorschlag erfolgt nur, wenn der Artikel gewählt oder geändert wird; späte
 
 ### Material aus Wareneingängen
 
-Wenn ein Einkäufer einen Wareneingang zu einer Bestellung bucht, legt Open Project 365 je erhaltener Position einen Materialverbrauch zum **Bestellpreis** an, auf dem Projekt der Bestellung und dem PSP-Element der Bestellposition. Diese Datensätze sind als aus dem Wareneingang stammend gekennzeichnet und **können nicht direkt geändert oder gelöscht werden**: „This material usage comes from a goods receipt: cancel the receipt to change it.“ Um sie zu korrigieren, stornieren Sie den Wareneingang und buchen ihn erneut.
+Wenn ein Einkäufer einen Wareneingang zu einer Bestellung bucht, legt ProjectIQ je erhaltener Position einen Materialverbrauch zum **Bestellpreis** an, auf dem Projekt der Bestellung und dem PSP-Element der Bestellposition. Diese Datensätze sind als aus dem Wareneingang stammend gekennzeichnet und **können nicht direkt geändert oder gelöscht werden**: „This material usage comes from a goods receipt: cancel the receipt to change it.“ Um sie zu korrigieren, stornieren Sie den Wareneingang und buchen ihn erneut.
 
 Sie müssen eingekauftes Material also **nicht** doppelt erfassen: Nehmen Sie es an, und es wird automatisch zu Ist-Kosten. Erfassen Sie von Hand nur Material aus dem Lager oder außerhalb von Bestellungen gekauftes Material.
 

@@ -471,10 +471,10 @@
       <LocalizedName description="Produttore" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
-      <Description description="Firma als Lieferant (Open Project 365)" languagecode="1031" />
-      <Description description="Account as supplier (Open Project 365)" languagecode="1033" />
-      <Description description="Compte fournisseur (Open Project 365)" languagecode="1036" />
-      <Description description="Account come fornitore (Open Project 365)" languagecode="1040" />
+      <Description description="Firma als Lieferant (ProjectIQ)" languagecode="1031" />
+      <Description description="Account as supplier (ProjectIQ)" languagecode="1033" />
+      <Description description="Compte fournisseur (ProjectIQ)" languagecode="1036" />
+      <Description description="Account come fornitore (ProjectIQ)" languagecode="1040" />
     </Descriptions>
   </systemform>
 </forms>

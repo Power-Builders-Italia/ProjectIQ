@@ -1,4 +1,4 @@
-# Open Project 365 — notes for Claude
+# ProjectIQ — notes for Claude
 
 - Power Apps model-driven app on Dataverse; solution `OpenProject365`, publisher prefix `op365`, choice values from 365000000. Supplier portal is the separate solution `OpenProject365SupplierPortal`.
 - Plugins in `src/plugins` (C#), PCF controls in `src/pcf` (React + Fluent UI v9), schema scripts in `tools/dataverse`.

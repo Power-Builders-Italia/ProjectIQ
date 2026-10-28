@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/master-data.md) · [Français](../fr/master-data.md) · [Deutsch](../de/master-data.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-Master data is the information every other part of Open Project 365 relies on: the companies you work for and buy from, the people you talk to, the items you purchase and consume, and the resources whose hours you plan and record. Keeping it clean and complete is what makes costs, purchasing and planning reliable. This manual explains each record type, what every field is used for, and the rules the application applies automatically.
+Master data is the information every other part of ProjectIQ relies on: the companies you work for and buy from, the people you talk to, the items you purchase and consume, and the resources whose hours you plan and record. Keeping it clean and complete is what makes costs, purchasing and planning reliable. This manual explains each record type, what every field is used for, and the rules the application applies automatically.
 
 All master data lives in the **Master Data** area, group **Records**: **Customers**, **Suppliers**, **Contacts**, **Items**, **Resources**. Resource hourly costs are in the **Settings** area; company settings are environment variables (see [Administration](administration.md#company-settings)).
 
@@ -104,7 +104,7 @@ Create documents from the Documents tab of the supplier (**+ New Supplier Docume
 
 ## Contacts
 
-Contacts are the standard Dataverse contacts: the people who work for your customers and suppliers. Open Project 365 adds one field:
+Contacts are the standard Dataverse contacts: the people who work for your customers and suppliers. ProjectIQ adds one field:
 
 - **Is Decision Maker**: tick it for the people who decide (for example who signs the offer or the order).
 

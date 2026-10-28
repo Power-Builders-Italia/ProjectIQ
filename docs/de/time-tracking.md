@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/time-tracking.md) · [Italiano](../it/time-tracking.md) · [Français](../fr/time-tracking.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Stunden sind meist der größte Kostenblock eines Auftrags und am schwierigsten rechtzeitig zu erfassen. Open Project 365 macht ihre Erfassung zur wöchentlichen Routine: Jede Person füllt einen **Wochenstundenzettel** nach Projekt und Vorgang aus, reicht die Woche ein, und die Projektleiter **genehmigen** oder **lehnen** die Stunden über einen einzigen Bildschirm **ab**. Genehmigte Stunden werden zu **Ist-Stunden und Ist-Kosten** der PSP-Elemente und des Projekts, bewertet mit dem Stundensatz, der an dem Tag galt. Eine **tägliche Erinnerung** benachrichtigt Personen, die vergessen haben, ihre Stunden zu erfassen.
+Stunden sind meist der größte Kostenblock eines Auftrags und am schwierigsten rechtzeitig zu erfassen. ProjectIQ macht ihre Erfassung zur wöchentlichen Routine: Jede Person füllt einen **Wochenstundenzettel** nach Projekt und Vorgang aus, reicht die Woche ein, und die Projektleiter **genehmigen** oder **lehnen** die Stunden über einen einzigen Bildschirm **ab**. Genehmigte Stunden werden zu **Ist-Stunden und Ist-Kosten** der PSP-Elemente und des Projekts, bewertet mit dem Stundensatz, der an dem Tag galt. Eine **tägliche Erinnerung** benachrichtigt Personen, die vergessen haben, ihre Stunden zu erfassen.
 
 Dieses Handbuch richtet sich an alle, die Stunden erfassen (Teil 1), an die Projektleiter, die sie genehmigen (Teil 2), und an Administratoren, die den Ablauf konfigurieren (Teil 3).
 
@@ -15,7 +15,7 @@ Dieses Handbuch richtet sich an alle, die Stunden erfassen (Teil 1), an die Proj
 sequenceDiagram
     actor R as Ressource (Teammitglied)
     participant TS as Stundenzettel
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     actor PM as Projektleiter
     R->>TS: Gibt Stunden nach Projekt/Vorgang und Tag ein
     TS->>OP: Zeiteinträge als Draft gespeichert
@@ -195,7 +195,7 @@ Beispiel: Marcos Kosten betragen 35,00 €/h bis 30. Juni und 38,50 €/h ab 1. 
 | **Weekly Hours**, **Working Days** | Ressource | Erwartete Stunden (Erinnerung, Wochensumme) |
 | **Absences** | Planning → Absences | Verringern die erwarteten Stunden; Betriebsschließungen setzen die Erinnerungen aus |
 | **Hourly Rate** auf dem Projektmitglied | Projekt → Team | Erlös der Stunden des Mitglieds |
-| Flow **Daily time reminder** | Power Automate, Lösung Open Project 365 | Versendet die Erinnerungen (Mo–Fr 17:30). Siehe [Administration](administration.md#tägliche-stundenerinnerung) |
+| Flow **Daily time reminder** | Power Automate, Lösung ProjectIQ | Versendet die Erinnerungen (Mo–Fr 17:30). Siehe [Administration](administration.md#tägliche-stundenerinnerung) |
 
 Administratoren können Einträge im Namen anderer einreichen und Einträge jedes Projekts genehmigen oder ablehnen.
 

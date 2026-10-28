@@ -23,7 +23,7 @@ form(A, 'Customer', [
                  section(A, 'Billing', ['op365_paymentterms', 'op365_iban', 'op365_pec', 'op365_language'])]),
         ('40%', [section(A, 'Timeline', [('timeline',)])])]),
     tab('Contacts', [('100%', [section(A, 'Contacts', [('subgrid', 'Contacts', 'Contacts', 'contact', 'contact_customer_accounts')])])]),
-], description='Account as customer (Open Project 365)', extra=onload(ACCOUNT_JS, 'OP365.Account.onLoad'))
+], description='Account as customer (ProjectIQ)', extra=onload(ACCOUNT_JS, 'OP365.Account.onLoad'))
 
 form(A, 'Supplier', [
     tab('Summary', [
@@ -38,7 +38,7 @@ form(A, 'Supplier', [
         section(A, 'Documents', [('subgrid', 'Documents', 'Documents', 'op365_supplierdocument', 'op365_account_supplierdocument_supplierid')])])]),
     tab('Item Prices', [('100%', [section(A, 'Item Prices', [('subgrid', 'ItemPrices', 'Item Prices', 'op365_itemsupplier', 'op365_account_itemsupplier_supplierid')])])]),
     tab('Contacts', [('100%', [section(A, 'Contacts', [('subgrid', 'Contacts', 'Contacts', 'contact', 'contact_customer_accounts')])])]),
-], description='Account as supplier (Open Project 365)', extra=onload(ACCOUNT_JS, 'OP365.Account.onLoad'))
+], description='Account as supplier (ProjectIQ)', extra=onload(ACCOUNT_JS, 'OP365.Account.onLoad'))
 
 T = 'op365_item'
 form(T, 'Item', [

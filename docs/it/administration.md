@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/administration.md) · Italiano · [Français](../fr/administration.md) · [Deutsch](../de/administration.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Questo manuale è per chi configura e gestisce Open Project 365 in un'azienda: amministratori funzionali, personale IT e amministratore della Power Platform. Spiega come dare accesso alle persone, come funziona il modello di sicurezza, cosa fanno le impostazioni aziendali, quali automazioni girano in background e cosa controllare dopo un aggiornamento. Gli argomenti tecnici (build, distribuzione, schema Dataverse) sono trattati in [Development environment setup](../dev-environment.md) e [Data model](../data-model.md) (in inglese).
+Questo manuale è per chi configura e gestisce ProjectIQ in un'azienda: amministratori funzionali, personale IT e amministratore della Power Platform. Spiega come dare accesso alle persone, come funziona il modello di sicurezza, cosa fanno le impostazioni aziendali, quali automazioni girano in background e cosa controllare dopo un aggiornamento. Gli argomenti tecnici (build, distribuzione, schema Dataverse) sono trattati in [Development environment setup](../dev-environment.md) e [Data model](../data-model.md) (in inglese).
 
 > I nomi di campi e pulsanti sono in inglese, come appaiono a schermo.
 
@@ -11,7 +11,7 @@ Questo manuale è per chi configura e gestisce Open Project 365 in un'azienda: a
 
 ```mermaid
 flowchart TD
-    A[1. Ambiente con la soluzione<br/>Open Project 365] --> B[2. Utenti: Basic User +<br/>ruolo OP365]
+    A[1. Ambiente con la soluzione<br/>ProjectIQ] --> B[2. Utenti: Basic User +<br/>ruolo OP365]
     B --> C[3. Profilo Cost Visibility<br/>a manager e controller]
     C --> D[4. Variabili d'ambiente: approvazione ore,<br/>soglia e approvatore acquisti]
     D --> E[5. Anagrafiche: clienti,<br/>fornitori, articoli, risorse]
@@ -26,7 +26,7 @@ flowchart TD
 | 1 | Power Platform admin center | Un ambiente Dataverse per azienda. La soluzione viene installata dall'IT (vedi [dev environment](../dev-environment.md)) |
 | 2 | Power Platform admin center → Users | [Ruoli di sicurezza](#ruoli-di-sicurezza) |
 | 3 | Power Platform admin center → Column security profiles | [Visibilità dei costi](#visibilità-dei-costi) |
-| 4 | Power Apps → Solutions → Open Project 365 → Environment variables | [Impostazioni aziendali](#impostazioni-aziendali) |
+| 4 | Power Apps → Solutions → ProjectIQ → Environment variables | [Impostazioni aziendali](#impostazioni-aziendali) |
 | 5 | Master Data | [Anagrafiche](master-data.md) |
 | 6 | Master Data → Resources | [Anagrafiche](master-data.md#risorse) |
 | 7 | Projects → Planning → Absences (senza risorsa) | [Anagrafiche](master-data.md#assenze-e-chiusure-aziendali) |
@@ -39,14 +39,14 @@ Ogni utente interno ha bisogno di una licenza **Power Apps Premium** (o di una l
 
 ## Ruoli di sicurezza
 
-I ruoli di Open Project 365 sono **additivi**: ogni utente interno ha bisogno del ruolo standard **Basic User** **più** un ruolo di Open Project 365.
+I ruoli di ProjectIQ sono **additivi**: ogni utente interno ha bisogno del ruolo standard **Basic User** **più** un ruolo di ProjectIQ.
 
 | Ruolo | Per | Accesso |
 |---|---|---|
-| **OP365 Administrator** | Amministratori funzionali, controller, back office, approvatore acquisti | A livello di organizzazione: creazione, lettura, scrittura, eliminazione, aggiunta, assegnazione e condivisione su tutte le tabelle di Open Project 365, clienti, fornitori e contatti. Vede tutti i progetti. Può approvare ore e richieste su ogni progetto, decidere le fatture fornitori, inviare ore per altri |
+| **OP365 Administrator** | Amministratori funzionali, controller, back office, approvatore acquisti | A livello di organizzazione: creazione, lettura, scrittura, eliminazione, aggiunta, assegnazione e condivisione su tutte le tabelle di ProjectIQ, clienti, fornitori e contatti. Vede tutti i progetti. Può approvare ore e richieste su ogni progetto, decidere le fatture fornitori, inviare ore per altri |
 | **OP365 User** | Project manager, membri del team, buyer | Legge le anagrafiche a livello di organizzazione; crea e gestisce i propri record; vede i progetti di cui è **proprietario** o in cui è **membro**, con i diritti del proprio ruolo di progetto (vedi [Progetti e team](projects-and-team.md#il-team-di-progetto)). Fatture fornitori: sola lettura |
 
-Il ruolo standard **System Administrator** è trattato come OP365 Administrator da tutte le regole di Open Project 365.
+Il ruolo standard **System Administrator** è trattato come OP365 Administrator da tutte le regole di ProjectIQ.
 
 ### Cosa può fare un OP365 User, per ruolo di progetto
 
@@ -86,7 +86,7 @@ Assegna il profilo (Power Platform admin center → *Settings* → *Users + perm
 
 ## Impostazioni aziendali
 
-Gli interruttori validi per tutta l'azienda sono **variabili d'ambiente** (environment variables) della soluzione Open Project 365. Ogni ambiente (Dev, Test, Produzione) ha i propri valori: un ambiente di test può ad esempio saltare l'approvazione delle ore senza toccare la produzione. Non si trovano nell'app: le modifica un amministratore Power Platform o un maker dell'ambiente.
+Gli interruttori validi per tutta l'azienda sono **variabili d'ambiente** (environment variables) della soluzione ProjectIQ. Ogni ambiente (Dev, Test, Produzione) ha i propri valori: un ambiente di test può ad esempio saltare l'approvazione delle ore senza toccare la produzione. Non si trovano nell'app: le modifica un amministratore Power Platform o un maker dell'ambiente.
 
 ```mermaid
 flowchart LR
@@ -97,7 +97,7 @@ flowchart LR
 
 Per cambiare un valore:
 
-1. Apri [Power Apps](https://make.powerapps.com), seleziona l'ambiente, poi **Solutions** → **Open Project 365** (o **Default Solution**) → **Environment variables**.
+1. Apri [Power Apps](https://make.powerapps.com), seleziona l'ambiente, poi **Solutions** → **ProjectIQ** (o **Default Solution**) → **Environment variables**.
 2. Apri la variabile e, sotto **Current Value**, fai clic su **+ New value** (o modifica quello esistente). Non cambiare il **Default Value** di una soluzione gestita.
 3. **Save**. La modifica vale dall'invio successivo; non serve pubblicare.
 
@@ -120,11 +120,11 @@ In Test l'IT può impostare i valori anche al momento del rilascio, tramite le d
 
 ## Automazioni in background
 
-Open Project 365 mantiene aggiornati quasi tutti i valori con **plugin** che girano dentro Dataverse al salvataggio dei record; non richiedono manutenzione. Una sola automazione è pianificata.
+ProjectIQ mantiene aggiornati quasi tutti i valori con **plugin** che girano dentro Dataverse al salvataggio dei record; non richiedono manutenzione. Una sola automazione è pianificata.
 
 ### Promemoria giornaliero delle ore
 
-Il **Daily time reminder** è un flusso cloud di Power Automate nella soluzione Open Project 365. Dal **lunedì al venerdì alle 17:30** (ora dell'Europa occidentale) chiama l'azione *op365_SendTimeReminders*, che invia la notifica in-app "Record your hours" a ogni risorsa attiva con un utente che ha registrato meno ore del previsto nella giornata (vedi [Rilevazione ore](time-tracking.md#il-promemoria-giornaliero)). Nelle chiusure aziendali non viene inviato nessun promemoria.
+Il **Daily time reminder** è un flusso cloud di Power Automate nella soluzione ProjectIQ. Dal **lunedì al venerdì alle 17:30** (ora dell'Europa occidentale) chiama l'azione *op365_SendTimeReminders*, che invia la notifica in-app "Record your hours" a ogni risorsa attiva con un utente che ha registrato meno ore del previsto nella giornata (vedi [Rilevazione ore](time-tracking.md#il-promemoria-giornaliero)). Nelle chiusure aziendali non viene inviato nessun promemoria.
 
 Il flusso usa il riferimento di connessione **op365_dataverse** (Microsoft Dataverse). Un service principal non può possedere connessioni Power Automate, quindi un **utente** deve:
 
@@ -150,7 +150,7 @@ Le notifiche in-app sono attive per impostazione predefinita nei nuovi ambienti.
 
 ## Audit e cronologia
 
-L'audit è abilitato sulle tabelle di Open Project 365: una volta attivato anche a livello di ambiente (Power Platform admin center → *Settings* → *Audit and logs*), ogni modifica viene registrata ed è visibile nell'**Audit history** di ogni record (Related → Audit history). La timeline di ogni record conserva note, menzioni e allegati.
+L'audit è abilitato sulle tabelle di ProjectIQ: una volta attivato anche a livello di ambiente (Power Platform admin center → *Settings* → *Audit and logs*), ogni modifica viene registrata ed è visibile nell'**Audit history** di ogni record (Related → Audit history). La timeline di ogni record conserva note, menzioni e allegati.
 
 ## Dopo un aggiornamento della soluzione
 

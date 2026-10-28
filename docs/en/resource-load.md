@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/resource-load.md) · [Français](../fr/resource-load.md) · [Deutsch](../de/resource-load.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-Knowing *what* has to be done is half of planning; the other half is knowing *who* will do it and whether they have time. Open Project 365 answers the second question with **allocations** (hours of a resource planned on a WBS node) and the **Resource Load** dashboard, a heat map that compares, week by week, the hours allocated to every resource across all projects with the hours that resource actually has available.
+Knowing *what* has to be done is half of planning; the other half is knowing *who* will do it and whether they have time. ProjectIQ answers the second question with **allocations** (hours of a resource planned on a WBS node) and the **Resource Load** dashboard, a heat map that compares, week by week, the hours allocated to every resource across all projects with the hours that resource actually has available.
 
 This manual explains how to allocate resources, how capacity is calculated, how to read the heat map and how to fix overloads.
 

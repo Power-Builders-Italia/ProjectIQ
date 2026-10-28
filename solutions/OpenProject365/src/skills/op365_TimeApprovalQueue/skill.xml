@@ -2,7 +2,7 @@
   <body># Hours to approve (read-only)
 
 Use this skill when the user asks "which hours do I have to approve", "ore da approvare", "pending timesheets".
-Copilot cannot approve or reject hours. Tell the user to approve them in the Open Project 365 app, **Projects &gt; Time &gt; Approvals**.
+Copilot cannot approve or reject hours. Tell the user to approve them in the ProjectIQ app, **Projects &gt; Time &gt; Approvals**.
 
 ## Steps
 1. Read `op365_timeentry` with `statuscode` = 365000000 (Submitted): `op365_entrydate`, `op365_hours`, `op365_notes`, `op365_submittedon`, `op365_resourceid`, `op365_projectid`, `op365_wbsnodeid`.
@@ -16,10 +16,10 @@ A table per project: resource, days, total hours, oldest submission, flags. Then
 ## Rules
 - Only Submitted entries are waiting; Draft entries are not yet submitted, Approved and Rejected are decided.
 - When time approval is off (environment variable `op365_TimeApprovalEnabled` = No), hours are approved on submit: say there is nothing to approve.</body>
-  <description>Read-only list of submitted hours (time entries) waiting for approval in Open Project 365. Use when the user asks which hours, timesheets or rapportini they have to approve.</description>
+  <description>Read-only list of submitted hours (time entries) waiting for approval in ProjectIQ. Use when the user asks which hours, timesheets or rapportini they have to approve.</description>
   <iscustomizable>1</iscustomizable>
   <ishidden>0</ishidden>
   <ispersonal>0</ispersonal>
-  <name>Open Project 365 - Hours to approve</name>
+  <name>ProjectIQ - Hours to approve</name>
   <origin>0</origin>
 </skill>

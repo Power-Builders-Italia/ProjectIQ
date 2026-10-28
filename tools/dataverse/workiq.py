@@ -1,7 +1,7 @@
 """Business Applications in Work IQ (Copilot, Cowork): read-only scope.
 
 - column and lookup descriptions, read by the Dataverse semantic model;
-- Microsoft Copilot on the Open Project 365 app, so Dataverse indexes the app tables;
+- Microsoft Copilot on the ProjectIQ app, so Dataverse indexes the app tables;
 - business skills from copilot/skills/*.md, added to the OpenProject365 solution;
 - Dataverse search on the tables in scope: Copilot and Cowork read records through the search index.
 

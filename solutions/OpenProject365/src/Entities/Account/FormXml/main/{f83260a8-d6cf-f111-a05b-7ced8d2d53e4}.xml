@@ -339,10 +339,10 @@
       <LocalizedName description="Cliente" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
-      <Description description="Firma als Kunde (Open Project 365)" languagecode="1031" />
-      <Description description="Account as customer (Open Project 365)" languagecode="1033" />
-      <Description description="Compte client (Open Project 365)" languagecode="1036" />
-      <Description description="Account come cliente (Open Project 365)" languagecode="1040" />
+      <Description description="Firma als Kunde (ProjectIQ)" languagecode="1031" />
+      <Description description="Account as customer (ProjectIQ)" languagecode="1033" />
+      <Description description="Compte client (ProjectIQ)" languagecode="1036" />
+      <Description description="Account come cliente (ProjectIQ)" languagecode="1040" />
     </Descriptions>
   </systemform>
 </forms>

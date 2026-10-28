@@ -3,13 +3,13 @@
 > **Langue :** [English](../en/supplier-portal.md) · [Italiano](../it/supplier-portal.md) · Français · [Deutsch](../de/supplier-portal.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Le **portail fournisseurs** est un site web, réalisé avec Microsoft Power Pages sur la même base Dataverse qu'Open Project 365, où vos fournisseurs peuvent travailler avec vous sans allers-retours d'e-mails et de tableurs. Sur le portail, un fournisseur :
+Le **portail fournisseurs** est un site web, réalisé avec Microsoft Power Pages sur la même base Dataverse que ProjectIQ, où vos fournisseurs peuvent travailler avec vous sans allers-retours d'e-mails et de tableurs. Sur le portail, un fournisseur :
 
 - voit les **appels d'offres** que vous lui avez envoyés, saisit les **prix unitaires**, le **délai de livraison** et des **notes**, et envoie son devis — ou décline ;
 - voit les **commandes** que vous lui avez envoyées, avec lignes et montants, et les **confirme** ;
 - voit la part de chaque commande déjà **reçue**.
 
-Tout ce que fait le fournisseur est immédiatement visible dans Open Project 365 : les devis apparaissent dans la Quote Comparison de l'appel d'offres, les confirmations changent le statut de la commande.
+Tout ce que fait le fournisseur est immédiatement visible dans ProjectIQ : les devis apparaissent dans la Quote Comparison de l'appel d'offres, les confirmations changent le statut de la commande.
 
 Ce manuel comporte deux parties : la **Partie 1 pour les fournisseurs** (vous pouvez la leur transmettre) et la **Partie 2 pour votre personnel interne**, qui donne l'accès aux fournisseurs et suit leurs réponses.
 
@@ -17,7 +17,7 @@ Ce manuel comporte deux parties : la **Partie 1 pour les fournisseurs** (vous po
 
 ```mermaid
 sequenceDiagram
-    participant B as Acheteur (Open Project 365)
+    participant B as Acheteur (ProjectIQ)
     participant DV as Dataverse
     participant S as Fournisseur (portail)
     B->>DV: Send RFQ (invitation + lignes de devis vides)
@@ -103,7 +103,7 @@ Les commandes en brouillon ou annulées et les appels d'offres non envoyés ne s
 
 Un utilisateur fournisseur est un **contact** dont l'**entreprise** est le compte fournisseur, avec le rôle web **Supplier**.
 
-1. Dans Open Project 365, vérifiez que le compte fournisseur est **Is Supplier**, **Active** et non **Blocked**, avec un **Email** valide.
+1. Dans ProjectIQ, vérifiez que le compte fournisseur est **Is Supplier**, **Active** et non **Blocked**, avec un **Email** valide.
 2. Créez (ou ouvrez) le **contact** de la personne, avec **Company Name** = le fournisseur et son e-mail.
 3. Dans **Power Pages Management** (ou le studio du portail, *Set up → Web roles*), attribuez au contact le rôle web **Supplier**.
 4. Permettez à la personne de se connecter avec la méthode configurée sur votre site (par exemple en envoyant une **invitation** depuis Power Pages Management → *Invitations*, ou en la laissant s'inscrire avec l'e-mail enregistré).

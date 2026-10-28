@@ -1,11 +1,11 @@
 ---
-name: Open Project 365 - Purchasing status
-description: Read-only view of the purchasing cycle in Open Project 365 (purchase requests, RFQs, purchase orders, goods receipts, supplier invoices). Use when the user asks where a purchase is, what is waiting for approval, late deliveries, or invoices to review.
+name: ProjectIQ - Purchasing status
+description: Read-only view of the purchasing cycle in ProjectIQ (purchase requests, RFQs, purchase orders, goods receipts, supplier invoices). Use when the user asks where a purchase is, what is waiting for approval, late deliveries, or invoices to review.
 ---
 # Purchasing status (read-only)
 
 The cycle is: purchase request (RdA) > RFQ (RdO, optional) > purchase order (OdA) > goods receipt (entrata merce, DDT) > supplier invoice (fattura passiva).
-Copilot cannot submit, approve, send, award, receive or cancel anything: these steps run only from the buttons of the Open Project 365 app.
+Copilot cannot submit, approve, send, award, receive or cancel anything: these steps run only from the buttons of the ProjectIQ app.
 
 ## Status values
 | Table | Status reasons (`statuscode`) |

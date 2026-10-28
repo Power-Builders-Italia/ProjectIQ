@@ -12,4 +12,4 @@ Only the latest release of the `OpenProject365` and `OpenProject365SupplierPorta
 
 ## Scope
 
-Open Project 365 runs in the customer's own Dataverse environment and Power Pages site. Configuration of those environments (users, security roles, authentication providers, Conditional Access) is the responsibility of the customer's administrators; [docs/en/administration.md](docs/en/administration.md) describes the roles the application ships with.
+ProjectIQ runs in the customer's own Dataverse environment and Power Pages site. Configuration of those environments (users, security roles, authentication providers, Conditional Access) is the responsibility of the customer's administrators; [docs/en/administration.md](docs/en/administration.md) describes the roles the application ships with.

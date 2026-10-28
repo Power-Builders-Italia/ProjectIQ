@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/resource-load.md) · [Italiano](../it/resource-load.md) · [Français](../fr/resource-load.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Zu wissen, *was* zu tun ist, ist die halbe Planung; die andere Hälfte ist zu wissen, *wer* es tun wird und ob diese Person Zeit hat. Open Project 365 beantwortet die zweite Frage mit **Zuordnungen** (Allocations: geplante Stunden einer Ressource auf einem PSP-Element) und dem Dashboard **Resource Load**, einer Heatmap, die Woche für Woche die einer Ressource über alle Projekte zugeordneten Stunden mit den Stunden vergleicht, die diese Ressource tatsächlich zur Verfügung hat.
+Zu wissen, *was* zu tun ist, ist die halbe Planung; die andere Hälfte ist zu wissen, *wer* es tun wird und ob diese Person Zeit hat. ProjectIQ beantwortet die zweite Frage mit **Zuordnungen** (Allocations: geplante Stunden einer Ressource auf einem PSP-Element) und dem Dashboard **Resource Load**, einer Heatmap, die Woche für Woche die einer Ressource über alle Projekte zugeordneten Stunden mit den Stunden vergleicht, die diese Ressource tatsächlich zur Verfügung hat.
 
 Dieses Handbuch erklärt, wie Sie Ressourcen zuordnen, wie die Kapazität berechnet wird, wie Sie die Heatmap lesen und wie Sie Überlastungen beheben.
 

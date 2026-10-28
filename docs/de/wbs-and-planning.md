@@ -3,7 +3,7 @@
 > **Sprache:** [English](../en/wbs-and-planning.md) · [Italiano](../it/wbs-and-planning.md) · [Français](../fr/wbs-and-planning.md) · Deutsch
 > **Handbuchverzeichnis:** [README](../../README.md#user-manuals)
 
-Der **Projektstrukturplan (PSP)**, englisch *Work Breakdown Structure (WBS)*, gliedert ein Projekt in Phasen, Arbeitspakete und Vorgänge. In Open Project 365 ist der PSP der Ort, an dem das Budget aufgebaut, Termine und Abhängigkeiten geplant, der Fortschritt gemeldet und Stunden und Kosten gesammelt werden. Darauf setzen das **Gantt-Diagramm** mit dem **kritischen Pfad** und die **Basispläne** (Baselines) auf: eingefrorene Kopien des Plans, mit denen Sie das Vereinbarte mit dem tatsächlichen Verlauf vergleichen.
+Der **Projektstrukturplan (PSP)**, englisch *Work Breakdown Structure (WBS)*, gliedert ein Projekt in Phasen, Arbeitspakete und Vorgänge. In ProjectIQ ist der PSP der Ort, an dem das Budget aufgebaut, Termine und Abhängigkeiten geplant, der Fortschritt gemeldet und Stunden und Kosten gesammelt werden. Darauf setzen das **Gantt-Diagramm** mit dem **kritischen Pfad** und die **Basispläne** (Baselines) auf: eingefrorene Kopien des Plans, mit denen Sie das Vereinbarte mit dem tatsächlichen Verlauf vergleichen.
 
 Dieses Handbuch behandelt die Registerkarten **WBS** und **Gantt** des Projektformulars, das Formular des PSP-Elements, Abhängigkeiten, Zuordnungen und Basispläne. Die geplanten Stunden je Ressource werden in [Ressourcenauslastung](resource-load.md) behandelt.
 
@@ -225,7 +225,7 @@ Jedes Projekt hat **höchstens einen Referenz-Basisplan**: den, den das Gantt f�
 ```mermaid
 sequenceDiagram
     participant PM as Projektleiter
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     PM->>OP: Save Baseline ("Angebot")
     OP-->>PM: Basisplan 1 = Referenz
     PM->>OP: Ändert Termine und Budget

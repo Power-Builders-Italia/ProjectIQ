@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/projects-and-team.md) · Italiano · [Français](../fr/projects-and-team.md) · [Deutsch](../de/projects-and-team.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Il **progetto** (la commessa) è il cuore di Open Project 365. Tutto il resto — la struttura di scomposizione del lavoro, il piano, le ore, i materiali, gli acquisti — appartiene a un progetto, e ogni numero che guardi (budget, costo effettivo, costo impegnato, avanzamento, margine) è in definitiva un numero di un progetto. Questo manuale spiega come creare e condurre un progetto lungo il suo ciclo di vita, cosa significa ogni campo, quali valori vengono calcolati per te e come il **team di progetto** decide chi può vedere e fare cosa.
+Il **progetto** (la commessa) è il cuore di ProjectIQ. Tutto il resto — la struttura di scomposizione del lavoro, il piano, le ore, i materiali, gli acquisti — appartiene a un progetto, e ogni numero che guardi (budget, costo effettivo, costo impegnato, avanzamento, margine) è in definitiva un numero di un progetto. Questo manuale spiega come creare e condurre un progetto lungo il suo ciclo di vita, cosa significa ogni campo, quali valori vengono calcolati per te e come il **team di progetto** decide chi può vedere e fare cosa.
 
 Trovi i progetti in **Projects → Work → Projects**.
 
@@ -153,7 +153,7 @@ Tutti i membri di tutti i progetti sono visibili agli amministratori anche in **
 
 ### Chi vede un progetto
 
-Open Project 365 usa gli **access team** di Dataverse: ogni progetto ha fino a tre team nascosti, uno per ruolo di progetto, e aggiungere un membro al progetto aggiunge l'utente al team corrispondente.
+ProjectIQ usa gli **access team** di Dataverse: ogni progetto ha fino a tre team nascosti, uno per ruolo di progetto, e aggiungere un membro al progetto aggiunge l'utente al team corrispondente.
 
 ```mermaid
 flowchart LR

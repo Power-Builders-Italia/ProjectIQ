@@ -1,6 +1,6 @@
 ---
-name: Open Project 365 - Missing hours
-description: Read-only check of who has not recorded their hours on a day or week in Open Project 365. Use when the user asks who is missing hours, who did not fill in the timesheet, or chi non ha inserito le ore.
+name: ProjectIQ - Missing hours
+description: Read-only check of who has not recorded their hours on a day or week in ProjectIQ. Use when the user asks who is missing hours, who did not fill in the timesheet, or chi non ha inserito le ore.
 ---
 # Missing hours (read-only)
 

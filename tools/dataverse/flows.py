@@ -1,7 +1,7 @@
 """Cloud flows of the solution (all phases) and their Dataverse connection reference.
 
 Flows are created off: a flow runs only once its connection reference has a connection. In Dev open the flow in
-make.powerautomate.com (Solutions > Open Project 365), pick or create the Dataverse connection and turn it on;
+make.powerautomate.com (Solutions > ProjectIQ), pick or create the Dataverse connection and turn it on;
 in other environments the connection comes from the deployment settings of the import.
 Idempotent; reads the PAC_* environment variables.
 """
@@ -52,8 +52,8 @@ if ref:
     print('skip connection reference'); connection = ref.get('connectionid')
 else:
     ok(S.post(API + 'connectionreferences', json={
-        'connectionreferencelogicalname': REFERENCE.lower(), 'connectionreferencedisplayname': 'Open Project 365 Dataverse',
-        'connectorid': DATAVERSE, 'description': 'Dataverse connection used by the Open Project 365 flows'}),
+        'connectionreferencelogicalname': REFERENCE.lower(), 'connectionreferencedisplayname': 'ProjectIQ Dataverse',
+        'connectorid': DATAVERSE, 'description': 'Dataverse connection used by the ProjectIQ flows'}),
        'connection reference ' + REFERENCE)
     connection = None
 

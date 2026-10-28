@@ -32,10 +32,10 @@
     <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
   </AppModuleRoleMaps>
   <LocalizedNames>
-    <LocalizedName description="Open Project 365" languagecode="1031" />
-    <LocalizedName description="Open Project 365" languagecode="1033" />
-    <LocalizedName description="Open Project 365" languagecode="1036" />
-    <LocalizedName description="Open Project 365" languagecode="1040" />
+    <LocalizedName description="ProjectIQ" languagecode="1031" />
+    <LocalizedName description="ProjectIQ" languagecode="1033" />
+    <LocalizedName description="ProjectIQ" languagecode="1036" />
+    <LocalizedName description="ProjectIQ" languagecode="1040" />
   </LocalizedNames>
   <Descriptions>
     <Description description="Projekte, Planung, Zeiten, Material und Einkauf auf Dataverse" languagecode="1031" />

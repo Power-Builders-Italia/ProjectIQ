@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/resource-load.md) · Italiano · [Français](../fr/resource-load.md) · [Deutsch](../de/resource-load.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Sapere *cosa* va fatto è metà della pianificazione; l'altra metà è sapere *chi* lo farà e se ha tempo. Open Project 365 risponde alla seconda domanda con le **allocazioni** (ore di una risorsa pianificate su un nodo WBS) e con la dashboard **Resource Load**, una mappa di calore che confronta, settimana per settimana, le ore allocate a ogni risorsa su tutti i progetti con le ore che quella risorsa ha effettivamente a disposizione.
+Sapere *cosa* va fatto è metà della pianificazione; l'altra metà è sapere *chi* lo farà e se ha tempo. ProjectIQ risponde alla seconda domanda con le **allocazioni** (ore di una risorsa pianificate su un nodo WBS) e con la dashboard **Resource Load**, una mappa di calore che confronta, settimana per settimana, le ore allocate a ogni risorsa su tutti i progetti con le ore che quella risorsa ha effettivamente a disposizione.
 
 Questo manuale spiega come allocare le risorse, come si calcola la capacità, come leggere la mappa di calore e come risolvere i sovraccarichi.
 

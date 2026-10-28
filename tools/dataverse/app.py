@@ -1,4 +1,4 @@
-"""Model-driven app 'Open Project 365': sitemap and modern commands of every delivered phase.
+"""Model-driven app 'ProjectIQ': sitemap and modern commands of every delivered phase.
 
 Cumulative: run it after the phase scripts. Idempotent.
 """
@@ -104,7 +104,7 @@ if app:
     app_id = app[0]['appmoduleid']; print('skip app')
 else:
     r = S.post(API + 'appmodules', json={
-        'name': 'Open Project 365', 'uniquename': APP, 'clienttype': 4, 'navigationtype': 0,
+        'name': 'ProjectIQ', 'uniquename': APP, 'clienttype': 4, 'navigationtype': 0,
         'description': 'Projects, planning, time, materials and purchasing on Dataverse',
         'webresourceid': DEFAULT_ICON})
     ok(r, 'app ' + APP); app_id = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
@@ -116,14 +116,14 @@ if sm:
     ok(S.patch(API + f'sitemaps({sitemap_id})', json={'sitemapxml': SITEMAP}), 'update sitemap')
 else:
     r = S.post(API + 'sitemaps', json={
-        'sitemapname': 'Open Project 365', 'sitemapnameunique': APP, 'isappaware': True, 'sitemapxml': SITEMAP})
+        'sitemapname': 'ProjectIQ', 'sitemapnameunique': APP, 'isappaware': True, 'sitemapxml': SITEMAP})
     ok(r, 'sitemap'); sitemap_id = r.headers['OData-EntityId'].split('(')[-1].rstrip(')')
 
 components = [{'@odata.type': 'Microsoft.Dynamics.CRM.sitemap', 'sitemapid': sitemap_id}]
 for table in TABLES:
     mid = S.get(API + f"EntityDefinitions(LogicalName='{table}')?$select=MetadataId").json()['MetadataId']
     components.append({'@odata.type': 'Microsoft.Dynamics.CRM.entity', 'entityid': mid})
-# account: only the two Open Project 365 forms and views
+# account: only the two ProjectIQ forms and views
 for f in S.get(API + "systemforms?$select=formid&$filter=objecttypecode eq 'account' and type eq 2 "
                "and (name eq 'Customer' or name eq 'Supplier')").json()['value']:
     components.append({'@odata.type': 'Microsoft.Dynamics.CRM.systemform', 'formid': f['formid']})

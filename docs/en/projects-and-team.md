@@ -3,7 +3,7 @@
 > **Language:** English · [Italiano](../it/projects-and-team.md) · [Français](../fr/projects-and-team.md) · [Deutsch](../de/projects-and-team.md)
 > **Manual index:** [README](../../README.md#user-manuals)
 
-The **project** is the heart of Open Project 365. Everything else — the work breakdown structure, the plan, the hours, the materials, the purchases — belongs to a project, and every figure you look at (budget, actual cost, committed cost, progress, margin) is ultimately a figure of a project. This manual explains how to create and run a project through its life cycle, what each field means, which figures are calculated for you, and how the **project team** decides who can see and do what.
+The **project** is the heart of ProjectIQ. Everything else — the work breakdown structure, the plan, the hours, the materials, the purchases — belongs to a project, and every figure you look at (budget, actual cost, committed cost, progress, margin) is ultimately a figure of a project. This manual explains how to create and run a project through its life cycle, what each field means, which figures are calculated for you, and how the **project team** decides who can see and do what.
 
 You find projects in **Projects → Work → Projects**.
 
@@ -151,7 +151,7 @@ All members of all projects are also visible to administrators in **Settings →
 
 ### Who sees a project
 
-Open Project 365 uses Dataverse **access teams**: each project has up to three hidden teams, one per project role, and adding a member to the project adds the user to the matching team.
+ProjectIQ uses Dataverse **access teams**: each project has up to three hidden teams, one per project role, and adding a member to the project adds the user to the matching team.
 
 ```mermaid
 flowchart LR

@@ -163,9 +163,9 @@
     </Area>
   </SiteMap>
   <LocalizedNames>
-    <LocalizedName description="Open Project 365" languagecode="1031" />
-    <LocalizedName description="Open Project 365" languagecode="1033" />
-    <LocalizedName description="Open Project 365" languagecode="1036" />
-    <LocalizedName description="Open Project 365" languagecode="1040" />
+    <LocalizedName description="ProjectIQ" languagecode="1031" />
+    <LocalizedName description="ProjectIQ" languagecode="1033" />
+    <LocalizedName description="ProjectIQ" languagecode="1036" />
+    <LocalizedName description="ProjectIQ" languagecode="1040" />
   </LocalizedNames>
 </AppModuleSiteMap>

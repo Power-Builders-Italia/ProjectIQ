@@ -3,7 +3,7 @@
 > **Langue :** [English](../en/time-tracking.md) · [Italiano](../it/time-tracking.md) · Français · [Deutsch](../de/time-tracking.md)
 > **Index des manuels :** [README](../../README.md#user-manuals)
 
-Les heures sont généralement le premier poste de coût d'une affaire, et le plus difficile à collecter à temps. Open Project 365 fait de leur saisie une routine hebdomadaire : chacun remplit une **feuille de temps hebdomadaire** par projet et par tâche, soumet sa semaine, et les chefs de projet **approuvent** ou **rejettent** les heures depuis un seul écran. Les heures approuvées deviennent les **heures et coûts réels** des nœuds WBS et du projet, valorisées au coût horaire en vigueur ce jour-là. Un **rappel quotidien** prévient ceux qui ont oublié de saisir leurs heures.
+Les heures sont généralement le premier poste de coût d'une affaire, et le plus difficile à collecter à temps. ProjectIQ fait de leur saisie une routine hebdomadaire : chacun remplit une **feuille de temps hebdomadaire** par projet et par tâche, soumet sa semaine, et les chefs de projet **approuvent** ou **rejettent** les heures depuis un seul écran. Les heures approuvées deviennent les **heures et coûts réels** des nœuds WBS et du projet, valorisées au coût horaire en vigueur ce jour-là. Un **rappel quotidien** prévient ceux qui ont oublié de saisir leurs heures.
 
 Ce manuel s'adresse à tous ceux qui saisissent des heures (partie 1), aux chefs de projet qui les approuvent (partie 2) et aux administrateurs qui configurent le processus (partie 3).
 
@@ -15,7 +15,7 @@ Ce manuel s'adresse à tous ceux qui saisissent des heures (partie 1), aux chefs
 sequenceDiagram
     actor R as Ressource (membre de l'équipe)
     participant TS as Feuille de temps
-    participant OP as Open Project 365
+    participant OP as ProjectIQ
     actor PM as Chef de projet
     R->>TS: Saisit les heures par projet/tâche et par jour
     TS->>OP: Saisies enregistrées en Draft
@@ -195,7 +195,7 @@ Exemple : le coût de Marco est de 35,00 €/h jusqu'au 30 juin et de 38,50 €/
 | **Weekly Hours**, **Working Days** | Resource | Heures attendues (rappel, total hebdomadaire) |
 | **Absences** | Planning → Absences | Réduisent les heures attendues ; les fermetures d'entreprise suspendent les rappels |
 | **Hourly Rate** sur le Project Member | Projet → Team | Produit des heures du membre |
-| Flux **Daily time reminder** | Power Automate, solution Open Project 365 | Envoie les rappels (lun–ven 17 h 30). Voir [Administration](administration.md#rappel-quotidien-des-heures) |
+| Flux **Daily time reminder** | Power Automate, solution ProjectIQ | Envoie les rappels (lun–ven 17 h 30). Voir [Administration](administration.md#rappel-quotidien-des-heures) |
 
 Les administrateurs peuvent soumettre des saisies pour d'autres et approuver ou rejeter des saisies de n'importe quel projet.
 

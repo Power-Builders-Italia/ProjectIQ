@@ -19,7 +19,7 @@
     <teamtemplate teamtemplateid="2fe4037c-e1cf-f111-a05b-7ced8d2d53e4">
       <entitylogicalname>op365_project</entitylogicalname>
       <defaultaccessrightsmask>262167</defaultaccessrightsmask>
-      <description>Created by Open Project 365 for project members</description>
+      <description>Created by ProjectIQ for project members</description>
       <iscustomizable>1</iscustomizable>
       <issystem>0</issystem>
       <teamtemplatename>OP365 Project Manager</teamtemplatename>
@@ -29,9 +29,9 @@
   <EntityDataProviders />
   <connectionreferences>
     <connectionreference connectionreferencelogicalname="op365_dataverse">
-      <connectionreferencedisplayname>Open Project 365 Dataverse</connectionreferencedisplayname>
+      <connectionreferencedisplayname>ProjectIQ Dataverse</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
-      <description>Dataverse connection used by the Open Project 365 flows</description>
+      <description>Dataverse connection used by the ProjectIQ flows</description>
       <iscustomizable>1</iscustomizable>
       <promptingbehavior>0</promptingbehavior>
       <statecode>0</statecode>

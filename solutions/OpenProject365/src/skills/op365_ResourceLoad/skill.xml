@@ -17,10 +17,10 @@ A table per resource: capacity, planned hours, load %, the projects that contrib
 
 ## Rules
 - Read-only: allocations are changed in the WBS of the project in the app.</body>
-  <description>Read-only check of planned hours against capacity of resources in Open Project 365. Use when the user asks who is overloaded or available in a period, or carico risorse.</description>
+  <description>Read-only check of planned hours against capacity of resources in ProjectIQ. Use when the user asks who is overloaded or available in a period, or carico risorse.</description>
   <iscustomizable>1</iscustomizable>
   <ishidden>0</ishidden>
   <ispersonal>0</ispersonal>
-  <name>Open Project 365 - Resource load</name>
+  <name>ProjectIQ - Resource load</name>
   <origin>0</origin>
 </skill>

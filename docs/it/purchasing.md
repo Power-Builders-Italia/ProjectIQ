@@ -3,7 +3,7 @@
 > **Lingua:** [English](../en/purchasing.md) · Italiano · [Français](../fr/purchasing.md) · [Deutsch](../de/purchasing.md)
 > **Indice dei manuali:** [README](../../README.md#user-manuals)
 
-Gli acquisti sono il punto in cui i costi di commessa si vincono o si perdono: comprare la cosa giusta, al prezzo giusto, da un fornitore affidabile, senza sforare il budget. Open Project 365 copre l'intera catena degli acquisti dentro il progetto: un membro del team **richiede** ciò che serve, il project manager (e sopra una soglia l'approvatore acquisti) **approva**, il buyer chiede **offerte** ai fornitori e le confronta, l'offerta vincente diventa un **ordine d'acquisto**, il fornitore lo conferma (anche dal [portale fornitori](supplier-portal.md)), la merce viene **ricevuta** e diventa costo effettivo, e la **fattura del fornitore** viene controllata e approvata.
+Gli acquisti sono il punto in cui i costi di commessa si vincono o si perdono: comprare la cosa giusta, al prezzo giusto, da un fornitore affidabile, senza sforare il budget. ProjectIQ copre l'intera catena degli acquisti dentro il progetto: un membro del team **richiede** ciò che serve, il project manager (e sopra una soglia l'approvatore acquisti) **approva**, il buyer chiede **offerte** ai fornitori e le confronta, l'offerta vincente diventa un **ordine d'acquisto**, il fornitore lo conferma (anche dal [portale fornitori](supplier-portal.md)), la merce viene **ricevuta** e diventa costo effettivo, e la **fattura del fornitore** viene controllata e approvata.
 
 Ogni passo aggiorna i numeri del progetto: **costo impegnato** quando un ordine viene inviato, **costo effettivo** quando la merce viene ricevuta, **spesa** per fornitore e articolo.
 
