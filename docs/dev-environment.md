@@ -100,6 +100,10 @@ Glossary: project = Commessa / Projekt / projet; WBS node = Nodo WBS / PSP-Eleme
 
 The `build` workflow builds and tests the plugins and the PCF controls and packs the solution on every PR. After a merge to `main` its `checker` job runs the Solution Checker on the packed solution, in the GitHub environment `solution-checker` (deployment branches: `main`), when these environment secrets exist: `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (preferably an app registration of its own, application user of the dev environment with a minimal role). Pull requests never see these secrets. The step fails if the analysis cannot run; findings are listed in the job log and in the `solution-checker-logs` artifact.
 
+## AppSource package
+
+The manual `appsource-package` workflow exports both solutions as managed from Dev, runs the Solution Checker with the **AppSource Certification** rule set and builds the AppSource package with `tools/alm/build_appsource_package.py` (Package Deployer project in `appsource/ProjectIQ.Package`). Publishing steps in Partner Center: [Publishing on Microsoft AppSource](appsource.md).
+
 ## Documentation website (GitHub Pages)
 
 The manuals are also published as a website at <https://power-builders-italia.github.io/projectiq/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Package Deployer configuration (https://learn.microsoft.com/power-platform/alm/package-deployer-tool).
+  The solutions are listed in import order; the build adds the PdSolution items of the project file here.
+  publishworkflowsandactivateplugins: managed imports otherwise leave the plugin steps disabled.
+-->
+<configdatastorage installsampledata="false" waitforsampledatatoinstall="true">
+  <solutions>
+    <configsolutionfile solutionpackagefilename="OpenProject365_managed.zip" overwriteunmanagedcustomizations="false" publishworkflowsandactivateplugins="true" />
+    <configsolutionfile solutionpackagefilename="OpenProject365SupplierPortal_managed.zip" overwriteunmanagedcustomizations="false" publishworkflowsandactivateplugins="true" />
+  </solutions>
+  <filestoimport />
+  <filesmapstoimport />
+</configdatastorage>

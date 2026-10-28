@@ -23,7 +23,7 @@ flowchart TD
 
 | Schritt | Wo | Details |
 |---|---|---|
-| 1 | Power Platform Admin Center | Eine Dataverse-Umgebung pro Unternehmen. Die Lösung wird von der IT installiert (siehe [Entwicklungsumgebung](../dev-environment.md)) |
+| 1 | Power Platform Admin Center | Eine Dataverse-Umgebung pro Unternehmen. Die Lösung wird über [Microsoft AppSource](#installation-über-microsoft-appsource) oder von der IT installiert (siehe [Entwicklungsumgebung](../dev-environment.md)) |
 | 2 | Power Platform Admin Center → Users | [Sicherheitsrollen](#sicherheitsrollen) |
 | 3 | Power Platform Admin Center → Column security profiles | [Kostensichtbarkeit](#kostensichtbarkeit) |
 | 4 | Power Apps → Solutions → ProjectIQ → Environment variables | [Unternehmenseinstellungen](#unternehmenseinstellungen) |
@@ -151,6 +151,30 @@ In-App-Benachrichtigungen sind in neuen Umgebungen standardmäßig aktiviert. Be
 ## Überwachung und Historie
 
 Die Überwachung (Auditing) ist auf den Tabellen von ProjectIQ aktiviert: Sobald sie auch auf Umgebungsebene eingeschaltet ist (Power Platform Admin Center → *Settings* → *Audit and logs*), wird jede Änderung aufgezeichnet und ist im **Audit history** jedes Datensatzes sichtbar (Related → Audit history). Die Zeitachse jedes Datensatzes bewahrt Notizen, Erwähnungen und Anhänge.
+
+## Installation über Microsoft AppSource
+
+ProjectIQ ist auf Microsoft AppSource kostenlos erhältlich: der schnellste Weg, es in einer neuen Umgebung zu installieren. Das AppSource-Paket installiert der Reihe nach die beiden verwalteten Lösungen **ProjectIQ** (`OpenProject365`) und das **Lieferantenportal** (`OpenProject365SupplierPortal`), mit bereits aktivierten Plugin-Schritten.
+
+```mermaid
+flowchart LR
+    A[AppSource:<br/>Get it now] --> B[Umgebung<br/>wählen]
+    B --> C[Admin Center:<br/>Installing → Installed]
+    C --> D[Schritte 2-9 der Checkliste<br/>für die Ersteinrichtung]
+```
+
+Vor dem Start: eine Dataverse-Umgebung für das Unternehmen, die Rolle **System Administrator** in dieser Umgebung und, um die App auf Italienisch, Französisch oder Deutsch anzuzeigen, diese Sprachen in der Umgebung aktiviert (*Settings* → *Languages*).
+
+1. Öffnen Sie ProjectIQ auf [Microsoft AppSource](https://appsource.microsoft.com) und wählen Sie **Get it now**; melden Sie sich mit Ihrem Geschäftskonto an.
+2. Wählen Sie die Ziel**umgebung**, akzeptieren Sie die Nutzungsbedingungen und die Microsoft-Bedingungen und wählen Sie **Install**.
+3. Verfolgen Sie den Fortschritt im Power Platform Admin Center → *Environments* → Ihre Umgebung → *Resources* → **Dynamics 365 apps**: Der Status wechselt von *Installing* zu **Installed** (einige Minuten). Bei *Install failed* öffnen Sie die Details und versuchen es erneut.
+4. Führen Sie die Schritte 2 bis 9 der [Checkliste für die Ersteinrichtung](#checkliste-für-die-ersteinrichtung) aus. Das Paket kann sie nicht für Sie erledigen:
+    - weisen Sie den Benutzern die [Sicherheitsrollen](#sicherheitsrollen) und das Profil für die [Kostensichtbarkeit](#kostensichtbarkeit) zu;
+    - legen Sie die [Umgebungsvariablen](#unternehmenseinstellungen) fest (Stundengenehmigung, Einkaufsschwelle und -genehmiger);
+    - erstellen Sie die Dataverse-Verbindung des Flows [Tägliche Stundenerinnerung](#tägliche-stundenerinnerung) und **schalten** Sie den Flow ein;
+    - für das [Lieferantenportal](supplier-portal.md#für-administratoren): reaktivieren Sie die importierte Website in Power Pages → *Inactive sites* und leeren Sie danach ihren Cache.
+
+Neue Versionen werden auf AppSource veröffentlicht: Installieren Sie sie auf derselben Seite **Dynamics 365 apps** (*Update* bei ProjectIQ) und folgen Sie dann [Nach einem Update der Lösung](#nach-einem-update-der-lösung).
 
 ## Nach einem Update der Lösung
 

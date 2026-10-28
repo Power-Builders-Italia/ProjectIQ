@@ -1,0 +1,126 @@
+name: appsource-package
+
+# Builds the AppSource package of ProjectIQ (docs/appsource.md): exports OpenProject365 and OpenProject365SupplierPortal
+# as managed from Dev with the requested version, runs the Solution Checker with the "AppSource Certification" rule set
+# (the one Microsoft uses during certification) and assembles PowerBuildersItalia_ProjectIQ_<version>.zip with
+# tools/alm/build_appsource_package.py. The zip is uploaded as a workflow artifact; uploading it to Azure Blob Storage
+# and submitting it in Partner Center are manual steps.
+# Like deploy-test it exports from Dev, so Dev and main must match first; it runs in the GitHub environment test
+# (approval, PP_* secrets).
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package and solution version X.Y.Z.W, higher than the last version submitted to AppSource
+        required: true
+      start-date:
+        description: Date the package becomes available on AppSource (MM/DD/YYYY); empty = today
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: windows-latest
+    environment: test
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check version
+        shell: pwsh
+        env:
+          VERSION: ${{ inputs.version }}
+        run: if ($env:VERSION -notmatch '^\d+\.\d+\.\d+\.\d+$') { throw "version '$env:VERSION': use X.Y.Z.W" }
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '10.0.x'
+      - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          add-tools-to-path: true
+      - name: Set solution versions in Dev
+        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          name: OpenProject365
+          version: ${{ inputs.version }}
+      - name: Set portal solution version in Dev
+        uses: microsoft/powerplatform-actions/set-online-solution-version@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          name: OpenProject365SupplierPortal
+          version: ${{ inputs.version }}
+      - name: Export managed from Dev
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/solutions/OpenProject365_managed.zip
+          managed: true
+      - name: Export portal managed from Dev
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/solutions/OpenProject365SupplierPortal_managed.zip
+          managed: true
+      - name: Solution Checker (AppSource Certification rule set)
+        # check-solution has no rule set input: pac is called directly. Critical or high findings fail the job,
+        # since they block the certification; all findings are in the appsource-checker artifact.
+        shell: pwsh
+        env:
+          PP_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
+          PP_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+        run: |
+          pac auth create --name checker --environment $env:PP_ENVIRONMENT_URL --applicationId $env:PP_CLIENT_ID --clientSecret $env:PP_CLIENT_SECRET --tenant $env:PP_TENANT_ID
+          if ($LASTEXITCODE) { throw 'pac auth create failed' }
+          pac solution check --path 'out/solutions/*.zip' --ruleSet 'AppSource Certification' --geo Europe --outputDirectory out/checker
+          if ($LASTEXITCODE) { throw 'pac solution check failed' }
+          Get-ChildItem out/checker -Recurse -Filter *.zip | ForEach-Object { Expand-Archive $_.FullName -DestinationPath out/checker/sarif -Force }
+          $blocking = 0
+          foreach ($file in Get-ChildItem out/checker -Recurse -Filter *.sarif) {
+            $doc = Get-Content $file.FullName -Raw | ConvertFrom-Json
+            foreach ($run in $doc.runs) {
+              foreach ($r in $run.results) {
+                $loc = ($r.locations | ForEach-Object { $_.physicalLocation.artifactLocation.uri + ' ' + $_.logicalLocations.fullyQualifiedName }) -join '; '
+                Write-Output ("[{0}] {1}: {2} @ {3}" -f $r.properties.severity, $r.ruleId, $r.message.text, $loc)
+                if ($r.properties.severity -in 'Critical', 'High') { $blocking++ }
+              }
+            }
+          }
+          if ($blocking) { throw "$blocking critical or high findings: fix them before submitting to AppSource" }
+      - name: Upload checker results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: appsource-checker
+          path: out/checker
+          if-no-files-found: ignore
+      - name: Build AppSource package
+        shell: pwsh
+        env:
+          VERSION: ${{ inputs.version }}
+          START_DATE: ${{ inputs.start-date }}
+        run: |
+          $extra = @()
+          if ($env:START_DATE) { $extra = @('--start-date', $env:START_DATE) }
+          python tools/alm/build_appsource_package.py out/solutions --version $env:VERSION --out out/appsource @extra
+          if ($LASTEXITCODE) { throw 'AppSource package build failed' }
+      - name: Upload AppSource package
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: appsource-package-${{ inputs.version }}
+          path: out/appsource/*.zip
