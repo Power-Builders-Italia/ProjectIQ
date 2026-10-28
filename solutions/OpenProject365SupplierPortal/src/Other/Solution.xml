@@ -3,10 +3,16 @@
   <SolutionManifest>
     <UniqueName>OpenProject365SupplierPortal</UniqueName>
     <LocalizedNames>
+      <LocalizedName description="ProjectIQ Lieferantenportal" languagecode="1031" />
       <LocalizedName description="ProjectIQ Supplier Portal" languagecode="1033" />
+      <LocalizedName description="Portail fournisseurs ProjectIQ" languagecode="1036" />
+      <LocalizedName description="Portale fornitori ProjectIQ" languagecode="1040" />
     </LocalizedNames>
     <Descriptions>
+      <Description description="Power Pages-Lieferantenportal: Antworten auf Angebotsanfragen und Bestätigung von Bestellungen. Erfordert ProjectIQ." languagecode="1031" />
       <Description description="Power Pages supplier portal: RFQ responses and purchase order confirmation. Depends on ProjectIQ." languagecode="1033" />
+      <Description description="Portail fournisseurs Power Pages : réponses aux demandes de prix et confirmation des commandes. Nécessite ProjectIQ." languagecode="1036" />
+      <Description description="Portale fornitori Power Pages: risposte alle richieste di offerta e conferma degli ordini di acquisto. Richiede ProjectIQ." languagecode="1040" />
     </Descriptions>
     <Version>1.0.14.0</Version>
     <Managed>0</Managed>

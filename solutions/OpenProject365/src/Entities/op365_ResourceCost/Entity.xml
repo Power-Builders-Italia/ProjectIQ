@@ -521,7 +521,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short description of the cost period" languagecode="1033" />
+            <Description description="Kurzbeschreibung des Kostenzeitraums" languagecode="1031" />
+            <Description description="Brève description de la période de coût" languagecode="1036" />
+            <Description description="Breve descrizione del periodo di costo" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResourceCostId">
@@ -1191,6 +1194,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Resource and Valid From" languagecode="1033" />
+            <displayname description="Ressource und Gültig ab" languagecode="1031" />
+            <displayname description="Ressource et Valide à partir du" languagecode="1036" />
+            <displayname description="Risorsa e Valido dal" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

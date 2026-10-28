@@ -607,7 +607,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short description of the absence" languagecode="1033" />
+            <Description description="Kurzbeschreibung der Abwesenheit" languagecode="1031" />
+            <Description description="Brève description de l'absence" languagecode="1036" />
+            <Description description="Breve descrizione dell'assenza" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">

@@ -563,7 +563,10 @@
             <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Request for quotation number, assigned automatically (RFQ-00001)" languagecode="1033" />
+            <Description description="Nummer der Angebotsanfrage, automatisch vergeben (RFQ-00001)" languagecode="1031" />
+            <Description description="Numéro de la demande de prix, attribué automatiquement (RFQ-00001)" languagecode="1036" />
+            <Description description="Numero della richiesta di offerta, assegnato automaticamente (RFQ-00001)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">

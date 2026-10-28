@@ -819,7 +819,10 @@
             <displayname description="Numero" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Internal number of the supplier invoice, assigned automatically (INV-00001)" languagecode="1033" />
+            <Description description="Interne Nummer der Lieferantenrechnung, automatisch vergeben (INV-00001)" languagecode="1031" />
+            <Description description="Numéro interne de la facture fournisseur, attribué automatiquement (INV-00001)" languagecode="1036" />
+            <Description description="Numero interno della fattura fornitore, assegnato automaticamente (INV-00001)" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OrderRefs">

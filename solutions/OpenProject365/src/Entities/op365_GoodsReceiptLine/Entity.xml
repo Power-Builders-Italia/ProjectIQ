@@ -468,7 +468,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the received item, copied from the purchase order line" languagecode="1033" />
+            <Description description="Beschreibung des empfangenen Artikels, aus der Bestellposition übernommen" languagecode="1031" />
+            <Description description="Description de l'article reçu, copiée depuis la ligne de commande" languagecode="1036" />
+            <Description description="Descrizione dell'articolo ricevuto, copiata dalla riga d'ordine" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OrderLineId">

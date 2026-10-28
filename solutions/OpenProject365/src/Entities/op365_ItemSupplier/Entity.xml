@@ -606,7 +606,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short description of the supplier conditions for the item" languagecode="1033" />
+            <Description description="Kurzbeschreibung der Lieferantenkonditionen für den Artikel" languagecode="1031" />
+            <Description description="Brève description des conditions du fournisseur pour l'article" languagecode="1036" />
+            <Description description="Breve descrizione delle condizioni del fornitore per l'articolo" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">
@@ -1373,6 +1376,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="Item and Supplier" languagecode="1033" />
+            <displayname description="Artikel und Lieferant" languagecode="1031" />
+            <displayname description="Article et fournisseur" languagecode="1036" />
+            <displayname description="Articolo e fornitore" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>

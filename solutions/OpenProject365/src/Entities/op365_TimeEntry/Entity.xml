@@ -749,7 +749,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Resource name and date, set automatically" languagecode="1033" />
+            <Description description="Name der Ressource und Datum, automatisch gesetzt" languagecode="1031" />
+            <Description description="Nom de la ressource et date, renseignés automatiquement" languagecode="1036" />
+            <Description description="Nome della risorsa e data, impostati automaticamente" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_Notes">

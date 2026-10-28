@@ -518,7 +518,10 @@
             <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Description of the invoiced goods or service" languagecode="1033" />
+            <Description description="Beschreibung der berechneten Ware oder Leistung" languagecode="1031" />
+            <Description description="Description du bien ou du service facturé" languagecode="1036" />
+            <Description description="Descrizione del bene o servizio fatturato" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OrderLineId">

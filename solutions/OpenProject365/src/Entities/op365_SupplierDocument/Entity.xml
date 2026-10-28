@@ -380,7 +380,10 @@
             <displayname description="Descrizione" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short description of the document, e.g. DURC and supplier name" languagecode="1033" />
+            <Description description="Kurzbeschreibung des Dokuments, z. B. DURC und Lieferantenname" languagecode="1031" />
+            <Description description="Brève description du document, par ex. DURC et nom du fournisseur" languagecode="1036" />
+            <Description description="Breve descrizione del documento, ad es. DURC e nome del fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_DocumentType">
@@ -485,7 +488,10 @@
             <displayname description="Tipo documento" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Kind of compliance document: DURC, Company Report, Certification, Insurance, Contract or Other" languagecode="1033" />
+            <Description description="Art des Compliance-Dokuments: DURC, Company Report, Certification, Insurance, Contract oder Other" languagecode="1031" />
+            <Description description="Type de document de conformité : DURC, Company Report, Certification, Insurance, Contract ou Other" languagecode="1036" />
+            <Description description="Tipo di documento di conformità: DURC, Company Report, Certification, Insurance, Contract o Other" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ExpiryDate">

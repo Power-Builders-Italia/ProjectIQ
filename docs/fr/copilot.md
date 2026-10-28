@@ -96,22 +96,22 @@ Le modèle sémantique **n'est pas** transporté par les solutions : répéter c
 
 ### Glossaire du modèle sémantique
 
-Le glossaire ajoute les termes métier que Dataverse ne peut pas déduire des métadonnées. La liste complète est conservée dans le dépôt, dans [copilot/glossary.md](../../copilot/glossary.md) (en anglais, avec les synonymes italiens).
+Le glossaire ajoute les termes métier que Dataverse ne peut pas déduire des métadonnées. La liste complète est conservée dans le dépôt, dans [copilot/glossary.md](../../copilot/glossary.md) (en anglais, avec les synonymes en italien, français et allemand).
 
 1. Dans le modèle sémantique, sélectionner **Glossary** → **Add item**.
-2. Pour chaque ligne de la liste, saisir **Term** et **Definition**, puis ajouter les **Synonyms** (rouvrir l'entrée et sélectionner **Edit** si le champ des synonymes n'est pas sur le premier écran).
+2. Pour chaque ligne de la liste, saisir **Term** et **Definition**, puis ajouter les **Synonyms** en italien, français et allemand (rouvrir l'entrée et sélectionner **Edit** si le champ des synonymes n'est pas sur le premier écran).
 3. Sélectionner **Add term**, puis **Regenerate** quand tous les termes sont saisis.
 
-| Term | Synonymes (exemples) |
-|---|---|
-| Project | commessa, progetto |
-| Time entry | ore, rapportino, timesheet |
-| Purchase request | RdA, richiesta di acquisto |
-| RFQ | RdO, richiesta di offerta |
-| Purchase order | OdA, ordine fornitore |
-| Goods receipt | entrata merce, DDT |
-| Supplier invoice | fattura passiva |
-| Supplier document | DURC |
+| Term | Italiano | Français | Deutsch |
+|---|---|---|---|
+| Project | commessa, progetto | projet, affaire | Projekt, Auftrag |
+| Time entry | registrazione ore, rapportino, timesheet | saisie de temps, feuille de temps | Zeiteintrag, Stundenzettel |
+| Purchase request | richiesta di acquisto, RdA | demande d'achat, DA | Bestellanforderung, BANF |
+| RFQ | richiesta di offerta, RdO | demande de prix, appel d'offres | Angebotsanfrage, Ausschreibung |
+| Purchase order | ordine di acquisto, OdA | commande d'achat, bon de commande | Bestellung |
+| Goods receipt | ricevimento merci, DDT | réception de marchandises, bon de livraison | Wareneingang, Lieferschein |
+| Supplier invoice | fattura fornitore, fattura passiva | facture fournisseur | Lieferantenrechnung, Eingangsrechnung |
+| Supplier document | documento fornitore, DURC | document fournisseur, attestation | Lieferantendokument, Nachweis |
 
 ## Compétences métier
 

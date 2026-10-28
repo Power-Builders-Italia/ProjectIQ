@@ -1085,7 +1085,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Name of the phase, activity or task" languagecode="1033" />
+            <Description description="Name der Phase, Aktivität oder Aufgabe" languagecode="1031" />
+            <Description description="Nom de la phase, de l'activité ou de la tâche" languagecode="1036" />
+            <Description description="Nome della fase, attività o task" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_OwnerResourceId">

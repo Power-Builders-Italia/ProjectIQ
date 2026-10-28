@@ -426,7 +426,10 @@
             <displayname description="Nome" languagecode="1040" />
           </displaynames>
           <Descriptions>
-            <Description description="" languagecode="1033" />
+            <Description description="Short description of the allocation" languagecode="1033" />
+            <Description description="Kurzbeschreibung der Zuordnung" languagecode="1031" />
+            <Description description="Brève description de l'affectation" languagecode="1036" />
+            <Description description="Breve descrizione dell'allocazione" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ResourceId">
@@ -1050,6 +1053,9 @@
           </EntityKeyAttributes>
           <displaynames>
             <displayname description="WBS Node and Resource" languagecode="1033" />
+            <displayname description="PSP-Element und Ressource" languagecode="1031" />
+            <displayname description="Nœud WBS et ressource" languagecode="1036" />
+            <displayname description="Nodo WBS e risorsa" languagecode="1040" />
           </displaynames>
         </EntityKey>
       </EntityKeys>
