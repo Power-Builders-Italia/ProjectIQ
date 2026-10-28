@@ -20,19 +20,19 @@ A workflow `deploy-dev` imports the solutions built from `main` into Dev, after 
 flowchart TB
     T["push to main (solutions/, src/plugins, src/pcf, src/webresources)<br/>or Run workflow"] --> A{"environment dev<br/>required reviewer, main only"}
     A -->|approved| E["deploy job: export Dev, unpack"]
-    E --> C{"three-way compare: Dev, tag dev-deployed, main<br/>Dev differs from both?"}
+    E --> C{"three-way compare: Dev, baseline dev-deployed, main<br/>Dev differs from both?"}
     C -->|differs| S["upload export as artifact, stop"]
     S --> P["drift-pr job: branch drift/YYYYMMDD-hhmm<br/>from main, draft pull request"]
     P --> X["workflow fails"]
     C -->|same| I["1 import OpenProject365 (unmanaged)<br/>2 plugins from source<br/>3 PCF from source<br/>4 import portal solution"]
     I --> V{"export again:<br/>same as main?"}
-    V -->|yes| G["tag job: dev-deployed → commit of main"]
-    V -->|no| F["workflow fails, tag not moved"]
+    V -->|yes| G["record job: deployment dev-deployed → commit of main"]
+    V -->|no| F["workflow fails, baseline not moved"]
 ```
 
-### Baseline: the tag `dev-deployed`
+### Baseline: the deployments of environment `dev-deployed`
 
-Drift is a change in Dev that `main` does not know about. The tag `dev-deployed` marks the last commit installed in Dev and moves only after a successful, verified deployment. Each file of the Dev export is compared three ways: equal to `main` → already exported, fine; equal to the tag → Dev is only behind and `main` will update it, fine; different from both → drift. Comparing with the tag alone would flag every change that was exported and merged after the last deployment (the normal daily loop); comparing with `main` alone would flag everything `main` gained since then.
+Drift is a change in Dev that `main` does not know about. The baseline is the commit of the last successful deployment of environment `dev-deployed`: the `record` job creates one only after a successful, verified deployment, so it marks the last commit installed in Dev. It is a GitHub deployment, not a git tag: GitHub refuses `GITHUB_TOKEN` to create or move a ref to a commit that changes `.github/workflows`, both by `git push` and through the API ("without `workflows` permission"), and a personal token would be tied to a person and expire. Each file of the Dev export is compared three ways: equal to `main` → already exported, fine; equal to the baseline → Dev is only behind and `main` will update it, fine; different from both → drift. Comparing with the baseline alone would flag every change that was exported and merged after the last deployment (the normal daily loop); comparing with `main` alone would flag everything `main` gained since then.
 
 ### Workflow
 
@@ -40,11 +40,11 @@ Drift is a change in Dev that `main` does not know about. The tag `dev-deployed`
 |---|---|
 | File | `.github/workflows/deploy-dev.yml` |
 | Triggers | `push` to `main` with `paths` `solutions/**`, `src/plugins/**`, `src/pcf/**`, `src/webresources/**`; `workflow_dispatch` |
-| Inputs (dispatch only) | `check-only` (drift check, no import); `baseline` (commit to compare with when the tag does not exist); `skip-drift-check` (recovery after a failed run) |
+| Inputs (dispatch only) | `check-only` (drift check, no import); `baseline` (commit to compare with when `dev-deployed` has no deployment yet); `skip-drift-check` (recovery after a failed run) |
 | Approval | GitHub environment **`dev`**: required reviewer, deployment branches `main`, secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` |
 | Concurrency | group `deploy-dev`, no cancel-in-progress: runs queue, never overlap |
-| Permissions | `contents: read`; `contents: write` + `pull-requests: write` only in `drift-pr`; `contents: write` only in `tag` |
-| Runner | `windows-latest` (Power Platform CLI and Git Bash) for `deploy`; `ubuntu-latest` for `drift-pr` and `tag` |
+| Permissions | `contents: read` + `deployments: read`; `contents: write` + `pull-requests: write` only in `drift-pr`; `deployments: write` only in `record` |
+| Runner | `windows-latest` (Power Platform CLI and Git Bash) for `deploy`; `ubuntu-latest` for `precheck`, `drift-pr` and `record` |
 
 One job, `deploy`, both checks and imports: every job that uses an environment asks for its own approval, so drift check and import share one.
 
@@ -52,7 +52,7 @@ One job, `deploy`, both checks and imports: every job that uses an environment a
 
 **`deploy`** (environment `dev`)
 
-1. Checkout with full history and tags. Resolve the baseline: tag `dev-deployed`, else input `baseline`, else stop with a message.
+1. Checkout with full history. Resolve the baseline: the commit of the last successful deployment of environment `dev-deployed`, else input `baseline`, else stop with a message.
 2. Export `OpenProject365` and `OpenProject365SupplierPortal` unmanaged from Dev and unpack them.
 3. `python3 tools/alm/compare_solution.py <baseline tree> <Dev unpack>` (baseline tree from `git archive`). Exit code 0 = same, 1 = drift; the list of differing files goes to the job summary.
 4. Drift: upload the unpacked export as artifact `dev-export`, set output `drift=true`, stop. `check-only`: stop here in any case.
@@ -60,15 +60,15 @@ One job, `deploy`, both checks and imports: every job that uses an environment a
 6. `dotnet build` the plugins and run `tools/dataverse/plugins.py` (`PAC_*` from the `PP_*` secrets): the assembly built from source replaces the one exported earlier; steps, images and Custom APIs are created if missing.
 7. `npm ci` in `src/pcf`, `pac auth create` with the service principal, `tools/pcf/push.sh` (all controls).
 8. Import `OpenProject365SupplierPortal` with `pac solution import`, retried up to 3 times on transient Dataverse failures (the imports and `pac pcf push` publish; no separate publish, which would collide with the publish still running in Dataverse).
-9. Verify: export (retried while Dataverse is still busy) and unpack again, compare with `main`. A difference fails the run and leaves the tag where it was.
+9. Verify: export (retried while Dataverse is still busy) and unpack again, compare with `main`. A difference fails the run and leaves the baseline where it was.
 
 **`drift-pr`** (needs `deploy` with `drift=true`, no secrets)
 
 Downloads `dev-export`, creates branch `drift/YYYYMMDD-hhmm` from `main` (the commit of the run), copies there only the files the three-way comparison found (added, changed, deleted in Dev), opens a **draft** pull request to `main`, then fails the run. The pull request shows exactly what Dev has and `main` does not.
 
-**`tag`** (needs `deploy` succeeded, not `check-only`)
+**`record`** (needs `deploy` succeeded, not `check-only`)
 
-Moves the tag to the commit of the run through the REST API (`PATCH git/refs/tags/dev-deployed`, or `POST git/refs` the first time): a `git push` of the tag is refused to `GITHUB_TOKEN` when the commit changes `.github/workflows`. The `main` ruleset targets branches only, so it does not block the tag.
+Creates a deployment of environment `dev-deployed` for the commit of the run (`POST deployments`, no required contexts) with status `success` and a link to the run. Environment `dev-deployed` has no protection rules and is created by the first deployment; its page lists every commit verified in Dev.
 
 ### Comparison rules (`tools/alm/compare_solution.py`)
 
@@ -87,9 +87,9 @@ Output: exit code, the list of added, removed and changed files, and a short dif
 
 | Case | Behaviour |
 |---|---|
-| Import, plugin registration or PCF push fails | run fails, tag not moved. Dev may be half updated, so the next drift check would report it: run again with `skip-drift-check` (still approved in `dev`) |
-| Tag missing (first run) | run stops and asks for `baseline`: the commit that matches Dev today |
-| Final verification differs | run fails, tag not moved: a comparison rule is missing or the import did not apply a component; fix and run again |
+| Import, plugin registration or PCF push fails | run fails, baseline not moved. Dev may be half updated, so the next drift check would report it: run again with `skip-drift-check` (still approved in `dev`) |
+| No deployment of `dev-deployed` (first run) | run stops and asks for `baseline`: the commit that matches Dev today |
+| Final verification differs | run fails, baseline not moved: a comparison rule is missing or the import did not apply a component; fix and run again |
 | Drift found | draft pull request, run fails, nothing imported |
 | Two merges close together | the second run waits for the first (concurrency) and starts from the state it left |
 

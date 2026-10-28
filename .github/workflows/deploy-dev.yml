@@ -1,11 +1,13 @@
 name: deploy-dev
 
 # Installs the content of main into Dev (ADR 0002, docs/adr/0002-deploy-dev.md).
-# 1. Exports OpenProject365 and OpenProject365SupplierPortal from Dev and compares them with the repository at the tag
-#    dev-deployed (the last commit installed in Dev). A difference means Dev holds changes main does not know about:
+# 1. Exports OpenProject365 and OpenProject365SupplierPortal from Dev and compares them with the repository at the baseline:
+#    the commit of the last successful deployment of GitHub environment dev-deployed (the last commit verified in Dev). A difference means Dev holds changes main does not know about:
 #    nothing is imported, the drift-pr job opens a draft pull request with the Dev export and the run fails.
 # 2. Otherwise imports both solutions packed from main (unmanaged), registers the plugins and pushes the PCF controls
-#    built from source, exports again to verify that Dev matches main, and the tag job moves dev-deployed to this commit.
+#    built from source, exports again to verify that Dev matches main, and the record job records this commit as a deployment
+#    of environment dev-deployed. A deployment, not a git tag: GITHUB_TOKEN may not create a ref to a commit that changes
+#    .github/workflows, by git push or by the API.
 # Runs after every merge that touches the solution or the code, and waits for a reviewer of the GitHub environment dev.
 on:
   push:
@@ -18,7 +20,7 @@ on:
         type: boolean
         default: false
       baseline:
-        description: Commit that matches Dev, used when the tag dev-deployed does not exist yet (first run)
+        description: Commit that matches Dev, used when environment dev-deployed has no deployment yet (first run)
         type: string
         default: ''
       skip-drift-check:
@@ -28,30 +30,31 @@ on:
 
 permissions:
   contents: read
+  deployments: read
 
 concurrency:
   group: deploy-dev
   cancel-in-progress: false
 
 jobs:
-  # Before the first full run there is no tag dev-deployed, and a run started by a merge has no baseline input:
-  # skip it here, before the approval of environment dev is asked, instead of failing after it
+  # Before the first full run there is no deployment of dev-deployed, and a run started by a merge has no baseline
+  # input: skip it here, before the approval of environment dev is asked, instead of failing after it
   precheck:
     runs-on: ubuntu-latest
     outputs:
       go: ${{ steps.check.outputs.go }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-      - name: Tag or manual run
+      - name: Baseline or manual run
         id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] || git rev-parse -q --verify 'refs/tags/dev-deployed^{commit}' > /dev/null; then
+          sha=$(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=dev-deployed&per_page=1" --jq '.[0].sha // empty')
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] || [ -n "$sha" ]; then
             echo "go=true" >> "$GITHUB_OUTPUT"
           else
             echo "go=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Skipped: no tag dev-deployed yet. Run the workflow by hand with the baseline input (the commit that matches Dev)."
+            echo "::notice::Skipped: no deployment of dev-deployed yet. Run the workflow by hand with the baseline input (the commit that matches Dev)."
           fi
 
   deploy:
@@ -78,10 +81,12 @@ jobs:
         shell: bash
         env:
           BASELINE_INPUT: ${{ inputs.baseline }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if sha=$(git rev-parse -q --verify 'refs/tags/dev-deployed^{commit}'); then :;
+          sha=$(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=dev-deployed&per_page=1" --jq '.[0].sha // empty')
+          if [ -n "$sha" ]; then sha=$(git rev-parse --verify "$sha^{commit}");
           elif [ -n "$BASELINE_INPUT" ]; then sha=$(git rev-parse --verify "$BASELINE_INPUT^{commit}");
-          else echo "::error::No tag dev-deployed: run the workflow with the baseline input (the commit that matches Dev)"; exit 1; fi
+          else echo "::error::No deployment of dev-deployed: run the workflow with the baseline input (the commit that matches Dev)"; exit 1; fi
           echo "baseline=$sha" >> "$GITHUB_OUTPUT"
           echo "Baseline: \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
       - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
@@ -364,22 +369,21 @@ jobs:
           echo "::error::Dev has changes not in main: see the draft pull request"
           exit 1
 
-  # Dev matches main: move the tag to the commit just installed
-  tag:
+  # Dev matches main: record the commit just installed as the new baseline
+  record:
     needs: deploy
     if: needs.deploy.result == 'success' && needs.deploy.outputs.drift == 'false' && inputs.check-only != true
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      deployments: write
     steps:
-      # through the API: GITHUB_TOKEN may not git push a ref to a commit that changes .github/workflows
-      # ("refusing to allow a GitHub App to create or update workflow ... without `workflows` permission")
-      - name: Move dev-deployed
+      - name: Record deployment of dev-deployed
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh api -X PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/dev-deployed" \
-            -f sha="$GITHUB_SHA" -F force=true > /dev/null; then
-            gh api -X POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref=refs/tags/dev-deployed -f sha="$GITHUB_SHA" > /dev/null
-          fi
+          id=$(jq -n --arg sha "$GITHUB_SHA" \
+            '{ref: $sha, environment: "dev-deployed", auto_merge: false, required_contexts: [], description: "Verified in Dev by deploy-dev"}' |
+            gh api -X POST "repos/$GITHUB_REPOSITORY/deployments" --input - --jq .id)
+          gh api -X POST "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" -f state=success \
+            -f log_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > /dev/null
           echo "dev-deployed → \`$GITHUB_SHA\`" >> "$GITHUB_STEP_SUMMARY"
