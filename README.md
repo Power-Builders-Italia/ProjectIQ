@@ -54,7 +54,9 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
 | Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |
 
-Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Environments and deployment](docs/dev-environment.md#environments-and-deployment) · [Data model](docs/data-model.md).
+Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Environments and deployment](docs/dev-environment.md#environments-and-deployment) · [Data model](docs/data-model.md) · [Publishing on Microsoft AppSource](docs/appsource.md).
+
+Legal: [Privacy statement](docs/legal/privacy.md) · [Terms of use](docs/legal/terms-of-use.md).
 
 ## Repository layout
 
@@ -65,6 +67,7 @@ Technical documentation (English): [Development environment setup](docs/dev-envi
 | `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison, ProgressField) |
 | `src/webresources` | Form scripts and dialogs |
 | `portal` | Power Pages supplier portal |
+| `appsource` | AppSource package: Package Deployer project and listing assets ([guide](docs/appsource.md)) |
 | `docs` | User manuals (`docs/<language>/`), [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md), ADRs |
 | `tools/dataverse` | Scripts that create schema in the dev environment via the Web API |
 | `tools/pcf` | Push of the PCF controls to an environment |

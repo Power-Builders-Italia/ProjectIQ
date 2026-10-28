@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Describes the AppSource package (https://learn.microsoft.com/power-apps/developer/data-platform/create-package-app-appsource).
+  tools/appsource/build_package.py fills {START_DATE}; element and attribute names are case sensitive.
+  Locales: the languages of the solutions (base 1033 + 1040, 1036, 1031); all show the same English terms.
+-->
+<PvsPackageData>
+  <ProviderName>Power Builders Italia</ProviderName>
+  <PackageFile>package.zip</PackageFile>
+  <SolutionAnchorName>OpenProject365_managed.zip</SolutionAnchorName>
+  <StartDate>{START_DATE}</StartDate>
+  <EndDate>12/31/2035</EndDate>
+  <SupportedCountries>{COUNTRIES}</SupportedCountries>
+  <LearnMoreLink>https://power-builders-italia.github.io/projectiq/</LearnMoreLink>
+  <Locales>
+    <PackageLocale Code="1033" IsDefault="true">
+      <Logo>logo32.png</Logo>
+      <Terms>
+        <PackageTerm File="TermsOfUse.html" />
+      </Terms>
+    </PackageLocale>
+    <PackageLocale Code="1040" IsDefault="false">
+      <Logo>logo32.png</Logo>
+      <Terms>
+        <PackageTerm File="TermsOfUse.html" />
+      </Terms>
+    </PackageLocale>
+    <PackageLocale Code="1036" IsDefault="false">
+      <Logo>logo32.png</Logo>
+      <Terms>
+        <PackageTerm File="TermsOfUse.html" />
+      </Terms>
+    </PackageLocale>
+    <PackageLocale Code="1031" IsDefault="false">
+      <Logo>logo32.png</Logo>
+      <Terms>
+        <PackageTerm File="TermsOfUse.html" />
+      </Terms>
+    </PackageLocale>
+  </Locales>
+</PvsPackageData>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Package Deployer package of ProjectIQ (created with pac package init), the core of the AppSource package.
+    The managed solutions are not in the repository: tools/appsource/build_package.py passes the folder that holds
+    OpenProject365_managed.zip and OpenProject365SupplierPortal_managed.zip as SolutionsDir.
+    Build: dotnet publish -c Release -p:SolutionsDir=<folder> -p:Version=<x.y.z.w>  ->  bin/Release/ProjectIQ.Package.<version>.pdpkg.zip
+  -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>ProjectIQ.Package</AssemblyTitle>
+    <Product>ProjectIQ</Product>
+    <Company>Power Builders Italia</Company>
+    <Copyright>Copyright © 2026 Power Builders Italia</Copyright>
+    <SolutionsDir Condition="'$(SolutionsDir)' == ''">$(MSBuildThisFileDirectory)..\..\out\</SolutionsDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerApps.MSBuild.PDPackage" Version="1.52.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CrmSdk.XrmTooling.CoreAssembly" Version="9.1.0.79" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CrmSdk.XrmTooling.PackageDeployment" Version="9.1.0.74" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Composition" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Import order: the supplier portal uses the tables of the main solution -->
+    <PdSolution Include="$(SolutionsDir)OpenProject365_managed.zip" />
+    <PdSolution Include="$(SolutionsDir)OpenProject365SupplierPortal_managed.zip" />
+  </ItemGroup>
+</Project>
