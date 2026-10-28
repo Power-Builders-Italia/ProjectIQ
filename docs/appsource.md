@@ -9,7 +9,7 @@ Microsoft references: [Plan a Dynamics 365 offer](https://learn.microsoft.com/pa
 ```mermaid
 flowchart LR
     subgraph Repo["Repository (automated)"]
-        A["appsource-package<br/>workflow"] --> B["Export managed<br/>from Dev"]
+        A["publish-appsource<br/>workflow"] --> B["Export managed<br/>from Dev"]
         B --> C["Solution Checker<br/>AppSource Certification"]
         C --> D["PowerBuildersItalia_ProjectIQ<br/>_version.zip"]
     end
@@ -26,7 +26,7 @@ flowchart LR
 |---|---|---|
 | Partner Center account enrolled in the Microsoft Marketplace program, publisher verified | Publisher (once) | [Partner Center](https://partner.microsoft.com/dashboard) |
 | Dev and `main` aligned, release tested in Test | Maintainer | [Environments and deployment](dev-environment.md#environments-and-deployment) |
-| Build the AppSource package | Maintainer | GitHub → Actions → `appsource-package` |
+| Build the AppSource package | Maintainer | GitHub → Actions → `publish-appsource` |
 | Upload the package, create a read-only SAS URL | Publisher | Azure portal / Azure CLI |
 | Create or update the offer, submit | Publisher | Partner Center |
 | Certification (package, Solution Checker, functional test) | Microsoft | e-mail reports to the publisher |
@@ -63,7 +63,7 @@ flowchart TD
 ## Build the package
 
 1. Make sure Dev and `main` match and that the release was tested in Test (`deploy-test`).
-2. In GitHub → **Actions** → **appsource-package** → **Run workflow**, enter:
+2. In GitHub → **Actions** → **publish-appsource** → **Run workflow**, enter:
     - **version**: `X.Y.Z.W`, higher than the version last submitted to AppSource (AppSource installs upgrades only when the version grows);
     - **start-date** (optional): the date the package becomes available, `MM/DD/YYYY`; empty means today.
 3. Approve the run in the `test` environment. The workflow sets the version of both solutions in Dev, exports them as managed, runs the Solution Checker with the **AppSource Certification** rule set (the one Microsoft uses) and builds the package.
@@ -186,5 +186,5 @@ What the package cannot do by itself is described for administrators in [Adminis
 | Certification: wrong package structure | The AppSource zip must be flat with exactly the five files listed above; always use the zip produced by the workflow, do not re-zip it by hand |
 | Certification: locale mismatch | The `PackageLocale` codes of `input.xml` must match the languages of the solutions (1033, 1040, 1036, 1031) |
 | Partner Center cannot download the package | SAS URL expired or without read permission: generate a new one |
-| `appsource-package` fails on the version | Use four numbers, e.g. `1.0.20.0`; both solutions must end up with that version |
-| `appsource-package` fails on the checker | Critical or high findings: read the job log or the `appsource-checker` artifact, fix in Dev, run again |
+| `publish-appsource` fails on the version | Use four numbers, e.g. `1.0.20.0`; both solutions must end up with that version |
+| `publish-appsource` fails on the checker | Critical or high findings: read the job log or the `appsource-checker` artifact, fix in Dev, run again |

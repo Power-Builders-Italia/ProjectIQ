@@ -102,7 +102,7 @@ The `build` workflow builds and tests the plugins and the PCF controls and packs
 
 ## AppSource package
 
-The manual `appsource-package` workflow exports both solutions as managed from Dev, runs the Solution Checker with the **AppSource Certification** rule set and builds the AppSource package with `tools/alm/build_appsource_package.py` (Package Deployer project in `appsource/ProjectIQ.Package`). Publishing steps in Partner Center: [Publishing on Microsoft AppSource](appsource.md).
+The manual `publish-appsource` workflow exports both solutions as managed from Dev, runs the Solution Checker with the **AppSource Certification** rule set and builds the AppSource package with `tools/alm/build_appsource_package.py` (Package Deployer project in `appsource/ProjectIQ.Package`). Publishing steps in Partner Center: [Publishing on Microsoft AppSource](appsource.md).
 
 ## Documentation website (GitHub Pages)
 

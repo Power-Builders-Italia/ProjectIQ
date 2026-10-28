@@ -1,4 +1,4 @@
-name: appsource-package
+name: publish-appsource
 
 # Builds the AppSource package of ProjectIQ (docs/appsource.md): exports OpenProject365 and OpenProject365SupplierPortal
 # as managed from Dev with the requested version, runs the Solution Checker with the "AppSource Certification" rule set
