@@ -3,7 +3,7 @@
   "solution": {
     "name": "projectiq-portfolio-agent-client-side-solution",
     "id": "4ba7c8e6-8abd-4c5a-97ad-669f4f00a161",
-    "version": "0.1.0.0",
+    "version": "0.2.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -36,7 +36,7 @@
         "title": "ProjectIQ Portfolio Agent",
         "description": "Copilot UX components and declarative agent of ProjectIQ.",
         "id": "001f37a6-6237-4aa8-ae75-3ed9ba98ca3f",
-        "version": "0.1.0.0"
+        "version": "0.2.0.0"
       }
     ]
   },

@@ -9,6 +9,7 @@ import { timelineRows, type TimelineRow } from '../../logic/project';
 import type { ProjectFigures } from '../../logic/portfolio';
 import { promptFor } from '../../intents';
 import { recordUrl } from '../../settings';
+import { strings } from '../../i18n';
 
 const Gantt: React.FC<{ rows: TimelineRow[]; start: number; end: number; today: number }> = ({ rows, start, end, today }) => {
   const W = 640, labelW = 170, rowH = 24, top = 18;
@@ -16,7 +17,7 @@ const Gantt: React.FC<{ rows: TimelineRow[]; start: number; end: number; today: 
   const x = (d: number): number => labelW + (d - start) / span * (W - labelW - 4);
   const height = top + rows.length * rowH + 4;
   return (
-    <svg width="100%" viewBox={`0 0 ${W} ${height}`} role="img" aria-label="Timeline of the WBS phases" preserveAspectRatio="xMinYMin meet">
+    <svg width="100%" viewBox={`0 0 ${W} ${height}`} role="img" aria-label={strings().timeline.chart} preserveAspectRatio="xMinYMin meet">
       <text x={labelW} y={11} fontSize={10} fill={tokens.colorNeutralForeground3}>{shortDate(start)}</text>
       <text x={W - 4} y={11} fontSize={10} textAnchor="end" fill={tokens.colorNeutralForeground3}>{shortDate(end)}</text>
       {today >= start && today <= end && (
@@ -55,6 +56,7 @@ const Gantt: React.FC<{ rows: TimelineRow[]; start: number; end: number; today: 
 
 const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
   const { today, wide, setModelContext } = useAgent();
+  const t = strings().timeline;
   const state = useServiceData(async (service, settings) => ({ detail: await service.projectDetail(project.id), settings }), [project.id]);
   const timeline = React.useMemo(() => state.data
     ? timelineRows(state.data.detail.nodes, state.data.detail.links, today, wide ? 1 : 0, state.data.detail.baseline?.nodes)
@@ -69,24 +71,24 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
       + `${r.baselineEnd !== undefined ? ` baseline end ${date(r.baselineEnd)}` : ''}${r.pushedEnd !== undefined ? ` pushed to ${date(r.pushedEnd)}` : ''}`).join('; '));
   }, [timeline]);
   return (
-    <Shell eyebrow="Project timeline" title={`${project.code} ${project.name}`.trim()} subtitle={`${date(project.start)} → ${date(project.end)}`} onRefresh={state.reload}>
+    <Shell eyebrow={t.eyebrow} title={`${project.code} ${project.name}`.trim()} subtitle={`${date(project.start)} → ${date(project.end)}`} onRefresh={state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {state.loading && !timeline && <Loading />}
       {timeline && state.data && (
         <>
           <KpiGrid>
-            <Kpi label="Late phases" value={String(late.filter(r => r.node.level === 0).length)} tone={late.length ? 'danger' : 'neutral'} />
-            <Kpi label="Critical phases" value={String(critical.length)} />
-            <Kpi label="Later than baseline" value={state.data.detail.baseline ? String(slips.length) : '–'}
-              note={state.data.detail.baseline ? state.data.detail.baseline.name : 'No reference baseline'} tone={slips.length ? 'warning' : 'neutral'} />
+            <Kpi label={t.late} value={String(late.filter(r => r.node.level === 0).length)} tone={late.length ? 'danger' : 'neutral'} />
+            <Kpi label={t.critical} value={String(critical.length)} />
+            <Kpi label={t.slipped} value={state.data.detail.baseline ? String(slips.length) : '–'}
+              note={state.data.detail.baseline ? state.data.detail.baseline.name : t.noBaseline} tone={slips.length ? 'warning' : 'neutral'} />
           </KpiGrid>
           {timeline.start !== undefined && timeline.end !== undefined
             ? <Gantt rows={timeline.rows} start={timeline.start} end={timeline.end} today={today} />
-            : <Info>The WBS has no dates yet.</Info>}
-          <Text size={200}>Bars show progress; red = critical path, grey line = reference baseline, dashed = pushed by dependencies, red dashed line = today.</Text>
+            : <Info>{t.noDates}</Info>}
+          <Text size={200}>{t.legend}</Text>
           <Footer>
-            <OpenInApp url={recordUrl(state.data.settings, 'op365_project', project.id)} label="Open the Gantt in ProjectIQ" />
-            <FollowUp prompt={promptFor('GetProjectHealth', project.code || project.name)}>Project health</FollowUp>
+            <OpenInApp url={recordUrl(state.data.settings, 'op365_project', project.id)} label={t.openGantt} />
+            <FollowUp prompt={promptFor('GetProjectHealth', project.code || project.name)}>{t.health}</FollowUp>
           </Footer>
         </>
       )}
@@ -95,7 +97,7 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
 };
 
 export const ProjectTimelineView: React.FC<{ project?: string }> = props => (
-  <ProjectGate intent="GetProjectTimeline" eyebrow="Project timeline" title="Project timeline" project={props.project}>
+  <ProjectGate intent="GetProjectTimeline" eyebrow={strings().timeline.eyebrow} title={strings().intents.GetProjectTimeline.title} project={props.project}>
     {project => <Detail project={project} />}
   </ProjectGate>
 );

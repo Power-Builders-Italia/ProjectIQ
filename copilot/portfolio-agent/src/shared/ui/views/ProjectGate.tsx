@@ -5,6 +5,7 @@ import { useAgent, useServiceData } from '../AgentContext';
 import { Choices, ErrorBar, Info, Loading, Shell } from '../kit';
 import { matchProjects, PROJECT_STATUS, type ProjectFigures } from '../../logic/portfolio';
 import { promptFor, type IntentKey } from '../../intents';
+import { strings } from '../../i18n';
 
 export interface ProjectGateProps {
   intent: IntentKey;
@@ -16,6 +17,7 @@ export interface ProjectGateProps {
 
 export const ProjectGate: React.FC<ProjectGateProps> = props => {
   const { wide } = useAgent();
+  const t = strings().gate;
   const state = useServiceData(s => s.projects(true), []);
   if (state.loading && !state.data) return <Shell eyebrow={props.eyebrow} title={props.title}><Loading /></Shell>;
   if (state.error) return <Shell eyebrow={props.eyebrow} title={props.title}><ErrorBar error={state.error} /></Shell>;
@@ -25,8 +27,8 @@ export const ProjectGate: React.FC<ProjectGateProps> = props => {
   const candidates = (matches.length ? matches : all.filter(p => p.status === PROJECT_STATUS.inProgress)).slice(0, wide ? 24 : 8);
   return (
     <Shell eyebrow={props.eyebrow} title={props.title}>
-      <Info title={matches.length ? 'Several projects match' : props.project ? `No project matches "${props.project}"` : 'Which project?'}>
-        {candidates.length ? 'Choose the project:' : 'No In Progress project is visible to you.'}
+      <Info title={matches.length ? t.several : props.project ? t.noMatch(props.project) : t.which}>
+        {candidates.length ? t.choose : t.none}
       </Info>
       <Choices items={candidates.map(p => ({
         key: p.id, label: `${p.code} ${p.name}`.trim(), prompt: promptFor(props.intent, p.code || p.name),

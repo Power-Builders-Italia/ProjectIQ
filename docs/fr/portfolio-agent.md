@@ -164,5 +164,5 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 
 - Non disponible sur les clients mobiles (iOS, Android) avec SPFx 1.24 GA.
 - Un environnement ProjectIQ par package du locataire.
-- Les libellés des cartes sont en anglais ; Copilot répond dans la langue de la question.
+- Les cartes, le nom de l'agent, sa description et les suggestions de conversation sont en anglais, italien, français ou allemand, selon la langue de votre compte Microsoft 365 ; les autres langues voient l'anglais. Copilot répond dans la langue de la question. Ce manuel cite les libellés en anglais.
 - Les dates sont des jours entiers dans votre fuseau horaire ; les montants sont dans la devise de l'enregistrement, sans conversion.

@@ -83,7 +83,8 @@ When exporting from Dev, drop the Italian (1040) labels the Dev language pack ad
 - **One component per tool**: `src/copilotComponents/<tool>/` holds the manifest (tool name and description, properties schema in Zod) and a class that only sets `intentKey`; the view is in `src/shared/ui/views`, the queries in `src/shared/services/ProjectIQService.ts`, the rules in `src/shared/logic`. A new tool also needs a row in `src/shared/intents.ts`, its id in `config/copilot-agent.json`, an entry in `config/config.json` and a routing line in `copilot/instruction.txt` (the agent check fails otherwise).
 - **Writes**: only `op365_timeentry` create and the Custom APIs `op365_SubmitTimeEntries` / `op365_DecideTimeEntries`, after the user's **Confirm**; keep it so, other actions stay in the app.
 - **Environment**: the tenant property (storage entity) `ProjectIQEnvironmentUrl`, else `DEFAULT_ENVIRONMENT_URL` in `src/shared/settings.ts`; optional `ProjectIQAppId` for links.
-- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release; after changes to `copilot/` (name, instructions, starters, icons) the admin selects **Add to Teams** again.
+- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release; after changes to `copilot/` (name, instructions, starters, icons, language files) the admin selects **Add to Teams** again.
+- **Languages**: card texts and agent manifests in English, Italian, French and German, see [Translations](#translations-italian-french-german).
 
 ## Supplier portal (Power Pages)
 
@@ -111,6 +112,8 @@ English (1033) is the base language; German (1031), French (1036) and Italian (1
 | PCF controls | `src/pcf/<Control>/strings/<Control>.<lcid>.resx` | Add the key to the 1033 resx and a `Control\|Key\|de\|fr\|it` line to `tools/pcf/strings.txt`, then `python3 tools/pcf/gen_resx.py`. Day and month names use `userLocale(context.userSettings.languageId)`. |
 | Form scripts and dialog pages | `TEXT` table at the top of each file in `src/webresources` | English text -> [de, fr, it]; `t("...")` picks the user's language. Never compare form or field labels in code: use ids. |
 | Plugin errors and notifications | `src/plugins/OpenProject365.Plugins/Text.cs` | Messages stay English in the code. Add every new message to `Text.Templates` (`{0}` for variable parts); `PluginBase` and `Rules.Notify` translate into the user's interface language. |
+| Portfolio Agent cards | `copilot/portfolio-agent/src/shared/i18n/{en,it,fr,de}.ts` | Add the key to `en.ts` (texts with values are functions); the TypeScript type and the `i18n` test fail until `it`, `fr` and `de` have it. The language comes from `pageContext.cultureInfo.currentUICultureName`; model context sent to Copilot stays English (`EN`). |
+| Portfolio Agent name, description, starters | `copilot/portfolio-agent/copilot/{en,it,fr,de}.json` | `[[key]]` in `declarativeAgent.json`, value under `localizationKeys` of every language file (`npm run check:agent` fails otherwise); Teams name and description in `name.*` / `description.*`. |
 
 Glossary: project = Commessa / Projekt / projet; WBS node = Nodo WBS / PSP-Element / nœud WBS; purchase request = Richiesta di acquisto / Bestellanforderung / demande d'achat; RFQ = Richiesta di offerta (RdO) / Angebotsanfrage / demande de prix; purchase order = Ordine di acquisto / Bestellung / commande d'achat; goods receipt = Ricevimento merci / Wareneingang / réception de marchandises; baseline = Baseline / Basisplan / planning de référence.
 
