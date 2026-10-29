@@ -10,21 +10,23 @@ import { costSummary, type CostLine } from '../../projectiq/cost';
 import type { ProjectFigures } from '../../logic/portfolio';
 import { promptFor } from '../../intents';
 import { recordUrl } from '../../settings';
+import { strings } from '../../i18n';
 
 /** Horizontal bars: budget (outline) and actual (filled) for each WBS branch. */
 const BudgetBars: React.FC<{ lines: CostLine[]; symbol?: string }> = ({ lines, symbol }) => {
+  const t = strings().budget;
   const max = Math.max(1, ...lines.map(l => Math.max(l.budget, l.actual)));
   const rowH = 26;
   const labelW = 150;
   return (
-    <svg width="100%" height={lines.length * rowH + 4} role="img" aria-label="Budget and actual cost by WBS branch"
+    <svg width="100%" height={lines.length * rowH + 4} role="img" aria-label={t.chart}
       viewBox={`0 0 600 ${lines.length * rowH + 4}`} preserveAspectRatio="xMinYMin meet">
       {lines.map((l, i) => {
         const y = i * rowH + 4;
         const w = 600 - labelW - 90;
         return (
           <g key={l.id || i}>
-            <text x={0} y={y + 13} fontSize={11} fill={tokens.colorNeutralForeground2}>{(l.code ? l.code + ' ' : '') + (l.name || 'Not on the WBS')}</text>
+            <text x={0} y={y + 13} fontSize={11} fill={tokens.colorNeutralForeground2}>{(l.code ? l.code + ' ' : '') + (l.name || t.notOnWbs)}</text>
             <rect x={labelW} y={y + 2} width={l.budget / max * w} height={16} rx={3} fill="none" stroke={tokens.colorNeutralStroke1} />
             <rect x={labelW} y={y + 5} width={l.actual / max * w} height={10} rx={2}
               fill={l.actual > l.budget ? tokens.colorPaletteRedBackground3 : tokens.colorBrandBackground} />
@@ -38,6 +40,8 @@ const BudgetBars: React.FC<{ lines: CostLine[]; symbol?: string }> = ({ lines, s
 
 const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
   const { wide, setModelContext } = useAgent();
+  const s = strings();
+  const t = s.budget;
   const state = useServiceData(async (service, settings) => {
     const [detail, totals] = await Promise.all([service.projectDetail(project.id), service.labourAndMaterials(project.id)]);
     return { detail, totals, settings };
@@ -61,37 +65,37 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
   }, [summary]);
   const sym = state.data?.detail.currencySymbol;
   return (
-    <Shell eyebrow="Project budget" title={`${project.code} ${project.name}`.trim()} subtitle="Budget against actual cost by WBS branch" onRefresh={state.reload}>
+    <Shell eyebrow={t.eyebrow} title={`${project.code} ${project.name}`.trim()} subtitle={t.subtitle} onRefresh={state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {state.loading && !summary && <Loading />}
       {summary && state.data && (
         <>
           <KpiGrid>
-            <Kpi label="Budget" value={money(summary.budget, sym)} />
-            <Kpi label="Actual cost" value={money(summary.actual, sym)} note={`${pct(summary.budget ? summary.actual / summary.budget : 0)} of budget`}
+            <Kpi label={t.budget} value={money(summary.budget, sym)} />
+            <Kpi label={t.actual} value={money(summary.actual, sym)} note={t.ofBudget(pct(summary.budget ? summary.actual / summary.budget : 0))}
               tone={summary.actual > summary.budget ? 'danger' : 'neutral'} />
-            <Kpi label="Labour" value={money(summary.labour, sym)} note="Approved hours" />
-            <Kpi label="Materials" value={money(summary.materials, sym)} />
-            <Kpi label="Committed" value={money(state.data.detail.project.committed, sym)} />
-            <Kpi label="Estimate at completion" value={money(summary.eac, sym)} note={`Margin ${money(summary.margin, sym)}`}
+            <Kpi label={t.labour} value={money(summary.labour, sym)} note={t.labourNote} />
+            <Kpi label={t.materials} value={money(summary.materials, sym)} />
+            <Kpi label={t.committed} value={money(state.data.detail.project.committed, sym)} />
+            <Kpi label={t.eac} value={money(summary.eac, sym)} note={t.marginNote(money(summary.margin, sym))}
               tone={summary.margin < 0 ? 'danger' : 'neutral'} />
           </KpiGrid>
           {summary.lines.length > 0 && <BudgetBars lines={summary.lines} symbol={sym} />}
           {wide && summary.lines.length > 0 && (
-            <Table size="small" aria-label="Cost by WBS branch">
+            <Table size="small" aria-label={t.table}>
               <TableHeader>
                 <TableRow>
-                  <TableHeaderCell>WBS branch</TableHeaderCell>
-                  <TableHeaderCell>Budget</TableHeaderCell>
-                  <TableHeaderCell>Actual</TableHeaderCell>
-                  <TableHeaderCell>Variance</TableHeaderCell>
-                  <TableHeaderCell>Hours</TableHeaderCell>
+                  <TableHeaderCell>{t.branch}</TableHeaderCell>
+                  <TableHeaderCell>{t.budget}</TableHeaderCell>
+                  <TableHeaderCell>{t.actualColumn}</TableHeaderCell>
+                  <TableHeaderCell>{t.variance}</TableHeaderCell>
+                  <TableHeaderCell>{t.hours}</TableHeaderCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {summary.lines.map((l, i) => (
                   <TableRow key={l.id || i}>
-                    <TableCell><Text weight="semibold">{l.code}</Text> {l.name || 'Not on the WBS'}</TableCell>
+                    <TableCell><Text weight="semibold">{l.code}</Text> {l.name || t.notOnWbs}</TableCell>
                     <TableCell>{money(l.budget, sym)}</TableCell>
                     <TableCell>{money(l.actual, sym)}</TableCell>
                     <TableCell><ToneText tone={l.variance > 0 ? 'danger' : 'success'}>{money(l.variance, sym)}</ToneText></TableCell>
@@ -101,10 +105,10 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
               </TableBody>
             </Table>
           )}
-          <Text size={200}>Actual cost counts approved hours and material usage. Amounts protected by the Cost Visibility profile show as 0 when you cannot see them.</Text>
+          <Text size={200}>{t.note}</Text>
           <Footer>
             <OpenInApp url={recordUrl(state.data.settings, 'op365_project', project.id)} />
-            <FollowUp prompt={promptFor('GetProjectHealth', project.code || project.name)}>Project health</FollowUp>
+            <FollowUp prompt={promptFor('GetProjectHealth', project.code || project.name)}>{t.health}</FollowUp>
           </Footer>
         </>
       )}
@@ -113,7 +117,7 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
 };
 
 export const ProjectBudgetView: React.FC<{ project?: string }> = props => (
-  <ProjectGate intent="GetProjectBudget" eyebrow="Project budget" title="Project budget" project={props.project}>
+  <ProjectGate intent="GetProjectBudget" eyebrow={strings().budget.eyebrow} title={strings().intents.GetProjectBudget.title} project={props.project}>
     {project => <Detail project={project} />}
   </ProjectGate>
 );

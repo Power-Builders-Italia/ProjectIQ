@@ -164,5 +164,5 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 
 - Not available on mobile clients (iOS, Android) at SPFx 1.24 GA.
 - One ProjectIQ environment per tenant package.
-- The labels of the cards are in English; Copilot answers in the language of the question.
+- The cards, the agent name, its description and the conversation starters are in English, Italian, French or German, following the language of your Microsoft 365 account; other languages see English. Copilot answers in the language of the question. This manual quotes the labels in English.
 - Dates are whole days in your time zone; amounts are in the record currency, without conversion.

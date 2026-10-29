@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
   "version": "v1.7",
-  "name": "ProjectIQ Portfolio Agent",
-  "description": "Live view of your ProjectIQ projects: portfolio and project health, budget, timeline, resource load, purchasing, supplier compliance, hours to approve and your timesheet.",
+  "name": "[[agent_name]]",
+  "description": "[[agent_description]]",
   "instructions": "$[file('instruction.txt')]",
   "conversation_starters": [
-    { "title": "What needs my attention", "text": "What needs my attention across my projects this week?" },
-    { "title": "Portfolio health", "text": "Which projects are over budget or late?" },
-    { "title": "Hours to approve", "text": "Which hours do I have to approve?" },
-    { "title": "Log my hours", "text": "Log 8 hours today on my project and submit them" },
-    { "title": "Resource load", "text": "Who is overloaded in the next weeks?" },
-    { "title": "Explore the agent", "text": "Show me what you can help with" }
+    { "title": "[[starter1_title]]", "text": "[[starter1_text]]" },
+    { "title": "[[starter2_title]]", "text": "[[starter2_text]]" },
+    { "title": "[[starter3_title]]", "text": "[[starter3_text]]" },
+    { "title": "[[starter4_title]]", "text": "[[starter4_text]]" },
+    { "title": "[[starter5_title]]", "text": "[[starter5_text]]" },
+    { "title": "[[starter6_title]]", "text": "[[starter6_text]]" }
   ],
   "actions": [
     { "id": "projectiqAction", "file": "ai-plugin.json" }

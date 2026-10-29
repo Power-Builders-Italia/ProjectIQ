@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.Localization.schema.json",
+  "name.short": "ProjectIQ Portfolio",
+  "name.full": "ProjectIQ Portfolio Agent",
+  "description.short": "ProjectIQ projects, portfolio, resources, purchasing and hours in Copilot.",
+  "description.full": "An intent-driven Copilot agent on live ProjectIQ data: portfolio and project health, budget, timeline, resource load, purchasing status, supplier compliance, approval of hours and logging and submitting your timesheet, with your own Dataverse permissions.",
+  "localizationKeys": {
+    "agent_name": "ProjectIQ Portfolio Agent",
+    "agent_description": "Live view of your ProjectIQ projects: portfolio and project health, budget, timeline, resource load, purchasing, supplier compliance, hours to approve and your timesheet.",
+    "starter1_title": "What needs my attention",
+    "starter1_text": "What needs my attention across my projects this week?",
+    "starter2_title": "Portfolio health",
+    "starter2_text": "Which projects are over budget or late?",
+    "starter3_title": "Hours to approve",
+    "starter3_text": "Which hours do I have to approve?",
+    "starter4_title": "Log my hours",
+    "starter4_text": "Log 8 hours today on my project and submit them",
+    "starter5_title": "Resource load",
+    "starter5_text": "Who is overloaded in the next weeks?",
+    "starter6_title": "Explore the agent",
+    "starter6_text": "Show me what you can help with"
+  }
+}

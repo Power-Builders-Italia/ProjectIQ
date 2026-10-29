@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.Localization.schema.json",
+  "name.short": "ProjectIQ Portefeuille",
+  "name.full": "Agent Portefeuille ProjectIQ",
+  "description.short": "Projets, portefeuille, ressources, achats et heures ProjectIQ dans Copilot.",
+  "description.full": "Un agent Copilot piloté par les intentions sur les données ProjectIQ en direct : santé du portefeuille et des projets, budget, planning, charge des ressources, état des achats, conformité des fournisseurs, approbation des heures et saisie et soumission de votre feuille de temps, avec vos propres autorisations Dataverse.",
+  "localizationKeys": {
+    "agent_name": "Agent Portefeuille ProjectIQ",
+    "agent_description": "Vue en direct de vos projets ProjectIQ : santé du portefeuille et des projets, budget, planning, charge des ressources, achats, conformité des fournisseurs, heures à approuver et votre feuille de temps.",
+    "starter1_title": "Ce qui demande mon attention",
+    "starter1_text": "Qu'est-ce qui demande mon attention sur mes projets cette semaine ?",
+    "starter2_title": "Santé du portefeuille",
+    "starter2_text": "Quels projets sont hors budget ou en retard ?",
+    "starter3_title": "Heures à approuver",
+    "starter3_text": "Quelles heures dois-je approuver ?",
+    "starter4_title": "Saisir mes heures",
+    "starter4_text": "Saisis 8 heures aujourd'hui sur mon projet et soumets-les",
+    "starter5_title": "Charge des ressources",
+    "starter5_text": "Qui est surchargé dans les prochaines semaines ?",
+    "starter6_title": "Découvrir l'agent",
+    "starter6_text": "Montre-moi ce que tu peux faire"
+  }
+}

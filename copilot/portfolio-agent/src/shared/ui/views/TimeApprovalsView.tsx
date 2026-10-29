@@ -9,6 +9,7 @@ import { ErrorBar, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Shell } from 
 import { date, hours, shortDate } from '../format';
 import { approvalQueue, idsToDecide, type FlaggedGroup } from '../../logic/approvals';
 import { listUrl } from '../../settings';
+import { strings } from '../../i18n';
 
 export interface TimeApprovalsProps { project?: string; resource?: string; }
 
@@ -18,6 +19,8 @@ const contains = (v: string, q?: string): boolean => !q || v.toLowerCase().index
 
 export const TimeApprovalsView: React.FC<TimeApprovalsProps> = props => {
   const { today, wide, ready, setModelContext } = useAgent();
+  const str = strings();
+  const t = str.approvals;
   const state = useServiceData(async (service, settings) => ({ entries: await service.pendingTime(), settings }), []);
   const groups = React.useMemo(() => (state.data
     ? approvalQueue(state.data.entries.filter(e => contains(e.projectName, props.project) && contains(e.resourceName, props.resource)), today)
@@ -60,39 +63,39 @@ export const TimeApprovalsView: React.FC<TimeApprovalsProps> = props => {
   };
 
   return (
-    <Shell eyebrow="Approvals" title="Approve hours" subtitle={[props.project, props.resource].filter(Boolean).join(' · ') || 'Submitted hours of the projects you manage'}
+    <Shell eyebrow={t.eyebrow} title={str.intents.ReviewTimeApprovals.title} subtitle={[props.project, props.resource].filter(Boolean).join(' · ') || t.subtitle}
       onRefresh={step.kind === 'review' ? undefined : state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {error && <ErrorBar error={error} />}
       {state.loading && !state.data && <Loading />}
       {step.kind === 'done' && (
-        <Info intent="success" title={step.approve ? 'Hours approved' : 'Hours rejected'}>
-          {step.count} time entries {step.approve ? 'approved' : 'rejected'} in ProjectIQ. The people concerned get an in-app notification.
+        <Info intent="success" title={step.approve ? t.approvedTitle : t.rejectedTitle}>
+          {t.done(step.count, step.approve)}
         </Info>
       )}
       {state.data && step.kind !== 'review' && (
         <>
           <KpiGrid>
-            <Kpi label="Entries to approve" value={String(groups.reduce((n, g) => n + g.entries.length, 0))} />
-            <Kpi label="Hours" value={hours(groups.reduce((n, g) => n + g.hours, 0))} />
-            <Kpi label="Waiting > 7 days" value={String(groups.filter(g => g.flags.stale).length)} tone={groups.some(g => g.flags.stale) ? 'warning' : 'neutral'} />
+            <Kpi label={t.entries} value={String(groups.reduce((n, g) => n + g.entries.length, 0))} />
+            <Kpi label={t.hours} value={hours(groups.reduce((n, g) => n + g.hours, 0))} />
+            <Kpi label={t.stale} value={String(groups.filter(g => g.flags.stale).length)} tone={groups.some(g => g.flags.stale) ? 'warning' : 'neutral'} />
           </KpiGrid>
-          {!groups.length && <Info>Nothing to approve. When time approval is off in the settings, hours are approved on submit.</Info>}
+          {!groups.length && <Info>{t.nothing}</Info>}
           {!!groups.length && (
-            <Table size="small" aria-label="Hours to approve">
+            <Table size="small" aria-label={t.table}>
               <TableHeader>
                 <TableRow>
                   <TableHeaderCell style={{ width: 36 }} />
-                  <TableHeaderCell>Person · week</TableHeaderCell>
-                  <TableHeaderCell style={{ width: 80 }}>Hours</TableHeaderCell>
-                  {wide && <TableHeaderCell>Projects</TableHeaderCell>}
-                  <TableHeaderCell style={{ width: 140 }}>Flags</TableHeaderCell>
+                  <TableHeaderCell>{t.personWeek}</TableHeaderCell>
+                  <TableHeaderCell style={{ width: 80 }}>{t.hours}</TableHeaderCell>
+                  {wide && <TableHeaderCell>{t.projects}</TableHeaderCell>}
+                  <TableHeaderCell style={{ width: 140 }}>{t.flags}</TableHeaderCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {groups.slice(0, wide ? 500 : 10).map(g => (
                   <TableRow key={g.key}>
-                    <TableCell><Checkbox checked={selected.has(g.key)} onChange={() => toggle(g.key)} aria-label={`Select ${g.resourceName}`} /></TableCell>
+                    <TableCell><Checkbox checked={selected.has(g.key)} onChange={() => toggle(g.key)} aria-label={t.select(g.resourceName)} /></TableCell>
                     <TableCell>
                       <Text weight="semibold">{g.resourceName}</Text> · {shortDate(g.weekStart)}
                       {!wide && <div><Text size={200}>{g.projects.map(p => p.name).join(', ')}</Text></div>}
@@ -100,8 +103,8 @@ export const TimeApprovalsView: React.FC<TimeApprovalsProps> = props => {
                     <TableCell>{hours(g.hours)}</TableCell>
                     {wide && <TableCell>{g.projects.map(p => `${p.name} ${hours(p.hours)}`).join(' · ')}</TableCell>}
                     <TableCell>
-                      {g.flags.stale && <Badge color="warning" appearance="tint">Since {date(g.oldestSubmission)}</Badge>}{' '}
-                      {g.flags.longDays.length > 0 && <Badge color="danger" appearance="tint">{g.flags.longDays.length} days &gt; 10 h</Badge>}
+                      {g.flags.stale && <Badge color="warning" appearance="tint">{t.since(date(g.oldestSubmission))}</Badge>}{' '}
+                      {g.flags.longDays.length > 0 && <Badge color="danger" appearance="tint">{t.longDays(g.flags.longDays.length)}</Badge>}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -111,36 +114,35 @@ export const TimeApprovalsView: React.FC<TimeApprovalsProps> = props => {
           {!!groups.length && (
             <Footer>
               <Button appearance="primary" icon={<Checkmark16Regular />} onClick={() => setStep({ kind: 'review', approve: true })}>
-                {selected.size ? 'Approve selected…' : 'Approve all…'}
+                {selected.size ? t.approveSelected : t.approveAll}
               </Button>
               <Button icon={<Dismiss16Regular />} onClick={() => setStep({ kind: 'review', approve: false })}>
-                {selected.size ? 'Reject selected…' : 'Reject all…'}
+                {selected.size ? t.rejectSelected : t.rejectAll}
               </Button>
-              <OpenInApp url={listUrl(state.data.settings, 'op365_timeentry')} label="Open Approvals in ProjectIQ" />
+              <OpenInApp url={listUrl(state.data.settings, 'op365_timeentry')} label={t.openList} />
             </Footer>
           )}
         </>
       )}
       {state.data && step.kind === 'review' && (
         <>
-          <Info intent={step.approve ? 'info' : 'warning'} title={step.approve ? 'Review the approval' : 'Review the rejection'}>
-            You are about to {step.approve ? 'approve' : 'reject'} {chosen.reduce((n, g) => n + g.entries.length, 0)} time entries,
-            {' '}{hours(chosenHours)} of {new Set(chosen.map(g => g.resourceId)).size} people. Approved hours become actual cost of the projects.
+          <Info intent={step.approve ? 'info' : 'warning'} title={step.approve ? t.reviewApprove : t.reviewReject}>
+            {t.about(step.approve, chosen.reduce((n, g) => n + g.entries.length, 0), hours(chosenHours), new Set(chosen.map(g => g.resourceId)).size)}
           </Info>
           <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {chosen.slice(0, 12).map(g => <li key={g.key}><Text size={200}>{g.resourceName}, week of {shortDate(g.weekStart)}: {hours(g.hours)}</Text></li>)}
-            {chosen.length > 12 && <li><Text size={200}>…and {chosen.length - 12} more</Text></li>}
+            {chosen.slice(0, 12).map(g => <li key={g.key}><Text size={200}>{t.groupLine(g.resourceName, shortDate(g.weekStart), hours(g.hours))}</Text></li>)}
+            {chosen.length > 12 && <li><Text size={200}>{t.andMore(chosen.length - 12)}</Text></li>}
           </ul>
           {!step.approve && (
-            <Field label="Note for the people (required to reject)" required>
+            <Field label={t.note} required>
               <Textarea value={note} onChange={(_, d) => setNote(d.value)} resize="vertical" />
             </Field>
           )}
           <Footer>
             <Button appearance="primary" disabled={busy || (!step.approve && !note.trim())} onClick={() => { confirm(step.approve).catch(() => undefined); }}>
-              {busy ? 'Saving…' : step.approve ? 'Confirm approval' : 'Confirm rejection'}
+              {busy ? str.common.saving : step.approve ? t.confirmApprove : t.confirmReject}
             </Button>
-            <Button disabled={busy} onClick={() => setStep({ kind: 'select' })}>Back</Button>
+            <Button disabled={busy} onClick={() => setStep({ kind: 'select' })}>{str.common.back}</Button>
           </Footer>
         </>
       )}

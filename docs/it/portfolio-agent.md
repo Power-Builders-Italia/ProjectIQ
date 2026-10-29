@@ -164,5 +164,5 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 
 - Non disponibile sui client mobile (iOS, Android) con SPFx 1.24 GA.
 - Un ambiente ProjectIQ per pacchetto del tenant.
-- Le etichette delle schede sono in inglese; Copilot risponde nella lingua della domanda.
+- Le schede, il nome dell'agente, la sua descrizione e i suggerimenti di conversazione sono in inglese, italiano, francese o tedesco, secondo la lingua del tuo account Microsoft 365; nelle altre lingue compaiono in inglese. Copilot risponde nella lingua della domanda. Questo manuale riporta le etichette in inglese.
 - Le date sono giorni interi nel tuo fuso orario; gli importi sono nella valuta del record, senza conversione.

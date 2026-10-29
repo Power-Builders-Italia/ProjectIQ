@@ -7,6 +7,7 @@ import { AgentApp } from '../ui/AgentApp';
 import { AgentContext, type IAgentContext } from '../ui/AgentContext';
 import { localToday } from '../ui/format';
 import { createService, loadSettings } from '../services/spfx';
+import { setCulture } from '../i18n';
 import type { IntentKey } from '../intents';
 import type { ProjectIQService } from '../services/ProjectIQService';
 import type { AgentSettings } from '../settings';
@@ -22,6 +23,8 @@ export default abstract class ProjectIQCopilotComponentBase<TProperties extends 
   private _renderer?: ReturnType<typeof createDOMRenderer>;
 
   protected render(): void {
+    // Texts and formats follow the SharePoint UI language of the user (English when it is not translated).
+    setCulture(this.context.pageContext?.cultureInfo?.currentUICultureName);
     if (!this._ready) {
       this._ready = loadSettings(this.context).then(async settings => ({ settings, service: await createService(this.context, settings) }));
       this._ready.catch(() => { this._ready = undefined; });
