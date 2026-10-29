@@ -1,3 +1,5 @@
+![ProjectIQ: Copilot bot at the centre, the Power Platform technologies around it and the ProjectIQ features on the outer ring](docs/assets/projectiq-hero.png)
+
 # ProjectIQ
 
 *Formerly Open Project 365.*
