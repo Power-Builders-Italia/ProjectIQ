@@ -21,6 +21,8 @@ export default abstract class ProjectIQCopilotComponentBase<TProperties extends 
   private _root?: Root;
   private _ready?: Promise<{ service: ProjectIQService; settings: AgentSettings }>;
   private _renderer?: ReturnType<typeof createDOMRenderer>;
+  private _observer?: ResizeObserver;
+  private _size = '';
 
   protected render(): void {
     // Texts and formats follow the SharePoint UI language of the user (English when it is not translated).
@@ -51,7 +53,9 @@ export default abstract class ProjectIQCopilotComponentBase<TProperties extends 
       <RendererProvider renderer={this._renderer} targetDocument={targetDocument}>
         <FluentProvider theme={host.theme === 'dark' ? webDarkTheme : webLightTheme} targetDocument={targetDocument} style={{ background: 'transparent' }}>
           <AgentContext.Provider value={agent}>
-            <AgentApp intent={this.intentKey} properties={this.properties as Record<string, unknown>} />
+            <div ref={this._measure}>
+              <AgentApp intent={this.intentKey} properties={this.properties as Record<string, unknown>} />
+            </div>
           </AgentContext.Provider>
         </FluentProvider>
       </RendererProvider>
@@ -63,10 +67,31 @@ export default abstract class ProjectIQCopilotComponentBase<TProperties extends 
   }
 
   protected onTeardown(reason: string | undefined): Promise<void> {
+    this._observer?.disconnect();
+    this._observer = undefined;
     this._root?.unmount();
     this._root = undefined;
     return super.onTeardown(reason);
   }
+
+  /**
+   * The host sizes the frame on the first paint (the loading spinner) and does not always follow the content
+   * when the data arrives: the card was cut below the KPIs. Report the real size of the content on every change.
+   */
+  private _measure = (element: HTMLDivElement | null): void => {
+    this._observer?.disconnect();
+    this._observer = undefined;
+    if (!element || typeof ResizeObserver === 'undefined') return;
+    this._observer = new ResizeObserver(() => {
+      const width = Math.ceil(element.getBoundingClientRect().width);
+      const height = Math.ceil(element.getBoundingClientRect().height);
+      const size = `${width}x${height}`;
+      if (!height || size === this._size) return;
+      this._size = size;
+      this.requestSizeChangeAsync(width, height).catch(() => undefined);
+    });
+    this._observer.observe(element);
+  };
 
   private _expand = (): void => {
     this.requestDisplayModeAsync('fullscreen').catch(() => undefined);
