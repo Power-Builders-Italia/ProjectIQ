@@ -1,0 +1,15 @@
+{
+  "extends": "./node_modules/@microsoft/spfx-web-build-rig/profiles/default/tsconfig-base.json",
+  "compilerOptions": {
+    // The shared ProjectIQ logic (src/pcf/shared) uses Map/Set spreads and Array.flatMap.
+    "downlevelIteration": true,
+    "lib": ["dom", "es5", "es2015", "es2016", "es2017", "es2019.array", "es2020.intl"]
+  },
+  "watchOptions": {
+    // Prevent the TypeScript watch program from re-triggering incremental builds
+    // when the copilot-agent task regenerates its outputs (temp/copilot staging
+    // and the teams/<agent>.zip package) on every build, which otherwise causes
+    // an infinite build loop during `heft start` / `heft build-watch`.
+    "excludeDirectories": ["**/teams", "**/temp/copilot"]
+  }
+}

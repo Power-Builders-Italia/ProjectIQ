@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "6dee4d5c-1cac-49f5-b63b-c61b617d01e9",
+  "alias": "GetProjectBudgetCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetProjectBudget",
+      "description": {
+        "default": "Show the budget of one ProjectIQ project against actual cost by WBS branch, labour and materials, variance and estimate at completion."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getProjectBudget/GetProjectBudgetCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

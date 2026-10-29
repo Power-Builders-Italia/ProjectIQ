@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "projectiq-portfolio-agent": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/getMyWorkSummary/GetMyWorkSummaryCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getMyWorkSummary/GetMyWorkSummaryCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/submitTimesheet/SubmitTimesheetCopilotComponent.js",
+          "manifest": "./src/copilotComponents/submitTimesheet/SubmitTimesheetCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getProjectHealth/GetProjectHealthCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getProjectHealth/GetProjectHealthCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getProjectBudget/GetProjectBudgetCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getProjectBudget/GetProjectBudgetCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getProjectTimeline/GetProjectTimelineCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getProjectTimeline/GetProjectTimelineCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getPortfolioHealth/GetPortfolioHealthCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getPortfolioHealth/GetPortfolioHealthCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getResourceLoad/GetResourceLoadCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getResourceLoad/GetResourceLoadCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getPurchasingStatus/GetPurchasingStatusCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getPurchasingStatus/GetPurchasingStatusCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/getSupplierCompliance/GetSupplierComplianceCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getSupplierCompliance/GetSupplierComplianceCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/reviewTimeApprovals/ReviewTimeApprovalsCopilotComponent.js",
+          "manifest": "./src/copilotComponents/reviewTimeApprovals/ReviewTimeApprovalsCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/copilotComponents/exploreAgentCapabilities/ExploreAgentCapabilitiesCopilotComponent.js",
+          "manifest": "./src/copilotComponents/exploreAgentCapabilities/ExploreAgentCapabilitiesCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {}
+}

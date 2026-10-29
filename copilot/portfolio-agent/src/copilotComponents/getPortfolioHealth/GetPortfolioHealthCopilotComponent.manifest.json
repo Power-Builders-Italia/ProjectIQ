@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "44836f07-c279-4e4a-9ceb-8fd8b5e92903",
+  "alias": "GetPortfolioHealthCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetPortfolioHealth",
+      "description": {
+        "default": "Show the health of the ProjectIQ project portfolio with a traffic light per project, totals, estimate at completion and margin."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getPortfolioHealth/GetPortfolioHealthCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "a5ca9cd8-1189-4827-bb89-b6d8a8c22cb3",
+  "alias": "GetResourceLoadCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetResourceLoad",
+      "description": {
+        "default": "Show allocated hours against capacity by week for one person or the whole team in ProjectIQ (resource load, overload, availability)."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getResourceLoad/GetResourceLoadCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

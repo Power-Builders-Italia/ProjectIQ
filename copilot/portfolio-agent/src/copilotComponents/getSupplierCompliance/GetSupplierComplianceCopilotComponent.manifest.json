@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "bad6b67f-d9ba-4458-9326-00476d0eb773",
+  "alias": "GetSupplierComplianceCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetSupplierCompliance",
+      "description": {
+        "default": "Show ProjectIQ suppliers with expired or expiring documents (DURC, certifications, insurance), blocked suppliers, and whether a named supplier can receive orders."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getSupplierCompliance/GetSupplierComplianceCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

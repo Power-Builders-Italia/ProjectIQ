@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": false,
+    "nodeVersion": "22.14.0",
+    "sdksVersions": {},
+    "version": "1.24.0",
+    "libraryName": "projectiq-portfolio-agent",
+    "libraryId": "4ba7c8e6-8abd-4c5a-97ad-669f4f00a161",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "projectiq-portfolio-agent",
+    "solutionShortDescription": "ProjectIQ Portfolio Agent",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent",
+    "template": "none",
+    "componentName": "GetMyWorkSummary"
+  }
+}

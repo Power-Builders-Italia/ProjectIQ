@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "ab1c938f-796d-4a23-96fc-39b56361968a",
+  "alias": "SubmitTimesheetCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "SubmitTimesheet",
+      "description": {
+        "default": "Prepare the user's hours as an editable draft (log time, timesheet, rapportino) and save and submit them only after the user confirms."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/submitTimesheet/SubmitTimesheetCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "3f4c2b3b-989a-4442-879b-a99ee5a6cb3b",
+  "alias": "GetPurchasingStatusCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetPurchasingStatus",
+      "description": {
+        "default": "Show ProjectIQ purchasing status: purchase requests to approve or order, RFQs to close, late purchase orders, supplier invoices to review."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getPurchasingStatus/GetPurchasingStatusCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}
