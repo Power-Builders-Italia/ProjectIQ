@@ -1,7 +1,6 @@
-// Number and date formats in the browser's locale; amounts in the record currency symbol when known.
+// Number and date formats in the user's culture; amounts in the record currency symbol when known.
 import { fromDay } from '../projectiq/dates';
-
-const locale = (): string | undefined => (typeof navigator !== 'undefined' ? navigator.language : undefined);
+import { culture as locale } from '../i18n';
 
 export function money(value: number, symbol?: string, compact = false): string {
   const text = new Intl.NumberFormat(locale(), {
@@ -14,7 +13,7 @@ export function money(value: number, symbol?: string, compact = false): string {
 export const hours = (value: number): string =>
   new Intl.NumberFormat(locale(), { maximumFractionDigits: 2 }).format(value) + ' h';
 
-export const pct = (ratio: number): string => `${Math.round(ratio * 100)}%`;
+export const pct = (ratio: number): string => new Intl.NumberFormat(locale(), { style: 'percent', maximumFractionDigits: 0 }).format(ratio);
 
 export function date(day: number | undefined): string {
   if (day === undefined) return '–';

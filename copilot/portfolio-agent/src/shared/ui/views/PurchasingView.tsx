@@ -7,6 +7,7 @@ import { date, money } from '../format';
 import { matchProjects } from '../../logic/portfolio';
 import { purchasingStatus } from '../../logic/purchasing';
 import { listUrl, recordUrl, type AgentSettings } from '../../settings';
+import { strings } from '../../i18n';
 
 type Focus = 'approvals' | 'orders' | 'rfqs' | 'invoices';
 
@@ -33,6 +34,7 @@ const Grid: React.FC<{ head: string[]; lines: Line[]; settings: AgentSettings; e
 
 export const PurchasingView: React.FC<PurchasingProps> = props => {
   const { today, setModelContext } = useAgent();
+  const t = strings().purchasing;
   const state = useServiceData(async (service, settings) => {
     let projectId: string | undefined;
     let projectLabel: string | undefined;
@@ -55,56 +57,56 @@ export const PurchasingView: React.FC<PurchasingProps> = props => {
   }, [status]);
   const notFound = props.project && state.data && !state.data.projectLabel;
   return (
-    <Shell eyebrow="Purchasing" title="Purchasing status" subtitle={state.data?.projectLabel || 'All your projects'} onRefresh={state.reload}>
+    <Shell eyebrow={t.eyebrow} title={t.title} subtitle={state.data?.projectLabel || t.allProjects} onRefresh={state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {state.loading && !state.data && <Loading />}
-      {notFound && <Info intent="warning">No single project matches "{props.project}": showing all projects.</Info>}
+      {notFound && <Info intent="warning">{t.notFound(props.project as string)}</Info>}
       {status && state.data && (
         <>
           <KpiGrid>
-            <Kpi label="To approve (you)" value={String(status.toApprove.length)} tone={status.toApprove.length ? 'warning' : 'neutral'} />
-            <Kpi label="To order" value={String(status.toOrder.length)} />
-            <Kpi label="Late orders" value={String(status.lateOrders.length)} tone={status.lateOrders.length ? 'danger' : 'neutral'} />
-            <Kpi label="Invoices to review" value={String(status.invoicesToReview.length)} />
-            <Kpi label="Committed" value={money(status.committed, undefined, true)} note="Open orders not received" />
+            <Kpi label={t.toApprove} value={String(status.toApprove.length)} tone={status.toApprove.length ? 'warning' : 'neutral'} />
+            <Kpi label={t.toOrder} value={String(status.toOrder.length)} />
+            <Kpi label={t.lateOrders} value={String(status.lateOrders.length)} tone={status.lateOrders.length ? 'danger' : 'neutral'} />
+            <Kpi label={t.invoices} value={String(status.invoicesToReview.length)} />
+            <Kpi label={t.committed} value={money(status.committed, undefined, true)} note={t.committedNote} />
           </KpiGrid>
           <TabList selectedValue={tab} onTabSelect={(_, d) => setTab(d.value as Focus)} size="small">
-            <Tab value="approvals">Requests ({status.toApprove.length + status.toOrder.length + status.submitted.length})</Tab>
-            <Tab value="rfqs">RFQs ({status.rfqsToClose.length})</Tab>
-            <Tab value="orders">Orders ({status.lateOrders.length + status.openOrders.length})</Tab>
-            <Tab value="invoices">Invoices ({status.invoicesToReview.length})</Tab>
+            <Tab value="approvals">{t.tabRequests(status.toApprove.length + status.toOrder.length + status.submitted.length)}</Tab>
+            <Tab value="rfqs">{t.tabRfqs(status.rfqsToClose.length)}</Tab>
+            <Tab value="orders">{t.tabOrders(status.lateOrders.length + status.openOrders.length)}</Tab>
+            <Tab value="invoices">{t.tabInvoices(status.invoicesToReview.length)}</Tab>
           </TabList>
           {tab === 'approvals' && (
-            <Grid settings={state.data.settings} empty="No open purchase request." head={['Request', 'Project', 'Amount', 'Needed by', 'Status']}
+            <Grid settings={state.data.settings} empty={t.noRequest} head={[t.request, t.project, t.amount, t.neededBy, t.status]}
               lines={[...status.toApprove, ...status.submitted, ...status.toOrder].map(r => ({
                 id: r.id, table: 'op365_purchaserequest', cells: [
                   <><Text weight="semibold">{r.number}</Text> {r.title}</>, r.project, money(r.amount), date(r.neededBy),
-                  <>{status.toApprove.indexOf(r) >= 0 ? <Badge color="warning">Your approval</Badge> : status.toOrder.indexOf(r) >= 0
-                    ? <Badge color="brand">To order</Badge> : <Badge color="informative">Submitted</Badge>}
-                    {r.overBudget && <> <Badge color="danger" appearance="tint">Over budget</Badge></>}
-                    {r.aboveThreshold && <> <Badge appearance="outline">Above threshold</Badge></>}</>,
+                  <>{status.toApprove.indexOf(r) >= 0 ? <Badge color="warning">{t.yourApproval}</Badge> : status.toOrder.indexOf(r) >= 0
+                    ? <Badge color="brand">{t.toOrder}</Badge> : <Badge color="informative">{t.submitted}</Badge>}
+                    {r.overBudget && <> <Badge color="danger" appearance="tint">{t.overBudget}</Badge></>}
+                    {r.aboveThreshold && <> <Badge appearance="outline">{t.aboveThreshold}</Badge></>}</>,
                 ] }))} />
           )}
           {tab === 'rfqs' && (
-            <Grid settings={state.data.settings} empty="No RFQ past its deadline." head={['RFQ', 'Project', 'Deadline', 'Responses']}
+            <Grid settings={state.data.settings} empty={t.noRfq} head={[t.rfq, t.project, t.deadline, t.responses]}
               lines={status.rfqsToClose.map(r => ({ id: r.id, table: 'op365_rfq', cells: [r.number, r.project, date(r.deadline), String(r.responses)] }))} />
           )}
           {tab === 'orders' && (
-            <Grid settings={state.data.settings} empty="No open purchase order." head={['Order', 'Supplier', 'Project', 'Expected', 'To receive']}
+            <Grid settings={state.data.settings} empty={t.noOrder} head={[t.order, t.supplier, t.project, t.expected, t.toReceive]}
               lines={[...status.lateOrders, ...status.openOrders].map(o => ({ id: o.id, table: 'op365_purchaseorder', cells: [
                 o.number, o.supplier, o.project,
-                <>{date(o.expected)}{'daysLate' in o && <> <Badge color="danger" appearance="tint">{(o as { daysLate: number }).daysLate} d late</Badge></>}</>,
+                <>{date(o.expected)}{'daysLate' in o && <> <Badge color="danger" appearance="tint">{t.daysLate((o as { daysLate: number }).daysLate)}</Badge></>}</>,
                 money(Math.max(0, o.total - o.received)),
               ] }))} />
           )}
           {tab === 'invoices' && (
-            <Grid settings={state.data.settings} empty="No supplier invoice to review." head={['Invoice', 'Supplier', 'Date', 'Total', 'Order']}
+            <Grid settings={state.data.settings} empty={t.noInvoice} head={[t.invoice, t.supplier, t.date, t.total, t.order]}
               lines={status.invoicesToReview.map(i => ({ id: i.id, table: 'op365_supplierinvoice', cells: [
                 <><Text weight="semibold">{i.number}</Text> {i.invoiceNumber}</>, i.supplier, date(i.date), money(i.total), i.order || '–',
               ] }))} />
           )}
-          <Text size={200}>Approving, ordering, receiving and invoice decisions stay in the ProjectIQ app: select a row to open it.</Text>
-          <Footer><OpenInApp url={listUrl(state.data.settings, 'op365_purchaserequest')} label="Open purchasing in ProjectIQ" /></Footer>
+          <Text size={200}>{t.note}</Text>
+          <Footer><OpenInApp url={listUrl(state.data.settings, 'op365_purchaserequest')} label={t.openList} /></Footer>
         </>
       )}
     </Shell>

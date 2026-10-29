@@ -12,6 +12,7 @@ import { purchasingStatus } from '../../logic/purchasing';
 import { resourceLoad } from '../../projectiq/load';
 import { weekStart } from '../../projectiq/timesheet';
 import { promptFor } from '../../intents';
+import { EN, strings, type Strings } from '../../i18n';
 
 const useStyles = makeStyles({
   list: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXS },
@@ -22,18 +23,20 @@ const useStyles = makeStyles({
   text: { flexGrow: 1 },
 });
 
-function message(i: AttentionItem): string {
+function message(i: AttentionItem, s: Strings = strings()): string {
+  const t = s.myWork;
+  const detail = i.detail || '';
   switch (i.kind) {
-    case 'timeToApprove': return `${i.count} time entries to approve (${i.detail} h)`;
-    case 'requestsToApprove': return `${i.count} purchase requests waiting for your approval`;
-    case 'rejectedHours': return `${i.count} of your time entries were rejected: fix and resubmit them`;
-    case 'hoursToSubmit': return `${i.count} draft time entries to submit (${i.detail} h)`;
-    case 'missingHours': return `${i.detail} h missing in last week's timesheet`;
-    case 'projectOffTrack': return `Project ${i.detail} is off track`;
-    case 'projectAtRisk': return `Project ${i.detail} is at risk`;
-    case 'lateOrders': return `${i.count} purchase orders are late`;
-    case 'invoicesToReview': return `${i.count} supplier invoices to review`;
-    case 'overloaded': return `You are overloaded in ${i.count} of the next 4 weeks`;
+    case 'timeToApprove': return t.timeToApprove(i.count, detail);
+    case 'requestsToApprove': return t.requestsToApprove(i.count);
+    case 'rejectedHours': return t.rejectedHours(i.count);
+    case 'hoursToSubmit': return t.hoursToSubmit(i.count, detail);
+    case 'missingHours': return t.missingHours(detail);
+    case 'projectOffTrack': return t.projectOffTrack(detail);
+    case 'projectAtRisk': return t.projectAtRisk(detail);
+    case 'lateOrders': return t.lateOrders(i.count);
+    case 'invoicesToReview': return t.invoicesToReview(i.count);
+    case 'overloaded': return t.overloaded(i.count);
     default: return '';
   }
 }
@@ -41,8 +44,10 @@ function message(i: AttentionItem): string {
 const SEVERITY = { high: 'danger', medium: 'warning', low: 'informative' } as const;
 
 export const MyWorkView: React.FC = () => {
-  const s = useStyles();
+  const c = useStyles();
   const { today, followUp, setModelContext } = useAgent();
+  const s = strings();
+  const t = s.myWork;
   const monday = weekStart(today);
   const state = useServiceData(async service => {
     const me = await service.me();
@@ -70,29 +75,29 @@ export const MyWorkView: React.FC = () => {
     });
   }, [state.data, today, monday]);
   React.useEffect(() => {
-    if (state.data) setModelContext('What needs the user\'s attention in ProjectIQ: ' + (items.map(message).join('; ') || 'nothing'));
+    if (state.data) setModelContext('What needs the user\'s attention in ProjectIQ: ' + (items.map(i => message(i, EN)).join('; ') || 'nothing'));
   }, [items]);
   const thisWeek = state.data?.entries.filter(e => e.day >= monday).reduce((t, e) => t + e.hours, 0) ?? 0;
   return (
-    <Shell eyebrow="My work" title={`What needs your attention${state.data?.me.resourceName ? ', ' + state.data.me.resourceName.split(' ')[0] : ''}`}
-      subtitle={`Week of ${shortDate(monday)}`} onRefresh={state.reload}>
+    <Shell eyebrow={t.eyebrow} title={state.data?.me.resourceName ? t.titleNamed(state.data.me.resourceName.split(' ')[0]) : t.title}
+      subtitle={s.common.weekOf(shortDate(monday))} onRefresh={state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {state.loading && !state.data && <Loading />}
       {state.data && (
         <>
           <KpiGrid>
-            <Kpi label="My hours this week" value={hours(thisWeek)} note={state.data.me.resourceId ? `of ${hours(state.data.me.weeklyHours)}` : 'No resource linked'} />
-            <Kpi label="Projects I manage" value={String(state.data.managed.size)} />
-            <Kpi label="Items" value={String(items.length)} tone={items.some(i => i.severity === 'high') ? 'danger' : 'neutral'} />
+            <Kpi label={t.myHours} value={hours(thisWeek)} note={state.data.me.resourceId ? t.ofHours(hours(state.data.me.weeklyHours)) : t.noResource} />
+            <Kpi label={t.managed} value={String(state.data.managed.size)} />
+            <Kpi label={t.items} value={String(items.length)} tone={items.some(i => i.severity === 'high') ? 'danger' : 'neutral'} />
           </KpiGrid>
-          {!items.length && <Info intent="success" title="All clear">Nothing needs your attention right now.</Info>}
-          <div className={s.list}>
+          {!items.length && <Info intent="success" title={t.allClear}>{t.nothing}</Info>}
+          <div className={c.list}>
             {items.map((i, n) => (
-              <Button key={n} className={s.item} appearance="subtle" icon={<ChevronRight16Regular />} iconPosition="after"
+              <Button key={n} className={c.item} appearance="subtle" icon={<ChevronRight16Regular />} iconPosition="after"
                 onClick={() => followUp(i.kind === 'projectOffTrack' || i.kind === 'projectAtRisk' ? promptFor('GetProjectHealth', i.detail)
-                  : i.kind === 'overloaded' ? 'Show my resource load for the next weeks' : promptFor(i.intent))}>
+                  : i.kind === 'overloaded' ? s.prompts.myResourceLoad : promptFor(i.intent))}>
                 <Badge color={SEVERITY[i.severity]} appearance="filled" size="extra-small" />
-                <Text className={s.text}>{message(i)}</Text>
+                <Text className={c.text}>{message(i, s)}</Text>
               </Button>
             ))}
           </div>

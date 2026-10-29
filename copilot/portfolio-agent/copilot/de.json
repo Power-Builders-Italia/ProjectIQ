@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.Localization.schema.json",
+  "name.short": "ProjectIQ Portfolio",
+  "name.full": "ProjectIQ Portfolio-Agent",
+  "description.short": "ProjectIQ-Projekte, Portfolio, Ressourcen, Einkauf und Stunden in Copilot.",
+  "description.full": "Ein absichtsgesteuerter Copilot-Agent auf Live-Daten aus ProjectIQ: Portfolio- und Projektzustand, Budget, Zeitplan, Ressourcenauslastung, Einkaufsstatus, Lieferanten-Compliance, Genehmigung von Stunden sowie Erfassen und Einreichen Ihrer Zeiterfassung, mit Ihren eigenen Dataverse-Berechtigungen.",
+  "localizationKeys": {
+    "agent_name": "ProjectIQ Portfolio-Agent",
+    "agent_description": "Live-Ansicht Ihrer ProjectIQ-Projekte: Portfolio- und Projektzustand, Budget, Zeitplan, Ressourcenauslastung, Einkauf, Lieferanten-Compliance, zu genehmigende Stunden und Ihre Zeiterfassung.",
+    "starter1_title": "Was braucht Aufmerksamkeit",
+    "starter1_text": "Was braucht diese Woche meine Aufmerksamkeit in meinen Projekten?",
+    "starter2_title": "Portfoliozustand",
+    "starter2_text": "Welche Projekte sind über Budget oder verspätet?",
+    "starter3_title": "Zu genehmigende Stunden",
+    "starter3_text": "Welche Stunden muss ich genehmigen?",
+    "starter4_title": "Meine Stunden erfassen",
+    "starter4_text": "Erfasse heute 8 Stunden auf meinem Projekt und reiche sie ein",
+    "starter5_title": "Ressourcenauslastung",
+    "starter5_text": "Wer ist in den nächsten Wochen überlastet?",
+    "starter6_title": "Agent entdecken",
+    "starter6_text": "Zeig mir, wobei du helfen kannst"
+  }
+}

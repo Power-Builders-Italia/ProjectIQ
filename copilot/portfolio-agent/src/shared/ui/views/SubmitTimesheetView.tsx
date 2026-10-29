@@ -11,6 +11,8 @@ import { buildTimesheet, STATUS, weekStart } from '../../projectiq/timesheet';
 import { canConfirm, planSubmission, resolveDay, type DraftIssue, type DraftLine } from '../../logic/timesheetDraft';
 import type { Choice } from '../../services/ProjectIQService';
 import { listUrl } from '../../settings';
+import { strings } from '../../i18n';
+import { timeStatusLabel } from '../labels';
 
 export interface SubmitTimesheetProps {
   project?: string;
@@ -21,21 +23,8 @@ export interface SubmitTimesheetProps {
   weekOf?: string;
 }
 
-const ISSUES: Record<DraftIssue['code'], string> = {
-  noResource: 'You are not linked to a resource in ProjectIQ: ask an administrator to set your user on a Resource.',
-  noProject: 'Choose the project.',
-  badHours: 'Hours must be a number from 0 to 24 (quarter hours).',
-  zeroHours: 'Enter the hours or remove the line.',
-  dayOver24: 'More than 24 hours on',
-  dayOver10: 'More than 10 hours on',
-  nothingToDo: 'Nothing to save or submit in this week.',
-};
-
-const STATUS_BADGE: Record<number, { label: string; color: 'informative' | 'warning' | 'success' | 'danger' }> = {
-  [STATUS.draft]: { label: 'Draft', color: 'informative' },
-  [STATUS.submitted]: { label: 'Submitted', color: 'warning' },
-  [STATUS.approved]: { label: 'Approved', color: 'success' },
-  [STATUS.rejected]: { label: 'Rejected', color: 'danger' },
+const STATUS_COLOR: Record<number, 'informative' | 'warning' | 'success' | 'danger'> = {
+  [STATUS.draft]: 'informative', [STATUS.submitted]: 'warning', [STATUS.approved]: 'success', [STATUS.rejected]: 'danger',
 };
 
 const matchChoice = (choices: Choice[], text?: string): Choice | undefined => {
@@ -52,6 +41,9 @@ type Step = 'edit' | 'review' | 'done';
 
 export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
   const { today, wide, ready, setModelContext } = useAgent();
+  const str = strings();
+  const t = str.timesheet;
+  const ISSUES = t.issues;
   const promptDay = resolveDay(props.date, today);
   const [monday, setMonday] = React.useState(weekStart(resolveDay(props.weekOf, today) ?? promptDay ?? today));
   const state = useServiceData(async (service, settings) => {
@@ -139,39 +131,39 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
   };
 
   return (
-    <Shell eyebrow="My work" title="Log and submit hours" subtitle={`Week of ${shortDate(monday)}${state.data?.me.resourceName ? ' · ' + state.data.me.resourceName : ''}`}
+    <Shell eyebrow={t.eyebrow} title={str.intents.SubmitTimesheet.title} subtitle={`${str.common.weekOf(shortDate(monday))}${state.data?.me.resourceName ? ' · ' + state.data.me.resourceName : ''}`}
       onRefresh={step === 'review' ? undefined : state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {error && <ErrorBar error={error} />}
       {state.loading && !state.data && <Loading />}
       {step === 'done' && receipt && (
-        <Info intent="success" title={receipt.submittedNow ? 'Hours saved and submitted' : 'Hours saved as draft'}>
-          {receipt.created} new time entries saved{receipt.submittedNow ? `, ${receipt.submitted} entries submitted for approval` : ''}.
-          {receipt.submittedNow ? ' The project managers get an in-app notification.' : ' Submit them when the week is complete.'}
+        <Info intent="success" title={receipt.submittedNow ? t.savedSubmitted : t.savedDraft}>
+          {t.receipt(receipt.created, receipt.submittedNow ? receipt.submitted : undefined)}
+          {receipt.submittedNow ? t.receiptSubmitted : t.receiptDraft}
         </Info>
       )}
       {state.data && sheet && plan && (
         <>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Button size="small" icon={<ChevronLeft16Regular />} aria-label="Previous week" disabled={step === 'review'} onClick={() => setMonday(m => m - 7)} />
+            <Button size="small" icon={<ChevronLeft16Regular />} aria-label={t.previousWeek} disabled={step === 'review'} onClick={() => setMonday(m => m - 7)} />
             <Text weight="semibold">{shortDate(monday)} – {shortDate(monday + 6)}</Text>
-            <Button size="small" icon={<ChevronRight16Regular />} aria-label="Next week" disabled={step === 'review'} onClick={() => setMonday(m => m + 7)} />
+            <Button size="small" icon={<ChevronRight16Regular />} aria-label={t.nextWeek} disabled={step === 'review'} onClick={() => setMonday(m => m + 7)} />
           </div>
           <KpiGrid>
-            <Kpi label="Recorded this week" value={hours(sheet.total)} note={`of ${hours(state.data.me.weeklyHours)} expected`}
+            <Kpi label={t.recorded} value={hours(sheet.total)} note={t.expected(hours(state.data.me.weeklyHours))}
               tone={sheet.total < state.data.me.weeklyHours ? 'warning' : 'success'} />
-            <Kpi label="To submit" value={String(plan.existingToSubmit.length || state.data.entries.filter(e => e.status === STATUS.draft || e.status === STATUS.rejected).length)}
-              note="Draft or rejected entries" />
-            <Kpi label="New lines" value={String(plan.creates.length)} note={hours(plan.creates.reduce((s, c) => s + c.hours, 0))} />
+            <Kpi label={t.toSubmit} value={String(plan.existingToSubmit.length || state.data.entries.filter(e => e.status === STATUS.draft || e.status === STATUS.rejected).length)}
+              note={t.toSubmitNote} />
+            <Kpi label={t.newLines} value={String(plan.creates.length)} note={hours(plan.creates.reduce((s, c) => s + c.hours, 0))} />
           </KpiGrid>
           {sheet.rows.length > 0 && (
-            <Table size="small" aria-label="Hours recorded this week">
+            <Table size="small" aria-label={t.table}>
               <TableHeader>
                 <TableRow>
-                  <TableHeaderCell>Project / WBS</TableHeaderCell>
+                  <TableHeaderCell>{t.projectWbs}</TableHeaderCell>
                   {(wide ? days : []).map(d => <TableHeaderCell key={d} style={{ width: 64 }}>{weekday(d)}</TableHeaderCell>)}
-                  <TableHeaderCell style={{ width: 70 }}>Total</TableHeaderCell>
-                  <TableHeaderCell style={{ width: 100 }}>Status</TableHeaderCell>
+                  <TableHeaderCell style={{ width: 70 }}>{t.total}</TableHeaderCell>
+                  <TableHeaderCell style={{ width: 100 }}>{t.status}</TableHeaderCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -182,7 +174,7 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
                       <TableCell>{r.projectName}{r.nodeName ? <Text size={200}> · {r.nodeName}</Text> : null}</TableCell>
                       {(wide ? r.cells : []).map((c, i) => <TableCell key={i}>{c.hours ? c.hours : ''}</TableCell>)}
                       <TableCell>{hours(r.total)}</TableCell>
-                      <TableCell>{statuses.map(s => <Badge key={s} size="small" appearance="tint" color={STATUS_BADGE[s]?.color || 'informative'}>{STATUS_BADGE[s]?.label || s}</Badge>)}</TableCell>
+                      <TableCell>{statuses.map(s => <Badge key={s} size="small" appearance="tint" color={STATUS_COLOR[s] || 'informative'}>{timeStatusLabel(s) || s}</Badge>)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -193,52 +185,50 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
             <>
               {lines.map(l => (
                 <div key={l.key} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'flex-end' }}>
-                  <Field label="Project" style={{ minWidth: 180, flexGrow: 2 }} validationMessage={lineIssues(l.key).filter(i => i.code === 'noProject').map(i => ISSUES[i.code])[0]}>
+                  <Field label={t.project} style={{ minWidth: 180, flexGrow: 2 }} validationMessage={lineIssues(l.key).filter(i => i.code === 'noProject').map(i => ISSUES[i.code])[0]}>
                     <Dropdown value={projectName(l.projectId) === '–' ? '' : projectName(l.projectId)} selectedOptions={l.projectId ? [l.projectId] : []}
-                      placeholder="Choose a project" onOptionSelect={(_, d) => { update(l.key, { projectId: d.optionValue, nodeId: undefined }); if (d.optionValue) loadNodes(d.optionValue).catch(() => undefined); }}>
+                      placeholder={t.chooseProject} onOptionSelect={(_, d) => { update(l.key, { projectId: d.optionValue, nodeId: undefined }); if (d.optionValue) loadNodes(d.optionValue).catch(() => undefined); }}>
                       {state.data!.projects.map(p => <Option key={p.id} value={p.id}>{p.name}</Option>)}
                     </Dropdown>
                   </Field>
-                  <Field label="WBS node" style={{ minWidth: 150, flexGrow: 1 }}>
+                  <Field label={t.wbsNode} style={{ minWidth: 150, flexGrow: 1 }}>
                     <Dropdown value={nodeName(l.projectId, l.nodeId)} selectedOptions={l.nodeId ? [l.nodeId] : []} disabled={!l.projectId}
-                      placeholder="Optional" onOptionSelect={(_, d) => update(l.key, { nodeId: d.optionValue })}>
+                      placeholder={t.optional} onOptionSelect={(_, d) => update(l.key, { nodeId: d.optionValue })}>
                       {(l.projectId ? nodes[l.projectId] || [] : []).map(n => <Option key={n.id} value={n.id}>{n.name}</Option>)}
                     </Dropdown>
                   </Field>
-                  <Field label="Day" style={{ width: 120 }}>
+                  <Field label={t.day} style={{ width: 120 }}>
                     <Dropdown value={weekday(l.day)} selectedOptions={[String(l.day)]} onOptionSelect={(_, d) => update(l.key, { day: Number(d.optionValue) })}>
                       {(days.indexOf(l.day) >= 0 ? days : [l.day, ...days]).map(d => <Option key={d} value={String(d)} text={weekday(d)}>{weekday(d)}</Option>)}
                     </Dropdown>
                   </Field>
-                  <Field label="Hours" style={{ width: 80 }} validationMessage={lineIssues(l.key).filter(i => i.code !== 'noProject').map(i => ISSUES[i.code])[0]}>
+                  <Field label={t.hours} style={{ width: 80 }} validationMessage={lineIssues(l.key).filter(i => i.code !== 'noProject').map(i => ISSUES[i.code])[0]}>
                     <Input value={l.hours} inputMode="decimal" onChange={(_, d) => update(l.key, { hours: d.value })} />
                   </Field>
-                  <Field label="Notes" style={{ minWidth: 140, flexGrow: 2 }}>
+                  <Field label={t.notes} style={{ minWidth: 140, flexGrow: 2 }}>
                     <Input value={l.notes || ''} onChange={(_, d) => update(l.key, { notes: d.value })} />
                   </Field>
-                  <Button appearance="subtle" icon={<Delete16Regular />} aria-label="Remove line" onClick={() => setLines(ls => ls.filter(x => x.key !== l.key))} />
+                  <Button appearance="subtle" icon={<Delete16Regular />} aria-label={t.removeLine} onClick={() => setLines(ls => ls.filter(x => x.key !== l.key))} />
                 </div>
               ))}
               <Footer>
-                <Button size="small" icon={<Add16Regular />} onClick={addLine}>Add hours</Button>
+                <Button size="small" icon={<Add16Regular />} onClick={addLine}>{t.addHours}</Button>
               </Footer>
               <Checkbox checked={submitExisting} onChange={(_, d) => setSubmitExisting(!!d.checked)}
-                label="Also submit the draft and rejected entries already in this week" />
+                label={t.submitExisting} />
               {weekIssues.filter(i => i.code !== 'nothingToDo' || lines.length > 0).map((i, n) => (
                 <Info key={n} intent={i.severity === 'error' ? 'error' : 'warning'}>{ISSUES[i.code]}{i.day !== undefined ? ` ${weekday(i.day)}.` : ''}</Info>
               ))}
               <Footer>
-                <Button appearance="primary" disabled={!canConfirm(plan)} onClick={() => { setStep('review'); setReceipt(undefined); }}>Review…</Button>
-                <OpenInApp url={listUrl(state.data.settings, 'op365_timeentry')} label="Open Timesheet in ProjectIQ" />
+                <Button appearance="primary" disabled={!canConfirm(plan)} onClick={() => { setStep('review'); setReceipt(undefined); }}>{t.review}</Button>
+                <OpenInApp url={listUrl(state.data.settings, 'op365_timeentry')} label={t.openList} />
               </Footer>
             </>
           )}
           {step === 'review' && (
             <>
-              <Info title="Review before saving">
-                {plan.creates.length} new entries ({hours(plan.creates.reduce((s, c) => s + c.hours, 0))})
-                {submitExisting && plan.existingToSubmit.length ? ` and ${plan.existingToSubmit.length} existing draft or rejected entries` : ''}.
-                Submitted entries are locked until the project manager decides.
+              <Info title={t.reviewTitle}>
+                {t.reviewText(plan.creates.length, hours(plan.creates.reduce((s, c) => s + c.hours, 0)), submitExisting ? plan.existingToSubmit.length : 0)}
               </Info>
               <ul style={{ margin: 0, paddingLeft: 18 }}>
                 {plan.creates.map((c, i) => (
@@ -247,9 +237,9 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
               </ul>
               {weekIssues.filter(i => i.severity === 'warning').map((i, n) => <Info key={n} intent="warning">{ISSUES[i.code]} {i.day !== undefined ? weekday(i.day) : ''}.</Info>)}
               <Footer>
-                <Button appearance="primary" disabled={busy} onClick={() => { confirm(true).catch(() => undefined); }}>{busy ? 'Saving…' : 'Confirm: save and submit'}</Button>
-                <Button disabled={busy || !plan.creates.length} onClick={() => { confirm(false).catch(() => undefined); }}>Save as draft only</Button>
-                <Button disabled={busy} onClick={() => setStep('edit')}>Back</Button>
+                <Button appearance="primary" disabled={busy} onClick={() => { confirm(true).catch(() => undefined); }}>{busy ? str.common.saving : t.confirmSubmit}</Button>
+                <Button disabled={busy || !plan.creates.length} onClick={() => { confirm(false).catch(() => undefined); }}>{t.saveDraft}</Button>
+                <Button disabled={busy} onClick={() => setStep('edit')}>{str.common.back}</Button>
               </Footer>
             </>
           )}

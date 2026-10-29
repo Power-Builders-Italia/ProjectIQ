@@ -4,18 +4,13 @@ import { Badge, Table, TableBody, TableCell, TableHeader, TableHeaderCell, Table
 import { useAgent, useServiceData } from '../AgentContext';
 import { ErrorBar, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Shell } from '../kit';
 import { date } from '../format';
-import { EXPIRING_DAYS, supplierCompliance, type SupplierCompliance } from '../../logic/suppliers';
+import { EXPIRING_DAYS, supplierCompliance } from '../../logic/suppliers';
 import { listUrl, recordUrl } from '../../settings';
-
-const STATE: Record<SupplierCompliance['state'], { label: string; color: 'danger' | 'warning' | 'success' | 'severe' }> = {
-  blocked: { label: 'Blocked', color: 'severe' },
-  expired: { label: 'Expired documents', color: 'danger' },
-  expiring: { label: 'Expiring soon', color: 'warning' },
-  ok: { label: 'Compliant', color: 'success' },
-};
+import { strings } from '../../i18n';
 
 export const SupplierComplianceView: React.FC<{ supplier?: string }> = props => {
   const { today, wide, openLink, setModelContext } = useAgent();
+  const t = strings().suppliers;
   const state = useServiceData(async (service, settings) => ({ ...(await service.suppliers(today + EXPIRING_DAYS, props.supplier)), settings }),
     [props.supplier, today]);
   const list = React.useMemo(() => (state.data ? supplierCompliance(state.data.suppliers, state.data.documents, today) : []), [state.data, today]);
@@ -26,33 +21,33 @@ export const SupplierComplianceView: React.FC<{ supplier?: string }> = props => 
   }, [list]);
   const one = props.supplier && list.length === 1 ? list[0] : undefined;
   return (
-    <Shell eyebrow="Purchasing" title={one ? one.supplier.name : 'Supplier compliance'}
-      subtitle={one ? undefined : `Expired documents and documents expiring in ${EXPIRING_DAYS} days`} onRefresh={state.reload}>
+    <Shell eyebrow={t.eyebrow} title={one ? one.supplier.name : strings().intents.GetSupplierCompliance.title}
+      subtitle={one ? undefined : t.subtitle(EXPIRING_DAYS)} onRefresh={state.reload}>
       {state.error && <ErrorBar error={state.error} />}
       {state.loading && !state.data && <Loading />}
       {state.data && (
         <>
           {one && (
-            <Info intent={one.canOrder ? 'success' : 'error'} title={one.canOrder ? 'You can order from this supplier' : 'Do not order from this supplier'}>
-              {STATE[one.state].label} · {one.supplier.openOrders} open orders.
+            <Info intent={one.canOrder ? 'success' : 'error'} title={one.canOrder ? t.canOrder : t.cannotOrder}>
+              {t.states[one.state]} · {t.openOrders(one.supplier.openOrders)}
             </Info>
           )}
           {!one && (
             <KpiGrid>
-              <Kpi label="Blocked" value={String(list.filter(c => c.state === 'blocked').length)} tone="danger" />
-              <Kpi label="With expired documents" value={String(list.filter(c => c.state === 'expired').length)} tone="danger" />
-              <Kpi label="Expiring soon" value={String(list.filter(c => c.state === 'expiring').length)} tone="warning" />
+              <Kpi label={t.blocked} value={String(list.filter(c => c.state === 'blocked').length)} tone="danger" />
+              <Kpi label={t.withExpired} value={String(list.filter(c => c.state === 'expired').length)} tone="danger" />
+              <Kpi label={t.expiring} value={String(list.filter(c => c.state === 'expiring').length)} tone="warning" />
             </KpiGrid>
           )}
-          {!list.length && <Info>{props.supplier ? `No supplier matches "${props.supplier}".` : 'All suppliers are compliant.'}</Info>}
+          {!list.length && <Info>{props.supplier ? t.noMatch(props.supplier) : t.allOk}</Info>}
           {!!list.length && (
-            <Table size="small" aria-label="Supplier documents">
+            <Table size="small" aria-label={t.table}>
               <TableHeader>
                 <TableRow>
-                  {!one && <TableHeaderCell>Supplier</TableHeaderCell>}
-                  <TableHeaderCell>Document</TableHeaderCell>
-                  <TableHeaderCell style={{ width: 110 }}>Expiry</TableHeaderCell>
-                  <TableHeaderCell style={{ width: 130 }}>State</TableHeaderCell>
+                  {!one && <TableHeaderCell>{t.supplier}</TableHeaderCell>}
+                  <TableHeaderCell>{t.document}</TableHeaderCell>
+                  <TableHeaderCell style={{ width: 110 }}>{t.expiry}</TableHeaderCell>
+                  <TableHeaderCell style={{ width: 130 }}>{t.state}</TableHeaderCell>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -60,21 +55,21 @@ export const SupplierComplianceView: React.FC<{ supplier?: string }> = props => 
                   <TableRow key={`${c.supplier.id}-${d?.id || i}`} style={{ cursor: 'pointer' }}
                     onClick={() => openLink(recordUrl(state.data!.settings, 'account', c.supplier.id))}>
                     {!one && <TableCell>{i === 0 ? <Text weight="semibold">{c.supplier.name}</Text> : ''}</TableCell>}
-                    <TableCell>{d ? `${d.type || ''} ${d.description}${d.number ? ' · ' + d.number : ''}`.trim() : 'No document'}</TableCell>
+                    <TableCell>{d ? `${d.type || ''} ${d.description}${d.number ? ' · ' + d.number : ''}`.trim() : t.noDocument}</TableCell>
                     <TableCell>{d ? date(d.expiry) : '–'}</TableCell>
                     <TableCell>
-                      {d?.state === 'expired' && <Badge color="danger" appearance="tint">Expired {-(d.daysLeft || 0)} d ago</Badge>}
-                      {d?.state === 'expiring' && <Badge color="warning" appearance="tint">{d.daysLeft} d left</Badge>}
-                      {d?.state === 'valid' && <Badge color="success" appearance="tint">Valid</Badge>}
-                      {i === 0 && c.supplier.blocked && <> <Badge color="severe">Blocked</Badge></>}
+                      {d?.state === 'expired' && <Badge color="danger" appearance="tint">{t.expiredAgo(-(d.daysLeft || 0))}</Badge>}
+                      {d?.state === 'expiring' && <Badge color="warning" appearance="tint">{t.daysLeft(d.daysLeft || 0)}</Badge>}
+                      {d?.state === 'valid' && <Badge color="success" appearance="tint">{t.valid}</Badge>}
+                      {i === 0 && c.supplier.blocked && <> <Badge color="severe">{t.states.blocked}</Badge></>}
                     </TableCell>
                   </TableRow>
                 )))}
               </TableBody>
             </Table>
           )}
-          <Text size={200}>Renewed documents are uploaded on the supplier form in ProjectIQ, or by the supplier in the supplier portal.</Text>
-          <Footer><OpenInApp url={listUrl(state.data.settings, 'op365_supplierdocument')} label="Open supplier documents" /></Footer>
+          <Text size={200}>{t.note}</Text>
+          <Footer><OpenInApp url={listUrl(state.data.settings, 'op365_supplierdocument')} label={t.openList} /></Footer>
         </>
       )}
     </Shell>

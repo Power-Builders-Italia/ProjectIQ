@@ -10,6 +10,7 @@ import type { HealthLevel } from '../logic/portfolio';
 import { SettingsMissingError } from '../services/spfx';
 import { DataverseError } from '../services/DataverseClient';
 import { ENVIRONMENT_URL_KEY } from '../settings';
+import { strings } from '../i18n';
 
 const useStyles = makeStyles({
   card: {
@@ -52,6 +53,7 @@ export interface ShellProps {
 export const Shell: React.FC<ShellProps> = props => {
   const s = useStyles();
   const { onRequestFullscreen } = useAgent();
+  const t = strings().common;
   return (
     <div className={s.card}>
       <div className={s.accent} />
@@ -63,12 +65,12 @@ export const Shell: React.FC<ShellProps> = props => {
             {props.subtitle && <Text size={200} className={s.subtitle}>{props.subtitle}</Text>}
           </div>
           {props.onRefresh && (
-            <Tooltip content="Refresh" relationship="label">
+            <Tooltip content={t.refresh} relationship="label">
               <Button appearance="subtle" icon={<ArrowClockwise20Regular />} onClick={props.onRefresh} />
             </Tooltip>
           )}
           {onRequestFullscreen && (
-            <Tooltip content="Expand" relationship="label">
+            <Tooltip content={t.expand} relationship="label">
               <Button appearance="subtle" icon={<ArrowMaximize20Regular />} onClick={onRequestFullscreen} />
             </Tooltip>
           )}
@@ -109,15 +111,12 @@ export const Section: React.FC<{ title: string; children?: React.ReactNode; acti
 
 export const Footer: React.FC<{ children?: React.ReactNode }> = ({ children }) => <div className={useStyles().footer}>{children}</div>;
 
-const HEALTH: Record<HealthLevel, { label: string; color: 'danger' | 'warning' | 'success' | 'informative' }> = {
-  offTrack: { label: 'Off track', color: 'danger' },
-  atRisk: { label: 'At risk', color: 'warning' },
-  onTrack: { label: 'On track', color: 'success' },
-  notTracked: { label: 'Not tracked', color: 'informative' },
+const HEALTH_COLOR: Record<HealthLevel, 'danger' | 'warning' | 'success' | 'informative'> = {
+  offTrack: 'danger', atRisk: 'warning', onTrack: 'success', notTracked: 'informative',
 };
 
 export const HealthBadge: React.FC<{ level: HealthLevel }> = ({ level }) => (
-  <Badge appearance="tint" color={HEALTH[level].color}>{HEALTH[level].label}</Badge>
+  <Badge appearance="tint" color={HEALTH_COLOR[level]}>{strings().health[level]}</Badge>
 );
 
 /** Actual and committed against budget; turns red past 100%. */
@@ -125,7 +124,7 @@ export const BudgetMeter: React.FC<{ budget: number; actual: number; committed?:
   const s = useStyles();
   const total = Math.max(budget, actual + committed, 1);
   const over = actual + committed > budget;
-  const label = `Actual ${Math.round(actual / (budget || 1) * 100)}%, committed ${Math.round(committed / (budget || 1) * 100)}% of budget`;
+  const label = strings().common.budgetMeter(Math.round(actual / (budget || 1) * 100), Math.round(committed / (budget || 1) * 100));
   return (
     <div className={s.meter} role="img" aria-label={label} title={label}>
       <div className={mergeClasses(s.meterActual, over && s.meterOver)} style={{ width: `${actual / total * 100}%` }} />
@@ -135,16 +134,17 @@ export const BudgetMeter: React.FC<{ budget: number; actual: number; committed?:
 };
 
 export const Loading: React.FC<{ label?: string }> = ({ label }) => (
-  <div className={useStyles().center}><Spinner size="small" label={label || 'Reading ProjectIQ…'} /></div>
+  <div className={useStyles().center}><Spinner size="small" label={label || strings().common.loading} /></div>
 );
 
 export const ErrorBar: React.FC<{ error: Error }> = ({ error }) => {
+  const t = strings().common;
   if (error instanceof SettingsMissingError) {
     return (
       <MessageBar intent="warning">
         <MessageBarBody>
-          <MessageBarTitle>ProjectIQ environment not configured</MessageBarTitle>
-          A SharePoint administrator must set the tenant property {ENVIRONMENT_URL_KEY} to the URL of the ProjectIQ environment.
+          <MessageBarTitle>{t.notConfiguredTitle}</MessageBarTitle>
+          {t.notConfigured(ENVIRONMENT_URL_KEY)}
         </MessageBarBody>
       </MessageBar>
     );
@@ -153,7 +153,7 @@ export const ErrorBar: React.FC<{ error: Error }> = ({ error }) => {
   return (
     <MessageBar intent="error">
       <MessageBarBody>
-        <MessageBarTitle>{access ? 'No access to ProjectIQ' : 'Something went wrong'}</MessageBarTitle>
+        <MessageBarTitle>{access ? t.noAccess : t.failed}</MessageBarTitle>
         {error.message}
       </MessageBarBody>
     </MessageBar>
@@ -173,7 +173,7 @@ export const OpenInApp: React.FC<{ url: string; label?: string }> = ({ url, labe
   const { openLink } = useAgent();
   return (
     <Button size="small" appearance="secondary" icon={<Open16Regular />} onClick={() => openLink(url)}>
-      {label || 'Open in ProjectIQ'}
+      {label || strings().common.openInApp}
     </Button>
   );
 };
