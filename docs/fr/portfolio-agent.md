@@ -135,6 +135,8 @@ flowchart TD
 
 Un package sert un environnement ProjectIQ (la propriété du locataire). Les nouvelles versions des cartes sont prises en compte quelques minutes après la mise à jour du package ; ouvrez une nouvelle conversation pour les tester.
 
+Les étapes 1, 2, 4 et 5 peuvent aussi être exécutées par le workflow GitHub `deploy-agent`, après chaque modification de l'agent et avec l'approbation d'un réviseur ; l'étape 3 reste une approbation manuelle. Configuration : [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
+
 ### Licences
 
 Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licence **Power Apps Premium** utilisée pour ProjectIQ. Les Copilot UX components n'ont pas de coût à la consommation.

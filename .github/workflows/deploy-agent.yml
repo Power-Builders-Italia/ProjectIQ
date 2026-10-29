@@ -1,0 +1,142 @@
+name: deploy-agent
+
+# Builds the ProjectIQ Portfolio Agent (copilot/portfolio-agent) and deploys projectiq-portfolio-agent.sppkg to the tenant
+# App Catalog with the CLI for Microsoft 365:
+# 1. build: npm ci + npm run build (agent check, tests, lint, package), the .sppkg is kept as an artifact of the run.
+# 2. deploy: signs in with GitHub OIDC (federated credential on the app registration, no secret or certificate stored),
+#    adds the package with --overwrite, deploys it tenant-wide, sets the tenant property ProjectIQEnvironmentUrl and,
+#    unless add-to-teams is off, runs "Add to Teams" (SyncSolutionToTeams), which publishes the declarative agent.
+# The API access request Dataverse / user_impersonation stays an admin approval in the SharePoint admin center.
+# Runs after every merge that touches the agent and waits for a reviewer of the GitHub environment (agent-test by default).
+# Setup (app registration, federated credential, environment secrets): docs/dev-environment.md#portfolio-agent-deployment
+on:
+  push:
+    branches: [main]
+    paths: ['copilot/portfolio-agent/**', 'src/pcf/shared/**']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: GitHub environment holding the target tenant secrets
+        default: agent-test
+        required: true
+      add-to-teams:
+        description: Run Add to Teams (publishes the declarative agent; needed after changes to copilot/)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-agent-${{ inputs.environment || 'agent-test' }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: copilot/portfolio-agent/package-lock.json
+      - name: Portfolio Agent tests and package
+        working-directory: copilot/portfolio-agent
+        run: |
+          npm ci
+          npm run build
+      - name: Package version
+        id: version
+        working-directory: copilot/portfolio-agent
+        run: |
+          solution=$(node -p "require('./config/package-solution.json').solution.version")
+          teams=$(node -p "require('./copilot/manifest.json').version")
+          # the Teams manifest has three parts, the solution four (x.y.z.0)
+          if [ "$solution" != "$teams.0" ]; then
+            echo "::error::config/package-solution.json version $solution does not match copilot/manifest.json version $teams"
+            exit 1
+          fi
+          echo "version=$solution" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: projectiq-portfolio-agent
+          path: copilot/portfolio-agent/sharepoint/solution/projectiq-portfolio-agent.sppkg
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # GitHub environment: required reviewer, deployment branches main, and the secrets of the target tenant
+    environment: ${{ inputs.environment || 'agent-test' }}
+    permissions:
+      contents: read
+      # GitHub OIDC token for the federated credential of the app registration
+      id-token: write
+    env:
+      APP_CATALOG_URL: ${{ secrets.SPO_APP_CATALOG_URL }}
+      PROJECTIQ_ENVIRONMENT_URL: ${{ secrets.PROJECTIQ_ENVIRONMENT_URL }}
+      PROJECTIQ_APP_ID: ${{ secrets.PROJECTIQ_APP_ID }}
+      PACKAGE: projectiq-portfolio-agent.sppkg
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: projectiq-portfolio-agent
+          path: out
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Install CLI for Microsoft 365
+        run: npm install --global @pnp/cli-microsoft365@11.11.0
+      - name: Sign in (federated identity)
+        env:
+          CLIMICROSOFT365_NOUPDATE: '1'
+        run: |
+          if [ -z "$APP_CATALOG_URL" ]; then echo "::error::Set the SPO_APP_CATALOG_URL secret of the GitHub environment"; exit 1; fi
+          m365 login --authType federatedIdentity --appId '${{ secrets.SPO_CLIENT_ID }}' --tenant '${{ secrets.SPO_TENANT_ID }}'
+          m365 status --output text
+      - name: Add and deploy the package
+        run: |
+          m365 spo app add --filePath "out/$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --overwrite --output none
+          m365 spo app deploy --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --skipFeatureDeployment
+          m365 spo app get --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" \
+            --query '{Title:Title,AppCatalogVersion:AppCatalogVersion,Deployed:Deployed,IsValidAppPackage:IsValidAppPackage,ErrorMessage:ErrorMessage}'
+          deployed=$(m365 spo app get --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --query AppCatalogVersion --output text)
+          if [ "$deployed" != '${{ needs.build.outputs.version }}' ]; then
+            echo "::error::App Catalog has version $deployed, expected ${{ needs.build.outputs.version }}"; exit 1
+          fi
+      - name: Tenant properties
+        # empty secrets are skipped, so the tenant keeps the value set by hand
+        run: |
+          if [ -n "$PROJECTIQ_ENVIRONMENT_URL" ]; then
+            m365 spo storageentity set --appCatalogUrl "$APP_CATALOG_URL" --key ProjectIQEnvironmentUrl --value "$PROJECTIQ_ENVIRONMENT_URL" \
+              --description 'ProjectIQ Portfolio Agent: Dataverse environment URL'
+          fi
+          if [ -n "$PROJECTIQ_APP_ID" ]; then
+            m365 spo storageentity set --appCatalogUrl "$APP_CATALOG_URL" --key ProjectIQAppId --value "$PROJECTIQ_APP_ID" \
+              --description 'ProjectIQ Portfolio Agent: model-driven app id for the Open in ProjectIQ links'
+          fi
+      - name: Add to Teams (publish the agent)
+        if: github.event_name == 'push' || inputs.add-to-teams
+        # same call as "Add to Teams" in the App Catalog: the package file's list item id is passed to SyncSolutionToTeams
+        run: |
+          app=$(m365 spo app get --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --query ID --output text)
+          item=$(m365 request --url "$APP_CATALOG_URL/_api/web/GetFileById('$app')/ListItemAllFields?\$select=Id" \
+            --accept 'application/json;odata=nometadata' --query Id --output text)
+          m365 request --method post --url "$APP_CATALOG_URL/_api/web/tenantappcatalog/SyncSolutionToTeams(id=$item)" \
+            --accept 'application/json;odata=nometadata' --output none
+          echo "Agent synchronised to Teams (App Catalog item $item)"
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Portfolio Agent ${{ needs.build.outputs.version }}"
+            echo "- App Catalog: $APP_CATALOG_URL"
+            echo "- Environment: ${{ inputs.environment || 'agent-test' }}"
+            echo "- Pending API access requests are approved in the SharePoint admin center (Advanced > API access)."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Sign out
+        if: always()
+        run: m365 logout || true

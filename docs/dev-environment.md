@@ -83,8 +83,35 @@ When exporting from Dev, drop the Italian (1040) labels the Dev language pack ad
 - **One component per tool**: `src/copilotComponents/<tool>/` holds the manifest (tool name and description, properties schema in Zod) and a class that only sets `intentKey`; the view is in `src/shared/ui/views`, the queries in `src/shared/services/ProjectIQService.ts`, the rules in `src/shared/logic`. A new tool also needs a row in `src/shared/intents.ts`, its id in `config/copilot-agent.json`, an entry in `config/config.json` and a routing line in `copilot/instruction.txt` (the agent check fails otherwise).
 - **Writes**: only `op365_timeentry` create and the Custom APIs `op365_SubmitTimeEntries` / `op365_DecideTimeEntries`, after the user's **Confirm**; keep it so, other actions stay in the app.
 - **Environment**: the tenant property (storage entity) `ProjectIQEnvironmentUrl`, else `DEFAULT_ENVIRONMENT_URL` in `src/shared/settings.ts`; optional `ProjectIQAppId` for links.
-- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release; after changes to `copilot/` (name, instructions, starters, icons, language files) the admin selects **Add to Teams** again.
+- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release (the two must match, `deploy-agent` checks it); after changes to `copilot/` (name, instructions, starters, icons, language files) **Add to Teams** must run again (`deploy-agent` does it by default).
 - **Languages**: card texts and agent manifests in English, Italian, French and German, see [Translations](#translations-italian-french-german).
+
+### Portfolio Agent deployment
+
+The `build` workflow builds and tests the agent on every PR (artifact `projectiq-portfolio-agent`). The `deploy-agent` workflow installs it in a tenant: it runs after every merge that touches `copilot/portfolio-agent` or `src/pcf/shared` (environment `agent-test`), or by hand from Actions > deploy-agent > Run workflow (inputs `environment`, `add-to-teams`), and waits for a reviewer of the GitHub environment.
+
+```mermaid
+flowchart LR
+    M[merge to main<br/>or Run workflow] --> B[build<br/>npm ci + npm run build<br/>version check]
+    B --> R{{reviewer of<br/>environment agent-test}}
+    R --> L[m365 login<br/>federated identity OIDC]
+    L --> A[spo app add --overwrite<br/>spo app deploy]
+    A --> P[tenant properties<br/>ProjectIQEnvironmentUrl]
+    P --> T[Add to Teams<br/>SyncSolutionToTeams]
+```
+
+It signs in with the [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/) using **GitHub OIDC** (federated credential): no client secret or certificate is stored in GitHub. One-time setup per tenant:
+
+| Step | Where | What |
+|---|---|---|
+| 1 | Entra admin center > App registrations | New registration (single tenant), for example *ProjectIQ Agent Deploy*. API permissions: **SharePoint** > Application > **Sites.FullControl.All**, then **Grant admin consent** |
+| 2 | The app registration > Certificates & secrets > Federated credentials | Scenario **GitHub Actions deploying Azure resources**: organization `Power-Builders-Italia`, repository `ProjectIQ`, entity **Environment** `agent-test` (subject `repo:Power-Builders-Italia/ProjectIQ:environment:agent-test`) |
+| 3 | GitHub > Settings > Environments | Environment `agent-test`: required reviewer, deployment branches `main`. Secrets: `SPO_TENANT_ID`, `SPO_CLIENT_ID` (the app registration), `SPO_APP_CATALOG_URL` (for example `https://contoso.sharepoint.com/sites/appcatalog`), optional `PROJECTIQ_ENVIRONMENT_URL` and `PROJECTIQ_APP_ID` (tenant properties; empty = left unchanged) |
+| 4 | SharePoint admin center > Advanced > API access | After the first deployment approve **Dataverse / user_impersonation** if pending: the workflow cannot approve it |
+
+- Another tenant or environment: another GitHub environment with its own secrets and federated credential (subject `...:environment:<name>`), selected with the `environment` input.
+- The deploy job checks that the App Catalog reports the built version; a package with the same version overwrites the previous one.
+- Add to Teams calls `_api/web/tenantappcatalog/SyncSolutionToTeams` with the list item id of the package, as the App Catalog button does. If the tenant refuses it for an app-only token, run the workflow with `add-to-teams` off and select **Add to Teams** in the App Catalog by hand.
 
 ## Supplier portal (Power Pages)
 
