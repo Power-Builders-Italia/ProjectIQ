@@ -135,7 +135,7 @@ flowchart TD
 
 Ein Paket bedient eine ProjectIQ-Umgebung (die Mandanteneigenschaft). Neue Versionen der Karten sind wenige Minuten nach der Aktualisierung des Pakets aktiv; starten Sie zum Testen eine neue Unterhaltung.
 
-Die Schritte 1, 2, 4 und 5 kann auch der GitHub-Workflow `deploy-agent` ausführen, nach jeder Änderung am Agenten und mit der Freigabe eines Reviewers; Schritt 3 bleibt eine manuelle Genehmigung. Einrichtung: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
+Die Schritte 1, 2 und 4 kann auch der GitHub-Workflow `deploy-agent` ausführen, nach jeder Änderung am Agenten und mit der Freigabe eines Reviewers; die Schritte 3 und 5 bleiben manuell. Einrichtung: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
 ### Lizenzen
 

@@ -83,7 +83,7 @@ When exporting from Dev, drop the Italian (1040) labels the Dev language pack ad
 - **One component per tool**: `src/copilotComponents/<tool>/` holds the manifest (tool name and description, properties schema in Zod) and a class that only sets `intentKey`; the view is in `src/shared/ui/views`, the queries in `src/shared/services/ProjectIQService.ts`, the rules in `src/shared/logic`. A new tool also needs a row in `src/shared/intents.ts`, its id in `config/copilot-agent.json`, an entry in `config/config.json` and a routing line in `copilot/instruction.txt` (the agent check fails otherwise).
 - **Writes**: only `op365_timeentry` create and the Custom APIs `op365_SubmitTimeEntries` / `op365_DecideTimeEntries`, after the user's **Confirm**; keep it so, other actions stay in the app.
 - **Environment**: the tenant property (storage entity) `ProjectIQEnvironmentUrl`, else `DEFAULT_ENVIRONMENT_URL` in `src/shared/settings.ts`; optional `ProjectIQAppId` for links.
-- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release (the two must match, `deploy-agent` checks it); after changes to `copilot/` (name, instructions, starters, icons, language files) **Add to Teams** must run again (`deploy-agent` does it by default).
+- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release (the two must match, `deploy-agent` checks it); after changes to `copilot/` (name, instructions, starters, icons, language files) the admin selects **Add to Teams** in the App Catalog again.
 - **Languages**: card texts and agent manifests in English, Italian, French and German, see [Translations](#translations-italian-french-german).
 
 ### Portfolio Agent deployment
@@ -97,7 +97,7 @@ flowchart LR
     R --> L[m365 login<br/>federated identity OIDC]
     L --> A[spo app add --overwrite<br/>spo app deploy]
     A --> P[tenant properties<br/>ProjectIQEnvironmentUrl]
-    P --> T[Add to Teams<br/>SyncSolutionToTeams]
+    P -.-> T[Add to Teams<br/>App Catalog button]
 ```
 
 It signs in with the [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/) using **GitHub OIDC** (federated credential): no client secret or certificate is stored in GitHub. One-time setup per tenant:
@@ -111,7 +111,7 @@ It signs in with the [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft
 
 - Another tenant or environment: another GitHub environment with its own secrets and federated credential (subject `...:environment:<name>`), selected with the `environment` input.
 - The deploy job checks that the App Catalog reports the built version; a package with the same version overwrites the previous one.
-- Add to Teams calls `_api/web/tenantappcatalog/SyncSolutionToTeams` with the list item id of the package, as the App Catalog button does. If the tenant refuses it for an app-only token, run the workflow with `add-to-teams` off and select **Add to Teams** in the App Catalog by hand.
+- **Add to Teams** (publishes the declarative agent) stays a manual step: select the package in the App Catalog > **Add to Teams**, needed only on the first install and after changes to `copilot/`. The input `add-to-teams` tries `_api/web/tenantappcatalog/SyncSolutionToTeams` with the app-only token, but SharePoint answers 400 to it (seen in powerbuildersorg, October 2026).
 
 ## Supplier portal (Power Pages)
 
