@@ -230,6 +230,35 @@ Before you start: Dev matches `main` (see above), and the secrets of the environ
 
 Never customize Test: an unmanaged layer on top of the managed solution hides the next upgrades. Make the change in Dev and deploy again.
 
+### 5. Release on GitHub
+
+A GitHub release freezes a version that passed Test: it carries the same managed zips that `deploy-test` imported into Test, so whoever downloads it installs exactly what was tested. The `release` workflow builds nothing: it takes the `OpenProject365-managed` artifact of a `deploy-test` run (kept 90 days).
+
+```mermaid
+flowchart LR
+    M["main<br/>commit abc1234"] -->|"deploy-test run N<br/>(1.0.N.0)"| T[("Test<br/>managed")]
+    T -. "smoke test OK" .-> REL
+    M -->|"release<br/>input: run id of N"| REL["GitHub release v1.0.N<br/>tag on abc1234<br/>managed zips + SHA256SUMS.txt<br/>notes from merged PRs"]
+```
+
+1. Test the deployment in Test (the smoke scripts `tools/dataverse/phase*_smoke.py` and a manual check).
+2. Copy the run id of the `deploy-test` run (the number in its URL `.../actions/runs/<id>`).
+3. **Actions > release > Run workflow**, branch `main`, `deploy-test-run` = that id. Leave `draft` on; tick `prerelease` for a version that is not meant for customers yet.
+4. The release approver opens the run, **Review deployments**, selects `release` and **Approve and deploy**.
+5. The workflow, in order:
+   1. checks that the run is a successful `deploy-test` run from `main` and that the release `v1.0.<run number>` does not exist yet;
+   2. downloads its managed zips and checks that both are managed and have the version `1.0.<run number>.0`;
+   3. creates the release `ProjectIQ 1.0.<run number>.0`, tag `v1.0.<run number>` on the commit that run deployed, with `OpenProject365_managed.zip`, `OpenProject365SupplierPortal_managed.zip` and `SHA256SUMS.txt`. The notes start with the version and the install order, then list the pull requests merged since the previous release, grouped by label as set in [.github/release.yml](../.github/release.yml) (`bug`, `documentation`, `dependencies`, the rest under *Changes*; label a pull request `skip-changelog` to leave it out).
+6. In **Releases**, open the draft, edit the notes if needed (e.g. a short summary on top, upgrade notes) and **Publish release**: the tag is created at that moment.
+
+To install a release in an environment: import `OpenProject365_managed.zip`, then `OpenProject365SupplierPortal_managed.zip` (Power Apps > Solutions > Import, or `pac solution import`), then do the steps listed after a deployment to Test (plugin steps, portal cache, flow). Check a download with `sha256sum -c SHA256SUMS.txt`.
+
+| Symptom | Cause and fix |
+|---|---|
+| *run … is …, not deploy-test* / *ran on …, not main* / *ended with 'failure'* | use the id of a successful `deploy-test` run started from `main` |
+| *release v1.0.N already exists* | that run is already released (also as a draft): delete the draft, or release a newer run |
+| *Unable to download artifact* | the artifact of the run expired (90 days): run `deploy-test` again and release the new run |
+
 ### Troubleshooting
 
 | Symptom | Cause and fix |
@@ -265,9 +294,10 @@ The repository is public: environment URLs, tenant, app and connection ids and u
   - Optional secrets for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing secret is left out, so Test keeps its current value (or the default).
 - **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` runs in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
 - **Environment `appsource`**: required reviewer the publisher only (`pborg-mc`), deployment branches limited to `main`; secrets `PP_*` as in `test` (only for the Solution Checker). `publish-appsource` runs in it and also refuses any other actor ([Publishing on Microsoft AppSource](appsource.md#build-the-package)).
+- **Environment `release`**: required reviewer (whoever may publish a version), deployment branches limited to `main`; no secrets. `release` runs in it ([Release on GitHub](#5-release-on-github)).
 - **Environment `solution-checker`**: deployment branches limited to `main`, no reviewer; secrets `PP_*` for the Solution Checker (see [CI and Solution Checker](#ci-and-solution-checker)).
 - **Collaborators**: give the *Triage* role and let them open pull requests from forks; *Write* lets a user run `deploy-test` (still gated by the `test` reviewer).
-- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`, plus `deployments: read` in `deploy-dev`); write access is given per job, only where needed: `deploy` of `pages` (`pages: write`, `id-token: write`, as GitHub Pages requires), `drift-pr` of `deploy-dev` (`contents: write`, `pull-requests: write`), `record` of `deploy-dev` (`deployments: write`). `publish-appsource` adds `actions: read` to download the artifact of a `deploy-test` run. Never use `pull_request_target`.
+- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`, plus `deployments: read` in `deploy-dev`); write access is given per job, only where needed: `deploy` of `pages` (`pages: write`, `id-token: write`, as GitHub Pages requires), `drift-pr` of `deploy-dev` (`contents: write`, `pull-requests: write`), `record` of `deploy-dev` (`deployments: write`). `publish-appsource` adds `actions: read` to download the artifact of a `deploy-test` run; `release` adds `actions: read` and `contents: write` (tag and release). Never use `pull_request_target`.
 - **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.
 - **Ruleset `main`** (Settings > Rules > Rulesets, target: default branch, active): deletion and force push blocked; pull request required, squash merge only, no required approvals (a sole maintainer cannot approve their own pull requests); required status checks `docs`, `code` and `solution` from `build` (not `checker`, which runs only after the merge). The code owners in [CODEOWNERS](../.github/CODEOWNERS) are requested as reviewers automatically, but their approval is not required.
 - **Code security**: secret scanning and push protection on; Dependabot alerts on; CodeQL default setup.
