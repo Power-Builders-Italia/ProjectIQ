@@ -5,7 +5,8 @@ name: deploy-agent
 # 1. build: npm ci + npm run build (agent check, tests, lint, package), the .sppkg is kept as an artifact of the run.
 # 2. deploy: signs in with GitHub OIDC (federated credential on the app registration, no secret or certificate stored),
 #    adds the package with --overwrite, deploys it tenant-wide, sets the tenant property ProjectIQEnvironmentUrl and,
-#    unless add-to-teams is off, runs "Add to Teams" (SyncSolutionToTeams), which publishes the declarative agent.
+#    with add-to-teams on, tries "Add to Teams" (SyncSolutionToTeams); powerbuildersorg answers 400 to the app-only token,
+#    so by default the admin selects Add to Teams in the App Catalog (only after changes to copilot/).
 # The API access request Dataverse / user_impersonation stays an admin approval in the SharePoint admin center.
 # Runs after every merge that touches the agent and waits for a reviewer of the GitHub environment (agent-test by default).
 # Setup (app registration, federated credential, environment secrets): docs/dev-environment.md#portfolio-agent-deployment
@@ -20,9 +21,9 @@ on:
         default: agent-test
         required: true
       add-to-teams:
-        description: Run Add to Teams (publishes the declarative agent; needed after changes to copilot/)
+        description: Try Add to Teams with the app-only token (refused with 400 in powerbuildersorg; else use the App Catalog button)
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: read
@@ -119,7 +120,7 @@ jobs:
               --description 'ProjectIQ Portfolio Agent: model-driven app id for the Open in ProjectIQ links'
           fi
       - name: Add to Teams (publish the agent)
-        if: github.event_name == 'push' || inputs.add-to-teams
+        if: inputs.add-to-teams
         # same call as "Add to Teams" in the App Catalog: the package file's list item id is passed to SyncSolutionToTeams
         run: |
           app=$(m365 spo app get --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --query ID --output text)

@@ -135,7 +135,7 @@ flowchart TD
 
 One package serves one ProjectIQ environment (the tenant property). New versions of the cards are picked up a few minutes after the package is updated; start a new conversation to test them.
 
-Steps 1, 2, 4 and 5 can also be run by the GitHub workflow `deploy-agent`, after each change to the agent and with the approval of a reviewer; step 3 stays a manual approval. Setup: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
+Steps 1, 2 and 4 can also be run by the GitHub workflow `deploy-agent`, after each change to the agent and with the approval of a reviewer; steps 3 and 5 stay manual. Setup: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
 ### Licences
 

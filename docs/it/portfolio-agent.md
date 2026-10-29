@@ -135,7 +135,7 @@ flowchart TD
 
 Un pacchetto serve un ambiente ProjectIQ (la proprietà del tenant). Le nuove versioni delle schede sono attive pochi minuti dopo l'aggiornamento del pacchetto; avvia una nuova conversazione per provarle.
 
-I passi 1, 2, 4 e 5 possono essere eseguiti anche dal workflow GitHub `deploy-agent`, dopo ogni modifica dell'agente e con l'approvazione di un revisore; il passo 3 resta un'approvazione manuale. Configurazione: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
+I passi 1, 2 e 4 possono essere eseguiti anche dal workflow GitHub `deploy-agent`, dopo ogni modifica dell'agente e con l'approvazione di un revisore; i passi 3 e 5 restano manuali. Configurazione: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
 ### Licenze
 
