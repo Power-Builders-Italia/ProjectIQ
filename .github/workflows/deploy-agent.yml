@@ -99,7 +99,7 @@ jobs:
           m365 status --output text
       - name: Add and deploy the package
         run: |
-          m365 spo app add --filePath "out/$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --overwrite --output none
+          m365 spo app add --filePath "out/$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --overwrite
           m365 spo app deploy --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" --skipFeatureDeployment
           m365 spo app get --name "$PACKAGE" --appCatalogUrl "$APP_CATALOG_URL" \
             --query '{Title:Title,AppCatalogVersion:AppCatalogVersion,Deployed:Deployed,IsValidAppPackage:IsValidAppPackage,ErrorMessage:ErrorMessage}'
@@ -126,7 +126,7 @@ jobs:
           item=$(m365 request --url "$APP_CATALOG_URL/_api/web/GetFileById('$app')/ListItemAllFields?\$select=Id" \
             --accept 'application/json;odata=nometadata' --query Id --output text)
           m365 request --method post --url "$APP_CATALOG_URL/_api/web/tenantappcatalog/SyncSolutionToTeams(id=$item)" \
-            --accept 'application/json;odata=nometadata' --output none
+            --accept 'application/json;odata=nometadata'
           echo "Agent synchronised to Teams (App Catalog item $item)"
       - name: Summary
         if: always()
