@@ -23,6 +23,11 @@ export interface SubmitTimesheetProps {
   weekOf?: string;
 }
 
+/** Inputs take the width of their field: the native size of an input pushed the Hours box over the Notes field. */
+const FILL: React.CSSProperties = { width: '100%', minWidth: 0 };
+/** Height of a Field label and its gap, to line the delete button up with the inputs. */
+const LABEL_HEIGHT = 22;
+
 const STATUS_COLOR: Record<number, 'informative' | 'warning' | 'success' | 'danger'> = {
   [STATUS.draft]: 'informative', [STATUS.submitted]: 'warning', [STATUS.approved]: 'success', [STATUS.rejected]: 'danger',
 };
@@ -184,7 +189,7 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
           {step !== 'review' && (
             <>
               {lines.map(l => (
-                <div key={l.key} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'flex-end' }}>
+                <div key={l.key} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'flex-start' }}>
                   <Field label={t.project} style={{ minWidth: 180, flexGrow: 2 }} validationMessage={lineIssues(l.key).filter(i => i.code === 'noProject').map(i => ISSUES[i.code])[0]}>
                     <Dropdown value={projectName(l.projectId) === '–' ? '' : projectName(l.projectId)} selectedOptions={l.projectId ? [l.projectId] : []}
                       placeholder={t.chooseProject} onOptionSelect={(_, d) => { update(l.key, { projectId: d.optionValue, nodeId: undefined }); if (d.optionValue) loadNodes(d.optionValue).catch(() => undefined); }}>
@@ -197,18 +202,18 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
                       {(l.projectId ? nodes[l.projectId] || [] : []).map(n => <Option key={n.id} value={n.id}>{n.name}</Option>)}
                     </Dropdown>
                   </Field>
-                  <Field label={t.day} style={{ width: 120 }}>
+                  <Field label={t.day} style={{ width: 120, flexShrink: 0 }}>
                     <Dropdown value={weekday(l.day)} selectedOptions={[String(l.day)]} onOptionSelect={(_, d) => update(l.key, { day: Number(d.optionValue) })}>
                       {(days.indexOf(l.day) >= 0 ? days : [l.day, ...days]).map(d => <Option key={d} value={String(d)} text={weekday(d)}>{weekday(d)}</Option>)}
                     </Dropdown>
                   </Field>
-                  <Field label={t.hours} style={{ width: 80 }} validationMessage={lineIssues(l.key).filter(i => i.code !== 'noProject').map(i => ISSUES[i.code])[0]}>
-                    <Input value={l.hours} inputMode="decimal" onChange={(_, d) => update(l.key, { hours: d.value })} />
+                  <Field label={t.hours} style={{ width: 96, flexShrink: 0 }} validationMessage={lineIssues(l.key).filter(i => i.code !== 'noProject').map(i => ISSUES[i.code])[0]}>
+                    <Input value={l.hours} inputMode="decimal" style={FILL} input={{ style: FILL }} onChange={(_, d) => update(l.key, { hours: d.value })} />
                   </Field>
                   <Field label={t.notes} style={{ minWidth: 140, flexGrow: 2 }}>
-                    <Input value={l.notes || ''} onChange={(_, d) => update(l.key, { notes: d.value })} />
+                    <Input value={l.notes || ''} style={FILL} input={{ style: FILL }} onChange={(_, d) => update(l.key, { notes: d.value })} />
                   </Field>
-                  <Button appearance="subtle" icon={<Delete16Regular />} aria-label={t.removeLine} onClick={() => setLines(ls => ls.filter(x => x.key !== l.key))} />
+                  <Button appearance="subtle" icon={<Delete16Regular />} style={{ marginTop: LABEL_HEIGHT }} aria-label={t.removeLine} onClick={() => setLines(ls => ls.filter(x => x.key !== l.key))} />
                 </div>
               ))}
               <Footer>
