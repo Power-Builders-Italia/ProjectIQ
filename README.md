@@ -1,5 +1,3 @@
-![ProjectIQ: Copilot bot at the centre, the Power Platform technologies around it and the ProjectIQ features on the outer ring](docs/assets/projectiq-hero.png)
-
 # ProjectIQ
 
 *Formerly Open Project 365.*
@@ -12,6 +10,8 @@
 - Licences: Power Apps Premium for internal users; suppliers use the Power Pages portal.
 - Publisher prefix `op365`; base language English (1033), translations Italian (1040), French (1036), German (1031).
 - PCF controls: React virtual controls with Fluent UI v9.
+
+![ProjectIQ: Copilot bot at the centre, the Power Platform technologies around it and the ProjectIQ features on the outer ring](docs/assets/projectiq-hero.png)
 
 ## The problem
 
