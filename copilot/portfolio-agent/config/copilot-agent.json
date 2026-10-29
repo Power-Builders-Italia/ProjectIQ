@@ -1,0 +1,28 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "ProjectIQ Portfolio Agent",
+        "it-IT": "Agente Portfolio ProjectIQ"
+      },
+      "description": {
+        "default": "Projects, portfolio health, resource load, purchasing, hours to approve and timesheets from ProjectIQ.",
+        "it-IT": "Commesse, salute del portfolio, carico risorse, acquisti, ore da approvare e rapportini da ProjectIQ."
+      },
+      "components": [
+        "9da193d2-3a3d-4170-af8b-7267594a1ea5",
+        "ab1c938f-796d-4a23-96fc-39b56361968a",
+        "9599e2a6-951a-45d0-8c7f-9f20622dbe4e",
+        "6dee4d5c-1cac-49f5-b63b-c61b617d01e9",
+        "50678950-aa40-4670-81b6-8b3039922374",
+        "44836f07-c279-4e4a-9ceb-8fd8b5e92903",
+        "a5ca9cd8-1189-4827-bb89-b6d8a8c22cb3",
+        "3f4c2b3b-989a-4442-879b-a99ee5a6cb3b",
+        "bad6b67f-d9ba-4458-9326-00476d0eb773",
+        "4a27d0b5-3aca-4888-bde9-f75c0aa97ea0",
+        "4cdc2b31-710e-4d31-8f32-d48759571ff2"
+      ]
+    }
+  ]
+}

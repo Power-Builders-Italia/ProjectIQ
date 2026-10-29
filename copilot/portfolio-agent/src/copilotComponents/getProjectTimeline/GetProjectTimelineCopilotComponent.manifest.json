@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "50678950-aa40-4670-81b6-8b3039922374",
+  "alias": "GetProjectTimelineCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetProjectTimeline",
+      "description": {
+        "default": "Show the schedule of one ProjectIQ project: WBS phases on a timeline, progress, critical path and slippage against the reference baseline."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getProjectTimeline/GetProjectTimelineCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

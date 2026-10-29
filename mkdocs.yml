@@ -83,6 +83,7 @@ nav:
       - en/supplier-portal.md
       - en/administration.md
       - en/copilot.md
+      - en/portfolio-agent.md
   - Italiano:
       - it/getting-started.md
       - it/master-data.md
@@ -95,6 +96,7 @@ nav:
       - it/supplier-portal.md
       - it/administration.md
       - it/copilot.md
+      - it/portfolio-agent.md
   - Français:
       - fr/getting-started.md
       - fr/master-data.md
@@ -107,6 +109,7 @@ nav:
       - fr/supplier-portal.md
       - fr/administration.md
       - fr/copilot.md
+      - fr/portfolio-agent.md
   - Deutsch:
       - de/getting-started.md
       - de/master-data.md
@@ -119,6 +122,7 @@ nav:
       - de/supplier-portal.md
       - de/administration.md
       - de/copilot.md
+      - de/portfolio-agent.md
   - Technical:
       - dev-environment.md
       - data-model.md

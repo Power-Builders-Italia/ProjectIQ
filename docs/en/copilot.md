@@ -7,6 +7,8 @@ ProjectIQ data can be read from **Microsoft Copilot**: in the Copilot pane of th
 
 This first release is **read-only**: Copilot finds, explains and summarises data, but it does not create, change, submit or approve anything. Every action stays on the buttons of the app.
 
+For interactive cards in Microsoft 365 Copilot (portfolio, project, timeline, resource load, purchasing) and to log, submit and approve hours from Copilot after an explicit confirmation, use the [Portfolio Agent](portfolio-agent.md).
+
 > These Microsoft features are in **preview**: names, screens and behaviour may change.
 
 ## How it works

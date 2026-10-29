@@ -1,0 +1,34 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "0.1.0",
+  "id": "c70a13f9-6e82-4244-bb2b-63cee511bc94",
+  "developer": {
+    "name": "Power Builders Italia",
+    "websiteUrl": "https://power-builders-italia.github.io/projectiq/",
+    "privacyUrl": "https://power-builders-italia.github.io/projectiq/legal/privacy/",
+    "termsOfUseUrl": "https://power-builders-italia.github.io/projectiq/legal/terms-of-use/"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "ProjectIQ Portfolio",
+    "full": "ProjectIQ Portfolio Agent"
+  },
+  "description": {
+    "short": "ProjectIQ projects, portfolio, resources, purchasing and hours in Copilot.",
+    "full": "An intent-driven Copilot agent on live ProjectIQ data: portfolio and project health, budget, timeline, resource load, purchasing status, supplier compliance, approval of hours and logging and submitting your timesheet, with your own Dataverse permissions."
+  },
+  "accentColor": "#0F6CBD",
+  "copilotAgents": {
+    "declarativeAgents": [
+      { "id": "projectiqPortfolioAgent", "file": "declarativeAgent.json" }
+    ]
+  },
+  "permissions": [
+    "identity"
+  ],
+  "validDomains": []
+}

@@ -68,6 +68,23 @@ Not in the solution, to configure by hand in every environment (no documented AP
 
 When exporting from Dev, drop the Italian (1040) labels the Dev language pack adds to standard components, unless they are part of the change.
 
+## Portfolio Agent (SPFx Copilot components)
+
+`copilot/portfolio-agent` is an SPFx 1.24 solution with eleven **Copilot UX components** and the declarative agent **ProjectIQ Portfolio Agent**, modelled on the PnP sample *zava-project-tracker* but reading ProjectIQ live from the Dataverse Web API with the user's delegated token (`AadHttpClient`, permission request *Dataverse / user_impersonation* in `config/package-solution.json`). User and admin guide: [Portfolio Agent](en/portfolio-agent.md).
+
+| Command (in `copilot/portfolio-agent`, Node 22) | Does |
+|---|---|
+| `npm ci` | Installs SPFx 1.24, React 18.3 and Fluent UI v9 |
+| `npm test` | Copies the shared logic, builds and runs Jest (health rules, purchasing, suppliers, timesheet draft, approvals, Dataverse client) |
+| `npm run build` | Checks the agent (`scripts/validate-agent.mjs`), production build with tests and lint, then `sharepoint/solution/projectiq-portfolio-agent.sppkg` and `teams/projectiq-portfolio-agent.zip` |
+| `npm start` | `heft start` for the Copilot Workbench (`https://<tenant>.sharepoint.com/_layouts/15/copilotworkbench.aspx`, set the tenant in `config/serve.json`) |
+
+- **Shared logic**: `scripts/sync-shared.mjs` copies `dates`, `wbs`, `cpm`, `cost`, `load`, `timesheet` and `approval` from `src/pcf/shared` into `src/shared/projectiq` (git-ignored) before every build, so the agent computes progress, costs, critical path and resource load with the same code as the PCF controls. Change those rules in `src/pcf/shared` only.
+- **One component per tool**: `src/copilotComponents/<tool>/` holds the manifest (tool name and description, properties schema in Zod) and a class that only sets `intentKey`; the view is in `src/shared/ui/views`, the queries in `src/shared/services/ProjectIQService.ts`, the rules in `src/shared/logic`. A new tool also needs a row in `src/shared/intents.ts`, its id in `config/copilot-agent.json`, an entry in `config/config.json` and a routing line in `copilot/instruction.txt` (the agent check fails otherwise).
+- **Writes**: only `op365_timeentry` create and the Custom APIs `op365_SubmitTimeEntries` / `op365_DecideTimeEntries`, after the user's **Confirm**; keep it so, other actions stay in the app.
+- **Environment**: the tenant property (storage entity) `ProjectIQEnvironmentUrl`, else `DEFAULT_ENVIRONMENT_URL` in `src/shared/settings.ts`; optional `ProjectIQAppId` for links.
+- Bump `version` in `config/package-solution.json` and `copilot/manifest.json` for every release; after changes to `copilot/` (name, instructions, starters, icons) the admin selects **Add to Teams** again.
+
 ## Supplier portal (Power Pages)
 
 The portal is a separate solution, `OpenProject365SupplierPortal`, that depends on `OpenProject365`.

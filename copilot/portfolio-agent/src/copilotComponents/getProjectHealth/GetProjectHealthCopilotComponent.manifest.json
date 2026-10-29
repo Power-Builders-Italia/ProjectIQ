@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "9599e2a6-951a-45d0-8c7f-9f20622dbe4e",
+  "alias": "GetProjectHealthCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetProjectHealth",
+      "description": {
+        "default": "Show the health of one ProjectIQ project (commessa): status, budget vs actual vs committed, estimate at completion, margin, schedule, flagged WBS phases, open purchases."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getProjectHealth/GetProjectHealthCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

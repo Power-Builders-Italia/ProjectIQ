@@ -55,6 +55,7 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Supplier portal | [EN](docs/en/supplier-portal.md) | [IT](docs/it/supplier-portal.md) | [FR](docs/fr/supplier-portal.md) | [DE](docs/de/supplier-portal.md) |
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
 | Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |
+| Portfolio Agent: ProjectIQ cards in Microsoft 365 Copilot, hours logged and approved | [EN](docs/en/portfolio-agent.md) | [IT](docs/it/portfolio-agent.md) | [FR](docs/fr/portfolio-agent.md) | [DE](docs/de/portfolio-agent.md) |
 
 Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Environments and deployment](docs/dev-environment.md#environments-and-deployment) · [Data model](docs/data-model.md) · [Publishing on Microsoft AppSource](docs/appsource.md).
 
@@ -68,6 +69,7 @@ Legal: [Privacy statement](docs/legal/privacy.md) · [Terms of use](docs/legal/t
 | `src/plugins` | C# plugins and Custom API implementations |
 | `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison, ProgressField) |
 | `src/webresources` | Form scripts and dialogs |
+| `copilot` | Business skills and glossary for Copilot (`skills`, `glossary.md`); `portfolio-agent`: SPFx Copilot components and declarative agent ([guide](docs/dev-environment.md#portfolio-agent-spfx-copilot-components)) |
 | `portal` | Power Pages supplier portal |
 | `appsource` | AppSource package: Package Deployer project and listing assets ([guide](docs/appsource.md)) |
 | `docs` | User manuals (`docs/<language>/`), [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md), ADRs |

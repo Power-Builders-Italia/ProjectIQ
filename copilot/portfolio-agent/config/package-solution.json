@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "projectiq-portfolio-agent-client-side-solution",
+    "id": "4ba7c8e6-8abd-4c5a-97ad-669f4f00a161",
+    "version": "0.1.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "Power Builders Italia",
+      "websiteUrl": "https://power-builders-italia.github.io/projectiq/",
+      "privacyUrl": "https://power-builders-italia.github.io/projectiq/legal/privacy/",
+      "termsOfUseUrl": "https://power-builders-italia.github.io/projectiq/legal/terms-of-use/",
+      "mpnId": "Undefined-1.24.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "ProjectIQ Portfolio Agent: Copilot UX components on ProjectIQ data"
+      },
+      "longDescription": {
+        "default": "Declarative agent and Copilot UX components that read ProjectIQ (Dataverse) with the user's permissions: portfolio and project health, budget, timeline, resource load, purchasing, supplier compliance, approval of hours and timesheet submission."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "webApiPermissionRequests": [
+      {
+        "resource": "Dataverse",
+        "scope": "user_impersonation"
+      }
+    ],
+    "features": [
+      {
+        "title": "ProjectIQ Portfolio Agent",
+        "description": "Copilot UX components and declarative agent of ProjectIQ.",
+        "id": "001f37a6-6237-4aa8-ae75-3ed9ba98ca3f",
+        "version": "0.1.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/projectiq-portfolio-agent.sppkg"
+  }
+}

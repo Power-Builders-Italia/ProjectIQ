@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "projectiq",
+  "name_for_human": "ProjectIQ Portfolio",
+  "description_for_human": "Projects, portfolio health, resource load, purchasing, hour approvals and timesheets from ProjectIQ.",
+  "description_for_model": "Render the ProjectIQ Copilot Component that matches the user's intent about projects (commesse), portfolio health, budget, schedule, resource load, purchasing, supplier compliance, approving hours or logging and submitting hours. Data comes live from the ProjectIQ Dataverse environment with the user's own permissions.",
+  "contact_email": "info@powerbuilders.it"
+}

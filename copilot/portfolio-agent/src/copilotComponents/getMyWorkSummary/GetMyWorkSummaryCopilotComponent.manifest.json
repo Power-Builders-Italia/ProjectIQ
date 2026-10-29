@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "9da193d2-3a3d-4170-af8b-7267594a1ea5",
+  "alias": "GetMyWorkSummaryCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetMyWorkSummary",
+      "description": {
+        "default": "Summarize what needs the signed-in user's attention in ProjectIQ: hours to approve or submit, missing hours, projects at risk, purchase requests to approve, late orders, overload."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getMyWorkSummary/GetMyWorkSummaryCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

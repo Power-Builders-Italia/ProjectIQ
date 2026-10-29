@@ -7,6 +7,8 @@ I dati di ProjectIQ si possono leggere da **Microsoft Copilot**: nel riquadro Co
 
 Questa prima versione è in **sola lettura**: Copilot trova, spiega e riassume i dati, ma non crea, modifica, invia o approva nulla. Ogni azione resta sui pulsanti dell'app.
 
+Per schede interattive in Microsoft 365 Copilot (portfolio, commessa, timeline, carico risorse, acquisti) e per registrare, inviare e approvare ore da Copilot dopo una conferma esplicita, usa il [Portfolio Agent](portfolio-agent.md).
+
 > I nomi di campi, pulsanti e schermate sono in inglese, come appaiono a schermo. Queste funzionalità Microsoft sono in **preview**: nomi, schermate e comportamento possono cambiare.
 
 ## Come funziona
