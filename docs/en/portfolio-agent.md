@@ -110,6 +110,10 @@ stateDiagram-v2
 
 The card reads the SharePoint folder that ProjectIQ created for the project (see [Documents in SharePoint](documents.md)): the folder is found through the document location of the project, then its files and subfolders are listed **with your SharePoint permissions**. The KPIs show the number of files and folders and the last change; select a name to open the file (Office files open in the browser) or **Open folder in SharePoint**. Uploading and editing stay in SharePoint or in **Related** → **Documents** of the app.
 
+### Questions on the content of documents
+
+When the administrator has set a SharePoint knowledge source (see [Set up](#set-up-administrators)), you can also ask what a document says, for example "what penalties does the contract of PRJ-000123 set?" or "summarise the minutes of the last site meeting". Copilot searches the files of the documents site **with your SharePoint permissions** and names the file it used. Without a knowledge source the agent only lists the files.
+
 ## New project from a document
 
 Attach an offer, a contract, a quote or a kickoff document to the chat and ask, for example, "create a draft project from this document". Copilot reads the document and passes what it finds to the card; the card shows it as a draft you complete and confirm. Nothing is created before **Confirm**.
@@ -183,6 +187,8 @@ One package serves one ProjectIQ environment (the tenant property). New versions
 
 Steps 1, 2 and 4 can also be run by the GitHub workflow `deploy-agent`, after each change to the agent and with the approval of a reviewer; steps 3 and 5 stay manual. Setup: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
+**SharePoint knowledge (optional).** The agent can also read the content of the documents site (see [Documents in SharePoint](documents.md)). Set the URLs of the site, library or folder (comma separated) when the package is built: the variable `SHAREPOINT_KNOWLEDGE_URLS` of `npm run build`, or, for `deploy-agent`, the secret of the same name in the GitHub environment (a secret, so the URLs appear neither in the repository nor in the logs). The build adds the **OneDriveAndSharePoint** capability limited to those URLs. Then select **Add to Teams** again (step 5). Without the variable the agent has no knowledge source.
+
 ### Licences
 
 Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premium** licence used for ProjectIQ. Copilot UX components have no consumption charge.
@@ -194,6 +200,7 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 - The only writes are the user's own time entries, the time decisions and the draft projects created from a document (project in status Offer, its WBS nodes, its SharePoint folder and document), through the same plugins and Custom APIs as the app, and only after **Confirm**. Purchasing, existing projects and master data are never changed from Copilot.
 - What a card shows is passed to Copilot as context of the conversation (at most about 9 KB of text), as for any other Copilot answer.
 - Project documents are read from SharePoint with the **user's own SharePoint permissions** (no extra API access to approve): the card lists only the files the person can open.
+- With the SharePoint knowledge source, Copilot searches only the configured site, library or folder, and only the files the person can open.
 
 ## Messages you may see
 

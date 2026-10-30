@@ -8,8 +8,9 @@
   "scripts": {
     "sync:shared": "node scripts/sync-shared.mjs",
     "check:agent": "node scripts/validate-agent.mjs",
+    "knowledge": "node scripts/knowledge.mjs",
     "test": "npm run sync:shared && heft test --clean",
-    "build": "npm run sync:shared && npm run check:agent && heft test --clean --production && heft package-solution --production",
+    "build": "npm run sync:shared && npm run knowledge && npm run check:agent && heft test --clean --production && heft package-solution --production",
     "clean": "heft clean",
     "start": "npm run sync:shared && heft start --clean --nobrowser"
   },

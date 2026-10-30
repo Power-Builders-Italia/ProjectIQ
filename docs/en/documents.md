@@ -55,7 +55,7 @@ The folder is created the **first time someone opens Documents** on the record. 
 
 ### Documents in Copilot
 
-In the [Portfolio Agent](portfolio-agent.md#project-documents) ask "show the documents of PRJ-000123": the card lists the files and subfolders of the project folder, most recent first, with a link to each file and to the folder.
+In the [Portfolio Agent](portfolio-agent.md#project-documents) ask "show the documents of PRJ-000123": the card lists the files and subfolders of the project folder, most recent first, with a link to each file and to the folder. When a SharePoint knowledge source is set, you can also ask what a document says (see [Portfolio Agent](portfolio-agent.md#questions-on-the-content-of-documents)).
 
 ### Supplier documents
 

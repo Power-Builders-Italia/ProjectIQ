@@ -55,7 +55,7 @@ Der Ordner wird angelegt, wenn **zum ersten Mal jemand Documents** am Datensatz 
 
 ### Dokumente in Copilot
 
-Fragen Sie im [Portfolio Agent](portfolio-agent.md#projektdokumente) „zeige die Dokumente von PRJ-000123“: Die Karte listet die Dateien und Unterordner des Projektordners, neueste zuerst, mit einem Link zu jeder Datei und zum Ordner.
+Fragen Sie im [Portfolio Agent](portfolio-agent.md#projektdokumente) „zeige die Dokumente von PRJ-000123“: Die Karte listet die Dateien und Unterordner des Projektordners, neueste zuerst, mit einem Link zu jeder Datei und zum Ordner. Ist eine SharePoint-Wissensquelle eingerichtet, können Sie auch fragen, was in einem Dokument steht (siehe [Portfolio Agent](portfolio-agent.md#fragen-zum-inhalt-von-dokumenten)).
 
 ### Lieferantendokumente
 

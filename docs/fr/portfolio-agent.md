@@ -110,6 +110,10 @@ stateDiagram-v2
 
 La carte lit le dossier SharePoint que ProjectIQ a créé pour le projet (voir [Documents dans SharePoint](documents.md)) : le dossier est trouvé par l'emplacement de document du projet, puis ses fichiers et sous-dossiers sont listés **avec vos autorisations SharePoint**. Les KPI montrent le nombre de fichiers et de dossiers et la dernière modification ; sélectionnez un nom pour ouvrir le fichier (les fichiers Office s'ouvrent dans le navigateur) ou **Open folder in SharePoint**. L'ajout et la modification restent dans SharePoint ou dans **Related** → **Documents** de l'application.
 
+### Questions sur le contenu des documents
+
+Quand l'administrateur a défini une source de connaissances SharePoint (voir [Configuration](#configuration-administrateurs)), vous pouvez aussi demander ce que dit un document, par exemple « quelles pénalités prévoit le contrat du projet PRJ-000123 ? » ou « résume le compte rendu de la dernière visite de chantier ». Copilot cherche dans les fichiers du site des documents **avec vos autorisations SharePoint** et indique le fichier utilisé. Sans source de connaissances, l'agent ne fait que lister les fichiers.
+
 ## Nouveau projet à partir d'un document
 
 Joignez à la conversation une offre, un contrat, un devis ou un document de lancement et demandez, par exemple, « crée un projet brouillon à partir de ce document ». Copilot lit le document et transmet à la carte ce qu'il trouve ; la carte l'affiche comme un brouillon à compléter et à confirmer. Rien n'est créé avant **Confirm**.
@@ -183,6 +187,8 @@ Un package sert un environnement ProjectIQ (la propriété du locataire). Les no
 
 Les étapes 1, 2 et 4 peuvent aussi être exécutées par le workflow GitHub `deploy-agent`, après chaque modification de l'agent et avec l'approbation d'un réviseur ; les étapes 3 et 5 restent manuelles. Configuration : [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
+**Connaissances SharePoint (facultatif).** L'agent peut aussi lire le contenu du site des documents (voir [Documents dans SharePoint](documents.md)). Définissez les URL du site, de la bibliothèque ou du dossier (séparées par des virgules) à la création du package : la variable `SHAREPOINT_KNOWLEDGE_URLS` de `npm run build`, ou, pour `deploy-agent`, le secret du même nom dans l'environnement GitHub (un secret, pour que les URL n'apparaissent ni dans le dépôt ni dans les journaux). La build ajoute la capacité **OneDriveAndSharePoint** limitée à ces URL. Sélectionnez ensuite à nouveau **Add to Teams** (étape 5). Sans la variable, l'agent n'a pas de source de connaissances.
+
 ### Licences
 
 Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licence **Power Apps Premium** utilisée pour ProjectIQ. Les Copilot UX components n'ont pas de coût à la consommation.
@@ -194,6 +200,7 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 - Les seules écritures sont les saisies de temps de l'utilisateur, les décisions sur les heures et les projets brouillons créés à partir d'un document (projet au statut Offer, ses nœuds WBS, son dossier SharePoint et le document), via les mêmes plugins et Custom API que l'application, et seulement après **Confirm**. Achats, projets existants et données de base ne sont jamais modifiés depuis Copilot.
 - Ce qu'une carte affiche est transmis à Copilot comme contexte de la conversation (au maximum environ 9 Ko de texte), comme pour toute autre réponse de Copilot.
 - Les documents du projet sont lus dans SharePoint avec les **autorisations SharePoint de l'utilisateur** (aucun accès API supplémentaire à approuver) : la carte ne liste que les fichiers que la personne peut ouvrir.
+- Avec la source de connaissances SharePoint, Copilot ne cherche que dans le site, la bibliothèque ou le dossier configurés, et seulement dans les fichiers que la personne peut ouvrir.
 
 ## Messages possibles
 
