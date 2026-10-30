@@ -10,96 +10,98 @@
       <Titles>
         <Title LCID="1033" Title="Projects" />
       </Titles>
-      <Group Id="op365_work">
+      <Group Id="op365_work" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Work" />
         </Titles>
-        <SubArea Id="op365_projectssub" Entity="op365_project">
+        <SubArea Id="op365_projectssub" Entity="op365_project" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Projects" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_materialusages" Entity="op365_materialusage">
+        <SubArea Id="op365_materialusages" Entity="op365_materialusage" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Material Usage" />
           </Titles>
         </SubArea>
       </Group>
-      <Group Id="op365_time">
+      <Group Id="op365_time" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Time" />
         </Titles>
-        <SubArea Id="op365_timesheet" Url="/main.aspx?pagetype=dashboard&amp;id=%7b37705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system">
+        <SubArea Id="op365_timesheet" Url="/main.aspx?pagetype=dashboard&amp;id=%7b37705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Timesheet" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_timeapproval" Url="/main.aspx?pagetype=dashboard&amp;id=%7b40705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system">
+        <SubArea Id="op365_timeapproval" Url="/main.aspx?pagetype=dashboard&amp;id=%7b40705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Approvals" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_timeentries" Entity="op365_timeentry">
+        <SubArea Id="op365_timeentries" Entity="op365_timeentry" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Time Entries" />
           </Titles>
         </SubArea>
       </Group>
-      <Group Id="op365_planning">
+      <Group Id="op365_planning" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Planning" />
         </Titles>
-        <SubArea Id="op365_resourceload" Url="/main.aspx?pagetype=dashboard&amp;id=%7b49705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system">
+        <SubArea Id="op365_resourceload" Url="/main.aspx?pagetype=dashboard&amp;id=%7b49705131-eccf-f111-a05b-7ced8d2d53e4%7d&amp;type=system" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Resource Load" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_absences" Entity="op365_absence">
+        <SubArea Id="op365_absences" Entity="op365_absence" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Absences" />
           </Titles>
         </SubArea>
+        <SubArea Id="subarea_3907207d" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sharepointdocumentlocation" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+        <SubArea Id="subarea_b22b7290" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sharepointdocument" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
       </Group>
     </Area>
     <Area Id="op365_purchasing" ShowGroups="true">
       <Titles>
         <Title LCID="1033" Title="Purchasing" />
       </Titles>
-      <Group Id="op365_procurement">
+      <Group Id="op365_procurement" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Procurement" />
         </Titles>
-        <SubArea Id="op365_purchaserequests" Entity="op365_purchaserequest">
+        <SubArea Id="op365_purchaserequests" Entity="op365_purchaserequest" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Purchase Requests" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_rfqs" Entity="op365_rfq">
+        <SubArea Id="op365_rfqs" Entity="op365_rfq" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="RFQs" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_purchaseorders" Entity="op365_purchaseorder">
+        <SubArea Id="op365_purchaseorders" Entity="op365_purchaseorder" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Purchase Orders" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_goodsreceipts" Entity="op365_goodsreceipt">
+        <SubArea Id="op365_goodsreceipts" Entity="op365_goodsreceipt" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Goods Receipts" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_supplierinvoices" Entity="op365_supplierinvoice">
+        <SubArea Id="op365_supplierinvoices" Entity="op365_supplierinvoice" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Supplier Invoices" />
           </Titles>
         </SubArea>
       </Group>
-      <Group Id="op365_analysis">
+      <Group Id="op365_analysis" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Analysis" />
         </Titles>
-        <SubArea Id="op365_spend" Url="/main.aspx?pagetype=dashboard&amp;id=%7b62ea5f60-00d0-f111-a05b-7ced8d2d53e4%7d&amp;type=system">
+        <SubArea Id="op365_spend" Url="/main.aspx?pagetype=dashboard&amp;id=%7b62ea5f60-00d0-f111-a05b-7ced8d2d53e4%7d&amp;type=system" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Spend" />
           </Titles>
@@ -110,31 +112,31 @@
       <Titles>
         <Title LCID="1033" Title="Master Data" />
       </Titles>
-      <Group Id="op365_records">
+      <Group Id="op365_records" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Records" />
         </Titles>
-        <SubArea Id="op365_customers" Entity="account" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b61ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d">
+        <SubArea Id="op365_customers" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b61ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d" Entity="account" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Customers" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_suppliers" Entity="account" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b67ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d">
+        <SubArea Id="op365_suppliers" Url="/main.aspx?pagetype=entitylist&amp;etn=account&amp;viewid=%7b67ad4445-d6cf-f111-a05b-7ced8d2d53e4%7d" Entity="account" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Suppliers" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_contacts" Entity="contact">
+        <SubArea Id="op365_contacts" Entity="contact" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Contacts" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_items" Entity="op365_item">
+        <SubArea Id="op365_items" Entity="op365_item" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Items" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_resources" Entity="op365_resource">
+        <SubArea Id="op365_resources" Entity="op365_resource" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Resources" />
           </Titles>
@@ -145,16 +147,16 @@
       <Titles>
         <Title LCID="1033" Title="Settings" />
       </Titles>
-      <Group Id="op365_company">
+      <Group Id="op365_company" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Company" />
         </Titles>
-        <SubArea Id="op365_resourcecosts" Entity="op365_resourcecost">
+        <SubArea Id="op365_resourcecosts" Entity="op365_resourcecost" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Resource Costs" />
           </Titles>
         </SubArea>
-        <SubArea Id="op365_projectmembers" Entity="op365_projectmember">
+        <SubArea Id="op365_projectmembers" Entity="op365_projectmember" AvailableOffline="true" PassParams="false">
           <Titles>
             <Title LCID="1033" Title="Project Members" />
           </Titles>
