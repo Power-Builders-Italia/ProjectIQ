@@ -3,10 +3,10 @@
   "name.short": "ProjectIQ Portfolio",
   "name.full": "ProjectIQ Portfolio-Agent",
   "description.short": "ProjectIQ-Projekte, Portfolio, Ressourcen, Einkauf und Stunden in Copilot.",
-  "description.full": "Ein absichtsgesteuerter Copilot-Agent auf Live-Daten aus ProjectIQ: Portfolio- und Projektzustand, Budget, Zeitplan, Ressourcenauslastung, Einkaufsstatus, Lieferanten-Compliance, Genehmigung von Stunden sowie Erfassen und Einreichen Ihrer Zeiterfassung, mit Ihren eigenen Dataverse-Berechtigungen.",
+  "description.full": "Ein absichtsgesteuerter Copilot-Agent auf Live-Daten aus ProjectIQ: Portfolio- und Projektzustand, Budget, Zeitplan, Projektdokumente, Ressourcenauslastung, Einkaufsstatus, Lieferanten-Compliance, Genehmigung von Stunden sowie Erfassen und Einreichen Ihrer Zeiterfassung, mit Ihren eigenen Dataverse-Berechtigungen.",
   "localizationKeys": {
     "agent_name": "ProjectIQ Portfolio-Agent",
-    "agent_description": "Live-Ansicht Ihrer ProjectIQ-Projekte: Portfolio- und Projektzustand, Budget, Zeitplan, Ressourcenauslastung, Einkauf, Lieferanten-Compliance, zu genehmigende Stunden und Ihre Zeiterfassung.",
+    "agent_description": "Live-Ansicht Ihrer ProjectIQ-Projekte: Portfolio- und Projektzustand, Budget, Zeitplan, Projektdokumente, Ressourcenauslastung, Einkauf, Lieferanten-Compliance, zu genehmigende Stunden und Ihre Zeiterfassung.",
     "starter1_title": "Was braucht Aufmerksamkeit",
     "starter1_text": "Was braucht diese Woche meine Aufmerksamkeit in meinen Projekten?",
     "starter2_title": "Portfoliozustand",

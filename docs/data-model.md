@@ -291,6 +291,7 @@ python3 tools/dataverse/phase4_tables.py
 python3 tools/dataverse/phase4_security.py
 python3 tools/dataverse/phase4_views.py
 python3 tools/dataverse/timeline.py           # notes and activities
+python3 tools/dataverse/documents.py          # SharePoint documents; SHAREPOINT_SITE_URL also sets the default site
 dotnet build src/plugins/OpenProject365.Plugins -c Release
 python3 tools/dataverse/plugins.py              # assembly, steps and Custom APIs of every phase
 (cd src/pcf && npm ci) && tools/pcf/push.sh     # needs a pac auth profile on the environment

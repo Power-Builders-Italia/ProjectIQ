@@ -1,9 +1,10 @@
-// SPFx plumbing: tenant settings through SPHttpClient and Dataverse calls through AadHttpClient.
+// SPFx plumbing: tenant settings and project documents through SPHttpClient, Dataverse calls through AadHttpClient.
 import { AadHttpClient, SPHttpClient } from '@microsoft/sp-http';
 import type { BaseComponentContext } from '@microsoft/sp-component-base';
 
 import { DataverseClient, type HttpSend } from './DataverseClient';
 import { ProjectIQService } from './ProjectIQService';
+import { SharePointClient } from './SharePointClient';
 import {
   APP_ID_KEY, DEFAULT_APP_ID, DEFAULT_ENVIRONMENT_URL, ENVIRONMENT_URL_KEY, normaliseEnvironmentUrl, type AgentSettings,
 } from '../settings';
@@ -36,5 +37,9 @@ export async function createService(context: BaseComponentContext, settings: Age
     const response = await client.fetch(url, AadHttpClient.configurations.v1, { method, headers, body });
     return { ok: response.ok, status: response.status, statusText: response.statusText, text: () => response.text() };
   };
-  return new ProjectIQService(new DataverseClient(settings.environmentUrl, send));
+  const sendSharePoint: HttpSend = async (method, url, headers, body) => {
+    const response = await context.spHttpClient.fetch(url, SPHttpClient.configurations.v1, { method, headers, body });
+    return { ok: response.ok, status: response.status, statusText: response.statusText, text: () => response.text() };
+  };
+  return new ProjectIQService(new DataverseClient(settings.environmentUrl, send), new SharePointClient(sendSharePoint));
 }

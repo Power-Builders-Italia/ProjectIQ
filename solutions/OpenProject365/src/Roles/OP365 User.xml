@@ -21,6 +21,7 @@
     <RolePrivilege name="prvAppendop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvAppendop365_WbsNode" level="Basic" />
+    <RolePrivilege name="prvAppendSharePointDocumentLocation" level="Basic" />
     <RolePrivilege name="prvAppendToAccount" level="Global" />
     <RolePrivilege name="prvAppendToContact" level="Global" />
     <RolePrivilege name="prvAppendToop365_Absence" level="Global" />
@@ -49,6 +50,7 @@
     <RolePrivilege name="prvAppendToop365_WbsAllocation" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvAppendToop365_WbsNode" level="Basic" />
+    <RolePrivilege name="prvAppendToSharePointDocumentLocation" level="Global" />
     <RolePrivilege name="prvCreateop365_Baseline" level="Basic" />
     <RolePrivilege name="prvCreateop365_BaselineNode" level="Basic" />
     <RolePrivilege name="prvCreateop365_GoodsReceipt" level="Basic" />
@@ -67,6 +69,7 @@
     <RolePrivilege name="prvCreateop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvCreateop365_WbsNode" level="Basic" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvCreateSharePointDocumentLocation" level="Basic" />
     <RolePrivilege name="prvDeleteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvDeleteop365_BaselineNode" level="Basic" />
     <RolePrivilege name="prvDeleteop365_GoodsReceipt" level="Basic" />
@@ -119,6 +122,8 @@
     <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
     <RolePrivilege name="prvReadSharePointData" level="Global" />
     <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocumentLocation" level="Global" />
+    <RolePrivilege name="prvReadSharePointSite" level="Global" />
     <RolePrivilege name="prvShareop365_Project" level="Basic" />
     <RolePrivilege name="prvWriteop365_Baseline" level="Basic" />
     <RolePrivilege name="prvWriteop365_BaselineNode" level="Basic" />
@@ -139,5 +144,6 @@
     <RolePrivilege name="prvWriteop365_WbsDependency" level="Basic" />
     <RolePrivilege name="prvWriteop365_WbsNode" level="Basic" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
+    <RolePrivilege name="prvWriteSharePointDocumentLocation" level="Basic" />
   </RolePrivileges>
 </Role>

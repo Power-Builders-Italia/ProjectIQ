@@ -37,6 +37,7 @@ flowchart LR
 | Project health | « Où en est le projet PRJ-000123 ? » | Feu et raisons, budget, réel, engagé, reste, estimation à terminaison, marge, phases WBS signalées, achats ouverts | – |
 | Project budget | « Montre le budget de la toiture de l'école » | Budget contre coût réel par branche WBS (graphique et tableau), main-d'œuvre, matériaux, engagé | – |
 | Project timeline | « PRJ-000123 est-il en retard ? Montre le chemin critique » | Phases WBS sur une chronologie avec avancement, chemin critique, baseline et barres décalées par les dépendances | – |
+| Project documents | « Affiche les documents du projet PRJ-000123 » | Fichiers et sous-dossiers du dossier SharePoint du projet, les plus récents d'abord, avec auteur, taille et liens | – |
 | Portfolio health | « Quels projets dépassent le budget ou sont en retard ? » | Tous les projets avec feu, totaux, marge à terminaison | – |
 | Resource load | « Qui est surchargé dans les prochaines semaines ? », « Montre ma charge » | Carte de chaleur des heures allouées par rapport à la capacité, par semaine | – |
 | Purchasing status | « Qu'est-ce qui attend aux achats ? », « Quelles commandes sont en retard ? » | Demandes à approuver ou à commander, demandes de prix échues, commandes en retard et ouvertes, factures à vérifier | – |
@@ -104,6 +105,10 @@ stateDiagram-v2
 4. La révision indique combien de saisies, d'heures et de personnes. Un rejet exige une **Note for the people**.
 5. Sélectionnez **Confirm approval** ou **Confirm rejection**. La décision utilise la même Custom API que le tableau de bord **Time Approval** : les heures approuvées deviennent coût réel, les personnes reçoivent une notification dans l'application.
 
+## Documents du projet
+
+La carte lit le dossier SharePoint que ProjectIQ a créé pour le projet (voir [Documents dans SharePoint](documents.md)) : le dossier est trouvé par l'emplacement de document du projet, puis ses fichiers et sous-dossiers sont listés **avec vos autorisations SharePoint**. Les KPI montrent le nombre de fichiers et de dossiers et la dernière modification ; sélectionnez un nom pour ouvrir le fichier (les fichiers Office s'ouvrent dans le navigateur) ou **Open folder in SharePoint**. L'ajout et la modification restent dans SharePoint ou dans **Related** → **Documents** de l'application.
+
 ## Achats et fournisseurs
 
 Les vues achats et fournisseurs sont **en lecture seule** : approuver les demandes, créer demandes de prix et commandes, réceptionner et décider des factures restent sur les boutons de l'application (voir [Achats](purchasing.md)). Sélectionnez une ligne pour ouvrir l'enregistrement dans ProjectIQ.
@@ -147,6 +152,7 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 - Les colonnes protégées par le profil **OP365 Cost Visibility** (coûts horaires, Cost des saisies de temps, coûts des matériaux, Spend des fournisseurs) apparaissent à 0 pour les utilisateurs sans ce profil ; les cartes l'indiquent au lieu d'estimer.
 - Les seules écritures sont les saisies de temps de l'utilisateur et les décisions sur les heures, via les mêmes plugins et Custom API que l'application, et seulement après **Confirm**. Achats, projets et données de base ne sont jamais modifiés depuis Copilot.
 - Ce qu'une carte affiche est transmis à Copilot comme contexte de la conversation (au maximum environ 9 Ko de texte), comme pour toute autre réponse de Copilot.
+- Les documents du projet sont lus dans SharePoint avec les **autorisations SharePoint de l'utilisateur** (aucun accès API supplémentaire à approuver) : la carte ne liste que les fichiers que la personne peut ouvrir.
 
 ## Messages possibles
 
@@ -155,6 +161,8 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 | "ProjectIQ environment not configured" | La propriété du locataire `ProjectIQEnvironmentUrl` manque ou n'est pas une URL Dataverse : voir [Configuration](#configuration-administrateurs), étape 4 |
 | "No access to ProjectIQ" | L'API access de l'étape 3 n'est pas approuvé, ou l'utilisateur n'a pas de rôle de sécurité dans l'environnement |
 | "Several projects match" / "No project matches ..." | Choisissez le projet avec les boutons |
+| "No document folder yet" | Personne n'a encore ouvert Documents sur le projet : voir [Documents dans SharePoint](documents.md#ouvrir-les-documents-dun-enregistrement) |
+| "You have no access to the SharePoint folder of this project." | Votre compte SharePoint n'a pas accès au site des documents : demandez à l'administrateur SharePoint |
 | "You are not linked to a resource in ProjectIQ ..." | Aucune ressource active n'a votre utilisateur dans le champ *User* : demandez à un administrateur |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Corrigez la ligne en brouillon |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Trop d'heures sur un jour (bloquant) / vérifiez les heures (avertissement) |

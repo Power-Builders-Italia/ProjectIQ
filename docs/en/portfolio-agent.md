@@ -37,6 +37,7 @@ flowchart LR
 | Project health | "How is project PRJ-000123 going?" | Traffic light and reasons, budget, actual, committed, remaining, estimate at completion, margin, WBS phases with flags, open purchases | – |
 | Project budget | "Show the budget of the school roof" | Budget against actual cost by WBS branch (chart and table), labour, materials, committed | – |
 | Project timeline | "Is PRJ-000123 late? Show the critical path" | WBS phases on a timeline with progress, critical path, baseline and bars pushed by dependencies | – |
+| Project documents | "Show the documents of PRJ-000123" | Files and subfolders of the project folder in SharePoint, most recent first, with author, size and links | – |
 | Portfolio health | "Which projects are over budget or late?" | All projects with traffic light, totals, margin at completion | – |
 | Resource load | "Who is overloaded in the next weeks?", "Show my load" | Heat map of allocated hours against capacity by week | – |
 | Purchasing status | "What is waiting in purchasing?", "Which orders are late?" | Requests to approve or order, RFQs past deadline, late and open orders, invoices to review | – |
@@ -104,6 +105,10 @@ stateDiagram-v2
 4. The review shows how many entries, hours and people. A rejection needs a **Note for the people**.
 5. Select **Confirm approval** or **Confirm rejection**. The decision runs the same Custom API as the **Time Approval** dashboard: approved hours become actual cost, people get an in-app notification.
 
+## Project documents
+
+The card reads the SharePoint folder that ProjectIQ created for the project (see [Documents in SharePoint](documents.md)): the folder is found through the document location of the project, then its files and subfolders are listed **with your SharePoint permissions**. The KPIs show the number of files and folders and the last change; select a name to open the file (Office files open in the browser) or **Open folder in SharePoint**. Uploading and editing stay in SharePoint or in **Related** → **Documents** of the app.
+
 ## Purchasing and suppliers
 
 The purchasing and supplier views are **read-only**: approving requests, creating RFQs and orders, receiving goods and deciding invoices stay on the buttons of the app (see [Purchasing](purchasing.md)). Select a row to open the record in ProjectIQ.
@@ -147,6 +152,7 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 - Columns protected by the **OP365 Cost Visibility** profile (hourly costs, time entry Cost, material costs, supplier Spend) show as 0 for users without the profile; the cards say so instead of estimating.
 - The only writes are the user's own time entries and the time decisions, through the same plugins and Custom APIs as the app, and only after **Confirm**. Purchasing, projects and master data are never changed from Copilot.
 - What a card shows is passed to Copilot as context of the conversation (at most about 9 KB of text), as for any other Copilot answer.
+- Project documents are read from SharePoint with the **user's own SharePoint permissions** (no extra API access to approve): the card lists only the files the person can open.
 
 ## Messages you may see
 
@@ -155,6 +161,8 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 | "ProjectIQ environment not configured" | The tenant property `ProjectIQEnvironmentUrl` is missing or is not a Dataverse URL: see [Set up](#set-up-administrators), step 4 |
 | "No access to ProjectIQ" | The API access of step 3 is not approved, or the user has no security role in the environment |
 | "Several projects match" / "No project matches ..." | Choose the project from the buttons |
+| "No document folder yet" | Nobody has opened Documents on the project: see [Documents in SharePoint](documents.md#opening-the-documents-of-a-record) |
+| "You have no access to the SharePoint folder of this project." | Your SharePoint account has no access to the document site: ask the SharePoint administrator |
 | "You are not linked to a resource in ProjectIQ ..." | No active resource has your user in the *User* field: ask an administrator |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Fix the draft line |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Too many hours on one day (blocking) / check the hours (warning) |

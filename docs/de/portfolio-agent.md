@@ -37,6 +37,7 @@ flowchart LR
 | Project health | „Wie läuft das Projekt PRJ-000123?“ | Ampel und Gründe, Budget, Ist, Obligo, Rest, Prognose bei Fertigstellung, Marge, markierte WBS-Phasen, offene Einkäufe | – |
 | Project budget | „Zeige das Budget des Schuldachs“ | Budget gegen Istkosten je WBS-Zweig (Diagramm und Tabelle), Arbeit, Material, Obligo | – |
 | Project timeline | „Ist PRJ-000123 verspätet? Zeige den kritischen Pfad“ | WBS-Phasen auf einer Zeitleiste mit Fortschritt, kritischem Pfad, Baseline und durch Abhängigkeiten verschobenen Balken | – |
+| Project documents | „Zeige die Dokumente von PRJ-000123“ | Dateien und Unterordner des SharePoint-Ordners des Projekts, neueste zuerst, mit Autor, Größe und Links | – |
 | Portfolio health | „Welche Projekte liegen über dem Budget oder sind verspätet?“ | Alle Projekte mit Ampel, Summen, Marge bei Fertigstellung | – |
 | Resource load | „Wer ist in den nächsten Wochen überlastet?“, „Zeige meine Auslastung“ | Heatmap der zugewiesenen Stunden gegen die Kapazität, je Woche | – |
 | Purchasing status | „Was wartet im Einkauf?“, „Welche Bestellungen sind verspätet?“ | Zu genehmigende oder zu bestellende Anforderungen, abgelaufene Angebotsanfragen, verspätete und offene Bestellungen, zu prüfende Rechnungen | – |
@@ -104,6 +105,10 @@ stateDiagram-v2
 4. Die Prüfung zeigt die Anzahl der Einträge, Stunden und Personen. Eine Ablehnung erfordert eine **Note for the people**.
 5. Wählen Sie **Confirm approval** oder **Confirm rejection**. Die Entscheidung nutzt dieselbe Custom API wie das Dashboard **Time Approval**: Genehmigte Stunden werden zu Istkosten, die Personen erhalten eine In-App-Benachrichtigung.
 
+## Projektdokumente
+
+Die Karte liest den SharePoint-Ordner, den ProjectIQ für das Projekt angelegt hat (siehe [Dokumente in SharePoint](documents.md)): Der Ordner wird über den Dokumentspeicherort des Projekts gefunden, dann werden seine Dateien und Unterordner **mit Ihren SharePoint-Berechtigungen** aufgelistet. Die KPIs zeigen die Anzahl der Dateien und Ordner und die letzte Änderung; wählen Sie einen Namen, um die Datei zu öffnen (Office-Dateien öffnen im Browser), oder **Open folder in SharePoint**. Hochladen und Bearbeiten bleiben in SharePoint oder unter **Related** → **Documents** der App.
+
 ## Einkauf und Lieferanten
 
 Die Ansichten Einkauf und Lieferanten sind **schreibgeschützt**: Anforderungen genehmigen, Angebotsanfragen und Bestellungen anlegen, Wareneingänge buchen und über Rechnungen entscheiden bleibt bei den Schaltflächen der App (siehe [Einkauf](purchasing.md)). Wählen Sie eine Zeile, um den Datensatz in ProjectIQ zu öffnen.
@@ -147,6 +152,7 @@ Jede Person benötigt eine **Microsoft 365 Copilot**-Lizenz und die für Project
 - Spalten, die durch das Profil **OP365 Cost Visibility** geschützt sind (Stundensätze, Cost der Zeiteinträge, Materialkosten, Spend der Lieferanten), erscheinen für Benutzer ohne das Profil als 0; die Karten weisen darauf hin, statt zu schätzen.
 - Die einzigen Schreibvorgänge sind die eigenen Zeiteinträge des Benutzers und die Entscheidungen über Stunden, über dieselben Plugins und Custom APIs wie die App, und nur nach **Confirm**. Einkauf, Projekte und Stammdaten werden aus Copilot nie geändert.
 - Was eine Karte zeigt, wird Copilot als Kontext der Unterhaltung übergeben (höchstens etwa 9 KB Text), wie bei jeder anderen Copilot-Antwort.
+- Projektdokumente werden mit den **eigenen SharePoint-Berechtigungen des Benutzers** aus SharePoint gelesen (kein zusätzlicher API-Zugriff zu genehmigen): Die Karte listet nur Dateien, die die Person öffnen kann.
 
 ## Mögliche Meldungen
 
@@ -155,6 +161,8 @@ Jede Person benötigt eine **Microsoft 365 Copilot**-Lizenz und die für Project
 | "ProjectIQ environment not configured" | Die Mandanteneigenschaft `ProjectIQEnvironmentUrl` fehlt oder ist keine Dataverse-URL: siehe [Einrichtung](#einrichtung-administratoren), Schritt 4 |
 | "No access to ProjectIQ" | Der API access aus Schritt 3 ist nicht genehmigt, oder der Benutzer hat keine Sicherheitsrolle in der Umgebung |
 | "Several projects match" / "No project matches ..." | Wählen Sie das Projekt über die Schaltflächen |
+| "No document folder yet" | Niemand hat Documents am Projekt geöffnet: siehe [Dokumente in SharePoint](documents.md#dokumente-eines-datensatzes-öffnen) |
+| "You have no access to the SharePoint folder of this project." | Ihr SharePoint-Konto hat keinen Zugriff auf die Dokumentenseite: wenden Sie sich an den SharePoint-Administrator |
 | "You are not linked to a resource in ProjectIQ ..." | Keine aktive Ressource hat Ihren Benutzer im Feld *User*: Wenden Sie sich an einen Administrator |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Korrigieren Sie die Entwurfszeile |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Zu viele Stunden an einem Tag (blockierend) / Stunden prüfen (Warnung) |
