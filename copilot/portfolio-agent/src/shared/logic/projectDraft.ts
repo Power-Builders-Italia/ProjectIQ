@@ -12,9 +12,17 @@ export interface WbsDraftLine {
   endDate: string;
 }
 
+/** Customer created with the project, when it is not yet an account in ProjectIQ. */
+export interface NewCustomer {
+  name: string;
+  vatNumber: string;
+}
+
 export interface ProjectDraft {
   name: string;
   customerId?: string;
+  /** Set when the user creates a new customer instead of choosing an account; customerId is then ignored. */
+  newCustomer?: NewCustomer;
   managerId?: string;
   /** yyyy-mm-dd, empty when unknown. */
   startDate: string;
@@ -44,7 +52,7 @@ export interface ExtractedProject {
 }
 
 export type DraftIssueCode =
-  | 'noName' | 'noCustomer' | 'noManager' | 'noStart' | 'noEnd' | 'endBeforeStart' | 'badValue'
+  | 'noName' | 'noCustomer' | 'noCustomerName' | 'customerExists' | 'noManager' | 'noStart' | 'noEnd' | 'endBeforeStart' | 'badValue'
   | 'noNodeName' | 'badCode' | 'duplicateCode' | 'noParent' | 'badHours' | 'badNodeDates' | 'nodeOutsideProject'
   | 'noWbs' | 'noFile';
 
@@ -68,7 +76,9 @@ export interface PlannedNode {
 
 export interface ProjectPlan {
   name: string;
+  /** Empty when newCustomer is set: the account is created first. */
   customerId: string;
+  newCustomer?: { name: string; vatNumber?: string };
   managerId: string;
   startDate: string;
   endDate: string;
@@ -153,13 +163,17 @@ export function draftFrom(p: ExtractedProject, newKey: () => string): ProjectDra
   };
 }
 
-/** Errors block the creation; warnings are shown in the review. */
-export function validateDraft(d: ProjectDraft, hasFile: boolean): DraftIssue[] {
+/** Errors block the creation; warnings are shown in the review. customers: existing names, to warn about a duplicate. */
+export function validateDraft(d: ProjectDraft, hasFile: boolean, customers: { name: string }[] = []): DraftIssue[] {
   const issues: DraftIssue[] = [];
   const error = (code: DraftIssueCode, key?: string): void => { issues.push({ code, severity: 'error', key }); };
   const warning = (code: DraftIssueCode, key?: string): void => { issues.push({ code, severity: 'warning', key }); };
   if (!d.name.trim()) error('noName');
-  if (!d.customerId) error('noCustomer');
+  if (d.newCustomer) {
+    const n = d.newCustomer.name.trim().toLowerCase();
+    if (!n) error('noCustomerName');
+    else if (customers.some(c => c.name.trim().toLowerCase() === n)) warning('customerExists');
+  } else if (!d.customerId) error('noCustomer');
   if (!d.managerId) error('noManager');
   if (!d.startDate) error('noStart');
   if (!d.endDate) error('noEnd');
@@ -201,7 +215,8 @@ export function planProject(d: ProjectDraft): ProjectPlan {
   });
   return {
     name: d.name.trim(),
-    customerId: d.customerId || '',
+    customerId: d.newCustomer ? '' : d.customerId || '',
+    newCustomer: d.newCustomer ? { name: d.newCustomer.name.trim(), vatNumber: d.newCustomer.vatNumber.trim() || undefined } : undefined,
     managerId: d.managerId || '',
     startDate: d.startDate,
     endDate: d.endDate,

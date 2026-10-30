@@ -44,6 +44,8 @@ export interface Choice { id: string; name: string; }
 
 /** SharePoint library of the projects, named after the table by Dataverse document management. */
 const PROJECT_LIBRARY = 'op365_project';
+/** op365_customertype: Prospect 365000000, Customer 365000001. */
+const CUSTOMER_TYPE_CUSTOMER = 365000001;
 
 /** Document management is not set up: no SharePoint library is registered for the projects. */
 export class NoDocumentLibraryError extends Error {
@@ -393,6 +395,13 @@ export class ProjectIQService {
   public async customers(): Promise<Choice[]> {
     const rows = await this._dv.all('accounts', '$select=accountid,name&$filter=statecode eq 0&$orderby=name');
     return rows.map(r => ({ id: str(r.accountid), name: str(r.name) }));
+  }
+
+  /** Creates the customer of a new project: an account marked as customer, with its VAT number when known. */
+  public async createCustomer(c: { name: string; vatNumber?: string }): Promise<string> {
+    const body: Record<string, unknown> = { name: c.name, op365_iscustomer: true, op365_customertype: CUSTOMER_TYPE_CUSTOMER };
+    if (c.vatNumber) body.op365_vatnumber = c.vatNumber;
+    return this._dv.create('accounts', body, 'accountid');
   }
 
   /** Enabled people (no application users), to choose the project manager. */
