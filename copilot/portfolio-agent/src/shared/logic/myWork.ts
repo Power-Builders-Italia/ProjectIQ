@@ -8,7 +8,7 @@ import { level, type ResourceLoadRow } from '../projectiq/load';
 export type IntentKey =
   | 'GetMyWorkSummary' | 'GetPortfolioHealth' | 'GetProjectHealth' | 'GetProjectBudget' | 'GetProjectTimeline'
   | 'GetProjectDocuments' | 'GetResourceLoad' | 'GetPurchasingStatus' | 'GetSupplierCompliance' | 'ReviewTimeApprovals' | 'SubmitTimesheet'
-  | 'ExploreAgentCapabilities';
+  | 'CreateProjectFromDocument' | 'ExploreAgentCapabilities';
 
 export interface AttentionItem {
   kind: 'timeToApprove' | 'requestsToApprove' | 'hoursToSubmit' | 'rejectedHours' | 'missingHours' | 'projectOffTrack'

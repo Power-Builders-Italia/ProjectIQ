@@ -38,6 +38,7 @@ flowchart LR
 | Project budget | „Zeige das Budget des Schuldachs“ | Budget gegen Istkosten je WBS-Zweig (Diagramm und Tabelle), Arbeit, Material, Obligo | – |
 | Project timeline | „Ist PRJ-000123 verspätet? Zeige den kritischen Pfad“ | WBS-Phasen auf einer Zeitleiste mit Fortschritt, kritischem Pfad, Baseline und durch Abhängigkeiten verschobenen Balken | – |
 | Project documents | „Zeige die Dokumente von PRJ-000123“ | Dateien und Unterordner des SharePoint-Ordners des Projekts, neueste zuerst, mit Autor, Größe und Links | – |
+| New project from a document | Hängen Sie ein Angebot oder einen Vertrag an und fragen Sie „Lege aus diesem Dokument ein Projekt im Entwurf an“ | Bearbeitbarer Entwurf des Projekts und seines PSP, fehlende Angaben markiert, zu speicherndes Dokument | Projekt im Status **Offer**, PSP-Elemente, Dokument in SharePoint (nach **Confirm**) |
 | Portfolio health | „Welche Projekte liegen über dem Budget oder sind verspätet?“ | Alle Projekte mit Ampel, Summen, Marge bei Fertigstellung | – |
 | Resource load | „Wer ist in den nächsten Wochen überlastet?“, „Zeige meine Auslastung“ | Heatmap der zugewiesenen Stunden gegen die Kapazität, je Woche | – |
 | Purchasing status | „Was wartet im Einkauf?“, „Welche Bestellungen sind verspätet?“ | Zu genehmigende oder zu bestellende Anforderungen, abgelaufene Angebotsanfragen, verspätete und offene Bestellungen, zu prüfende Rechnungen | – |
@@ -109,6 +110,46 @@ stateDiagram-v2
 
 Die Karte liest den SharePoint-Ordner, den ProjectIQ für das Projekt angelegt hat (siehe [Dokumente in SharePoint](documents.md)): Der Ordner wird über den Dokumentspeicherort des Projekts gefunden, dann werden seine Dateien und Unterordner **mit Ihren SharePoint-Berechtigungen** aufgelistet. Die KPIs zeigen die Anzahl der Dateien und Ordner und die letzte Änderung; wählen Sie einen Namen, um die Datei zu öffnen (Office-Dateien öffnen im Browser), oder **Open folder in SharePoint**. Hochladen und Bearbeiten bleiben in SharePoint oder unter **Related** → **Documents** der App.
 
+## Neues Projekt aus einem Dokument
+
+Hängen Sie ein Angebot, einen Vertrag, einen Kostenvoranschlag oder ein Kick-off-Dokument an den Chat an und fragen Sie zum Beispiel „lege aus diesem Dokument ein Projekt im Entwurf an“. Copilot liest das Dokument und übergibt der Karte, was es findet; die Karte zeigt es als Entwurf, den Sie ergänzen und bestätigen. Vor **Confirm** wird nichts angelegt.
+
+```mermaid
+flowchart LR
+    U[Sie hängen das Dokument<br/>im Chat an] --> C[Copilot liest es<br/>Projektdaten und PSP]
+    C --> K[Karte: bearbeitbarer Entwurf<br/>fehlende Angaben markiert]
+    K -->|Datei erneut wählen| F[Dokument]
+    K -->|Review… dann Confirm| P[(Projekt im Status Offer<br/>+ PSP-Elemente)]
+    F --> S[SharePoint-Ordner<br/>des Projekts]
+    P -.->|document location| S
+```
+
+1. Die Karte füllt **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** und die **WBS**-Zeilen (Code, Phase oder Vorgang, Budgetstunden, Start, Ende) mit dem vor, was im Dokument steht. Kunde und Projektleiter werden nur automatisch gewählt, wenn genau ein Konto oder Benutzer zum Namen im Dokument passt; sonst zeigt die Karte den gelesenen Namen und Sie wählen den Datensatz.
+2. Ergänzen Sie die als fehlend markierten Felder. Die Kachel **To complete** zählt sie; **Review…** bleibt deaktiviert, solange welche fehlen.
+3. Passen Sie den PSP an: Der Code gibt die Gliederung vor (1 ist eine Phase, 1.1 und 1.2 sind ihre Vorgänge); **Add phase or task** fügt eine Zeile hinzu, der Papierkorb entfernt eine.
+4. Wählen Sie **Choose the document** und wählen Sie dieselbe Datei erneut aus. Copilot liest den Anhang, kann die Datei selbst aber nicht an die Karte übergeben; deshalb fragt die Karte noch einmal danach.
+5. Wählen Sie **Review…**, prüfen Sie die Zusammenfassung und die Warnungen und wählen Sie dann **Confirm: create draft project**.
+
+Was angelegt wird:
+
+| Element | Detail |
+|---|---|
+| Projekt | Status **Offer**, Code aus der automatischen Nummerierung (PRJ-######), Kunde, Projektleiter, Termine, Auftragswert, Beschreibung. Sie setzen es in der App auf **In Progress**, wenn das Angebot angenommen ist |
+| PSP-Elemente | Eines je Zeile, übergeordnete vor untergeordneten, mit Code, Name, Reihenfolge, Budgetstunden und Terminen. Die Plugins verdichten das Budget wie bei in der App angelegten Elementen (siehe [PSP, Budget, Gantt und Basispläne](wbs-and-planning.md)) |
+| Dokument | Im SharePoint-Ordner des Projekts gespeichert, mit **Ihren SharePoint-Berechtigungen**. Die Karte legt den Ordner in der Bibliothek `op365_project` an und registriert seine Document Location, also denselben Ordner, den **Related** → **Documents** öffnet (siehe [Dokumente in SharePoint](documents.md)) |
+
+| Prüfung | Wirkung |
+|---|---|
+| Projektname, Kunde, Projektleiter, Start- oder Enddatum fehlt; Ende vor Start; Auftragswert keine Zahl | Sperrt **Review…** |
+| PSP-Code nicht wie 1 oder 1.2, doppelt oder ohne übergeordnetes Element; Phase ohne Namen; Stunden keine Zahl; Ende vor Start | Sperrt **Review…** |
+| PSP-Termine außerhalb der Projekttermine | Warnung |
+| Keine PSP-Zeile | Warnung: Das Projekt wird ohne Phasen angelegt |
+| Kein Dokument gewählt | Warnung: Das Projekt wird angelegt, ohne das Dokument zu speichern |
+
+- Zum Anlegen von Projekten ist eine Sicherheitsrolle nötig, die sie anlegen darf, etwa **OP365 Administrator** (siehe [Administration](administration.md#sicherheitsrollen)); **OP365 User** darf es nicht.
+- Team, Ressourcen, Zuweisungen und Basisplan legen Sie danach in der App fest.
+- Ist die SharePoint-Dokumentverwaltung nicht eingerichtet, werden Projekt und PSP angelegt und die Karte meldet, dass das Dokument nicht gespeichert wurde: Laden Sie es später über **Documents** am Projekt hoch.
+
 ## Einkauf und Lieferanten
 
 Die Ansichten Einkauf und Lieferanten sind **schreibgeschützt**: Anforderungen genehmigen, Angebotsanfragen und Bestellungen anlegen, Wareneingänge buchen und über Rechnungen entscheiden bleibt bei den Schaltflächen der App (siehe [Einkauf](purchasing.md)). Wählen Sie eine Zeile, um den Datensatz in ProjectIQ zu öffnen.
@@ -150,7 +191,7 @@ Jede Person benötigt eine **Microsoft 365 Copilot**-Lizenz und die für Project
 
 - Die Karten rufen die Dataverse Web API mit einem **delegierten Token des Benutzers** auf (Berechtigung *Dataverse user_impersonation*, in Schritt 3 genehmigt): kein Dienstkonto, keine Kopie der Daten. Eine Person sieht nur die Projekte, Zeilen und Spalten, die sie in der App sieht.
 - Spalten, die durch das Profil **OP365 Cost Visibility** geschützt sind (Stundensätze, Cost der Zeiteinträge, Materialkosten, Spend der Lieferanten), erscheinen für Benutzer ohne das Profil als 0; die Karten weisen darauf hin, statt zu schätzen.
-- Die einzigen Schreibvorgänge sind die eigenen Zeiteinträge des Benutzers und die Entscheidungen über Stunden, über dieselben Plugins und Custom APIs wie die App, und nur nach **Confirm**. Einkauf, Projekte und Stammdaten werden aus Copilot nie geändert.
+- Die einzigen Schreibvorgänge sind die eigenen Zeiteinträge des Benutzers, die Entscheidungen über Stunden und die aus einem Dokument angelegten Projektentwürfe (Projekt im Status Offer, seine PSP-Elemente, sein SharePoint-Ordner und das Dokument), über dieselben Plugins und Custom APIs wie die App, und nur nach **Confirm**. Einkauf, bestehende Projekte und Stammdaten werden aus Copilot nie geändert.
 - Was eine Karte zeigt, wird Copilot als Kontext der Unterhaltung übergeben (höchstens etwa 9 KB Text), wie bei jeder anderen Copilot-Antwort.
 - Projektdokumente werden mit den **eigenen SharePoint-Berechtigungen des Benutzers** aus SharePoint gelesen (kein zusätzlicher API-Zugriff zu genehmigen): Die Karte listet nur Dateien, die die Person öffnen kann.
 
@@ -163,6 +204,8 @@ Jede Person benötigt eine **Microsoft 365 Copilot**-Lizenz und die für Project
 | "Several projects match" / "No project matches ..." | Wählen Sie das Projekt über die Schaltflächen |
 | "No document folder yet" | Niemand hat Documents am Projekt geöffnet: siehe [Dokumente in SharePoint](documents.md#dokumente-eines-datensatzes-öffnen) |
 | "You have no access to the SharePoint folder of this project." | Ihr SharePoint-Konto hat keinen Zugriff auf die Dokumentenseite: wenden Sie sich an den SharePoint-Administrator |
+| "Choose the customer." / "Choose the project manager." / "Enter the start date." und die anderen Meldungen des Entwurfs | Ergänzen oder korrigieren Sie das Feld des neuen Projekts |
+| "The project was created, but the document was not saved" | Die SharePoint-Dokumentverwaltung ist für Projekte nicht eingerichtet, oder Sie dürfen nicht in die Bibliothek schreiben: siehe [Dokumente in SharePoint](documents.md#teil-2-einrichtung-administratoren) und laden Sie das Dokument über Documents am Projekt hoch |
 | "You are not linked to a resource in ProjectIQ ..." | Keine aktive Ressource hat Ihren Benutzer im Feld *User*: Wenden Sie sich an einen Administrator |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Korrigieren Sie die Entwurfszeile |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Zu viele Stunden an einem Tag (blockierend) / Stunden prüfen (Warnung) |

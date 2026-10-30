@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import type { IntentKey } from '../intents';
+import { CreateProjectView } from './views/CreateProjectView';
 import { ExploreView } from './views/ExploreView';
 import { MyWorkView } from './views/MyWorkView';
 import { ProjectDocumentsView } from './views/ProjectDocumentsView';
@@ -26,6 +27,10 @@ export const AgentApp: React.FC<{ intent: IntentKey; properties: Props }> = ({ i
     case 'GetProjectBudget': return <ProjectBudgetView project={p.project} />;
     case 'GetProjectTimeline': return <ProjectTimelineView project={p.project} />;
     case 'GetProjectDocuments': return <ProjectDocumentsView project={p.project} />;
+    case 'CreateProjectFromDocument': return (
+      <CreateProjectView documentName={p.documentName} name={p.name} customer={p.customer} projectManager={p.projectManager} startDate={p.startDate}
+        endDate={p.endDate} contractValue={p.contractValue} description={p.description} wbs={p.wbs} />
+    );
     case 'GetPortfolioHealth': return <PortfolioHealthView health={p.health} customer={p.customer} manager={p.manager} includeClosed={p.includeClosed} />;
     case 'GetResourceLoad': return <ResourceLoadView resource={p.resource} from={p.from} weeks={p.weeks} />;
     case 'GetPurchasingStatus': return <PurchasingView project={p.project} focus={p.focus} />;

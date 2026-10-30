@@ -31,7 +31,7 @@ flowchart LR
 | Purchase Order | `op365_purchaseorder` | Una per ordine |
 | Supplier Document | `op365_supplierdocument` | Una per documento (per esempio il DURC scansionato con i suoi allegati) |
 
-La cartella viene creata la **prima volta che qualcuno apre Documents** sul record. Dataverse salva una *document location* che collega il record alla cartella; l'agente e l'app trovano la cartella tramite questa.
+La cartella viene creata la **prima volta che qualcuno apre Documents** sul record. Dataverse salva una *document location* che collega il record alla cartella; l'agente e l'app trovano la cartella tramite questa. Un progetto creato in Copilot da un documento ha già la sua cartella, con il documento dentro (vedi [Portfolio Agent](portfolio-agent.md#nuovo-progetto-da-documento)).
 
 ## Parte 1: lavorare con i documenti
 

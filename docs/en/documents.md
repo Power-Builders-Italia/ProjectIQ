@@ -31,7 +31,7 @@ flowchart LR
 | Purchase Order | `op365_purchaseorder` | One per order |
 | Supplier Document | `op365_supplierdocument` | One per document (for example the scanned DURC with its attachments) |
 
-The folder is created the **first time someone opens Documents** on the record. Dataverse saves a *document location* that links the record to the folder; the agent and the app find the folder through it.
+The folder is created the **first time someone opens Documents** on the record. Dataverse saves a *document location* that links the record to the folder; the agent and the app find the folder through it. A project created in Copilot from a document already has its folder, with the document in it (see [Portfolio Agent](portfolio-agent.md#new-project-from-a-document)).
 
 ## Part 1: working with documents
 

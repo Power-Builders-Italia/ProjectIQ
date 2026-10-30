@@ -38,6 +38,7 @@ flowchart LR
 | Project budget | "Show the budget of the school roof" | Budget against actual cost by WBS branch (chart and table), labour, materials, committed | – |
 | Project timeline | "Is PRJ-000123 late? Show the critical path" | WBS phases on a timeline with progress, critical path, baseline and bars pushed by dependencies | – |
 | Project documents | "Show the documents of PRJ-000123" | Files and subfolders of the project folder in SharePoint, most recent first, with author, size and links | – |
+| New project from a document | Attach an offer or contract and ask "Create a draft project from this document" | Editable draft of the project and its WBS, missing data flagged, document to save | Project in status **Offer**, WBS nodes, document in SharePoint (after **Confirm**) |
 | Portfolio health | "Which projects are over budget or late?" | All projects with traffic light, totals, margin at completion | – |
 | Resource load | "Who is overloaded in the next weeks?", "Show my load" | Heat map of allocated hours against capacity by week | – |
 | Purchasing status | "What is waiting in purchasing?", "Which orders are late?" | Requests to approve or order, RFQs past deadline, late and open orders, invoices to review | – |
@@ -109,6 +110,46 @@ stateDiagram-v2
 
 The card reads the SharePoint folder that ProjectIQ created for the project (see [Documents in SharePoint](documents.md)): the folder is found through the document location of the project, then its files and subfolders are listed **with your SharePoint permissions**. The KPIs show the number of files and folders and the last change; select a name to open the file (Office files open in the browser) or **Open folder in SharePoint**. Uploading and editing stay in SharePoint or in **Related** → **Documents** of the app.
 
+## New project from a document
+
+Attach an offer, a contract, a quote or a kickoff document to the chat and ask, for example, "create a draft project from this document". Copilot reads the document and passes what it finds to the card; the card shows it as a draft you complete and confirm. Nothing is created before **Confirm**.
+
+```mermaid
+flowchart LR
+    U[You attach the document<br/>in the chat] --> C[Copilot reads it<br/>project data and WBS]
+    C --> K[Card: editable draft<br/>missing data flagged]
+    K -->|choose the file again| F[Document]
+    K -->|Review… then Confirm| P[(Project in status Offer<br/>+ WBS nodes)]
+    F --> S[SharePoint folder<br/>of the project]
+    P -.->|document location| S
+```
+
+1. The card pre-fills **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** and the **WBS** lines (code, phase or task, budget hours, start, end) with what the document states. Customer and project manager are chosen automatically only when exactly one account or user matches the name in the document; otherwise the card shows the name it read and you pick the record.
+2. Complete the fields marked as missing. The **To complete** tile counts them; **Review…** stays disabled until there are none.
+3. Adjust the WBS: the code gives the outline (1 is a phase, 1.1 and 1.2 are its tasks); **Add phase or task** adds a line, the bin removes one.
+4. Select **Choose the document** and pick the same file again. Copilot reads the attachment but cannot pass the file itself to the card, so the card asks for it once more.
+5. Select **Review…**, check the summary and the warnings, then **Confirm: create draft project**.
+
+What is created:
+
+| Item | Detail |
+|---|---|
+| Project | Status **Offer**, code from the autonumber (PRJ-######), customer, project manager, dates, contract value, description. You move it to **In Progress** in the app when the offer is accepted |
+| WBS nodes | One per line, parents before children, with code, name, sort order, budget hours and dates. The plugins roll the budget up as for nodes created in the app (see [WBS, budget, Gantt and baselines](wbs-and-planning.md)) |
+| Document | Saved in the SharePoint folder of the project, with **your SharePoint permissions**. The card creates the folder in the `op365_project` library and registers its document location, the same folder **Related** → **Documents** opens (see [Documents in SharePoint](documents.md)) |
+
+| Check | Effect |
+|---|---|
+| Project name, customer, project manager, start date, end date missing; end before start; contract value not a number | Blocks **Review…** |
+| WBS code not like 1 or 1.2, used twice, or without its parent; phase without a name; hours not a number; end before start | Blocks **Review…** |
+| WBS dates outside the project dates | Warning |
+| No WBS line | Warning: the project is created without phases |
+| No document chosen | Warning: the project is created without saving the document |
+
+- Creating projects needs a security role that can create them, such as **OP365 Administrator** (see [Administration](administration.md#security-roles)); **OP365 User** cannot.
+- Team, resources, allocations and the baseline are set afterwards in the app.
+- If SharePoint document management is not set up, the project and its WBS are created and the card says the document was not saved: upload it later from **Documents** on the project.
+
 ## Purchasing and suppliers
 
 The purchasing and supplier views are **read-only**: approving requests, creating RFQs and orders, receiving goods and deciding invoices stay on the buttons of the app (see [Purchasing](purchasing.md)). Select a row to open the record in ProjectIQ.
@@ -150,7 +191,7 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 
 - The cards call the Dataverse Web API with a **delegated token of the user** (permission *Dataverse user_impersonation* approved in step 3): no service account, no copy of the data. A person sees only the projects, rows and columns they see in the app.
 - Columns protected by the **OP365 Cost Visibility** profile (hourly costs, time entry Cost, material costs, supplier Spend) show as 0 for users without the profile; the cards say so instead of estimating.
-- The only writes are the user's own time entries and the time decisions, through the same plugins and Custom APIs as the app, and only after **Confirm**. Purchasing, projects and master data are never changed from Copilot.
+- The only writes are the user's own time entries, the time decisions and the draft projects created from a document (project in status Offer, its WBS nodes, its SharePoint folder and document), through the same plugins and Custom APIs as the app, and only after **Confirm**. Purchasing, existing projects and master data are never changed from Copilot.
 - What a card shows is passed to Copilot as context of the conversation (at most about 9 KB of text), as for any other Copilot answer.
 - Project documents are read from SharePoint with the **user's own SharePoint permissions** (no extra API access to approve): the card lists only the files the person can open.
 
@@ -163,6 +204,8 @@ Each person needs a **Microsoft 365 Copilot** licence and the **Power Apps Premi
 | "Several projects match" / "No project matches ..." | Choose the project from the buttons |
 | "No document folder yet" | Nobody has opened Documents on the project: see [Documents in SharePoint](documents.md#opening-the-documents-of-a-record) |
 | "You have no access to the SharePoint folder of this project." | Your SharePoint account has no access to the document site: ask the SharePoint administrator |
+| "Choose the customer." / "Choose the project manager." / "Enter the start date." and the other draft messages | Complete or fix the field of the new project |
+| "The project was created, but the document was not saved" | SharePoint document management is not set up for projects, or you cannot write in the library: see [Documents in SharePoint](documents.md#part-2-set-up-administrators) and upload the document from Documents on the project |
 | "You are not linked to a resource in ProjectIQ ..." | No active resource has your user in the *User* field: ask an administrator |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Fix the draft line |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Too many hours on one day (blocking) / check the hours (warning) |

@@ -38,6 +38,7 @@ flowchart LR
 | Project budget | « Montre le budget de la toiture de l'école » | Budget contre coût réel par branche WBS (graphique et tableau), main-d'œuvre, matériaux, engagé | – |
 | Project timeline | « PRJ-000123 est-il en retard ? Montre le chemin critique » | Phases WBS sur une chronologie avec avancement, chemin critique, baseline et barres décalées par les dépendances | – |
 | Project documents | « Affiche les documents du projet PRJ-000123 » | Fichiers et sous-dossiers du dossier SharePoint du projet, les plus récents d'abord, avec auteur, taille et liens | – |
+| New project from a document | Joignez une offre ou un contrat et demandez « Crée un projet brouillon à partir de ce document » | Brouillon modifiable du projet et de son WBS, données manquantes signalées, document à enregistrer | Projet au statut **Offer**, nœuds WBS, document dans SharePoint (après **Confirm**) |
 | Portfolio health | « Quels projets dépassent le budget ou sont en retard ? » | Tous les projets avec feu, totaux, marge à terminaison | – |
 | Resource load | « Qui est surchargé dans les prochaines semaines ? », « Montre ma charge » | Carte de chaleur des heures allouées par rapport à la capacité, par semaine | – |
 | Purchasing status | « Qu'est-ce qui attend aux achats ? », « Quelles commandes sont en retard ? » | Demandes à approuver ou à commander, demandes de prix échues, commandes en retard et ouvertes, factures à vérifier | – |
@@ -109,6 +110,46 @@ stateDiagram-v2
 
 La carte lit le dossier SharePoint que ProjectIQ a créé pour le projet (voir [Documents dans SharePoint](documents.md)) : le dossier est trouvé par l'emplacement de document du projet, puis ses fichiers et sous-dossiers sont listés **avec vos autorisations SharePoint**. Les KPI montrent le nombre de fichiers et de dossiers et la dernière modification ; sélectionnez un nom pour ouvrir le fichier (les fichiers Office s'ouvrent dans le navigateur) ou **Open folder in SharePoint**. L'ajout et la modification restent dans SharePoint ou dans **Related** → **Documents** de l'application.
 
+## Nouveau projet à partir d'un document
+
+Joignez à la conversation une offre, un contrat, un devis ou un document de lancement et demandez, par exemple, « crée un projet brouillon à partir de ce document ». Copilot lit le document et transmet à la carte ce qu'il trouve ; la carte l'affiche comme un brouillon à compléter et à confirmer. Rien n'est créé avant **Confirm**.
+
+```mermaid
+flowchart LR
+    U[Vous joignez le document<br/>dans la conversation] --> C[Copilot le lit<br/>données du projet et WBS]
+    C --> K[Carte : brouillon modifiable<br/>données manquantes signalées]
+    K -->|choisissez à nouveau le fichier| F[Document]
+    K -->|Review… puis Confirm| P[(Projet au statut Offer<br/>+ nœuds WBS)]
+    F --> S[Dossier SharePoint<br/>du projet]
+    P -.->|document location| S
+```
+
+1. La carte préremplit **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** et les lignes du **WBS** (code, phase ou tâche, heures budgétées, début, fin) avec ce que le document indique. Le client et le chef de projet sont choisis automatiquement seulement lorsqu'un seul compte ou utilisateur correspond au nom du document ; sinon la carte affiche le nom lu et vous choisissez l'enregistrement.
+2. Complétez les champs signalés comme manquants. La tuile **To complete** les compte ; **Review…** reste désactivé tant qu'il en reste.
+3. Ajustez le WBS : le code donne la structure (1 est une phase, 1.1 et 1.2 sont ses tâches) ; **Add phase or task** ajoute une ligne, la corbeille en supprime une.
+4. Sélectionnez **Choose the document** et choisissez à nouveau le même fichier. Copilot lit la pièce jointe mais ne peut pas transmettre le fichier lui-même à la carte, qui le redemande donc une fois.
+5. Sélectionnez **Review…**, vérifiez le récapitulatif et les avertissements, puis **Confirm: create draft project**.
+
+Ce qui est créé :
+
+| Élément | Détail |
+|---|---|
+| Projet | Statut **Offer**, code issu de la numérotation automatique (PRJ-######), client, chef de projet, dates, montant du contrat, description. Vous le passez à **In Progress** dans l'application quand l'offre est acceptée |
+| Nœuds WBS | Un par ligne, les parents avant les enfants, avec code, nom, ordre, heures budgétées et dates. Les plugins consolident le budget comme pour les nœuds créés dans l'application (voir [WBS, budget, Gantt et références](wbs-and-planning.md)) |
+| Document | Enregistré dans le dossier SharePoint du projet, avec **vos autorisations SharePoint**. La carte crée le dossier dans la bibliothèque `op365_project` et enregistre son document location, le même dossier que celui ouvert par **Related** → **Documents** (voir [Documents dans SharePoint](documents.md)) |
+
+| Contrôle | Effet |
+|---|---|
+| Nom du projet, client, chef de projet, date de début ou de fin manquants ; fin avant le début ; montant du contrat non numérique | Bloque **Review…** |
+| Code WBS différent de 1 ou 1.2, utilisé deux fois ou sans parent ; phase sans nom ; heures non numériques ; fin avant le début | Bloque **Review…** |
+| Dates WBS en dehors des dates du projet | Avertissement |
+| Aucune ligne WBS | Avertissement : le projet est créé sans phases |
+| Aucun document choisi | Avertissement : le projet est créé sans enregistrer le document |
+
+- La création de projets exige un rôle de sécurité qui peut les créer, comme **OP365 Administrator** (voir [Administration](administration.md#rôles-de-sécurité)) ; **OP365 User** ne le peut pas.
+- L'équipe, les ressources, les affectations et la référence se définissent ensuite dans l'application.
+- Si la gestion des documents SharePoint n'est pas configurée, le projet et son WBS sont créés et la carte indique que le document n'a pas été enregistré : chargez-le plus tard depuis **Documents** sur le projet.
+
 ## Achats et fournisseurs
 
 Les vues achats et fournisseurs sont **en lecture seule** : approuver les demandes, créer demandes de prix et commandes, réceptionner et décider des factures restent sur les boutons de l'application (voir [Achats](purchasing.md)). Sélectionnez une ligne pour ouvrir l'enregistrement dans ProjectIQ.
@@ -150,7 +191,7 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 
 - Les cartes appellent la Dataverse Web API avec un **jeton délégué de l'utilisateur** (autorisation *Dataverse user_impersonation* approuvée à l'étape 3) : pas de compte de service, pas de copie des données. Une personne ne voit que les projets, lignes et colonnes qu'elle voit dans l'application.
 - Les colonnes protégées par le profil **OP365 Cost Visibility** (coûts horaires, Cost des saisies de temps, coûts des matériaux, Spend des fournisseurs) apparaissent à 0 pour les utilisateurs sans ce profil ; les cartes l'indiquent au lieu d'estimer.
-- Les seules écritures sont les saisies de temps de l'utilisateur et les décisions sur les heures, via les mêmes plugins et Custom API que l'application, et seulement après **Confirm**. Achats, projets et données de base ne sont jamais modifiés depuis Copilot.
+- Les seules écritures sont les saisies de temps de l'utilisateur, les décisions sur les heures et les projets brouillons créés à partir d'un document (projet au statut Offer, ses nœuds WBS, son dossier SharePoint et le document), via les mêmes plugins et Custom API que l'application, et seulement après **Confirm**. Achats, projets existants et données de base ne sont jamais modifiés depuis Copilot.
 - Ce qu'une carte affiche est transmis à Copilot comme contexte de la conversation (au maximum environ 9 Ko de texte), comme pour toute autre réponse de Copilot.
 - Les documents du projet sont lus dans SharePoint avec les **autorisations SharePoint de l'utilisateur** (aucun accès API supplémentaire à approuver) : la carte ne liste que les fichiers que la personne peut ouvrir.
 
@@ -163,6 +204,8 @@ Chaque personne a besoin d'une licence **Microsoft 365 Copilot** et de la licenc
 | "Several projects match" / "No project matches ..." | Choisissez le projet avec les boutons |
 | "No document folder yet" | Personne n'a encore ouvert Documents sur le projet : voir [Documents dans SharePoint](documents.md#ouvrir-les-documents-dun-enregistrement) |
 | "You have no access to the SharePoint folder of this project." | Votre compte SharePoint n'a pas accès au site des documents : demandez à l'administrateur SharePoint |
+| "Choose the customer." / "Choose the project manager." / "Enter the start date." et les autres messages du brouillon | Complétez ou corrigez le champ du nouveau projet |
+| "The project was created, but the document was not saved" | La gestion des documents SharePoint n'est pas configurée pour les projets, ou vous ne pouvez pas écrire dans la bibliothèque : voir [Documents dans SharePoint](documents.md#partie-2--configuration-administrateurs) et chargez le document depuis Documents sur le projet |
 | "You are not linked to a resource in ProjectIQ ..." | Aucune ressource active n'a votre utilisateur dans le champ *User* : demandez à un administrateur |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Corrigez la ligne en brouillon |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Trop d'heures sur un jour (bloquant) / vérifiez les heures (avertissement) |

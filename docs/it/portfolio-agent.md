@@ -38,6 +38,7 @@ flowchart LR
 | Project budget | "Mostra il budget del tetto della scuola" | Budget contro costo effettivo per ramo WBS (grafico e tabella), manodopera, materiali, impegnato | – |
 | Project timeline | "PRJ-000123 è in ritardo? Mostra il percorso critico" | Fasi WBS su una timeline con avanzamento, percorso critico, baseline e barre spinte dalle dipendenze | – |
 | Project documents | "Mostra i documenti della commessa PRJ-000123" | File e sottocartelle della cartella SharePoint della commessa, dai più recenti, con autore, dimensione e link | – |
+| New project from a document | Allega un'offerta o un contratto e chiedi "Crea un progetto in bozza da questo documento" | Bozza modificabile del progetto e della sua WBS, dati mancanti evidenziati, documento da salvare | Progetto nello stato **Offer**, nodi WBS, documento in SharePoint (dopo **Confirm**) |
 | Portfolio health | "Quali commesse sono fuori budget o in ritardo?" | Tutte le commesse con semaforo, totali, margine a finire | – |
 | Resource load | "Chi è sovraccarico nelle prossime settimane?", "Mostra il mio carico" | Mappa di calore delle ore allocate rispetto alla capacità, per settimana | – |
 | Purchasing status | "Cosa è in attesa negli acquisti?", "Quali ordini sono in ritardo?" | RdA da approvare o da ordinare, RdO scadute, ordini in ritardo e aperti, fatture da verificare | – |
@@ -109,6 +110,46 @@ stateDiagram-v2
 
 La card legge la cartella SharePoint che ProjectIQ ha creato per la commessa (vedi [Documenti in SharePoint](documents.md)): la cartella si trova tramite la document location della commessa, poi file e sottocartelle vengono elencati **con i tuoi permessi SharePoint**. I KPI mostrano numero di file e cartelle e l'ultima modifica; seleziona un nome per aprire il file (i file Office si aprono nel browser) oppure **Open folder in SharePoint**. Caricamento e modifica restano in SharePoint o in **Related** → **Documents** dell'app.
 
+## Nuovo progetto da documento
+
+Allega alla chat un'offerta, un contratto, un preventivo o un documento di avvio e chiedi, per esempio, "crea un progetto in bozza da questo documento". Copilot legge il documento e passa alla card ciò che trova; la card lo mostra come bozza da completare e confermare. Nulla viene creato prima di **Confirm**.
+
+```mermaid
+flowchart LR
+    U[Alleghi il documento<br/>in chat] --> C[Copilot lo legge<br/>dati del progetto e WBS]
+    C --> K[Card: bozza modificabile<br/>dati mancanti evidenziati]
+    K -->|scegli di nuovo il file| F[Documento]
+    K -->|Review… poi Confirm| P[(Progetto nello stato Offer<br/>+ nodi WBS)]
+    F --> S[Cartella SharePoint<br/>del progetto]
+    P -.->|document location| S
+```
+
+1. La card precompila **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** e le righe della **WBS** (codice, fase o attività, ore a budget, inizio, fine) con ciò che il documento riporta. Cliente e project manager vengono scelti automaticamente solo quando un solo account o utente corrisponde al nome nel documento; altrimenti la card mostra il nome letto e scegli tu il record.
+2. Completa i campi segnalati come mancanti. Il riquadro **To complete** li conta; **Review…** resta disattivato finché ce ne sono.
+3. Sistema la WBS: il codice dà la struttura (1 è una fase, 1.1 e 1.2 sono le sue attività); **Add phase or task** aggiunge una riga, il cestino la rimuove.
+4. Seleziona **Choose the document** e scegli di nuovo lo stesso file. Copilot legge l'allegato ma non può passare il file alla card, quindi la card lo chiede ancora una volta.
+5. Seleziona **Review…**, controlla il riepilogo e gli avvisi, poi **Confirm: create draft project**.
+
+Cosa viene creato:
+
+| Elemento | Dettaglio |
+|---|---|
+| Progetto | Stato **Offer**, codice dall'autonumerazione (PRJ-######), cliente, project manager, date, valore contratto, descrizione. Lo porti a **In Progress** nell'app quando l'offerta è accettata |
+| Nodi WBS | Uno per riga, i padri prima dei figli, con codice, nome, ordinamento, ore a budget e date. I plugin consolidano il budget come per i nodi creati nell'app (vedi [WBS, budget, Gantt e baseline](wbs-and-planning.md)) |
+| Documento | Salvato nella cartella SharePoint del progetto, con **i tuoi permessi SharePoint**. La card crea la cartella nella raccolta `op365_project` e registra la sua document location, la stessa cartella che apre **Related** → **Documents** (vedi [Documenti in SharePoint](documents.md)) |
+
+| Controllo | Effetto |
+|---|---|
+| Nome progetto, cliente, project manager, data inizio o data fine mancanti; fine prima dell'inizio; valore contratto non numerico | Blocca **Review…** |
+| Codice WBS non come 1 o 1.2, usato due volte o senza padre; fase senza nome; ore non numeriche; fine prima dell'inizio | Blocca **Review…** |
+| Date WBS fuori dalle date del progetto | Avviso |
+| Nessuna riga WBS | Avviso: il progetto viene creato senza fasi |
+| Nessun documento scelto | Avviso: il progetto viene creato senza salvare il documento |
+
+- Per creare progetti serve un ruolo di sicurezza che li possa creare, come **OP365 Administrator** (vedi [Amministrazione](administration.md#ruoli-di-sicurezza)); **OP365 User** non può.
+- Team, risorse, allocazioni e baseline si impostano dopo nell'app.
+- Se la gestione documentale SharePoint non è configurata, progetto e WBS vengono creati e la card avvisa che il documento non è stato salvato: caricalo poi da **Documents** sul progetto.
+
 ## Acquisti e fornitori
 
 Le viste acquisti e fornitori sono **in sola lettura**: approvare RdA, creare RdO e ordini, ricevere merci e decidere le fatture restano sui pulsanti dell'app (vedi [Acquisti](purchasing.md)). Seleziona una riga per aprire il record in ProjectIQ.
@@ -150,7 +191,7 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 
 - Le schede chiamano la Dataverse Web API con un **token delegato dell'utente** (permesso *Dataverse user_impersonation* approvato al passo 3): nessun account di servizio, nessuna copia dei dati. Una persona vede solo le commesse, le righe e le colonne che vede nell'app.
 - Le colonne protette dal profilo **OP365 Cost Visibility** (costi orari, Cost delle registrazioni ore, costi dei materiali, Spend dei fornitori) appaiono a 0 per chi non ha il profilo; le schede lo dicono invece di stimare.
-- Le sole scritture sono le registrazioni ore dell'utente e le decisioni sulle ore, tramite gli stessi plugin e Custom API dell'app, e solo dopo **Confirm**. Acquisti, commesse e anagrafiche non vengono mai modificati da Copilot.
+- Le sole scritture sono le registrazioni ore dell'utente, le decisioni sulle ore e i progetti in bozza creati da un documento (progetto nello stato Offer, i suoi nodi WBS, la sua cartella SharePoint e il documento), tramite gli stessi plugin e Custom API dell'app, e solo dopo **Confirm**. Acquisti, commesse esistenti e anagrafiche non vengono mai modificati da Copilot.
 - Ciò che una scheda mostra è passato a Copilot come contesto della conversazione (al massimo circa 9 KB di testo), come per ogni altra risposta di Copilot.
 - I documenti di commessa sono letti da SharePoint con i **permessi SharePoint dell'utente** (nessun accesso API in più da approvare): la card elenca solo i file che la persona può aprire.
 
@@ -163,6 +204,8 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 | "Several projects match" / "No project matches ..." | Scegli la commessa dai pulsanti |
 | "No document folder yet" | Nessuno ha ancora aperto Documents sulla commessa: vedi [Documenti in SharePoint](documents.md#aprire-i-documenti-di-un-record) |
 | "You have no access to the SharePoint folder of this project." | Il tuo account SharePoint non ha accesso al sito dei documenti: chiedi all'amministratore SharePoint |
+| "Choose the customer." / "Choose the project manager." / "Enter the start date." e gli altri messaggi della bozza | Completa o correggi il campo del nuovo progetto |
+| "The project was created, but the document was not saved" | La gestione documentale SharePoint non è configurata per i progetti, oppure non puoi scrivere nella raccolta: vedi [Documenti in SharePoint](documents.md#parte-2-configurazione-amministratori) e carica il documento da Documents sul progetto |
 | "You are not linked to a resource in ProjectIQ ..." | Nessuna risorsa attiva ha il tuo utente nel campo *User*: chiedi a un amministratore |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Correggi la riga in bozza |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Troppe ore in un giorno (bloccante) / controlla le ore (avviso) |

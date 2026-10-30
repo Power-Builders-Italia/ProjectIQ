@@ -49,6 +49,10 @@
           "manifest": "./src/copilotComponents/reviewTimeApprovals/ReviewTimeApprovalsCopilotComponent.manifest.json"
         },
         {
+          "entrypoint": "./lib/copilotComponents/createProjectFromDocument/CreateProjectFromDocumentCopilotComponent.js",
+          "manifest": "./src/copilotComponents/createProjectFromDocument/CreateProjectFromDocumentCopilotComponent.manifest.json"
+        },
+        {
           "entrypoint": "./lib/copilotComponents/exploreAgentCapabilities/ExploreAgentCapabilitiesCopilotComponent.js",
           "manifest": "./src/copilotComponents/exploreAgentCapabilities/ExploreAgentCapabilitiesCopilotComponent.manifest.json"
         }
