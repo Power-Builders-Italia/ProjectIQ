@@ -89,7 +89,7 @@ Die Dokumentverwaltung der drei Tabellen sowie die Berechtigungen für Dokuments
 
 | Meldung | Bedeutung und Lösung |
 |---|---|
-| Kein **Documents** unter **Related**, oder eine Meldung, dass die Dokumentverwaltung nicht konfiguriert ist | Die Website ist nicht registriert (siehe [Teil 2](#teil-2-einrichtung-administratoren), Schritt 2), oder die ProjectIQ-App enthält die Tabelle **Document** (SharePoint Document) nicht: führen Sie `tools/dataverse/app.py` aus oder fügen Sie die Tabelle im App-Designer hinzu und veröffentlichen Sie |
+| Kein **Documents** unter **Related**, oder eine Meldung, dass die Dokumentverwaltung nicht konfiguriert ist | Die Website ist nicht registriert (siehe [Teil 2](#teil-2-einrichtung-administratoren), Schritt 2), oder die ProjectIQ-App enthält die Tabellen **SharePoint Document** und **Document Location** nicht: führen Sie `tools/dataverse/app.py` aus oder fügen Sie die Tabellen im App-Designer hinzu und veröffentlichen Sie |
 | Das Documents-Raster meldet fehlende Berechtigungen für den Speicherort | Ihr SharePoint-Konto hat keinen Zugriff auf die Website oder den Ordner: wenden Sie sich an den SharePoint-Administrator (Schritt 4) |
 | Zugriff verweigert beim Anlegen des Ordners | Sie können nicht in die Bibliothek schreiben: fordern Sie **Edit** auf der Website an |
 | Karte: "No document folder yet" | Niemand hat Documents am Projekt geöffnet: öffnen Sie das Projekt in ProjectIQ und wählen Sie **Related** → **Documents** |

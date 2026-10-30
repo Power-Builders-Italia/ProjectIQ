@@ -89,7 +89,7 @@ Document management on the three tables, and the document location and SharePoin
 
 | Message | Meaning and solution |
 |---|---|
-| No **Documents** under **Related**, or a message that document management is not configured | The site is not registered (see [Part 2](#part-2-set-up-administrators), step 2), or the ProjectIQ app does not contain the **Document** (SharePoint Document) table: run `tools/dataverse/app.py` or add the table in the app designer and publish |
+| No **Documents** under **Related**, or a message that document management is not configured | The site is not registered (see [Part 2](#part-2-set-up-administrators), step 2), or the ProjectIQ app does not contain the **SharePoint Document** and **Document Location** tables: run `tools/dataverse/app.py` or add the tables in the app designer and publish |
 | The Documents grid says you have no permission on the location | Your SharePoint account has no access to the site or folder: ask the SharePoint administrator (step 4) |
 | Access denied when the folder is created | You cannot write in the library: ask for **Edit** on the site |
 | Card: "No document folder yet" | Nobody has opened Documents on the project: open the project in ProjectIQ and select **Related** → **Documents** |
