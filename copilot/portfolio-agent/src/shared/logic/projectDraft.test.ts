@@ -48,6 +48,19 @@ describe('projectDraft', () => {
     expect(canCreate(issues)).toBe(false);
   });
 
+  it('creates a new customer with the project', () => {
+    const customers = [{ name: 'Fabrikam' }];
+    const named = (name: string): ProjectDraft => complete({ customerId: undefined, newCustomer: { name, vatNumber: ' IT01234567890 ' } });
+    expect(validateDraft(named(' '), true, customers).map(i => i.code)).toEqual(['noCustomerName', 'noWbs']);
+    const dup = validateDraft(named('fabrikam'), true, customers);
+    expect(dup.map(i => `${i.severity}:${i.code}`)).toEqual(['warning:customerExists', 'warning:noWbs']);
+    expect(canCreate(dup)).toBe(true);
+    const plan = planProject({ ...named(' Northwind '), customerId: 'a1' });
+    expect(plan.customerId).toBe('');
+    expect(plan.newCustomer).toEqual({ name: 'Northwind', vatNumber: 'IT01234567890' });
+    expect(planProject(complete()).newCustomer).toBeUndefined();
+  });
+
   it('checks the outline of the WBS', () => {
     const lines = [
       { key: 'a', code: '1', name: 'Design', budgetHours: '', startDate: '', endDate: '' },

@@ -129,15 +129,17 @@ flowchart LR
 ```
 
 1. La card precompila **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** e le righe della **WBS** (codice, fase o attività, ore a budget, inizio, fine) con ciò che il documento riporta. Cliente e project manager vengono scelti automaticamente solo quando un solo account o utente corrisponde al nome nel documento; altrimenti la card mostra il nome letto e scegli tu il record.
-2. Completa i campi segnalati come mancanti. Il riquadro **To complete** li conta; **Review…** resta disattivato finché ce ne sono.
-3. Sistema la WBS: il codice dà la struttura (1 è una fase, 1.1 e 1.2 sono le sue attività); **Add phase or task** aggiunge una riga, il cestino la rimuove.
-4. Seleziona **Choose the document** e scegli di nuovo lo stesso file. Copilot legge l'allegato ma non può passare il file alla card, quindi la card lo chiede ancora una volta.
-5. Seleziona **Review…**, controlla il riepilogo e gli avvisi, poi **Confirm: create draft project**.
+2. Se il cliente non è ancora in ProjectIQ, seleziona **New customer** invece di sceglierlo: la card mostra **New customer** con il nome letto nel documento e **VAT number** (compilato se il documento lo riporta). **Choose an existing customer** torna all'elenco. Se esiste già un'azienda con lo stesso nome, la card ti avvisa, perché probabilmente vuoi sceglierla.
+3. Completa i campi segnalati come mancanti. Il riquadro **To complete** li conta; **Review…** resta disattivato finché ce ne sono.
+4. Sistema la WBS: il codice dà la struttura (1 è una fase, 1.1 e 1.2 sono le sue attività); **Add phase or task** aggiunge una riga, il cestino la rimuove.
+5. Seleziona **Choose the document** e scegli di nuovo lo stesso file. Copilot legge l'allegato ma non può passare il file alla card, quindi la card lo chiede ancora una volta.
+6. Seleziona **Review…**, controlla il riepilogo e gli avvisi, poi **Confirm: create draft project**.
 
 Cosa viene creato:
 
 | Elemento | Dettaglio |
 |---|---|
+| Cliente | Solo con **New customer**: un'azienda (account) con nome e partita IVA inseriti, **Is Customer** attivo e **Customer Type** Customer, creata prima del progetto. Completa gli altri dati (indirizzo, PEC, termini di pagamento) nell'app |
 | Progetto | Stato **Offer**, codice dall'autonumerazione (PRJ-######), cliente, project manager, date, valore contratto, descrizione. Lo porti a **In Progress** nell'app quando l'offerta è accettata |
 | Nodi WBS | Uno per riga, i padri prima dei figli, con codice, nome, ordinamento, ore a budget e date. I plugin consolidano il budget come per i nodi creati nell'app (vedi [WBS, budget, Gantt e baseline](wbs-and-planning.md)) |
 | Documento | Salvato nella cartella SharePoint del progetto, con **i tuoi permessi SharePoint**. La card crea la cartella nella raccolta `op365_project` e registra la sua document location, la stessa cartella che apre **Related** → **Documents** (vedi [Documenti in SharePoint](documents.md)) |
@@ -146,11 +148,13 @@ Cosa viene creato:
 |---|---|
 | Nome progetto, cliente, project manager, data inizio o data fine mancanti; fine prima dell'inizio; valore contratto non numerico | Blocca **Review…** |
 | Codice WBS non come 1 o 1.2, usato due volte o senza padre; fase senza nome; ore non numeriche; fine prima dell'inizio | Blocca **Review…** |
+| Nuovo cliente senza nome | Blocca **Review…** |
+| Nuovo cliente con il nome di un'azienda esistente | Avviso |
 | Date WBS fuori dalle date del progetto | Avviso |
 | Nessuna riga WBS | Avviso: il progetto viene creato senza fasi |
 | Nessun documento scelto | Avviso: il progetto viene creato senza salvare il documento |
 
-- Per creare progetti serve un ruolo di sicurezza che li possa creare, come **OP365 Administrator** (vedi [Amministrazione](administration.md#ruoli-di-sicurezza)); **OP365 User** non può.
+- Per creare progetti serve un ruolo di sicurezza che li possa creare, come **OP365 Administrator** (vedi [Amministrazione](administration.md#ruoli-di-sicurezza)); **OP365 User** non può. Un nuovo cliente richiede anche la creazione di account, che **OP365 Administrator** ha.
 - Team, risorse, allocazioni e baseline si impostano dopo nell'app.
 - Se la gestione documentale SharePoint non è configurata, progetto e WBS vengono creati e la card avvisa che il documento non è stato salvato: caricalo poi da **Documents** sul progetto.
 

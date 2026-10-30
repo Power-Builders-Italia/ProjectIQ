@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Combobox, Field, Input, Option, Text, Textarea } from '@fluentui/react-components';
-import { Add16Regular, Delete16Regular, DocumentArrowUp16Regular } from '@fluentui/react-icons';
+import { Add16Regular, Delete16Regular, DocumentArrowUp16Regular, PersonAdd16Regular } from '@fluentui/react-icons';
 
 import { useAgent, useServiceData } from '../AgentContext';
 import { ErrorBar, FollowUp, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Section, Shell } from '../kit';
@@ -18,6 +18,7 @@ import { culture, strings } from '../../i18n';
 export interface CreateProjectProps extends ExtractedProject {
   documentName?: string;
   customer?: string;
+  customerVatNumber?: string;
   projectManager?: string;
 }
 
@@ -37,6 +38,7 @@ interface Receipt {
   code: string;
   nodes: number;
   total: number;
+  customer?: string;
   nodeError?: string;
   fileUrl?: string;
   documentError?: string;
@@ -84,7 +86,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
     setDraft(d => ({ ...d, customerId: d.customerId || customer?.id, managerId: d.managerId || manager?.id }));
   }, [state.data]);
 
-  const issues = validateDraft(draft, !!file);
+  const issues = validateDraft(draft, !!file, state.data?.customers);
   const message = (code: DraftIssueCode, key?: string): string | undefined =>
     (issues.filter(i => i.code === code && i.key === key).length ? t.issues[code] : undefined);
   const lineIssue = (key: string): DraftIssue | undefined => issues.filter(i => i.key === key)[0];
@@ -92,10 +94,11 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
   const errors = issues.filter(i => i.severity === 'error').length;
   const totalHours = draft.lines.reduce((s, l) => s + (parseAmount(l.budgetHours) || 0), 0);
   const name = (list: Choice[] | undefined, id?: string): string => list?.filter(c => c.id === id)[0]?.name || '';
+  const customerName = draft.newCustomer ? draft.newCustomer.name.trim() : name(state.data?.customers, draft.customerId);
 
   React.useEffect(() => {
     setModelContext(`New ProjectIQ project from ${props.documentName ? 'the document ' + props.documentName : 'a document'}. `
-      + `Draft: name "${draft.name}", customer ${name(state.data?.customers, draft.customerId) || 'not chosen'}, `
+      + `Draft: name "${draft.name}", customer ${draft.newCustomer ? `new customer "${customerName}" (created with the project)` : customerName || 'not chosen'}, `
       + `project manager ${name(state.data?.users, draft.managerId) || 'not chosen'}, dates ${draft.startDate || '?'} to ${draft.endDate || '?'}, `
       + `${draft.lines.length} WBS nodes (${draft.lines.map(l => `${l.code} ${l.name}`).join('; ')}). `
       + `Missing or wrong: ${issues.filter(i => i.severity === 'error').map(i => i.code).join(', ') || 'nothing'}. Document file selected: ${file ? 'yes' : 'no'}. `
@@ -117,6 +120,10 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
     let project: { id: string; code: string } | undefined;
     try {
       const { service } = await ready;
+      if (plan.newCustomer) {
+        setProgress(t.creatingCustomer);
+        plan.customerId = await service.createCustomer(plan.newCustomer);
+      }
       setProgress(t.creatingProject);
       project = await service.createProject(plan);
       const created = project;
@@ -142,7 +149,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
           documentError = e instanceof NoDocumentLibraryError ? t.noLibrary : (e as Error).message;
         }
       }
-      setReceipt({ id: created.id, code: created.code, nodes: Object.keys(ids).length, total: plan.nodes.length, nodeError, fileUrl, documentError });
+      setReceipt({ id: created.id, code: created.code, customer: plan.newCustomer?.name, nodes: Object.keys(ids).length, total: plan.nodes.length, nodeError, fileUrl, documentError });
       setStep('done');
     } catch (e) {
       setError(e as Error);
@@ -164,6 +171,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
             {t.createdText(receipt.nodes)}
             {receipt.nodeError ? ` ${t.nodesFailed(receipt.nodes, receipt.total)} (${receipt.nodeError})` : ''}
           </Info>
+          {receipt.customer && <Info intent="success">{t.customerCreated(receipt.customer)}</Info>}
           {receipt.fileUrl && <Info intent="success">{t.documentSaved}</Info>}
           {receipt.documentError && <Info intent="warning" title={t.documentFailed}>{receipt.documentError}</Info>}
           <Footer>
@@ -188,14 +196,35 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
                   <Input value={draft.name} style={FILL} input={{ style: FILL }} onChange={(_, d) => patch({ name: d.value })} />
                 </Field>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  <Field label={t.customer} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
-                    validationMessage={message('noCustomer') && (props.customer ? `${t.issues.noCustomer} ${t.inDocument(props.customer)}` : t.issues.noCustomer)}>
-                    <Picker choices={state.data.customers} value={draft.customerId} placeholder={t.search} onChange={id => patch({ customerId: id })} />
-                  </Field>
+                  {draft.newCustomer ? (
+                    <Field label={t.newCustomer} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
+                      validationMessage={message('noCustomerName') || message('customerExists')}
+                      validationState={message('customerExists') ? 'warning' : undefined}>
+                      <Input value={draft.newCustomer.name} style={FILL} input={{ style: FILL }}
+                        onChange={(_, d) => setDraft(x => ({ ...x, newCustomer: { ...x.newCustomer!, name: d.value } }))} />
+                    </Field>
+                  ) : (
+                    <Field label={t.customer} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
+                      validationMessage={message('noCustomer') && (props.customer ? `${t.issues.noCustomer} ${t.inDocument(props.customer)}` : t.issues.noCustomer)}>
+                      <Picker choices={state.data.customers} value={draft.customerId} placeholder={t.search} onChange={id => patch({ customerId: id })} />
+                    </Field>
+                  )}
                   <Field label={t.manager} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
                     validationMessage={message('noManager') && (props.projectManager ? `${t.issues.noManager} ${t.inDocument(props.projectManager)}` : t.issues.noManager)}>
                     <Picker choices={state.data.users} value={draft.managerId} placeholder={t.search} onChange={id => patch({ managerId: id })} />
                   </Field>
+                </div>
+                {draft.newCustomer && (
+                  <Field label={t.vatNumber} style={{ width: 200 }}>
+                    <Input value={draft.newCustomer.vatNumber} style={FILL} input={{ style: FILL }}
+                      onChange={(_, d) => setDraft(x => ({ ...x, newCustomer: { ...x.newCustomer!, vatNumber: d.value } }))} />
+                  </Field>
+                )}
+                <div>
+                  {draft.newCustomer
+                    ? <Button size="small" appearance="subtle" onClick={() => patch({ newCustomer: undefined })}>{t.chooseCustomer}</Button>
+                    : <Button size="small" appearance="subtle" icon={<PersonAdd16Regular />}
+                      onClick={() => patch({ newCustomer: { name: props.customer?.trim() || '', vatNumber: props.customerVatNumber?.trim() || '' } })}>{t.addCustomer}</Button>}
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   <Field label={t.startDate} required style={{ width: 160 }} validationMessage={message('noStart')}>
@@ -260,7 +289,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
                 </div>
                 <Text size={200}>{t.fileHelp}</Text>
               </Section>
-              {projectIssues.filter(i => i.severity === 'warning').map(i => <Info key={i.code} intent="warning">{t.issues[i.code]}</Info>)}
+              {projectIssues.filter(i => i.severity === 'warning' && i.code !== 'customerExists').map(i => <Info key={i.code} intent="warning">{t.issues[i.code]}</Info>)}
               <Footer>
                 <Button appearance="primary" disabled={!canCreate(issues)} onClick={() => setStep('review')}>{t.review}</Button>
               </Footer>
@@ -272,7 +301,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
                 {t.reviewText(draft.lines.length)} {file ? t.withFile(file.name) : ''}
               </Info>
               <ul style={{ margin: 0, paddingLeft: 18 }}>
-                <li><Text size={200}>{draft.name} · {name(state.data.customers, draft.customerId)} · {name(state.data.users, draft.managerId)}</Text></li>
+                <li><Text size={200}>{draft.name} · {draft.newCustomer ? t.newCustomerName(customerName) : customerName} · {name(state.data.users, draft.managerId)}</Text></li>
                 <li><Text size={200}>{draft.startDate} → {draft.endDate}{draft.contractValue ? ` · ${draft.contractValue}` : ''}</Text></li>
                 {planProject(draft).nodes.map(n => (
                   <li key={n.code}><Text size={200}>{n.code} {n.name}{n.budgetHours !== undefined ? ` · ${hours(n.budgetHours)}` : ''}</Text></li>

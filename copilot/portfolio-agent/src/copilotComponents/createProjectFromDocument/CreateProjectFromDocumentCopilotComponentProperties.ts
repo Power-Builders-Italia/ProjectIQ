@@ -13,6 +13,7 @@ const propertiesSchema = z.object({
   documentName: z.string().optional().describe('File name of the document the user attached, for example Offer-2026-118.pdf.'),
   name: z.string().optional().describe('Project name or subject of the work.'),
   customer: z.string().optional().describe('Customer company as written in the document.'),
+  customerVatNumber: z.string().optional().describe('VAT number of the customer, only when the document states it.'),
   projectManager: z.string().optional().describe('Project manager named in the document (person on the contractor side).'),
   startDate: z.string().optional().describe('Project start date as yyyy-mm-dd.'),
   endDate: z.string().optional().describe('Project end or delivery date as yyyy-mm-dd.'),

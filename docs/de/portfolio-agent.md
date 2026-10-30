@@ -129,15 +129,17 @@ flowchart LR
 ```
 
 1. Die Karte füllt **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** und die **WBS**-Zeilen (Code, Phase oder Vorgang, Budgetstunden, Start, Ende) mit dem vor, was im Dokument steht. Kunde und Projektleiter werden nur automatisch gewählt, wenn genau ein Konto oder Benutzer zum Namen im Dokument passt; sonst zeigt die Karte den gelesenen Namen und Sie wählen den Datensatz.
-2. Ergänzen Sie die als fehlend markierten Felder. Die Kachel **To complete** zählt sie; **Review…** bleibt deaktiviert, solange welche fehlen.
-3. Passen Sie den PSP an: Der Code gibt die Gliederung vor (1 ist eine Phase, 1.1 und 1.2 sind ihre Vorgänge); **Add phase or task** fügt eine Zeile hinzu, der Papierkorb entfernt eine.
-4. Wählen Sie **Choose the document** und wählen Sie dieselbe Datei erneut aus. Copilot liest den Anhang, kann die Datei selbst aber nicht an die Karte übergeben; deshalb fragt die Karte noch einmal danach.
-5. Wählen Sie **Review…**, prüfen Sie die Zusammenfassung und die Warnungen und wählen Sie dann **Confirm: create draft project**.
+2. Ist der Kunde noch nicht in ProjectIQ, wählen Sie **New customer**, statt ihn auszuwählen: Die Karte zeigt **New customer** mit dem im Dokument gelesenen Namen und **VAT number** (ausgefüllt, wenn das Dokument sie nennt). **Choose an existing customer** führt zurück zur Liste. Gibt es bereits ein Konto mit demselben Namen, warnt die Karte, weil Sie es wahrscheinlich auswählen möchten.
+3. Ergänzen Sie die als fehlend markierten Felder. Die Kachel **To complete** zählt sie; **Review…** bleibt deaktiviert, solange welche fehlen.
+4. Passen Sie den PSP an: Der Code gibt die Gliederung vor (1 ist eine Phase, 1.1 und 1.2 sind ihre Vorgänge); **Add phase or task** fügt eine Zeile hinzu, der Papierkorb entfernt eine.
+5. Wählen Sie **Choose the document** und wählen Sie dieselbe Datei erneut aus. Copilot liest den Anhang, kann die Datei selbst aber nicht an die Karte übergeben; deshalb fragt die Karte noch einmal danach.
+6. Wählen Sie **Review…**, prüfen Sie die Zusammenfassung und die Warnungen und wählen Sie dann **Confirm: create draft project**.
 
 Was angelegt wird:
 
 | Element | Detail |
 |---|---|
+| Kunde | Nur mit **New customer**: ein Konto mit dem eingegebenen Namen und der USt-IdNr., **Is Customer** gesetzt und **Customer Type** Customer, angelegt vor dem Projekt. Ergänzen Sie die übrigen Daten (Adresse, PEC, Zahlungsbedingungen) in der App |
 | Projekt | Status **Offer**, Code aus der automatischen Nummerierung (PRJ-######), Kunde, Projektleiter, Termine, Auftragswert, Beschreibung. Sie setzen es in der App auf **In Progress**, wenn das Angebot angenommen ist |
 | PSP-Elemente | Eines je Zeile, übergeordnete vor untergeordneten, mit Code, Name, Reihenfolge, Budgetstunden und Terminen. Die Plugins verdichten das Budget wie bei in der App angelegten Elementen (siehe [PSP, Budget, Gantt und Basispläne](wbs-and-planning.md)) |
 | Dokument | Im SharePoint-Ordner des Projekts gespeichert, mit **Ihren SharePoint-Berechtigungen**. Die Karte legt den Ordner in der Bibliothek `op365_project` an und registriert seine Document Location, also denselben Ordner, den **Related** → **Documents** öffnet (siehe [Dokumente in SharePoint](documents.md)) |
@@ -146,11 +148,13 @@ Was angelegt wird:
 |---|---|
 | Projektname, Kunde, Projektleiter, Start- oder Enddatum fehlt; Ende vor Start; Auftragswert keine Zahl | Sperrt **Review…** |
 | PSP-Code nicht wie 1 oder 1.2, doppelt oder ohne übergeordnetes Element; Phase ohne Namen; Stunden keine Zahl; Ende vor Start | Sperrt **Review…** |
+| Neuer Kunde ohne Namen | Sperrt **Review…** |
+| Neuer Kunde mit dem Namen eines vorhandenen Kontos | Warnung |
 | PSP-Termine außerhalb der Projekttermine | Warnung |
 | Keine PSP-Zeile | Warnung: Das Projekt wird ohne Phasen angelegt |
 | Kein Dokument gewählt | Warnung: Das Projekt wird angelegt, ohne das Dokument zu speichern |
 
-- Zum Anlegen von Projekten ist eine Sicherheitsrolle nötig, die sie anlegen darf, etwa **OP365 Administrator** (siehe [Administration](administration.md#sicherheitsrollen)); **OP365 User** darf es nicht.
+- Zum Anlegen von Projekten ist eine Sicherheitsrolle nötig, die sie anlegen darf, etwa **OP365 Administrator** (siehe [Administration](administration.md#sicherheitsrollen)); **OP365 User** darf es nicht. Ein neuer Kunde erfordert zusätzlich das Anlegen von Konten, das **OP365 Administrator** besitzt.
 - Team, Ressourcen, Zuweisungen und Basisplan legen Sie danach in der App fest.
 - Ist die SharePoint-Dokumentverwaltung nicht eingerichtet, werden Projekt und PSP angelegt und die Karte meldet, dass das Dokument nicht gespeichert wurde: Laden Sie es später über **Documents** am Projekt hoch.
 

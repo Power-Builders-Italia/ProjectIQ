@@ -111,6 +111,17 @@ describe('ProjectIQService', () => {
     });
   });
 
+  it('creates the customer of a new project as an account marked as customer', async () => {
+    const { send, posts } = fake({ 'accounts?$select': { accountid: 'a7' } });
+    const service = new ProjectIQService(new DataverseClient(ENV, send));
+    expect(await service.createCustomer({ name: 'Northwind', vatNumber: 'IT01234567890' })).toBe('a7');
+    expect(await service.createCustomer({ name: 'Contoso' })).toBe('a7');
+    expect(posts.map(p => JSON.parse(p.body!))).toEqual([
+      { name: 'Northwind', op365_iscustomer: true, op365_customertype: 365000001, op365_vatnumber: 'IT01234567890' },
+      { name: 'Contoso', op365_iscustomer: true, op365_customertype: 365000001 },
+    ]);
+  });
+
   it('creates the project folder in the op365_project library, registers it and uploads the document', async () => {
     const { send, posts } = fake({
       '_regardingobjectid_value eq null': { value: [{

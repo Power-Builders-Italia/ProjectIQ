@@ -129,15 +129,17 @@ flowchart LR
 ```
 
 1. The card pre-fills **Project name**, **Customer**, **Project manager**, **Start date**, **End date**, **Contract value**, **Description** and the **WBS** lines (code, phase or task, budget hours, start, end) with what the document states. Customer and project manager are chosen automatically only when exactly one account or user matches the name in the document; otherwise the card shows the name it read and you pick the record.
-2. Complete the fields marked as missing. The **To complete** tile counts them; **Review…** stays disabled until there are none.
-3. Adjust the WBS: the code gives the outline (1 is a phase, 1.1 and 1.2 are its tasks); **Add phase or task** adds a line, the bin removes one.
-4. Select **Choose the document** and pick the same file again. Copilot reads the attachment but cannot pass the file itself to the card, so the card asks for it once more.
-5. Select **Review…**, check the summary and the warnings, then **Confirm: create draft project**.
+2. If the customer is not in ProjectIQ yet, select **New customer** instead of choosing one: the card shows **New customer** with the name read in the document and **VAT number** (filled when the document states it). **Choose an existing customer** goes back to the list. If an account with the same name already exists, the card warns you, because you probably want to choose it.
+3. Complete the fields marked as missing. The **To complete** tile counts them; **Review…** stays disabled until there are none.
+4. Adjust the WBS: the code gives the outline (1 is a phase, 1.1 and 1.2 are its tasks); **Add phase or task** adds a line, the bin removes one.
+5. Select **Choose the document** and pick the same file again. Copilot reads the attachment but cannot pass the file itself to the card, so the card asks for it once more.
+6. Select **Review…**, check the summary and the warnings, then **Confirm: create draft project**.
 
 What is created:
 
 | Item | Detail |
 |---|---|
+| Customer | Only with **New customer**: an account with the name and VAT number entered, **Is Customer** set and **Customer Type** Customer, created before the project. Complete its other data (address, PEC, payment terms) in the app |
 | Project | Status **Offer**, code from the autonumber (PRJ-######), customer, project manager, dates, contract value, description. You move it to **In Progress** in the app when the offer is accepted |
 | WBS nodes | One per line, parents before children, with code, name, sort order, budget hours and dates. The plugins roll the budget up as for nodes created in the app (see [WBS, budget, Gantt and baselines](wbs-and-planning.md)) |
 | Document | Saved in the SharePoint folder of the project, with **your SharePoint permissions**. The card creates the folder in the `op365_project` library and registers its document location, the same folder **Related** → **Documents** opens (see [Documents in SharePoint](documents.md)) |
@@ -146,11 +148,13 @@ What is created:
 |---|---|
 | Project name, customer, project manager, start date, end date missing; end before start; contract value not a number | Blocks **Review…** |
 | WBS code not like 1 or 1.2, used twice, or without its parent; phase without a name; hours not a number; end before start | Blocks **Review…** |
+| New customer without a name | Blocks **Review…** |
+| New customer with the name of an existing account | Warning |
 | WBS dates outside the project dates | Warning |
 | No WBS line | Warning: the project is created without phases |
 | No document chosen | Warning: the project is created without saving the document |
 
-- Creating projects needs a security role that can create them, such as **OP365 Administrator** (see [Administration](administration.md#security-roles)); **OP365 User** cannot.
+- Creating projects needs a security role that can create them, such as **OP365 Administrator** (see [Administration](administration.md#security-roles)); **OP365 User** cannot. A new customer also needs Create on accounts, which **OP365 Administrator** has.
 - Team, resources, allocations and the baseline are set afterwards in the app.
 - If SharePoint document management is not set up, the project and its WBS are created and the card says the document was not saved: upload it later from **Documents** on the project.
 
