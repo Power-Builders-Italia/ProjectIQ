@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="eeded034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Project Committed Cost (op365_committedcost): quantity still to receive x price on the lines of open purchase orders. Synonyms: Italian impegnato, costo impegnato; French coût engagé, engagements; German Obligo, gebundene Kosten.">
+    <label description="Project Committed Cost (op365_committedcost): quantity still to receive x price on the lines of open purchase orders. Synonyms: Italian impegnato, costo impegnato; French coût engagé, engagements; German Obligo, gebundene Kosten." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Committed cost</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Committed cost">
+    <label description="Committed cost" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

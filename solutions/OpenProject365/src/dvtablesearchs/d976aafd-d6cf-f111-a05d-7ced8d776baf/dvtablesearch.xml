@@ -1,0 +1,11 @@
+<dvtablesearch dvtablesearchid="d976aafd-d6cf-f111-a05d-7ced8d776baf">
+  <appmoduleuniquename>op365_OpenProject365</appmoduleuniquename>
+  <iscustomizable>1</iscustomizable>
+  <m365appmoduleid>
+    <uniquename>op365_OpenProject365</uniquename>
+  </m365appmoduleid>
+  <name>M365_Primary_model_op365_OpenProject365</name>
+  <searchtype>0</searchtype>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+</dvtablesearch>

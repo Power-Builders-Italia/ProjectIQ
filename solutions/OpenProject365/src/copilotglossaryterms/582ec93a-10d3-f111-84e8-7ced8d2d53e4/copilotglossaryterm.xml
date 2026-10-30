@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="582ec93a-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Planned hours of a resource on a WBS node (op365_wbsallocation); used for resource load. Synonyms: Italian allocazione WBS, ore pianificate, pianificazione; French affectation WBS, heures planifiées; German PSP-Zuordnung, Planstunden.">
+    <label description="Planned hours of a resource on a WBS node (op365_wbsallocation); used for resource load. Synonyms: Italian allocazione WBS, ore pianificate, pianificazione; French affectation WBS, heures planifiées; German PSP-Zuordnung, Planstunden." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>WBS allocation</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="WBS allocation">
+    <label description="WBS allocation" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

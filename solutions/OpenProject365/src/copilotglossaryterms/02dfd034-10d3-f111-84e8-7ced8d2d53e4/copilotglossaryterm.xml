@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="02dfd034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Absence (op365_absence) of type Closure with no Resource: nobody works on those days. Synonyms: Italian chiusura aziendale, ferie collettive; French fermeture de l'entreprise, congés collectifs; German Betriebsschließung, Betriebsferien.">
+    <label description="Absence (op365_absence) of type Closure with no Resource: nobody works on those days. Synonyms: Italian chiusura aziendale, ferie collettive; French fermeture de l'entreprise, congés collectifs; German Betriebsschließung, Betriebsferien." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>Company closure</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="Company closure">
+    <label description="Company closure" languagecode="1033" />
+  </term>
+</copilotglossaryterm>

@@ -1,0 +1,15 @@
+<copilotglossaryterm copilotglossarytermid="dfded034-10d3-f111-84e8-7ced8d2d53e4">
+  <description default="Element of the work breakdown structure of a project (op365_wbsnode). Top-level nodes (no Parent Node) are phases. Synonyms: Italian nodo WBS, WBS, fase, attività, task; French nœud WBS, WBS, phase, activité, tâche; German PSP-Element, PSP, Phase, Vorgang, Aufgabe.">
+    <label description="Element of the work breakdown structure of a project (op365_wbsnode). Top-level nodes (no Parent Node) are phases. Synonyms: Italian nodo WBS, WBS, fase, attività, task; French nœud WBS, WBS, phase, activité, tâche; German PSP-Element, PSP, Phase, Vorgang, Aufgabe." languagecode="1033" />
+  </description>
+  <iscustomizable>1</iscustomizable>
+  <name>WBS node</name>
+  <skill>
+    <dvtablesearchid>d976aafd-d6cf-f111-a05d-7ced8d776baf</dvtablesearchid>
+  </skill>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <term default="WBS node">
+    <label description="WBS node" languagecode="1033" />
+  </term>
+</copilotglossaryterm>
