@@ -125,15 +125,20 @@ jobs:
             echo "::error::App Catalog has version $deployed, expected ${{ needs.build.outputs.version }}"; exit 1
           fi
       - name: Tenant properties
-        # empty secrets are skipped, so the tenant keeps the value set by hand
+        # empty secrets are skipped, so the tenant keeps the value set by hand; a property that already has the value is
+        # not written again: setting one needs custom scripts on the App Catalog site, which SharePoint turns off again
+        # after 24 hours (E_ACCESSDENIED)
         run: |
+          set_property() {
+            current=$(m365 spo storageentity get --key "$1" --output json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{console.log(JSON.parse(s||'{}').Value||'')}catch{console.log('')}})")
+            if [ "$current" = "$2" ]; then echo "$1 unchanged"; return; fi
+            m365 spo storageentity set --appCatalogUrl "$APP_CATALOG_URL" --key "$1" --value "$2" --description "$3"
+          }
           if [ -n "$PROJECTIQ_ENVIRONMENT_URL" ]; then
-            m365 spo storageentity set --appCatalogUrl "$APP_CATALOG_URL" --key ProjectIQEnvironmentUrl --value "$PROJECTIQ_ENVIRONMENT_URL" \
-              --description 'ProjectIQ Portfolio Agent: Dataverse environment URL'
+            set_property ProjectIQEnvironmentUrl "$PROJECTIQ_ENVIRONMENT_URL" 'ProjectIQ Portfolio Agent: Dataverse environment URL'
           fi
           if [ -n "$PROJECTIQ_APP_ID" ]; then
-            m365 spo storageentity set --appCatalogUrl "$APP_CATALOG_URL" --key ProjectIQAppId --value "$PROJECTIQ_APP_ID" \
-              --description 'ProjectIQ Portfolio Agent: model-driven app id for the Open in ProjectIQ links'
+            set_property ProjectIQAppId "$PROJECTIQ_APP_ID" 'ProjectIQ Portfolio Agent: model-driven app id for the Open in ProjectIQ links'
           fi
       - name: Add to Teams (publish the agent)
         if: inputs.add-to-teams
