@@ -187,7 +187,7 @@ Ein Paket bedient eine ProjectIQ-Umgebung (die Mandanteneigenschaft). Neue Versi
 
 Die Schritte 1, 2 und 4 kann auch der GitHub-Workflow `deploy-agent` ausführen, nach jeder Änderung am Agenten und mit der Freigabe eines Reviewers; die Schritte 3 und 5 bleiben manuell. Einrichtung: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
-**SharePoint-Wissen (optional).** Der Agent kann auch den Inhalt der Dokumentenwebsite lesen (siehe [Dokumente in SharePoint](documents.md)). Geben Sie die URLs der Website, Bibliothek oder des Ordners (durch Komma getrennt) beim Erstellen des Pakets an: die Variable `SHAREPOINT_KNOWLEDGE_URLS` von `npm run build` oder die gleichnamige GitHub-Repository-Variable für `deploy-agent`. Der Build fügt die Funktion **OneDriveAndSharePoint** hinzu, beschränkt auf diese URLs. Wählen Sie danach erneut **Add to Teams** (Schritt 5). Ohne die Variable hat der Agent keine Wissensquelle.
+**SharePoint-Wissen (optional).** Der Agent kann auch den Inhalt der Dokumentenwebsite lesen (siehe [Dokumente in SharePoint](documents.md)). Geben Sie die URLs der Website, Bibliothek oder des Ordners (durch Komma getrennt) beim Erstellen des Pakets an: die Variable `SHAREPOINT_KNOWLEDGE_URLS` von `npm run build` oder für `deploy-agent` das gleichnamige Secret der GitHub-Umgebung (ein Secret, damit die URLs weder im Repository noch in den Protokollen erscheinen). Der Build fügt die Funktion **OneDriveAndSharePoint** hinzu, beschränkt auf diese URLs. Wählen Sie danach erneut **Add to Teams** (Schritt 5). Ohne die Variable hat der Agent keine Wissensquelle.
 
 ### Lizenzen
 

@@ -2,8 +2,9 @@ name: deploy-agent
 
 # Builds the ProjectIQ Portfolio Agent (copilot/portfolio-agent) and deploys projectiq-portfolio-agent.sppkg to the tenant
 # App Catalog with the CLI for Microsoft 365:
-# 1. build: npm ci + npm run build (knowledge source, agent check, tests, lint, package), the .sppkg is kept as an artifact
-#    of the run. The repository variable SHAREPOINT_KNOWLEDGE_URLS adds the SharePoint knowledge source (scripts/knowledge.mjs).
+# 1. build: npm ci + npm run build (agent check, tests, lint, package), the .sppkg is kept as an artifact of the run.
+#    The artifact never contains a tenant URL: with the environment secret SHAREPOINT_KNOWLEDGE_URLS the deploy job builds
+#    the package again with the SharePoint knowledge source (scripts/knowledge.mjs) and does not upload it.
 # 2. deploy: signs in with GitHub OIDC (federated credential on the app registration, no secret or certificate stored),
 #    adds the package with --overwrite, deploys it tenant-wide, sets the tenant property ProjectIQEnvironmentUrl and,
 #    with add-to-teams on, tries "Add to Teams" (SyncSolutionToTeams); powerbuildersorg answers 400 to the app-only token,
@@ -47,9 +48,6 @@ jobs:
           cache-dependency-path: copilot/portfolio-agent/package-lock.json
       - name: Portfolio Agent tests and package
         working-directory: copilot/portfolio-agent
-        env:
-          # optional SharePoint knowledge of the agent (repository variable): site, library or folder URLs of the tenant
-          SHAREPOINT_KNOWLEDGE_URLS: ${{ vars.SHAREPOINT_KNOWLEDGE_URLS }}
         run: |
           npm ci
           npm run build
@@ -85,14 +83,28 @@ jobs:
       PROJECTIQ_ENVIRONMENT_URL: ${{ secrets.PROJECTIQ_ENVIRONMENT_URL }}
       PROJECTIQ_APP_ID: ${{ secrets.PROJECTIQ_APP_ID }}
       PACKAGE: projectiq-portfolio-agent.sppkg
+      # optional SharePoint knowledge of the agent: site, library or folder URLs of the tenant, kept as a secret so that
+      # they appear neither in the logs nor in the artifact of the run
+      SHAREPOINT_KNOWLEDGE_URLS: ${{ secrets.SHAREPOINT_KNOWLEDGE_URLS }}
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: projectiq-portfolio-agent
           path: out
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: env.SHAREPOINT_KNOWLEDGE_URLS != ''
+        with:
+          path: src
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
+      - name: Package with the SharePoint knowledge source
+        if: env.SHAREPOINT_KNOWLEDGE_URLS != ''
+        working-directory: src/copilot/portfolio-agent
+        run: |
+          npm ci
+          npm run build
+          cp sharepoint/solution/$PACKAGE "$GITHUB_WORKSPACE/out/$PACKAGE"
       - name: Install CLI for Microsoft 365
         run: npm install --global @pnp/cli-microsoft365@11.11.0
       - name: Sign in (federated identity)

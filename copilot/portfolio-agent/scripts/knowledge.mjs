@@ -1,7 +1,8 @@
 // Optional SharePoint knowledge of the agent, set per tenant at package time.
 // SHAREPOINT_KNOWLEDGE_URLS (comma or space separated SharePoint site, library or folder URLs) adds the
 // OneDriveAndSharePoint capability to copilot/declarativeAgent.json and the routing rule for document contents to
-// copilot/instruction.txt. Unset: nothing changes, the agent has no knowledge source. The repository keeps no tenant URL.
+// copilot/instruction.txt. Unset: nothing changes, the agent has no knowledge source. The repository keeps no tenant URL,
+// and the URLs are never printed (deploy-agent passes them as a secret).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,11 +15,12 @@ if (!urls.length) {
 }
 
 const errors = [];
-for (const url of urls) {
+for (const [i, url] of urls.entries()) {
+  const n = i + 1;
   let parsed;
-  try { parsed = new URL(url); } catch { errors.push(`${url} is not a URL`); continue; }
-  if (parsed.protocol !== 'https:' || !/\.sharepoint\.com$/i.test(parsed.hostname)) errors.push(`${url} is not a SharePoint URL`);
-  if (parsed.search || parsed.hash) errors.push(`${url} must not contain a query or a fragment`);
+  try { parsed = new URL(url); } catch { errors.push(`URL ${n} is not a URL`); continue; }
+  if (parsed.protocol !== 'https:' || !/\.sharepoint\.com$/i.test(parsed.hostname)) errors.push(`URL ${n} is not an https SharePoint URL`);
+  if (parsed.search || parsed.hash) errors.push(`URL ${n} must not contain a query or a fragment`);
 }
 if (errors.length) {
   errors.forEach(e => console.error('knowledge: ' + e));
@@ -39,4 +41,4 @@ const instructions = readFileSync(instructionPath, 'utf8');
 if (!instructions.includes(RULE)) {
   writeFileSync(instructionPath, instructions.replace(/\n\nRules:/, `\n${RULE}\n\nRules:`));
 }
-console.log(`knowledge: OneDriveAndSharePoint on ${urls.join(', ')}`);
+console.log(`knowledge: OneDriveAndSharePoint on ${urls.length} SharePoint URL(s)`);

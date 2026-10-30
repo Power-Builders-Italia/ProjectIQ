@@ -187,7 +187,7 @@ One package serves one ProjectIQ environment (the tenant property). New versions
 
 Steps 1, 2 and 4 can also be run by the GitHub workflow `deploy-agent`, after each change to the agent and with the approval of a reviewer; steps 3 and 5 stay manual. Setup: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
-**SharePoint knowledge (optional).** The agent can also read the content of the documents site (see [Documents in SharePoint](documents.md)). Set the URLs of the site, library or folder (comma separated) when the package is built: the variable `SHAREPOINT_KNOWLEDGE_URLS` of `npm run build`, or the GitHub repository variable of the same name for `deploy-agent`. The build adds the **OneDriveAndSharePoint** capability limited to those URLs. Then select **Add to Teams** again (step 5). Without the variable the agent has no knowledge source.
+**SharePoint knowledge (optional).** The agent can also read the content of the documents site (see [Documents in SharePoint](documents.md)). Set the URLs of the site, library or folder (comma separated) when the package is built: the variable `SHAREPOINT_KNOWLEDGE_URLS` of `npm run build`, or, for `deploy-agent`, the secret of the same name in the GitHub environment (a secret, so the URLs appear neither in the repository nor in the logs). The build adds the **OneDriveAndSharePoint** capability limited to those URLs. Then select **Add to Teams** again (step 5). Without the variable the agent has no knowledge source.
 
 ### Licences
 
