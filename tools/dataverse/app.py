@@ -88,7 +88,9 @@ TABLES = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_suppl
           'op365_purchaserequest', 'op365_purchaserequestline', 'op365_rfq', 'op365_rfqinvitation', 'op365_rfqquote',
           'op365_purchaseorder', 'op365_purchaseorderline', 'op365_goodsreceipt', 'op365_goodsreceiptline',
           'op365_supplierinvoice', 'op365_supplierinvoiceline',
-          'activitypointer', 'task', 'phonecall', 'appointment', 'email', 'annotation']
+          'activitypointer', 'task', 'phonecall', 'appointment', 'email', 'annotation',
+          # Related > Documents is shown only when the app contains the SharePoint tables
+          'sharepointdocument', 'sharepointdocumentlocation']
 DASHBOARDS = ['Timesheet', 'Time Approval', 'Resource Load', 'Spend']
 
 # modern commands: (unique name, label, table, location 0 = form, web resource, function, tooltip)

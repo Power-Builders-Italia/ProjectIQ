@@ -89,7 +89,7 @@ La gestion de documents sur les trois tables et les privilèges sur les emplacem
 
 | Message | Signification et solution |
 |---|---|
-| Pas de **Documents** sous **Related**, ou un message indiquant que la gestion de documents n'est pas configurée | Le site n'est pas enregistré : voir [Partie 2](#partie-2--configuration-administrateurs), étape 2 |
+| Pas de **Documents** sous **Related**, ou un message indiquant que la gestion de documents n'est pas configurée | Le site n'est pas enregistré (voir [Partie 2](#partie-2--configuration-administrateurs), étape 2), ou l'application ProjectIQ ne contient pas la table **Document** (SharePoint Document) : exécutez `tools/dataverse/app.py` ou ajoutez la table dans le concepteur d'application et publiez |
 | La grille Documents indique que vous n'avez pas d'autorisation sur l'emplacement | Votre compte SharePoint n'a pas accès au site ou au dossier : demandez à l'administrateur SharePoint (étape 4) |
 | Accès refusé lors de la création du dossier | Vous ne pouvez pas écrire dans la bibliothèque : demandez **Edit** sur le site |
 | Carte : "No document folder yet" | Personne n'a ouvert Documents sur le projet : ouvrez le projet dans ProjectIQ et sélectionnez **Related** → **Documents** |

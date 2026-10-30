@@ -89,7 +89,7 @@ La gestione documentale sulle tre tabelle e i privilegi su document location e s
 
 | Messaggio | Significato e soluzione |
 |---|---|
-| Nessun **Documents** sotto **Related**, o un messaggio che la gestione documentale non è configurata | Il sito non è registrato: vedi [Parte 2](#parte-2-configurazione-amministratori), passo 2 |
+| Nessun **Documents** sotto **Related**, o un messaggio che la gestione documentale non è configurata | Il sito non è registrato (vedi [Parte 2](#parte-2-configurazione-amministratori), passo 2), oppure l'app ProjectIQ non contiene la tabella **Document** (SharePoint Document): esegui `tools/dataverse/app.py` o aggiungi la tabella nel designer dell'app e pubblica |
 | La griglia Documents dice che non hai permessi sulla posizione | Il tuo account SharePoint non ha accesso al sito o alla cartella: chiedi all'amministratore SharePoint (passo 4) |
 | Accesso negato alla creazione della cartella | Non puoi scrivere nella raccolta: chiedi **Edit** sul sito |
 | Card: "No document folder yet" | Nessuno ha aperto Documents sulla commessa: apri la commessa in ProjectIQ e seleziona **Related** → **Documents** |
