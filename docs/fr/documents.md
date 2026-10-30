@@ -55,7 +55,7 @@ Le dossier est créé la **première fois que quelqu'un ouvre Documents** sur l'
 
 ### Documents dans Copilot
 
-Dans le [Portfolio Agent](portfolio-agent.md#documents-du-projet), demandez « affiche les documents du projet PRJ-000123 » : la carte liste les fichiers et sous-dossiers du dossier du projet, les plus récents d'abord, avec un lien vers chaque fichier et vers le dossier.
+Dans le [Portfolio Agent](portfolio-agent.md#documents-du-projet), demandez « affiche les documents du projet PRJ-000123 » : la carte liste les fichiers et sous-dossiers du dossier du projet, les plus récents d'abord, avec un lien vers chaque fichier et vers le dossier. Si une source de connaissances SharePoint est définie, vous pouvez aussi demander ce que dit un document (voir [Portfolio Agent](portfolio-agent.md#questions-sur-le-contenu-des-documents)).
 
 ### Documents fournisseur
 

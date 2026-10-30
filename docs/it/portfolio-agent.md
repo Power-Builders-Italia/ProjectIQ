@@ -110,6 +110,10 @@ stateDiagram-v2
 
 La card legge la cartella SharePoint che ProjectIQ ha creato per la commessa (vedi [Documenti in SharePoint](documents.md)): la cartella si trova tramite la document location della commessa, poi file e sottocartelle vengono elencati **con i tuoi permessi SharePoint**. I KPI mostrano numero di file e cartelle e l'ultima modifica; seleziona un nome per aprire il file (i file Office si aprono nel browser) oppure **Open folder in SharePoint**. Caricamento e modifica restano in SharePoint o in **Related** → **Documents** dell'app.
 
+### Domande sul contenuto dei documenti
+
+Quando l'amministratore ha impostato una fonte di conoscenza SharePoint (vedi [Configurazione](#configurazione-amministratori)), puoi chiedere anche cosa dice un documento, per esempio "quali penali prevede il contratto della commessa PRJ-000123?" o "riassumi il verbale dell'ultimo sopralluogo". Copilot cerca nei file del sito documenti **con i tuoi permessi SharePoint** e indica il file che ha usato. Senza fonte di conoscenza l'agente elenca solo i file.
+
 ## Nuovo progetto da documento
 
 Allega alla chat un'offerta, un contratto, un preventivo o un documento di avvio e chiedi, per esempio, "crea un progetto in bozza da questo documento". Copilot legge il documento e passa alla card ciò che trova; la card lo mostra come bozza da completare e confermare. Nulla viene creato prima di **Confirm**.
@@ -183,6 +187,8 @@ Un pacchetto serve un ambiente ProjectIQ (la proprietà del tenant). Le nuove ve
 
 I passi 1, 2 e 4 possono essere eseguiti anche dal workflow GitHub `deploy-agent`, dopo ogni modifica dell'agente e con l'approvazione di un revisore; i passi 3 e 5 restano manuali. Configurazione: [Portfolio Agent deployment](../dev-environment.md#portfolio-agent-deployment).
 
+**Conoscenza SharePoint (facoltativa).** L'agente può leggere anche il contenuto del sito documenti (vedi [Documenti in SharePoint](documents.md)). Imposta gli URL del sito, della raccolta o della cartella (separati da virgola) quando si crea il pacchetto: la variabile `SHAREPOINT_KNOWLEDGE_URLS` di `npm run build`, oppure la variabile di repository GitHub con lo stesso nome per `deploy-agent`. La build aggiunge la capability **OneDriveAndSharePoint** limitata a quegli URL. Poi seleziona di nuovo **Add to Teams** (passo 5). Senza la variabile l'agente non ha fonti di conoscenza.
+
 ### Licenze
 
 Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza **Power Apps Premium** usata per ProjectIQ. I Copilot UX component non hanno costi a consumo.
@@ -194,6 +200,7 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 - Le sole scritture sono le registrazioni ore dell'utente, le decisioni sulle ore e i progetti in bozza creati da un documento (progetto nello stato Offer, i suoi nodi WBS, la sua cartella SharePoint e il documento), tramite gli stessi plugin e Custom API dell'app, e solo dopo **Confirm**. Acquisti, commesse esistenti e anagrafiche non vengono mai modificati da Copilot.
 - Ciò che una scheda mostra è passato a Copilot come contesto della conversazione (al massimo circa 9 KB di testo), come per ogni altra risposta di Copilot.
 - I documenti di commessa sono letti da SharePoint con i **permessi SharePoint dell'utente** (nessun accesso API in più da approvare): la card elenca solo i file che la persona può aprire.
+- Con la fonte di conoscenza SharePoint, Copilot cerca solo nel sito, raccolta o cartella configurati, e solo nei file che la persona può aprire.
 
 ## Messaggi che potresti vedere
 

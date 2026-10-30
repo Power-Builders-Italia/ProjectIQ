@@ -55,7 +55,7 @@ La cartella viene creata la **prima volta che qualcuno apre Documents** sul reco
 
 ### Documenti in Copilot
 
-Nel [Portfolio Agent](portfolio-agent.md#documenti-di-commessa) chiedi "mostra i documenti della commessa PRJ-000123": la card elenca file e sottocartelle della cartella della commessa, dai più recenti, con il link a ogni file e alla cartella.
+Nel [Portfolio Agent](portfolio-agent.md#documenti-di-commessa) chiedi "mostra i documenti della commessa PRJ-000123": la card elenca file e sottocartelle della cartella della commessa, dai più recenti, con il link a ogni file e alla cartella. Se è impostata una fonte di conoscenza SharePoint, puoi chiedere anche cosa dice un documento (vedi [Portfolio Agent](portfolio-agent.md#domande-sul-contenuto-dei-documenti)).
 
 ### Documenti fornitore
 

@@ -2,7 +2,8 @@ name: deploy-agent
 
 # Builds the ProjectIQ Portfolio Agent (copilot/portfolio-agent) and deploys projectiq-portfolio-agent.sppkg to the tenant
 # App Catalog with the CLI for Microsoft 365:
-# 1. build: npm ci + npm run build (agent check, tests, lint, package), the .sppkg is kept as an artifact of the run.
+# 1. build: npm ci + npm run build (knowledge source, agent check, tests, lint, package), the .sppkg is kept as an artifact
+#    of the run. The repository variable SHAREPOINT_KNOWLEDGE_URLS adds the SharePoint knowledge source (scripts/knowledge.mjs).
 # 2. deploy: signs in with GitHub OIDC (federated credential on the app registration, no secret or certificate stored),
 #    adds the package with --overwrite, deploys it tenant-wide, sets the tenant property ProjectIQEnvironmentUrl and,
 #    with add-to-teams on, tries "Add to Teams" (SyncSolutionToTeams); powerbuildersorg answers 400 to the app-only token,
@@ -46,6 +47,9 @@ jobs:
           cache-dependency-path: copilot/portfolio-agent/package-lock.json
       - name: Portfolio Agent tests and package
         working-directory: copilot/portfolio-agent
+        env:
+          # optional SharePoint knowledge of the agent (repository variable): site, library or folder URLs of the tenant
+          SHAREPOINT_KNOWLEDGE_URLS: ${{ vars.SHAREPOINT_KNOWLEDGE_URLS }}
         run: |
           npm ci
           npm run build
