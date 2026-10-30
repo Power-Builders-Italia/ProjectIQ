@@ -96,6 +96,7 @@ const Detail: React.FC<{ project: ProjectFigures }> = ({ project }) => {
             <OpenInApp url={recordUrl(d.settings, 'op365_project', p.id)} />
             <FollowUp prompt={promptFor('GetProjectBudget', p.code || p.name)}>{t.budgetDetail}</FollowUp>
             <FollowUp prompt={promptFor('GetProjectTimeline', p.code || p.name)}>{t.timeline}</FollowUp>
+            <FollowUp prompt={promptFor('GetProjectDocuments', p.code || p.name)}>{s.documents.eyebrow}</FollowUp>
             {(d.openRequests > 0 || d.openOrders > 0) && <FollowUp prompt={s.prompts.projectPurchasing(p.code || p.name)}>{t.purchasing}</FollowUp>}
           </Footer>
         </>

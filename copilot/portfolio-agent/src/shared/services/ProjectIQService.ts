@@ -11,6 +11,8 @@ import { DataverseClient, formatted, num, Row, str } from './DataverseClient';
 import type { ProjectFigures } from '../logic/portfolio';
 import type { PurchasingData } from '../logic/purchasing';
 import type { SupplierDocument, SupplierInfo } from '../logic/suppliers';
+import { joinUrl, type DocumentFolder } from '../logic/documents';
+import type { SharePointClient } from './SharePointClient';
 
 const bare = (id: string): string => id.replace(/[{}]/g, '').toLowerCase();
 const label = (r: Row | undefined, ...cols: string[]): string => (r ? cols.map(c => str(r[c])).filter(Boolean).join(' ') : '');
@@ -69,7 +71,7 @@ const ENTRY_SELECT = '$select=op365_timeentryid,op365_entrydate,op365_hours,stat
 export class ProjectIQService {
   private _me?: Promise<Me>;
 
-  public constructor(private readonly _dv: DataverseClient) {}
+  public constructor(private readonly _dv: DataverseClient, private readonly _sp?: SharePointClient) {}
 
   public get environmentUrl(): string {
     return this._dv.environmentUrl;
@@ -360,5 +362,37 @@ export class ProjectIQService {
         type: formatted(d, 'op365_documenttype'), number: str(d.op365_number) || undefined, expiry: day(d.op365_expirydate),
       })),
     };
+  }
+
+  /**
+   * SharePoint folders of a record (Documents in the ProjectIQ app) and their content. Dataverse keeps one document
+   * location per folder: record folder -> library (relative URLs) -> SharePoint site (absolute URL).
+   */
+  public async documents(recordId: string): Promise<DocumentFolder[]> {
+    const rows = await this._dv.all('sharepointdocumentlocations', '$select=name,relativeurl,absoluteurl'
+      + '&$expand=parentsiteorlocation_sharepointdocumentlocation($select=relativeurl;$expand=parentsiteorlocation_sharepointsite($select=absoluteurl)),'
+      + 'parentsiteorlocation_sharepointsite($select=absoluteurl)'
+      + `&$filter=_regardingobjectid_value eq ${bare(recordId)} and statecode eq 0&$orderby=createdon`);
+    const folders: { name: string; url: string; web: string }[] = [];
+    for (const r of rows) {
+      const library = r.parentsiteorlocation_sharepointdocumentlocation as Row | null | undefined;
+      const librarySite = str((library?.parentsiteorlocation_sharepointsite as Row | null | undefined)?.absoluteurl);
+      const site = str((r.parentsiteorlocation_sharepointsite as Row | null | undefined)?.absoluteurl);
+      const absolute = str(r.absoluteurl);
+      if (absolute) {
+        // Absolute location: the web is the site collection in the URL (/sites/x or /teams/x), else the root site.
+        const web = /^https:\/\/[^/]+(\/(sites|teams)\/[^/]+)?/i.exec(absolute)?.[0] || absolute;
+        folders.push({ name: str(r.name), url: absolute.replace(/\/+$/, ''), web });
+      } else if (library && librarySite) {
+        folders.push({ name: str(r.name), url: joinUrl(librarySite, str(library.relativeurl), str(r.relativeurl)), web: librarySite });
+      } else if (site) {
+        folders.push({ name: str(r.name), url: joinUrl(site, str(r.relativeurl)), web: site });
+      }
+    }
+    const sp = this._sp;
+    return Promise.all(folders.map(async f => {
+      const items = sp ? await sp.folder(f.web, f.url) : [];
+      return { name: f.name, url: f.url, exists: items !== undefined, items: items || [] };
+    }));
   }
 }

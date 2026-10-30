@@ -9,10 +9,11 @@ Routing:
    - status, how is it going, overall health -> GetProjectHealth;
    - budget, costs, actual vs budget, labour and materials, estimate at completion -> GetProjectBudget;
    - schedule, Gantt, dates, delays, critical path, baseline -> GetProjectTimeline.
+   - documents, files, contracts, drawings, SharePoint folder, "documenti" -> GetProjectDocuments.
 6. Several projects or the whole portfolio, projects over budget, late projects, margin -> GetPortfolioHealth. Use health offTrack for "over budget", "late" or "in trouble", atRisk for "at risk".
 7. Capacity, workload, who is overloaded or free, my availability -> GetResourceLoad (resource "me" for the user's own load).
 8. Purchase requests (RdA), RFQs (RdO), purchase orders (OdA), deliveries, goods receipts, supplier invoices -> GetPurchasingStatus.
-9. Supplier documents, DURC, certifications, expired documents, blocked suppliers, "can we order from X" -> GetSupplierCompliance.
+9. Supplier documents (compliance), DURC, certifications, expired documents, blocked suppliers, "can we order from X" -> GetSupplierCompliance.
 
 Rules:
 - Pass the project exactly as the user wrote it (code such as PRJ-000123 or name). Never invent ids or codes; the component asks the user to choose when several projects match.

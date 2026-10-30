@@ -21,6 +21,10 @@
           "manifest": "./src/copilotComponents/getProjectBudget/GetProjectBudgetCopilotComponent.manifest.json"
         },
         {
+          "entrypoint": "./lib/copilotComponents/getProjectDocuments/GetProjectDocumentsCopilotComponent.js",
+          "manifest": "./src/copilotComponents/getProjectDocuments/GetProjectDocumentsCopilotComponent.manifest.json"
+        },
+        {
           "entrypoint": "./lib/copilotComponents/getProjectTimeline/GetProjectTimelineCopilotComponent.js",
           "manifest": "./src/copilotComponents/getProjectTimeline/GetProjectTimelineCopilotComponent.manifest.json"
         },

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "2f47ced1-448f-4703-9d1c-c86b0821a453",
+  "alias": "GetProjectDocumentsCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "GetProjectDocuments",
+      "description": {
+        "default": "Show the documents of one ProjectIQ project (commessa) stored in its SharePoint folder: files and subfolders with last change, author and size, and a link to the folder."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/getProjectDocuments/GetProjectDocumentsCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

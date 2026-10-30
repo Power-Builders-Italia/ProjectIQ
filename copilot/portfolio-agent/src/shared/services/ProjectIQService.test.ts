@@ -1,5 +1,6 @@
 import { DataverseClient, type HttpSend } from './DataverseClient';
 import { ProjectIQService } from './ProjectIQService';
+import { SharePointClient } from './SharePointClient';
 
 function fake(routes: Record<string, unknown>): { send: HttpSend; posts: { url: string; body?: string }[] } {
   const posts: { url: string; body?: string }[] = [];
@@ -49,5 +50,44 @@ describe('ProjectIQService', () => {
     const { send, posts } = fake({ op365_DecideTimeEntries: { Count: 1 } });
     await new ProjectIQService(new DataverseClient(ENV, send)).decideEntries(['t1'], false, 'Wrong task');
     expect(JSON.parse(posts[0].body!)).toEqual({ TimeEntryIds: ['t1'], Approve: false, Note: 'Wrong task' });
+  });
+
+  it('lists the SharePoint folder of a project from its document location', async () => {
+    const { send } = fake({ sharepointdocumentlocations: { value: [{
+      name: 'Documents on ProjectIQ 1', relativeurl: 'PRJ-000123_ABC',
+      parentsiteorlocation_sharepointdocumentlocation: {
+        relativeurl: 'op365_project', parentsiteorlocation_sharepointsite: { absoluteurl: 'https://contoso.sharepoint.com/sites/ProjectIQ' },
+      },
+    }] } });
+    const urls: string[] = [];
+    const sp = new SharePointClient(async (_m, url) => {
+      urls.push(url);
+      return { ok: true, status: 200, statusText: 'OK', text: async () => JSON.stringify({
+        Files: [{ Name: 'Contratto.docx', ServerRelativeUrl: '/sites/ProjectIQ/op365_project/PRJ-000123_ABC/Contratto.docx', Length: '2048',
+          TimeLastModified: '1970-01-05T10:00:00Z', ModifiedBy: { Title: 'Anna Bianchi' } }],
+        Folders: [{ Name: 'Forms', ServerRelativeUrl: '/x/Forms', ItemCount: 0 }],
+      }) };
+    });
+    const folders = await new ProjectIQService(new DataverseClient(ENV, send), sp).documents('{P1}');
+    expect(urls[0]).toBe("https://contoso.sharepoint.com/sites/ProjectIQ/_api/web/GetFolderByServerRelativePath(decodedurl=@p)"
+      + "?@p='%2Fsites%2FProjectIQ%2Fop365_project%2FPRJ-000123_ABC'&$expand=Files/ModifiedBy,Folders&$select=Files/Name,Files/ServerRelativeUrl,"
+      + 'Files/Length,Files/TimeLastModified,Files/ModifiedBy/Title,Folders/Name,Folders/ServerRelativeUrl,Folders/TimeLastModified,Folders/ItemCount');
+    expect(folders).toEqual([{
+      name: 'Documents on ProjectIQ 1', url: 'https://contoso.sharepoint.com/sites/ProjectIQ/op365_project/PRJ-000123_ABC', exists: true,
+      items: [{ name: 'Contratto.docx', url: 'https://contoso.sharepoint.com/sites/ProjectIQ/op365_project/PRJ-000123_ABC/Contratto.docx?web=1',
+        folder: false, modified: 4, modifiedBy: 'Anna Bianchi', size: 2048 }],
+    }]);
+  });
+
+  it('reports a folder not created in SharePoint yet', async () => {
+    const { send } = fake({ sharepointdocumentlocations: { value: [{ name: 'D', relativeurl: 'f', absoluteurl: 'https://contoso.sharepoint.com/teams/pm/lib/f/' }] } });
+    const webs: string[] = [];
+    const sp = new SharePointClient(async (_m, url) => {
+      webs.push(url.split('/_api/')[0]);
+      return { ok: false, status: 404, statusText: 'Not Found', text: async () => '' };
+    });
+    const folders = await new ProjectIQService(new DataverseClient(ENV, send), sp).documents('p1');
+    expect(webs).toEqual(['https://contoso.sharepoint.com/teams/pm']);
+    expect(folders).toEqual([{ name: 'D', url: 'https://contoso.sharepoint.com/teams/pm/lib/f', exists: false, items: [] }]);
   });
 });

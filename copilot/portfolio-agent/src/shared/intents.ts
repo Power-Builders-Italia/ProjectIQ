@@ -22,6 +22,7 @@ export const INTENTS: IntentDefinition[] = [
   { key: 'GetProjectHealth', category: 'project', operation: 'information', reads: ['Project', 'WBS Node', 'Baseline', 'Purchase Request', 'Purchase Order'] },
   { key: 'GetProjectBudget', category: 'project', operation: 'information', reads: ['Project', 'WBS Node'] },
   { key: 'GetProjectTimeline', category: 'project', operation: 'information', reads: ['WBS Node', 'WBS Dependency', 'Baseline'] },
+  { key: 'GetProjectDocuments', category: 'project', operation: 'information', reads: ['Document Location', 'SharePoint folder'] },
   { key: 'GetPortfolioHealth', category: 'portfolio', operation: 'information', reads: ['Project'] },
   { key: 'GetResourceLoad', category: 'portfolio', operation: 'information', reads: ['Resource', 'WBS Allocation', 'Absence'] },
   { key: 'GetPurchasingStatus', category: 'purchasing', operation: 'information', reads: ['Purchase Request', 'RFQ', 'Purchase Order', 'Supplier Invoice'] },

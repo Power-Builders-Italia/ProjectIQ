@@ -52,6 +52,7 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Time tracking: timesheet, approval, reminders | [EN](docs/en/time-tracking.md) | [IT](docs/it/time-tracking.md) | [FR](docs/fr/time-tracking.md) | [DE](docs/de/time-tracking.md) |
 | Materials, actual costs and cost summary | [EN](docs/en/materials-and-costs.md) | [IT](docs/it/materials-and-costs.md) | [FR](docs/fr/materials-and-costs.md) | [DE](docs/de/materials-and-costs.md) |
 | Purchasing: requests, RFQs, orders, receipts, invoices | [EN](docs/en/purchasing.md) | [IT](docs/it/purchasing.md) | [FR](docs/fr/purchasing.md) | [DE](docs/de/purchasing.md) |
+| Documents in SharePoint (projects, orders, supplier documents) | [EN](docs/en/documents.md) | [IT](docs/it/documents.md) | [FR](docs/fr/documents.md) | [DE](docs/de/documents.md) |
 | Supplier portal | [EN](docs/en/supplier-portal.md) | [IT](docs/it/supplier-portal.md) | [FR](docs/fr/supplier-portal.md) | [DE](docs/de/supplier-portal.md) |
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
 | Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |

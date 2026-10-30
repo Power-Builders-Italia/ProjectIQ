@@ -37,6 +37,7 @@ flowchart LR
 | Project health | "Come va la commessa PRJ-000123?" | Semaforo e motivi, budget, consuntivo, impegnato, residuo, stima a finire, margine, fasi WBS segnalate, acquisti aperti | – |
 | Project budget | "Mostra il budget del tetto della scuola" | Budget contro costo effettivo per ramo WBS (grafico e tabella), manodopera, materiali, impegnato | – |
 | Project timeline | "PRJ-000123 è in ritardo? Mostra il percorso critico" | Fasi WBS su una timeline con avanzamento, percorso critico, baseline e barre spinte dalle dipendenze | – |
+| Project documents | "Mostra i documenti della commessa PRJ-000123" | File e sottocartelle della cartella SharePoint della commessa, dai più recenti, con autore, dimensione e link | – |
 | Portfolio health | "Quali commesse sono fuori budget o in ritardo?" | Tutte le commesse con semaforo, totali, margine a finire | – |
 | Resource load | "Chi è sovraccarico nelle prossime settimane?", "Mostra il mio carico" | Mappa di calore delle ore allocate rispetto alla capacità, per settimana | – |
 | Purchasing status | "Cosa è in attesa negli acquisti?", "Quali ordini sono in ritardo?" | RdA da approvare o da ordinare, RdO scadute, ordini in ritardo e aperti, fatture da verificare | – |
@@ -104,6 +105,10 @@ stateDiagram-v2
 4. La revisione mostra quante registrazioni, ore e persone. Il rifiuto richiede una **Note for the people**.
 5. Seleziona **Confirm approval** o **Confirm rejection**. La decisione usa la stessa Custom API della dashboard **Time Approval**: le ore approvate diventano costo effettivo, le persone ricevono una notifica in-app.
 
+## Documenti di commessa
+
+La card legge la cartella SharePoint che ProjectIQ ha creato per la commessa (vedi [Documenti in SharePoint](documents.md)): la cartella si trova tramite la document location della commessa, poi file e sottocartelle vengono elencati **con i tuoi permessi SharePoint**. I KPI mostrano numero di file e cartelle e l'ultima modifica; seleziona un nome per aprire il file (i file Office si aprono nel browser) oppure **Open folder in SharePoint**. Caricamento e modifica restano in SharePoint o in **Related** → **Documents** dell'app.
+
 ## Acquisti e fornitori
 
 Le viste acquisti e fornitori sono **in sola lettura**: approvare RdA, creare RdO e ordini, ricevere merci e decidere le fatture restano sui pulsanti dell'app (vedi [Acquisti](purchasing.md)). Seleziona una riga per aprire il record in ProjectIQ.
@@ -147,6 +152,7 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 - Le colonne protette dal profilo **OP365 Cost Visibility** (costi orari, Cost delle registrazioni ore, costi dei materiali, Spend dei fornitori) appaiono a 0 per chi non ha il profilo; le schede lo dicono invece di stimare.
 - Le sole scritture sono le registrazioni ore dell'utente e le decisioni sulle ore, tramite gli stessi plugin e Custom API dell'app, e solo dopo **Confirm**. Acquisti, commesse e anagrafiche non vengono mai modificati da Copilot.
 - Ciò che una scheda mostra è passato a Copilot come contesto della conversazione (al massimo circa 9 KB di testo), come per ogni altra risposta di Copilot.
+- I documenti di commessa sono letti da SharePoint con i **permessi SharePoint dell'utente** (nessun accesso API in più da approvare): la card elenca solo i file che la persona può aprire.
 
 ## Messaggi che potresti vedere
 
@@ -155,6 +161,8 @@ Ogni persona ha bisogno di una licenza **Microsoft 365 Copilot** e della licenza
 | "ProjectIQ environment not configured" | La proprietà del tenant `ProjectIQEnvironmentUrl` manca o non è un URL Dataverse: vedi [Configurazione](#configurazione-amministratori), passo 4 |
 | "No access to ProjectIQ" | L'API access del passo 3 non è approvato, oppure l'utente non ha un ruolo di sicurezza nell'ambiente |
 | "Several projects match" / "No project matches ..." | Scegli la commessa dai pulsanti |
+| "No document folder yet" | Nessuno ha ancora aperto Documents sulla commessa: vedi [Documenti in SharePoint](documents.md#aprire-i-documenti-di-un-record) |
+| "You have no access to the SharePoint folder of this project." | Il tuo account SharePoint non ha accesso al sito dei documenti: chiedi all'amministratore SharePoint |
 | "You are not linked to a resource in ProjectIQ ..." | Nessuna risorsa attiva ha il tuo utente nel campo *User*: chiedi a un amministratore |
 | "Choose the project." / "Hours must be a number from 0 to 24 (quarter hours)." / "Enter the hours or remove the line." | Correggi la riga in bozza |
 | "More than 24 hours on ..." / "More than 10 hours on ..." | Troppe ore in un giorno (bloccante) / controlla le ore (avviso) |

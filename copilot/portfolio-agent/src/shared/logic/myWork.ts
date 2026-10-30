@@ -7,7 +7,7 @@ import { level, type ResourceLoadRow } from '../projectiq/load';
 
 export type IntentKey =
   | 'GetMyWorkSummary' | 'GetPortfolioHealth' | 'GetProjectHealth' | 'GetProjectBudget' | 'GetProjectTimeline'
-  | 'GetResourceLoad' | 'GetPurchasingStatus' | 'GetSupplierCompliance' | 'ReviewTimeApprovals' | 'SubmitTimesheet'
+  | 'GetProjectDocuments' | 'GetResourceLoad' | 'GetPurchasingStatus' | 'GetSupplierCompliance' | 'ReviewTimeApprovals' | 'SubmitTimesheet'
   | 'ExploreAgentCapabilities';
 
 export interface AttentionItem {
