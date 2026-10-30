@@ -8,11 +8,12 @@ import type { LoadAbsence, LoadAllocation, LoadResource } from '../projectiq/loa
 import type { PendingEntry } from '../projectiq/approval';
 import type { TimeEntry } from '../projectiq/timesheet';
 import { DataverseClient, formatted, num, Row, str } from './DataverseClient';
-import type { ProjectFigures } from '../logic/portfolio';
+import { PROJECT_STATUS, type ProjectFigures } from '../logic/portfolio';
 import type { PurchasingData } from '../logic/purchasing';
 import type { SupplierDocument, SupplierInfo } from '../logic/suppliers';
 import { joinUrl, type DocumentFolder } from '../logic/documents';
 import type { SharePointClient } from './SharePointClient';
+import { projectFolderName, safeFileName, type PlannedNode, type ProjectPlan } from '../logic/projectDraft';
 
 const bare = (id: string): string => id.replace(/[{}]/g, '').toLowerCase();
 const label = (r: Row | undefined, ...cols: string[]): string => (r ? cols.map(c => str(r[c])).filter(Boolean).join(' ') : '');
@@ -40,6 +41,17 @@ export interface ProjectDetail {
 }
 
 export interface Choice { id: string; name: string; }
+
+/** SharePoint library of the projects, named after the table by Dataverse document management. */
+const PROJECT_LIBRARY = 'op365_project';
+
+/** Document management is not set up: no SharePoint library is registered for the projects. */
+export class NoDocumentLibraryError extends Error {
+  public constructor(message: string) {
+    super(message);
+    Object.setPrototypeOf(this, NoDocumentLibraryError.prototype);
+  }
+}
 
 const PROJECT_SELECT = 'op365_projectid,op365_code,op365_name,_op365_customerid_value,_op365_projectmanagerid_value,statuscode,'
   + 'op365_startdate,op365_enddate,op365_contractvalue,op365_budgettotal,op365_actualcost,op365_committedcost,op365_progresspct,'
@@ -369,6 +381,90 @@ export class ProjectIQService {
    * location per folder: record folder -> library (relative URLs) -> SharePoint site (absolute URL).
    */
   public async documents(recordId: string): Promise<DocumentFolder[]> {
+    const folders = await this._locations(recordId);
+    const sp = this._sp;
+    return Promise.all(folders.map(async f => {
+      const items = sp ? await sp.folder(f.web, f.url) : [];
+      return { name: f.name, url: f.url, exists: items !== undefined, items: items || [] };
+    }));
+  }
+
+  /** Active accounts, to choose the customer of a new project. */
+  public async customers(): Promise<Choice[]> {
+    const rows = await this._dv.all('accounts', '$select=accountid,name&$filter=statecode eq 0&$orderby=name');
+    return rows.map(r => ({ id: str(r.accountid), name: str(r.name) }));
+  }
+
+  /** Enabled people (no application users), to choose the project manager. */
+  public async users(): Promise<Choice[]> {
+    const rows = await this._dv.all('systemusers', '$select=systemuserid,fullname&$filter=isdisabled eq false and applicationid eq null&$orderby=fullname');
+    return rows.map(r => ({ id: str(r.systemuserid), name: str(r.fullname) })).filter(u => u.name);
+  }
+
+  /** Creates the project in status Offer (the autonumber gives the code) and returns its id and code. */
+  public async createProject(p: ProjectPlan): Promise<{ id: string; code: string }> {
+    const body: Record<string, unknown> = {
+      op365_name: p.name, statuscode: PROJECT_STATUS.offer,
+      'op365_CustomerId@odata.bind': `/accounts(${bare(p.customerId)})`,
+      'op365_ProjectManagerId@odata.bind': `/systemusers(${bare(p.managerId)})`,
+      op365_startdate: p.startDate, op365_enddate: p.endDate,
+    };
+    if (p.contractValue !== undefined) body.op365_contractvalue = p.contractValue;
+    if (p.description) body.op365_description = p.description;
+    const id = await this._dv.create('op365_projects', body, 'op365_projectid');
+    const row = await this._dv.get(`op365_projects(${bare(id)})?$select=op365_code`);
+    return { id, code: str(row.op365_code) };
+  }
+
+  /** Creates one WBS node under its parent (the plugins roll budgets up to the parents and the project). */
+  public async createNode(projectId: string, node: PlannedNode, parentId?: string): Promise<string> {
+    const body: Record<string, unknown> = {
+      op365_name: node.name, op365_code: node.code, op365_sortorder: node.sortOrder,
+      'op365_ProjectId@odata.bind': `/op365_projects(${bare(projectId)})`,
+    };
+    if (parentId) body['op365_ParentId@odata.bind'] = `/op365_wbsnodes(${bare(parentId)})`;
+    if (node.budgetHours !== undefined) body.op365_budgethours = node.budgetHours;
+    if (node.startDate) body.op365_startdate = node.startDate;
+    if (node.endDate) body.op365_enddate = node.endDate;
+    return this._dv.create('op365_wbsnodes', body, 'op365_wbsnodeid');
+  }
+
+  /**
+   * Saves a document in the SharePoint folder of a project. The folder is the one Dataverse uses for Documents:
+   * the existing one, or a new folder in the op365_project library, registered as the document location of the
+   * project so the app and the Project documents card find it. NoDocumentLibraryError when document management
+   * is not set up (no op365_project library registered in Dataverse).
+   */
+  public async saveProjectDocument(projectId: string, projectName: string, fileName: string, content: Blob): Promise<{ fileUrl: string; folderUrl: string }> {
+    const sp = this._sp;
+    if (!sp) throw new NoDocumentLibraryError('SharePoint is not available');
+    let folder = (await this._locations(projectId))[0];
+    if (!folder) {
+      const libraries = await this._dv.all('sharepointdocumentlocations', '$select=sharepointdocumentlocationid,relativeurl'
+        + '&$expand=parentsiteorlocation_sharepointsite($select=absoluteurl,isdefault)'
+        + `&$filter=relativeurl eq '${PROJECT_LIBRARY}' and statecode eq 0 and _regardingobjectid_value eq null`);
+      const site = (r: Row): Row | undefined => (r.parentsiteorlocation_sharepointsite as Row | null | undefined) || undefined;
+      const library = libraries.filter(r => site(r)?.isdefault === true)[0] || libraries.filter(r => str(site(r)?.absoluteurl))[0];
+      if (!library) throw new NoDocumentLibraryError(PROJECT_LIBRARY);
+      const web = str(site(library)?.absoluteurl);
+      const name = projectFolderName(projectName, projectId);
+      const url = joinUrl(web, str(library.relativeurl), name);
+      await sp.ensureFolder(web, url);
+      await this._dv.create('sharepointdocumentlocations', {
+        name: `Documents on ${projectName}`.substring(0, 160), relativeurl: name,
+        'parentsiteorlocation_sharepointdocumentlocation@odata.bind': `/sharepointdocumentlocations(${str(library.sharepointdocumentlocationid)})`,
+        'regardingobjectid_op365_project@odata.bind': `/op365_projects(${bare(projectId)})`,
+      }, 'sharepointdocumentlocationid');
+      folder = { name, url, web };
+    } else if ((await sp.folder(folder.web, folder.url)) === undefined) {
+      await sp.ensureFolder(folder.web, folder.url);
+    }
+    const fileUrl = await sp.upload(folder.web, folder.url, safeFileName(fileName), content);
+    return { fileUrl, folderUrl: folder.url };
+  }
+
+  /** Folders of a record from its document locations: record folder -> library (relative URLs) -> site (absolute URL). */
+  private async _locations(recordId: string): Promise<{ name: string; url: string; web: string }[]> {
     const rows = await this._dv.all('sharepointdocumentlocations', '$select=name,relativeurl,absoluteurl'
       + '&$expand=parentsiteorlocation_sharepointdocumentlocation($select=relativeurl;$expand=parentsiteorlocation_sharepointsite($select=absoluteurl)),'
       + 'parentsiteorlocation_sharepointsite($select=absoluteurl)'
@@ -389,10 +485,6 @@ export class ProjectIQService {
         folders.push({ name: str(r.name), url: joinUrl(site, str(r.relativeurl)), web: site });
       }
     }
-    const sp = this._sp;
-    return Promise.all(folders.map(async f => {
-      const items = sp ? await sp.folder(f.web, f.url) : [];
-      return { name: f.name, url: f.url, exists: items !== undefined, items: items || [] };
-    }));
+    return folders;
   }
 }

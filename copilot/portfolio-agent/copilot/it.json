@@ -3,10 +3,10 @@
   "name.short": "ProjectIQ Portafoglio",
   "name.full": "Agente Portafoglio ProjectIQ",
   "description.short": "Progetti, portafoglio, risorse, acquisti e ore di ProjectIQ in Copilot.",
-  "description.full": "Un agente Copilot guidato dalle intenzioni sui dati ProjectIQ in tempo reale: stato del portafoglio e dei progetti, budget, cronoprogramma, documenti di commessa, carico risorse, stato degli acquisti, conformità fornitori, approvazione delle ore e registrazione e invio del tuo foglio ore, con i tuoi permessi Dataverse.",
+  "description.full": "Un agente Copilot guidato dalle intenzioni sui dati ProjectIQ in tempo reale: stato del portafoglio e dei progetti, budget, cronoprogramma, documenti di commessa, carico risorse, stato degli acquisti, conformità fornitori, approvazione delle ore, registrazione e invio del tuo foglio ore e nuovi progetti in bozza con la WBS da un documento allegato, con i tuoi permessi Dataverse.",
   "localizationKeys": {
     "agent_name": "Agente Portafoglio ProjectIQ",
-    "agent_description": "Vista in tempo reale dei tuoi progetti ProjectIQ: stato del portafoglio e dei progetti, budget, cronoprogramma, documenti di commessa, carico risorse, acquisti, conformità fornitori, ore da approvare e il tuo foglio ore.",
+    "agent_description": "Vista in tempo reale dei tuoi progetti ProjectIQ: stato del portafoglio e dei progetti, budget, cronoprogramma, documenti di commessa, carico risorse, acquisti, conformità fornitori, ore da approvare, il tuo foglio ore e nuovi progetti da documento.",
     "starter1_title": "Cosa richiede attenzione",
     "starter1_text": "Cosa richiede la mia attenzione sui miei progetti questa settimana?",
     "starter2_title": "Stato del portafoglio",

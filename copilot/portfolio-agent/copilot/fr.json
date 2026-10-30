@@ -3,10 +3,10 @@
   "name.short": "ProjectIQ Portefeuille",
   "name.full": "Agent Portefeuille ProjectIQ",
   "description.short": "Projets, portefeuille, ressources, achats et heures ProjectIQ dans Copilot.",
-  "description.full": "Un agent Copilot piloté par les intentions sur les données ProjectIQ en direct : santé du portefeuille et des projets, budget, planning, documents du projet, charge des ressources, état des achats, conformité des fournisseurs, approbation des heures et saisie et soumission de votre feuille de temps, avec vos propres autorisations Dataverse.",
+  "description.full": "Un agent Copilot piloté par les intentions sur les données ProjectIQ en direct : santé du portefeuille et des projets, budget, planning, documents du projet, charge des ressources, état des achats, conformité des fournisseurs, approbation des heures, saisie et soumission de votre feuille de temps et nouveaux projets brouillons avec leur WBS à partir d'un document joint, avec vos propres autorisations Dataverse.",
   "localizationKeys": {
     "agent_name": "Agent Portefeuille ProjectIQ",
-    "agent_description": "Vue en direct de vos projets ProjectIQ : santé du portefeuille et des projets, budget, planning, documents du projet, charge des ressources, achats, conformité des fournisseurs, heures à approuver et votre feuille de temps.",
+    "agent_description": "Vue en direct de vos projets ProjectIQ : santé du portefeuille et des projets, budget, planning, documents du projet, charge des ressources, achats, conformité des fournisseurs, heures à approuver, votre feuille de temps et nouveaux projets à partir de documents.",
     "starter1_title": "Ce qui demande mon attention",
     "starter1_text": "Qu'est-ce qui demande mon attention sur mes projets cette semaine ?",
     "starter2_title": "Santé du portefeuille",

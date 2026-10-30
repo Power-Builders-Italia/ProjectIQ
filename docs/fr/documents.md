@@ -31,7 +31,7 @@ flowchart LR
 | Purchase Order | `op365_purchaseorder` | Un par commande |
 | Supplier Document | `op365_supplierdocument` | Un par document (par exemple le DURC numérisé avec ses pièces jointes) |
 
-Le dossier est créé la **première fois que quelqu'un ouvre Documents** sur l'enregistrement. Dataverse enregistre un *emplacement de document* (document location) qui relie l'enregistrement au dossier ; l'agent et l'application trouvent le dossier par cet emplacement.
+Le dossier est créé la **première fois que quelqu'un ouvre Documents** sur l'enregistrement. Dataverse enregistre un *emplacement de document* (document location) qui relie l'enregistrement au dossier ; l'agent et l'application trouvent le dossier par cet emplacement. Un projet créé dans Copilot à partir d'un document a déjà son dossier, avec le document dedans (voir [Portfolio Agent](portfolio-agent.md#nouveau-projet-à-partir-dun-document)).
 
 ## Partie 1 : travailler avec les documents
 

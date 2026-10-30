@@ -31,7 +31,7 @@ flowchart LR
 | Purchase Order | `op365_purchaseorder` | Einer pro Bestellung |
 | Supplier Document | `op365_supplierdocument` | Einer pro Dokument (zum Beispiel der gescannte DURC mit seinen Anlagen) |
 
-Der Ordner wird angelegt, wenn **zum ersten Mal jemand Documents** am Datensatz öffnet. Dataverse speichert einen *Dokumentspeicherort* (document location), der den Datensatz mit dem Ordner verknüpft; Agent und App finden den Ordner darüber.
+Der Ordner wird angelegt, wenn **zum ersten Mal jemand Documents** am Datensatz öffnet. Dataverse speichert einen *Dokumentspeicherort* (document location), der den Datensatz mit dem Ordner verknüpft; Agent und App finden den Ordner darüber. Ein in Copilot aus einem Dokument angelegtes Projekt hat seinen Ordner bereits, mit dem Dokument darin (siehe [Portfolio Agent](portfolio-agent.md#neues-projekt-aus-einem-dokument)).
 
 ## Teil 1: mit Dokumenten arbeiten
 

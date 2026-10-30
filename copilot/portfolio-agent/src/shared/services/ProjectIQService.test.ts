@@ -1,11 +1,11 @@
 import { DataverseClient, type HttpSend } from './DataverseClient';
-import { ProjectIQService } from './ProjectIQService';
+import { NoDocumentLibraryError, ProjectIQService } from './ProjectIQService';
 import { SharePointClient } from './SharePointClient';
 
 function fake(routes: Record<string, unknown>): { send: HttpSend; posts: { url: string; body?: string }[] } {
   const posts: { url: string; body?: string }[] = [];
   const send: HttpSend = async (method, url, _h, body) => {
-    if (method === 'POST') posts.push({ url, body });
+    if (method === 'POST') posts.push({ url, body: typeof body === 'string' ? body : undefined });
     const key = Object.keys(routes).find(k => url.indexOf(k) >= 0);
     const value = key ? routes[key] : { value: [] };
     return { ok: true, status: 200, statusText: 'OK', text: async () => JSON.stringify(value) };
@@ -89,5 +89,62 @@ describe('ProjectIQService', () => {
     const folders = await new ProjectIQService(new DataverseClient(ENV, send), sp).documents('p1');
     expect(webs).toEqual(['https://contoso.sharepoint.com/teams/pm']);
     expect(folders).toEqual([{ name: 'D', url: 'https://contoso.sharepoint.com/teams/pm/lib/f', exists: false, items: [] }]);
+  });
+
+  it('creates a draft project in status Offer and its WBS nodes under their parents', async () => {
+    const { send, posts } = fake({
+      'op365_projects?$select': { op365_projectid: 'p9' }, 'op365_projects(p9)': { op365_code: 'PRJ-000124' }, 'op365_wbsnodes?$select': { op365_wbsnodeid: 'n2' },
+    });
+    const service = new ProjectIQService(new DataverseClient(ENV, send));
+    const created = await service.createProject({
+      name: 'Warehouse', customerId: '{A1}', managerId: 'u1', startDate: '2026-11-02', endDate: '2027-03-31', contractValue: 1000, nodes: [],
+    });
+    expect(created).toEqual({ id: 'p9', code: 'PRJ-000124' });
+    expect(JSON.parse(posts[0].body!)).toEqual({
+      op365_name: 'Warehouse', statuscode: 365000000, 'op365_CustomerId@odata.bind': '/accounts(a1)',
+      'op365_ProjectManagerId@odata.bind': '/systemusers(u1)', op365_startdate: '2026-11-02', op365_enddate: '2027-03-31', op365_contractvalue: 1000,
+    });
+    expect(await service.createNode('p9', { code: '1.2', name: 'Survey', parentCode: '1', sortOrder: 2, budgetHours: 16 }, 'n1')).toBe('n2');
+    expect(JSON.parse(posts[1].body!)).toEqual({
+      op365_name: 'Survey', op365_code: '1.2', op365_sortorder: 2, 'op365_ProjectId@odata.bind': '/op365_projects(p9)',
+      'op365_ParentId@odata.bind': '/op365_wbsnodes(n1)', op365_budgethours: 16,
+    });
+  });
+
+  it('creates the project folder in the op365_project library, registers it and uploads the document', async () => {
+    const { send, posts } = fake({
+      '_regardingobjectid_value eq null': { value: [{
+        sharepointdocumentlocationid: 'lib1', relativeurl: 'op365_project',
+        parentsiteorlocation_sharepointsite: { absoluteurl: 'https://contoso.sharepoint.com/sites/ProjectIQ', isdefault: true },
+      }] },
+      'sharepointdocumentlocations?$select=sharepointdocumentlocationid': { sharepointdocumentlocationid: 'loc1' },
+    });
+    const calls: { url: string; body?: string | Blob }[] = [];
+    const sp = new SharePointClient(async (_m, url, _h, body) => {
+      calls.push({ url, body });
+      const json = url.indexOf('/Files/') >= 0 ? { ServerRelativeUrl: '/sites/ProjectIQ/op365_project/Warehouse_0A1B/Offer.pdf' } : {};
+      return { ok: true, status: 200, statusText: 'OK', text: async () => JSON.stringify(json) };
+    });
+    const file = new Blob(['%PDF']);
+    const saved = await new ProjectIQService(new DataverseClient(ENV, send), sp).saveProjectDocument('0a1b', 'Warehouse', 'Offer.pdf', file);
+    expect(calls[0].url).toBe("https://contoso.sharepoint.com/sites/ProjectIQ/_api/web/folders/AddUsingPath(decodedurl=@p)?@p='%2Fsites%2FProjectIQ%2Fop365_project%2FWarehouse_0A1B'");
+    expect(JSON.parse(posts[0].body!)).toEqual({
+      name: 'Documents on Warehouse', relativeurl: 'Warehouse_0A1B',
+      'parentsiteorlocation_sharepointdocumentlocation@odata.bind': '/sharepointdocumentlocations(lib1)',
+      'regardingobjectid_op365_project@odata.bind': '/op365_projects(0a1b)',
+    });
+    expect(calls[1].url).toContain("/Files/AddUsingPath(decodedurl=@f,overwrite=true)?@p='%2Fsites%2FProjectIQ%2Fop365_project%2FWarehouse_0A1B'&@f='Offer.pdf'");
+    expect(calls[1].body).toBe(file);
+    expect(saved).toEqual({
+      fileUrl: 'https://contoso.sharepoint.com/sites/ProjectIQ/op365_project/Warehouse_0A1B/Offer.pdf',
+      folderUrl: 'https://contoso.sharepoint.com/sites/ProjectIQ/op365_project/Warehouse_0A1B',
+    });
+  });
+
+  it('reports when document management has no project library', async () => {
+    const { send } = fake({});
+    const sp = new SharePointClient(async () => ({ ok: true, status: 200, statusText: 'OK', text: async () => '{}' }));
+    await expect(new ProjectIQService(new DataverseClient(ENV, send), sp).saveProjectDocument('p1', 'X', 'a.pdf', new Blob(['x'])))
+      .rejects.toBeInstanceOf(NoDocumentLibraryError);
   });
 });

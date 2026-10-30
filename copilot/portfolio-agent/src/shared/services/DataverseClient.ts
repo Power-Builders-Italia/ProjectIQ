@@ -9,7 +9,7 @@ export interface IHttpResult {
 }
 
 /** Sends one request; the SPFx implementation wraps AadHttpClient, the tests use a fake. */
-export type HttpSend = (method: 'GET' | 'POST', url: string, headers: Record<string, string>, body?: string) => Promise<IHttpResult>;
+export type HttpSend = (method: 'GET' | 'POST', url: string, headers: Record<string, string>, body?: string | Blob) => Promise<IHttpResult>;
 
 export type Row = Record<string, unknown>;
 

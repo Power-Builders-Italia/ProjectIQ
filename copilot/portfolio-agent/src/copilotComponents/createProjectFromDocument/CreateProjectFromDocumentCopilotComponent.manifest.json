@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "03e455a2-9c9f-4ebc-868e-2bdb38b7cb3d",
+  "alias": "CreateProjectFromDocumentCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "CreateProjectFromDocument",
+      "description": {
+        "default": "Prepare a new ProjectIQ project (commessa) and its WBS from a document the user attached (offer, contract, kickoff, scope): show them as an editable draft, ask for the missing data and create the project in status Offer, saving the document in its SharePoint folder, only after the user confirms."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/createProjectFromDocument/CreateProjectFromDocumentCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

@@ -7,8 +7,8 @@
         "it-IT": "Agente Portfolio ProjectIQ"
       },
       "description": {
-        "default": "Projects, portfolio health, resource load, purchasing, hours to approve and timesheets from ProjectIQ.",
-        "it-IT": "Commesse, salute del portfolio, carico risorse, acquisti, ore da approvare e rapportini da ProjectIQ."
+        "default": "Projects, portfolio health, resource load, purchasing, hours to approve, timesheets and new projects from documents from ProjectIQ.",
+        "it-IT": "Commesse, salute del portfolio, carico risorse, acquisti, ore da approvare, rapportini e nuovi progetti da documento da ProjectIQ."
       },
       "components": [
         "9da193d2-3a3d-4170-af8b-7267594a1ea5",
@@ -22,7 +22,8 @@
         "bad6b67f-d9ba-4458-9326-00476d0eb773",
         "4a27d0b5-3aca-4888-bde9-f75c0aa97ea0",
         "4cdc2b31-710e-4d31-8f32-d48759571ff2",
-        "2f47ced1-448f-4703-9d1c-c86b0821a453"
+        "2f47ced1-448f-4703-9d1c-c86b0821a453",
+        "03e455a2-9c9f-4ebc-868e-2bdb38b7cb3d"
       ]
     }
   ]
