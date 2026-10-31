@@ -17,20 +17,13 @@
   <IsTransacted>1</IsTransacted>
   <IntroducedVersion>1.0.1.0</IntroducedVersion>
   <IsCustomizable>1</IsCustomizable>
-  <BusinessProcessType>0</BusinessProcessType>
   <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
   <ModernFlowType>0</ModernFlowType>
   <PrimaryEntity>none</PrimaryEntity>
   <LocalizedNames>
-    <LocalizedName languagecode="1031" description="Lieferantendokumente kennzeichnen" />
     <LocalizedName languagecode="1033" description="Tag supplier documents" />
-    <LocalizedName languagecode="1036" description="Étiqueter les documents fournisseur" />
-    <LocalizedName languagecode="1040" description="Classifica documenti fornitore" />
   </LocalizedNames>
   <Descriptions>
-    <Description languagecode="1031" description="Füllt die ProjectIQ-Spalten der Dateien im Ordner eines Lieferantendokuments" />
     <Description languagecode="1033" description="Fills the ProjectIQ columns of the files added to the folder of a supplier document" />
-    <Description languagecode="1036" description="Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d'un document fournisseur" />
-    <Description languagecode="1040" description="Compila le colonne ProjectIQ dei file aggiunti alla cartella di un documento fornitore" />
   </Descriptions>
 </Workflow>
