@@ -6,6 +6,7 @@ Definitions carry the defaults only: per-environment values are set in the targe
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
+from flow_definitions import LIBRARIES, SITE
 
 STRING, NUMBER, BOOLEAN = 100000000, 100000001, 100000002
 
@@ -18,6 +19,8 @@ VARIABLES = [
      'User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides '
      'supplier invoices. Empty = every OP365 Administrator.'),
 ]
+# document metadata flows: SharePoint site and library ids, set by tools/sharepoint/document_metadata.py (no default)
+VARIABLES += [(schema, label, STRING, None, desc) for schema, label, desc in [SITE, *LIBRARIES.values()]]
 
 
 def ok(r, what):

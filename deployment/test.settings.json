@@ -11,6 +11,22 @@
     {
       "SchemaName": "op365_PurchasingApprover",
       "Value": "#{OP365_PURCHASING_APPROVER}#"
+    },
+    {
+      "SchemaName": "op365_SharePointSiteUrl",
+      "Value": "#{OP365_SHAREPOINT_SITE_URL}#"
+    },
+    {
+      "SchemaName": "op365_ProjectLibraryId",
+      "Value": "#{OP365_PROJECT_LIBRARY_ID}#"
+    },
+    {
+      "SchemaName": "op365_PurchaseOrderLibraryId",
+      "Value": "#{OP365_PURCHASE_ORDER_LIBRARY_ID}#"
+    },
+    {
+      "SchemaName": "op365_SupplierDocumentLibraryId",
+      "Value": "#{OP365_SUPPLIER_DOCUMENT_LIBRARY_ID}#"
     }
   ],
   "ConnectionReferences": [
@@ -18,6 +34,11 @@
       "LogicalName": "op365_dataverse",
       "ConnectionId": "#{OP365_DATAVERSE_CONNECTION_ID}#",
       "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "op365_sharepoint",
+      "ConnectionId": "#{OP365_SHAREPOINT_CONNECTION_ID}#",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
     }
   ]
 }

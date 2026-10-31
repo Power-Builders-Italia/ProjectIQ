@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a02}" Name="Tag purchase order documents" Description="Fills the ProjectIQ columns of the files added to the folder of a purchase order" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <JsonFileName>/Workflows/Tagpurchaseorderdocuments-3C6F1D2A-8B1E-4F57-9A43-5D2B7E0C1A02.json</JsonFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>5</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>0</StateCode>
+  <StatusCode>1</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1031" description="Bestelldokumente kennzeichnen" />
+    <LocalizedName languagecode="1033" description="Tag purchase order documents" />
+    <LocalizedName languagecode="1036" description="Étiqueter les documents de commande" />
+    <LocalizedName languagecode="1040" description="Classifica documenti ordine" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1031" description="Füllt die ProjectIQ-Spalten der Dateien im Ordner einer Bestellung" />
+    <Description languagecode="1033" description="Fills the ProjectIQ columns of the files added to the folder of a purchase order" />
+    <Description languagecode="1036" description="Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d'une commande" />
+    <Description languagecode="1040" description="Compila le colonne ProjectIQ dei file aggiunti alla cartella di un ordine di acquisto" />
+  </Descriptions>
+</Workflow>

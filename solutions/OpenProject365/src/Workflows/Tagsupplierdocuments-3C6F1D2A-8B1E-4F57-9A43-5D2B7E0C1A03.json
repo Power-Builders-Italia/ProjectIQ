@@ -1,0 +1,157 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_sharepoint"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "SharePoint Site URL (op365_SharePointSiteUrl)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "op365_SharePointSiteUrl",
+            "description": "URL of the SharePoint site of the ProjectIQ document libraries (the default site of Document Management)."
+          }
+        },
+        "Supplier Document Library Id (op365_SupplierDocumentLibraryId)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "op365_SupplierDocumentLibraryId",
+            "description": "Id of the op365_supplierdocument document library."
+          }
+        }
+      },
+      "triggers": {
+        "When_a_file_is_created_(properties_only)": {
+          "recurrence": {
+            "interval": 3,
+            "frequency": "Minute"
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline",
+              "operationId": "GetOnNewFileItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "@parameters('SharePoint Site URL (op365_SharePointSiteUrl)')",
+              "table": "@parameters('Supplier Document Library Id (op365_SupplierDocumentLibraryId)')"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Record_folder_id": {
+          "runAfter": {},
+          "type": "Compose",
+          "inputs": "@if(greaterOrEquals(length(last(take(split(triggerOutputs()?['body/{Path}'], '/'), 2))), 32), toLower(substring(last(take(split(triggerOutputs()?['body/{Path}'], '/'), 2)), sub(length(last(take(split(triggerOutputs()?['body/{Path}'], '/'), 2))), 32), 32)), '')"
+        },
+        "In_a_record_folder": {
+          "runAfter": {
+            "Record_folder_id": [
+              "Succeeded"
+            ]
+          },
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@length(outputs('Record_folder_id'))",
+              32
+            ]
+          },
+          "actions": {
+            "Get_record": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "op365_supplierdocuments",
+                  "recordId": "@concat(substring(outputs('Record_folder_id'), 0, 8), '-', substring(outputs('Record_folder_id'), 8, 4), '-', substring(outputs('Record_folder_id'), 12, 4), '-', substring(outputs('Record_folder_id'), 16, 4), '-', substring(outputs('Record_folder_id'), 20, 12))",
+                  "$select": "op365_description",
+                  "$expand": "op365_SupplierId($select=name)"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Set_ProjectIQ_columns": {
+              "runAfter": {
+                "Get_record": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PatchFileItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('SharePoint Site URL (op365_SharePointSiteUrl)')",
+                  "table": "@parameters('Supplier Document Library Id (op365_SupplierDocumentLibraryId)')",
+                  "id": "@triggerOutputs()?['body/ID']",
+                  "item/ProjectIQRecordType/Value": "Supplier Document",
+                  "item/ProjectIQRecordId": "@concat(substring(outputs('Record_folder_id'), 0, 8), '-', substring(outputs('Record_folder_id'), 8, 4), '-', substring(outputs('Record_folder_id'), 12, 4), '-', substring(outputs('Record_folder_id'), 16, 4), '-', substring(outputs('Record_folder_id'), 20, 12))",
+                  "item/ProjectIQSupplier": "@body('Get_record')?['op365_SupplierId']?['name']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Record_not_found": {
+              "runAfter": {
+                "Get_record": [
+                  "Failed"
+                ]
+              },
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Succeeded"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

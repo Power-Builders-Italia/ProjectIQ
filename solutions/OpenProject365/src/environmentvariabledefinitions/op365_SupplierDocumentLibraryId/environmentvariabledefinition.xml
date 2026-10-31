@@ -1,0 +1,19 @@
+<environmentvariabledefinition schemaname="op365_SupplierDocumentLibraryId">
+  <description default="Id of the op365_supplierdocument document library.">
+    <label description="ID der Dokumentbibliothek op365_supplierdocument." languagecode="1031" />
+    <label description="Id of the op365_supplierdocument document library." languagecode="1033" />
+    <label description="ID de la bibliothèque de documents op365_supplierdocument." languagecode="1036" />
+    <label description="ID della raccolta documenti op365_supplierdocument." languagecode="1040" />
+  </description>
+  <displayname default="Supplier Document Library Id">
+    <label description="Lieferantendokumentbibliothek-ID" languagecode="1031" />
+    <label description="Supplier Document Library Id" languagecode="1033" />
+    <label description="ID de la bibliothèque Document fournisseur" languagecode="1036" />
+    <label description="ID raccolta Documento fornitore" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

@@ -37,6 +37,15 @@
       <statecode>0</statecode>
       <statuscode>1</statuscode>
     </connectionreference>
+    <connectionreference connectionreferencelogicalname="op365_sharepoint">
+      <connectionreferencedisplayname>ProjectIQ SharePoint</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_sharepointonline</connectorid>
+      <description>SharePoint connection (dedicated user) used by the ProjectIQ document flows</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
   </connectionreferences>
   <Languages>
     <Language>1033</Language>

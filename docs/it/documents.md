@@ -53,6 +53,24 @@ La cartella viene creata la **prima volta che qualcuno apre Documents** sul reco
 - Per vedere la scheda **Documents** serve il ruolo ProjectIQ (vedi [Amministrazione](administration.md#ruoli-di-sicurezza)): **OP365 User** può creare la cartella dei record che può aprire e leggere tutte le document location.
 - **Sono i permessi SharePoint a decidere quali file vedi.** ProjectIQ non copia la condivisione delle commesse in SharePoint: dai al team di commessa l'accesso al sito (o a una raccolta o cartella) in SharePoint.
 
+### Colonne ProjectIQ
+
+Ogni file aggiunto alla cartella di un record riceve, entro pochi minuti e senza che nessuno le digiti, le informazioni di quel record in colonne SharePoint. Puoi ordinare, filtrare e raggruppare la raccolta in base a queste colonne. Microsoft Search e Copilot le usano per trovare "i documenti della commessa PRJ-000123" o "i file del fornitore Rossi" anche quando il testo del file non li cita.
+
+| Colonna | Project | Purchase Order | Supplier Document |
+|---|---|---|---|
+| **ProjectIQ Record Type** | Project | Purchase Order | Supplier Document |
+| **Project Code** | Codice della commessa | Codice della commessa dell'ordine | – |
+| **Project Name** | Nome della commessa | Nome della commessa dell'ordine | – |
+| **Customer** | Cliente della commessa | Cliente della commessa dell'ordine | – |
+| **Project Manager** | Project manager | Project manager della commessa dell'ordine | – |
+| **PO Number** | – | Numero dell'ordine (PO-#####) | – |
+| **Supplier** | – | Fornitore dell'ordine | Fornitore del documento |
+
+- I valori sono quelli del record **nel momento in cui il file viene aggiunto**. Se rinomini una commessa o ne cambi il cliente, i file già presenti non vengono aggiornati.
+- I file fuori dalla cartella di un record non vengono classificati: per esempio quelli nella radice della raccolta o in una cartella aggiunta con **Add Location**.
+- Le colonne si modificano come qualsiasi altra colonna SharePoint e ProjectIQ non le sovrascrive. **ProjectIQ Record Id** è nascosta nei moduli e conserva il record a cui appartiene il file.
+
 ### Documenti in Copilot
 
 Nel [Portfolio Agent](portfolio-agent.md#documenti-di-commessa) chiedi "mostra i documenti della commessa PRJ-000123": la card elenca file e sottocartelle della cartella della commessa, dai più recenti, con il link a ogni file e alla cartella. Se è impostata una fonte di conoscenza SharePoint, puoi chiedere anche cosa dice un documento (vedi [Portfolio Agent](portfolio-agent.md#domande-sul-contenuto-dei-documenti)).
@@ -85,6 +103,26 @@ L'integrazione SharePoint server-based è attiva per impostazione predefinita in
 
 La gestione documentale sulle tre tabelle e i privilegi su document location e sito SharePoint dei ruoli **OP365 User** e **OP365 Administrator** fanno parte della soluzione ProjectIQ: un aggiornamento della soluzione li porta. Il sito SharePoint è un'impostazione di ogni ambiente e non è nella soluzione.
 
+### Colonne ProjectIQ sui file
+
+Le [colonne ProjectIQ](#colonne-projectiq) sono compilate da tre flussi cloud della soluzione, uno per raccolta:
+- **Tag project documents**
+- **Tag purchase order documents**
+- **Tag supplier documents**
+
+I flussi controllano la raccolta ogni 3 minuti e usano due riferimenti di connessione:
+- **op365_sharepoint** (SharePoint), che deve appartenere a un **utente dedicato** con permesso **Edit** sul sito;
+- **op365_dataverse**.
+
+| Passo | Chi | Cosa |
+|---|---|---|
+| 1 | Admin SharePoint | Con la CLI for Microsoft 365 autenticata come proprietario del sito, esegui `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/sharepoint/document_metadata.py`. Lo script aggiunge le colonne alle tre raccolte e ne stampa gli id |
+| 2 | Admin Power Platform | Imposta le variabili d'ambiente **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** e **Supplier Document Library Id** con l'URL del sito e gli id stampati. In Test si impostano tramite il deploy, vedi [dev-environment](../dev-environment.md#4-deploy-to-test) |
+| 3 | Admin Power Platform | Crea la connessione SharePoint con l'utente dedicato, collegala a **op365_sharepoint** e attiva i tre flussi (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 4 | Admin SharePoint | Facoltativo, per i file già presenti: ripeti il passo 1 con `--backfill` e le variabili `PAC_*` dell'ambiente |
+
+I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzione controlla che siano ancora attivi.
+
 ## Messaggi che potresti vedere
 
 | Messaggio | Significato e soluzione |
@@ -94,3 +132,4 @@ La gestione documentale sulle tre tabelle e i privilegi su document location e s
 | Accesso negato alla creazione della cartella | Non puoi scrivere nella raccolta: chiedi **Edit** sul sito |
 | Card: "No document folder yet" | Nessuno ha aperto Documents sulla commessa: apri la commessa in ProjectIQ e seleziona **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | Come sopra: manca l'accesso SharePoint al sito |
+| Le colonne ProjectIQ di un file nuovo restano vuote | Il flusso della raccolta è disattivato oppure la sua esecuzione è fallita. Controlla la cronologia delle esecuzioni del flusso: la connessione di **op365_sharepoint** deve essere valida e il suo utente deve avere **Edit** sul sito |
