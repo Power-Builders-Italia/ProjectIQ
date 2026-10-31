@@ -77,7 +77,7 @@ Cost columns are protected by the column security profile **OP365 Cost Visibilit
 | Resource Cost | Hourly Cost |
 | Time Entry | Cost |
 | Material Usage | Unit Cost, Total Cost |
-| Account (supplier) | Spend |
+| Account | Spend (suppliers), IBAN |
 | Item | Spend |
 
 Assign the profile (Power Platform admin center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → add users or teams) to administrators, project managers and controllers. Project totals (Budget Total, Actual Cost, Committed Cost) are not protected: whoever can read the project sees them.

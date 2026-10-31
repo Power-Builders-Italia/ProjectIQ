@@ -369,6 +369,7 @@ Click a chart segment to filter, or open the list to see the records.
 | "This supplier already has a quote for the line: change its price." | Edit the existing quote line |
 | "Award a supplier who sent a quote." / "The supplier quoted no lines." | Only responding suppliers with prices can win |
 | "<name> is not an active supplier." / "<name> is blocked." | Check the supplier account |
+| "<name> is not a supplier." | Choose an account flagged Is Supplier |
 | "Purchase orders can be created only on projects In Progress." | Check the project status |
 | "A purchase order can be changed only while it is Draft." / "Lines can be changed only while the purchase order is Draft." | Use **Back to Draft** |
 | "Add at least one line before sending." | The order has no lines |

@@ -53,6 +53,17 @@ Puoi sempre cambiare form con il selettore accanto al nome del record.
 | **Active Suppliers** / **Blocked Suppliers** | Fornitori per Supplier Status |
 | **Suppliers with Document Alerts** | Fornitori con documenti di conformità scaduti o in scadenza |
 
+### Scegliere un fornitore negli altri record
+
+I campi che puntano a un fornitore mostrano solo gli account marcati **Is Supplier**, con una vista fissa (il selettore delle viste è nascosto):
+
+| Campo | Vista usata | Perché |
+|---|---|---|
+| **Supplier** dell'ordine d'acquisto, **Supplier** dell'invito RFQ, **Preferred Supplier** della richiesta d'acquisto, **Default Supplier** dell'articolo | **Active Suppliers** | Nuovi ordini e richieste vanno solo a fornitori attivi e non bloccati |
+| **Supplier** della fattura fornitore, del documento fornitore, del prezzo fornitore dell'articolo e del consumo materiale | **All Suppliers** | Fatture, documenti e storico possono riferirsi anche a un fornitore bloccato |
+
+Quando salvi una fattura fornitore, un consumo materiale o una richiesta d'acquisto, l'applicazione controlla anche che l'account scelto sia marcato **Is Supplier**; altrimenti ti blocca con "<name> is not a supplier.".
+
 ### Campi del cliente (form Customer, tab Summary)
 
 | Campo | Significato |
@@ -64,7 +75,7 @@ Puoi sempre cambiare form con il selettore accanto al nome del record.
 | **Primary Contact**, **Main Phone**, **Email**, **Website** | Dati di contatto standard |
 | **Owner** | L'utente responsabile dell'account |
 | **Address** | Via, città, CAP, provincia, nazione |
-| **Payment Terms**, **IBAN**, **PEC**, **Language** | Dati di fatturazione; Language è la lingua per documenti ed email inviati all'azienda (italiano, inglese, tedesco, francese) |
+| **Payment Terms**, **IBAN**, **PEC**, **Language** | Dati di fatturazione; Language è la lingua per documenti ed email inviati all'azienda (italiano, inglese, tedesco, francese). **IBAN** è visibile solo agli utenti con il profilo *OP365 Cost Visibility*. |
 
 Valori in sola lettura mantenuti dall'applicazione: **Projects** (numero di progetti del cliente) e **Contract Value Total** (somma dei valori contrattuali dei suoi progetti). Si aggiornano ogni volta che un progetto viene creato, modificato o eliminato.
 
@@ -248,6 +259,7 @@ flowchart LR
 | Messaggio | Perché | Cosa fare |
 |---|---|---|
 | "<name> is not an active supplier." | L'account è inattivo o non marcato come fornitore | Spunta Is Supplier o riattiva l'account |
+| "<name> is not a supplier." | L'account scelto su fattura fornitore, consumo materiale o richiesta d'acquisto non è marcato come fornitore | Scegli un fornitore, oppure spunta Is Supplier sull'account |
 | "<name> is blocked." | Supplier Status è Blocked | Rimettilo Active se il fornitore può essere di nuovo usato |
 | Errore di chiave duplicata salvando un articolo | Un altro articolo ha lo stesso Code | Usa un codice diverso o apri l'articolo esistente |
 | Errore di chiave duplicata su un item supplier | Quel fornitore ha già una riga prezzo per l'articolo | Apri e modifica la riga esistente |

@@ -51,6 +51,17 @@ You can always switch form with the form selector next to the record name.
 | **Active Suppliers** / **Blocked Suppliers** | Suppliers by Supplier Status |
 | **Suppliers with Document Alerts** | Suppliers with expired or expiring compliance documents |
 
+### Choosing a supplier on other records
+
+Fields that point to a supplier show only accounts flagged **Is Supplier**, with a fixed view (the view selector is hidden):
+
+| Field | View used | Why |
+|---|---|---|
+| Purchase order **Supplier**, RFQ invitation **Supplier**, purchase request **Preferred Supplier**, item **Default Supplier** | **Active Suppliers** | New orders and requests go only to active suppliers that are not blocked |
+| Supplier invoice **Supplier**, supplier document **Supplier**, item supplier **Supplier**, material usage **Supplier** | **All Suppliers** | Invoices, documents and history can still refer to a blocked supplier |
+
+When you save a supplier invoice, a material usage or a purchase request, the application also checks that the chosen account is flagged **Is Supplier**, and stops you with "<name> is not a supplier." otherwise.
+
 ### Customer fields (Customer form, Summary tab)
 
 | Field | Meaning |
@@ -62,7 +73,7 @@ You can always switch form with the form selector next to the record name.
 | **Primary Contact**, **Main Phone**, **Email**, **Website** | Standard contact data |
 | **Owner** | The user responsible for the account |
 | **Address** | Street, city, postal code, province, country |
-| **Payment Terms**, **IBAN**, **PEC**, **Language** | Billing data; Language is the language for documents and emails sent to the company (Italian, English, German, French) |
+| **Payment Terms**, **IBAN**, **PEC**, **Language** | Billing data; Language is the language for documents and emails sent to the company (Italian, English, German, French). **IBAN** is visible only to users with the *OP365 Cost Visibility* profile. |
 
 Read-only figures maintained by the application: **Projects** (number of projects of the customer) and **Contract Value Total** (sum of the contract values of its projects). They are updated every time a project is created, changed or deleted.
 
@@ -246,6 +257,7 @@ flowchart LR
 | Message | Why | What to do |
 |---|---|---|
 | "<name> is not an active supplier." | The account is inactive or not flagged as supplier | Tick Is Supplier or reactivate the account |
+| "<name> is not a supplier." | The account chosen on a supplier invoice, material usage or purchase request is not flagged as supplier | Choose a supplier, or tick Is Supplier on the account |
 | "<name> is blocked." | Supplier Status is Blocked | Set it back to Active if the supplier can be used again |
 | A duplicate key error when saving an item | Another item has the same Code | Use a different code or open the existing item |
 | A duplicate key error on an item supplier | That supplier already has a price row for the item | Open and change the existing row |

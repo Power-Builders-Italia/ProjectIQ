@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FieldSecurityProfiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <FieldSecurityProfile name="OP365 Cost Visibility" description="Read and edit cost columns (hourly costs, material costs, spend). For administrators and project managers." fieldsecurityprofileid="{85a50f28-d6cf-f111-a05b-7ced8d2d53e4}">
+  <FieldSecurityProfile name="OP365 Cost Visibility" description="Read and edit cost columns (hourly costs, material costs, spend) and the supplier IBAN. For administrators and project managers." fieldsecurityprofileid="{85a50f28-d6cf-f111-a05b-7ced8d2d53e4}">
     <FieldPermissions>
       <FieldPermission>
         <EntityName>op365_resource</EntityName>
@@ -37,6 +37,14 @@
       <FieldPermission>
         <EntityName>op365_materialusage</EntityName>
         <AttributeName>op365_totalcost</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>account</EntityName>
+        <AttributeName>op365_iban</AttributeName>
         <CanRead>4</CanRead>
         <CanUpdate>4</CanUpdate>
         <CanCreate>4</CanCreate>

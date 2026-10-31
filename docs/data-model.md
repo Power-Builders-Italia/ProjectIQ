@@ -246,6 +246,7 @@ Validation plugins lock records outside their editable status and keep the total
 | OP365 Administrator (F4) | Organization-level full access on the purchasing tables |
 | OP365 User (F4) | User-level access on the purchasing tables; supplier invoices Read and Append To only |
 | OP365 Cost Visibility (F4) | + supplier and item spend |
+| OP365 Cost Visibility (accounts) | + `op365_iban` on Account (supplier and customer IBAN) |
 | Access team templates on Project | **OP365 Project Manager** (Read, Write, Append, Append To, Share), **OP365 Project Contributor** (Read, Append, Append To: members can log time and materials), **OP365 Project Reader** (Read). Templates are not solution components: the plugin creates them on first use in each environment |
 
 OP365 roles are additive: every internal user also needs the standard **Basic User** role. Assign the Cost Visibility profile to administrators and project managers.

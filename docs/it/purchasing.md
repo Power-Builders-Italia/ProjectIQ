@@ -371,6 +371,7 @@ Clicca un segmento del grafico per filtrare, o apri l'elenco per vedere i record
 | "This supplier already has a quote for the line: change its price." | Modifica la riga d'offerta esistente |
 | "Award a supplier who sent a quote." / "The supplier quoted no lines." | Possono vincere solo fornitori che hanno risposto con prezzi |
 | "<name> is not an active supplier." / "<name> is blocked." | Verifica l'account del fornitore |
+| "<name> is not a supplier." | Scegli un account marcato Is Supplier |
 | "Purchase orders can be created only on projects In Progress." | Verifica lo stato del progetto |
 | "A purchase order can be changed only while it is Draft." / "Lines can be changed only while the purchase order is Draft." | Usa **Back to Draft** |
 | "Add at least one line before sending." | L'ordine non ha righe |

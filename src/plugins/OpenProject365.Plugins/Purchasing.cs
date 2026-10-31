@@ -80,6 +80,19 @@ namespace OpenProject365.Plugins
             return a;
         }
 
+        /// <summary>
+        /// Account flagged Is Supplier, when the lookup was set or changed. Inactive and blocked suppliers are allowed:
+        /// invoices, material usage and requests can still refer to them (new RFQs and orders use EnsureSupplier).
+        /// </summary>
+        public static void EnsureIsSupplier(LocalContext context, string column)
+        {
+            var supplier = context.Target?.GetAttributeValue<EntityReference>(column);
+            if (supplier == null || !context.Changed(column)) return;
+            var a = context.SystemService.Retrieve("account", supplier.Id, new ColumnSet("name", "op365_issupplier"));
+            if (!a.GetAttributeValue<bool>("op365_issupplier"))
+                Fail($"{a.GetAttributeValue<string>("name")} is not a supplier.");
+        }
+
         public static List<Entity> Children(IOrganizationService system, string table, string parentColumn, Guid parentId, params string[] columns)
         {
             var query = new QueryExpression(table) { ColumnSet = new ColumnSet(columns) };
@@ -215,6 +228,7 @@ namespace OpenProject365.Plugins
                 if (current != Model.PrDraft && current != Model.PrRejected && !context.ChangesOnly(Free))
                     Purchasing.Fail("A purchase request can be changed only while it is Draft or Rejected.");
             }
+            Purchasing.EnsureIsSupplier(context, "op365_preferredsupplierid");
             var project = context.Get<EntityReference>(Model.ProjectId);
             if (project == null) return;
             if (context.Message == "Create" || context.Changed(Model.ProjectId)) Purchasing.EnsureProjectActive(context.SystemService, project.Id);
@@ -1130,6 +1144,7 @@ namespace OpenProject365.Plugins
                 if (Purchasing.Status(context.Pre) != Model.InvoiceToReview)
                     Purchasing.Fail("Approved or rejected invoices cannot be changed.");
             }
+            Purchasing.EnsureIsSupplier(context, Model.SupplierId);
             var supplier = context.Get<EntityReference>(Model.SupplierId);
             if (supplier != null && context.Changed(Model.SupplierId))
             {

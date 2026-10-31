@@ -15,7 +15,7 @@ ALL = ['Create', 'Read', 'Write', 'Delete', 'Append', 'AppendTo', 'Assign', 'Sha
 PROJECT_TABLES = ['op365_purchaserequest', 'op365_purchaserequestline', 'op365_rfq', 'op365_rfqinvitation', 'op365_rfqquote',
                   'op365_purchaseorder', 'op365_purchaseorderline', 'op365_goodsreceipt', 'op365_goodsreceiptline']
 INVOICES = ['op365_supplierinvoice', 'op365_supplierinvoiceline']
-COST_COLUMNS = [('account', 'op365_spend'), ('op365_item', 'op365_spend')]
+COST_COLUMNS = [('account', 'op365_spend'), ('account', 'op365_iban'), ('op365_item', 'op365_spend')]
 
 user = {t: (['Create', 'Read', 'Write', 'Delete', 'Append', 'AppendTo'], 'Basic') for t in PROJECT_TABLES}
 user.update({t: (['Read', 'AppendTo'], 'Basic') for t in INVOICES})

@@ -53,6 +53,17 @@ Sie können das Formular jederzeit mit der Formularauswahl neben dem Datensatzna
 | **Active Suppliers** / **Blocked Suppliers** | Lieferanten nach Supplier Status (aktiv / gesperrt) |
 | **Suppliers with Document Alerts** | Lieferanten mit abgelaufenen oder bald ablaufenden Compliance-Dokumenten |
 
+### Einen Lieferanten in anderen Datensätzen wählen
+
+Felder, die auf einen Lieferanten verweisen, zeigen nur Accounts mit **Is Supplier**, mit einer festen Ansicht (die Ansichtsauswahl ist ausgeblendet):
+
+| Feld | Verwendete Ansicht | Warum |
+|---|---|---|
+| **Supplier** der Bestellung, **Supplier** der RFQ-Einladung, **Preferred Supplier** der Bestellanforderung, **Default Supplier** des Artikels | **Active Suppliers** | Neue Bestellungen und Anforderungen gehen nur an aktive, nicht gesperrte Lieferanten |
+| **Supplier** der Lieferantenrechnung, des Lieferantendokuments, des Lieferantenpreises des Artikels und des Materialverbrauchs | **All Suppliers** | Rechnungen, Dokumente und Historie können sich weiterhin auf einen gesperrten Lieferanten beziehen |
+
+Beim Speichern einer Lieferantenrechnung, eines Materialverbrauchs oder einer Bestellanforderung prüft die Anwendung außerdem, dass der gewählte Account **Is Supplier** ist, und stoppt sonst mit „<name> is not a supplier.“.
+
 ### Kundenfelder (Formular Customer, Registerkarte Summary)
 
 | Feld | Bedeutung |
@@ -64,7 +75,7 @@ Sie können das Formular jederzeit mit der Formularauswahl neben dem Datensatzna
 | **Primary Contact**, **Main Phone**, **Email**, **Website** | Übliche Kontaktdaten |
 | **Owner** | Der für den Account zuständige Benutzer |
 | **Address** | Straße, Ort, Postleitzahl, Provinz, Land |
-| **Payment Terms**, **IBAN**, **PEC**, **Language** | Abrechnungsdaten; PEC ist die italienische zertifizierte E-Mail-Adresse; Language ist die Sprache für Dokumente und E-Mails an das Unternehmen (Italienisch, Englisch, Deutsch, Französisch) |
+| **Payment Terms**, **IBAN**, **PEC**, **Language** | Abrechnungsdaten; PEC ist die italienische zertifizierte E-Mail-Adresse; Language ist die Sprache für Dokumente und E-Mails an das Unternehmen (Italienisch, Englisch, Deutsch, Französisch). **IBAN** ist nur für Benutzer mit dem Profil *OP365 Cost Visibility* sichtbar. |
 
 Schreibgeschützte, von der Anwendung gepflegte Kennzahlen: **Projects** (Anzahl der Projekte des Kunden) und **Contract Value Total** (Summe der Auftragswerte seiner Projekte). Sie werden bei jedem Anlegen, Ändern oder Löschen eines Projekts aktualisiert.
 
@@ -248,6 +259,7 @@ flowchart LR
 | Meldung | Warum | Was tun |
 |---|---|---|
 | „<name> is not an active supplier.“ | Der Account ist inaktiv oder nicht als Lieferant gekennzeichnet | Is Supplier anhaken oder den Account reaktivieren |
+| „<name> is not a supplier.“ | Der auf einer Lieferantenrechnung, einem Materialverbrauch oder einer Bestellanforderung gewählte Account ist nicht als Lieferant gekennzeichnet | Einen Lieferanten wählen oder Is Supplier am Account anhaken |
 | „<name> is blocked.“ | Supplier Status ist Blocked | Wieder auf Active setzen, wenn der Lieferant wieder genutzt werden darf |
 | Fehler wegen doppeltem Schlüssel beim Speichern eines Artikels | Ein anderer Artikel hat denselben Code | Einen anderen Code verwenden oder den vorhandenen Artikel öffnen |
 | Fehler wegen doppeltem Schlüssel bei einem Artikellieferanten | Dieser Lieferant hat bereits eine Preiszeile für den Artikel | Die vorhandene Zeile öffnen und ändern |

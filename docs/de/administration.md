@@ -79,7 +79,7 @@ Kostenspalten sind durch das Feldsicherheitsprofil **OP365 Cost Visibility** ges
 | Resource Cost | Hourly Cost |
 | Time Entry | Cost |
 | Material Usage | Unit Cost, Total Cost |
-| Account (Lieferant) | Spend |
+| Account | Spend (Lieferanten), IBAN |
 | Item | Spend |
 
 Weisen Sie das Profil (Power Platform Admin Center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → Benutzer oder Teams hinzufügen) Administratoren, Projektleitern und Controllern zu. Die Projektsummen (Budget Total, Actual Cost, Committed Cost) sind nicht geschützt: Wer das Projekt lesen kann, sieht sie.

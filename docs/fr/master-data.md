@@ -53,6 +53,17 @@ Vous pouvez toujours changer de formulaire avec le sélecteur à côté du nom d
 | **Active Suppliers** / **Blocked Suppliers** | Fournisseurs selon leur Supplier Status |
 | **Suppliers with Document Alerts** | Fournisseurs avec des documents de conformité expirés ou proches de l'expiration |
 
+### Choisir un fournisseur dans les autres enregistrements
+
+Les champs qui pointent vers un fournisseur n'affichent que les comptes marqués **Is Supplier**, avec une vue fixe (le sélecteur de vues est masqué) :
+
+| Champ | Vue utilisée | Pourquoi |
+|---|---|---|
+| **Supplier** de la commande d'achat, **Supplier** de l'invitation RFQ, **Preferred Supplier** de la demande d'achat, **Default Supplier** de l'article | **Active Suppliers** | Les nouvelles commandes et demandes ne vont qu'aux fournisseurs actifs et non bloqués |
+| **Supplier** de la facture fournisseur, du document fournisseur, du prix fournisseur de l'article et de la consommation de matériel | **All Suppliers** | Factures, documents et historique peuvent encore se référer à un fournisseur bloqué |
+
+Lorsque vous enregistrez une facture fournisseur, une consommation de matériel ou une demande d'achat, l'application vérifie aussi que le compte choisi est marqué **Is Supplier** ; sinon elle vous arrête avec « <name> is not a supplier. ».
+
 ### Champs du client (formulaire Customer, onglet Summary)
 
 | Champ | Signification |
@@ -64,7 +75,7 @@ Vous pouvez toujours changer de formulaire avec le sélecteur à côté du nom d
 | **Primary Contact**, **Main Phone**, **Email**, **Website** | Coordonnées standard |
 | **Owner** | L'utilisateur responsable du compte |
 | **Address** | Rue, ville, code postal, province, pays |
-| **Payment Terms**, **IBAN**, **PEC**, **Language** | Données de facturation ; PEC est l'adresse de courrier électronique certifié italienne ; Language est la langue des documents et e-mails envoyés à l'entreprise (italien, anglais, allemand, français) |
+| **Payment Terms**, **IBAN**, **PEC**, **Language** | Données de facturation ; PEC est l'adresse de courrier électronique certifié italienne ; Language est la langue des documents et e-mails envoyés à l'entreprise (italien, anglais, allemand, français). **IBAN** n'est visible que pour les utilisateurs disposant du profil *OP365 Cost Visibility*. |
 
 Valeurs en lecture seule tenues à jour par l'application : **Projects** (nombre de projets du client) et **Contract Value Total** (somme des montants de contrat de ses projets). Elles sont mises à jour à chaque création, modification ou suppression d'un projet.
 
@@ -248,6 +259,7 @@ flowchart LR
 | Message | Pourquoi | Que faire |
 |---|---|---|
 | « <name> is not an active supplier. » | Le compte est inactif ou non marqué fournisseur | Cochez Is Supplier ou réactivez le compte |
+| « <name> is not a supplier. » | Le compte choisi sur une facture fournisseur, une consommation de matériel ou une demande d'achat n'est pas marqué fournisseur | Choisissez un fournisseur, ou cochez Is Supplier sur le compte |
 | « <name> is blocked. » | Supplier Status vaut Blocked | Repassez-le à Active si le fournisseur peut de nouveau être utilisé |
 | Erreur de clé en double à l'enregistrement d'un article | Un autre article a le même Code | Utilisez un autre code ou ouvrez l'article existant |
 | Erreur de clé en double sur un item supplier | Ce fournisseur a déjà une ligne de prix pour l'article | Ouvrez et modifiez la ligne existante |
