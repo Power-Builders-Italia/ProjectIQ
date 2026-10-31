@@ -47,7 +47,9 @@ def ensure_columns(library):
     for name in library_columns(library):
         if name in fields:
             print('skip ', library, name); continue
-        m365('spo', 'field', 'add', '--webUrl', SITE, '--listUrl', library, '--xml', field_xml(name))
+        # without the hint SharePoint derives the internal name from DisplayName and the flows do not find the column
+        m365('spo', 'field', 'add', '--webUrl', SITE, '--listUrl', library, '--xml', field_xml(name),
+             '--options', 'AddFieldInternalNameHint')
         if name != 'ProjectIQRecordId':
             m365('spo', 'list', 'view', 'field', 'add', '--webUrl', SITE, '--listUrl', library,
                  '--viewId', view['Id'], '--id', COLUMNS[name][2])
