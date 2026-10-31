@@ -94,8 +94,8 @@ flowchart TD
 | Passo | Chi | Cosa |
 |---|---|---|
 | 1 | Amministratore SharePoint | Crea un sito SharePoint di team o di comunicazione per i documenti, nello stesso tenant Microsoft 365 dell'ambiente |
-| 2 | Amministratore Power Platform | Nell'app apri **Settings** (ingranaggio) → **Advanced Settings** → **Document Management** → **Document Management Settings**, seleziona **Project**, **Purchase Order** e **Supplier Document**, inserisci l'URL del sito, seleziona **Next** e **Finish**. Le raccolte vengono create sul sito |
-| 3 | Amministratore Power Platform | Alternativa al passo 2 per ambienti gestiti da script: `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/dataverse/documents.py` registra il sito come sito predefinito; le raccolte vengono create quando il primo record di ogni tabella apre Documents |
+| 2 | Amministratore Power Platform | Nell'app apri **Settings** (ingranaggio) → **Advanced Settings** → **Document Management** → **Document Management Settings**, seleziona **Project**, **Purchase Order** e **Supplier Document**, inserisci l'URL del sito, seleziona **Next** e **Finish**. Le raccolte vengono create sul sito. Per aggiungere una tabella in seguito, ripeti la procedura guidata selezionando anche quella: viene creata la raccolta mancante |
+| 3 | Amministratore Power Platform | Alternativa al passo 2 per ambienti gestiti da script: `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/dataverse/documents.py` registra il sito come sito predefinito; le raccolte vengono create quando il primo record di ogni tabella apre Documents; se una raccolta manca ancora, usa il passo 2 |
 | 4 | Amministratore SharePoint | Dai alle persone che usano ProjectIQ almeno **Edit** (o **Read**) sul sito |
 | 5 | Ogni utente | Apri **Related** → **Documents** su un record |
 
@@ -116,9 +116,9 @@ I flussi controllano la raccolta ogni 3 minuti e usano due riferimenti di connes
 
 | Passo | Chi | Cosa |
 |---|---|---|
-| 1 | Admin SharePoint | Con la CLI for Microsoft 365 autenticata come proprietario del sito, esegui `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/sharepoint/document_metadata.py`. Lo script aggiunge le colonne alle tre raccolte e ne stampa gli id |
-| 2 | Admin Power Platform | Imposta le variabili d'ambiente **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** e **Supplier Document Library Id** con l'URL del sito e gli id stampati. In Test si impostano tramite il deploy, vedi [dev-environment](../dev-environment.md#4-deploy-to-test) |
-| 3 | Admin Power Platform | Crea la connessione SharePoint con l'utente dedicato, collegala a **op365_sharepoint** e attiva i tre flussi (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 1 | Admin SharePoint | Le tre raccolte devono esistere (vedi [Parte 2](#parte-2-configurazione-amministratori)). Con la CLI for Microsoft 365 (`npm i -g @pnp/cli-microsoft365`, poi `m365 login`) autenticata come proprietario del sito, esegui `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/sharepoint/document_metadata.py`, con l'URL registrato in **Document Management Settings**. Lo script aggiunge le colonne mancanti alle tre raccolte e alla loro vista predefinita (`ok`), lascia quelle esistenti (`skip`) e stampa i tre id; si può rieseguire |
+| 2 | Admin Power Platform | Imposta le variabili d'ambiente **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** e **Supplier Document Library Id** con l'URL del sito e gli id stampati. In Test si impostano tramite il deploy, con i secret `OP365_SHAREPOINT_SITE_URL`, `OP365_PROJECT_LIBRARY_ID`, `OP365_PURCHASE_ORDER_LIBRARY_ID` e `OP365_SUPPLIER_DOCUMENT_LIBRARY_ID` dell'ambiente GitHub `test`, vedi [dev-environment](../dev-environment.md#4-deploy-to-test) |
+| 3 | Admin Power Platform | Crea la connessione SharePoint con l'utente dedicato nell'ambiente stesso, Test compreso: una connessione non fa parte della soluzione e non arriva da Dev. Condividila con l'utente applicativo del deploy (**Can use**). In Dev collegala a **op365_sharepoint**. In Test non collegarla a mano: metti il suo id (nell'URL della pagina della connessione) nel secret `OP365_SHAREPOINT_CONNECTION_ID` ed esegui `deploy-test`, che collega il riferimento; modificare a mano il riferimento o i flussi in Test aggiunge un livello non gestito sopra la soluzione gestita. Poi attiva i tre flussi (**Solutions** → **ProjectIQ** → **Cloud flows**) |
 | 4 | Admin SharePoint | Facoltativo, per i file già presenti: ripeti il passo 1 con `--backfill` e le variabili `PAC_*` dell'ambiente |
 
 I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzione controlla che siano ancora attivi.
@@ -132,4 +132,6 @@ I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzi
 | Accesso negato alla creazione della cartella | Non puoi scrivere nella raccolta: chiedi **Edit** sul sito |
 | Card: "No document folder yet" | Nessuno ha aperto Documents sulla commessa: apri la commessa in ProjectIQ e seleziona **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | Come sopra: manca l'accesso SharePoint al sito |
+| `document_metadata.py`: `Error: File Not Found.` | La raccolta non esiste sul sito: ripeti **Document Management Settings** selezionando la sua tabella ([Parte 2](#parte-2-configurazione-amministratori), passo 2), poi riesegui lo script |
+| `document_metadata.py`: `A duplicate field name "…" was found.` | La raccolta ha una colonna con lo stesso id ma un altro nome interno, creata da una versione precedente dello script: se la colonna è vuota, eliminala dalle impostazioni della raccolta e riesegui lo script |
 | Le colonne ProjectIQ di un file nuovo restano vuote | Il flusso della raccolta è disattivato oppure la sua esecuzione è fallita. Controlla la cronologia delle esecuzioni del flusso: la connessione di **op365_sharepoint** deve essere valida e il suo utente deve avere **Edit** sul sito |

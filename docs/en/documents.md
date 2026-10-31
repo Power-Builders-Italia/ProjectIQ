@@ -94,8 +94,8 @@ flowchart TD
 | Step | Who | What |
 |---|---|---|
 | 1 | SharePoint admin | Create a SharePoint team or communication site for the documents, in the same Microsoft 365 tenant as the environment |
-| 2 | Power Platform admin | In the app open **Settings** (gear) → **Advanced Settings** → **Document Management** → **Document Management Settings**, select **Project**, **Purchase Order** and **Supplier Document**, enter the site URL, select **Next** and **Finish**. The libraries are created on the site |
-| 3 | Power Platform admin | Alternative to step 2 for scripted environments: `SHAREPOINT_SITE_URL=<site URL> python3 tools/dataverse/documents.py` registers the site as the default site; the libraries are then created when the first record of each table opens Documents |
+| 2 | Power Platform admin | In the app open **Settings** (gear) → **Advanced Settings** → **Document Management** → **Document Management Settings**, select **Project**, **Purchase Order** and **Supplier Document**, enter the site URL, select **Next** and **Finish**. The libraries are created on the site. To add a table later, run the wizard again and select it as well: the missing library is created |
+| 3 | Power Platform admin | Alternative to step 2 for scripted environments: `SHAREPOINT_SITE_URL=<site URL> python3 tools/dataverse/documents.py` registers the site as the default site; the libraries are then created when the first record of each table opens Documents; if a library is still missing, use step 2 |
 | 4 | SharePoint admin | Give the people who use ProjectIQ at least **Edit** (or **Read**) on the site |
 | 5 | Each user | Open **Related** → **Documents** on a record |
 
@@ -116,9 +116,9 @@ The flows check the library every 3 minutes and use two connection references:
 
 | Step | Who | What |
 |---|---|---|
-| 1 | SharePoint admin | With the CLI for Microsoft 365 signed in as a site owner, run `SHAREPOINT_SITE_URL=<site URL> python3 tools/sharepoint/document_metadata.py`. The script adds the columns to the three libraries and prints their ids |
-| 2 | Power Platform admin | Set the environment variables **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** and **Supplier Document Library Id** with the site URL and the printed ids (in Test through the deployment, see [dev-environment](../dev-environment.md#4-deploy-to-test)) |
-| 3 | Power Platform admin | Create the SharePoint connection with the dedicated user, link it to **op365_sharepoint** and turn the three flows on (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 1 | SharePoint admin | The three libraries must exist (see [Part 2](#part-2-set-up-administrators)). With the CLI for Microsoft 365 (`npm i -g @pnp/cli-microsoft365`, then `m365 login`) signed in as a site owner, run `SHAREPOINT_SITE_URL=<site URL> python3 tools/sharepoint/document_metadata.py`, with the URL registered in **Document Management Settings**. The script adds the missing columns to the three libraries and to their default view (`ok`), leaves the existing ones (`skip`) and prints the three ids; it can be run again |
+| 2 | Power Platform admin | Set the environment variables **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** and **Supplier Document Library Id** with the site URL and the printed ids (in Test through the deployment: secrets `OP365_SHAREPOINT_SITE_URL`, `OP365_PROJECT_LIBRARY_ID`, `OP365_PURCHASE_ORDER_LIBRARY_ID` and `OP365_SUPPLIER_DOCUMENT_LIBRARY_ID` of the GitHub environment `test`, see [dev-environment](../dev-environment.md#4-deploy-to-test)) |
+| 3 | Power Platform admin | Create the SharePoint connection with the dedicated user in the environment itself, Test included: a connection is not part of the solution and does not come from Dev. Share it with the application user of the deployment (**Can use**). In Dev link it to **op365_sharepoint**. In Test do not link it by hand: put its id (in the URL of the connection page) in the secret `OP365_SHAREPOINT_CONNECTION_ID` and run `deploy-test`, which links the reference; changing the reference or the flows by hand in Test adds an unmanaged layer over the managed solution. Then turn the three flows on (**Solutions** → **ProjectIQ** → **Cloud flows**) |
 | 4 | SharePoint admin | Optional, for the files that were already there: run step 1 again with `--backfill` and the `PAC_*` variables of the environment |
 
 The flows are imported **off**: after an update of the solution check that they are still on.
@@ -132,4 +132,6 @@ The flows are imported **off**: after an update of the solution check that they 
 | Access denied when the folder is created | You cannot write in the library: ask for **Edit** on the site |
 | Card: "No document folder yet" | Nobody has opened Documents on the project: open the project in ProjectIQ and select **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | As above: SharePoint access to the site is missing |
+| `document_metadata.py`: `Error: File Not Found.` | The library does not exist on the site: run **Document Management Settings** again and select its table ([Part 2](#part-2-set-up-administrators), step 2), then run the script again |
+| `document_metadata.py`: `A duplicate field name "…" was found.` | The library has a column with the same id but another internal name, created by an earlier version of the script: if the column is empty, delete it from the library settings and run the script again |
 | The ProjectIQ columns of a new file stay empty | The flow of the library is off or its run failed: check the flow run history; the connection of **op365_sharepoint** must be valid and its user must have **Edit** on the site |
