@@ -116,12 +116,17 @@ The flows check the library every 3 minutes and use two connection references:
 
 | Step | Who | What |
 |---|---|---|
-| 1 | SharePoint admin | With the CLI for Microsoft 365 signed in as a site owner, run `SHAREPOINT_SITE_URL=<site URL> python3 tools/sharepoint/document_metadata.py`. The script adds the columns to the three libraries and prints their ids |
+| 1 | SharePoint admin | With the CLI for Microsoft 365 signed in as a site owner, run `SHAREPOINT_SITE_URL=<site URL> python3 tools/sharepoint/document_metadata.py`. The script adds the columns to the three libraries (internal names `ProjectIQ*`, which the flows use) and prints their ids. The three libraries must already exist (see below). Use the script, not columns added by hand: SharePoint would derive other internal names from the display names |
 | 2 | Power Platform admin | Set the environment variables **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** and **Supplier Document Library Id** with the site URL and the printed ids (in Test through the deployment, see [dev-environment](../dev-environment.md#4-deploy-to-test)) |
-| 3 | Power Platform admin | Create the SharePoint connection with the dedicated user, link it to **op365_sharepoint** and turn the three flows on (**Solutions** → **ProjectIQ** → **Cloud flows**) |
-| 4 | SharePoint admin | Optional, for the files that were already there: run step 1 again with `--backfill` and the `PAC_*` variables of the environment |
+| 3 | Power Platform admin | In the target environment (not in Dev: a connection is not a solution component) open **Power Apps** → **Connections** → **New connection** → **SharePoint** and sign in as the dedicated user. **Share** it with the application user of the deployment (**Can use**). In Test copy the connection id from the URL of the connection page into the secret `OP365_SHAREPOINT_CONNECTION_ID`: the deployment links **op365_sharepoint** to it |
+| 4 | Power Platform admin | Turn the three flows on (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 5 | SharePoint admin | Optional, for the files that were already there: run step 1 again with `--backfill` and the `PAC_*` variables of the environment |
 
 The flows are imported **off**: after an update of the solution check that they are still on.
+
+In a managed environment (Test) do not link the connection reference or edit the flows by hand: that adds an unmanaged layer that later imports do not overwrite. Let the deployment do the link.
+
+The library of a table exists only after **Document Management Settings** has been run with that table selected. If a table was enabled later (for example **Supplier Document**), run **Document Management Settings** again, select it too and finish: opening Documents on a record does not create the library.
 
 ## Messages you may see
 
@@ -133,3 +138,5 @@ The flows are imported **off**: after an update of the solution check that they 
 | Card: "No document folder yet" | Nobody has opened Documents on the project: open the project in ProjectIQ and select **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | As above: SharePoint access to the site is missing |
 | The ProjectIQ columns of a new file stay empty | The flow of the library is off or its run failed: check the flow run history; the connection of **op365_sharepoint** must be valid and its user must have **Edit** on the site |
+| `document_metadata.py` stops with *File Not Found* | A library does not exist on the site yet: run **Document Management Settings** again with its table selected, then run the script again |
+| `document_metadata.py` stops with *A duplicate field name … was found* | The library has columns with the same display names but other internal names (added by hand or by an old version of the script): if they are empty delete them, then run the script again |

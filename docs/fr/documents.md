@@ -116,12 +116,17 @@ Les flux vérifient la bibliothèque toutes les 3 minutes et utilisent deux réf
 
 | Étape | Qui | Quoi |
 |---|---|---|
-| 1 | Admin SharePoint | Avec la CLI for Microsoft 365 connectée en tant que propriétaire du site, exécutez `SHAREPOINT_SITE_URL=<URL du site> python3 tools/sharepoint/document_metadata.py`. Le script ajoute les colonnes aux trois bibliothèques et affiche leurs id |
+| 1 | Admin SharePoint | Avec la CLI for Microsoft 365 connectée en tant que propriétaire du site, exécutez `SHAREPOINT_SITE_URL=<URL du site> python3 tools/sharepoint/document_metadata.py`. Le script ajoute les colonnes aux trois bibliothèques (noms internes `ProjectIQ*`, ceux utilisés par les flux) et affiche leurs id. Les trois bibliothèques doivent déjà exister (voir ci-dessous). Utilisez le script, pas des colonnes ajoutées à la main : SharePoint dériverait d'autres noms internes des noms d'affichage |
 | 2 | Admin Power Platform | Renseignez les variables d'environnement **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** et **Supplier Document Library Id** avec l'URL du site et les id affichés. En Test, elles sont renseignées par le déploiement, voir [dev-environment](../dev-environment.md#4-deploy-to-test) |
-| 3 | Admin Power Platform | Créez la connexion SharePoint avec l'utilisateur dédié, liez-la à **op365_sharepoint** et activez les trois flux (**Solutions** → **ProjectIQ** → **Cloud flows**) |
-| 4 | Admin SharePoint | Facultatif, pour les fichiers déjà présents : relancez l'étape 1 avec `--backfill` et les variables `PAC_*` de l'environnement |
+| 3 | Admin Power Platform | Dans l'environnement cible (pas en Dev : une connexion n'est pas un composant de solution) ouvrez **Power Apps** → **Connections** → **New connection** → **SharePoint** et connectez-vous avec l'utilisateur dédié. Partagez-la (**Share**) avec l'utilisateur d'application du déploiement (**Can use**). En Test copiez l'id de la connexion depuis l'URL de sa page dans le secret `OP365_SHAREPOINT_CONNECTION_ID` : le déploiement y lie **op365_sharepoint** |
+| 4 | Admin Power Platform | Activez les trois flux (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 5 | Admin SharePoint | Facultatif, pour les fichiers déjà présents : relancez l'étape 1 avec `--backfill` et les variables `PAC_*` de l'environnement |
 
 Les flux sont importés **désactivés** : après chaque mise à jour de la solution, vérifiez qu'ils sont toujours activés.
+
+Dans un environnement géré (Test) ne liez pas la référence de connexion et ne modifiez pas les flux à la main : cela ajoute une couche non gérée que les imports suivants n'écrasent pas. Laissez le déploiement faire la liaison.
+
+La bibliothèque d'une table n'existe qu'après avoir exécuté **Document Management Settings** avec cette table sélectionnée. Si une table a été activée plus tard (par exemple **Supplier Document**), relancez **Document Management Settings**, sélectionnez-la et terminez : ouvrir Documents sur un enregistrement ne crée pas la bibliothèque.
 
 ## Messages possibles
 
@@ -133,3 +138,5 @@ Les flux sont importés **désactivés** : après chaque mise à jour de la solu
 | Carte : "No document folder yet" | Personne n'a ouvert Documents sur le projet : ouvrez le projet dans ProjectIQ et sélectionnez **Related** → **Documents** |
 | Carte : "You have no access to the SharePoint folder of this project." | Comme ci-dessus : l'accès SharePoint au site manque |
 | Les colonnes ProjectIQ d'un nouveau fichier restent vides | Le flux de la bibliothèque est désactivé ou son exécution a échoué. Vérifiez l'historique des exécutions du flux : la connexion de **op365_sharepoint** doit être valide et son utilisateur doit avoir **Edit** sur le site |
+| `document_metadata.py` s'arrête avec *File Not Found* | Une bibliothèque n'existe pas encore sur le site : relancez **Document Management Settings** avec sa table sélectionnée, puis relancez le script |
+| `document_metadata.py` s'arrête avec *A duplicate field name … was found* | La bibliothèque a des colonnes avec les mêmes noms d'affichage mais d'autres noms internes (ajoutées à la main ou par une ancienne version du script) : si elles sont vides supprimez-les, puis relancez le script |

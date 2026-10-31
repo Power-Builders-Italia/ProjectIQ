@@ -116,12 +116,17 @@ Die Flows prüfen die Bibliothek alle 3 Minuten und verwenden zwei Verbindungsve
 
 | Schritt | Wer | Was |
 |---|---|---|
-| 1 | SharePoint-Admin | Führen Sie mit der CLI for Microsoft 365, angemeldet als Websitebesitzer, `SHAREPOINT_SITE_URL=<Website-URL> python3 tools/sharepoint/document_metadata.py` aus. Das Skript fügt den drei Bibliotheken die Spalten hinzu und gibt ihre IDs aus |
+| 1 | SharePoint-Admin | Führen Sie mit der CLI for Microsoft 365, angemeldet als Websitebesitzer, `SHAREPOINT_SITE_URL=<Website-URL> python3 tools/sharepoint/document_metadata.py` aus. Das Skript fügt den drei Bibliotheken die Spalten hinzu (interne Namen `ProjectIQ*`, die die Flows verwenden) und gibt ihre IDs aus. Die drei Bibliotheken müssen bereits existieren (siehe unten). Verwenden Sie das Skript, keine von Hand hinzugefügten Spalten: SharePoint würde andere interne Namen aus den Anzeigenamen ableiten |
 | 2 | Power-Platform-Admin | Setzen Sie die Umgebungsvariablen **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** und **Supplier Document Library Id** auf die Website-URL und die ausgegebenen IDs. In Test werden sie durch die Bereitstellung gesetzt, siehe [dev-environment](../dev-environment.md#4-deploy-to-test) |
-| 3 | Power-Platform-Admin | Erstellen Sie die SharePoint-Verbindung mit dem dedizierten Benutzer, verknüpfen Sie sie mit **op365_sharepoint** und schalten Sie die drei Flows ein (**Solutions** → **ProjectIQ** → **Cloud flows**) |
-| 4 | SharePoint-Admin | Optional, für bereits vorhandene Dateien: Schritt 1 mit `--backfill` und den `PAC_*`-Variablen der Umgebung erneut ausführen |
+| 3 | Power-Platform-Admin | Öffnen Sie in der Zielumgebung (nicht in Dev: eine Verbindung ist keine Lösungskomponente) **Power Apps** → **Connections** → **New connection** → **SharePoint** und melden Sie sich als dedizierter Benutzer an. Teilen Sie sie (**Share**) mit dem Anwendungsbenutzer der Bereitstellung (**Can use**). Kopieren Sie in Test die Verbindungs-ID aus der URL der Verbindungsseite in das Secret `OP365_SHAREPOINT_CONNECTION_ID`: Die Bereitstellung verknüpft **op365_sharepoint** damit |
+| 4 | Power-Platform-Admin | Schalten Sie die drei Flows ein (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 5 | SharePoint-Admin | Optional, für bereits vorhandene Dateien: Schritt 1 mit `--backfill` und den `PAC_*`-Variablen der Umgebung erneut ausführen |
 
 Die Flows werden **ausgeschaltet** importiert: Prüfen Sie nach jedem Update der Lösung, dass sie noch eingeschaltet sind.
+
+Verknüpfen Sie in einer verwalteten Umgebung (Test) den Verbindungsverweis nicht von Hand und bearbeiten Sie die Flows nicht: Das erzeugt eine nicht verwaltete Ebene, die spätere Importe nicht überschreiben. Überlassen Sie die Verknüpfung der Bereitstellung.
+
+Die Bibliothek einer Tabelle existiert erst, nachdem **Document Management Settings** mit dieser Tabelle ausgeführt wurde. Wurde eine Tabelle später aktiviert (zum Beispiel **Supplier Document**), führen Sie **Document Management Settings** erneut aus, wählen Sie sie ebenfalls aus und schließen Sie ab: Das Öffnen von Documents an einem Datensatz erstellt die Bibliothek nicht.
 
 ## Mögliche Meldungen
 
@@ -133,3 +138,5 @@ Die Flows werden **ausgeschaltet** importiert: Prüfen Sie nach jedem Update der
 | Karte: "No document folder yet" | Niemand hat Documents am Projekt geöffnet: öffnen Sie das Projekt in ProjectIQ und wählen Sie **Related** → **Documents** |
 | Karte: "You have no access to the SharePoint folder of this project." | Wie oben: der SharePoint-Zugriff auf die Website fehlt |
 | Die ProjectIQ-Spalten einer neuen Datei bleiben leer | Der Flow der Bibliothek ist ausgeschaltet oder seine Ausführung ist fehlgeschlagen. Prüfen Sie den Ausführungsverlauf des Flows: Die Verbindung von **op365_sharepoint** muss gültig sein, und ihr Benutzer braucht **Edit** auf der Website |
+| `document_metadata.py` bricht mit *File Not Found* ab | Eine Bibliothek existiert noch nicht auf der Website: Führen Sie **Document Management Settings** mit ihrer Tabelle erneut aus und dann das Skript |
+| `document_metadata.py` bricht mit *A duplicate field name … was found* ab | Die Bibliothek hat Spalten mit denselben Anzeigenamen, aber anderen internen Namen (von Hand oder von einer älteren Skriptversion hinzugefügt): Wenn sie leer sind, löschen Sie sie und führen Sie das Skript erneut aus |

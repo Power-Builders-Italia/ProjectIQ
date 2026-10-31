@@ -116,12 +116,17 @@ I flussi controllano la raccolta ogni 3 minuti e usano due riferimenti di connes
 
 | Passo | Chi | Cosa |
 |---|---|---|
-| 1 | Admin SharePoint | Con la CLI for Microsoft 365 autenticata come proprietario del sito, esegui `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/sharepoint/document_metadata.py`. Lo script aggiunge le colonne alle tre raccolte e ne stampa gli id |
+| 1 | Admin SharePoint | Con la CLI for Microsoft 365 autenticata come proprietario del sito, esegui `SHAREPOINT_SITE_URL=<URL del sito> python3 tools/sharepoint/document_metadata.py`. Lo script aggiunge le colonne alle tre raccolte (nomi interni `ProjectIQ*`, quelli usati dai flussi) e ne stampa gli id. Le tre raccolte devono già esistere (vedi sotto). Usa lo script, non colonne aggiunte a mano: SharePoint ricaverebbe altri nomi interni dai nomi visualizzati |
 | 2 | Admin Power Platform | Imposta le variabili d'ambiente **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** e **Supplier Document Library Id** con l'URL del sito e gli id stampati. In Test si impostano tramite il deploy, vedi [dev-environment](../dev-environment.md#4-deploy-to-test) |
-| 3 | Admin Power Platform | Crea la connessione SharePoint con l'utente dedicato, collegala a **op365_sharepoint** e attiva i tre flussi (**Solutions** → **ProjectIQ** → **Cloud flows**) |
-| 4 | Admin SharePoint | Facoltativo, per i file già presenti: ripeti il passo 1 con `--backfill` e le variabili `PAC_*` dell'ambiente |
+| 3 | Admin Power Platform | Nell'ambiente di destinazione (non in Dev: la connessione non è un componente di soluzione) apri **Power Apps** → **Connections** → **New connection** → **SharePoint** e accedi come utente dedicato. Condividila (**Share**) con l'application user del deploy (**Can use**). In Test copia l'id della connessione dall'URL della sua pagina nel secret `OP365_SHAREPOINT_CONNECTION_ID`: il deploy collega **op365_sharepoint** alla connessione |
+| 4 | Admin Power Platform | Attiva i tre flussi (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 5 | Admin SharePoint | Facoltativo, per i file già presenti: ripeti il passo 1 con `--backfill` e le variabili `PAC_*` dell'ambiente |
 
 I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzione controlla che siano ancora attivi.
+
+In un ambiente gestito (Test) non collegare a mano il riferimento di connessione e non modificare i flussi: si crea un livello non gestito che gli import successivi non sovrascrivono. Lascia che il collegamento lo faccia il deploy.
+
+La raccolta di una tabella esiste solo dopo aver eseguito **Document Management Settings** con quella tabella selezionata. Se una tabella è stata abilitata dopo (per esempio **Supplier Document**), riesegui **Document Management Settings**, selezionala e completa: aprire Documents su un record non crea la raccolta.
 
 ## Messaggi che potresti vedere
 
@@ -133,3 +138,5 @@ I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzi
 | Card: "No document folder yet" | Nessuno ha aperto Documents sulla commessa: apri la commessa in ProjectIQ e seleziona **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | Come sopra: manca l'accesso SharePoint al sito |
 | Le colonne ProjectIQ di un file nuovo restano vuote | Il flusso della raccolta è disattivato oppure la sua esecuzione è fallita. Controlla la cronologia delle esecuzioni del flusso: la connessione di **op365_sharepoint** deve essere valida e il suo utente deve avere **Edit** sul sito |
+| `document_metadata.py` si ferma con *File Not Found* | Una raccolta non esiste ancora sul sito: riesegui **Document Management Settings** con la sua tabella selezionata, poi riesegui lo script |
+| `document_metadata.py` si ferma con *A duplicate field name … was found* | La raccolta ha colonne con gli stessi nomi visualizzati ma altri nomi interni (aggiunte a mano o da una versione precedente dello script): se sono vuote eliminale, poi riesegui lo script |
