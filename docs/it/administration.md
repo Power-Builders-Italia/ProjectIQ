@@ -79,7 +79,7 @@ Le colonne di costo sono protette dal profilo di sicurezza di colonna **OP365 Co
 | Resource Cost | Hourly Cost |
 | Time Entry | Cost |
 | Material Usage | Unit Cost, Total Cost |
-| Account (fornitore) | Spend |
+| Account | Spend (fornitori), IBAN |
 | Item | Spend |
 
 Assegna il profilo (Power Platform admin center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → aggiungi utenti o team) ad amministratori, project manager e controller. I totali del progetto (Budget Total, Actual Cost, Committed Cost) non sono protetti: chi può leggere il progetto li vede.

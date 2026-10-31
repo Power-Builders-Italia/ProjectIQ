@@ -96,6 +96,7 @@ namespace OpenProject365.Plugins
             var project = context.Get<EntityReference>(Model.ProjectId);
             if (!context.IsInside("op365_RegisterGoodsReceipt")) Rules.EnsureInProgress(system, project.Id);
             Rules.EnsureNodeInProject(system, context.Get<EntityReference>(Model.WbsNodeId), project.Id);
+            Purchasing.EnsureIsSupplier(context, "op365_supplierid");
 
             var item = context.Get<EntityReference>("op365_itemid");
             if (item != null && context.Changed("op365_itemid"))

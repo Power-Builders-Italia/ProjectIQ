@@ -371,6 +371,7 @@ Klicken Sie auf ein Diagrammsegment, um zu filtern, oder öffnen Sie die Liste, 
 | „This supplier already has a quote for the line: change its price.“ | Die vorhandene Angebotsposition bearbeiten |
 | „Award a supplier who sent a quote.“ / „The supplier quoted no lines.“ | Nur Lieferanten, die mit Preisen geantwortet haben, können den Zuschlag erhalten |
 | „<name> is not an active supplier.“ / „<name> is blocked.“ | Den Lieferanten-Account prüfen |
+| „<name> is not a supplier.“ | Einen Account mit Is Supplier wählen |
 | „Purchase orders can be created only on projects In Progress.“ | Den Projektstatus prüfen |
 | „A purchase order can be changed only while it is Draft.“ / „Lines can be changed only while the purchase order is Draft.“ | **Back to Draft** verwenden |
 | „Add at least one line before sending.“ | Die Bestellung hat keine Positionen |

@@ -72,7 +72,7 @@ COLUMNS = {
     col('choice', 'SupplierStatus', 'Supplier Status', options=['Active', 'Blocked']),
     col('text', 'SupplierCategory', 'Supplier Category'),
     col('text', 'Pec', 'PEC', 'Certified email address', max=100, fmt='Email'),
-    col('text', 'Iban', 'IBAN', max=34),
+    col('text', 'Iban', 'IBAN', max=34, secured=True),
     col('choice', 'Language', 'Language', 'Language for documents and emails sent to the account', options=['Italian', 'English', 'German', 'French']),
     col('text', 'PaymentTerms', 'Payment Terms'),
     col('whole', 'ExpiredDocs', 'Expired Documents', 'Updated daily by flow'),
