@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Badge, Button, Checkbox, Dropdown, Field, Input, Option, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Text,
 } from '@fluentui/react-components';
-import { Add16Regular, ChevronLeft16Regular, ChevronRight16Regular, Delete16Regular } from '@fluentui/react-icons';
+import { Add16Regular, ArrowLeft16Regular, ChevronLeft16Regular, ChevronRight16Regular, Delete16Regular } from '@fluentui/react-icons';
 
 import { useAgent, useServiceData } from '../AgentContext';
 import { ErrorBar, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Shell } from '../kit';
@@ -244,7 +244,7 @@ export const SubmitTimesheetView: React.FC<SubmitTimesheetProps> = props => {
               <Footer>
                 <Button appearance="primary" disabled={busy} onClick={() => { confirm(true).catch(() => undefined); }}>{busy ? str.common.saving : t.confirmSubmit}</Button>
                 <Button disabled={busy || !plan.creates.length} onClick={() => { confirm(false).catch(() => undefined); }}>{t.saveDraft}</Button>
-                <Button disabled={busy} onClick={() => setStep('edit')}>{str.common.back}</Button>
+                <Button icon={<ArrowLeft16Regular />} disabled={busy} onClick={() => setStep('edit')}>{str.common.back}</Button>
               </Footer>
             </>
           )}

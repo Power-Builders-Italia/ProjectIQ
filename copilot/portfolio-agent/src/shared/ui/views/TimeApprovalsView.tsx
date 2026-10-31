@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Badge, Button, Checkbox, Field, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Text, Textarea,
 } from '@fluentui/react-components';
-import { Checkmark16Regular, Dismiss16Regular } from '@fluentui/react-icons';
+import { ArrowLeft16Regular, Checkmark16Regular, Dismiss16Regular } from '@fluentui/react-icons';
 
 import { useAgent, useServiceData } from '../AgentContext';
 import { ErrorBar, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Shell } from '../kit';
@@ -142,7 +142,7 @@ export const TimeApprovalsView: React.FC<TimeApprovalsProps> = props => {
             <Button appearance="primary" disabled={busy || (!step.approve && !note.trim())} onClick={() => { confirm(step.approve).catch(() => undefined); }}>
               {busy ? str.common.saving : step.approve ? t.confirmApprove : t.confirmReject}
             </Button>
-            <Button disabled={busy} onClick={() => setStep({ kind: 'select' })}>{str.common.back}</Button>
+            <Button icon={<ArrowLeft16Regular />} disabled={busy} onClick={() => setStep({ kind: 'select' })}>{str.common.back}</Button>
           </Footer>
         </>
       )}

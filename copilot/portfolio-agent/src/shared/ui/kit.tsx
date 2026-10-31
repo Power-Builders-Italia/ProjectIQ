@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   Badge, Button, makeStyles, mergeClasses, MessageBar, MessageBarBody, MessageBarTitle, Spinner, Text, tokens, Tooltip,
 } from '@fluentui/react-components';
-import { ArrowClockwise20Regular, ArrowMaximize20Regular, Open16Regular } from '@fluentui/react-icons';
+import { ArrowClockwise20Regular, ArrowMaximize20Regular, Open16Regular, Sparkle16Regular } from '@fluentui/react-icons';
 
 import { useAgent } from './AgentContext';
 import type { HealthLevel } from '../logic/portfolio';
@@ -180,7 +180,7 @@ export const OpenInApp: React.FC<{ url: string; label?: string }> = ({ url, labe
 
 export const FollowUp: React.FC<{ prompt: string; children?: React.ReactNode }> = ({ prompt, children }) => {
   const { followUp } = useAgent();
-  return <Button size="small" appearance="subtle" onClick={() => followUp(prompt)}>{children}</Button>;
+  return <Button size="small" icon={<Sparkle16Regular />} onClick={() => followUp(prompt)}>{children}</Button>;
 };
 
 export const ToneText: React.FC<{ tone: Tone; children?: React.ReactNode }> = ({ tone, children }) => {
