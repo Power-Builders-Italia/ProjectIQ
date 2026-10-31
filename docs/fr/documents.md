@@ -53,6 +53,24 @@ Le dossier est créé la **première fois que quelqu'un ouvre Documents** sur l'
 - Pour voir l'onglet **Documents**, il faut le rôle ProjectIQ (voir [Administration](administration.md#rôles-de-sécurité)) : **OP365 User** peut créer le dossier des enregistrements qu'il peut ouvrir et lire tous les emplacements de document.
 - **Ce sont les autorisations SharePoint qui décident des fichiers visibles.** ProjectIQ ne copie pas le partage de ses projets dans SharePoint : donnez à l'équipe du projet l'accès au site (ou à une bibliothèque ou un dossier) dans SharePoint.
 
+### Colonnes ProjectIQ
+
+Chaque fichier ajouté au dossier d'un enregistrement reçoit en quelques minutes, sans saisie de personne, les données de cet enregistrement dans des colonnes SharePoint. Vous pouvez trier, filtrer et regrouper la bibliothèque selon ces colonnes. Microsoft Search et Copilot les utilisent pour trouver « les documents du projet PRJ-000123 » ou « les fichiers du fournisseur Rossi », même quand le texte du fichier ne les cite pas.
+
+| Colonne | Project | Purchase Order | Supplier Document |
+|---|---|---|---|
+| **ProjectIQ Record Type** | Project | Purchase Order | Supplier Document |
+| **Project Code** | Code du projet | Code du projet de la commande | – |
+| **Project Name** | Nom du projet | Nom du projet de la commande | – |
+| **Customer** | Client du projet | Client du projet de la commande | – |
+| **Project Manager** | Chef de projet | Chef de projet du projet de la commande | – |
+| **PO Number** | – | Numéro de la commande (PO-#####) | – |
+| **Supplier** | – | Fournisseur de la commande | Fournisseur du document |
+
+- Les valeurs sont celles de l'enregistrement **au moment où le fichier est ajouté**. Si vous renommez un projet ou changez son client, les fichiers déjà présents ne sont pas mis à jour.
+- Les fichiers hors du dossier d'un enregistrement ne sont pas étiquetés : par exemple ceux à la racine de la bibliothèque ou dans un dossier ajouté avec **Add Location**.
+- Les colonnes se modifient comme toute autre colonne SharePoint et ProjectIQ ne les écrase pas. **ProjectIQ Record Id** est masquée dans les formulaires et conserve l'enregistrement auquel le fichier appartient.
+
 ### Documents dans Copilot
 
 Dans le [Portfolio Agent](portfolio-agent.md#documents-du-projet), demandez « affiche les documents du projet PRJ-000123 » : la carte liste les fichiers et sous-dossiers du dossier du projet, les plus récents d'abord, avec un lien vers chaque fichier et vers le dossier. Si une source de connaissances SharePoint est définie, vous pouvez aussi demander ce que dit un document (voir [Portfolio Agent](portfolio-agent.md#questions-sur-le-contenu-des-documents)).
@@ -85,6 +103,26 @@ L'intégration SharePoint côté serveur est active par défaut dans Dataverse o
 
 La gestion de documents sur les trois tables et les privilèges sur les emplacements de document et le site SharePoint des rôles **OP365 User** et **OP365 Administrator** font partie de la solution ProjectIQ : une mise à jour de la solution les apporte. Le site SharePoint est un paramètre de chaque environnement et n'est pas dans la solution.
 
+### Colonnes ProjectIQ sur les fichiers
+
+Les [colonnes ProjectIQ](#colonnes-projectiq) sont renseignées par trois flux cloud de la solution, un par bibliothèque :
+- **Tag project documents**
+- **Tag purchase order documents**
+- **Tag supplier documents**
+
+Les flux vérifient la bibliothèque toutes les 3 minutes et utilisent deux références de connexion :
+- **op365_sharepoint** (SharePoint), qui doit appartenir à un **utilisateur dédié** avec l'autorisation **Edit** sur le site ;
+- **op365_dataverse**.
+
+| Étape | Qui | Quoi |
+|---|---|---|
+| 1 | Admin SharePoint | Avec la CLI for Microsoft 365 connectée en tant que propriétaire du site, exécutez `SHAREPOINT_SITE_URL=<URL du site> python3 tools/sharepoint/document_metadata.py`. Le script ajoute les colonnes aux trois bibliothèques et affiche leurs id |
+| 2 | Admin Power Platform | Renseignez les variables d'environnement **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** et **Supplier Document Library Id** avec l'URL du site et les id affichés. En Test, elles sont renseignées par le déploiement, voir [dev-environment](../dev-environment.md#4-deploy-to-test) |
+| 3 | Admin Power Platform | Créez la connexion SharePoint avec l'utilisateur dédié, liez-la à **op365_sharepoint** et activez les trois flux (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 4 | Admin SharePoint | Facultatif, pour les fichiers déjà présents : relancez l'étape 1 avec `--backfill` et les variables `PAC_*` de l'environnement |
+
+Les flux sont importés **désactivés** : après chaque mise à jour de la solution, vérifiez qu'ils sont toujours activés.
+
 ## Messages possibles
 
 | Message | Signification et solution |
@@ -94,3 +132,4 @@ La gestion de documents sur les trois tables et les privilèges sur les emplacem
 | Accès refusé lors de la création du dossier | Vous ne pouvez pas écrire dans la bibliothèque : demandez **Edit** sur le site |
 | Carte : "No document folder yet" | Personne n'a ouvert Documents sur le projet : ouvrez le projet dans ProjectIQ et sélectionnez **Related** → **Documents** |
 | Carte : "You have no access to the SharePoint folder of this project." | Comme ci-dessus : l'accès SharePoint au site manque |
+| Les colonnes ProjectIQ d'un nouveau fichier restent vides | Le flux de la bibliothèque est désactivé ou son exécution a échoué. Vérifiez l'historique des exécutions du flux : la connexion de **op365_sharepoint** doit être valide et son utilisateur doit avoir **Edit** sur le site |

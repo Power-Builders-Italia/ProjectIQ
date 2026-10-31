@@ -53,6 +53,24 @@ The folder is created the **first time someone opens Documents** on the record. 
 - To see the **Documents** tab you need the ProjectIQ role (see [Administration](administration.md#security-roles)): **OP365 User** can create the folder of the records they can open and read every document location.
 - **SharePoint permissions decide which files you see.** ProjectIQ does not copy its project sharing to SharePoint: give the project team access to the site (or to a library or folder) in SharePoint.
 
+### ProjectIQ columns
+
+Every file added to the folder of a record gets the data of that record in SharePoint columns, within a few minutes, without anybody typing them. You can sort, filter and group the library by them, and Microsoft Search and Copilot use them to find "the documents of project PRJ-000123" or "the files of supplier Rossi" even when the text of the file does not say so.
+
+| Column | Project | Purchase Order | Supplier Document |
+|---|---|---|---|
+| **ProjectIQ Record Type** | Project | Purchase Order | Supplier Document |
+| **Project Code** | Code of the project | Code of the project of the order | – |
+| **Project Name** | Name of the project | Name of the project of the order | – |
+| **Customer** | Customer of the project | Customer of the project of the order | – |
+| **Project Manager** | Project manager | Project manager of the project of the order | – |
+| **PO Number** | – | Number of the order (PO-#####) | – |
+| **Supplier** | – | Supplier of the order | Supplier of the document |
+
+- The values are those of the record **when the file is added**: renaming a project or changing its customer does not update the files already there.
+- Files outside a record folder (in the root of the library, or in a folder added with **Add Location**) are not tagged.
+- The columns can be edited like any other SharePoint column; ProjectIQ does not overwrite them. **ProjectIQ Record Id** (hidden from the forms) keeps the record the file belongs to.
+
 ### Documents in Copilot
 
 In the [Portfolio Agent](portfolio-agent.md#project-documents) ask "show the documents of PRJ-000123": the card lists the files and subfolders of the project folder, most recent first, with a link to each file and to the folder. When a SharePoint knowledge source is set, you can also ask what a document says (see [Portfolio Agent](portfolio-agent.md#questions-on-the-content-of-documents)).
@@ -85,6 +103,26 @@ Server-based SharePoint integration is on by default in Dataverse online; if **D
 
 Document management on the three tables, and the document location and SharePoint site privileges of the **OP365 User** and **OP365 Administrator** roles, are part of the ProjectIQ solution: an update of the solution brings them. The SharePoint site is a setting of each environment and is not in the solution.
 
+### ProjectIQ columns on the files
+
+The [ProjectIQ columns](#projectiq-columns) are filled by three cloud flows of the solution, one per library:
+- **Tag project documents**
+- **Tag purchase order documents**
+- **Tag supplier documents**
+
+The flows check the library every 3 minutes and use two connection references:
+- **op365_sharepoint** (SharePoint), which must belong to a **dedicated user** with **Edit** on the site;
+- **op365_dataverse**.
+
+| Step | Who | What |
+|---|---|---|
+| 1 | SharePoint admin | With the CLI for Microsoft 365 signed in as a site owner, run `SHAREPOINT_SITE_URL=<site URL> python3 tools/sharepoint/document_metadata.py`. The script adds the columns to the three libraries and prints their ids |
+| 2 | Power Platform admin | Set the environment variables **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** and **Supplier Document Library Id** with the site URL and the printed ids (in Test through the deployment, see [dev-environment](../dev-environment.md#4-deploy-to-test)) |
+| 3 | Power Platform admin | Create the SharePoint connection with the dedicated user, link it to **op365_sharepoint** and turn the three flows on (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 4 | SharePoint admin | Optional, for the files that were already there: run step 1 again with `--backfill` and the `PAC_*` variables of the environment |
+
+The flows are imported **off**: after an update of the solution check that they are still on.
+
 ## Messages you may see
 
 | Message | Meaning and solution |
@@ -94,3 +132,4 @@ Document management on the three tables, and the document location and SharePoin
 | Access denied when the folder is created | You cannot write in the library: ask for **Edit** on the site |
 | Card: "No document folder yet" | Nobody has opened Documents on the project: open the project in ProjectIQ and select **Related** → **Documents** |
 | Card: "You have no access to the SharePoint folder of this project." | As above: SharePoint access to the site is missing |
+| The ProjectIQ columns of a new file stay empty | The flow of the library is off or its run failed: check the flow run history; the connection of **op365_sharepoint** must be valid and its user must have **Edit** on the site |

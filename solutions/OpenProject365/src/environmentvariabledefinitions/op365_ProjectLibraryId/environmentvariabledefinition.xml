@@ -1,0 +1,19 @@
+<environmentvariabledefinition schemaname="op365_ProjectLibraryId">
+  <description default="Id of the op365_project document library.">
+    <label description="ID der Dokumentbibliothek op365_project." languagecode="1031" />
+    <label description="Id of the op365_project document library." languagecode="1033" />
+    <label description="ID de la bibliothèque de documents op365_project." languagecode="1036" />
+    <label description="ID della raccolta documenti op365_project." languagecode="1040" />
+  </description>
+  <displayname default="Project Library Id">
+    <label description="Projektbibliothek-ID" languagecode="1031" />
+    <label description="Project Library Id" languagecode="1033" />
+    <label description="ID de la bibliothèque Projet" languagecode="1036" />
+    <label description="ID raccolta Commessa" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

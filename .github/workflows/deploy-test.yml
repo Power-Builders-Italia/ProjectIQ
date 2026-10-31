@@ -32,6 +32,11 @@ jobs:
       OP365_TIME_APPROVAL_ENABLED: ${{ secrets.OP365_TIME_APPROVAL_ENABLED }}
       OP365_PURCHASE_REQUEST_THRESHOLD: ${{ secrets.OP365_PURCHASE_REQUEST_THRESHOLD }}
       OP365_PURCHASING_APPROVER: ${{ secrets.OP365_PURCHASING_APPROVER }}
+      OP365_SHAREPOINT_CONNECTION_ID: ${{ secrets.OP365_SHAREPOINT_CONNECTION_ID }}
+      OP365_SHAREPOINT_SITE_URL: ${{ secrets.OP365_SHAREPOINT_SITE_URL }}
+      OP365_PROJECT_LIBRARY_ID: ${{ secrets.OP365_PROJECT_LIBRARY_ID }}
+      OP365_PURCHASE_ORDER_LIBRARY_ID: ${{ secrets.OP365_PURCHASE_ORDER_LIBRARY_ID }}
+      OP365_SUPPLIER_DOCUMENT_LIBRARY_ID: ${{ secrets.OP365_SUPPLIER_DOCUMENT_LIBRARY_ID }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Resolve target and deployment settings
@@ -42,8 +47,9 @@ jobs:
           if (-not $env:TARGET_URL) { throw 'Set the TEST_ENVIRONMENT_URL secret of the GitHub environment ${{ inputs.settings }}' }
           $text = Get-Content 'deployment/${{ inputs.settings }}.settings.json' -Raw
           $text = [regex]::Replace($text, '#\{(\w+)\}#', { param($m) [Environment]::GetEnvironmentVariable($m.Groups[1].Value) })
-          if ($text -match '"ConnectionId":\s*""') { throw 'The OP365_DATAVERSE_CONNECTION_ID secret is not set (see docs/dev-environment.md)' }
           $settings = $text | ConvertFrom-Json
+          $missing = @($settings.ConnectionReferences | Where-Object { -not $_.ConnectionId } | ForEach-Object { $_.LogicalName })
+          if ($missing) { throw "No connection for $($missing -join ', '): set the OP365_*_CONNECTION_ID secrets (see docs/dev-environment.md)" }
           $settings.EnvironmentVariables = @($settings.EnvironmentVariables | Where-Object { $_.Value })
           New-Item -ItemType Directory -Force out | Out-Null
           Set-Content out/deployment.settings.json ($settings | ConvertTo-Json -Depth 5)

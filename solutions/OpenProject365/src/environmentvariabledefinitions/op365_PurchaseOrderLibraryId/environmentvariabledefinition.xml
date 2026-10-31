@@ -1,0 +1,19 @@
+<environmentvariabledefinition schemaname="op365_PurchaseOrderLibraryId">
+  <description default="Id of the op365_purchaseorder document library.">
+    <label description="ID der Dokumentbibliothek op365_purchaseorder." languagecode="1031" />
+    <label description="Id of the op365_purchaseorder document library." languagecode="1033" />
+    <label description="ID de la bibliothèque de documents op365_purchaseorder." languagecode="1036" />
+    <label description="ID della raccolta documenti op365_purchaseorder." languagecode="1040" />
+  </description>
+  <displayname default="Purchase Order Library Id">
+    <label description="Bestellbibliothek-ID" languagecode="1031" />
+    <label description="Purchase Order Library Id" languagecode="1033" />
+    <label description="ID de la bibliothèque Commande" languagecode="1036" />
+    <label description="ID raccolta Ordine di acquisto" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

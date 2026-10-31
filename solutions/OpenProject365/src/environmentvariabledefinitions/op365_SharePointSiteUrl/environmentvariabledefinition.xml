@@ -1,0 +1,19 @@
+<environmentvariabledefinition schemaname="op365_SharePointSiteUrl">
+  <description default="URL of the SharePoint site of the ProjectIQ document libraries (the default site of Document Management).">
+    <label description="URL der SharePoint-Website der ProjectIQ-Dokumentbibliotheken (Standardwebsite der Dokumentverwaltung)." languagecode="1031" />
+    <label description="URL of the SharePoint site of the ProjectIQ document libraries (the default site of Document Management)." languagecode="1033" />
+    <label description="URL du site SharePoint des bibliothèques de documents ProjectIQ (site par défaut de la gestion des documents)." languagecode="1036" />
+    <label description="URL del sito SharePoint delle raccolte documenti ProjectIQ (sito predefinito della gestione documenti)." languagecode="1040" />
+  </description>
+  <displayname default="SharePoint Site URL">
+    <label description="SharePoint-Website-URL" languagecode="1031" />
+    <label description="SharePoint Site URL" languagecode="1033" />
+    <label description="URL du site SharePoint" languagecode="1036" />
+    <label description="URL sito SharePoint" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

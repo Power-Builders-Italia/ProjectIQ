@@ -34,8 +34,9 @@ agent.capabilities.push({ name: 'OneDriveAndSharePoint', items_by_url: urls.map(
 writeFileSync(agentPath, JSON.stringify(agent, null, 2) + '\n');
 
 const RULE = '11. What a document says (contract clauses, penalties, specifications, terms of an offer, minutes) -> answer from the '
-  + 'SharePoint knowledge and name the file; this is the one case answered without a component. To list the files of a project use '
-  + 'GetProjectDocuments.';
+  + 'SharePoint knowledge and name the file; this is the one case answered without a component. The files carry the columns Project '
+  + 'Code, Project Name, Customer, PO Number and Supplier of their record: use them to keep to the documents of the project, '
+  + 'order, customer or supplier asked about. To list the files of a project use GetProjectDocuments.';
 const instructionPath = join(root, 'copilot/instruction.txt');
 const instructions = readFileSync(instructionPath, 'utf8');
 if (!instructions.includes(RULE)) {

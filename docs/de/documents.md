@@ -53,6 +53,24 @@ Der Ordner wird angelegt, wenn **zum ersten Mal jemand Documents** am Datensatz 
 - Für die Registerkarte **Documents** brauchen Sie die ProjectIQ-Rolle (siehe [Administration](administration.md#sicherheitsrollen)): **OP365 User** kann den Ordner der Datensätze anlegen, die er öffnen kann, und alle Dokumentspeicherorte lesen.
 - **Welche Dateien Sie sehen, entscheiden die SharePoint-Berechtigungen.** ProjectIQ überträgt die Freigabe seiner Projekte nicht nach SharePoint: Geben Sie dem Projektteam in SharePoint Zugriff auf die Website (oder eine Bibliothek oder einen Ordner).
 
+### ProjectIQ-Spalten
+
+Jede Datei, die dem Ordner eines Datensatzes hinzugefügt wird, erhält innerhalb weniger Minuten die Daten dieses Datensatzes in SharePoint-Spalten, ohne dass jemand sie eingibt. Sie können die Bibliothek nach diesen Spalten sortieren, filtern und gruppieren. Microsoft Search und Copilot verwenden sie, um „die Dokumente des Projekts PRJ-000123“ oder „die Dateien des Lieferanten Rossi“ zu finden, auch wenn der Text der Datei sie nicht nennt.
+
+| Spalte | Project | Purchase Order | Supplier Document |
+|---|---|---|---|
+| **ProjectIQ Record Type** | Project | Purchase Order | Supplier Document |
+| **Project Code** | Code des Projekts | Code des Projekts der Bestellung | – |
+| **Project Name** | Name des Projekts | Name des Projekts der Bestellung | – |
+| **Customer** | Kunde des Projekts | Kunde des Projekts der Bestellung | – |
+| **Project Manager** | Projektleitung | Projektleitung des Projekts der Bestellung | – |
+| **PO Number** | – | Nummer der Bestellung (PO-#####) | – |
+| **Supplier** | – | Lieferant der Bestellung | Lieferant des Dokuments |
+
+- Die Werte sind die des Datensatzes **zum Zeitpunkt, an dem die Datei hinzugefügt wird**. Wenn Sie ein Projekt umbenennen oder seinen Kunden ändern, werden die vorhandenen Dateien nicht aktualisiert.
+- Dateien außerhalb des Ordners eines Datensatzes werden nicht gekennzeichnet, zum Beispiel im Stamm der Bibliothek oder in einem mit **Add Location** hinzugefügten Ordner.
+- Die Spalten lassen sich wie jede andere SharePoint-Spalte bearbeiten, und ProjectIQ überschreibt sie nicht. **ProjectIQ Record Id** ist in den Formularen ausgeblendet und speichert den Datensatz, zu dem die Datei gehört.
+
 ### Dokumente in Copilot
 
 Fragen Sie im [Portfolio Agent](portfolio-agent.md#projektdokumente) „zeige die Dokumente von PRJ-000123“: Die Karte listet die Dateien und Unterordner des Projektordners, neueste zuerst, mit einem Link zu jeder Datei und zum Ordner. Ist eine SharePoint-Wissensquelle eingerichtet, können Sie auch fragen, was in einem Dokument steht (siehe [Portfolio Agent](portfolio-agent.md#fragen-zum-inhalt-von-dokumenten)).
@@ -85,6 +103,26 @@ Die serverbasierte SharePoint-Integration ist in Dataverse online standardmäßi
 
 Die Dokumentverwaltung der drei Tabellen sowie die Berechtigungen für Dokumentspeicherorte und SharePoint-Website der Rollen **OP365 User** und **OP365 Administrator** sind Teil der ProjectIQ-Lösung: Ein Update der Lösung bringt sie mit. Die SharePoint-Website ist eine Einstellung jeder Umgebung und nicht Teil der Lösung.
 
+### ProjectIQ-Spalten an den Dateien
+
+Die [ProjectIQ-Spalten](#projectiq-spalten) werden von drei Cloud-Flows der Lösung gefüllt, einer pro Bibliothek:
+- **Tag project documents**
+- **Tag purchase order documents**
+- **Tag supplier documents**
+
+Die Flows prüfen die Bibliothek alle 3 Minuten und verwenden zwei Verbindungsverweise:
+- **op365_sharepoint** (SharePoint), der einem **dedizierten Benutzer** mit **Edit** auf der Website gehören muss;
+- **op365_dataverse**.
+
+| Schritt | Wer | Was |
+|---|---|---|
+| 1 | SharePoint-Admin | Führen Sie mit der CLI for Microsoft 365, angemeldet als Websitebesitzer, `SHAREPOINT_SITE_URL=<Website-URL> python3 tools/sharepoint/document_metadata.py` aus. Das Skript fügt den drei Bibliotheken die Spalten hinzu und gibt ihre IDs aus |
+| 2 | Power-Platform-Admin | Setzen Sie die Umgebungsvariablen **SharePoint Site URL** (`op365_SharePointSiteUrl`), **Project Library Id**, **Purchase Order Library Id** und **Supplier Document Library Id** auf die Website-URL und die ausgegebenen IDs. In Test werden sie durch die Bereitstellung gesetzt, siehe [dev-environment](../dev-environment.md#4-deploy-to-test) |
+| 3 | Power-Platform-Admin | Erstellen Sie die SharePoint-Verbindung mit dem dedizierten Benutzer, verknüpfen Sie sie mit **op365_sharepoint** und schalten Sie die drei Flows ein (**Solutions** → **ProjectIQ** → **Cloud flows**) |
+| 4 | SharePoint-Admin | Optional, für bereits vorhandene Dateien: Schritt 1 mit `--backfill` und den `PAC_*`-Variablen der Umgebung erneut ausführen |
+
+Die Flows werden **ausgeschaltet** importiert: Prüfen Sie nach jedem Update der Lösung, dass sie noch eingeschaltet sind.
+
 ## Mögliche Meldungen
 
 | Meldung | Bedeutung und Lösung |
@@ -94,3 +132,4 @@ Die Dokumentverwaltung der drei Tabellen sowie die Berechtigungen für Dokuments
 | Zugriff verweigert beim Anlegen des Ordners | Sie können nicht in die Bibliothek schreiben: fordern Sie **Edit** auf der Website an |
 | Karte: "No document folder yet" | Niemand hat Documents am Projekt geöffnet: öffnen Sie das Projekt in ProjectIQ und wählen Sie **Related** → **Documents** |
 | Karte: "You have no access to the SharePoint folder of this project." | Wie oben: der SharePoint-Zugriff auf die Website fehlt |
+| Die ProjectIQ-Spalten einer neuen Datei bleiben leer | Der Flow der Bibliothek ist ausgeschaltet oder seine Ausführung ist fehlgeschlagen. Prüfen Sie den Ausführungsverlauf des Flows: Die Verbindung von **op365_sharepoint** muss gültig sein, und ihr Benutzer braucht **Edit** auf der Website |
