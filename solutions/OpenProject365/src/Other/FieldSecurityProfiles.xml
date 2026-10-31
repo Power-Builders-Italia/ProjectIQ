@@ -44,14 +44,6 @@
       </FieldPermission>
       <FieldPermission>
         <EntityName>account</EntityName>
-        <AttributeName>op365_iban</AttributeName>
-        <CanRead>4</CanRead>
-        <CanUpdate>4</CanUpdate>
-        <CanCreate>4</CanCreate>
-        <CanReadUnmasked>0</CanReadUnmasked>
-      </FieldPermission>
-      <FieldPermission>
-        <EntityName>account</EntityName>
         <AttributeName>op365_spend</AttributeName>
         <CanRead>4</CanRead>
         <CanUpdate>4</CanUpdate>
@@ -61,6 +53,14 @@
       <FieldPermission>
         <EntityName>op365_item</EntityName>
         <AttributeName>op365_spend</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>account</EntityName>
+        <AttributeName>op365_iban</AttributeName>
         <CanRead>4</CanRead>
         <CanUpdate>4</CanUpdate>
         <CanCreate>4</CanCreate>
