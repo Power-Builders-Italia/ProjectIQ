@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button, Combobox, Field, Input, Option, Text, Textarea } from '@fluentui/react-components';
-import { Add16Regular, Delete16Regular, DocumentArrowUp16Regular, PersonAdd16Regular } from '@fluentui/react-icons';
+import { Button, Combobox, Field, Input, Option, Text, Textarea, ToggleButton, tokens } from '@fluentui/react-components';
+import { Add16Regular, ArrowLeft16Regular, Delete16Regular, DocumentArrowUp16Regular, PersonAdd16Regular, Search16Regular } from '@fluentui/react-icons';
 
 import { useAgent, useServiceData } from '../AgentContext';
 import { ErrorBar, FollowUp, Footer, Info, Kpi, KpiGrid, Loading, OpenInApp, Section, Shell } from '../kit';
@@ -195,37 +195,37 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
                 <Field label={t.name} required validationMessage={message('noName')}>
                   <Input value={draft.name} style={FILL} input={{ style: FILL }} onChange={(_, d) => patch({ name: d.value })} />
                 </Field>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {draft.newCustomer ? (
-                    <Field label={t.newCustomer} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
+                <div role="group" aria-label={t.customer} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+                  <Text size={300}>{t.customer} <span style={{ color: tokens.colorPaletteRedForeground3 }}>*</span></Text>
+                  <ToggleButton size="small" icon={<Search16Regular />} checked={!draft.newCustomer}
+                    onClick={() => patch({ newCustomer: undefined })}>{t.existingCustomer}</ToggleButton>
+                  <ToggleButton size="small" icon={<PersonAdd16Regular />} checked={!!draft.newCustomer}
+                    onClick={() => { if (!draft.newCustomer) patch({ newCustomer: { name: props.customer?.trim() || '', vatNumber: props.customerVatNumber?.trim() || '' } }); }}>{t.newCustomer}</ToggleButton>
+                </div>
+                {draft.newCustomer ? (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                    <Field label={t.companyName} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
                       validationMessage={message('noCustomerName') || message('customerExists')}
                       validationState={message('customerExists') ? 'warning' : undefined}>
                       <Input value={draft.newCustomer.name} style={FILL} input={{ style: FILL }}
                         onChange={(_, d) => setDraft(x => ({ ...x, newCustomer: { ...x.newCustomer!, name: d.value } }))} />
                     </Field>
-                  ) : (
-                    <Field label={t.customer} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
-                      validationMessage={message('noCustomer') && (props.customer ? `${t.issues.noCustomer} ${t.inDocument(props.customer)}` : t.issues.noCustomer)}>
-                      <Picker choices={state.data.customers} value={draft.customerId} placeholder={t.search} onChange={id => patch({ customerId: id })} />
+                    <Field label={t.vatNumber} style={{ width: 180 }}>
+                      <Input value={draft.newCustomer.vatNumber} style={FILL} input={{ style: FILL }}
+                        onChange={(_, d) => setDraft(x => ({ ...x, newCustomer: { ...x.newCustomer!, vatNumber: d.value } }))} />
                     </Field>
-                  )}
-                  <Field label={t.manager} required style={{ minWidth: 200, flexGrow: 1, flexBasis: 0 }}
-                    validationMessage={message('noManager') && (props.projectManager ? `${t.issues.noManager} ${t.inDocument(props.projectManager)}` : t.issues.noManager)}>
-                    <Picker choices={state.data.users} value={draft.managerId} placeholder={t.search} onChange={id => patch({ managerId: id })} />
-                  </Field>
-                </div>
-                {draft.newCustomer && (
-                  <Field label={t.vatNumber} style={{ width: 200 }}>
-                    <Input value={draft.newCustomer.vatNumber} style={FILL} input={{ style: FILL }}
-                      onChange={(_, d) => setDraft(x => ({ ...x, newCustomer: { ...x.newCustomer!, vatNumber: d.value } }))} />
+                  </div>
+                ) : (
+                  <Field validationMessage={message('noCustomer') && (props.customer
+                    ? `${t.issues.noCustomer} ${t.inDocument(props.customer)} ${t.notFoundHint}` : t.issues.noCustomer)}>
+                    <Picker choices={state.data.customers} value={draft.customerId} placeholder={t.search} onChange={id => patch({ customerId: id })} />
                   </Field>
                 )}
-                <div>
-                  {draft.newCustomer
-                    ? <Button size="small" appearance="subtle" onClick={() => patch({ newCustomer: undefined })}>{t.chooseCustomer}</Button>
-                    : <Button size="small" appearance="subtle" icon={<PersonAdd16Regular />}
-                      onClick={() => patch({ newCustomer: { name: props.customer?.trim() || '', vatNumber: props.customerVatNumber?.trim() || '' } })}>{t.addCustomer}</Button>}
-                </div>
+                {draft.newCustomer && <Text size={200}>{t.customerOnConfirm}</Text>}
+                <Field label={t.manager} required
+                  validationMessage={message('noManager') && (props.projectManager ? `${t.issues.noManager} ${t.inDocument(props.projectManager)}` : t.issues.noManager)}>
+                  <Picker choices={state.data.users} value={draft.managerId} placeholder={t.search} onChange={id => patch({ managerId: id })} />
+                </Field>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   <Field label={t.startDate} required style={{ width: 160 }} validationMessage={message('noStart')}>
                     <Input type="date" value={draft.startDate} style={FILL} input={{ style: FILL }} onChange={(_, d) => patch({ startDate: d.value })} />
@@ -311,7 +311,7 @@ export const CreateProjectView: React.FC<CreateProjectProps> = props => {
               {progress && <Loading label={progress} />}
               <Footer>
                 <Button appearance="primary" disabled={busy} onClick={() => { create().catch(() => undefined); }}>{busy ? str.common.saving : t.create}</Button>
-                <Button disabled={busy} onClick={() => setStep('edit')}>{str.common.back}</Button>
+                <Button icon={<ArrowLeft16Regular />} disabled={busy} onClick={() => setStep('edit')}>{str.common.back}</Button>
               </Footer>
             </>
           )}
