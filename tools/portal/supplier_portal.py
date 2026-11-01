@@ -132,7 +132,10 @@ SETTINGS = {
     # never statuscode or the review columns: the plugins set them
     'Webapi/op365_supplierdocument/enabled': 'true',
     'Webapi/op365_supplierdocument/fields': 'op365_documenttype,op365_description,op365_number,op365_issuedate,'
-                                            'op365_expirydate,op365_notes,op365_file,op365_supplierid',
+                                            'op365_expirydate,op365_notes,op365_file,op365_supplierid,op365_SupplierId',
+    # the related table of a lookup bound on create must be Web API enabled too; Supplier company grants no write
+    'Webapi/account/enabled': 'true',
+    'Webapi/account/fields': 'accountid',
     'Webapi/error/innererror': 'false',
 }
 # ---------- sign-in: local accounts (e-mail + password) for suppliers outside the tenant ----------

@@ -1,6 +1,6 @@
 <powerpagecomponent powerpagecomponentid="b0d6467a-ccd5-f111-84e8-7ced8d2d53e4">
   <content>{
-  "value": "op365_documenttype,op365_description,op365_number,op365_issuedate,op365_expirydate,op365_notes,op365_file,op365_supplierid",
+  "value": "op365_documenttype,op365_description,op365_number,op365_issuedate,op365_expirydate,op365_notes,op365_file,op365_supplierid,op365_SupplierId",
   "source": 0
 }</content>
   <iscustomizable>1</iscustomizable>

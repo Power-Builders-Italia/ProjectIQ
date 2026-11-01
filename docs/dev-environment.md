@@ -131,7 +131,9 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   contact's Company Name) gives read, Append and Append To on the user's own account; *Supplier documents* is its child (Parent scope via
   `op365_account_supplierdocument_supplierid`) with read, write, create, delete, append and Append To, so that a new document can be linked
   with `op365_SupplierId@odata.bind` (an independent Account-scope permission is refused on that association). The Web API
-  fields of `op365_supplierdocument` exclude statuscode and the review columns; the plugins refuse changes to approved documents.
+  fields of `op365_supplierdocument` list the lookup both as `op365_supplierid` and as its navigation name `op365_SupplierId` (the
+  check is case-sensitive) and exclude statuscode and the review columns; `account` is Web API enabled as well (only `accountid`),
+  because the table on the other side of a bound lookup must be; the plugins refuse changes to approved documents.
 - A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
 - Sign-in: the script turns on **local accounts** (e-mail + password, `LocalLoginByEmail`, password reset) next to Microsoft Entra ID, and
   **self-registration**. Environment variables of the script: `PORTAL_LOCAL_LOGIN=false` keeps Entra ID only; `PORTAL_SELF_REGISTRATION=false`
