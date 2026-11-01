@@ -48,8 +48,9 @@ STYLE = """<link rel="preconnect" href="https://fonts.googleapis.com">
   --op-line:#e2e8f0;--op-bg:#f1f5f9;--op-green:#16a34a;--op-amber:#f59e0b;--op-red:#dc2626}
 .page-copy:has(.op-shell){padding:0;margin:0;max-width:none}
 /* the sidebar replaces the site header and footer on portal pages */
+body:has(.op-shell){background:var(--op-bg);margin:0}
 body:has(.op-shell) header,body:has(.op-shell) .navbar,body:has(.op-shell) footer,body:has(.op-shell) .footer{display:none!important}
-.op-shell{display:flex;flex-wrap:wrap;min-height:80vh;background:var(--op-bg);color:var(--op-ink);
+.op-shell{display:flex;flex-wrap:wrap;min-height:100vh;background:var(--op-bg);color:var(--op-ink);
   font-family:Inter,"Segoe UI",system-ui,sans-serif;text-align:left}
 .op-shell a{color:var(--op-accent)}
 .op-shell .d-none{display:none!important}
