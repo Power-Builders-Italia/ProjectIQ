@@ -47,7 +47,11 @@ var OP365 = OP365 || {};
         "Approve this supplier invoice?": ["Diese Lieferantenrechnung genehmigen?", "Approuver cette facture fournisseur ?", "Approvare questa fattura fornitore?"],
         "Reject Supplier Invoice": ["Lieferantenrechnung ablehnen", "Rejeter la facture fournisseur", "Rifiuta fattura fornitore"],
         "Approve this supplier document? It becomes valid and the supplier can no longer change it.": ["Dieses Lieferantendokument genehmigen? Es wird gültig und der Lieferant kann es nicht mehr ändern.", "Approuver ce document fournisseur ? Il devient valide et le fournisseur ne peut plus le modifier.", "Approvare questo documento fornitore? Diventa valido e il fornitore non potrà più modificarlo."],
-        "Reject Supplier Document": ["Lieferantendokument ablehnen", "Rejeter le document fournisseur", "Rifiuta documento fornitore"]
+        "Reject Supplier Document": ["Lieferantendokument ablehnen", "Rejeter le document fournisseur", "Rifiuta documento fornitore"],
+        "Invite to Portal": ["Zum Portal einladen", "Inviter au portail", "Invita al portale"],
+        "Send this contact an invitation to the supplier portal? It is valid for 30 days and gives access to the documents and orders of its company.": ["Diesem Kontakt eine Einladung zum Lieferantenportal senden? Sie ist 30 Tage gültig und gibt Zugriff auf die Dokumente und Bestellungen seines Unternehmens.", "Envoyer à ce contact une invitation au portail fournisseurs ? Elle est valable 30 jours et donne accès aux documents et commandes de sa société.", "Inviare a questo contatto un invito al portale fornitori? Vale 30 giorni e dà accesso ai documenti e agli ordini della sua società."],
+        "Sending...": ["Wird gesendet...", "Envoi...", "Invio..."],
+        "Invitation sent to the supplier portal.": ["Einladung zum Lieferantenportal gesendet.", "Invitation au portail fournisseurs envoyée.", "Invito al portale fornitori inviato."]
     };
     function t(text) {
         var col = { 1031: 0, 1036: 1, 1040: 2 }[Xrm.Utility.getGlobalContext().userSettings.languageId];
@@ -57,7 +61,7 @@ var OP365 = OP365 || {};
     var SETS = {
         op365_purchaserequest: "op365_purchaserequests", op365_rfq: "op365_rfqs", op365_purchaseorder: "op365_purchaseorders",
         op365_goodsreceipt: "op365_goodsreceipts", op365_supplierinvoice: "op365_supplierinvoices",
-        op365_supplierdocument: "op365_supplierdocuments"
+        op365_supplierdocument: "op365_supplierdocuments", contact: "contacts"
     };
 
     function idOf(form) { return form.data.entity.getId().replace(/[{}]/g, ""); }
@@ -202,6 +206,11 @@ var OP365 = OP365 || {};
         approveDocument: function (form) {
             return run(form, { action: "op365_DecideSupplierDocument", body: { Approve: true }, title: t("Approve"), confirm: t("Approve this supplier document? It becomes valid and the supplier can no longer change it."), progress: t("Approving...") });
         },
-        rejectDocument: function (form) { return reject(form, "op365_DecideSupplierDocument", t("Reject Supplier Document")); }
+        rejectDocument: function (form) { return reject(form, "op365_DecideSupplierDocument", t("Reject Supplier Document")); },
+        // ----- supplier portal
+        inviteToPortal: function (form) {
+            return run(form, { action: "op365_InviteToPortal", title: t("Invite to Portal"), progress: t("Sending..."), done: t("Invitation sent to the supplier portal."),
+                confirm: t("Send this contact an invitation to the supplier portal? It is valid for 30 days and gives access to the documents and orders of its company.") });
+        }
     };
 })();

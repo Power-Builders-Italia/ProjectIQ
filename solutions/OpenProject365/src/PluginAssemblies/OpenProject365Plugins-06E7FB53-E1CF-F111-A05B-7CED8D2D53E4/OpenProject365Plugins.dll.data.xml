@@ -50,6 +50,9 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.GoodsReceiptGuard, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="12c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.GoodsReceiptGuard">
       <FriendlyName>GoodsReceiptGuard</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.InviteToPortal, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="9e414db7-20d6-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.InviteToPortal">
+      <FriendlyName>InviteToPortal</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.MaterialUsageReceiptGuard, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="13c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.MaterialUsageReceiptGuard">
       <FriendlyName>MaterialUsageReceiptGuard</FriendlyName>
     </PluginType>
@@ -127,6 +130,9 @@
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SubmitTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8311ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SubmitTimeEntries">
       <FriendlyName>SubmitTimeEntries</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierContactRole, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="45710bbe-20d6-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierContactRole">
+      <FriendlyName>SupplierContactRole</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierDocumentAlerts, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e5190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierDocumentAlerts">
       <FriendlyName>SupplierDocumentAlerts</FriendlyName>

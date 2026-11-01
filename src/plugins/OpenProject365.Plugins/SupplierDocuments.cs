@@ -291,15 +291,18 @@ namespace OpenProject365.Plugins
             if (queue == null) context.Trace("queue {0} not found: no e-mails", sender);
         }
 
-        /// <summary>Sends the message to the supplier (its e-mail address), regarding the record; false when nothing was sent.</summary>
-        public bool Send(string message, Guid supplierId, EntityReference regarding, IDictionary<string, string> tokens)
+        /// <summary>
+        /// Sends the message in the supplier's language to the supplier (its e-mail address) or to <paramref name="to"/>
+        /// (a contact), regarding the record; false when nothing was sent.
+        /// </summary>
+        public bool Send(string message, Guid supplierId, EntityReference regarding, IDictionary<string, string> tokens, EntityReference to = null)
         {
             if (queue == null || config == null) return false;
             var system = context.SystemService;
             try
             {
                 var account = system.Retrieve("account", supplierId, new ColumnSet("emailaddress1", "op365_language"));
-                if (string.IsNullOrWhiteSpace(account.GetAttributeValue<string>("emailaddress1"))) return false;
+                if (to == null && string.IsNullOrWhiteSpace(account.GetAttributeValue<string>("emailaddress1"))) return false;
                 var value = account.GetAttributeValue<OptionSetValue>("op365_language")?.Value;
                 var language = value.HasValue && value >= 365000000 && value < 365000004 ? Languages[value.Value - 365000000] : null;
                 var title = EmailTemplates.Pick(config, message, language);
@@ -320,7 +323,7 @@ namespace OpenProject365.Plugins
                     ["description"] = Fill(draft.GetAttributeValue<string>("description"), tokens),
                     ["regardingobjectid"] = regarding,
                     ["from"] = new EntityCollection(new List<Entity> { new Entity("activityparty") { ["partyid"] = new EntityReference("queue", queue.Value) } }),
-                    ["to"] = new EntityCollection(new List<Entity> { new Entity("activityparty") { ["partyid"] = new EntityReference("account", supplierId) } }),
+                    ["to"] = new EntityCollection(new List<Entity> { new Entity("activityparty") { ["partyid"] = to ?? new EntityReference("account", supplierId) } }),
                 };
                 var id = system.Create(email);
                 system.Execute(new SendEmailRequest { EmailId = id, IssueSend = true, TrackingToken = "" });

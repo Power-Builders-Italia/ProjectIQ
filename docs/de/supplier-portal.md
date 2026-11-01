@@ -147,17 +147,25 @@ Bestellungen im Entwurf oder stornierte Bestellungen und nicht versandte Angebot
 
 ### Einem Lieferanten Zugriff geben
 
-Ein Lieferantenbenutzer ist ein **Kontakt**, dessen **Unternehmen** der Lieferanten-Account ist, mit der Web-Rolle **Supplier**.
+Ein Lieferantenbenutzer ist ein **Kontakt**, dessen **Company Name** das Lieferantenkonto ist. ProjectIQ gibt einem solchen Kontakt automatisch die Webrolle **Supplier** und entzieht sie, wenn der Company Name kein Lieferant mehr ist: Webrollen weisen Sie nie von Hand zu.
 
-1. Prüfen Sie in ProjectIQ, ob der Lieferanten-Account **Is Supplier**, **Active** und nicht **Blocked** ist und eine gültige **Email** hat.
-2. Legen Sie den **Kontakt** der Person an (oder öffnen Sie ihn), mit **Company Name** = der Lieferant und ihrer E-Mail-Adresse.
-3. Weisen Sie dem Kontakt in **Power Pages Management** (oder im Studio des Portals, *Set up → Web roles*) die Web-Rolle **Supplier** zu.
-4. Ermöglichen Sie der Person die Anmeldung mit der auf Ihrer Website konfigurierten Methode (zum Beispiel durch Senden einer **Einladung** aus Power Pages Management → *Invitations* oder indem Sie sie sich mit der hinterlegten E-Mail registrieren lassen).
-5. Senden Sie ihr die Portaladresse und [Teil 1](#teil-1--leitfaden-für-lieferanten) dieses Handbuchs.
+```mermaid
+flowchart LR
+    A[Kontakt mit Company Name = Lieferant] -->|automatisch| R[Webrolle Supplier]
+    A --> I[Invite to Portal] --> M[E-Mail mit Einladungscode] --> S[Lieferant registriert sich] --> P[Portal]
+    X[Selbst registrierte Person] -->|Sie setzen den Company Name| A
+```
 
-Um den Zugriff zu entziehen, entfernen Sie die Web-Rolle Supplier vom Kontakt oder deaktivieren Sie den Kontakt.
+1. Prüfen Sie in ProjectIQ, dass das Lieferantenkonto **Is Supplier**, **Active** und nicht **Blocked** ist.
+2. Legen Sie den **Kontakt** der Person an (oder öffnen Sie ihn), mit **Company Name** = der Lieferant und ihrer **Email**.
+3. Klicken Sie am Kontakt auf **Invite to Portal** und bestätigen Sie. Die Person erhält eine E-Mail mit einer Einladung (30 Tage gültig, einmal verwendbar): Damit legt sie ihr Konto an (E-Mail und Kennwort oder Microsoft), bereits mit dem Lieferanten verknüpft.
+4. Senden Sie der Person [Teil 1](#teil-1--leitfaden-für-lieferanten) dieses Handbuchs.
 
-**Anmeldemethoden.** Neben Microsoft Entra ID bietet das Portal **lokale Konten** (E-Mail und Kennwort), damit sich auch Lieferanten außerhalb Ihres Mandanten anmelden können. Personen können sich auch selbst **registrieren**: Wer sich selbst registriert, sieht nichts, bis Sie den **Company Name** seines Kontakts auf den Lieferanten setzen und ihm die Web-Rolle **Supplier** zuweisen; prüfen Sie neue Kontakte daher regelmäßig. Ihr Administrator kann lokale Konten oder die Selbstregistrierung abschalten (dann können sich nur eingeladene Personen registrieren), siehe [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (auf Englisch).
+**Invite to Portal** lehnt einen Kontakt ohne E-Mail ab („Add the e-mail address of the contact before inviting it to the supplier portal.“) oder einen, dessen Company Name kein Lieferant ist („Set a supplier as Company Name of the contact before inviting it to the supplier portal.“). Die E-Mail ist in der **Language** des Lieferanten verfasst und wird mit derselben Einrichtung wie die Ablauf-E-Mails versendet ([Administration](administration.md#täglicher-dokumentenablauf)); ohne sie erhalten Sie „The invitation e-mail could not be sent: check the environment variables op365_SupplierEmailSender and op365_SupplierEmailTemplates (PortalInvitation).“ und es wird keine Einladung angelegt. Die Einladungen finden Sie in Power Pages Management → *Invitations*.
+
+Um den Zugriff zu entziehen, ändern Sie den Company Name des Kontakts (die Webrolle Supplier wird entfernt) oder deaktivieren Sie den Kontakt.
+
+**Anmeldemethoden.** Neben Microsoft Entra ID bietet das Portal **lokale Konten** (E-Mail und Kennwort), damit sich auch Lieferanten außerhalb Ihres Tenants anmelden können. Personen können sich auch **selbst registrieren**: Eine selbst registrierte Person sieht nichts, bis Sie den **Company Name** ihres Kontakts auf den Lieferanten setzen, was ihr die Webrolle Supplier gibt; prüfen Sie neue Kontakte regelmäßig. Ihr Administrator kann lokale Konten oder die Selbstregistrierung ausschalten (dann können sich nur eingeladene Personen registrieren), siehe [Einrichtung der Entwicklungsumgebung](../dev-environment.md#supplier-portal-power-pages).
 
 ### Dokumente prüfen
 

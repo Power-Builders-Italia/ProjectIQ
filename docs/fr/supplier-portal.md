@@ -147,17 +147,25 @@ Les commandes en brouillon ou annulées et les appels d'offres non envoyés ne s
 
 ### Donner l'accès à un fournisseur
 
-Un utilisateur fournisseur est un **contact** dont l'**entreprise** est le compte fournisseur, avec le rôle web **Supplier**.
+Un utilisateur fournisseur est un **contact** dont le **Company Name** est le compte du fournisseur. ProjectIQ donne automatiquement à ce contact le rôle web **Supplier** et le retire quand le Company Name n'est plus un fournisseur : vous n'attribuez jamais de rôles web à la main.
 
-1. Dans ProjectIQ, vérifiez que le compte fournisseur est **Is Supplier**, **Active** et non **Blocked**, avec un **Email** valide.
-2. Créez (ou ouvrez) le **contact** de la personne, avec **Company Name** = le fournisseur et son e-mail.
-3. Dans **Power Pages Management** (ou le studio du portail, *Set up → Web roles*), attribuez au contact le rôle web **Supplier**.
-4. Permettez à la personne de se connecter avec la méthode configurée sur votre site (par exemple en envoyant une **invitation** depuis Power Pages Management → *Invitations*, ou en la laissant s'inscrire avec l'e-mail enregistré).
-5. Envoyez-lui l'adresse du portail et la [Partie 1](#partie-1--guide-pour-les-fournisseurs) de ce manuel.
+```mermaid
+flowchart LR
+    A[Contact avec Company Name = fournisseur] -->|automatique| R[Rôle web Supplier]
+    A --> I[Invite to Portal] --> M[E-mail avec code d'invitation] --> S[Le fournisseur s'inscrit] --> P[Portail]
+    X[Personne auto-inscrite] -->|vous renseignez le Company Name| A
+```
 
-Pour retirer l'accès, retirez le rôle web Supplier du contact ou désactivez le contact.
+1. Dans ProjectIQ, vérifiez que le compte du fournisseur est **Is Supplier**, **Active** et non **Blocked**.
+2. Créez (ou ouvrez) le **contact** de la personne, avec **Company Name** = le fournisseur et son **Email**.
+3. Sur le contact, cliquez sur **Invite to Portal** et confirmez. La personne reçoit un e-mail avec une invitation (valable 30 jours, utilisable une fois) : en la suivant, elle crée son compte (e-mail et mot de passe, ou Microsoft) déjà lié au fournisseur.
+4. Envoyez à la personne la [Partie 1](#partie-1--guide-pour-les-fournisseurs) de ce manuel.
 
-**Méthodes de connexion.** En plus de Microsoft Entra ID, le portail propose des **comptes locaux** (e-mail et mot de passe), pour que les fournisseurs extérieurs à votre tenant puissent se connecter. Les personnes peuvent aussi **s'inscrire** elles-mêmes : une personne inscrite ne voit rien tant que vous n'avez pas renseigné le **Company Name** de son contact avec le fournisseur et attribué le rôle web **Supplier** ; vérifiez donc régulièrement les nouveaux contacts. Votre administrateur peut désactiver les comptes locaux ou l'inscription libre (seules les personnes invitées peuvent alors s'inscrire), voir [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (en anglais).
+**Invite to Portal** refuse un contact sans e-mail (« Add the e-mail address of the contact before inviting it to the supplier portal. ») ou dont le Company Name n'est pas un fournisseur (« Set a supplier as Company Name of the contact before inviting it to the supplier portal. »). L'e-mail est rédigé dans la **Language** du fournisseur et part avec la même configuration que les e-mails d'expiration ([Administration](administration.md#expiration-quotidienne-des-documents)) ; sans elle, vous obtenez « The invitation e-mail could not be sent: check the environment variables op365_SupplierEmailSender and op365_SupplierEmailTemplates (PortalInvitation). » et aucune invitation n'est créée. Les invitations se trouvent dans Power Pages Management → *Invitations*.
+
+Pour retirer l'accès, changez le Company Name du contact (le rôle web Supplier est retiré) ou désactivez le contact.
+
+**Méthodes de connexion.** En plus de Microsoft Entra ID, le portail propose des **comptes locaux** (e-mail et mot de passe), pour que les fournisseurs extérieurs à votre tenant puissent se connecter. Les personnes peuvent aussi **s'inscrire** elles-mêmes : une personne auto-inscrite ne voit rien tant que vous n'avez pas renseigné le **Company Name** de son contact avec le fournisseur, ce qui lui donne le rôle web Supplier ; vérifiez régulièrement les nouveaux contacts. Votre administrateur peut désactiver les comptes locaux ou l'auto-inscription (seules les personnes invitées peuvent alors s'inscrire), voir [Configuration de l'environnement de développement](../dev-environment.md#supplier-portal-power-pages).
 
 ### Vérifier les documents
 

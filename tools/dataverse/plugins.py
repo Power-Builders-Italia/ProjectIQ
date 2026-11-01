@@ -121,6 +121,8 @@ STEPS = [
   ('ContactCount', 'Update', 'contact', POST, 'parentcustomerid,statecode', 'parentcustomerid'),
   ('ContactCount', 'Delete', 'contact', POST, None, 'parentcustomerid'),
   # supplier documents: review and expiry (supplier_documents.py)
+  ('SupplierContactRole', 'Create', 'contact', POST, None, None),
+  ('SupplierContactRole', 'Update', 'contact', POST, 'parentcustomerid', None),
   ('SupplierDocumentValidate', 'Create', 'op365_supplierdocument', PRE, None, None),
   ('SupplierDocumentValidate', 'Update', 'op365_supplierdocument', PRE, None, 'statuscode,op365_expirydate'),
   ('SupplierDocumentDelete', 'Delete', 'op365_supplierdocument', PRE, None, 'statuscode'),
@@ -193,6 +195,9 @@ APIS = {
   'op365_DecideSupplierDocument': ('DecideSupplierDocument', 'Decide Supplier Document',
       'Approves or rejects a supplier document pending review', 'op365_supplierdocument', False,
       [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Review note; required to reject')], []),
+  'op365_InviteToPortal': ('InviteToPortal', 'Invite To Portal',
+      'Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)', 'contact', False,
+      [], [('InvitationId', 12, 'New invitation')]),
   'op365_UpdateDocumentExpiry': ('UpdateDocumentExpiry', 'Update Document Expiry',
       'Refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices '
       '(daily document expiry flow)', None, False,

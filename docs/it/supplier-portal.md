@@ -147,17 +147,25 @@ Ordini in bozza o annullati e RdO non ancora inviate non vengono mai mostrati. I
 
 ### Dare accesso a un fornitore
 
-Un utente fornitore è un **contatto** la cui **azienda** è l'account del fornitore, con il web role **Supplier**.
+Un utente fornitore è un **contatto** la cui **Company Name** è l'account del fornitore. ProjectIQ assegna automaticamente a questo contatto il web role **Supplier** e lo toglie quando la Company Name non è più un fornitore: non assegni mai i web role a mano.
 
-1. In ProjectIQ verifica che l'account del fornitore sia **Is Supplier**, **Active** e non **Blocked**, e abbia un'**Email** valida.
-2. Crea (o apri) il **contatto** della persona, con **Company Name** = il fornitore e la sua email.
-3. In **Power Pages Management** (o nello studio del portale, *Set up → Web roles*) assegna al contatto il web role **Supplier**.
-4. Fai accedere la persona con il metodo configurato sul tuo sito (per esempio invia un **invito** da Power Pages Management → *Invitations*, oppure lasciala registrarsi con l'email che hai registrato).
-5. Invia alla persona l'indirizzo del portale e la [Parte 1](#parte-1--guida-per-i-fornitori) di questo manuale.
+```mermaid
+flowchart LR
+    A[Contatto con Company Name = fornitore] -->|automatico| R[Web role Supplier]
+    A --> I[Invite to Portal] --> M[E-mail con codice d'invito] --> S[Il fornitore si registra] --> P[Portale]
+    X[Persona autoregistrata] -->|imposti la Company Name| A
+```
 
-Per togliere l'accesso, rimuovi il web role Supplier dal contatto o disattiva il contatto.
+1. In ProjectIQ verifica che l'account del fornitore sia **Is Supplier**, **Active** e non **Blocked**.
+2. Crea (o apri) il **contatto** della persona, con **Company Name** = il fornitore e la sua **Email**.
+3. Sul contatto clicca **Invite to Portal** e conferma. La persona riceve un'e-mail con un invito (valido 30 giorni, utilizzabile una volta): seguendolo crea il suo account (e-mail e password, oppure Microsoft) già collegato al fornitore.
+4. Invia alla persona la [Parte 1](#parte-1--guida-per-i-fornitori) di questo manuale.
 
-**Metodi di accesso.** Oltre a Microsoft Entra ID, il portale offre gli **account locali** (email e password), così possono accedere anche i fornitori esterni al tuo tenant. Le persone possono anche **registrarsi** da sole: chi si registra non vede nulla finché non imposti il **Company Name** del suo contatto sul fornitore e gli assegni il web role **Supplier**, quindi controlla periodicamente i nuovi contatti. L'amministratore può disattivare gli account locali o l'auto-registrazione (in quel caso possono registrarsi solo gli invitati), vedi [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (in inglese).
+**Invite to Portal** rifiuta un contatto senza e-mail ("Add the e-mail address of the contact before inviting it to the supplier portal.") o la cui Company Name non è un fornitore ("Set a supplier as Company Name of the contact before inviting it to the supplier portal."). L'e-mail è scritta nella **Language** del fornitore e parte con la stessa configurazione delle e-mail di scadenza ([Amministrazione](administration.md#scadenza-giornaliera-dei-documenti)); senza di essa ricevi "The invitation e-mail could not be sent: check the environment variables op365_SupplierEmailSender and op365_SupplierEmailTemplates (PortalInvitation)." e nessun invito viene creato. Gli inviti si trovano in Power Pages Management → *Invitations*.
+
+Per togliere l'accesso cambia la Company Name del contatto (il web role Supplier viene rimosso) o disattiva il contatto.
+
+**Metodi di accesso.** Oltre a Microsoft Entra ID, il portale offre **account locali** (e-mail e password), così possono accedere anche i fornitori esterni al tuo tenant. Le persone possono anche **registrarsi** da sole: una persona autoregistrata non vede nulla finché non imposti la **Company Name** del suo contatto sul fornitore, cosa che le assegna il web role Supplier; controlla regolarmente i nuovi contatti. L'amministratore può disattivare gli account locali o l'autoregistrazione (allora possono registrarsi solo le persone invitate), vedi [Configurazione dell'ambiente di sviluppo](../dev-environment.md#supplier-portal-power-pages).
 
 ### Revisione dei documenti
 

@@ -4,7 +4,8 @@ The op365_SupplierEmailTemplates environment variable maps each message and supp
 default value names the templates created here. Templates are environment data, not solution components: run this
 script once in every environment (PAC_* variables), then adapt the text in Settings > Templates > Email Templates.
 An existing template with the same title is left as it is. Placeholders {Document}, {DocumentType}, {Number},
-{IssueDate} and {ExpiryDate} are filled by the plugin; the supplier name comes from the Account.
+{IssueDate} and {ExpiryDate} (documents), {Contact}, {Email}, {Link} and {ExpiryDate} (portal invitation) are filled
+by the plugin; the supplier name comes from the Account.
 """
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
@@ -40,6 +41,24 @@ TEXTS = {
         'French': ('ProjectIQ - Document expiré', 'Document expiré : {Document}',
                    'votre document {Document} ({DocumentType} {Number}) a expiré le {ExpiryDate}. '
                    'Merci de téléverser le document renouvelé dans la page Documents du portail fournisseurs.'),
+    },
+    'PortalInvitation': {
+        'English': ('ProjectIQ - Portal invitation', 'Invitation to the supplier portal',
+                    '{Contact}, you are invited to the supplier portal, where you can see the documents, requests for quotation '
+                    'and purchase orders of your company. Create your account with the e-mail {Email} from this link by '
+                    '{ExpiryDate} (it can be used once): <a href="{Link}">{Link}</a>'),
+        'Italian': ('ProjectIQ - Invito al portale', 'Invito al portale fornitori',
+                    '{Contact}, sei invitato al portale fornitori, dove puoi vedere i documenti, le richieste di offerta e gli '
+                    'ordini di acquisto della tua azienda. Crea il tuo account con l\'e-mail {Email} da questo link entro il '
+                    '{ExpiryDate} (utilizzabile una volta): <a href="{Link}">{Link}</a>'),
+        'German': ('ProjectIQ - Portaleinladung', 'Einladung zum Lieferantenportal',
+                   '{Contact}, Sie sind zum Lieferantenportal eingeladen, wo Sie die Dokumente, Angebotsanfragen und '
+                   'Bestellungen Ihres Unternehmens sehen. Legen Sie Ihr Konto mit der E-Mail {Email} über diesen Link bis zum '
+                   '{ExpiryDate} an (einmal verwendbar): <a href="{Link}">{Link}</a>'),
+        'French': ('ProjectIQ - Invitation au portail', 'Invitation au portail fournisseurs',
+                   '{Contact}, vous êtes invité(e) au portail fournisseurs, où vous voyez les documents, les appels d\'offres '
+                   'et les bons de commande de votre entreprise. Créez votre compte avec l\'e-mail {Email} depuis ce lien avant le '
+                   '{ExpiryDate} (utilisable une fois) : <a href="{Link}">{Link}</a>'),
     },
 }
 

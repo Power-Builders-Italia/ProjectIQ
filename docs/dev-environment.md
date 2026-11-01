@@ -134,7 +134,14 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   fields of `op365_supplierdocument` list the lookup both as `op365_supplierid` and as its navigation name `op365_SupplierId` (the
   check is case-sensitive) and exclude statuscode and the review columns; `account` is Web API enabled as well (only `accountid`),
   because the table on the other side of a bound lookup must be; the plugins refuse changes to approved documents.
-- A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
+- A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role. The plugin step
+  `SupplierContactRole` (contact Create/Update of `parentcustomerid`) grants the role when the parent account has Is Supplier and removes
+  it otherwise, so self-registered users get it as soon as the buyer links them. The Custom API `op365_InviteToPortal` (button
+  **Invite to Portal** on the contact) creates a single-use `adx_invitation` (30 days, Supplier web role, assign-to account) and e-mails the
+  registration link `https://<primarydomainname>/register/?returnurl=%2f&invitation=<code>` to the contact with the `PortalInvitation`
+  template of `op365_SupplierEmailTemplates` (supplier's language, sender queue `op365_SupplierEmailSender`); if the e-mail cannot be sent
+  the call fails and nothing is kept. The Power Pages process **Send Invitation** is not used: it runs as SYSTEM (no e-mail address) and its
+  template links to `localhost`.
 - Sign-in: the script turns on **local accounts** (e-mail + password, `LocalLoginByEmail`, password reset) next to Microsoft Entra ID, and
   **self-registration**. Environment variables of the script: `PORTAL_LOCAL_LOGIN=false` keeps Entra ID only; `PORTAL_SELF_REGISTRATION=false`
   allows only invitations (`RequiresInvitation`). A self-registered contact sees nothing until it gets the supplier as parent account and the
