@@ -1,0 +1,180 @@
+name: export-dev
+
+# Exports OpenProject365 and OpenProject365SupplierPortal from Dev and opens a draft pull request export/<date> with the
+# changes Dev holds and main does not (step 2 of docs/dev-environment.md#environments-and-deployment, without pac on a PC).
+# Same three-way comparison as deploy-dev (tools/alm/compare_solution.py, baseline: last deployment of dev-deployed), so
+# merges not yet installed in Dev are not reverted. It imports nothing and changes nothing in Dev. Started by hand; runs
+# in the GitHub environment dev (required reviewer, deployment branches main, PP_* secrets of the Dev application user).
+# The export holds everything in Dev, also the work of other people: review the diff before marking the pull request ready.
+on:
+  workflow_dispatch:
+    inputs:
+      description:
+        description: What changed in Dev (title of the pull request)
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  deployments: read
+
+concurrency:
+  group: export-dev
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: windows-latest
+    environment: dev
+    outputs:
+      changes: ${{ steps.compare.outputs.changes }}
+    env:
+      # the exports hold labels in every language: never let Python fall back to the cp1252 console encoding
+      PYTHONUTF8: 1
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Resolve baseline
+        id: baseline
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha=$(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=dev-deployed&per_page=1" --jq '.[0].sha // empty')
+          if [ -z "$sha" ]; then echo "::error::No deployment of dev-deployed: run deploy-dev first"; exit 1; fi
+          sha=$(git rev-parse --verify "$sha^{commit}")
+          echo "baseline=$sha" >> "$GITHUB_OUTPUT"
+          echo "Baseline: \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
+      - uses: microsoft/powerplatform-actions/actions-install@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - name: Export Dev
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365
+          solution-output-file: out/dev/OpenProject365.zip
+          managed: false
+      - name: Export Dev portal
+        uses: microsoft/powerplatform-actions/export-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_CLIENT_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: OpenProject365SupplierPortal
+          solution-output-file: out/dev/OpenProject365SupplierPortal.zip
+          managed: false
+      - name: Unpack Dev
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365.zip
+          solution-folder: dev/solutions/OpenProject365/src
+          solution-type: Unmanaged
+      - name: Unpack Dev portal
+        uses: microsoft/powerplatform-actions/unpack-solution@6e91314a9c6e694ea5c894fe8c40e09d73aa892b # v1
+        with:
+          solution-file: out/dev/OpenProject365SupplierPortal.zip
+          solution-folder: dev/solutions/OpenProject365SupplierPortal/src
+          solution-type: Unmanaged
+      - name: Compare Dev with the baseline
+        id: compare
+        shell: bash
+        env:
+          BASELINE: ${{ steps.baseline.outputs.baseline }}
+        run: |
+          mkdir -p base
+          git archive "$BASELINE" solutions | tar -x -C base
+          set +e
+          # three-way: a change of Dev counts only if main does not have it (already exported) and Dev is not just behind
+          python tools/alm/compare_solution.py base/solutions dev/solutions --main solutions --summary summary.md --files files.txt > /dev/null
+          code=$?
+          set -e
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          case $code in
+            0) echo "changes=false" >> "$GITHUB_OUTPUT"
+               echo "Dev holds nothing that main does not have: no pull request." >> "$GITHUB_STEP_SUMMARY" ;;
+            1) echo "changes=true" >> "$GITHUB_OUTPUT" ;;
+            *) echo "::error::The comparison could not run (exit $code)"; exit 1 ;;
+          esac
+      - name: Upload Dev export
+        if: steps.compare.outputs.changes == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dev-export
+          path: dev/solutions
+      - name: Upload summary
+        if: steps.compare.outputs.changes == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: export-summary
+          path: |
+            summary.md
+            files.txt
+
+  pull-request:
+    needs: export
+    if: needs.export.outputs.changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dev-export
+          path: ${{ runner.temp }}/dev-export
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: export-summary
+          path: ${{ runner.temp }}/export-summary
+      - name: Branch and draft pull request
+        env:
+          DESCRIPTION: ${{ inputs.description }}
+          EXPORT: ${{ runner.temp }}/dev-export
+          SUMMARY: ${{ runner.temp }}/export-summary/summary.md
+          FILES: ${{ runner.temp }}/export-summary/files.txt
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          branch="export/$(date -u +%Y%m%d-%H%M)"
+          git switch -c "$branch" "$GITHUB_SHA"
+          # only the files the comparison found different: the rest of the export differs from the repository
+          # only in what the comparison ignores (line endings, Italian labels of standard components, built files)
+          while read -r change path; do
+            path=${path%$'\r'}
+            case $change in
+              A|M)
+                mkdir -p "solutions/$(dirname "$path")"
+                cp "$EXPORT/$path" "solutions/$path"
+                # the export has Windows line endings: keep LF when main has the file with LF (or for a new text
+                # file), so that the diff shows only the real changes
+                if grep -Iq . "solutions/$path" && ! git show "HEAD:solutions/$path" 2>/dev/null | grep -q $'\r'; then
+                  sed -i 's/\r$//' "solutions/$path"
+                fi ;;
+              D) git rm -q "solutions/$path" ;;
+            esac
+          done < "$FILES"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A solutions
+          git commit -m "$DESCRIPTION"
+          git push origin "$branch"
+          {
+            echo "Changes exported from Dev by export-dev (run $RUN_ID). Nothing was changed in Dev."
+            echo
+            echo "- Review the diff: the export holds everything in Dev, also the work of other people. Drop what does not belong here."
+            echo "- A functional change updates the user manuals in all four languages (CONTRIBUTING.md)."
+            echo "- Checks start after the next push to this branch (pull requests opened by GitHub Actions do not start workflows)."
+            echo
+            cat "$SUMMARY"
+          } > pr.md
+          gh pr create --draft --base main --head "$branch" --title "$DESCRIPTION" --body-file pr.md

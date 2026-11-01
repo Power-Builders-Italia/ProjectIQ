@@ -199,7 +199,7 @@ Changes are made in **Dev**, reviewed in the **repository** and installed in **T
 
 ```mermaid
 flowchart LR
-    D[("Dev<br/>unmanaged")] -->|"1-2 export + unpack<br/>pull request"| R["Repository<br/>main"]
+    D[("Dev<br/>unmanaged")] -->|"1-2 export + unpack (export-dev or by hand)<br/>pull request"| R["Repository<br/>main"]
     R -->|"3 build checks<br/>squash merge"| R
     D -->|"4 deploy-test<br/>export managed from Dev"| T[("Test<br/>managed")]
     R -. "4 run from main,<br/>approval in environment test" .-> T
@@ -218,9 +218,9 @@ flowchart LR
 
 | Who | Can | Needs |
 |---|---|---|
-| Contributor | change Dev, open pull requests | System Customizer (or higher) in Dev; *Triage* on the repository (pull requests from a fork) or *Write* |
+| Contributor | change Dev, open pull requests, run `export-dev` | System Customizer (or higher) in Dev; *Triage* on the repository (pull requests from a fork) or *Write*; *Write* to run `export-dev` |
 | Maintainer | review and merge pull requests, run `deploy-test` | *Write* or *Admin* on the repository |
-| Dev approver | approve each run of `deploy-dev` | required reviewer of the GitHub environment `dev` |
+| Dev approver | approve each run of `deploy-dev` and `export-dev` | required reviewer of the GitHub environment `dev` |
 | Test approver | approve each run of `deploy-test` | required reviewer of the GitHub environment `test` |
 
 ### 1. Change Dev
@@ -241,6 +241,14 @@ Work always inside the **ProjectIQ** solution (or **ProjectIQ Supplier Portal** 
 The scripts in `tools/dataverse` read `PAC_ENVIRONMENT_URL`, `PAC_TENANT_ID`, `PAC_CLIENT_ID` and `PAC_CLIENT_SECRET` (an application user of Dev).
 
 ### 2. Export to the repository and open a pull request
+
+**With the workflow (Actions > export-dev > Run workflow, branch `main`):** give a description of the change and approve the run in the GitHub environment `dev`. It exports both solutions, keeps only what Dev has and `main` does not (the three-way comparison of `deploy-dev`, so merges not yet installed in Dev are not reverted) and opens a draft pull request `export/<date>`. It changes nothing in Dev; with no differences it opens no pull request.
+
+- Review the diff: the export holds everything in Dev, also the work of other people. Drop what does not belong to the change.
+- The `build` checks start only after a push to the branch (pull requests opened by GitHub Actions do not start workflows): push the manuals, or any other commit.
+- It needs a deployment of `dev-deployed`: run `deploy-dev` first if there is none.
+
+**By hand:**
 
 ```powershell
 pac solution export --name OpenProject365 --path out/OpenProject365.zip --managed false
@@ -357,12 +365,12 @@ The repository is public: environment URLs, tenant, app and connection ids and u
 - **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
   - Secrets: `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (the app registration, application user in Dev and Test), `TEST_ENVIRONMENT_URL` (target URL; the workflow has no input to override it, so a user who can run it cannot deploy to another environment), `OP365_DATAVERSE_CONNECTION_ID` and `OP365_SHAREPOINT_CONNECTION_ID` (Dataverse and SharePoint connection ids in Test, Power Apps > Connections > the connection's URL).
   - Optional secrets for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test), `OP365_SUPPLIER_EMAIL_SENDER` (queue name or e-mail address for the supplier e-mails); for the document metadata flows `OP365_SHAREPOINT_SITE_URL`, `OP365_PROJECT_LIBRARY_ID`, `OP365_PURCHASE_ORDER_LIBRARY_ID`, `OP365_SUPPLIER_DOCUMENT_LIBRARY_ID` (printed by `tools/sharepoint/document_metadata.py`). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing secret is left out, so Test keeps its current value (or the default).
-- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` runs in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
+- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` and the `export` job of `export-dev` run in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
 - **Environment `appsource`**: required reviewer the publisher only (`pborg-mc`), deployment branches limited to `main`; secrets `PP_*` as in `test` (only for the Solution Checker). `publish-appsource` runs in it and also refuses any other actor ([Publishing on Microsoft AppSource](appsource.md#build-the-package)).
 - **Environment `release`**: required reviewer (whoever may publish a version), deployment branches limited to `main`; no secrets. `release` runs in it ([Release on GitHub](#5-release-on-github)).
 - **Environment `solution-checker`**: deployment branches limited to `main`, no reviewer; secrets `PP_*` for the Solution Checker (see [CI and Solution Checker](#ci-and-solution-checker)).
 - **Collaborators**: give the *Triage* role and let them open pull requests from forks; *Write* lets a user run `deploy-test` (still gated by the `test` reviewer).
-- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`, plus `deployments: read` in `deploy-dev`); write access is given per job, only where needed: `deploy` of `pages` (`pages: write`, `id-token: write`, as GitHub Pages requires), `drift-pr` of `deploy-dev` (`contents: write`, `pull-requests: write`), `record` of `deploy-dev` (`deployments: write`). `publish-appsource` adds `actions: read` to download the artifact of a `deploy-test` run; `release` adds `actions: read` and `contents: write` (tag and release). Never use `pull_request_target`.
+- **Actions**: every third-party action is pinned to a commit SHA (tag in a comment); update them together. Workflows run with a read-only `GITHUB_TOKEN` (`permissions: contents: read`, plus `deployments: read` in `deploy-dev` and `export-dev`); write access is given per job, only where needed: `deploy` of `pages` (`pages: write`, `id-token: write`, as GitHub Pages requires), `pull-request` of `export-dev` (`contents: write`, `pull-requests: write`), `drift-pr` of `deploy-dev` (`contents: write`, `pull-requests: write`), `record` of `deploy-dev` (`deployments: write`). `publish-appsource` adds `actions: read` to download the artifact of a `deploy-test` run; `release` adds `actions: read` and `contents: write` (tag and release). Never use `pull_request_target`.
 - **Settings > Actions > General**: "Require approval for all outside collaborators" for fork pull requests.
 - **Ruleset `main`** (Settings > Rules > Rulesets, target: default branch, active): deletion and force push blocked; pull request required, squash merge only, no required approvals (a sole maintainer cannot approve their own pull requests); required status checks `docs`, `code` and `solution` from `build` (not `checker`, which runs only after the merge). The code owners in [CODEOWNERS](../.github/CODEOWNERS) are requested as reviewers automatically, but their approval is not required.
 - **Code security**: secret scanning and push protection on; Dependabot alerts on; CodeQL default setup.
