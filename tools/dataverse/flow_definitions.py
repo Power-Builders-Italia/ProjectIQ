@@ -203,14 +203,34 @@ def file_approved_flow():
                 'Find_library': _op('shared_commondataserviceforapps', 'ListRecords', {
                     'entityName': 'sharepointdocumentlocations', '$select': 'sharepointdocumentlocationid',
                     '$filter': f"relativeurl eq '{library}' and _regardingobjectid_value eq null", '$top': 1}),
+                # The library location exists once Document Management is on for the table; otherwise it is created
+                # under the default SharePoint site.
+                'Library_registered': {
+                    'runAfter': {'Find_library': ['Succeeded']}, 'type': 'If',
+                    'expression': {'equals': [f"@empty(body('Find_library')?['value'])", False]},
+                    'actions': {'Use_library': {'runAfter': {}, 'type': 'SetVariable', 'inputs': {
+                        'name': 'LibraryLocation', 'value': f"@{{first(body('Find_library')?['value'])?['sharepointdocumentlocationid']}}"}}},
+                    'else': {'actions': {
+                        'Find_default_site': _op('shared_commondataserviceforapps', 'ListRecords', {
+                            'entityName': 'sharepointsites', '$select': 'sharepointsiteid',
+                            '$filter': 'isdefault eq true and statecode eq 0', '$top': 1}),
+                        'Register_library': _op('shared_commondataserviceforapps', 'CreateRecord', {
+                            'entityName': 'sharepointdocumentlocations',
+                            'item/name': 'Supplier Documents', 'item/relativeurl': library,
+                            'item/parentsiteorlocation_sharepointsite@odata.bind':
+                                "@concat('sharepointsites(', first(body('Find_default_site')?['value'])?['sharepointsiteid'], ')')"},
+                            {'Find_default_site': ['Succeeded']}),
+                        'Use_new_library': {'runAfter': {'Register_library': ['Succeeded']}, 'type': 'SetVariable',
+                                            'inputs': {'name': 'LibraryLocation',
+                                                       'value': "@{body('Register_library')?['sharepointdocumentlocationid']}"}}}}},
                 'Register_record_folder': _op('shared_commondataserviceforapps', 'CreateRecord', {
                     'entityName': 'sharepointdocumentlocations',
                     'item/name': "@concat('Documents on ', outputs('Record_folder'))",
                     'item/relativeurl': "@outputs('Record_folder')",
                     'item/parentsiteorlocation_sharepointdocumentlocation@odata.bind':
-                        "@concat('sharepointdocumentlocations(', first(body('Find_library')?['value'])?['sharepointdocumentlocationid'], ')')",
+                        "@concat('sharepointdocumentlocations(', variables('LibraryLocation'), ')')",
                     'item/regardingobjectid_op365_supplierdocument@odata.bind': f"@concat('op365_supplierdocuments(', {doc}, ')')"},
-                    {'Find_library': ['Succeeded']})}}},
+                    {'Library_registered': ['Succeeded']})}}},
         'Create_SharePoint_file': _op('shared_sharepointonline', 'CreateFile', {
             'dataset': _site(), 'folderPath': f"@concat('/{library}/', outputs('Record_folder'))",
             'name': "@body('Get_document')?['op365_file_name']", 'body': "@body('Download_file')"},
@@ -219,9 +239,11 @@ def file_approved_flow():
                                       runAfter={'Create_SharePoint_file': ['Succeeded']}),
     }
     actions = {
+        'Library_location': {'runAfter': {}, 'type': 'InitializeVariable',
+                             'inputs': {'variables': [{'name': 'LibraryLocation', 'type': 'string', 'value': ''}]}},
         'Get_document': _op('shared_commondataserviceforapps', 'GetItem', {
             'entityName': 'op365_supplierdocuments', 'recordId': f'@{doc}',
-            '$select': 'op365_description,op365_file,op365_file_name'}),
+            '$select': 'op365_description,op365_file,op365_file_name'}, {'Library_location': ['Succeeded']}),
         'Has_file': {'runAfter': {'Get_document': ['Succeeded']}, 'type': 'If',
                      'expression': {'not': {'equals': ["@coalesce(body('Get_document')?['op365_file_name'], '')", '']}},
                      'actions': has_file, 'else': {'actions': {}}},

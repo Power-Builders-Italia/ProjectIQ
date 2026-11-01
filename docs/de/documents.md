@@ -130,7 +130,7 @@ Der Flow **File approved supplier documents** startet, wenn ein Lieferantendokum
 2. legt er die Datei mit ihrem ursprünglichen Namen in diesem Ordner an (der Flow **Tag supplier documents** füllt danach ihre ProjectIQ-Spalten);
 3. entfernt er die Datei aus der Spalte **File**. Im Portal sieht der Lieferant dann **Filed by your customer** statt der Datei.
 
-Er verwendet dieselben Verbindungsreferenzen **op365_dataverse** und **op365_sharepoint** und die Variable **SharePoint Site URL**; die Bibliothek **op365_supplierdocument** und ihr Dokumentspeicherort müssen vorhanden sein ([Teil 2](#teil-2-einrichtung-administratoren), Schritt 2). Schlägt die Kopie fehl, bleibt die Datei in der Spalte **File**: Prüfen Sie den Ausführungsverlauf und starten Sie den Flow aus der fehlgeschlagenen Ausführung neu (**Resubmit**), ohne erneut zu genehmigen.
+Er verwendet dieselben Verbindungsreferenzen **op365_dataverse** und **op365_sharepoint** und die Variable **SharePoint Site URL**; die Bibliothek **op365_supplierdocument** muss in SharePoint vorhanden sein und die Website muss die Standardwebsite der **Document Management Settings** sein ([Teil 2](#teil-2-einrichtung-administratoren), Schritt 2); hat Dataverse noch keinen Dokumentspeicherort für die Bibliothek, registriert der Flow ihn unter dieser Website. Schlägt die Kopie fehl, bleibt die Datei in der Spalte **File**: Prüfen Sie den Ausführungsverlauf und starten Sie den Flow aus der fehlgeschlagenen Ausführung neu (**Resubmit**), ohne erneut zu genehmigen.
 
 ## Mögliche Meldungen
 

@@ -130,7 +130,7 @@ Il flusso **File approved supplier documents** parte quando un documento fornito
 2. crea il file in quella cartella con il nome originale (il flusso **Tag supplier documents** compila poi le sue colonne ProjectIQ);
 3. rimuove il file dalla colonna **File**. Sul portale il fornitore vede allora **Filed by your customer** al posto del file.
 
-Usa gli stessi riferimenti di connessione **op365_dataverse** e **op365_sharepoint** e la variabile **SharePoint Site URL**; la raccolta **op365_supplierdocument** e la sua document location devono esistere ([Parte 2](#parte-2-configurazione-amministratori), passo 2). Se la copia non riesce, il file resta nella colonna **File**: controlla la cronologia delle esecuzioni e rilancia il flusso dall'esecuzione fallita (**Resubmit**), senza approvare di nuovo.
+Usa gli stessi riferimenti di connessione **op365_dataverse** e **op365_sharepoint** e la variabile **SharePoint Site URL**; la raccolta **op365_supplierdocument** deve esistere in SharePoint e il sito deve essere quello predefinito di **Document Management Settings** ([Parte 2](#parte-2-configurazione-amministratori), passo 2); se Dataverse non ha ancora una document location per la raccolta, il flusso la registra sotto quel sito. Se la copia non riesce, il file resta nella colonna **File**: controlla la cronologia delle esecuzioni e rilancia il flusso dall'esecuzione fallita (**Resubmit**), senza approvare di nuovo.
 
 ## Messaggi che potresti vedere
 

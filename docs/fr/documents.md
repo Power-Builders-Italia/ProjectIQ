@@ -130,7 +130,7 @@ Le flux **File approved supplier documents** démarre quand un document fourniss
 2. crée le fichier dans ce dossier avec son nom d'origine (le flux **Tag supplier documents** renseigne ensuite ses colonnes ProjectIQ) ;
 3. retire le fichier de la colonne **File**. Sur le portail, le fournisseur voit alors **Filed by your customer** à la place du fichier.
 
-Il utilise les mêmes références de connexion **op365_dataverse** et **op365_sharepoint** et la variable **SharePoint Site URL** ; la bibliothèque **op365_supplierdocument** et son emplacement de document doivent exister ([Partie 2](#partie-2--configuration-administrateurs), étape 2). Si la copie échoue, le fichier reste dans la colonne **File** : consultez l'historique des exécutions et relancez le flux depuis l'exécution en échec (**Resubmit**), sans approuver à nouveau.
+Il utilise les mêmes références de connexion **op365_dataverse** et **op365_sharepoint** et la variable **SharePoint Site URL** ; la bibliothèque **op365_supplierdocument** doit exister dans SharePoint et le site doit être le site par défaut de **Document Management Settings** ([Partie 2](#partie-2--configuration-administrateurs), étape 2) ; si Dataverse n'a pas encore d'emplacement de document pour la bibliothèque, le flux l'enregistre sous ce site. Si la copie échoue, le fichier reste dans la colonne **File** : consultez l'historique des exécutions et relancez le flux depuis l'exécution en échec (**Resubmit**), sans approuver à nouveau.
 
 ## Messages possibles
 
