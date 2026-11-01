@@ -1,0 +1,18 @@
+<customapirequestparameter uniquename="Note">
+  <description default="Review note; required to reject">
+    <label description="Prüfnotiz; zum Ablehnen erforderlich" languagecode="1031" />
+    <label description="Review note; required to reject" languagecode="1033" />
+    <label description="Note d'examen ; obligatoire pour rejeter" languagecode="1036" />
+    <label description="Nota di revisione; obbligatoria per rifiutare" languagecode="1040" />
+  </description>
+  <displayname default="Note">
+    <label description="Notiz" languagecode="1031" />
+    <label description="Note" languagecode="1033" />
+    <label description="Note" languagecode="1036" />
+    <label description="Nota" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_DecideSupplierDocument.Note</name>
+  <type>10</type>
+</customapirequestparameter>

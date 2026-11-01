@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a04}" Name="Daily document expiry" Description="Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <JsonFileName>/Workflows/Dailydocumentexpiry-3C6F1D2A-8B1E-4F57-9A43-5D2B7E0C1A04.json</JsonFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>5</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>0</StateCode>
+  <StatusCode>1</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1031" description="Tägliche Dokumentenfälligkeit" />
+    <LocalizedName languagecode="1033" description="Daily document expiry" />
+    <LocalizedName languagecode="1036" description="Échéance quotidienne des documents" />
+    <LocalizedName languagecode="1040" description="Scadenza giornaliera documenti" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1031" description="Täglich um 06:00 (Europe/Rome): Ablaufstatus der Lieferantendokumente, Warnzähler der Lieferanten und Ablauf-E-Mails" />
+    <Description languagecode="1033" description="Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails" />
+    <Description languagecode="1036" description="Chaque jour à 06:00 (Europe/Rome) : statut d'expiration des documents fournisseur, compteurs d'alerte et e-mails d'expiration" />
+    <Description languagecode="1040" description="Ogni giorno alle 06:00 (Europe/Rome): stato di scadenza dei documenti fornitore, contatori di avviso ed e-mail di scadenza" />
+  </Descriptions>
+</Workflow>

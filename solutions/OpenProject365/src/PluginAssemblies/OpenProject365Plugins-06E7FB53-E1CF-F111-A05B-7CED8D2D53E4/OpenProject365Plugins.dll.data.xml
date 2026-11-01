@@ -35,6 +35,9 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecidePurchaseRequest, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="10c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecidePurchaseRequest">
       <FriendlyName>DecidePurchaseRequest</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecideSupplierDocument, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e4190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.DecideSupplierDocument">
+      <FriendlyName>DecideSupplierDocument</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.DecideSupplierInvoice, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="11c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.DecideSupplierInvoice">
       <FriendlyName>DecideSupplierInvoice</FriendlyName>
     </PluginType>
@@ -125,6 +128,15 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SubmitTimeEntries, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8311ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SubmitTimeEntries">
       <FriendlyName>SubmitTimeEntries</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierDocumentAlerts, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e5190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierDocumentAlerts">
+      <FriendlyName>SupplierDocumentAlerts</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierDocumentDelete, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e6190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierDocumentDelete">
+      <FriendlyName>SupplierDocumentDelete</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierDocumentValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e7190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierDocumentValidate">
+      <FriendlyName>SupplierDocumentValidate</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.SupplierInvoiceLineValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="24c5c8e2-fdcf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.SupplierInvoiceLineValidate">
       <FriendlyName>SupplierInvoiceLineValidate</FriendlyName>
     </PluginType>
@@ -139,6 +151,9 @@
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.TimeEntryValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8511ce78-e9cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.TimeEntryValidate">
       <FriendlyName>TimeEntryValidate</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.UpdateDocumentExpiry, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="e8190c9e-c6d5-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.UpdateDocumentExpiry">
+      <FriendlyName>UpdateDocumentExpiry</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.WbsDependencyValidate, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="17e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.WbsDependencyValidate">
       <FriendlyName>WbsDependencyValidate</FriendlyName>

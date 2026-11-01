@@ -1,0 +1,21 @@
+<powerpagecomponent powerpagecomponentid="a8067caf-ccd5-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "displayorder": 5,
+  "robotsfollowlink": true,
+  "openinnewwindow": false,
+  "pageid": "b896aea1-ccd5-f111-84e8-7ced8d2d53e4",
+  "weblinksetid": "71a40613-a133-4282-8ca3-b3fe3e2388ed",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970",
+  "disablepagevalidation": false,
+  "displayimageonly": false,
+  "displaypagechildlinks": false
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Invoices</name>
+  <powerpagecomponenttype>5</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

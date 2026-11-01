@@ -1,6 +1,7 @@
 <powerpagecomponent powerpagecomponentid="1118be15-e249-4104-863e-7dd255812c9c">
   <content>{
-  "value": "true"
+  "value": "true",
+  "source": 0
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Authentication/Registration/Enabled</name>

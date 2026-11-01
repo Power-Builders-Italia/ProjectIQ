@@ -1,0 +1,19 @@
+<environmentvariabledefinition schemaname="op365_SupplierEmailSender">
+  <description default="Name or e-mail address of the queue (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails.">
+    <label description="Name oder E-Mail-Adresse der Warteschlange (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails." languagecode="1031" />
+    <label description="Name or e-mail address of the queue (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails." languagecode="1033" />
+    <label description="Nom ou adresse e-mail de la file d'attente (boîte aux lettres avec synchronisation côté serveur) qui envoie les e-mails aux fournisseurs. Vide = aucun e-mail." languagecode="1036" />
+    <label description="Nome o indirizzo e-mail della coda (cassetta postale con sincronizzazione lato server) che invia le e-mail ai fornitori. Vuoto = nessuna e-mail." languagecode="1040" />
+  </description>
+  <displayname default="Supplier Email Sender">
+    <label description="E-Mail-Absender für Lieferanten" languagecode="1031" />
+    <label description="Supplier Email Sender" languagecode="1033" />
+    <label description="Expéditeur des e-mails fournisseurs" languagecode="1036" />
+    <label description="Mittente e-mail fornitori" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

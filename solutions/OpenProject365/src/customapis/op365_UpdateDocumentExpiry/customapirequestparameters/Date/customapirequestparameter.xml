@@ -1,0 +1,18 @@
+<customapirequestparameter uniquename="Date">
+  <description default="Date; default today in Europe/Rome">
+    <label description="Datum; Standard heute (Europa/Rom)" languagecode="1031" />
+    <label description="Date; default today in Europe/Rome" languagecode="1033" />
+    <label description="Date ; par défaut aujourd'hui (Europe/Rome)" languagecode="1036" />
+    <label description="Data; predefinita oggi (Europa/Roma)" languagecode="1040" />
+  </description>
+  <displayname default="Date">
+    <label description="Datum" languagecode="1031" />
+    <label description="Date" languagecode="1033" />
+    <label description="Date" languagecode="1036" />
+    <label description="Data" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_UpdateDocumentExpiry.Date</name>
+  <type>1</type>
+</customapirequestparameter>
