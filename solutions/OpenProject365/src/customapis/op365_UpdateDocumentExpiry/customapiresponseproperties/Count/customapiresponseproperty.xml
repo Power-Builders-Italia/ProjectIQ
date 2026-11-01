@@ -1,0 +1,17 @@
+<customapiresponseproperty uniquename="Count">
+  <description default="Documents whose expiry status changed">
+    <label description="Dokumente mit geändertem Ablaufstatus" languagecode="1031" />
+    <label description="Documents whose expiry status changed" languagecode="1033" />
+    <label description="Documents dont le statut d'expiration a changé" languagecode="1036" />
+    <label description="Documenti il cui stato di scadenza è cambiato" languagecode="1040" />
+  </description>
+  <displayname default="Count">
+    <label description="Anzahl" languagecode="1031" />
+    <label description="Count" languagecode="1033" />
+    <label description="Nombre" languagecode="1036" />
+    <label description="Numero" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_UpdateDocumentExpiry.Count</name>
+  <type>7</type>
+</customapiresponseproperty>

@@ -33,9 +33,7 @@ view('op365_item', 'Quick Find Active Items', ITEM, [('op365_code', False)], que
 view('op365_itemsupplier', 'Active Item Suppliers',
      [('op365_itemid', 200), ('op365_supplierid', 200), ('op365_suppliercode', 120), ('op365_price', 110),
       ('op365_leadtimedays', 110), ('op365_minimumlot', 110)], [('op365_itemid', False)], default=True)
-view('op365_supplierdocument', 'Active Supplier Documents',
-     [('op365_documenttype', 140), ('op365_description', 250), ('op365_supplierid', 200), ('op365_number', 110),
-      ('op365_issuedate', 110), ('op365_expirydate', 110)], [('op365_expirydate', False)], default=True)
+# Active Supplier Documents: see supplier_documents.py (review and expiry status)
 
 # ---------- Resources (spec 24, 25) ----------
 view('op365_resource', 'Active Resources',

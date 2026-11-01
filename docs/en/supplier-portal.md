@@ -5,11 +5,13 @@
 
 The **supplier portal** is a website, built with Microsoft Power Pages on the same Dataverse database as ProjectIQ, where your suppliers can work with you without emails and spreadsheets going back and forth. On the portal a supplier:
 
+- finds on a **dashboard** what you are waiting for: RFQs to quote, orders to confirm, documents to renew;
 - sees the **requests for quotation** (RFQs) you sent them, types **unit prices**, **delivery days** and **notes**, and sends the quote — or declines;
 - sees the **purchase orders** you sent them, with lines and amounts, and **confirms** them;
-- sees how much of each order has already been **received**.
+- sees how much of each order has already been **received**, the **projects** of its orders and the status of its **invoices**;
+- uploads its **company documents** (DURC, certifications, insurance), which your buyer approves, and is warned when they expire.
 
-Everything the supplier does is immediately visible in ProjectIQ: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status.
+Everything the supplier does is immediately visible in ProjectIQ: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status, uploaded documents wait for your review.
 
 This manual has two parts: **Part 1 for suppliers** (you can send it to them) and **Part 2 for your internal staff**, who give suppliers access and follow their answers.
 
@@ -26,6 +28,9 @@ sequenceDiagram
     DV-->>B: Order Confirmed
     B->>DV: Register Receipt
     S->>DV: Sees Received quantities
+    S->>DV: Documents → Upload document (DURC...)
+    B->>DV: Approve or Reject
+    DV-->>S: Expiry e-mail and alert on the Dashboard
 ```
 
 ## Part 1 — Guide for suppliers
@@ -36,23 +41,38 @@ Your customer gives you access to its supplier portal. You receive the portal ad
 
 1. Open the portal address and click **Sign in**.
 2. Sign in with your account.
-3. The menu shows **Requests for quotation** and **Purchase orders**.
+3. Open **Dashboard**. On the left, the sidebar shows the modules: **Dashboard**, **Projects**, **Requests for quotation**, **Purchase orders**, **Invoices** and **Documents**. A blue counter shows the RFQs to quote and the orders to confirm; an orange counter shows the documents to renew or correct. At the bottom you find your company, your name and **Sign out**.
 
 If a page says "This area is reserved to suppliers. Sign in with the account your customer invited.", you are not signed in, or your account has not been enabled as supplier yet: contact your customer.
 
-You see only the RFQs and orders **of your company**. Colleagues of your company with their own account see the same data.
+You see only the data **of your company**. Colleagues of your company with their own account see the same data.
+
+### The dashboard
+
+The **Dashboard** is the start page:
+
+| Part | What it shows |
+|---|---|
+| Counters | **Requests to quote**, **Orders to confirm**, the amount **Ordered** in the current year (confirmed and received orders) and the **Invoices under review** |
+| **Document compliance** | A ring with the share of your approved documents that are valid (green), expiring within 30 days (orange) and expired (red), plus how many wait for review or were rejected |
+| **To do** | One line per thing your customer is waiting for: expired documents to renew, rejected documents to correct, RFQs to quote (with the deadline), orders to confirm, documents expiring soon. Click a line to open the page where you do it |
+| **Your projects** | The first project cards (see below), with **All projects** for the complete list |
+
+### Projects
+
+**Projects** shows one card for each project of your purchase orders: code and name, **Project progress**, **Your deliveries** (the share of your ordered amount already received), the number of **Orders**, the **Ordered** amount and the **End date** of the project. A project with an order to confirm has an orange border. **See orders** opens the purchase orders.
 
 ### Answering a request for quotation
 
-1. Click **Requests for quotation**. The list shows, for each RFQ: number, **Deadline**, **Status** and the **Quoted** amount once you have answered.
+1. Click **Requests for quotation**. Each RFQ is a card with the invitation date, the number, the subject, the **Quoted** amount once you have answered and a bar showing how much time is left before the **Deadline** (it turns orange and then red as the deadline gets close). The buttons at the top filter the cards: **All**, **To quote**, **Quoted**, **Closed**.
 
-| Status | Meaning |
+| Card badge | Meaning |
 |---|---|
-| **Invited** | Waiting for your quote |
-| **Responded** | You sent a quote (you can still change it until the deadline) |
-| **Declined** | You declined |
+| **To quote** | Waiting for your quote (orange border) |
+| **Quoted** | You sent a quote (you can still change it until the deadline) |
+| **Declined** / **Closed** | You declined, or the deadline has passed |
 
-2. Click **Open** on the RFQ. You see the RFQ number, the deadline, your customer's notes and the list of items with quantity and unit.
+2. Click **Quote now** (or **Change quote**, **Open**) on the card. You see the RFQ number, the deadline, your customer's notes and the list of items with quantity and unit.
 3. For each line type the **Unit price** and, if needed, **Notes** (brand, alternative product, conditions...).
 4. Type the **Delivery days** (how many days after the order you can deliver) and any **Notes for the buyer**.
 5. Click **Send quote**. A green message confirms: "Your quote has been sent. You can change it until the deadline."
@@ -66,8 +86,8 @@ Good to know:
 
 ### Confirming a purchase order
 
-1. Click **Purchase orders**. The list shows number, order **Date**, **Expected delivery**, **Status** and **Total**. Orders waiting for your confirmation are marked **To confirm**.
-2. Click **Open**. You see order date, expected delivery, **Delivery place**, **Payment terms**, status, and the lines with quantity, unit price, amount and the quantity already **Received**.
+1. Click **Purchase orders**. Each order is a card with project, order date, number and total. Orders waiting for your confirmation are marked **To confirm** and show expected delivery, payment terms and delivery place; the others show a **Received** bar. The buttons at the top filter the cards: **All**, **To confirm**, **Confirmed**, **Received**.
+2. Click **Review and confirm** (or **Open**). You see order date, expected delivery, **Delivery place**, **Payment terms**, status, and the lines with quantity, unit price, amount and the quantity already **Received**.
 3. Check the order and click **Confirm order**, then confirm. The status becomes **Confirmed** with the confirmation date.
 
 | Status shown | Meaning |
@@ -78,9 +98,32 @@ Good to know:
 
 If something in the order is wrong (price, quantity, date), do not confirm it: contact the buyer, who will correct the order and send it again.
 
+### Invoices
+
+**Invoices** shows the invoices your customer received from you: totals **Under review**, **Approved** in the current year and **Rejected**, then one card per invoice with order and project, number, amount, document type and dates. The steps **Received → Reviewed → Approved** (or **Rejected**, in red) show where the invoice is; a rejected invoice shows the **Reason**. The buttons at the top filter the cards. The portal does not receive invoices: send them as usual.
+
+### Company documents
+
+**Documents** lists the documents your customer needs from your company (DURC, company report, certifications, insurance, contracts) with **Number**, **Issued**, **Expires**, and two badges:
+
+| Column | Badges |
+|---|---|
+| **Expiry** | **Valid**, **Expiring** (within 30 days), **Expired**, **Replaced** (a newer document of the same type was approved), **No expiry** |
+| **Review** | **Pending review** (the buyer has not checked it yet), **Approved**, **Rejected** (with the reason) |
+
+To upload a document:
+
+1. Click **Upload document** (or scroll to the form at the bottom of the page).
+2. Choose the **Type**, type a **Description** and, if any, **Number**, **Issue date**, **Expiry date** and **Notes**.
+3. Choose the **File** (PDF or image, up to 32 MB) and click **Upload document**.
+
+The document is **Pending review** until the buyer approves it. While it is pending or rejected you can click **Edit** (change the data or the file, then **Save changes**) or **Delete**. Correcting a rejected document sends it back to review. Once **Approved** a document can only be viewed: to renew it, upload a new document of the same type; when the buyer approves it, the old one becomes **Replaced**.
+
+You receive an e-mail when an approved document is about to expire (30 days before) and when it expires; the Dashboard shows the same alerts.
+
 ### Errors
 
-If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled).
+If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file).
 
 ## Part 2 — Guide for internal staff
 
@@ -94,6 +137,9 @@ The portal is deliberately narrow. Suppliers can read only their own records and
 | Quote lines of those invitations | Item, quantity, unit, price, notes | **Unit price**, **notes** |
 | Purchase orders of their company (Sent, Confirmed, Received) | Header and amounts | **Supplier confirmed** (which confirms the order) |
 | Lines of those orders | Item, quantity, price, amount, received quantity | Nothing |
+| Projects of those orders | Code, name, progress, end date | Nothing |
+| Supplier invoices of their company | Number, dates, amount, status, decision note | Nothing |
+| Supplier documents of their company | All fields, including the review note | Type, description, number, dates, notes, file; can create and delete, only while the document is not approved |
 
 Draft and cancelled orders and RFQs not yet sent are never shown. Prices of other suppliers are never visible.
 
@@ -108,6 +154,10 @@ A supplier user is a **contact** whose **company** is the supplier account, with
 5. Send the person the address of the portal and [Part 1](#part-1--guide-for-suppliers) of this manual.
 
 To remove access, remove the Supplier web role from the contact or deactivate the contact.
+
+### Reviewing the documents
+
+A document uploaded on the portal is **Pending Review** and the owner of the supplier account receives the notification "Supplier document to review". Open it from the notification, or from the view **Supplier Documents to Review**, check the file and click **Approve** or **Reject** (with a note the supplier will read). See [Master data](master-data.md#review). Expiry e-mails to suppliers need the setup described in [Administration](administration.md#daily-document-expiry).
 
 ### Following the answers
 
@@ -124,4 +174,4 @@ To remove access, remove the Supplier web role from the contact or deactivate th
 
 ### For administrators
 
-The portal is shipped as a separate solution, **OpenProject365SupplierPortal**, which depends on the main solution. Setup, the table permissions, the Web API settings and the deployment steps are documented in [Development environment setup](../dev-environment.md#supplier-portal-power-pages). After every deployment of the portal, clear the site cache (`/_services/about` → *Clear cache*, Administrators web role) and sign in again. In a new environment, an imported site must be reactivated (Power Pages → *Inactive sites*) before use.
+The portal is shipped as a separate solution, **OpenProject365SupplierPortal**, which depends on the main solution. The look of the portal (sidebar, cards, compliance ring) is plain Liquid and CSS in the web templates **OP365 Supplier Style**, **OP365 Supplier Nav** and **OP365 Supplier Project Cards**. Setup, the table permissions, the Web API settings and the deployment steps are documented in [Development environment setup](../dev-environment.md#supplier-portal-power-pages). After every deployment of the portal, clear the site cache (`/_services/about` → *Clear cache*, Administrators web role) and sign in again. In a new environment, an imported site must be reactivated (Power Pages → *Inactive sites*) before use.

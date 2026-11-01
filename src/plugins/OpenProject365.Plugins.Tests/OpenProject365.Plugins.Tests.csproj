@@ -6,6 +6,7 @@
   <ItemGroup>
     <Compile Include="../OpenProject365.Plugins/Logic.cs" Link="Logic.cs" />
     <Compile Include="../OpenProject365.Plugins/Text.cs" Link="Text.cs" />
+    <Compile Include="../OpenProject365.Plugins/Model.cs" Link="Model.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

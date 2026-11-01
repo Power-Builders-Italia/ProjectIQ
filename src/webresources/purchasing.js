@@ -1,5 +1,5 @@
 // Purchasing commands (classic ribbon buttons on the purchase request, RFQ, purchase order, goods receipt and supplier
-// invoice forms; enable rules on the status show each button only where it applies).
+// invoice and supplier document forms; enable rules on the status show each button only where it applies).
 // Web resource op365_/scripts/purchasing.js; every handler receives the form (PrimaryControl).
 var OP365 = OP365 || {};
 (function () {
@@ -45,7 +45,9 @@ var OP365 = OP365 || {};
         "Delete this receipt and its material usage, and restore the quantities to receive?": ["Diesen Wareneingang und seinen Materialverbrauch löschen und die zu empfangenden Mengen wiederherstellen?", "Supprimer cette réception et sa consommation de matériel, et rétablir les quantités à recevoir ?", "Eliminare questo ricevimento e il relativo consumo di materiale, ripristinando le quantità da ricevere?"],
         "Cancelling the receipt...": ["Wareneingang wird storniert...", "Annulation de la réception...", "Annullamento del ricevimento..."],
         "Approve this supplier invoice?": ["Diese Lieferantenrechnung genehmigen?", "Approuver cette facture fournisseur ?", "Approvare questa fattura fornitore?"],
-        "Reject Supplier Invoice": ["Lieferantenrechnung ablehnen", "Rejeter la facture fournisseur", "Rifiuta fattura fornitore"]
+        "Reject Supplier Invoice": ["Lieferantenrechnung ablehnen", "Rejeter la facture fournisseur", "Rifiuta fattura fornitore"],
+        "Approve this supplier document? It becomes valid and the supplier can no longer change it.": ["Dieses Lieferantendokument genehmigen? Es wird gültig und der Lieferant kann es nicht mehr ändern.", "Approuver ce document fournisseur ? Il devient valide et le fournisseur ne peut plus le modifier.", "Approvare questo documento fornitore? Diventa valido e il fornitore non potrà più modificarlo."],
+        "Reject Supplier Document": ["Lieferantendokument ablehnen", "Rejeter le document fournisseur", "Rifiuta documento fornitore"]
     };
     function t(text) {
         var col = { 1031: 0, 1036: 1, 1040: 2 }[Xrm.Utility.getGlobalContext().userSettings.languageId];
@@ -54,7 +56,8 @@ var OP365 = OP365 || {};
 
     var SETS = {
         op365_purchaserequest: "op365_purchaserequests", op365_rfq: "op365_rfqs", op365_purchaseorder: "op365_purchaseorders",
-        op365_goodsreceipt: "op365_goodsreceipts", op365_supplierinvoice: "op365_supplierinvoices"
+        op365_goodsreceipt: "op365_goodsreceipts", op365_supplierinvoice: "op365_supplierinvoices",
+        op365_supplierdocument: "op365_supplierdocuments"
     };
 
     function idOf(form) { return form.data.entity.getId().replace(/[{}]/g, ""); }
@@ -193,6 +196,12 @@ var OP365 = OP365 || {};
         approveInvoice: function (form) {
             return run(form, { action: "op365_DecideSupplierInvoice", body: { Approve: true }, title: t("Approve"), confirm: t("Approve this supplier invoice?"), progress: t("Approving...") });
         },
-        rejectInvoice: function (form) { return reject(form, "op365_DecideSupplierInvoice", t("Reject Supplier Invoice")); }
+        rejectInvoice: function (form) { return reject(form, "op365_DecideSupplierInvoice", t("Reject Supplier Invoice")); },
+
+        // ----- supplier document
+        approveDocument: function (form) {
+            return run(form, { action: "op365_DecideSupplierDocument", body: { Approve: true }, title: t("Approve"), confirm: t("Approve this supplier document? It becomes valid and the supplier can no longer change it."), progress: t("Approving...") });
+        },
+        rejectDocument: function (form) { return reject(form, "op365_DecideSupplierDocument", t("Reject Supplier Document")); }
     };
 })();

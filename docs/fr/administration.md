@@ -106,6 +106,8 @@ Pour modifier une valeur :
 | `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes : les heures soumises attendent l'approbation d'un chef de projet. No : **Submit** approuve immédiatement les heures |
 | `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Vide | Montant au-delà duquel une demande d'achat nécessite aussi une approbation de second niveau. Vide ou 0 = jamais |
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Vide | **User Name** (p. ex. `anna.rossi@contoso.com`) ou e-mail principal de l'utilisateur qui approuve les demandes au-dessus du seuil et décide des factures fournisseurs. Vide, ou aucun utilisateur actif avec ce nom = tous les OP365 Administrator |
+| `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Les modèles ProjectIQ | Modèle d'e-mail (type Compte) de chaque message aux fournisseurs, par **Language** du fournisseur : `{"DocumentExpiring": {"Italian": "<titre du modèle>", "English": "<titre du modèle>", "default": "English"}, "DocumentExpired": {...}}`. `default` est la langue utilisée quand le fournisseur n'en a pas ou qu'il n'existe pas de modèle |
+| `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Vide | Nom ou adresse e-mail de la **file d'attente** (boîte aux lettres avec synchronisation côté serveur) qui envoie les e-mails aux fournisseurs. Vide = aucun e-mail |
 
 Le Purchasing Approver est un nom d'utilisateur et non une recherche (lookup), car les identifiants des utilisateurs diffèrent dans chaque environnement. Les demandes déjà soumises gardent le niveau d'approbation qui leur a été attribué.
 
@@ -120,7 +122,7 @@ En Test, l'informatique peut aussi définir les valeurs au déploiement, via les
 
 ## Automatisations en arrière-plan
 
-ProjectIQ tient la plupart des chiffres à jour grâce à des **plug-ins** qui s'exécutent dans Dataverse à l'enregistrement des données ; ils ne demandent aucune maintenance. Une seule automatisation est planifiée.
+ProjectIQ tient la plupart des chiffres à jour grâce à des **plug-ins** qui s'exécutent dans Dataverse à l'enregistrement des données ; ils ne demandent aucune maintenance. Deux automatisations sont planifiées.
 
 ### Rappel quotidien des heures
 
@@ -132,6 +134,17 @@ Le flux utilise la référence de connexion **op365_dataverse** (Microsoft Datav
 2. la lier à la référence de connexion dans la solution (dans les environnements de test/production, le déploiement la mappe via les paramètres de déploiement) ;
 3. partager la connexion avec l'utilisateur d'application du déploiement (*Can use*) pour que les imports puissent activer le flux ;
 4. activer le flux (**on**) et vérifier son historique d'exécution le jour ouvré suivant.
+
+### Expiration quotidienne des documents
+
+Le flux **Daily document expiry** s'exécute **chaque jour à 06:00** (heure W. Europe) et appelle l'action *op365_UpdateDocumentExpiry* : il met à jour le statut d'expiration des documents fournisseur et les compteurs d'alertes des fournisseurs, et envoie aux fournisseurs les e-mails d'expiration (voir [Données de référence](master-data.md#expiration-et-e-mails)). Il utilise la même référence de connexion que le Daily time reminder ; activez-le (**on**) de la même façon.
+
+Pour envoyer les e-mails :
+
+1. Créez une **file d'attente** avec une boîte aux lettres (par exemple *Fournisseurs*, `fournisseurs@contoso.com`), approuvez l'adresse de la boîte et activez la **synchronisation côté serveur** pour les e-mails sortants.
+2. Renseignez **Supplier Email Sender** avec le nom ou l'adresse e-mail de la file d'attente.
+3. Vérifiez les modèles dans **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* et *ProjectIQ - Document expired*, avec une version par langue comme *ProjectIQ - Document expiré*). Adaptez leur texte à votre guise ; les espaces réservés `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` et `{ExpiryDate}` sont remplis pour chaque document. Pour utiliser d'autres modèles, indiquez leurs titres dans **Supplier Email Templates**. Les modèles sont des données de l'environnement, pas de la solution : s'ils manquent, l'IT les crée avec `tools/dataverse/supplier_email_templates.py`.
+4. Renseignez **Language** et **Email** de chaque compte fournisseur.
 
 ### Ce qui se passe aussi automatiquement
 

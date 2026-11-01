@@ -1,0 +1,17 @@
+<customapiresponseproperty uniquename="Sent">
+  <description default="E-mails sent to suppliers">
+    <label description="An Lieferanten gesendete E-Mails" languagecode="1031" />
+    <label description="E-mails sent to suppliers" languagecode="1033" />
+    <label description="E-mails envoyés aux fournisseurs" languagecode="1036" />
+    <label description="E-mail inviate ai fornitori" languagecode="1040" />
+  </description>
+  <displayname default="Sent">
+    <label description="Gesendet" languagecode="1031" />
+    <label description="Sent" languagecode="1033" />
+    <label description="Envoyé" languagecode="1036" />
+    <label description="Inviato" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_UpdateDocumentExpiry.Sent</name>
+  <type>7</type>
+</customapiresponseproperty>

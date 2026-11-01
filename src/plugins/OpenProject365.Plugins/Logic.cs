@@ -145,4 +145,89 @@ namespace OpenProject365.Plugins
             return value != null && decimal.TryParse(value.Trim(), System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out n) ? n : (decimal?)null;
         }
     }
+
+    /// <summary>A supplier document as seen by the expiry rules.</summary>
+    public class DocumentRow
+    {
+        public Guid Id;
+        public int Type;
+        public DateTime? Expiry;
+        public bool Approved;
+        public int? ExpiryStatus;
+        public int? Notice;
+    }
+
+    /// <summary>Expiry rules of supplier documents (docs/en/master-data.md#supplier-documents).</summary>
+    public static class DocumentExpiry
+    {
+        /// <summary>Days before the expiry date in which a document is Expiring.</summary>
+        public const int WarningDays = 30;
+
+        /// <summary>Expiry status on a date: none without expiry date, Replaced when a newer approved document of the same type exists.</summary>
+        public static int? Status(DateTime? expiry, DateTime today, bool replaced)
+        {
+            if (!expiry.HasValue) return null;
+            if (replaced) return Model.ExpiryReplaced;
+            if (expiry.Value.Date < today.Date) return Model.ExpiryExpired;
+            if (expiry.Value.Date <= today.Date.AddDays(WarningDays)) return Model.ExpiryExpiring;
+            return Model.ExpiryValid;
+        }
+
+        /// <summary>True when another approved document of the same type expires later (the renewal of this one).</summary>
+        public static bool Replaced(DocumentRow doc, IEnumerable<DocumentRow> supplierDocs) =>
+            doc.Expiry.HasValue && supplierDocs.Any(o => o.Id != doc.Id && o.Approved && o.Type == doc.Type
+                                                        && o.Expiry.HasValue && o.Expiry.Value.Date > doc.Expiry.Value.Date);
+
+        /// <summary>Expiry status of every document of one supplier on a date.</summary>
+        public static Dictionary<Guid, int?> Statuses(IList<DocumentRow> supplierDocs, DateTime today) =>
+            supplierDocs.ToDictionary(d => d.Id, d => Status(d.Expiry, today, d.Approved && Replaced(d, supplierDocs)));
+
+        /// <summary>Notice to send for an approved document (null = none): once when it starts expiring, once when it expires.</summary>
+        public static int? Notice(bool approved, int? status, int? sent)
+        {
+            if (!approved) return null;
+            if (status == Model.ExpiryExpired && sent != Model.NoticeExpired) return Model.NoticeExpired;
+            if (status == Model.ExpiryExpiring && sent == null) return Model.NoticeExpiring;
+            return null;
+        }
+
+        /// <summary>Expired and Expiring counters of a supplier: approved documents only.</summary>
+        public static Tuple<int, int> Counters(IEnumerable<DocumentRow> supplierDocs, IDictionary<Guid, int?> statuses)
+        {
+            var approved = supplierDocs.Where(d => d.Approved).ToList();
+            return Tuple.Create(approved.Count(d => statuses[d.Id] == Model.ExpiryExpired), approved.Count(d => statuses[d.Id] == Model.ExpiryExpiring));
+        }
+    }
+
+    /// <summary>
+    /// Template choice for e-mails to suppliers, from a JSON object: message → { language → template title, "default" → language }.
+    /// Example: {"DocumentExpiring":{"Italian":"Documento in scadenza","English":"Document expiring","default":"English"}}.
+    /// </summary>
+    public static class EmailTemplates
+    {
+        /// <summary>Template title for the message in the language, else in the default language; null when not configured or the JSON is invalid.</summary>
+        public static string Pick(string json, string message, string language)
+        {
+            Dictionary<string, Dictionary<string, string>> map;
+            try
+            {
+                var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Dictionary<string, Dictionary<string, string>>),
+                    new System.Runtime.Serialization.Json.DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true });
+                using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(json ?? "")))
+                    map = (Dictionary<string, Dictionary<string, string>>)serializer.ReadObject(stream);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            Dictionary<string, string> byLanguage;
+            if (map == null || !map.TryGetValue(message, out byLanguage) || byLanguage == null) return null;
+            string title;
+            if (language != null && byLanguage.TryGetValue(language, out title) && !string.IsNullOrWhiteSpace(title)) return title.Trim();
+            string fallback;
+            if (byLanguage.TryGetValue("default", out fallback) && fallback != null && byLanguage.TryGetValue(fallback, out title) && !string.IsNullOrWhiteSpace(title))
+                return title.Trim();
+            return null;
+        }
+    }
 }

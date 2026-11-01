@@ -120,6 +120,14 @@ STEPS = [
   ('ContactCount', 'Create', 'contact', POST, None, None),
   ('ContactCount', 'Update', 'contact', POST, 'parentcustomerid,statecode', 'parentcustomerid'),
   ('ContactCount', 'Delete', 'contact', POST, None, 'parentcustomerid'),
+  # supplier documents: review and expiry (supplier_documents.py)
+  ('SupplierDocumentValidate', 'Create', 'op365_supplierdocument', PRE, None, None),
+  ('SupplierDocumentValidate', 'Update', 'op365_supplierdocument', PRE, None, 'statuscode,op365_expirydate'),
+  ('SupplierDocumentDelete', 'Delete', 'op365_supplierdocument', PRE, None, 'statuscode'),
+  ('SupplierDocumentAlerts', 'Create', 'op365_supplierdocument', POST, None, None),
+  ('SupplierDocumentAlerts', 'Update', 'op365_supplierdocument', POST,
+   'op365_expirydate,statuscode,statecode,op365_documenttype,op365_supplierid', 'op365_supplierid,statuscode,op365_description'),
+  ('SupplierDocumentAlerts', 'Delete', 'op365_supplierdocument', POST, None, 'op365_supplierid'),
 ]
 
 # Custom APIs: unique name -> class, display name, description, binding table (None = unbound), function,
@@ -182,6 +190,14 @@ APIS = {
   'op365_DecideSupplierInvoice': ('DecideSupplierInvoice', 'Decide Supplier Invoice', 'Approves or rejects a supplier invoice',
       'op365_supplierinvoice', False,
       [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Decision note; required to reject')], []),
+  'op365_DecideSupplierDocument': ('DecideSupplierDocument', 'Decide Supplier Document',
+      'Approves or rejects a supplier document pending review', 'op365_supplierdocument', False,
+      [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Review note; required to reject')], []),
+  'op365_UpdateDocumentExpiry': ('UpdateDocumentExpiry', 'Update Document Expiry',
+      'Refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices '
+      '(daily document expiry flow)', None, False,
+      [('Date', 1, True, 'Date; default today in Europe/Rome')],
+      [('Count', 7, 'Documents whose expiry status changed'), ('Sent', 7, 'E-mails sent to suppliers')]),
 }
 
 

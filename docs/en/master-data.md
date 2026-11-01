@@ -94,11 +94,11 @@ Read-only figures: **Spend** (total of the supplier's purchase orders, visible o
 
 The **Documents** tab lists the supplier's **compliance documents** and shows the **Document Alerts** counters (Expired Documents, Expiring Documents). The **Item Prices** tab lists the items the supplier sells, with its price for each.
 
-> The document alert counters are prepared for a daily update process; until that process is switched on in your environment they may show empty values. The documents themselves, with their expiry dates, are always available in the Documents tab and in the views.
+The counters count **approved** documents only and are updated every time a document changes, and every morning by the **Daily document expiry** flow (see [Expiry and e-mails](#expiry-and-e-mails)).
 
 ### Supplier documents
 
-A supplier document records a compliance document you must keep for a supplier: DURC, company report (visura camerale), certifications, insurance policies, contracts and so on.
+A supplier document records a compliance document you must keep for a supplier: DURC, company report (visura camerale), certifications, insurance policies, contracts and so on. Documents are entered by your staff, or uploaded by the supplier in the [supplier portal](supplier-portal.md#company-documents); in both cases the buyer decides whether a document is valid.
 
 | Field | Meaning |
 |---|---|
@@ -111,7 +111,56 @@ A supplier document records a compliance document you must keep for a supplier: 
 | **File** | The document itself, uploaded into Dataverse |
 | **Notes** | Anything else |
 
+The **Review** section of the form is read-only and is filled in by the system:
+
+| Field | Meaning |
+|---|---|
+| **Status Reason** | **Pending Review**, **Approved** or **Rejected** (see below) |
+| **Expiry Status** | **Valid**, **Expiring** (expires within 30 days), **Expired**, or **Replaced** (a newer approved document of the same type exists) |
+| **Reviewed By** / **Reviewed On** | Who approved or rejected the document, and when |
+| **From Supplier Portal** | Yes when the supplier uploaded the document in the portal |
+| **Expiry Notice Sent** | Last expiry e-mail sent to the supplier for the document: Expiring or Expired; cleared when the expiry date changes |
+| **Review Note** | Note of the reviewer; the reason shown to the supplier when the document is rejected |
+
 Create documents from the Documents tab of the supplier (**+ New Supplier Document**), so that the supplier is filled in automatically.
+
+#### Review
+
+```mermaid
+stateDiagram-v2
+    [*] --> PendingReview: supplier uploads in the portal
+    [*] --> Approved: created in ProjectIQ
+    PendingReview --> Approved: Approve
+    PendingReview --> Rejected: Reject (note)
+    Rejected --> PendingReview: supplier corrects it in the portal
+    Approved --> [*]
+```
+
+- A document **created in ProjectIQ** is **Approved** at once: you are the one checking it.
+- A document **uploaded by the supplier** is **Pending Review**. The owner of the supplier account receives the in-app notification "Supplier document to review". Open the document, check the file and click **Approve** or **Reject** on the command bar. **Reject** asks for a note, which the supplier sees in the portal.
+- The supplier can change or delete a document only while it is **Pending Review** or **Rejected**. A change to a rejected document sends it back to **Pending Review**. An **Approved** document can no longer be changed or deleted from the portal: for a renewal the supplier uploads a new document.
+- The status reason cannot be changed by hand: use **Approve** and **Reject**.
+
+Only approved documents count: they make the expiry status and the alert counters, and only they receive the expiry e-mails. When a renewal of the same type is approved, the older document becomes **Replaced** and no longer raises alerts.
+
+#### Expiry and e-mails
+
+Every morning at 06:00 (Europe/Rome) the **Daily document expiry** flow refreshes the expiry status of all documents and the counters of the suppliers, and e-mails the supplier:
+
+- once when an approved document becomes **Expiring** (30 days before the expiry date);
+- once when it becomes **Expired**.
+
+The e-mail goes to the e-mail address of the supplier account, is recorded in the timeline of the document, and is not sent again until the expiry date changes. A supplier without an e-mail address receives nothing: the e-mail leaves the morning after the address is filled in. The supplier also sees the alerts in the portal (Dashboard and Documents page).
+
+The text of the e-mails comes from Dataverse **e-mail templates** (Account type) in the language of the supplier (**Language** field of the account). Your administrator chooses the templates and the mailbox that sends the e-mails in the environment variables **Supplier Email Templates** and **Supplier Email Sender** (see [Administration](administration.md#company-settings)). While no sender is set, statuses and counters are still updated but no e-mail is sent.
+
+#### Views
+
+| View | Shows |
+|---|---|
+| **Active Supplier Documents** | All documents with type, supplier, number, expiry date, expiry status and status reason |
+| **Supplier Documents to Review** | Documents sent by suppliers that wait for Approve or Reject |
+| **Expiring and Expired Supplier Documents** | Approved documents that expire within 30 days or are expired |
 
 ## Contacts
 
@@ -263,3 +312,6 @@ flowchart LR
 | A duplicate key error on an item supplier | That supplier already has a price row for the item | Open and change the existing row |
 | A duplicate key error on a resource cost | The resource already has a cost with that Valid From | Change the existing row |
 | Hourly Cost is empty or shows *** | You do not have the Cost Visibility profile | Ask an administrator if you need to see costs |
+| "Use Approve or Reject to review a supplier document." | You changed the status reason of a supplier document by hand | Use the Approve or Reject button |
+| "Add a note to reject the supplier document." | Reject without a note | Write the reason for the supplier |
+| "Only supplier documents pending review can be approved or rejected." | The document is already approved or rejected | Nothing to do; the supplier sends a corrected document |

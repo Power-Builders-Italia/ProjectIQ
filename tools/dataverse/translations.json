@@ -1244,6 +1244,11 @@
 "Approuver l’e-mail",
 "Approva indirizzo e-mail"
 ],
+"Approve the document: it becomes valid": [
+"Dokument genehmigen: es wird gültig",
+"Approuver le document : il devient valide",
+"Approva il documento: diventa valido"
+],
 "Approve the invoice": [
 "Rechnung genehmigen",
 "Approuver la facture",
@@ -1269,6 +1274,11 @@
 "Factures approuvées",
 "Fatture approvate"
 ],
+"Approved documents that expire within 30 days or are expired": [
+"Genehmigte Dokumente, die innerhalb von 30 Tagen ablaufen oder abgelaufen sind",
+"Documents approuvés qui expirent dans les 30 jours ou sont expirés",
+"Documenti approvati che scadono entro 30 giorni o sono scaduti"
+],
 "Approved hours and material usage. Set by plugin": [
 "Genehmigte Stunden und Materialverbrauch. Vom Plug-in gesetzt",
 "Heures approuvées et consommation de matériel. Défini par le plug-in",
@@ -1293,6 +1303,11 @@
 "Genehmigt oder lehnt eine eingereichte Bestellanforderung ab (über dem Schwellenwert ist eine zweite Genehmigung nötig)",
 "Approuve ou rejette une demande d'achat soumise (au-delà du seuil, une seconde approbation est nécessaire)",
 "Approva o rifiuta una RDA inviata (oltre la soglia serve una seconda approvazione)"
+],
+"Approves or rejects a supplier document pending review": [
+"Genehmigt oder lehnt ein Lieferantendokument in Prüfung ab",
+"Approuve ou rejette un document fournisseur en attente d'examen",
+"Approva o rifiuta un documento fornitore in attesa di revisione"
 ],
 "Approves or rejects a supplier invoice": [
 "Genehmigt oder lehnt eine Lieferantenrechnung ab",
@@ -2429,6 +2444,11 @@
 "DURC",
 "DURC"
 ],
+"Daily document expiry": [
+"Tägliche Dokumentenfälligkeit",
+"Échéance quotidienne des documents",
+"Scadenza giornaliera documenti"
+],
 "Daily time reminder": [
 "Tägliche Zeiterinnerung",
 "Rappel quotidien des heures",
@@ -2443,6 +2463,11 @@
 "Datum und Uhrzeit der Migration des Datensatzes.",
 "Date et heure de la migration de l'enregistrement.",
 "Data e ora di migrazione del record."
+],
+"Date and time the document was approved or rejected": [
+"Datum und Uhrzeit der Genehmigung oder Ablehnung des Dokuments",
+"Date et heure d'approbation ou de rejet du document",
+"Data e ora di approvazione o rifiuto del documento"
 ],
 "Date and time when the record was created.": [
 "Datum und Uhrzeit der Erstellung des Datensatzes.",
@@ -2563,6 +2588,11 @@
 "Über Bestellanforderung entscheiden",
 "Statuer sur la demande d'achat",
 "Decidi RDA"
+],
+"Decide Supplier Document": [
+"Über Lieferantendokument entscheiden",
+"Statuer sur le document fournisseur",
+"Decidi documento fornitore"
 ],
 "Decide Supplier Invoice": [
 "Über Lieferantenrechnung entscheiden",
@@ -3024,6 +3054,16 @@
 "Documents",
 "Documenti"
 ],
+"Documents sent by suppliers that wait for Approve or Reject": [
+"Von Lieferanten gesendete Dokumente, die auf Genehmigen oder Ablehnen warten",
+"Documents envoyés par les fournisseurs en attente d'approbation ou de rejet",
+"Documenti inviati dai fornitori in attesa di Approva o Rifiuta"
+],
+"Documents whose expiry status changed": [
+"Dokumente mit geändertem Ablaufstatus",
+"Documents dont le statut d'expiration a changé",
+"Documenti il cui stato di scadenza è cambiato"
+],
 "Done": [
 "Fertig",
 "Terminé",
@@ -3063,6 +3103,16 @@
 "E-Mail-Zugriffskonfiguration",
 "Configuration de l'accès au courrier électronique",
 "Configurazione accesso e-mail"
+],
+"E-mail templates (Account type) of the messages to suppliers, by message and supplier Language: {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Default: the templates of tools/dataverse/supplier_email_templates.py.": [
+"E-Mail-Vorlagen (Typ Firma) der Nachrichten an Lieferanten, nach Nachricht und Sprache des Lieferanten: {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Standard: die Vorlagen von tools/dataverse/supplier_email_templates.py.",
+"Modèles d'e-mail (type Compte) des messages aux fournisseurs, par message et langue du fournisseur : {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Par défaut : les modèles de tools/dataverse/supplier_email_templates.py.",
+"Modelli e-mail (tipo Account) dei messaggi ai fornitori, per messaggio e lingua del fornitore: {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Predefinito: i modelli di tools/dataverse/supplier_email_templates.py."
+],
+"E-mails sent to suppliers": [
+"An Lieferanten gesendete E-Mails",
+"E-mails envoyés aux fournisseurs",
+"E-mail inviate ai fornitori"
 ],
 "ENTITLEMENT": [
 "BERECHTIGUNG",
@@ -3264,6 +3314,11 @@
 "Soir",
 "Sera"
 ],
+"Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails": [
+"Täglich um 06:00 (Europe/Rome): Ablaufstatus der Lieferantendokumente, Warnzähler der Lieferanten und Ablauf-E-Mails",
+"Chaque jour à 06:00 (Europe/Rome) : statut d'expiration des documents fournisseur, compteurs d'alerte et e-mails d'expiration",
+"Ogni giorno alle 06:00 (Europe/Rome): stato di scadenza dei documenti fornitore, contatori di avviso ed e-mail di scadenza"
+],
 "Exchange Rate": [
 "Wechselkurs",
 "Taux de change",
@@ -3289,20 +3344,45 @@
 "Livraison prévue",
 "Consegna prevista"
 ],
+"Expired": [
+"Abgelaufen",
+"Expiré",
+"Scaduto"
+],
 "Expired Documents": [
 "Abgelaufene Dokumente",
 "Documents expirés",
 "Documenti scaduti"
+],
+"Expiring": [
+"Läuft bald ab",
+"Bientôt expiré",
+"In scadenza"
 ],
 "Expiring Documents": [
 "Ablaufende Dokumente",
 "Documents arrivant à expiration",
 "Documenti in scadenza"
 ],
+"Expiring and Expired Supplier Documents": [
+"Bald ablaufende und abgelaufene Lieferantendokumente",
+"Documents fournisseur bientôt expirés et expirés",
+"Documenti fornitore in scadenza e scaduti"
+],
 "Expiry Date": [
 "Ablaufdatum",
 "Date d'expiration",
 "Data di scadenza"
+],
+"Expiry Notice Sent": [
+"Ablaufhinweis gesendet",
+"Avis d'expiration envoyé",
+"Avviso di scadenza inviato"
+],
+"Expiry Status": [
+"Ablaufstatus",
+"Statut d'expiration",
+"Stato scadenza"
 ],
 "External Identities": [
 "Externe Identitäten",
@@ -3373,6 +3453,21 @@
 "Datei",
 "Fichier",
 "File"
+],
+"Fills the ProjectIQ columns of the files added to the folder of a project": [
+"Füllt die ProjectIQ-Spalten der Dateien im Ordner eines Projekts",
+"Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d'un projet",
+"Compila le colonne ProjectIQ dei file aggiunti alla cartella di una commessa"
+],
+"Fills the ProjectIQ columns of the files added to the folder of a purchase order": [
+"Füllt die ProjectIQ-Spalten der Dateien im Ordner einer Bestellung",
+"Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d'une commande",
+"Compila le colonne ProjectIQ dei file aggiunti alla cartella di un ordine di acquisto"
+],
+"Fills the ProjectIQ columns of the files added to the folder of a supplier document": [
+"Füllt die ProjectIQ-Spalten der Dateien im Ordner eines Lieferantendokuments",
+"Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d'un document fournisseur",
+"Compila le colonne ProjectIQ dei file aggiunti alla cartella di un documento fornitore"
 ],
 "Financial": [
 "Finanzen",
@@ -3543,6 +3638,11 @@
 "Von",
 "De",
 "Da"
+],
+"From Supplier Portal": [
+"Aus dem Lieferantenportal",
+"Depuis le portail fournisseurs",
+"Dal portale fornitori"
 ],
 "From the lines when there are lines": [
 "Aus den Positionen, wenn Positionen vorhanden sind",
@@ -4684,6 +4784,16 @@
 "Dernier jour de l'absence",
 "Ultimo giorno dell'assenza"
 ],
+"Last expiry e-mail sent to the supplier for the document: Expiring or Expired": [
+"Letzte Ablauf-E-Mail an den Lieferanten für das Dokument: Läuft bald ab oder Abgelaufen",
+"Dernier e-mail d'expiration envoyé au fournisseur pour le document : Bientôt expiré ou Expiré",
+"Ultima e-mail di scadenza inviata al fornitore per il documento: In scadenza o Scaduto"
+],
+"Last expiry e-mail sent to the supplier for this document; cleared when the expiry date changes": [
+"Letzte Ablauf-E-Mail an den Lieferanten für dieses Dokument; wird bei Änderung des Ablaufdatums geleert",
+"Dernier e-mail d'expiration envoyé au fournisseur pour ce document ; effacé quand la date d'expiration change",
+"Ultima e-mail di scadenza inviata al fornitore per questo documento; si azzera quando cambia la data di scadenza"
+],
 "Last name of the user.": [
 "Nachname des Benutzers.",
 "Nom de l'utilisateur.",
@@ -5354,6 +5464,11 @@
 "Nom du projet ; Code est l'identifiant unique",
 "Nome della commessa; Code è l'identificativo univoco"
 ],
+"Name or e-mail address of the queue (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails.": [
+"Name oder E-Mail-Adresse der Warteschlange (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails.",
+"Nom ou adresse e-mail de la file d'attente (boîte aux lettres avec synchronisation côté serveur) qui envoie les e-mails aux fournisseurs. Vide = aucun e-mail.",
+"Nome o indirizzo e-mail della coda (cassetta postale con sincronizzazione lato server) che invia le e-mail ai fornitori. Vuoto = nessuna e-mail."
+],
 "Name to enter for address 1.": [
 "Für 'Adresse 1' einzugebender Name.",
 "Nom à entrer pour l'adresse 1.",
@@ -5498,6 +5613,11 @@
 "Notiztext",
 "Texte de la remarque",
 "Testo nota"
+],
+"Note of the reviewer; the reason when the document is rejected": [
+"Notiz des Prüfers; der Grund, wenn das Dokument abgelehnt wird",
+"Note de l'examinateur ; le motif quand le document est rejeté",
+"Nota del revisore; il motivo quando il documento è rifiutato"
 ],
 "Notes": [
 "Hinweise",
@@ -5923,6 +6043,11 @@
 "Ausstehende Genehmigung",
 "Approbation en attente",
 "In attesa di approvazione"
+],
+"Pending Review": [
+"In Prüfung",
+"En attente d'examen",
+"In attesa di revisione"
 ],
 "Person whose hours are planned and tracked, with or without a user license": [
 "Person, deren Stunden geplant und erfasst werden, mit oder ohne Benutzerlizenz",
@@ -7349,6 +7474,11 @@
 "Références",
 "Riferimenti"
 ],
+"Refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices (daily document expiry flow)": [
+"Aktualisiert den Ablaufstatus der Lieferantendokumente und die Warnzähler der Lieferanten und sendet die Ablaufhinweise per E-Mail (Flow tägliche Dokumentenfälligkeit)",
+"Met à jour le statut d'expiration des documents fournisseur et les compteurs d'alerte, et envoie les avis d'expiration par e-mail (flux d'échéance quotidienne des documents)",
+"Aggiorna lo stato di scadenza dei documenti fornitore e i contatori di avviso dei fornitori e invia via e-mail gli avvisi di scadenza (flusso scadenza giornaliera documenti)"
+],
 "Register Goods Receipt": [
 "Wareneingang erfassen",
 "Enregistrer la réception",
@@ -7379,6 +7509,11 @@
 "Rejeter l’e-mail",
 "Rifiuta indirizzo e-mail"
 ],
+"Reject the document with a note for the supplier": [
+"Dokument mit einer Notiz für den Lieferanten ablehnen",
+"Rejeter le document avec une note pour le fournisseur",
+"Rifiuta il documento con una nota per il fornitore"
+],
 "Reject the invoice with a note": [
 "Rechnung mit Notiz ablehnen",
 "Rejeter la facture avec une note",
@@ -7408,6 +7543,11 @@
 "Geschäftsbeziehungstyp",
 "Type de relation",
 "Tipo relazione"
+],
+"Replaced": [
+"Ersetzt",
+"Remplacé",
+"Sostituito"
 ],
 "Request": [
 "Anforderung",
@@ -7603,6 +7743,26 @@
 "Umsatz (Basis)",
 "Chiffre d'affaires (base)",
 "Ricavi (base)"
+],
+"Review Note": [
+"Prüfnotiz",
+"Note d'examen",
+"Nota di revisione"
+],
+"Review note; required to reject": [
+"Prüfnotiz; zum Ablehnen erforderlich",
+"Note d'examen ; obligatoire pour rejeter",
+"Nota di revisione; obbligatoria per rifiutare"
+],
+"Reviewed By": [
+"Geprüft von",
+"Examiné par",
+"Revisionato da"
+],
+"Reviewed On": [
+"Geprüft am",
+"Examiné le",
+"Revisionato il"
 ],
 "RfqId": [
 "AngebotsanfrageId",
@@ -8914,6 +9074,21 @@
 "Documents fournisseur",
 "Documenti fornitore"
 ],
+"Supplier Documents to Review": [
+"Zu prüfende Lieferantendokumente",
+"Documents fournisseur à examiner",
+"Documenti fornitore da revisionare"
+],
+"Supplier Email Sender": [
+"E-Mail-Absender für Lieferanten",
+"Expéditeur des e-mails fournisseurs",
+"Mittente e-mail fornitori"
+],
+"Supplier Email Templates": [
+"E-Mail-Vorlagen für Lieferanten",
+"Modèles d'e-mail fournisseurs",
+"Modelli e-mail fornitori"
+],
 "Supplier Invoice": [
 "Lieferantenrechnung",
 "Facture fournisseur",
@@ -9154,6 +9329,21 @@
 "Onglet",
 "Scheda"
 ],
+"Tag project documents": [
+"Projektdokumente kennzeichnen",
+"Étiqueter les documents de projet",
+"Classifica documenti commessa"
+],
+"Tag purchase order documents": [
+"Bestelldokumente kennzeichnen",
+"Étiqueter les documents de commande",
+"Classifica documenti ordine"
+],
+"Tag supplier documents": [
+"Lieferantendokumente kennzeichnen",
+"Étiqueter les documents fournisseur",
+"Classifica documenti fornitore"
+],
 "Tax Code": [
 "Steuernummer",
 "Code fiscal",
@@ -9233,6 +9423,11 @@
 "Der Bezeichner der Anwendung. Dieser wird für den Zugriff auf die Daten in einer anderen Anwendung verwendet.",
 "Identificateur de l'application. Il permet d'accéder aux données d'une autre application.",
 "Identificatore dell'applicazione. Utilizzato per accedere ai dati in un'altra applicazione."
+],
+"The supplier uploaded the document in the supplier portal": [
+"Der Lieferant hat das Dokument im Lieferantenportal hochgeladen",
+"Le fournisseur a téléversé le document dans le portail fournisseurs",
+"Il fornitore ha caricato il documento nel portale fornitori"
 ],
 "The type of user": [
 "Der Benutzertyp",
@@ -10364,6 +10559,11 @@
 "Mettre à jour le contact",
 "Aggiorna contatto"
 ],
+"Update Document Expiry": [
+"Dokumentenablauf aktualisieren",
+"Mettre à jour l'expiration des documents",
+"Aggiorna scadenza documenti"
+],
 "Updated daily by flow": [
 "Täglich vom Flow aktualisiert",
 "Mis à jour quotidiennement par le flux",
@@ -10483,6 +10683,11 @@
 "Für das Projekt verantwortlicher Benutzer",
 "Utilisateur responsable du projet",
 "Utente responsabile della commessa"
+],
+"User who approved or rejected the document": [
+"Benutzer, der das Dokument genehmigt oder abgelehnt hat",
+"Utilisateur qui a approuvé ou rejeté le document",
+"Utente che ha approvato o rifiutato il documento"
 ],
 "User who approved or rejected the hours": [
 "Benutzer, der die Stunden genehmigt oder abgelehnt hat",
@@ -10639,10 +10844,25 @@
 "Vacances, congé, maladie ou fermeture (fermeture de l'entreprise pour tous)",
 "Ferie, permesso, malattia o chiusura (chiusura aziendale per tutti)"
 ],
+"Valid": [
+"Gültig",
+"Valide",
+"Valido"
+],
 "Valid From": [
 "Gültig ab",
 "Valide à partir du",
 "Valido dal"
+],
+"Valid, Expiring (expires within 30 days), Expired, or Replaced by a newer approved document of the same type; kept by the plugins and the Daily document expiry flow": [
+"Gültig, Läuft bald ab (innerhalb von 30 Tagen), Abgelaufen oder Ersetzt durch ein neueres genehmigtes Dokument desselben Typs; von den Plug-ins und dem Flow tägliche Dokumentenfälligkeit gepflegt",
+"Valide, Bientôt expiré (dans les 30 jours), Expiré ou Remplacé par un document approuvé plus récent du même type ; tenu à jour par les plug-ins et le flux d'échéance quotidienne",
+"Valido, In scadenza (entro 30 giorni), Scaduto o Sostituito da un documento approvato più recente dello stesso tipo; aggiornato dai plug-in e dal flusso di scadenza giornaliera"
+],
+"Valid, Expiring (within 30 days), Expired, or Replaced by a newer approved document of the same type": [
+"Gültig, Läuft bald ab (innerhalb von 30 Tagen), Abgelaufen oder Ersetzt durch ein neueres genehmigtes Dokument desselben Typs",
+"Valide, Bientôt expiré (dans les 30 jours), Expiré ou Remplacé par un document approuvé plus récent du même type",
+"Valido, In scadenza (entro 30 giorni), Scaduto o Sostituito da un documento approvato più recente dello stesso tipo"
 ],
 "Value": [
 "Wert",
@@ -11153,6 +11373,11 @@
 "Ja, wenn der Lieferant die Bestellung bestätigt hat",
 "Oui si le fournisseur a confirmé la commande",
 "Sì se il fornitore ha confermato l'ordine"
+],
+"Yes when the supplier uploaded the document in the supplier portal": [
+"Ja, wenn der Lieferant das Dokument im Lieferantenportal hochgeladen hat",
+"Oui quand le fournisseur a téléversé le document dans le portail fournisseurs",
+"Sì quando il fornitore ha caricato il documento nel portale fornitori"
 ],
 "Yes: submitted hours wait for the approval of a project manager. No: Submit approves hours immediately.": [
 "Ja: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. Nein: Einreichen genehmigt die Stunden sofort.",

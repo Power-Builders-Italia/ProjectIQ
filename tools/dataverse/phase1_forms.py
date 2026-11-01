@@ -56,7 +56,7 @@ form(T, 'Item Supplier', [tab('General', [('100%', [
                                  'op365_price', 'op365_leadtimedays', 'op365_minimumlot', 'ownerid']),
     section(T, 'Notes', ['op365_notes'], columns=1)])])], replace='Information')
 
-T = 'op365_supplierdocument'
+T = 'op365_supplierdocument'   # the read-only Review sections are added by supplier_documents.py
 form(T, 'Supplier Document', [tab('General', [
     ('60%', [section(T, 'Document', ['op365_supplierid', 'op365_documenttype', 'op365_description', 'op365_number',
                                      'op365_issuedate', 'op365_expirydate', 'op365_externalurl', 'ownerid']),

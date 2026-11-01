@@ -1,7 +1,8 @@
 """Supplier portal content (Power Pages, enhanced data model) on the Supplier Portal site, through the Dataverse Web API.
 
-Creates or updates the Supplier web role, the table permissions, the Web API site settings, the pages (requests for
-quotation, quote, purchase orders, order confirmation) and the menu links. Records are matched by name, so the script
+Creates or updates the Supplier web role, the table permissions, the Web API site settings, the shared web templates
+(style, sidebar, project cards), the pages (dashboard, projects, requests for quotation and quote, purchase orders and
+order confirmation, invoices, company documents; Liquid and CSS in portal_ui.py) and the menu links. Records are matched by name, so the script
 is idempotent. Run it against Dev (PAC_* variables), then export the OpenProject365SupplierPortal solution:
 
     python3 tools/portal/supplier_portal.py
@@ -9,7 +10,9 @@ is idempotent. Run it against Dev (PAC_* variables), then export the OpenProject
 import json
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'dataverse'))
+sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
+import portal_ui as ui
 
 S.headers['MSCRM.SolutionUniqueName'] = 'OpenProject365SupplierPortal'   # site records belong to the portal solution
 
@@ -69,11 +72,12 @@ SUPPLIER = upsert('mspp_webroles', 'mspp_webroleid', "mspp_name eq 'Supplier'", 
 PERMISSIONS = {}
 
 
-def permission(name, table, scope, write=False, relationship=None, parent=None):
+def permission(name, table, scope, write=False, relationship=None, parent=None, create=False, delete=False, append=False,
+               appendto=False):
     body = {'mspp_entityname': name, 'mspp_entitylogicalname': table, 'mspp_scope': scope, 'mspp_read': True, 'mspp_write': write,
-            'mspp_create': False, 'mspp_delete': False, 'mspp_append': False, 'mspp_appendto': False}
+            'mspp_create': create, 'mspp_delete': delete, 'mspp_append': append, 'mspp_appendto': appendto}
     if scope == ACCOUNT:
-        body['mspp_accountrelationship'] = relationship
+        body['mspp_accountrelationship'] = relationship   # None on the account table: the user's own account
     else:
         body['mspp_parentrelationship'] = relationship
         body['mspp_parententitypermission@odata.bind'] = f'/mspp_entitypermissions({PERMISSIONS[parent]})'
@@ -102,6 +106,15 @@ permission('Supplier RFQ quotes', 'op365_rfqquote', PARENT, write=True, relation
 permission('Supplier purchase orders', 'op365_purchaseorder', ACCOUNT, write=True, relationship='op365_account_purchaseorder_supplierid')
 permission('Supplier purchase order lines', 'op365_purchaseorderline', PARENT,
            relationship='op365_purchaseorder_purchaseorderline_purchaseorderid', parent='Supplier purchase orders')
+# read-only: the projects of the supplier's orders and the supplier's invoices
+permission('Supplier projects', 'op365_project', PARENT, relationship='op365_project_purchaseorder_projectid',
+           parent='Supplier purchase orders')
+permission('Supplier invoices', 'op365_supplierinvoice', ACCOUNT, relationship='op365_account_supplierinvoice_supplierid')
+# own company documents: upload, change and delete (the plugins refuse changes to approved documents);
+# Append To on the supplier's own account lets a new document be linked to it
+permission('Supplier company', 'account', ACCOUNT, appendto=True)
+permission('Supplier documents', 'op365_supplierdocument', ACCOUNT, write=True, create=True, delete=True, append=True,
+           relationship='op365_account_supplierdocument_supplierid')
 
 # ---------- Web API: only the columns a supplier may write ----------
 SETTINGS = {
@@ -111,6 +124,10 @@ SETTINGS = {
     'Webapi/op365_rfqquote/fields': 'op365_price,op365_notes',
     'Webapi/op365_purchaseorder/enabled': 'true',
     'Webapi/op365_purchaseorder/fields': 'op365_supplierconfirmed',
+    # never statuscode or the review columns: the plugins set them
+    'Webapi/op365_supplierdocument/enabled': 'true',
+    'Webapi/op365_supplierdocument/fields': 'op365_documenttype,op365_description,op365_number,op365_issuedate,'
+                                            'op365_expirydate,op365_notes,op365_file,op365_supplierid',
     'Webapi/error/innererror': 'false',
 }
 for k, v in SETTINGS.items():
@@ -138,40 +155,7 @@ function op365Api(method, url, body) {
 function op365Error(text) { $('#op365-error').text(text).removeClass('d-none'); }
 """
 
-RFQS = """<div class="container py-4">
-  <h1 class="h3 mb-3">Requests for quotation</h1>
-  {% fetchxml invitations %}
-  <fetch>
-    <entity name="op365_rfqinvitation">
-      <attribute name="op365_rfqinvitationid" /><attribute name="op365_rfqnumber" /><attribute name="op365_deadline" />
-      <attribute name="statuscode" /><attribute name="op365_quotedamount" /><attribute name="op365_invitedon" />
-      <filter><condition attribute="statuscode" operator="in"><value>%d</value><value>%d</value><value>%d</value></condition></filter>
-      <order attribute="op365_invitedon" descending="true" />
-    </entity>
-  </fetch>
-  {% endfetchxml %}
-  {% if invitations.results.entities.size == 0 %}
-  <div class="alert alert-info">There are no requests for quotation for your company.</div>
-  {% else %}
-  <div class="table-responsive"><table class="table table-hover align-middle">
-    <thead><tr><th>RFQ</th><th>Deadline</th><th>Status</th><th class="text-end">Quoted</th><th></th></tr></thead>
-    <tbody>
-    {% for i in invitations.results.entities %}
-      <tr>
-        <td>{{ i.op365_rfqnumber }}</td>
-        <td>{{ i.op365_deadline | date: 'dd/MM/yyyy' }}</td>
-        <td><span class="badge {% if i.statuscode.value == %d %}bg-success{% elsif i.statuscode.value == %d %}bg-secondary{% else %}bg-primary{% endif %}">{{ i.statuscode.label }}</span></td>
-        <td class="text-end">{% if i.op365_quotedamount > 0 %}{{ i.op365_quotedamount | round: 2 }}{% endif %}</td>
-        <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}">Open</a></td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table></div>
-  {% endif %}
-</div>"""
-RFQS = fill(RFQS, INVITED, RESPONDED, DECLINED, RESPONDED, DECLINED)
-
-QUOTE = """<div class="container py-4">
+QUOTE = """<div>
   {% assign id = request.params['id'] %}
   {% fetchxml inv %}
   <fetch top="1">
@@ -264,41 +248,7 @@ $(function () {
 """
 QUOTE_JS = fill(QUOTE_JS, DECLINED)
 
-ORDERS = """<div class="container py-4">
-  <h1 class="h3 mb-3">Purchase orders</h1>
-  {% fetchxml orders %}
-  <fetch>
-    <entity name="op365_purchaseorder">
-      <attribute name="op365_purchaseorderid" /><attribute name="op365_number" /><attribute name="op365_orderdate" />
-      <attribute name="op365_expecteddelivery" /><attribute name="op365_totalamount" /><attribute name="statuscode" />
-      <filter><condition attribute="statuscode" operator="in"><value>%d</value><value>%d</value><value>%d</value></condition></filter>
-      <order attribute="op365_orderdate" descending="true" />
-    </entity>
-  </fetch>
-  {% endfetchxml %}
-  {% if orders.results.entities.size == 0 %}
-  <div class="alert alert-info">There are no purchase orders for your company.</div>
-  {% else %}
-  <div class="table-responsive"><table class="table table-hover align-middle">
-    <thead><tr><th>Order</th><th>Date</th><th>Expected delivery</th><th>Status</th><th class="text-end">Total</th><th></th></tr></thead>
-    <tbody>
-    {% for o in orders.results.entities %}
-      <tr>
-        <td>{{ o.op365_number }}</td>
-        <td>{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}</td>
-        <td><span class="badge {% if o.statuscode.value == %d %}bg-warning text-dark{% else %}bg-success{% endif %}">{% if o.statuscode.value == %d %}To confirm{% else %}{{ o.statuscode.label }}{% endif %}</span></td>
-        <td class="text-end">{{ o.op365_totalamount | round: 2 }}</td>
-        <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="/orders/order/?id={{ o.op365_purchaseorderid }}">Open</a></td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table></div>
-  {% endif %}
-</div>"""
-ORDERS = fill(ORDERS, PO_SENT, PO_CONFIRMED, PO_RECEIVED, PO_SENT, PO_SENT)
-
-ORDER = """<div class="container py-4">
+ORDER = """<div>
   {% assign id = request.params['id'] %}
   {% fetchxml po %}
   <fetch top="1">
@@ -383,13 +333,22 @@ def page(title, url, html, js='', parent=None, order=10, hidden=False):
     return root
 
 
-rfqs = page('Requests for quotation', 'rfqs', RFQS, order=2)
-page('Quote', 'quote', QUOTE, QUOTE_JS, parent=rfqs, hidden=True)
-orders = page('Purchase orders', 'orders', ORDERS, order=3)
-page('Order', 'order', ORDER, ORDER_JS, parent=orders, hidden=True)
+# ---------- shared web templates: style, sidebar, project cards ----------
+for name, source in ((ui.STYLE_NAME, ui.STYLE), (ui.NAV_NAME, ui.tokens(ui.NAV)), (ui.PROJECT_CARDS_NAME, ui.tokens(ui.PROJECT_CARDS))):
+    upsert('mspp_webtemplates', 'mspp_webtemplateid', f"mspp_name eq '{q(name)}'", {'mspp_name': name, 'mspp_source': source})
+
+dashboard = page('Dashboard', 'dashboard', ui.shell('dashboard', ui.tokens(ui.DASHBOARD)), order=1)
+projects = page('Projects', 'projects', ui.shell('projects', ui.tokens(ui.PROJECTS)), order=2)
+rfqs = page('Requests for quotation', 'rfqs', ui.shell('rfqs', ui.tokens(ui.RFQS)), order=3)
+page('Quote', 'quote', ui.shell('rfqs', QUOTE), QUOTE_JS, parent=rfqs, hidden=True)
+orders = page('Purchase orders', 'orders', ui.shell('orders', ui.tokens(ui.ORDERS)), order=4)
+page('Order', 'order', ui.shell('orders', ORDER), ORDER_JS, parent=orders, hidden=True)
+invoices = page('Invoices', 'invoices', ui.shell('invoices', ui.tokens(ui.INVOICES)), order=5)
+documents = page('Documents', 'documents', ui.shell('documents', ui.tokens(ui.DOCUMENTS)), ui.DOCUMENTS_JS, order=6)
 
 # ---------- menu ----------
-for name, target, order in (('Requests for quotation', rfqs, 2), ('Purchase orders', orders, 3)):
+for name, target, order in (('Dashboard', dashboard, 1), ('Projects', projects, 2), ('Requests for quotation', rfqs, 3),
+                            ('Purchase orders', orders, 4), ('Invoices', invoices, 5), ('Documents', documents, 6)):
     found = rows('mspp_weblinks', f"_mspp_weblinksetid_value eq {MENU} and mspp_name eq '{q(name)}'", 'mspp_weblinkid')
     body = {'mspp_name': name, 'mspp_displayorder': order, 'mspp_robotsfollowlink': True, 'mspp_openinnewwindow': False,
             'mspp_pageid@odata.bind': f'/mspp_webpages({target})', 'mspp_weblinksetid@odata.bind': f'/mspp_weblinksets({MENU})',

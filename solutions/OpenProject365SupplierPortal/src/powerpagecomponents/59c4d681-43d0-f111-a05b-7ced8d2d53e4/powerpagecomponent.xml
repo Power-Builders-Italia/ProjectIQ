@@ -2,7 +2,7 @@
   <content>{
   "title": "Purchase orders",
   "partialurl": "orders",
-  "displayorder": 3,
+  "displayorder": 4,
   "hiddenfromsitemap": false,
   "excludefromsearch": true,
   "enablerating": false,

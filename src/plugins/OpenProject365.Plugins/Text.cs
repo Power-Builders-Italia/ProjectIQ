@@ -102,7 +102,15 @@ namespace OpenProject365.Plugins
             new[] { "register goods receipts", "Wareneingänge erfassen", "enregistrer des réceptions de marchandises", "registrare ricevimenti merci" },
             new[] { "cancel goods receipts", "Wareneingänge stornieren", "annuler des réceptions de marchandises", "annullare ricevimenti merci" },
 
+            new[] { "Use Approve or Reject to review a supplier document.", "Verwenden Sie Genehmigen oder Ablehnen, um ein Lieferantendokument zu prüfen.", "Utilisez Approuver ou Rejeter pour examiner un document fournisseur.", "Usa Approva o Rifiuta per revisionare un documento fornitore." },
+            new[] { "Approved documents cannot be changed.", "Genehmigte Dokumente können nicht geändert werden.", "Les documents approuvés ne peuvent pas être modifiés.", "I documenti approvati non si possono modificare." },
+            new[] { "Approved documents cannot be deleted.", "Genehmigte Dokumente können nicht gelöscht werden.", "Les documents approuvés ne peuvent pas être supprimés.", "I documenti approvati non si possono eliminare." },
+            new[] { "Add a note to reject the supplier document.", "Fügen Sie eine Notiz hinzu, um das Lieferantendokument abzulehnen.", "Ajoutez une note pour rejeter le document fournisseur.", "Aggiungi una nota per rifiutare il documento fornitore." },
+            new[] { "Only supplier documents pending review can be approved or rejected.", "Nur Lieferantendokumente in Prüfung können genehmigt oder abgelehnt werden.", "Seuls les documents fournisseur en attente d'examen peuvent être approuvés ou rejetés.", "Si possono approvare o rifiutare solo documenti fornitore in attesa di revisione." },
+
             // ----- notifications
+            new[] { "Supplier document to review", "Lieferantendokument zu prüfen", "Document fournisseur à examiner", "Documento fornitore da revisionare" },
+            new[] { "{0} sent a document to review: {1}.", "{0} hat ein Dokument zur Prüfung gesendet: {1}.", "{0} a envoyé un document à examiner : {1}.", "{0} ha inviato un documento da revisionare: {1}." },
             new[] { "Record your hours", "Erfassen Sie Ihre Stunden", "Saisissez vos heures", "Registra le tue ore" },
             new[] { "You have recorded {0} of {1} hours on {2}.", "Sie haben am {2} {0} von {1} Stunden erfasst.", "Vous avez saisi {0} heures sur {1} le {2}.", "Hai registrato {0} ore su {1} il {2}." },
             new[] { "Open timesheet", "Zeiterfassung öffnen", "Ouvrir la feuille de temps", "Apri foglio ore" },

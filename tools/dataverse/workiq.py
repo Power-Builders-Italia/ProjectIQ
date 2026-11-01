@@ -76,6 +76,12 @@ DESCRIPTIONS = {
     'op365_file': 'Scanned or PDF copy of the document',
     'op365_notes': 'Free-text notes on the document',
     'op365_supplierid': 'Supplier the compliance document belongs to',
+    'op365_expirystatus': 'Valid, Expiring (within 30 days), Expired, or Replaced by a newer approved document of the same type',
+    'op365_expirynotice': 'Last expiry e-mail sent to the supplier for the document: Expiring or Expired',
+    'op365_fromportal': 'Yes when the supplier uploaded the document in the supplier portal',
+    'op365_reviewedbyid': 'User who approved or rejected the document',
+    'op365_reviewedon': 'Date and time the document was approved or rejected',
+    'op365_reviewnote': 'Note of the reviewer; the reason when the document is rejected',
   },
   'op365_resource': {
     'op365_name': 'Full name of the resource',

@@ -179,6 +179,16 @@ FLOWS = [
          'frequency': 'Week', 'interval': 1, 'timeZone': 'W. Europe Standard Time',
          'schedule': {'weekDays': WEEKDAYS, 'hours': ['17'], 'minutes': [30]}}}},
          {'Send_time_reminders': unbound_action('op365_SendTimeReminders')}), 1, None),
+    ('3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a04', 'Daily document expiry',
+     'Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails',
+     clientdata({'Recurrence': {'type': 'Recurrence', 'recurrence': {
+         'frequency': 'Day', 'interval': 1, 'timeZone': 'W. Europe Standard Time',
+         'schedule': {'hours': ['6'], 'minutes': [0]}}}},
+         {'Update_document_expiry': unbound_action('op365_UpdateDocumentExpiry')}), 0, {
+         1031: ('Tägliche Dokumentenfälligkeit', 'Täglich um 06:00: Ablaufstatus der Lieferantendokumente, Zähler und Ablauf-E-Mails'),
+         1033: ('Daily document expiry', 'Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails'),
+         1036: ('Échéance quotidienne des documents', 'Chaque jour à 06:00 : statut d\'expiration des documents fournisseur, compteurs et e-mails d\'expiration'),
+         1040: ('Scadenza giornaliera documenti', 'Ogni giorno alle 06:00: stato di scadenza dei documenti fornitore, contatori ed e-mail di scadenza')}),
     ('3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a01', 'Tag project documents',
      'Fills the ProjectIQ columns of the files added to the folder of a project',
      metadata_flow('op365_project'), 0, {

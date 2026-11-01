@@ -1,0 +1,14 @@
+<powerpagecomponent powerpagecomponentid="b0d6467a-ccd5-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "value": "op365_documenttype,op365_description,op365_number,op365_issuedate,op365_expirydate,op365_notes,op365_file,op365_supplierid",
+  "source": 0
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Webapi/op365_supplierdocument/fields</name>
+  <powerpagecomponenttype>9</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

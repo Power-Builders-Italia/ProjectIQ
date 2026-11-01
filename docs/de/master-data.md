@@ -96,11 +96,11 @@ Schreibgeschützte Kennzahlen: **Spend** (Summe der Bestellungen beim Lieferante
 
 Die Registerkarte **Documents** listet die **Compliance-Dokumente** des Lieferanten auf und zeigt die Zähler **Document Alerts** (Expired Documents, Expiring Documents – abgelaufene und bald ablaufende Dokumente). Die Registerkarte **Item Prices** listet die Artikel, die der Lieferant verkauft, mit seinem jeweiligen Preis.
 
-> Die Zähler der Dokumentwarnungen sind für einen täglichen Aktualisierungsprozess vorbereitet; solange dieser Prozess in Ihrer Umgebung nicht aktiviert ist, können sie leer sein. Die Dokumente selbst mit ihren Ablaufdaten sind immer in der Registerkarte Documents und in den Ansichten verfügbar.
+Die Zähler zählen nur **genehmigte** Dokumente und werden bei jeder Änderung eines Dokuments sowie jeden Morgen durch den Flow **Daily document expiry** aktualisiert (siehe [Ablauf und E-Mails](#ablauf-und-e-mails)).
 
 ### Lieferantendokumente
 
-Ein Lieferantendokument erfasst ein Compliance-Dokument, das Sie für einen Lieferanten aufbewahren müssen: DURC (italienische Bescheinigung über Sozialabgaben), Handelsregisterauszug (Visura camerale), Zertifizierungen, Versicherungspolicen, Verträge und so weiter.
+Ein Lieferantendokument erfasst ein Compliance-Dokument, das Sie für einen Lieferanten aufbewahren müssen: DURC (italienische Bescheinigung über Sozialabgaben), Handelsregisterauszug (Visura camerale), Zertifizierungen, Versicherungspolicen, Verträge und so weiter. Dokumente werden von Ihren Mitarbeitern erfasst oder vom Lieferanten im [Lieferantenportal](supplier-portal.md#unternehmensdokumente) hochgeladen; in beiden Fällen entscheidet der Einkäufer, ob ein Dokument gültig ist.
 
 | Feld | Bedeutung |
 |---|---|
@@ -113,7 +113,56 @@ Ein Lieferantendokument erfasst ein Compliance-Dokument, das Sie für einen Lief
 | **File** | Das Dokument selbst, in Dataverse hochgeladen |
 | **Notes** | Sonstiges |
 
-Legen Sie Dokumente über die Registerkarte Documents des Lieferanten an (**+ New Supplier Document**), damit der Lieferant automatisch eingetragen wird.
+Der Abschnitt **Review** des Formulars ist schreibgeschützt und wird vom System ausgefüllt:
+
+| Feld | Bedeutung |
+|---|---|
+| **Status Reason** | **Pending Review**, **Approved** oder **Rejected** (siehe unten) |
+| **Expiry Status** | **Valid**, **Expiring** (läuft innerhalb von 30 Tagen ab), **Expired** oder **Replaced** (es gibt ein neueres genehmigtes Dokument desselben Typs) |
+| **Reviewed By** / **Reviewed On** | Wer das Dokument genehmigt oder abgelehnt hat, und wann |
+| **From Supplier Portal** | Ja, wenn der Lieferant das Dokument im Portal hochgeladen hat |
+| **Expiry Notice Sent** | Letzte an den Lieferanten gesendete Ablauf-E-Mail für das Dokument: Expiring oder Expired; wird gelöscht, wenn sich das Ablaufdatum ändert |
+| **Review Note** | Notiz des Prüfers; der Grund, den der Lieferant sieht, wenn das Dokument abgelehnt wird |
+
+Legen Sie Dokumente auf der Registerkarte Documents des Lieferanten an (**+ New Supplier Document**), damit der Lieferant automatisch ausgefüllt wird.
+
+#### Prüfung
+
+```mermaid
+stateDiagram-v2
+    [*] --> PendingReview: Lieferant lädt im Portal hoch
+    [*] --> Approved: in ProjectIQ angelegt
+    PendingReview --> Approved: Approve
+    PendingReview --> Rejected: Reject (Notiz)
+    Rejected --> PendingReview: Lieferant korrigiert es im Portal
+    Approved --> [*]
+```
+
+- Ein **in ProjectIQ angelegtes** Dokument ist sofort **Approved**: Sie prüfen es selbst.
+- Ein **vom Lieferanten hochgeladenes** Dokument ist **Pending Review**. Der Besitzer des Lieferantenkontos erhält die In-App-Benachrichtigung „Supplier document to review“. Öffnen Sie das Dokument, prüfen Sie die Datei und klicken Sie in der Befehlsleiste auf **Approve** oder **Reject**. **Reject** fragt nach einer Notiz, die der Lieferant im Portal sieht.
+- Der Lieferant kann ein Dokument nur ändern oder löschen, solange es **Pending Review** oder **Rejected** ist. Eine Änderung an einem abgelehnten Dokument setzt es wieder auf **Pending Review**. Ein **Approved** Dokument kann im Portal weder geändert noch gelöscht werden: Für eine Erneuerung lädt der Lieferant ein neues Dokument hoch.
+- Der Statusgrund lässt sich nicht von Hand ändern: Verwenden Sie **Approve** und **Reject**.
+
+Nur genehmigte Dokumente zählen: Sie bestimmen den Ablaufstatus und die Hinweiszähler, und nur für sie werden Ablauf-E-Mails gesendet. Wird eine Erneuerung desselben Typs genehmigt, wird das ältere Dokument **Replaced** und löst keine Hinweise mehr aus.
+
+#### Ablauf und E-Mails
+
+Jeden Morgen um 06:00 Uhr (Europa/Rom) aktualisiert der Flow **Daily document expiry** den Ablaufstatus aller Dokumente und die Zähler der Lieferanten und sendet dem Lieferanten eine E-Mail:
+
+- einmal, wenn ein genehmigtes Dokument **Expiring** wird (30 Tage vor dem Ablaufdatum);
+- einmal, wenn es **Expired** wird.
+
+Die E-Mail geht an die E-Mail-Adresse des Lieferantenkontos, wird in der Zeitachse des Dokuments erfasst und erst wieder gesendet, wenn sich das Ablaufdatum ändert. Ein Lieferant ohne E-Mail-Adresse erhält nichts: Die E-Mail geht am Morgen nach dem Eintragen der Adresse hinaus. Der Lieferant sieht die Hinweise auch im Portal (Dashboard und Seite Documents).
+
+Der Text der E-Mails stammt aus Dataverse-**E-Mail-Vorlagen** (Typ Firma) in der Sprache des Lieferanten (Feld **Language** des Kontos). Ihr Administrator wählt die Vorlagen und das sendende Postfach in den Umgebungsvariablen **Supplier Email Templates** und **Supplier Email Sender** (siehe [Administration](administration.md#unternehmenseinstellungen)). Solange kein Absender festgelegt ist, werden Status und Zähler trotzdem aktualisiert, aber keine E-Mail gesendet.
+
+#### Ansichten
+
+| Ansicht | Zeigt |
+|---|---|
+| **Active Supplier Documents** | Alle Dokumente mit Typ, Lieferant, Nummer, Ablaufdatum, Ablaufstatus und Statusgrund |
+| **Supplier Documents to Review** | Von Lieferanten gesendete Dokumente, die auf Approve oder Reject warten |
+| **Expiring and Expired Supplier Documents** | Genehmigte Dokumente, die innerhalb von 30 Tagen ablaufen oder abgelaufen sind |
 
 ## Kontakte
 
@@ -265,3 +314,6 @@ flowchart LR
 | Fehler wegen doppeltem Schlüssel bei einem Artikellieferanten | Dieser Lieferant hat bereits eine Preiszeile für den Artikel | Die vorhandene Zeile öffnen und ändern |
 | Fehler wegen doppeltem Schlüssel bei einem Ressourcensatz | Die Ressource hat bereits einen Satz mit diesem Valid From | Die vorhandene Zeile ändern |
 | Hourly Cost ist leer oder zeigt *** | Sie haben das Profil Cost Visibility nicht | Wenden Sie sich an einen Administrator, wenn Sie Kosten sehen müssen |
+| „Use Approve or Reject to review a supplier document.“ | Sie haben den Statusgrund eines Lieferantendokuments von Hand geändert | Verwenden Sie die Schaltfläche Approve oder Reject |
+| „Add a note to reject the supplier document.“ | Reject ohne Notiz | Schreiben Sie den Grund für den Lieferanten |
+| „Only supplier documents pending review can be approved or rejected.“ | Das Dokument ist bereits genehmigt oder abgelehnt | Nichts zu tun; der Lieferant sendet ein korrigiertes Dokument |

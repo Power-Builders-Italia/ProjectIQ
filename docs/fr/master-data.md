@@ -96,11 +96,11 @@ Valeurs en lecture seule : **Spend** (total des commandes du fournisseur, visibl
 
 L'onglet **Documents** liste les **documents de conformité** du fournisseur et affiche les compteurs **Document Alerts** (Expired Documents = expirés, Expiring Documents = bientôt expirés). L'onglet **Item Prices** liste les articles que le fournisseur vend, avec son prix pour chacun.
 
-> Les compteurs d'alertes documents sont prévus pour une mise à jour quotidienne ; tant que ce traitement n'est pas activé dans votre environnement, ils peuvent rester vides. Les documents eux-mêmes, avec leurs dates d'expiration, sont toujours disponibles dans l'onglet Documents et dans les vues.
+Les compteurs ne comptent que les documents **approuvés** et sont mis à jour à chaque modification d'un document et chaque matin par le flux **Daily document expiry** (voir [Expiration et e-mails](#expiration-et-e-mails)).
 
 ### Documents du fournisseur
 
-Un document fournisseur enregistre une pièce de conformité que vous devez conserver : DURC (attestation italienne de régularité sociale), extrait du registre du commerce, certifications, polices d'assurance, contrats, etc.
+Un document fournisseur enregistre une pièce de conformité que vous devez conserver : DURC (attestation italienne de régularité sociale), extrait du registre du commerce, certifications, polices d'assurance, contrats, etc. Les documents sont saisis par votre personnel ou déposés par le fournisseur dans le [portail fournisseurs](supplier-portal.md#documents-dentreprise) ; dans les deux cas, c'est l'acheteur qui décide si un document est valable.
 
 | Champ | Signification |
 |---|---|
@@ -113,7 +113,56 @@ Un document fournisseur enregistre une pièce de conformité que vous devez cons
 | **File** | Le document lui-même, chargé dans Dataverse |
 | **Notes** | Divers |
 
+La section **Review** du formulaire est en lecture seule et renseignée par le système :
+
+| Champ | Signification |
+|---|---|
+| **Status Reason** | **Pending Review**, **Approved** ou **Rejected** (voir ci-dessous) |
+| **Expiry Status** | **Valid**, **Expiring** (expire dans les 30 jours), **Expired**, ou **Replaced** (un document approuvé plus récent du même type existe) |
+| **Reviewed By** / **Reviewed On** | Qui a approuvé ou rejeté le document, et quand |
+| **From Supplier Portal** | Oui quand le fournisseur a déposé le document dans le portail |
+| **Expiry Notice Sent** | Dernier e-mail d'expiration envoyé au fournisseur pour le document : Expiring ou Expired ; effacé quand la date d'expiration change |
+| **Review Note** | Note du vérificateur ; le motif montré au fournisseur quand le document est rejeté |
+
 Créez les documents depuis l'onglet Documents du fournisseur (**+ New Supplier Document**), pour que le fournisseur soit renseigné automatiquement.
+
+#### Vérification
+
+```mermaid
+stateDiagram-v2
+    [*] --> PendingReview: le fournisseur dépose dans le portail
+    [*] --> Approved: créé dans ProjectIQ
+    PendingReview --> Approved: Approve
+    PendingReview --> Rejected: Reject (note)
+    Rejected --> PendingReview: le fournisseur le corrige dans le portail
+    Approved --> [*]
+```
+
+- Un document **créé dans ProjectIQ** est **Approved** immédiatement : c'est vous qui le vérifiez.
+- Un document **déposé par le fournisseur** est **Pending Review**. Le propriétaire du compte du fournisseur reçoit la notification in-app « Supplier document to review ». Ouvrez le document, vérifiez le fichier et cliquez sur **Approve** ou **Reject** dans la barre de commandes. **Reject** demande une note, que le fournisseur voit dans le portail.
+- Le fournisseur ne peut modifier ou supprimer un document que tant qu'il est **Pending Review** ou **Rejected**. Une modification d'un document rejeté le remet en **Pending Review**. Un document **Approved** ne peut plus être modifié ni supprimé depuis le portail : pour un renouvellement, le fournisseur dépose un nouveau document.
+- La raison du statut ne se change pas à la main : utilisez **Approve** et **Reject**.
+
+Seuls les documents approuvés comptent : ils déterminent le statut d'expiration et les compteurs d'alertes, et eux seuls reçoivent les e-mails d'expiration. Quand un renouvellement du même type est approuvé, l'ancien document devient **Replaced** et ne génère plus d'alertes.
+
+#### Expiration et e-mails
+
+Chaque matin à 06:00 (Europe/Rome), le flux **Daily document expiry** met à jour le statut d'expiration de tous les documents et les compteurs des fournisseurs, et envoie un e-mail au fournisseur :
+
+- une fois quand un document approuvé devient **Expiring** (30 jours avant la date d'expiration) ;
+- une fois quand il devient **Expired**.
+
+L'e-mail part vers l'adresse e-mail du compte du fournisseur, est enregistré dans la chronologie du document et n'est pas renvoyé tant que la date d'expiration ne change pas. Un fournisseur sans adresse e-mail ne reçoit rien : l'e-mail part le matin suivant la saisie de l'adresse. Le fournisseur voit aussi les alertes dans le portail (Dashboard et page Documents).
+
+Le texte des e-mails provient des **modèles d'e-mail** Dataverse (type Compte) dans la langue du fournisseur (champ **Language** du compte). Votre administrateur choisit les modèles et la boîte aux lettres d'envoi dans les variables d'environnement **Supplier Email Templates** et **Supplier Email Sender** (voir [Administration](administration.md#paramètres-de-lentreprise)). Tant qu'aucun expéditeur n'est défini, statuts et compteurs sont mis à jour mais aucun e-mail n'est envoyé.
+
+#### Vues
+
+| Vue | Affiche |
+|---|---|
+| **Active Supplier Documents** | Tous les documents avec type, fournisseur, numéro, date d'expiration, statut d'expiration et raison du statut |
+| **Supplier Documents to Review** | Les documents envoyés par les fournisseurs en attente d'Approve ou de Reject |
+| **Expiring and Expired Supplier Documents** | Les documents approuvés qui expirent dans les 30 jours ou sont expirés |
 
 ## Contacts
 
@@ -265,3 +314,6 @@ flowchart LR
 | Erreur de clé en double sur un item supplier | Ce fournisseur a déjà une ligne de prix pour l'article | Ouvrez et modifiez la ligne existante |
 | Erreur de clé en double sur un resource cost | La ressource a déjà un coût avec ce Valid From | Modifiez la ligne existante |
 | Hourly Cost vide ou masqué | Vous n'avez pas le profil Cost Visibility | Demandez à un administrateur si vous devez voir les coûts |
+| « Use Approve or Reject to review a supplier document. » | Vous avez changé à la main la raison du statut d'un document fournisseur | Utilisez le bouton Approve ou Reject |
+| « Add a note to reject the supplier document. » | Reject sans note | Saisissez le motif pour le fournisseur |
+| « Only supplier documents pending review can be approved or rejected. » | Le document est déjà approuvé ou rejeté | Rien à faire ; le fournisseur envoie un document corrigé |

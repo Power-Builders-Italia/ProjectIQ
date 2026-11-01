@@ -23,6 +23,7 @@ namespace OpenProject365.Plugins
         public const string PurchaseOrderLine = "op365_purchaseorderline";
         public const string GoodsReceipt = "op365_goodsreceipt";
         public const string GoodsReceiptLine = "op365_goodsreceiptline";
+        public const string SupplierDocument = "op365_supplierdocument";
         public const string SupplierInvoice = "op365_supplierinvoice";
         public const string SupplierInvoiceLine = "op365_supplierinvoiceline";
 
@@ -96,5 +97,16 @@ namespace OpenProject365.Plugins
         public const int InvoiceToReview = 1;
         public const int InvoiceApproved = 365000000;
         public const int InvoiceRejected = 365000001;
+
+        // supplier documents: status reasons (review), expiry status, expiry notice sent
+        public const int DocumentApproved = 1;
+        public const int DocumentPendingReview = 365000000;
+        public const int DocumentRejected = 365000001;
+        public const int ExpiryValid = 365000000;
+        public const int ExpiryExpiring = 365000001;
+        public const int ExpiryExpired = 365000002;
+        public const int ExpiryReplaced = 365000003;
+        public const int NoticeExpiring = 365000000;
+        public const int NoticeExpired = 365000001;
     }
 }

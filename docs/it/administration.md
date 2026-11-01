@@ -106,6 +106,8 @@ Per cambiare un valore:
 | `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes: le ore inviate attendono l'approvazione di un project manager. No: **Submit** approva subito le ore |
 | `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Vuoto | Importo oltre il quale una richiesta d'acquisto richiede anche l'approvazione di secondo livello. Vuoto o 0 = mai |
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Vuoto | **User Name** (es. `anna.rossi@contoso.com`) o email principale dell'utente che approva le richieste sopra soglia e decide le fatture fornitori. Vuoto, o nessun utente attivo con quel nome = tutti gli OP365 Administrator |
+| `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | I modelli ProjectIQ | Modello email (tipo Account) di ogni messaggio ai fornitori, per **Language** del fornitore: `{"DocumentExpiring": {"Italian": "<titolo modello>", "English": "<titolo modello>", "default": "English"}, "DocumentExpired": {...}}`. `default` è la lingua usata quando il fornitore non ne ha una o non esiste il modello |
+| `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Vuoto | Nome o indirizzo email della **coda** (casella con sincronizzazione lato server) che invia le email ai fornitori. Vuoto = nessuna email |
 
 Il Purchasing Approver è un nome utente e non una lookup perché gli id degli utenti cambiano in ogni ambiente. Le richieste già inviate mantengono il livello di approvazione assegnato.
 
@@ -120,7 +122,7 @@ In Test l'IT può impostare i valori anche al momento del rilascio, tramite le d
 
 ## Automazioni in background
 
-ProjectIQ mantiene aggiornati quasi tutti i valori con **plugin** che girano dentro Dataverse al salvataggio dei record; non richiedono manutenzione. Una sola automazione è pianificata.
+ProjectIQ mantiene aggiornati quasi tutti i valori con **plugin** che girano dentro Dataverse al salvataggio dei record; non richiedono manutenzione. Due automazioni sono pianificate.
 
 ### Promemoria giornaliero delle ore
 
@@ -132,6 +134,17 @@ Il flusso usa il riferimento di connessione **op365_dataverse** (Microsoft Datav
 2. collegarla al riferimento di connessione nella soluzione (negli ambienti di Test/Produzione la distribuzione la mappa tramite le deployment settings);
 3. condividere la connessione con l'utente applicativo della distribuzione (*Can use*), perché le importazioni possano attivare il flusso;
 4. attivare il flusso (**on**) e controllarne la cronologia delle esecuzioni il giorno lavorativo successivo.
+
+### Scadenza giornaliera dei documenti
+
+Il flusso **Daily document expiry** gira **ogni giorno alle 06:00** (ora W. Europe) e chiama l'azione *op365_UpdateDocumentExpiry*: aggiorna lo stato di scadenza dei documenti fornitore e i contatori degli avvisi dei fornitori, e invia ai fornitori le email di scadenza (vedi [Anagrafiche](master-data.md#scadenze-ed-email)). Usa lo stesso riferimento di connessione del Daily time reminder; attivalo **on** allo stesso modo.
+
+Per inviare le email:
+
+1. Crea una **coda** con una casella di posta (per esempio *Fornitori*, `fornitori@contoso.com`), approva l'indirizzo della casella e abilita la **sincronizzazione lato server** per la posta in uscita.
+2. Imposta **Supplier Email Sender** con il nome o l'indirizzo email della coda.
+3. Controlla i modelli in **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* e *ProjectIQ - Document expired*, con una versione per lingua come *ProjectIQ - Documento scaduto*). Modificane il testo a piacere; i segnaposto `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` e `{ExpiryDate}` vengono compilati per ogni documento. Per usare altri modelli, scrivi i loro titoli in **Supplier Email Templates**. I modelli sono dati dell'ambiente, non della soluzione: se mancano, l'IT li crea con `tools/dataverse/supplier_email_templates.py`.
+4. Compila **Language** ed **Email** di ogni account fornitore.
 
 ### Cos'altro succede in automatico
 

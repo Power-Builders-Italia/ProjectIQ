@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26103.00137">
+<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26104.00129">
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
@@ -128,6 +128,7 @@
       <RootComponent type="29" id="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a01}" behavior="0" />
       <RootComponent type="29" id="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a02}" behavior="0" />
       <RootComponent type="29" id="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a03}" behavior="0" />
+      <RootComponent type="29" id="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a04}" behavior="0" />
       <RootComponent type="29" id="{a58865cd-fbcf-f111-a05b-000d3ad895be}" behavior="0" />
       <RootComponent type="60" id="{37705131-eccf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="60" id="{40705131-eccf-f111-a05b-7ced8d2d53e4}" behavior="0" />
@@ -178,11 +179,17 @@
       <RootComponent type="92" id="{2de7fb53-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{2efb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{2f5d3101-fecf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{2f75c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{31fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{3275c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{35fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{3675c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{38fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{3a75c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{3cfb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{3d75c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{40fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{4175c9ad-c6d5-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{43fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{51d7edee-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{53711a5a-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
@@ -245,18 +252,6 @@
           <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
         </Required>
         <Dependent type="80" schemaName="op365_OpenProject365" displayName="ProjectIQ" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">
-          <package appName="PowerAppsAppFramework Package" version="1.0.0.28">PowerAppsAppFramework_Anchor (1.0.0.28)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=op365_OpenProject365,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="op365_OpenProject365" id.settingdefinitionid.uniquename="AppChannel" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="SettingDefinition" displayName="m365copilotmodelappenabled" solution="msdyn_M365CopilotAppInfraSettings (9.2.0.9)" id.uniquename="m365copilotmodelappenabled">
-          <package appName="PowerAppsAppCopilotApp Package" version="9.2.0.9">msdyn_M365CopilotAppInfraSettings (9.2.0.9)</package>
-        </Required>
-        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=op365_OpenProject365,settingdefinitionid.uniquename=m365copilotmodelappenabled" id.parentappmoduleid.uniquename="op365_OpenProject365" id.settingdefinitionid.uniquename="m365copilotmodelappenabled" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
