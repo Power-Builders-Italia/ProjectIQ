@@ -156,6 +156,8 @@
       <RootComponent type="91" id="{06e7fb53-e1cf-f111-a05b-7ced8d2d53e4}" schemaName="OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" behavior="0" />
       <RootComponent type="92" id="{0361c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0761c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{07fcdfc6-20d6-f111-84e8-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{0afcdfc6-20d6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0b61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0e61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{10fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />

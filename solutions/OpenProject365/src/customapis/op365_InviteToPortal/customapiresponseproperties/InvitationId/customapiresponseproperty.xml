@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="InvitationId">
+  <description default="New invitation">
+    <label description="New invitation" languagecode="1033" />
+  </description>
+  <displayname default="InvitationId">
+    <label description="InvitationId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_InviteToPortal.InvitationId</name>
+  <type>12</type>
+</customapiresponseproperty>

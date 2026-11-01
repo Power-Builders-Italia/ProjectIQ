@@ -1,0 +1,19 @@
+<customapi uniquename="op365_InviteToPortal">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>contact</boundentitylogicalname>
+  <description default="Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)">
+    <label description="Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)" languagecode="1033" />
+  </description>
+  <displayname default="Invite To Portal">
+    <label description="Invite To Portal" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Invite To Portal</name>
+  <plugintypeid>
+    <plugintypeexportkey>9e414db7-20d6-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -47,6 +47,10 @@ COMMANDS = [
         ('ApproveDocument', 'Approve', 'Approve the document: it becomes valid', 'Accept', 'approveDocument', [S]),
         ('RejectDocument', 'Reject', 'Reject the document with a note for the supplier', 'Cancel', 'rejectDocument', [S]),
     ]),
+    ('Contact', 'contact', [
+        ('InviteToPortal', 'Invite to Portal', 'E-mail the contact an invitation to the supplier portal (its Company Name must be a supplier)',
+         'Send', 'inviteToPortal', None),
+    ]),
 ]
 
 

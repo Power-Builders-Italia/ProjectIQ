@@ -145,17 +145,25 @@ Draft and cancelled orders and RFQs not yet sent are never shown. Prices of othe
 
 ### Giving a supplier access
 
-A supplier user is a **contact** whose **company** is the supplier account, with the **Supplier** web role.
+A supplier user is a **contact** whose **Company Name** is the supplier account. ProjectIQ gives such a contact the **Supplier** web role automatically, and removes it when the Company Name stops being a supplier: you never assign web roles by hand.
 
-1. In ProjectIQ make sure the supplier account is **Is Supplier**, **Active** and not **Blocked**, and has a valid **Email**.
-2. Create (or open) the **contact** of the person, with **Company Name** = the supplier and their email.
-3. In **Power Pages Management** (or the portal studio, *Set up → Web roles*) assign the web role **Supplier** to the contact.
-4. Let the person sign in with the method configured on your site (for example send an **invitation** from Power Pages Management → *Invitations*, or let them register with the email you recorded).
-5. Send the person the address of the portal and [Part 1](#part-1--guide-for-suppliers) of this manual.
+```mermaid
+flowchart LR
+    A[Contact with Company Name = supplier] -->|automatic| R[Web role Supplier]
+    A --> I[Invite to Portal] --> M[E-mail with invitation code] --> S[Supplier signs up] --> P[Portal]
+    X[Self-registered person] -->|you set Company Name| A
+```
 
-To remove access, remove the Supplier web role from the contact or deactivate the contact.
+1. In ProjectIQ make sure the supplier account is **Is Supplier**, **Active** and not **Blocked**.
+2. Create (or open) the **contact** of the person, with **Company Name** = the supplier and their **Email**.
+3. On the contact click **Invite to Portal** and confirm. The person receives an e-mail with an invitation (valid 30 days, usable once): following it they create their account (e-mail and password, or Microsoft) already linked to the supplier.
+4. Send the person [Part 1](#part-1--guide-for-suppliers) of this manual.
 
-**Sign-in methods.** Besides Microsoft Entra ID, the portal offers **local accounts** (e-mail and password), so suppliers outside your tenant can sign in. People can also **register** by themselves: a self-registered person sees nothing until you set the **Company Name** of their contact to the supplier and give it the **Supplier** web role, so check new contacts regularly. Your administrator can turn off local accounts or self-registration (then only invited people can register), see [Development environment setup](../dev-environment.md#supplier-portal-power-pages).
+**Invite to Portal** refuses a contact without e-mail ("Add the e-mail address of the contact before inviting it to the supplier portal.") or whose Company Name is not a supplier ("Set a supplier as Company Name of the contact before inviting it to the supplier portal."). The e-mail is written in the **Language** of the supplier and is sent with the same setup as the expiry e-mails ([Administration](administration.md#daily-document-expiry)); without it you get "The invitation e-mail could not be sent: check the environment variables op365_SupplierEmailSender and op365_SupplierEmailTemplates (PortalInvitation)." and no invitation is created. The invitations are in Power Pages Management → *Invitations*.
+
+To remove access, change the Company Name of the contact (the Supplier web role is removed) or deactivate the contact.
+
+**Sign-in methods.** Besides Microsoft Entra ID, the portal offers **local accounts** (e-mail and password), so suppliers outside your tenant can sign in. People can also **register** by themselves: a self-registered person sees nothing until you set the **Company Name** of their contact to the supplier, which gives them the Supplier web role; check new contacts regularly. Your administrator can turn off local accounts or self-registration (then only invited people can register), see [Development environment setup](../dev-environment.md#supplier-portal-power-pages).
 
 ### Reviewing the documents
 
