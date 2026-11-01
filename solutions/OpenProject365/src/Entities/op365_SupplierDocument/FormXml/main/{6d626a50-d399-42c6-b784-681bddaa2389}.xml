@@ -112,6 +112,91 @@
                     </row>
                   </rows>
                 </section>
+                <section name="review" showlabel="true" showbar="false" columns="2" id="{1f95b8f5-4fd8-541f-8ab4-ee18e8278d91}">
+                  <labels>
+                    <label description="Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{296fc7fd-1d36-5f93-9ca6-7ac0cc1a91fd}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                      <cell id="{24ed8b50-a143-57ad-9953-50f12b534c3c}">
+                        <labels>
+                          <label description="Expiry Status" languagecode="1033" />
+                          <label description="Stato scadenza" languagecode="1040" />
+                          <label description="Ablaufstatus" languagecode="1031" />
+                          <label description="Statut d'expiration" languagecode="1036" />
+                        </labels>
+                        <control id="op365_expirystatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_expirystatus" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{aa421153-4bc3-51ae-aea9-bce51ef5be96}">
+                        <labels>
+                          <label description="Reviewed By" languagecode="1033" />
+                          <label description="Revisionato da" languagecode="1040" />
+                          <label description="Geprüft von" languagecode="1031" />
+                          <label description="Examiné par" languagecode="1036" />
+                        </labels>
+                        <control id="op365_reviewedbyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_reviewedbyid" disabled="true" />
+                      </cell>
+                      <cell id="{c2261588-526e-5154-b091-910aef32b444}">
+                        <labels>
+                          <label description="Reviewed On" languagecode="1033" />
+                          <label description="Revisionato il" languagecode="1040" />
+                          <label description="Geprüft am" languagecode="1031" />
+                          <label description="Examiné le" languagecode="1036" />
+                        </labels>
+                        <control id="op365_reviewedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_reviewedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9c701639-b99c-5ae7-9462-cf09449c2b7e}">
+                        <labels>
+                          <label description="From Supplier Portal" languagecode="1033" />
+                          <label description="Dal portale fornitori" languagecode="1040" />
+                          <label description="Aus dem Lieferantenportal" languagecode="1031" />
+                          <label description="Depuis le portail fournisseurs" languagecode="1036" />
+                        </labels>
+                        <control id="op365_fromportal" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_fromportal" disabled="true" />
+                      </cell>
+                      <cell id="{afba010a-6973-593f-8788-6a5d97ee0858}">
+                        <labels>
+                          <label description="Expiry Notice Sent" languagecode="1033" />
+                          <label description="Avviso di scadenza inviato" languagecode="1040" />
+                          <label description="Ablaufhinweis gesendet" languagecode="1031" />
+                          <label description="Avis d'expiration envoyé" languagecode="1036" />
+                        </labels>
+                        <control id="op365_expirynotice" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_expirynotice" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="review_note" showlabel="true" showbar="false" columns="1" id="{af0cccb9-c4be-5760-92f6-62aaa6556dcb}">
+                  <labels>
+                    <label description="Review Note" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{e4c64f23-f8e7-5a1d-8afd-25c826ff0b59}">
+                        <labels>
+                          <label description="Review Note" languagecode="1033" />
+                          <label description="Nota di revisione" languagecode="1040" />
+                          <label description="Prüfnotiz" languagecode="1031" />
+                          <label description="Note d'examen" languagecode="1036" />
+                        </labels>
+                        <control id="op365_reviewnote" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_reviewnote" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section name="file" showlabel="true" showbar="false" columns="1" id="{c2b002fb-f83d-52c9-be7d-369bcd73d6e2}">
                   <labels>
                     <label description="Datei" languagecode="1031" />

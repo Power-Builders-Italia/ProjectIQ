@@ -345,7 +345,7 @@
           <Name>op365_description</Name>
           <LogicalName>op365_description</LogicalName>
           <RequiredLevel>none</RequiredLevel>
-          <DisplayMask>PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+          <DisplayMask>ActivityPointerRegardingName|PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
           <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
           <ValidForReadApi>1</ValidForReadApi>
@@ -540,6 +540,180 @@
             <Description description="Data di scadenza del documento; i documenti scaduti contano in Documenti scaduti sul fornitore" languagecode="1040" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="op365_ExpiryNotice">
+          <Type>picklist</Type>
+          <Name>op365_expirynotice</Name>
+          <LogicalName>op365_expirynotice</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>-1</AppDefaultValue>
+          <optionset Name="op365_supplierdocument_op365_expirynotice">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Expiry Notice Sent" languagecode="1033" />
+              <displayname description="Ablaufhinweis gesendet" languagecode="1031" />
+              <displayname description="Avis d'expiration envoyé" languagecode="1036" />
+              <displayname description="Avviso di scadenza inviato" languagecode="1040" />
+            </displaynames>
+            <Descriptions>
+              <Description description="Last expiry e-mail sent to the supplier for this document; cleared when the expiry date changes" languagecode="1033" />
+              <Description description="Letzte Ablauf-E-Mail an den Lieferanten für dieses Dokument; wird bei Änderung des Ablaufdatums geleert" languagecode="1031" />
+              <Description description="Dernier e-mail d'expiration envoyé au fournisseur pour ce document ; effacé quand la date d'expiration change" languagecode="1036" />
+              <Description description="Ultima e-mail di scadenza inviata al fornitore per questo documento; si azzera quando cambia la data di scadenza" languagecode="1040" />
+            </Descriptions>
+            <options>
+              <option value="365000000" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Expiring" languagecode="1033" />
+                  <label description="Läuft bald ab" languagecode="1031" />
+                  <label description="Bientôt expiré" languagecode="1036" />
+                  <label description="In scadenza" languagecode="1040" />
+                </labels>
+              </option>
+              <option value="365000001" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Expired" languagecode="1033" />
+                  <label description="Abgelaufen" languagecode="1031" />
+                  <label description="Expiré" languagecode="1036" />
+                  <label description="Scaduto" languagecode="1040" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Expiry Notice Sent" languagecode="1033" />
+            <displayname description="Ablaufhinweis gesendet" languagecode="1031" />
+            <displayname description="Avis d'expiration envoyé" languagecode="1036" />
+            <displayname description="Avviso di scadenza inviato" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Last expiry e-mail sent to the supplier for the document: Expiring or Expired" languagecode="1033" />
+            <Description description="Letzte Ablauf-E-Mail an den Lieferanten für das Dokument: Läuft bald ab oder Abgelaufen" languagecode="1031" />
+            <Description description="Dernier e-mail d'expiration envoyé au fournisseur pour le document : Bientôt expiré ou Expiré" languagecode="1036" />
+            <Description description="Ultima e-mail di scadenza inviata al fornitore per il documento: In scadenza o Scaduto" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ExpiryStatus">
+          <Type>picklist</Type>
+          <Name>op365_expirystatus</Name>
+          <LogicalName>op365_expirystatus</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>-1</AppDefaultValue>
+          <optionset Name="op365_supplierdocument_op365_expirystatus">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Expiry Status" languagecode="1033" />
+              <displayname description="Ablaufstatus" languagecode="1031" />
+              <displayname description="Statut d'expiration" languagecode="1036" />
+              <displayname description="Stato scadenza" languagecode="1040" />
+            </displaynames>
+            <Descriptions>
+              <Description description="Valid, Expiring (expires within 30 days), Expired, or Replaced by a newer approved document of the same type; kept by the plugins and the Daily document expiry flow" languagecode="1033" />
+              <Description description="Gültig, Läuft bald ab (innerhalb von 30 Tagen), Abgelaufen oder Ersetzt durch ein neueres genehmigtes Dokument desselben Typs; von den Plug-ins und dem Flow tägliche Dokumentenfälligkeit gepflegt" languagecode="1031" />
+              <Description description="Valide, Bientôt expiré (dans les 30 jours), Expiré ou Remplacé par un document approuvé plus récent du même type ; tenu à jour par les plug-ins et le flux d'échéance quotidienne" languagecode="1036" />
+              <Description description="Valido, In scadenza (entro 30 giorni), Scaduto o Sostituito da un documento approvato più recente dello stesso tipo; aggiornato dai plug-in e dal flusso di scadenza giornaliera" languagecode="1040" />
+            </Descriptions>
+            <options>
+              <option value="365000000" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Valid" languagecode="1033" />
+                  <label description="Gültig" languagecode="1031" />
+                  <label description="Valide" languagecode="1036" />
+                  <label description="Valido" languagecode="1040" />
+                </labels>
+              </option>
+              <option value="365000001" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Expiring" languagecode="1033" />
+                  <label description="Läuft bald ab" languagecode="1031" />
+                  <label description="Bientôt expiré" languagecode="1036" />
+                  <label description="In scadenza" languagecode="1040" />
+                </labels>
+              </option>
+              <option value="365000002" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Expired" languagecode="1033" />
+                  <label description="Abgelaufen" languagecode="1031" />
+                  <label description="Expiré" languagecode="1036" />
+                  <label description="Scaduto" languagecode="1040" />
+                </labels>
+              </option>
+              <option value="365000003" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Replaced" languagecode="1033" />
+                  <label description="Ersetzt" languagecode="1031" />
+                  <label description="Remplacé" languagecode="1036" />
+                  <label description="Sostituito" languagecode="1040" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Expiry Status" languagecode="1033" />
+            <displayname description="Ablaufstatus" languagecode="1031" />
+            <displayname description="Statut d'expiration" languagecode="1036" />
+            <displayname description="Stato scadenza" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Valid, Expiring (within 30 days), Expired, or Replaced by a newer approved document of the same type" languagecode="1033" />
+            <Description description="Gültig, Läuft bald ab (innerhalb von 30 Tagen), Abgelaufen oder Ersetzt durch ein neueres genehmigtes Dokument desselben Typs" languagecode="1031" />
+            <Description description="Valide, Bientôt expiré (dans les 30 jours), Expiré ou Remplacé par un document approuvé plus récent du même type" languagecode="1036" />
+            <Description description="Valido, In scadenza (entro 30 giorni), Scaduto o Sostituito da un documento approvato più recente dello stesso tipo" languagecode="1040" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="op365_ExternalUrl">
           <Type>nvarchar</Type>
           <Name>op365_externalurl</Name>
@@ -628,6 +802,85 @@
             <Description description="Gescannte oder PDF-Kopie des Dokuments" languagecode="1031" />
             <Description description="Copie numérisée ou PDF du document" languagecode="1036" />
             <Description description="Copia scansionata o PDF del documento" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_FromPortal">
+          <Type>bit</Type>
+          <Name>op365_fromportal</Name>
+          <LogicalName>op365_fromportal</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>0</AppDefaultValue>
+          <optionset Name="op365_supplierdocument_op365_fromportal">
+            <OptionSetType>bit</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="From Supplier Portal" languagecode="1033" />
+              <displayname description="Aus dem Lieferantenportal" languagecode="1031" />
+              <displayname description="Depuis le portail fournisseurs" languagecode="1036" />
+              <displayname description="Dal portale fornitori" languagecode="1040" />
+            </displaynames>
+            <Descriptions>
+              <Description description="The supplier uploaded the document in the supplier portal" languagecode="1033" />
+              <Description description="Der Lieferant hat das Dokument im Lieferantenportal hochgeladen" languagecode="1031" />
+              <Description description="Le fournisseur a téléversé le document dans le portail fournisseurs" languagecode="1036" />
+              <Description description="Il fornitore ha caricato il documento nel portale fornitori" languagecode="1040" />
+            </Descriptions>
+            <options>
+              <option value="1" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
+                </labels>
+              </option>
+              <option value="0" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="From Supplier Portal" languagecode="1033" />
+            <displayname description="Aus dem Lieferantenportal" languagecode="1031" />
+            <displayname description="Depuis le portail fournisseurs" languagecode="1036" />
+            <displayname description="Dal portale fornitori" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Yes when the supplier uploaded the document in the supplier portal" languagecode="1033" />
+            <Description description="Ja, wenn der Lieferant das Dokument im Lieferantenportal hochgeladen hat" languagecode="1031" />
+            <Description description="Oui quand le fournisseur a téléversé le document dans le portail fournisseurs" languagecode="1036" />
+            <Description description="Sì quando il fornitore ha caricato il documento nel portale fornitori" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_IssueDate">
@@ -765,6 +1018,142 @@
             <Description description="Dokumentnummer oder Protokoll" languagecode="1031" />
             <Description description="Numéro de document ou protocole" languagecode="1036" />
             <Description description="Numero documento o protocollo" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ReviewedById">
+          <Type>lookup</Type>
+          <Name>op365_reviewedbyid</Name>
+          <LogicalName>op365_reviewedbyid</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>0</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <LookupStyle>single</LookupStyle>
+          <LookupTypes />
+          <displaynames>
+            <displayname description="Reviewed By" languagecode="1033" />
+            <displayname description="Geprüft von" languagecode="1031" />
+            <displayname description="Examiné par" languagecode="1036" />
+            <displayname description="Revisionato da" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="User who approved or rejected the document" languagecode="1033" />
+            <Description description="Benutzer, der das Dokument genehmigt oder abgelehnt hat" languagecode="1031" />
+            <Description description="Utilisateur qui a approuvé ou rejeté le document" languagecode="1036" />
+            <Description description="Utente che ha approvato o rifiutato il documento" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ReviewedOn">
+          <Type>datetime</Type>
+          <Name>op365_reviewedon</Name>
+          <LogicalName>op365_reviewedon</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>inactive</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>datetime</Format>
+          <CanChangeDateTimeBehavior>1</CanChangeDateTimeBehavior>
+          <Behavior>1</Behavior>
+          <displaynames>
+            <displayname description="Reviewed On" languagecode="1033" />
+            <displayname description="Geprüft am" languagecode="1031" />
+            <displayname description="Examiné le" languagecode="1036" />
+            <displayname description="Revisionato il" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Date and time the document was approved or rejected" languagecode="1033" />
+            <Description description="Datum und Uhrzeit der Genehmigung oder Ablehnung des Dokuments" languagecode="1031" />
+            <Description description="Date et heure d'approbation ou de rejet du document" languagecode="1036" />
+            <Description description="Data e ora di approvazione o rifiuto del documento" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ReviewNote">
+          <Type>ntext</Type>
+          <Name>op365_reviewnote</Name>
+          <LogicalName>op365_reviewnote</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>textarea</Format>
+          <MaxLength>2000</MaxLength>
+          <displaynames>
+            <displayname description="Review Note" languagecode="1033" />
+            <displayname description="Prüfnotiz" languagecode="1031" />
+            <displayname description="Note d'examen" languagecode="1036" />
+            <displayname description="Nota di revisione" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Note of the reviewer; the reason when the document is rejected" languagecode="1033" />
+            <Description description="Notiz des Prüfers; der Grund, wenn das Dokument abgelehnt wird" languagecode="1031" />
+            <Description description="Note de l'examinateur ; le motif quand le document est rejeté" languagecode="1036" />
+            <Description description="Nota del revisore; il motivo quando il documento è rifiutato" languagecode="1040" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_SupplierDocumentId">
@@ -1211,10 +1600,18 @@
             <statuses>
               <status value="1" state="0" IsHidden="0">
                 <labels>
-                  <label description="Active" languagecode="1033" />
+                  <label description="Approved" languagecode="1033" />
                   <label description="Aktiv" languagecode="1031" />
                   <label description="Actif" languagecode="1036" />
                   <label description="Attiva" languagecode="1040" />
+                </labels>
+              </status>
+              <status value="365000000" state="0" IsHidden="0">
+                <labels>
+                  <label description="Pending Review" languagecode="1033" />
+                  <label description="In Prüfung" languagecode="1031" />
+                  <label description="En attente d'examen" languagecode="1036" />
+                  <label description="In attesa di revisione" languagecode="1040" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">
@@ -1223,6 +1620,14 @@
                   <label description="Inaktiv" languagecode="1031" />
                   <label description="Inactif" languagecode="1036" />
                   <label description="Inattiva" languagecode="1040" />
+                </labels>
+              </status>
+              <status value="365000001" state="0" IsHidden="0">
+                <labels>
+                  <label description="Rejected" languagecode="1033" />
+                  <label description="Abgelehnt" languagecode="1031" />
+                  <label description="Rejeté" languagecode="1036" />
+                  <label description="Rifiutato" languagecode="1040" />
                 </labels>
               </status>
             </statuses>
@@ -1394,6 +1799,8 @@
       <IsEnabledForExternalChannels>0</IsEnabledForExternalChannels>
       <IsMSTeamsIntegrationEnabled>0</IsMSTeamsIntegrationEnabled>
       <IsSolutionAware>0</IsSolutionAware>
+      <HasRelatedNotes>True</HasRelatedNotes>
+      <HasRelatedActivities>True</HasRelatedActivities>
     </entity>
   </EntityInfo>
   <FormXml />

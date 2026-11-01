@@ -1,0 +1,25 @@
+<customapi uniquename="op365_DecideSupplierDocument">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_supplierdocument</boundentitylogicalname>
+  <description default="Approves or rejects a supplier document pending review">
+    <label description="Genehmigt oder lehnt ein Lieferantendokument in Prüfung ab" languagecode="1031" />
+    <label description="Approves or rejects a supplier document pending review" languagecode="1033" />
+    <label description="Approuve ou rejette un document fournisseur en attente d'examen" languagecode="1036" />
+    <label description="Approva o rifiuta un documento fornitore in attesa di revisione" languagecode="1040" />
+  </description>
+  <displayname default="Decide Supplier Document">
+    <label description="Über Lieferantendokument entscheiden" languagecode="1031" />
+    <label description="Decide Supplier Document" languagecode="1033" />
+    <label description="Statuer sur le document fournisseur" languagecode="1036" />
+    <label description="Decidi documento fornitore" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Decide Supplier Document</name>
+  <plugintypeid>
+    <plugintypeexportkey>e4190c9e-c6d5-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>
