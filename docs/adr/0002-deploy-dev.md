@@ -76,6 +76,7 @@ Compares two unpacked solution folders file by file after normalizing:
 | Rule | Why |
 |---|---|
 | Ignore the `<Version>` element of `Other/Solution.xml` | `deploy-test` changes the version in Dev on every run |
+| Ignore the `<MissingDependencies>` element of `Other/Solution.xml` | Dataverse computes it at export time from what is installed in the environment (e.g. the portal table permissions on `op365_` tables while `OpenProject365` is being imported), so it changes without any customization |
 | Ignore labels with `languagecode="1040"` in components not prefixed `op365_` (e.g. `Account`, `Contact`, `SystemUser`) | the Dev language pack adds them; the labels of `op365_` components are wanted translations and stay compared |
 | Normalize line endings and trailing whitespace | export on Windows, repository edited anywhere |
 | Compare only the presence, not the content, of built files: `PluginAssemblies/**/*.dll` and `Controls/**/bundle.js` | `deploy-dev` installs them built from source, so their bytes never match the copies in the repository; code drift is not customization drift |

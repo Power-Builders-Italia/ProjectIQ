@@ -94,35 +94,6 @@
       </Addresses>
     </Publisher>
     <RootComponents />
-    <MissingDependencies>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_project" displayName="Project" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{46193a68-ccd5-f111-84e8-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_purchaseorder" displayName="Purchase Order" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{5266636f-43d0-f111-a05b-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_purchaseorderline" displayName="Purchase Order Line" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{5b66636f-43d0-f111-a05b-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_rfqinvitation" displayName="RFQ Invitation" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{3f66636f-43d0-f111-a05b-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_rfqquote" displayName="RFQ Quote" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{4866636f-43d0-f111-a05b-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_supplierdocument" displayName="Supplier Document" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{bcca406e-ccd5-f111-84e8-7ced8d2d53e4}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="op365_supplierinvoice" displayName="Supplier Invoice" solution="Active" />
-        <Dependent type="powerpagecomponent" id="{5d193a68-ccd5-f111-84e8-7ced8d2d53e4}" />
-      </MissingDependency>
-    </MissingDependencies>
+    <MissingDependencies />
   </SolutionManifest>
 </ImportExportXml>
