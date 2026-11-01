@@ -41,7 +41,7 @@ Your customer gives you access to its supplier portal. You receive the portal ad
 
 1. Open the portal address and click **Sign in**.
 2. Sign in with your account: under **Sign in with a local account** type your **Email** and **Password** (**Forgot your password?** sends you a reset link), or use **Microsoft Entra ID** if your customer gave you a company account. No account yet? Click **Register**, or **Redeem invitation** if you received an invitation code.
-3. Open **Dashboard**. On the left, the sidebar shows the modules: **Dashboard**, **Projects**, **Requests for quotation**, **Purchase orders**, **Invoices** and **Documents**. A blue counter shows the RFQs to quote and the orders to confirm; an orange counter shows the documents to renew or correct. At the bottom you find your company, your name and **Sign out**.
+3. After sign-in the portal opens the **Dashboard** (the home page sends you there; if your account is not yet linked to a supplier, it tells you to ask your customer). On the left, the sidebar shows the modules: **Dashboard**, **Projects**, **Requests for quotation**, **Purchase orders**, **Invoices** and **Documents**. A blue counter shows the RFQs to quote and the orders to confirm; an orange counter shows the documents to renew or correct. At the bottom you find your company, your name and **Sign out**.
 
 If a page says "This area is reserved to suppliers. Sign in with the account your customer invited.", you are not signed in, or your account has not been enabled as supplier yet: contact your customer.
 

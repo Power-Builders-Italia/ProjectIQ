@@ -365,6 +365,30 @@ page('Order', 'order', ui.shell('orders', ORDER), ORDER_JS, parent=orders, hidde
 invoices = page('Invoices', 'invoices', ui.shell('invoices', ui.tokens(ui.INVOICES)), order=5)
 documents = page('Documents', 'documents', ui.shell('documents', ui.tokens(ui.DOCUMENTS)), ui.DOCUMENTS_JS, order=6)
 
+# ---------- home: suppliers go straight to the dashboard, everyone else gets the sign-in landing ----------
+HOME_HTML = """{% include '""" + ui.STYLE_NAME + """' %}
+{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}
+{% if supplier %}<script>location.replace('/dashboard/');</script>{% endif %}
+<div class="op-shell" style="justify-content:center;align-items:center">
+  <div style="max-width:560px;text-align:center;padding:48px 16px">
+    <h1 style="font-weight:700">Supplier portal</h1>
+    <p>Answer requests for quotation, confirm purchase orders, follow invoices and keep your company documents up to date.</p>
+    {% if user %}
+    <p>Your account is not yet linked to a supplier. Ask your customer to enable it.</p>
+    {% else %}
+    <p><a class="btn btn-primary" href="/SignIn?returnUrl=%2Fdashboard%2F">Sign in</a>
+    """ + ("""<a class="btn btn-outline-primary ms-2" href="/Account/Login/Register?returnUrl=%2Fdashboard%2F">Register</a>""" if SELF_REGISTRATION else '') + """</p>
+    {% endif %}
+  </div>
+</div>
+"""
+home_content = rows('mspp_webpages', f"mspp_isroot eq false and _mspp_rootwebpageid_value eq {HOME}", 'mspp_webpageid')
+for row in home_content:
+    r = S.patch(API + f"mspp_webpages({row['mspp_webpageid']})", json={'mspp_copy': HOME_HTML})
+    if r.status_code >= 300:
+        raise SystemExit(f'home: {r.text[:300]}')
+print('ok   home page')
+
 # ---------- menu ----------
 for name, target, order in (('Dashboard', dashboard, 1), ('Projects', projects, 2), ('Requests for quotation', rfqs, 3),
                             ('Purchase orders', orders, 4), ('Invoices', invoices, 5), ('Documents', documents, 6)):
