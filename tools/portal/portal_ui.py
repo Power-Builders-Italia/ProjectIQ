@@ -493,7 +493,7 @@ DOCUMENTS = """{% fetchxml docs %}
       <td>{% if d.op365_expirydate %}{{ d.op365_expirydate | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</td>
       <td>{% if d.op365_expirydate == nil and d.op365_expirystatus.value != @EXP_REPLACED@ %}<span class="op-badge b-grey">No expiry</span>{% else %}{% case d.op365_expirystatus.value %}{% when @EXP_EXPIRED@ %}<span class="op-badge b-red">Expired</span>{% when @EXP_EXPIRING@ %}<span class="op-badge b-amber">Expiring</span>{% when @EXP_REPLACED@ %}<span class="op-badge b-grey">Replaced</span>{% else %}<span class="op-badge b-green">Valid</span>{% endcase %}{% endif %}</td>
       <td>{% if approved %}<span class="op-badge b-green">Approved</span>{% elsif d.statuscode.value == @DOC_REJECTED@ %}<span class="op-badge b-red">Rejected</span>{% if d.op365_reviewnote %}<small>{{ d.op365_reviewnote | escape }}</small>{% endif %}{% else %}<span class="op-badge b-blue">Pending review</span>{% endif %}</td>
-      <td>{% if d.op365_file %}<a href="{{ d.op365_file.Url }}">{{ d.op365_file.Name | escape }}</a>{% endif %}</td>
+      <td>{% if d.op365_file %}<a href="{{ d.op365_file.Url }}">{{ d.op365_file.Name | escape }}</a>{% elsif d.statuscode.value == 1 %}<span class="op-muted">Filed by your customer</span>{% endif %}</td>
       <td style="white-space:nowrap">{% unless approved %}
         <button type="button" class="op-btn ghost small op365-edit" data-id="{{ d.op365_supplierdocumentid }}" data-type="{{ d.op365_documenttype.value }}"
           data-description="{{ d.op365_description | escape }}" data-number="{{ d.op365_number | escape }}"

@@ -119,7 +119,7 @@ Per caricare un documento:
 2. Scegli il **Type** (tipo), scrivi una **Description** e, se presenti, **Number**, **Issue date**, **Expiry date** e **Notes**.
 3. Scegli il **File** (PDF o immagine, fino a 32 MB) e clicca **Upload document**.
 
-Il documento resta **Pending review** finché il buyer non lo approva. Finché è in revisione o rifiutato puoi cliccare **Edit** (modifica dati o file, poi **Save changes**) o **Delete**. Correggere un documento rifiutato lo rimanda in revisione. Una volta **Approved** il documento si può solo consultare: per rinnovarlo carica un nuovo documento dello stesso tipo; quando il buyer lo approva, il vecchio diventa **Replaced**.
+Il documento resta **Pending review** finché il buyer non lo approva. Finché è in revisione o rifiutato puoi cliccare **Edit** (modifica dati o file, poi **Save changes**) o **Delete**. Correggere un documento rifiutato lo rimanda in revisione. Una volta **Approved** il documento si può solo consultare: per rinnovarlo carica un nuovo documento dello stesso tipo; quando il buyer lo approva, il vecchio diventa **Replaced**. Quando il buyer lo approva, il file passa nell'archivio del cliente: l'elenco mostra **Filed by your customer** al posto del nome del file.
 
 Ricevi un'email quando un documento approvato sta per scadere (30 giorni prima) e quando scade; la Dashboard mostra gli stessi avvisi.
 

@@ -1,0 +1,258 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_sharepoint"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "SharePoint Site URL (op365_SharePointSiteUrl)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "op365_SharePointSiteUrl",
+            "description": "URL of the SharePoint site of the ProjectIQ document libraries (the default site of Document Management)."
+          }
+        }
+      },
+      "triggers": {
+        "When_a_supplier_document_is_approved": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "op365_supplierdocument",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "statuscode",
+              "subscriptionRequest/filterexpression": "statuscode eq 1"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_document": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "op365_supplierdocuments",
+              "recordId": "@triggerOutputs()?['body/op365_supplierdocumentid']",
+              "$select": "op365_description,op365_file,op365_file_name"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Has_file": {
+          "runAfter": {
+            "Get_document": [
+              "Succeeded"
+            ]
+          },
+          "type": "If",
+          "expression": {
+            "not": {
+              "equals": [
+                "@coalesce(body('Get_document')?['op365_file_name'], '')",
+                ""
+              ]
+            }
+          },
+          "actions": {
+            "Download_file": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetEntityFileImageFieldContent",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "op365_supplierdocuments",
+                  "recordId": "@triggerOutputs()?['body/op365_supplierdocumentid']",
+                  "fileImageFieldName": "op365_file"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Find_record_folder": {
+              "runAfter": {
+                "Download_file": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "sharepointdocumentlocations",
+                  "$select": "relativeurl",
+                  "$filter": "@concat('_regardingobjectid_value eq ', triggerOutputs()?['body/op365_supplierdocumentid'])",
+                  "$top": 1
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Record_folder": {
+              "runAfter": {
+                "Find_record_folder": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Compose",
+              "inputs": "@if(empty(body('Find_record_folder')?['value']), concat(trim(substring(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(body('Get_document')?['op365_description'], 'Document'), '~', ''), '\"', ''), '#', ''), '%', ''), '&', ''), '*', ''), ':', ''), '<', ''), '>', ''), '?', ''), '/', ''), '\\', ''), '{', ''), '|', ''), '}', ''), 0, min(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(body('Get_document')?['op365_description'], 'Document'), '~', ''), '\"', ''), '#', ''), '%', ''), '&', ''), '*', ''), ':', ''), '<', ''), '>', ''), '?', ''), '/', ''), '\\', ''), '{', ''), '|', ''), '}', '')), 80))), '_', toUpper(replace(triggerOutputs()?['body/op365_supplierdocumentid'], '-', ''))), first(body('Find_record_folder')?['value'])?['relativeurl'])"
+            },
+            "Folder_registered": {
+              "runAfter": {
+                "Record_folder": [
+                  "Succeeded"
+                ]
+              },
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@empty(body('Find_record_folder')?['value'])",
+                  false
+                ]
+              },
+              "actions": {},
+              "else": {
+                "actions": {
+                  "Find_library": {
+                    "runAfter": {},
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "ListRecords",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "sharepointdocumentlocations",
+                        "$select": "sharepointdocumentlocationid",
+                        "$filter": "relativeurl eq 'op365_supplierdocument' and _regardingobjectid_value eq null",
+                        "$top": 1
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  },
+                  "Register_record_folder": {
+                    "runAfter": {
+                      "Find_library": [
+                        "Succeeded"
+                      ]
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "CreateRecord",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "sharepointdocumentlocations",
+                        "item/name": "@concat('Documents on ', outputs('Record_folder'))",
+                        "item/relativeurl": "@outputs('Record_folder')",
+                        "item/parentsiteorlocation_sharepointdocumentlocation@odata.bind": "@concat('sharepointdocumentlocations(', first(body('Find_library')?['value'])?['sharepointdocumentlocationid'], ')')",
+                        "item/regardingobjectid_op365_supplierdocument@odata.bind": "@concat('op365_supplierdocuments(', triggerOutputs()?['body/op365_supplierdocumentid'], ')')"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              }
+            },
+            "Create_SharePoint_file": {
+              "runAfter": {
+                "Folder_registered": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "CreateFile",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('SharePoint Site URL (op365_SharePointSiteUrl)')",
+                  "folderPath": "@concat('/op365_supplierdocument/', outputs('Record_folder'))",
+                  "name": "@body('Get_document')?['op365_file_name']",
+                  "body": "@body('Download_file')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Remove_Dataverse_file": {
+              "runAfter": {
+                "Create_SharePoint_file": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "DeleteFile",
+                  "item/FileId": "@body('Get_document')?['op365_file']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

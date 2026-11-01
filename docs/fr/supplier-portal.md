@@ -119,7 +119,7 @@ Pour déposer un document :
 2. Choisissez le **Type**, saisissez une **Description** et, le cas échéant, **Number**, **Issue date**, **Expiry date** et **Notes**.
 3. Choisissez le **File** (PDF ou image, jusqu'à 32 Mo) et cliquez sur **Upload document**.
 
-Le document reste **Pending review** jusqu'à ce que l'acheteur l'approuve. Tant qu'il est en attente ou rejeté, vous pouvez cliquer sur **Edit** (modifier les données ou le fichier, puis **Save changes**) ou **Delete**. Corriger un document rejeté le renvoie en vérification. Une fois **Approved**, le document peut seulement être consulté : pour le renouveler, déposez un nouveau document du même type ; quand l'acheteur l'approuve, l'ancien devient **Replaced**.
+Le document reste **Pending review** jusqu'à ce que l'acheteur l'approuve. Tant qu'il est en attente ou rejeté, vous pouvez cliquer sur **Edit** (modifier les données ou le fichier, puis **Save changes**) ou **Delete**. Corriger un document rejeté le renvoie en vérification. Une fois **Approved**, le document peut seulement être consulté : pour le renouveler, déposez un nouveau document du même type ; quand l'acheteur l'approuve, l'ancien devient **Replaced**. Quand l'acheteur l'approuve, le fichier passe dans les archives de votre client : la liste affiche **Filed by your customer** à la place du nom du fichier.
 
 Vous recevez un e-mail quand un document approuvé va expirer (30 jours avant) et quand il expire ; le Dashboard affiche les mêmes alertes.
 

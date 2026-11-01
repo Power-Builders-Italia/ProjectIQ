@@ -117,7 +117,7 @@ To upload a document:
 2. Choose the **Type**, type a **Description** and, if any, **Number**, **Issue date**, **Expiry date** and **Notes**.
 3. Choose the **File** (PDF or image, up to 32 MB) and click **Upload document**.
 
-The document is **Pending review** until the buyer approves it. While it is pending or rejected you can click **Edit** (change the data or the file, then **Save changes**) or **Delete**. Correcting a rejected document sends it back to review. Once **Approved** a document can only be viewed: to renew it, upload a new document of the same type; when the buyer approves it, the old one becomes **Replaced**.
+The document is **Pending review** until the buyer approves it. While it is pending or rejected you can click **Edit** (change the data or the file, then **Save changes**) or **Delete**. Correcting a rejected document sends it back to review. Once **Approved** a document can only be viewed: to renew it, upload a new document of the same type; when the buyer approves it, the old one becomes **Replaced**. When the buyer approves it, the file moves to your customer's archive: the list shows **Filed by your customer** instead of the file name.
 
 You receive an e-mail when an approved document is about to expire (30 days before) and when it expires; the Dashboard shows the same alerts.
 

@@ -119,7 +119,7 @@ So laden Sie ein Dokument hoch:
 2. Wählen Sie den **Type** (Typ), geben Sie eine **Description** und, falls vorhanden, **Number**, **Issue date**, **Expiry date** und **Notes** ein.
 3. Wählen Sie die **File** (PDF oder Bild, bis 32 MB) und klicken Sie auf **Upload document**.
 
-Das Dokument bleibt **Pending review**, bis der Einkäufer es genehmigt. Solange es in Prüfung oder abgelehnt ist, können Sie **Edit** (Daten oder Datei ändern, dann **Save changes**) oder **Delete** klicken. Das Korrigieren eines abgelehnten Dokuments schickt es erneut in die Prüfung. Sobald es **Approved** ist, kann das Dokument nur noch angesehen werden: Zum Erneuern laden Sie ein neues Dokument desselben Typs hoch; sobald der Einkäufer es genehmigt, wird das alte **Replaced**.
+Das Dokument bleibt **Pending review**, bis der Einkäufer es genehmigt. Solange es in Prüfung oder abgelehnt ist, können Sie **Edit** (Daten oder Datei ändern, dann **Save changes**) oder **Delete** klicken. Das Korrigieren eines abgelehnten Dokuments schickt es erneut in die Prüfung. Sobald es **Approved** ist, kann das Dokument nur noch angesehen werden: Zum Erneuern laden Sie ein neues Dokument desselben Typs hoch; sobald der Einkäufer es genehmigt, wird das alte **Replaced**. Sobald der Einkäufer es genehmigt, wandert die Datei in das Archiv Ihres Kunden: Die Liste zeigt **Filed by your customer** statt des Dateinamens.
 
 Sie erhalten eine E-Mail, wenn ein genehmigtes Dokument bald abläuft (30 Tage vorher) und wenn es abläuft; das Dashboard zeigt dieselben Hinweise.
 

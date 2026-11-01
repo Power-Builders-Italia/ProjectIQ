@@ -77,7 +77,7 @@ Dans le [Portfolio Agent](portfolio-agent.md#documents-du-projet), demandez « a
 
 ### Documents fournisseur
 
-Un **Supplier Document** (DURC, certification, assurance) garde sa colonne **File**, utilisée par le [portail fournisseurs](supplier-portal.md). Le dossier SharePoint de l'enregistrement sert aux autres fichiers qui l'accompagnent (renouvellements, correspondance). Les dates d'expiration et la conformité des fournisseurs continuent de s'appuyer sur les champs du Supplier Document comme avant.
+Un **Supplier Document** (DURC, certification, assurance) a une colonne **File**, utilisée par le [portail fournisseurs](supplier-portal.md). Quand l'acheteur approuve un document, le flux **File approved supplier documents** déplace ce fichier dans le dossier SharePoint de l'enregistrement et vide la colonne : les documents approuvés sont ainsi tous dans SharePoint (voir [ci-dessous](#documents-fournisseur-approuvés-dans-sharepoint)). Le dossier SharePoint contient aussi les autres fichiers qui accompagnent le document (renouvellements, correspondance). Les dates d'expiration et la conformité des fournisseurs continuent de s'appuyer sur les champs du Supplier Document comme avant.
 
 ## Partie 2 : configuration (administrateurs)
 
@@ -122,6 +122,15 @@ Les flux vérifient la bibliothèque toutes les 3 minutes et utilisent deux réf
 | 4 | Admin SharePoint | Facultatif, pour les fichiers déjà présents : relancez l'étape 1 avec `--backfill` et les variables `PAC_*` de l'environnement |
 
 Les flux sont importés **désactivés** : après chaque mise à jour de la solution, vérifiez qu'ils sont toujours activés.
+
+### Documents fournisseur approuvés dans SharePoint
+
+Le flux **File approved supplier documents** démarre quand un document fournisseur devient **Approved** (**Approve** dans l'application). Si le document a un fichier dans sa colonne **File**, le flux :
+1. trouve le dossier SharePoint de l'enregistrement, ou en enregistre un nouveau (`<description>_<id de l'enregistrement>`) dans la bibliothèque **op365_supplierdocument** ;
+2. crée le fichier dans ce dossier avec son nom d'origine (le flux **Tag supplier documents** renseigne ensuite ses colonnes ProjectIQ) ;
+3. retire le fichier de la colonne **File**. Sur le portail, le fournisseur voit alors **Filed by your customer** à la place du fichier.
+
+Il utilise les mêmes références de connexion **op365_dataverse** et **op365_sharepoint** et la variable **SharePoint Site URL** ; la bibliothèque **op365_supplierdocument** et son emplacement de document doivent exister ([Partie 2](#partie-2--configuration-administrateurs), étape 2). Si la copie échoue, le fichier reste dans la colonne **File** : consultez l'historique des exécutions et relancez le flux depuis l'exécution en échec (**Resubmit**), sans approuver à nouveau.
 
 ## Messages possibles
 
