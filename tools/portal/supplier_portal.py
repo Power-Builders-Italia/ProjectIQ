@@ -17,7 +17,7 @@ import portal_ui as ui
 S.headers['MSCRM.SolutionUniqueName'] = 'OpenProject365SupplierPortal'   # site records belong to the portal solution
 
 SITE_NAME = os.environ.get('PORTAL_SITE', 'Supplier Portal')
-ACCOUNT, PARENT = 756150002, 756150003                 # table permission scopes
+CONTACT, ACCOUNT, PARENT = 756150001, 756150002, 756150003   # table permission scopes
 INVITED, RESPONDED, DECLINED = 365000000, 365000001, 365000002
 PO_SENT, PO_CONFIRMED, PO_RECEIVED = 365000000, 365000001, 365000002
 
@@ -76,8 +76,10 @@ def permission(name, table, scope, write=False, relationship=None, parent=None, 
                appendto=False):
     body = {'mspp_entityname': name, 'mspp_entitylogicalname': table, 'mspp_scope': scope, 'mspp_read': True, 'mspp_write': write,
             'mspp_create': create, 'mspp_delete': delete, 'mspp_append': append, 'mspp_appendto': appendto}
-    if scope == ACCOUNT:
-        body['mspp_accountrelationship'] = relationship   # None on the account table: the user's own account
+    if scope == CONTACT:
+        body['mspp_contactrelationship'] = relationship
+    elif scope == ACCOUNT:
+        body['mspp_accountrelationship'] = relationship
     else:
         body['mspp_parentrelationship'] = relationship
         body['mspp_parententitypermission@odata.bind'] = f'/mspp_entitypermissions({PERMISSIONS[parent]})'
@@ -111,8 +113,8 @@ permission('Supplier projects', 'op365_project', PARENT, relationship='op365_pro
            parent='Supplier purchase orders')
 permission('Supplier invoices', 'op365_supplierinvoice', ACCOUNT, relationship='op365_account_supplierinvoice_supplierid')
 # own company documents: upload, change and delete (the plugins refuse changes to approved documents);
-# Append To on the supplier's own account lets a new document be linked to it
-permission('Supplier company', 'account', ACCOUNT, appendto=True)
+# Append To on the supplier's own account (the contact's Company Name) lets a new document be linked to it
+permission('Supplier company', 'account', CONTACT, appendto=True, relationship='contact_customer_accounts')
 permission('Supplier documents', 'op365_supplierdocument', ACCOUNT, write=True, create=True, delete=True, append=True,
            relationship='op365_account_supplierdocument_supplierid')
 

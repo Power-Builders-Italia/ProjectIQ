@@ -127,8 +127,8 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   project/RFQ/order/invoice cards with CSS-only status filters, documents grid and upload form) are in `tools/portal/portal_ui.py`; the shared parts are
   the web templates **OP365 Supplier Style**, **OP365 Supplier Nav** and **OP365 Supplier Project Cards**.
 - Read-only permissions cover the projects of the supplier's orders (Parent of *Supplier purchase orders*) and its supplier invoices (Account).
-  Supplier documents have Account scope with read, write, create, delete and append; *Supplier company* (account table, Account scope, no
-  relationship) gives Append To on the user's own account, so that a new document can be linked with `op365_SupplierId@odata.bind`. The Web API
+  Supplier documents have Account scope with read, write, create, delete and append; *Supplier company* (account table, Contact scope via
+  `contact_customer_accounts`, i.e. the contact's Company Name; Account scope with no relationship is refused on associate) gives Append To on the user's own account, so that a new document can be linked with `op365_SupplierId@odata.bind`. The Web API
   fields of `op365_supplierdocument` exclude statuscode and the review columns; the plugins refuse changes to approved documents.
 - A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
 - Sign-in: the script turns on **local accounts** (e-mail + password, `LocalLoginByEmail`, password reset) next to Microsoft Entra ID, and

@@ -2,7 +2,7 @@
   <content>{
   "entityname": "Supplier company",
   "entitylogicalname": "account",
-  "scope": 756150002,
+  "scope": 756150001,
   "read": true,
   "write": false,
   "create": false,
@@ -11,7 +11,8 @@
   "appendto": true,
   "adx_entitypermission_webrole": [
     "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
-  ]
+  ],
+  "contactrelationship": "contact_customer_accounts"
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Supplier company</name>
