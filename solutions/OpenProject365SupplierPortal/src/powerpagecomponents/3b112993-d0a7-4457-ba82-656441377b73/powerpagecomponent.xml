@@ -1,6 +1,7 @@
 <powerpagecomponent powerpagecomponentid="3b112993-d0a7-4457-ba82-656441377b73">
   <content>{
-  "value": "false"
+  "value": "true",
+  "source": 0
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Authentication/Registration/LocalLoginEnabled</name>
