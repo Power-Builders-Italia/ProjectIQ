@@ -115,7 +115,7 @@ Si quelque chose ne va pas dans la commande (prix, quantité, date), ne la confi
 
 Pour déposer un document :
 
-1. Cliquez sur **Upload document** (ou faites défiler jusqu'au formulaire en bas de la page).
+1. Cliquez sur **New document** (ou faites défiler jusqu'au formulaire en bas de la page).
 2. Choisissez le **Type**, saisissez une **Description** et, le cas échéant, **Number**, **Issue date**, **Expiry date** et **Notes**.
 3. Choisissez le **File** (PDF ou image, jusqu'à 32 Mo) et cliquez sur **Upload document**.
 

@@ -115,7 +115,7 @@ Stimmt etwas an der Bestellung nicht (Preis, Menge, Termin), bestätigen Sie sie
 
 So laden Sie ein Dokument hoch:
 
-1. Klicken Sie auf **Upload document** (oder scrollen Sie zum Formular unten auf der Seite).
+1. Klicken Sie auf **New document** (oder scrollen Sie zum Formular unten auf der Seite).
 2. Wählen Sie den **Type** (Typ), geben Sie eine **Description** und, falls vorhanden, **Number**, **Issue date**, **Expiry date** und **Notes** ein.
 3. Wählen Sie die **File** (PDF oder Bild, bis 32 MB) und klicken Sie auf **Upload document**.
 

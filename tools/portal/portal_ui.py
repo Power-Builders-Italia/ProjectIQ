@@ -273,7 +273,7 @@ DASHBOARD = """{% assign today = now | date: 'yyyy-MM-dd' %}{% assign year = now
 {% if total > 0 %}{% assign pv = valid | times: 100 | divided_by: total %}{% assign pe = valid | plus: expiring | times: 100 | divided_by: total %}{% else %}{% assign pv = 0 %}{% assign pe = 0 %}{% endif %}
 <div class="op-head">
   <div><div class="op-crumb">{{ user.parentcustomerid.name | escape }}</div><h1 class="op-h1">Welcome, {{ user.firstname | default: user.fullname | escape }}</h1></div>
-  <a class="op-btn" href="/documents/#op-docform">Upload document</a>
+  <a class="op-btn" href="/documents/#op-docform">New document</a>
 </div>
 <div class="op-kpis">
   <div class="op-kpi"><span class="op-muted">Requests to quote</span><b>{{ rfqs.results.entities.size }}</b></div>
@@ -475,7 +475,7 @@ DOCUMENTS = """{% fetchxml docs %}
 {% assign list = docs.results.entities %}
 <div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / Documents</div>
   <h1 class="op-h1">Company documents</h1></div>
-  <a class="op-btn" href="#op-docform">Upload document</a></div>
+  <a class="op-btn" href="#op-docform">New document</a></div>
 <p class="op-muted">DURC, certifications, insurance and the other documents your customer needs. The buyer reviews each new
   document: you can change or delete it until it is approved. You receive an e-mail when an approved document is about to expire.</p>
 <div id="op365-error" class="alert alert-danger d-none" role="alert"></div>

@@ -115,7 +115,7 @@ Se qualcosa nell'ordine non va (prezzo, quantità, data), non confermarlo: conta
 
 Per caricare un documento:
 
-1. Clicca **Upload document** (oppure scorri fino al modulo in fondo alla pagina).
+1. Clicca **New document** (oppure scorri fino al modulo in fondo alla pagina).
 2. Scegli il **Type** (tipo), scrivi una **Description** e, se presenti, **Number**, **Issue date**, **Expiry date** e **Notes**.
 3. Scegli il **File** (PDF o immagine, fino a 32 MB) e clicca **Upload document**.
 

@@ -113,7 +113,7 @@ If something in the order is wrong (price, quantity, date), do not confirm it: c
 
 To upload a document:
 
-1. Click **Upload document** (or scroll to the form at the bottom of the page).
+1. Click **New document** (or scroll to the form at the bottom of the page).
 2. Choose the **Type**, type a **Description** and, if any, **Number**, **Issue date**, **Expiry date** and **Notes**.
 3. Choose the **File** (PDF or image, up to 32 MB) and click **Upload document**.
 
