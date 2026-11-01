@@ -7,7 +7,7 @@
   "write": false,
   "create": false,
   "delete": false,
-  "append": false,
+  "append": true,
   "appendto": true,
   "adx_entitypermission_webrole": [
     "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
