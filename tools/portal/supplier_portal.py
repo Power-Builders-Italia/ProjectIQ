@@ -130,6 +130,25 @@ SETTINGS = {
                                             'op365_expirydate,op365_notes,op365_file,op365_supplierid',
     'Webapi/error/innererror': 'false',
 }
+# ---------- sign-in: local accounts (e-mail + password) for suppliers outside the tenant ----------
+# PORTAL_LOCAL_LOGIN=false keeps Microsoft Entra ID only. With local login suppliers sign in with their e-mail and
+# reset the password themselves. PORTAL_SELF_REGISTRATION=false allows only invited users (Power Pages Management >
+# Invitations); otherwise anyone can register, but sees nothing until the buyer links the contact to the supplier
+# account and gives it the Supplier web role.
+def flag(name):
+    return os.environ.get(name, 'true').strip().lower() != 'false'
+LOCAL_LOGIN, SELF_REGISTRATION = flag('PORTAL_LOCAL_LOGIN'), flag('PORTAL_SELF_REGISTRATION')
+SETTINGS.update({
+    'Authentication/Registration/LocalLoginEnabled': str(LOCAL_LOGIN).lower(),
+    'Authentication/Registration/LocalLoginDeprecated': 'false',
+    'Authentication/Registration/LocalLoginByEmail': 'true',
+    'Authentication/Registration/ResetPasswordEnabled': 'true',
+    'Authentication/Registration/InvitationEnabled': 'true',
+    'Authentication/Registration/Enabled': 'true',
+    'Authentication/Registration/OpenRegistrationEnabled': str(SELF_REGISTRATION).lower(),
+    'Authentication/Registration/RequiresInvitation': str(not SELF_REGISTRATION).lower(),
+    'Authentication/Registration/RequireUniqueEmail': 'true',
+})
 for k, v in SETTINGS.items():
     upsert('mspp_sitesettings', 'mspp_sitesettingid', f"mspp_name eq '{k}'", {'mspp_name': k, 'mspp_value': v})
 

@@ -40,7 +40,7 @@ sequenceDiagram
 Your customer gives you access to its supplier portal. You receive the portal address (for example `https://<customer>-suppliers.powerappsportals.com`) and the instructions to create or activate your account. Use the email address your customer registered for you.
 
 1. Open the portal address and click **Sign in**.
-2. Sign in with your account.
+2. Sign in with your account: under **Sign in with a local account** type your **Email** and **Password** (**Forgot your password?** sends you a reset link), or use **Microsoft Entra ID** if your customer gave you a company account. No account yet? Click **Register**, or **Redeem invitation** if you received an invitation code.
 3. Open **Dashboard**. On the left, the sidebar shows the modules: **Dashboard**, **Projects**, **Requests for quotation**, **Purchase orders**, **Invoices** and **Documents**. A blue counter shows the RFQs to quote and the orders to confirm; an orange counter shows the documents to renew or correct. At the bottom you find your company, your name and **Sign out**.
 
 If a page says "This area is reserved to suppliers. Sign in with the account your customer invited.", you are not signed in, or your account has not been enabled as supplier yet: contact your customer.
@@ -154,6 +154,8 @@ A supplier user is a **contact** whose **company** is the supplier account, with
 5. Send the person the address of the portal and [Part 1](#part-1--guide-for-suppliers) of this manual.
 
 To remove access, remove the Supplier web role from the contact or deactivate the contact.
+
+**Sign-in methods.** Besides Microsoft Entra ID, the portal offers **local accounts** (e-mail and password), so suppliers outside your tenant can sign in. People can also **register** by themselves: a self-registered person sees nothing until you set the **Company Name** of their contact to the supplier and give it the **Supplier** web role, so check new contacts regularly. Your administrator can turn off local accounts or self-registration (then only invited people can register), see [Development environment setup](../dev-environment.md#supplier-portal-power-pages).
 
 ### Reviewing the documents
 

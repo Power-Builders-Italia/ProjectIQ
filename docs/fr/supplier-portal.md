@@ -42,7 +42,7 @@ sequenceDiagram
 Votre client vous donne accès à son portail fournisseurs. Vous recevez l'adresse du portail (par exemple `https://<client>-suppliers.powerappsportals.com`) et les instructions pour créer ou activer votre compte. Utilisez l'adresse e-mail que votre client a enregistrée pour vous.
 
 1. Ouvrez l'adresse du portail et cliquez sur **Sign in**.
-2. Connectez-vous avec votre compte.
+2. Connectez-vous avec votre compte : sous **Sign in with a local account**, saisissez votre **Email** et votre **Password** (**Forgot your password?** vous envoie un lien de réinitialisation), ou utilisez **Microsoft Entra ID** si votre client vous a donné un compte d'entreprise. Pas encore de compte ? Cliquez sur **Register**, ou sur **Redeem invitation** si vous avez reçu un code d'invitation.
 3. Ouvrez **Dashboard**. À gauche, la barre latérale affiche les modules : **Dashboard** (tableau de bord), **Projects** (projets), **Requests for quotation** (appels d'offres), **Purchase orders** (commandes), **Invoices** (factures) et **Documents**. Un compteur bleu indique les appels d'offres à chiffrer et les commandes à confirmer ; un compteur orange les documents à renouveler ou à corriger. En bas figurent votre entreprise, votre nom et **Sign out**.
 
 Si une page indique « This area is reserved to suppliers. Sign in with the account your customer invited. », vous n'êtes pas connecté, ou votre compte n'est pas encore activé comme fournisseur : contactez votre client.
@@ -156,6 +156,8 @@ Un utilisateur fournisseur est un **contact** dont l'**entreprise** est le compt
 5. Envoyez-lui l'adresse du portail et la [Partie 1](#partie-1--guide-pour-les-fournisseurs) de ce manuel.
 
 Pour retirer l'accès, retirez le rôle web Supplier du contact ou désactivez le contact.
+
+**Méthodes de connexion.** En plus de Microsoft Entra ID, le portail propose des **comptes locaux** (e-mail et mot de passe), pour que les fournisseurs extérieurs à votre tenant puissent se connecter. Les personnes peuvent aussi **s'inscrire** elles-mêmes : une personne inscrite ne voit rien tant que vous n'avez pas renseigné le **Company Name** de son contact avec le fournisseur et attribué le rôle web **Supplier** ; vérifiez donc régulièrement les nouveaux contacts. Votre administrateur peut désactiver les comptes locaux ou l'inscription libre (seules les personnes invitées peuvent alors s'inscrire), voir [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (en anglais).
 
 ### Vérifier les documents
 

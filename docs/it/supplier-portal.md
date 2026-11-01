@@ -42,7 +42,7 @@ sequenceDiagram
 Il tuo cliente ti dà accesso al suo portale fornitori. Ricevi l'indirizzo del portale (per esempio `https://<cliente>-suppliers.powerappsportals.com`) e le istruzioni per creare o attivare il tuo account. Usa l'indirizzo email che il cliente ha registrato per te.
 
 1. Apri l'indirizzo del portale e clicca **Sign in**.
-2. Accedi con il tuo account.
+2. Accedi con il tuo account: in **Sign in with a local account** inserisci **Email** e **Password** (**Forgot your password?** ti invia un link per reimpostarla), oppure usa **Microsoft Entra ID** se il cliente ti ha dato un account aziendale. Non hai ancora un account? Clicca **Register**, oppure **Redeem invitation** se hai ricevuto un codice d'invito.
 3. Apri **Dashboard**. A sinistra, la barra laterale mostra i moduli: **Dashboard**, **Projects** (commesse), **Requests for quotation** (richieste d'offerta), **Purchase orders** (ordini d'acquisto), **Invoices** (fatture) e **Documents** (documenti). Un contatore blu indica le RdO da quotare e gli ordini da confermare; un contatore arancione i documenti da rinnovare o correggere. In fondo trovi la tua azienda, il tuo nome e **Sign out**.
 
 Se una pagina dice "This area is reserved to suppliers. Sign in with the account your customer invited.", non hai effettuato l'accesso, oppure il tuo account non è ancora abilitato come fornitore: contatta il tuo cliente.
@@ -156,6 +156,8 @@ Un utente fornitore è un **contatto** la cui **azienda** è l'account del forni
 5. Invia alla persona l'indirizzo del portale e la [Parte 1](#parte-1--guida-per-i-fornitori) di questo manuale.
 
 Per togliere l'accesso, rimuovi il web role Supplier dal contatto o disattiva il contatto.
+
+**Metodi di accesso.** Oltre a Microsoft Entra ID, il portale offre gli **account locali** (email e password), così possono accedere anche i fornitori esterni al tuo tenant. Le persone possono anche **registrarsi** da sole: chi si registra non vede nulla finché non imposti il **Company Name** del suo contatto sul fornitore e gli assegni il web role **Supplier**, quindi controlla periodicamente i nuovi contatti. L'amministratore può disattivare gli account locali o l'auto-registrazione (in quel caso possono registrarsi solo gli invitati), vedi [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (in inglese).
 
 ### Revisione dei documenti
 

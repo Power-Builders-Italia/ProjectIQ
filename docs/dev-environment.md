@@ -131,6 +131,11 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   relationship) gives Append To on the user's own account, so that a new document can be linked with `op365_SupplierId@odata.bind`. The Web API
   fields of `op365_supplierdocument` exclude statuscode and the review columns; the plugins refuse changes to approved documents.
 - A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role.
+- Sign-in: the script turns on **local accounts** (e-mail + password, `LocalLoginByEmail`, password reset) next to Microsoft Entra ID, and
+  **self-registration**. Environment variables of the script: `PORTAL_LOCAL_LOGIN=false` keeps Entra ID only; `PORTAL_SELF_REGISTRATION=false`
+  allows only invitations (`RequiresInvitation`). A self-registered contact sees nothing until it gets the supplier as parent account and the
+  Supplier web role. External suppliers can reach the site only if its visibility is **Public** (Power Pages, Site visibility): a private site
+  sends every visitor to the tenant's Entra sign-in.
 - Never use `pac pages upload` with the service principal: it creates empty components that cannot be deleted.
 - Table permission roles must be stored in the component JSON (`adx_entitypermission_webrole`) as well as in the
   `powerpagecomponent_powerpagecomponent` relationship: the runtime reads the first, the studio shows the second. The script does both.

@@ -42,7 +42,7 @@ sequenceDiagram
 Ihr Kunde gibt Ihnen Zugriff auf sein Lieferantenportal. Sie erhalten die Adresse des Portals (zum Beispiel `https://<kunde>-suppliers.powerappsportals.com`) und Anweisungen, wie Sie Ihr Konto anlegen oder aktivieren. Verwenden Sie die E-Mail-Adresse, die Ihr Kunde für Sie hinterlegt hat.
 
 1. Öffnen Sie die Portaladresse und klicken Sie auf **Sign in**.
-2. Melden Sie sich mit Ihrem Konto an.
+2. Melden Sie sich mit Ihrem Konto an: Geben Sie unter **Sign in with a local account** Ihre **Email** und Ihr **Password** ein (**Forgot your password?** sendet Ihnen einen Link zum Zurücksetzen), oder verwenden Sie **Microsoft Entra ID**, wenn Ihr Kunde Ihnen ein Firmenkonto gegeben hat. Noch kein Konto? Klicken Sie auf **Register**, oder auf **Redeem invitation**, wenn Sie einen Einladungscode erhalten haben.
 3. Öffnen Sie **Dashboard**. Links zeigt die Seitenleiste die Module: **Dashboard**, **Projects** (Projekte), **Requests for quotation** (Angebotsanfragen), **Purchase orders** (Bestellungen), **Invoices** (Rechnungen) und **Documents** (Dokumente). Ein blauer Zähler zeigt die zu beantwortenden Angebotsanfragen und die zu bestätigenden Bestellungen; ein orangefarbener Zähler die zu erneuernden oder zu korrigierenden Dokumente. Unten finden Sie Ihr Unternehmen, Ihren Namen und **Sign out**.
 
 Zeigt eine Seite „This area is reserved to suppliers. Sign in with the account your customer invited.“, sind Sie nicht angemeldet oder Ihr Konto ist noch nicht als Lieferant aktiviert: Wenden Sie sich an Ihren Kunden.
@@ -156,6 +156,8 @@ Ein Lieferantenbenutzer ist ein **Kontakt**, dessen **Unternehmen** der Lieferan
 5. Senden Sie ihr die Portaladresse und [Teil 1](#teil-1--leitfaden-für-lieferanten) dieses Handbuchs.
 
 Um den Zugriff zu entziehen, entfernen Sie die Web-Rolle Supplier vom Kontakt oder deaktivieren Sie den Kontakt.
+
+**Anmeldemethoden.** Neben Microsoft Entra ID bietet das Portal **lokale Konten** (E-Mail und Kennwort), damit sich auch Lieferanten außerhalb Ihres Mandanten anmelden können. Personen können sich auch selbst **registrieren**: Wer sich selbst registriert, sieht nichts, bis Sie den **Company Name** seines Kontakts auf den Lieferanten setzen und ihm die Web-Rolle **Supplier** zuweisen; prüfen Sie neue Kontakte daher regelmäßig. Ihr Administrator kann lokale Konten oder die Selbstregistrierung abschalten (dann können sich nur eingeladene Personen registrieren), siehe [Development environment setup](../dev-environment.md#supplier-portal-power-pages) (auf Englisch).
 
 ### Dokumente prüfen
 
