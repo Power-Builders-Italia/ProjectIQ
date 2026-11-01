@@ -115,8 +115,10 @@ permission('Supplier invoices', 'op365_supplierinvoice', ACCOUNT, relationship='
 # own company documents: upload, change and delete (the plugins refuse changes to approved documents);
 # Append To on the supplier's own account (the contact's Company Name) lets a new document be linked to it
 permission('Supplier company', 'account', CONTACT, appendto=True, relationship='contact_customer_accounts')
-permission('Supplier documents', 'op365_supplierdocument', ACCOUNT, write=True, create=True, delete=True, append=True,
-           relationship='op365_account_supplierdocument_supplierid')
+# child of Supplier company through the lookup the portal binds (op365_SupplierId): the association check on create
+# needs the parent/child chain, an independent Account-scope permission is refused
+permission('Supplier documents', 'op365_supplierdocument', PARENT, write=True, create=True, delete=True, append=True,
+           relationship='op365_account_supplierdocument_supplierid', parent='Supplier company')
 
 # ---------- Web API: only the columns a supplier may write ----------
 SETTINGS = {
