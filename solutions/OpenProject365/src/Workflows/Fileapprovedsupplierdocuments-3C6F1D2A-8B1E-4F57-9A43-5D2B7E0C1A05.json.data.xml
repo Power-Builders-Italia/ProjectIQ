@@ -22,15 +22,9 @@
   <ModernFlowType>0</ModernFlowType>
   <PrimaryEntity>none</PrimaryEntity>
   <LocalizedNames>
-    <LocalizedName languagecode="1031" description="Genehmigte Lieferantendokumente ablegen" />
     <LocalizedName languagecode="1033" description="File approved supplier documents" />
-    <LocalizedName languagecode="1036" description="Classer les documents fournisseur approuvés" />
-    <LocalizedName languagecode="1040" description="Archivia documenti fornitore approvati" />
   </LocalizedNames>
   <Descriptions>
-    <Description languagecode="1031" description="Verschiebt bei der Genehmigung eines Lieferantendokuments die Datei in seinen SharePoint-Ordner" />
     <Description languagecode="1033" description="When a supplier document is approved, moves its file to the SharePoint folder of the document" />
-    <Description languagecode="1036" description="À l'approbation d'un document fournisseur, déplace son fichier dans son dossier SharePoint" />
-    <Description languagecode="1040" description="All'approvazione di un documento fornitore sposta il file nella sua cartella SharePoint" />
   </Descriptions>
 </Workflow>
