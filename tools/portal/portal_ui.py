@@ -47,6 +47,8 @@ STYLE = """<link rel="preconnect" href="https://fonts.googleapis.com">
 :root{--op-navy:#0f2a44;--op-navy-2:#1e4a72;--op-sky:#38bdf8;--op-accent:#1d4ed8;--op-ink:#0f172a;--op-muted:#475569;
   --op-line:#e2e8f0;--op-bg:#f1f5f9;--op-green:#16a34a;--op-amber:#f59e0b;--op-red:#dc2626}
 .page-copy:has(.op-shell){padding:0;margin:0;max-width:none}
+/* the sidebar replaces the site header and footer on portal pages */
+body:has(.op-shell) header,body:has(.op-shell) .navbar,body:has(.op-shell) footer,body:has(.op-shell) .footer{display:none!important}
 .op-shell{display:flex;flex-wrap:wrap;min-height:80vh;background:var(--op-bg);color:var(--op-ink);
   font-family:Inter,"Segoe UI",system-ui,sans-serif;text-align:left}
 .op-shell a{color:var(--op-accent)}
@@ -197,8 +199,9 @@ PROJECT_CARDS = """{% fetchxml op_prj %}
   {% assign op_t = o.op365_totalamount | default: 0 %}{% assign op_r = o.op365_receivedamount | default: 0 %}
   {% assign op_n = op_n | plus: 1 %}{% assign op_ordered = op_ordered | plus: op_t %}{% assign op_received = op_received | plus: op_r %}
   {% if o.statuscode.value == @PO_SENT@ %}{% assign op_open = op_open | plus: 1 %}{% endif %}
-  {% assign op_next = op_list[forloop.index] %}
-  {% if op_next == nil or op_next.op365_projectid.id != o.op365_projectid.id %}
+  {% assign op_close = forloop.last %}
+  {% unless forloop.last %}{% assign op_next = op_list[forloop.index] %}{% if op_next.op365_projectid.id != o.op365_projectid.id %}{% assign op_close = true %}{% endif %}{% endunless %}
+  {% if op_close %}
     {% if op_shown < limit %}
     {% assign op_progress = o['pr.op365_progresspct'] | default: 0 | round: 0 %}
     {% if op_ordered > 0 %}{% assign op_delivered = op_received | times: 100 | divided_by: op_ordered | round: 0 %}{% else %}{% assign op_delivered = 0 %}{% endif %}
