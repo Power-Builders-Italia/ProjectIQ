@@ -77,7 +77,7 @@ Nel [Portfolio Agent](portfolio-agent.md#documenti-di-commessa) chiedi "mostra i
 
 ### Documenti fornitore
 
-Un **Supplier Document** (DURC, certificazione, assicurazione) mantiene la colonna **File**, usata dal [portale fornitori](supplier-portal.md). La cartella SharePoint del record serve per gli altri file che lo accompagnano (rinnovi, corrispondenza). Scadenze e conformità fornitori continuano a basarsi sui campi del Supplier Document come prima.
+Un **Supplier Document** (DURC, certificazione, assicurazione) ha una colonna **File**, usata dal [portale fornitori](supplier-portal.md). Quando il buyer approva un documento, il flusso **File approved supplier documents** sposta il file nella cartella SharePoint del record e svuota la colonna, così i documenti approvati stanno tutti in SharePoint (vedi [sotto](#documenti-fornitore-approvati-in-sharepoint)). La cartella SharePoint contiene anche gli altri file che accompagnano il documento (rinnovi, corrispondenza). Scadenze e conformità fornitori continuano a basarsi sui campi del Supplier Document come prima.
 
 ## Parte 2: configurazione (amministratori)
 
@@ -122,6 +122,15 @@ I flussi controllano la raccolta ogni 3 minuti e usano due riferimenti di connes
 | 4 | Admin SharePoint | Facoltativo, per i file già presenti: ripeti il passo 1 con `--backfill` e le variabili `PAC_*` dell'ambiente |
 
 I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzione controlla che siano ancora attivi.
+
+### Documenti fornitore approvati in SharePoint
+
+Il flusso **File approved supplier documents** parte quando un documento fornitore diventa **Approved** (**Approve** nell'app). Se il documento ha un file nella colonna **File**, il flusso:
+1. trova la cartella SharePoint del record, oppure ne registra una nuova (`<descrizione>_<id del record>`) nella raccolta **op365_supplierdocument**;
+2. crea il file in quella cartella con il nome originale (il flusso **Tag supplier documents** compila poi le sue colonne ProjectIQ);
+3. rimuove il file dalla colonna **File**. Sul portale il fornitore vede allora **Filed by your customer** al posto del file.
+
+Usa gli stessi riferimenti di connessione **op365_dataverse** e **op365_sharepoint** e la variabile **SharePoint Site URL**; la raccolta **op365_supplierdocument** e la sua document location devono esistere ([Parte 2](#parte-2-configurazione-amministratori), passo 2). Se la copia non riesce, il file resta nella colonna **File**: controlla la cronologia delle esecuzioni e rilancia il flusso dall'esecuzione fallita (**Resubmit**), senza approvare di nuovo.
 
 ## Messaggi che potresti vedere
 

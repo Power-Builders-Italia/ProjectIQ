@@ -2,7 +2,7 @@
   <content>{
   "title": "Purchase orders",
   "partialurl": "orders",
-  "displayorder": 3,
+  "displayorder": 4,
   "hiddenfromsitemap": false,
   "excludefromsearch": true,
   "enablerating": false,
@@ -14,7 +14,7 @@
   "feedbackpolicy": 756150000,
   "isofflinecached": false,
   "rootwebpageid": "59c4d681-43d0-f111-a05b-7ced8d2d53e4",
-  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n&lt;div class=\"container py-4\"&gt;\n  &lt;h1 class=\"h3 mb-3\"&gt;Purchase orders&lt;/h1&gt;\n  {% fetchxml orders %}\n  &lt;fetch&gt;\n    &lt;entity name=\"op365_purchaseorder\"&gt;\n      &lt;attribute name=\"op365_purchaseorderid\" /&gt;&lt;attribute name=\"op365_number\" /&gt;&lt;attribute name=\"op365_orderdate\" /&gt;\n      &lt;attribute name=\"op365_expecteddelivery\" /&gt;&lt;attribute name=\"op365_totalamount\" /&gt;&lt;attribute name=\"statuscode\" /&gt;\n      &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n      &lt;order attribute=\"op365_orderdate\" descending=\"true\" /&gt;\n    &lt;/entity&gt;\n  &lt;/fetch&gt;\n  {% endfetchxml %}\n  {% if orders.results.entities.size == 0 %}\n  &lt;div class=\"alert alert-info\"&gt;There are no purchase orders for your company.&lt;/div&gt;\n  {% else %}\n  &lt;div class=\"table-responsive\"&gt;&lt;table class=\"table table-hover align-middle\"&gt;\n    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Order&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Expected delivery&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class=\"text-end\"&gt;Total&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;\n    &lt;tbody&gt;\n    {% for o in orders.results.entities %}\n      &lt;tr&gt;\n        &lt;td&gt;{{ o.op365_number }}&lt;/td&gt;\n        &lt;td&gt;{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/td&gt;\n        &lt;td&gt;{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}&lt;/td&gt;\n        &lt;td&gt;&lt;span class=\"badge {% if o.statuscode.value == 365000000 %}bg-warning text-dark{% else %}bg-success{% endif %}\"&gt;{% if o.statuscode.value == 365000000 %}To confirm{% else %}{{ o.statuscode.label }}{% endif %}&lt;/span&gt;&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;{{ o.op365_totalamount | round: 2 }}&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;&lt;a class=\"btn btn-sm btn-outline-primary\" href=\"/orders/order/?id={{ o.op365_purchaseorderid }}\"&gt;Open&lt;/a&gt;&lt;/td&gt;\n      &lt;/tr&gt;\n    {% endfor %}\n    &lt;/tbody&gt;\n  &lt;/table&gt;&lt;/div&gt;\n  {% endif %}\n&lt;/div&gt;\n{% endif %}\n"
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'orders' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n{% fetchxml orders %}\n&lt;fetch&gt;&lt;entity name=\"op365_purchaseorder\"&gt;\n  &lt;attribute name=\"op365_purchaseorderid\" /&gt;&lt;attribute name=\"op365_number\" /&gt;&lt;attribute name=\"op365_orderdate\" /&gt;&lt;attribute name=\"op365_projectid\" /&gt;\n  &lt;attribute name=\"op365_expecteddelivery\" /&gt;&lt;attribute name=\"op365_totalamount\" /&gt;&lt;attribute name=\"op365_receivedamount\" /&gt;&lt;attribute name=\"statuscode\" /&gt;\n  &lt;attribute name=\"op365_deliveryplace\" /&gt;&lt;attribute name=\"op365_paymentterms\" /&gt;&lt;attribute name=\"op365_receivedon\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_orderdate\" descending=\"true\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% assign list = orders.results.entities %}\n{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}\n{% for o in list %}{% if o.statuscode.value == 365000000 %}{% assign n1 = n1 | plus: 1 %}{% elsif o.statuscode.value == 365000001 %}{% assign n2 = n2 | plus: 1 %}{% else %}{% assign n3 = n3 | plus: 1 %}{% endif %}{% endfor %}\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / Purchase orders&lt;/div&gt;\n  &lt;h1 class=\"op-h1\"&gt;Purchase orders&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n{% if list.size == 0 %}&lt;div class=\"op-empty\"&gt;There are no purchase orders for your company.&lt;/div&gt;{% else %}\n&lt;div class=\"op-filter\"&gt;\n  &lt;input type=\"radio\" name=\"op-f\" id=\"f0\" checked&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f1\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f2\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f3\"&gt;\n  &lt;div class=\"op-chips\" role=\"group\" aria-label=\"Filter by status\"&gt;&lt;label for=\"f0\"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for=\"f1\"&gt;To confirm &amp;middot; {{ n1 }}&lt;/label&gt;\n    &lt;label for=\"f2\"&gt;Confirmed &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for=\"f3\"&gt;Received &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;\n  &lt;div class=\"op-grid\"&gt;\n  {% for o in list %}\n    {% if o.statuscode.value == 365000000 %}{% assign s = 1 %}{% elsif o.statuscode.value == 365000001 %}{% assign s = 2 %}{% else %}{% assign s = 3 %}{% endif %}\n    {% assign t = o.op365_totalamount | default: 0 %}{% assign r = o.op365_receivedamount | default: 0 %}\n    {% if t &gt; 0 %}{% assign pct = r | times: 100 | divided_by: t | round: 0 %}{% else %}{% assign pct = 0 %}{% endif %}{% if s == 3 %}{% assign pct = 100 %}{% endif %}\n    &lt;article class=\"op-card s{{ s }}{% if s == 1 %} attention{% elsif s == 3 %} closed{% endif %}\"&gt;\n      &lt;div class=\"op-row\"&gt;&lt;span class=\"op-muted\"&gt;{% if o.op365_projectid %}{{ o.op365_projectid.name | escape }} &amp;middot; {% endif %}{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/span&gt;\n        {% if s == 1 %}&lt;span class=\"op-badge b-amber\"&gt;To confirm&lt;/span&gt;{% elsif s == 2 %}&lt;span class=\"op-badge b-green\"&gt;Confirmed&lt;/span&gt;{% else %}&lt;span class=\"op-badge b-grey\"&gt;Received&lt;/span&gt;{% endif %}&lt;/div&gt;\n      &lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\"&gt;{{ o.op365_number | escape }}&lt;/h2&gt;&lt;span class=\"op-amount\"&gt;{{ t | round: 2 }}&lt;/span&gt;&lt;/div&gt;\n      {% if s == 1 %}\n      &lt;dl class=\"op-dl\"&gt;&lt;div&gt;&lt;dt&gt;Expected delivery&lt;/dt&gt;&lt;dd&gt;{% if o.op365_expecteddelivery %}{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;\n        &lt;div style=\"grid-column:span 2\"&gt;&lt;dt&gt;Payment&lt;/dt&gt;&lt;dd&gt;{{ o.op365_paymentterms | escape | default: '&amp;ndash;' }}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;\n      {% if o.op365_deliveryplace %}&lt;p class=\"op-muted\"&gt;Delivery place: {{ o.op365_deliveryplace | escape }}&lt;/p&gt;{% endif %}\n      &lt;div class=\"op-actions\"&gt;&lt;a class=\"op-btn grow\" href=\"/orders/order/?id={{ o.op365_purchaseorderid }}\"&gt;Review and confirm&lt;/a&gt;&lt;/div&gt;\n      {% else %}\n      &lt;div class=\"op-meter\"&gt;&lt;div class=\"op-row\"&gt;&lt;span&gt;Received&lt;/span&gt;&lt;span&gt;{{ pct }}%&lt;/span&gt;&lt;/div&gt;&lt;div class=\"op-bar\"&gt;&lt;span style=\"--w:{{ pct }}%\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;\n      &lt;p class=\"op-muted\"&gt;{% if s == 3 and o.op365_receivedon %}Delivered {{ o.op365_receivedon | date: 'dd/MM/yyyy' }}{% elsif o.op365_expecteddelivery %}Expected delivery {{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}{% endif %}&lt;/p&gt;\n      &lt;div class=\"op-actions\"&gt;&lt;a class=\"op-btn ghost grow\" href=\"/orders/order/?id={{ o.op365_purchaseorderid }}\"&gt;Open&lt;/a&gt;&lt;/div&gt;\n      {% endif %}\n    &lt;/article&gt;\n  {% endfor %}\n  &lt;/div&gt;\n&lt;/div&gt;\n{% endif %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Purchase orders</name>
@@ -29,37 +29,54 @@
 {% if supplier == false %}
 &lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
 {% else %}
-&lt;div class="container py-4"&gt;
-  &lt;h1 class="h3 mb-3"&gt;Purchase orders&lt;/h1&gt;
-  {% fetchxml orders %}
-  &lt;fetch&gt;
-    &lt;entity name="op365_purchaseorder"&gt;
-      &lt;attribute name="op365_purchaseorderid" /&gt;&lt;attribute name="op365_number" /&gt;&lt;attribute name="op365_orderdate" /&gt;
-      &lt;attribute name="op365_expecteddelivery" /&gt;&lt;attribute name="op365_totalamount" /&gt;&lt;attribute name="statuscode" /&gt;
-      &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
-      &lt;order attribute="op365_orderdate" descending="true" /&gt;
-    &lt;/entity&gt;
-  &lt;/fetch&gt;
-  {% endfetchxml %}
-  {% if orders.results.entities.size == 0 %}
-  &lt;div class="alert alert-info"&gt;There are no purchase orders for your company.&lt;/div&gt;
-  {% else %}
-  &lt;div class="table-responsive"&gt;&lt;table class="table table-hover align-middle"&gt;
-    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Order&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Expected delivery&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class="text-end"&gt;Total&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-    &lt;tbody&gt;
-    {% for o in orders.results.entities %}
-      &lt;tr&gt;
-        &lt;td&gt;{{ o.op365_number }}&lt;/td&gt;
-        &lt;td&gt;{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/td&gt;
-        &lt;td&gt;{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}&lt;/td&gt;
-        &lt;td&gt;&lt;span class="badge {% if o.statuscode.value == 365000000 %}bg-warning text-dark{% else %}bg-success{% endif %}"&gt;{% if o.statuscode.value == 365000000 %}To confirm{% else %}{{ o.statuscode.label }}{% endif %}&lt;/span&gt;&lt;/td&gt;
-        &lt;td class="text-end"&gt;{{ o.op365_totalamount | round: 2 }}&lt;/td&gt;
-        &lt;td class="text-end"&gt;&lt;a class="btn btn-sm btn-outline-primary" href="/orders/order/?id={{ o.op365_purchaseorderid }}"&gt;Open&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-    {% endfor %}
-    &lt;/tbody&gt;
-  &lt;/table&gt;&lt;/div&gt;
-  {% endif %}
+{% include 'OP365 Supplier Style' %}
+&lt;div class="op-shell"&gt;
+{% include 'OP365 Supplier Nav' active: 'orders' %}
+&lt;main class="op-main" id="op-main"&gt;
+{% fetchxml orders %}
+&lt;fetch&gt;&lt;entity name="op365_purchaseorder"&gt;
+  &lt;attribute name="op365_purchaseorderid" /&gt;&lt;attribute name="op365_number" /&gt;&lt;attribute name="op365_orderdate" /&gt;&lt;attribute name="op365_projectid" /&gt;
+  &lt;attribute name="op365_expecteddelivery" /&gt;&lt;attribute name="op365_totalamount" /&gt;&lt;attribute name="op365_receivedamount" /&gt;&lt;attribute name="statuscode" /&gt;
+  &lt;attribute name="op365_deliveryplace" /&gt;&lt;attribute name="op365_paymentterms" /&gt;&lt;attribute name="op365_receivedon" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_orderdate" descending="true" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% assign list = orders.results.entities %}
+{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}
+{% for o in list %}{% if o.statuscode.value == 365000000 %}{% assign n1 = n1 | plus: 1 %}{% elsif o.statuscode.value == 365000001 %}{% assign n2 = n2 | plus: 1 %}{% else %}{% assign n3 = n3 | plus: 1 %}{% endif %}{% endfor %}
+&lt;div class="op-head"&gt;&lt;div&gt;&lt;div class="op-crumb"&gt;&lt;a href="/dashboard/"&gt;Dashboard&lt;/a&gt; / Purchase orders&lt;/div&gt;
+  &lt;h1 class="op-h1"&gt;Purchase orders&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;
+{% if list.size == 0 %}&lt;div class="op-empty"&gt;There are no purchase orders for your company.&lt;/div&gt;{% else %}
+&lt;div class="op-filter"&gt;
+  &lt;input type="radio" name="op-f" id="f0" checked&gt;&lt;input type="radio" name="op-f" id="f1"&gt;&lt;input type="radio" name="op-f" id="f2"&gt;&lt;input type="radio" name="op-f" id="f3"&gt;
+  &lt;div class="op-chips" role="group" aria-label="Filter by status"&gt;&lt;label for="f0"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for="f1"&gt;To confirm &amp;middot; {{ n1 }}&lt;/label&gt;
+    &lt;label for="f2"&gt;Confirmed &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for="f3"&gt;Received &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="op-grid"&gt;
+  {% for o in list %}
+    {% if o.statuscode.value == 365000000 %}{% assign s = 1 %}{% elsif o.statuscode.value == 365000001 %}{% assign s = 2 %}{% else %}{% assign s = 3 %}{% endif %}
+    {% assign t = o.op365_totalamount | default: 0 %}{% assign r = o.op365_receivedamount | default: 0 %}
+    {% if t &gt; 0 %}{% assign pct = r | times: 100 | divided_by: t | round: 0 %}{% else %}{% assign pct = 0 %}{% endif %}{% if s == 3 %}{% assign pct = 100 %}{% endif %}
+    &lt;article class="op-card s{{ s }}{% if s == 1 %} attention{% elsif s == 3 %} closed{% endif %}"&gt;
+      &lt;div class="op-row"&gt;&lt;span class="op-muted"&gt;{% if o.op365_projectid %}{{ o.op365_projectid.name | escape }} &amp;middot; {% endif %}{{ o.op365_orderdate | date: 'dd/MM/yyyy' }}&lt;/span&gt;
+        {% if s == 1 %}&lt;span class="op-badge b-amber"&gt;To confirm&lt;/span&gt;{% elsif s == 2 %}&lt;span class="op-badge b-green"&gt;Confirmed&lt;/span&gt;{% else %}&lt;span class="op-badge b-grey"&gt;Received&lt;/span&gt;{% endif %}&lt;/div&gt;
+      &lt;div class="op-row"&gt;&lt;h2 class="op-h2"&gt;{{ o.op365_number | escape }}&lt;/h2&gt;&lt;span class="op-amount"&gt;{{ t | round: 2 }}&lt;/span&gt;&lt;/div&gt;
+      {% if s == 1 %}
+      &lt;dl class="op-dl"&gt;&lt;div&gt;&lt;dt&gt;Expected delivery&lt;/dt&gt;&lt;dd&gt;{% if o.op365_expecteddelivery %}{{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;
+        &lt;div style="grid-column:span 2"&gt;&lt;dt&gt;Payment&lt;/dt&gt;&lt;dd&gt;{{ o.op365_paymentterms | escape | default: '&amp;ndash;' }}&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+      {% if o.op365_deliveryplace %}&lt;p class="op-muted"&gt;Delivery place: {{ o.op365_deliveryplace | escape }}&lt;/p&gt;{% endif %}
+      &lt;div class="op-actions"&gt;&lt;a class="op-btn grow" href="/orders/order/?id={{ o.op365_purchaseorderid }}"&gt;Review and confirm&lt;/a&gt;&lt;/div&gt;
+      {% else %}
+      &lt;div class="op-meter"&gt;&lt;div class="op-row"&gt;&lt;span&gt;Received&lt;/span&gt;&lt;span&gt;{{ pct }}%&lt;/span&gt;&lt;/div&gt;&lt;div class="op-bar"&gt;&lt;span style="--w:{{ pct }}%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;p class="op-muted"&gt;{% if s == 3 and o.op365_receivedon %}Delivered {{ o.op365_receivedon | date: 'dd/MM/yyyy' }}{% elsif o.op365_expecteddelivery %}Expected delivery {{ o.op365_expecteddelivery | date: 'dd/MM/yyyy' }}{% endif %}&lt;/p&gt;
+      &lt;div class="op-actions"&gt;&lt;a class="op-btn ghost grow" href="/orders/order/?id={{ o.op365_purchaseorderid }}"&gt;Open&lt;/a&gt;&lt;/div&gt;
+      {% endif %}
+    &lt;/article&gt;
+  {% endfor %}
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endif %}
+&lt;/main&gt;
 &lt;/div&gt;
 {% endif %}
 Purchase orders</searchcontent>

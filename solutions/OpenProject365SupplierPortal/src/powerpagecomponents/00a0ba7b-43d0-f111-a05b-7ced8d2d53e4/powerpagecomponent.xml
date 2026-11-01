@@ -2,7 +2,7 @@
   <content>{
   "title": "Requests for quotation",
   "partialurl": "rfqs",
-  "displayorder": 2,
+  "displayorder": 3,
   "hiddenfromsitemap": false,
   "excludefromsearch": true,
   "enablerating": false,
@@ -14,7 +14,7 @@
   "feedbackpolicy": 756150000,
   "isofflinecached": false,
   "rootwebpageid": "66f26275-43d0-f111-a05b-7ced8d2d53e4",
-  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n&lt;div class=\"container py-4\"&gt;\n  &lt;h1 class=\"h3 mb-3\"&gt;Requests for quotation&lt;/h1&gt;\n  {% fetchxml invitations %}\n  &lt;fetch&gt;\n    &lt;entity name=\"op365_rfqinvitation\"&gt;\n      &lt;attribute name=\"op365_rfqinvitationid\" /&gt;&lt;attribute name=\"op365_rfqnumber\" /&gt;&lt;attribute name=\"op365_deadline\" /&gt;\n      &lt;attribute name=\"statuscode\" /&gt;&lt;attribute name=\"op365_quotedamount\" /&gt;&lt;attribute name=\"op365_invitedon\" /&gt;\n      &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n      &lt;order attribute=\"op365_invitedon\" descending=\"true\" /&gt;\n    &lt;/entity&gt;\n  &lt;/fetch&gt;\n  {% endfetchxml %}\n  {% if invitations.results.entities.size == 0 %}\n  &lt;div class=\"alert alert-info\"&gt;There are no requests for quotation for your company.&lt;/div&gt;\n  {% else %}\n  &lt;div class=\"table-responsive\"&gt;&lt;table class=\"table table-hover align-middle\"&gt;\n    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;RFQ&lt;/th&gt;&lt;th&gt;Deadline&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class=\"text-end\"&gt;Quoted&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;\n    &lt;tbody&gt;\n    {% for i in invitations.results.entities %}\n      &lt;tr&gt;\n        &lt;td&gt;{{ i.op365_rfqnumber }}&lt;/td&gt;\n        &lt;td&gt;{{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/td&gt;\n        &lt;td&gt;&lt;span class=\"badge {% if i.statuscode.value == 365000001 %}bg-success{% elsif i.statuscode.value == 365000002 %}bg-secondary{% else %}bg-primary{% endif %}\"&gt;{{ i.statuscode.label }}&lt;/span&gt;&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;{% if i.op365_quotedamount &gt; 0 %}{{ i.op365_quotedamount | round: 2 }}{% endif %}&lt;/td&gt;\n        &lt;td class=\"text-end\"&gt;&lt;a class=\"btn btn-sm btn-outline-primary\" href=\"/rfqs/quote/?id={{ i.op365_rfqinvitationid }}\"&gt;Open&lt;/a&gt;&lt;/td&gt;\n      &lt;/tr&gt;\n    {% endfor %}\n    &lt;/tbody&gt;\n  &lt;/table&gt;&lt;/div&gt;\n  {% endif %}\n&lt;/div&gt;\n{% endif %}\n"
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'rfqs' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n{% assign today = now | date: 'yyyy-MM-dd' %}\n{% fetchxml invitations %}\n&lt;fetch&gt;&lt;entity name=\"op365_rfqinvitation\"&gt;\n  &lt;attribute name=\"op365_rfqinvitationid\" /&gt;&lt;attribute name=\"op365_rfqnumber\" /&gt;&lt;attribute name=\"op365_rfqid\" /&gt;&lt;attribute name=\"op365_deadline\" /&gt;\n  &lt;attribute name=\"statuscode\" /&gt;&lt;attribute name=\"op365_quotedamount\" /&gt;&lt;attribute name=\"op365_invitedon\" /&gt;&lt;attribute name=\"op365_rfqnotes\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_deadline\" descending=\"true\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% assign list = invitations.results.entities %}\n{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}\n{% for i in list %}{% assign dl = i.op365_deadline | date: 'yyyy-MM-dd' %}\n  {% if i.statuscode.value == 365000002 or dl &lt; today %}{% assign n3 = n3 | plus: 1 %}{% elsif i.statuscode.value == 365000001 %}{% assign n2 = n2 | plus: 1 %}{% else %}{% assign n1 = n1 | plus: 1 %}{% endif %}\n{% endfor %}\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / Requests for quotation&lt;/div&gt;\n  &lt;h1 class=\"op-h1\"&gt;Requests for quotation&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n{% if list.size == 0 %}&lt;div class=\"op-empty\"&gt;There are no requests for quotation for your company.&lt;/div&gt;{% else %}\n&lt;div class=\"op-filter\"&gt;\n  &lt;input type=\"radio\" name=\"op-f\" id=\"f0\" checked&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f1\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f2\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f3\"&gt;\n  &lt;div class=\"op-chips\" role=\"group\" aria-label=\"Filter by status\"&gt;&lt;label for=\"f0\"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for=\"f1\"&gt;To quote &amp;middot; {{ n1 }}&lt;/label&gt;\n    &lt;label for=\"f2\"&gt;Quoted &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for=\"f3\"&gt;Closed &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;\n  &lt;div class=\"op-grid\"&gt;\n  {% for i in list %}\n    {% assign dl = i.op365_deadline | date: 'yyyy-MM-dd' %}\n    {% if i.statuscode.value == 365000002 or dl &lt; today %}{% assign s = 3 %}{% elsif i.statuscode.value == 365000001 %}{% assign s = 2 %}{% else %}{% assign s = 1 %}{% endif %}\n    {% assign left = 99 %}\n    {% if s != 3 %}{% for k in (0..30) %}{% assign day = now | date_add_days: k | date: 'yyyy-MM-dd' %}{% if day == dl %}{% assign left = k %}{% break %}{% endif %}{% endfor %}{% endif %}\n    {% if left &lt; 14 %}{% assign used = 14 | minus: left | times: 100 | divided_by: 14 %}{% else %}{% assign used = 5 %}{% endif %}\n    &lt;article class=\"op-card s{{ s }}{% if s == 1 %} attention{% elsif s == 3 %} closed{% endif %}\"&gt;\n      &lt;div class=\"op-row\"&gt;&lt;span class=\"op-muted\"&gt;Invited {{ i.op365_invitedon | date: 'dd/MM/yyyy' }}&lt;/span&gt;\n        {% if s == 1 %}&lt;span class=\"op-badge b-amber\"&gt;To quote&lt;/span&gt;{% elsif s == 2 %}&lt;span class=\"op-badge b-green\"&gt;Quoted&lt;/span&gt;{% elsif i.statuscode.value == 365000002 %}&lt;span class=\"op-badge b-grey\"&gt;Declined&lt;/span&gt;{% else %}&lt;span class=\"op-badge b-grey\"&gt;Closed&lt;/span&gt;{% endif %}&lt;/div&gt;\n      &lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\"&gt;{{ i.op365_rfqnumber | escape }}&lt;/h2&gt;{% if i.op365_quotedamount &gt; 0 %}&lt;span class=\"op-amount\"&gt;{{ i.op365_quotedamount | round: 2 }}&lt;/span&gt;{% endif %}&lt;/div&gt;\n      {% if i.op365_rfqid %}&lt;p class=\"op-muted\"&gt;{{ i.op365_rfqid.name | escape }}&lt;/p&gt;{% endif %}\n      {% if s != 3 %}&lt;div class=\"op-meter\"&gt;&lt;div class=\"op-row\"&gt;&lt;span&gt;Deadline {{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/span&gt;\n        &lt;span&gt;{% if left == 0 %}Due today{% elsif left == 1 %}1 day left{% elsif left &lt; 99 %}{{ left }} days left{% else %}more than a month{% endif %}&lt;/span&gt;&lt;/div&gt;\n        &lt;div class=\"op-bar {% if left &lt;= 2 %}red{% elsif left &lt;= 6 %}amber{% else %}blue{% endif %}\"&gt;&lt;span style=\"--w:{{ used }}%\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;\n      {% else %}&lt;p class=\"op-muted\"&gt;Deadline {{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/p&gt;{% endif %}\n      &lt;div class=\"op-actions\"&gt;{% if s == 1 %}&lt;a class=\"op-btn grow\" href=\"/rfqs/quote/?id={{ i.op365_rfqinvitationid }}\"&gt;Quote now&lt;/a&gt;{% elsif s == 2 %}&lt;a class=\"op-btn ghost grow\" href=\"/rfqs/quote/?id={{ i.op365_rfqinvitationid }}\"&gt;Change quote&lt;/a&gt;{% else %}&lt;a class=\"op-btn ghost grow\" href=\"/rfqs/quote/?id={{ i.op365_rfqinvitationid }}\"&gt;Open&lt;/a&gt;{% endif %}&lt;/div&gt;\n    &lt;/article&gt;\n  {% endfor %}\n  &lt;/div&gt;\n&lt;/div&gt;\n{% endif %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Requests for quotation</name>
@@ -29,36 +29,54 @@
 {% if supplier == false %}
 &lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
 {% else %}
-&lt;div class="container py-4"&gt;
-  &lt;h1 class="h3 mb-3"&gt;Requests for quotation&lt;/h1&gt;
-  {% fetchxml invitations %}
-  &lt;fetch&gt;
-    &lt;entity name="op365_rfqinvitation"&gt;
-      &lt;attribute name="op365_rfqinvitationid" /&gt;&lt;attribute name="op365_rfqnumber" /&gt;&lt;attribute name="op365_deadline" /&gt;
-      &lt;attribute name="statuscode" /&gt;&lt;attribute name="op365_quotedamount" /&gt;&lt;attribute name="op365_invitedon" /&gt;
-      &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
-      &lt;order attribute="op365_invitedon" descending="true" /&gt;
-    &lt;/entity&gt;
-  &lt;/fetch&gt;
-  {% endfetchxml %}
-  {% if invitations.results.entities.size == 0 %}
-  &lt;div class="alert alert-info"&gt;There are no requests for quotation for your company.&lt;/div&gt;
-  {% else %}
-  &lt;div class="table-responsive"&gt;&lt;table class="table table-hover align-middle"&gt;
-    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;RFQ&lt;/th&gt;&lt;th&gt;Deadline&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class="text-end"&gt;Quoted&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-    &lt;tbody&gt;
-    {% for i in invitations.results.entities %}
-      &lt;tr&gt;
-        &lt;td&gt;{{ i.op365_rfqnumber }}&lt;/td&gt;
-        &lt;td&gt;{{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/td&gt;
-        &lt;td&gt;&lt;span class="badge {% if i.statuscode.value == 365000001 %}bg-success{% elsif i.statuscode.value == 365000002 %}bg-secondary{% else %}bg-primary{% endif %}"&gt;{{ i.statuscode.label }}&lt;/span&gt;&lt;/td&gt;
-        &lt;td class="text-end"&gt;{% if i.op365_quotedamount &gt; 0 %}{{ i.op365_quotedamount | round: 2 }}{% endif %}&lt;/td&gt;
-        &lt;td class="text-end"&gt;&lt;a class="btn btn-sm btn-outline-primary" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}"&gt;Open&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-    {% endfor %}
-    &lt;/tbody&gt;
-  &lt;/table&gt;&lt;/div&gt;
-  {% endif %}
+{% include 'OP365 Supplier Style' %}
+&lt;div class="op-shell"&gt;
+{% include 'OP365 Supplier Nav' active: 'rfqs' %}
+&lt;main class="op-main" id="op-main"&gt;
+{% assign today = now | date: 'yyyy-MM-dd' %}
+{% fetchxml invitations %}
+&lt;fetch&gt;&lt;entity name="op365_rfqinvitation"&gt;
+  &lt;attribute name="op365_rfqinvitationid" /&gt;&lt;attribute name="op365_rfqnumber" /&gt;&lt;attribute name="op365_rfqid" /&gt;&lt;attribute name="op365_deadline" /&gt;
+  &lt;attribute name="statuscode" /&gt;&lt;attribute name="op365_quotedamount" /&gt;&lt;attribute name="op365_invitedon" /&gt;&lt;attribute name="op365_rfqnotes" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_deadline" descending="true" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% assign list = invitations.results.entities %}
+{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}
+{% for i in list %}{% assign dl = i.op365_deadline | date: 'yyyy-MM-dd' %}
+  {% if i.statuscode.value == 365000002 or dl &lt; today %}{% assign n3 = n3 | plus: 1 %}{% elsif i.statuscode.value == 365000001 %}{% assign n2 = n2 | plus: 1 %}{% else %}{% assign n1 = n1 | plus: 1 %}{% endif %}
+{% endfor %}
+&lt;div class="op-head"&gt;&lt;div&gt;&lt;div class="op-crumb"&gt;&lt;a href="/dashboard/"&gt;Dashboard&lt;/a&gt; / Requests for quotation&lt;/div&gt;
+  &lt;h1 class="op-h1"&gt;Requests for quotation&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;
+{% if list.size == 0 %}&lt;div class="op-empty"&gt;There are no requests for quotation for your company.&lt;/div&gt;{% else %}
+&lt;div class="op-filter"&gt;
+  &lt;input type="radio" name="op-f" id="f0" checked&gt;&lt;input type="radio" name="op-f" id="f1"&gt;&lt;input type="radio" name="op-f" id="f2"&gt;&lt;input type="radio" name="op-f" id="f3"&gt;
+  &lt;div class="op-chips" role="group" aria-label="Filter by status"&gt;&lt;label for="f0"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for="f1"&gt;To quote &amp;middot; {{ n1 }}&lt;/label&gt;
+    &lt;label for="f2"&gt;Quoted &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for="f3"&gt;Closed &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="op-grid"&gt;
+  {% for i in list %}
+    {% assign dl = i.op365_deadline | date: 'yyyy-MM-dd' %}
+    {% if i.statuscode.value == 365000002 or dl &lt; today %}{% assign s = 3 %}{% elsif i.statuscode.value == 365000001 %}{% assign s = 2 %}{% else %}{% assign s = 1 %}{% endif %}
+    {% assign left = 99 %}
+    {% if s != 3 %}{% for k in (0..30) %}{% assign day = now | date_add_days: k | date: 'yyyy-MM-dd' %}{% if day == dl %}{% assign left = k %}{% break %}{% endif %}{% endfor %}{% endif %}
+    {% if left &lt; 14 %}{% assign used = 14 | minus: left | times: 100 | divided_by: 14 %}{% else %}{% assign used = 5 %}{% endif %}
+    &lt;article class="op-card s{{ s }}{% if s == 1 %} attention{% elsif s == 3 %} closed{% endif %}"&gt;
+      &lt;div class="op-row"&gt;&lt;span class="op-muted"&gt;Invited {{ i.op365_invitedon | date: 'dd/MM/yyyy' }}&lt;/span&gt;
+        {% if s == 1 %}&lt;span class="op-badge b-amber"&gt;To quote&lt;/span&gt;{% elsif s == 2 %}&lt;span class="op-badge b-green"&gt;Quoted&lt;/span&gt;{% elsif i.statuscode.value == 365000002 %}&lt;span class="op-badge b-grey"&gt;Declined&lt;/span&gt;{% else %}&lt;span class="op-badge b-grey"&gt;Closed&lt;/span&gt;{% endif %}&lt;/div&gt;
+      &lt;div class="op-row"&gt;&lt;h2 class="op-h2"&gt;{{ i.op365_rfqnumber | escape }}&lt;/h2&gt;{% if i.op365_quotedamount &gt; 0 %}&lt;span class="op-amount"&gt;{{ i.op365_quotedamount | round: 2 }}&lt;/span&gt;{% endif %}&lt;/div&gt;
+      {% if i.op365_rfqid %}&lt;p class="op-muted"&gt;{{ i.op365_rfqid.name | escape }}&lt;/p&gt;{% endif %}
+      {% if s != 3 %}&lt;div class="op-meter"&gt;&lt;div class="op-row"&gt;&lt;span&gt;Deadline {{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/span&gt;
+        &lt;span&gt;{% if left == 0 %}Due today{% elsif left == 1 %}1 day left{% elsif left &lt; 99 %}{{ left }} days left{% else %}more than a month{% endif %}&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="op-bar {% if left &lt;= 2 %}red{% elsif left &lt;= 6 %}amber{% else %}blue{% endif %}"&gt;&lt;span style="--w:{{ used }}%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      {% else %}&lt;p class="op-muted"&gt;Deadline {{ i.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/p&gt;{% endif %}
+      &lt;div class="op-actions"&gt;{% if s == 1 %}&lt;a class="op-btn grow" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}"&gt;Quote now&lt;/a&gt;{% elsif s == 2 %}&lt;a class="op-btn ghost grow" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}"&gt;Change quote&lt;/a&gt;{% else %}&lt;a class="op-btn ghost grow" href="/rfqs/quote/?id={{ i.op365_rfqinvitationid }}"&gt;Open&lt;/a&gt;{% endif %}&lt;/div&gt;
+    &lt;/article&gt;
+  {% endfor %}
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endif %}
+&lt;/main&gt;
 &lt;/div&gt;
 {% endif %}
 Requests for quotation</searchcontent>

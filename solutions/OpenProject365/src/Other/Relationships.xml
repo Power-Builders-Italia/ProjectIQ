@@ -134,6 +134,7 @@
   <EntityRelationship Name="op365_systemuser_purchaserequest_managerapprovedbyid" />
   <EntityRelationship Name="op365_systemuser_purchaserequest_requesterid" />
   <EntityRelationship Name="op365_systemuser_resource_userid" />
+  <EntityRelationship Name="op365_systemuser_supplierdocument_reviewedbyid" />
   <EntityRelationship Name="op365_systemuser_supplierinvoice_decidedbyid" />
   <EntityRelationship Name="op365_systemuser_timeentry_decidedbyid" />
   <EntityRelationship Name="op365_wbsnode_baselinenode_wbsnodeid" />

@@ -1,0 +1,24 @@
+<customapi uniquename="op365_UpdateDocumentExpiry">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices (daily document expiry flow)">
+    <label description="Aktualisiert den Ablaufstatus der Lieferantendokumente und die Warnzähler der Lieferanten und sendet die Ablaufhinweise per E-Mail (Flow tägliche Dokumentenfälligkeit)" languagecode="1031" />
+    <label description="Refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices (daily document expiry flow)" languagecode="1033" />
+    <label description="Met à jour le statut d'expiration des documents fournisseur et les compteurs d'alerte, et envoie les avis d'expiration par e-mail (flux d'échéance quotidienne des documents)" languagecode="1036" />
+    <label description="Aggiorna lo stato di scadenza dei documenti fornitore e i contatori di avviso dei fornitori e invia via e-mail gli avvisi di scadenza (flusso scadenza giornaliera documenti)" languagecode="1040" />
+  </description>
+  <displayname default="Update Document Expiry">
+    <label description="Dokumentenablauf aktualisieren" languagecode="1031" />
+    <label description="Update Document Expiry" languagecode="1033" />
+    <label description="Mettre à jour l'expiration des documents" languagecode="1036" />
+    <label description="Aggiorna scadenza documenti" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Update Document Expiry</name>
+  <plugintypeid>
+    <plugintypeexportkey>e8190c9e-c6d5-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a05}" Name="File approved supplier documents" Description="When a supplier document is approved, moves its file to the SharePoint folder of the document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <JsonFileName>/Workflows/Fileapprovedsupplierdocuments-3C6F1D2A-8B1E-4F57-9A43-5D2B7E0C1A05.json</JsonFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>5</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>0</StateCode>
+  <StatusCode>1</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1031" description="Genehmigte Lieferantendokumente ablegen" />
+    <LocalizedName languagecode="1033" description="File approved supplier documents" />
+    <LocalizedName languagecode="1036" description="Classer les documents fournisseur approuvés" />
+    <LocalizedName languagecode="1040" description="Archivia documenti fornitore approvati" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1031" description="Verschiebt bei der Genehmigung eines Lieferantendokuments die Datei in seinen SharePoint-Ordner" />
+    <Description languagecode="1033" description="When a supplier document is approved, moves its file to the SharePoint folder of the document" />
+    <Description languagecode="1036" description="À l'approbation d'un document fournisseur, déplace son fichier dans son dossier SharePoint" />
+    <Description languagecode="1040" description="All'approvazione di un documento fornitore sposta il file nella sua cartella SharePoint" />
+  </Descriptions>
+</Workflow>

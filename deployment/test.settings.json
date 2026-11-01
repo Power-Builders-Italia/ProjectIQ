@@ -13,6 +13,10 @@
       "Value": "#{OP365_PURCHASING_APPROVER}#"
     },
     {
+      "SchemaName": "op365_SupplierEmailSender",
+      "Value": "#{OP365_SUPPLIER_EMAIL_SENDER}#"
+    },
+    {
       "SchemaName": "op365_SharePointSiteUrl",
       "Value": "#{OP365_SHAREPOINT_SITE_URL}#"
     },

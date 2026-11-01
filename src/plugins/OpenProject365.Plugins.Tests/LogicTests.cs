@@ -126,3 +126,65 @@ public class PurchaseMathTests
         Assert.NotNull(OrderStatus.Check(OrderStatus.Received, OrderStatus.Cancelled, false));
     }
 }
+
+public class DocumentExpiryTests
+{
+    private static readonly Guid A = Guid.NewGuid(), B = Guid.NewGuid(), C = Guid.NewGuid();
+
+    [Fact]
+    public void DocumentExpiry_StatusFromDate()
+    {
+        var today = new DateTime(2026, 11, 1);
+        Assert.Null(DocumentExpiry.Status(null, today, false));
+        Assert.Equal(Model.ExpiryExpired, DocumentExpiry.Status(today.AddDays(-1), today, false));
+        Assert.Equal(Model.ExpiryExpiring, DocumentExpiry.Status(today, today, false));
+        Assert.Equal(Model.ExpiryExpiring, DocumentExpiry.Status(today.AddDays(30), today, false));
+        Assert.Equal(Model.ExpiryValid, DocumentExpiry.Status(today.AddDays(31), today, false));
+        Assert.Equal(Model.ExpiryReplaced, DocumentExpiry.Status(today.AddDays(-10), today, true));
+    }
+
+    [Fact]
+    public void DocumentExpiry_ApprovedRenewalReplacesOlderDocument()
+    {
+        var today = new DateTime(2026, 11, 1);
+        var old = new DocumentRow { Id = A, Type = 1, Expiry = today.AddDays(-5), Approved = true };
+        var pending = new DocumentRow { Id = B, Type = 1, Expiry = today.AddDays(120), Approved = false };
+        var other = new DocumentRow { Id = C, Type = 2, Expiry = today.AddDays(10), Approved = true };
+        var docs = new List<DocumentRow> { old, pending, other };
+        var statuses = DocumentExpiry.Statuses(docs, today);
+        Assert.Equal(Model.ExpiryExpired, statuses[A]);          // the renewal is not approved yet
+        Assert.Equal(Model.ExpiryValid, statuses[B]);
+        Assert.Equal(Model.ExpiryExpiring, statuses[C]);
+        Assert.Equal(Tuple.Create(1, 1), DocumentExpiry.Counters(docs, statuses));
+
+        pending.Approved = true;
+        statuses = DocumentExpiry.Statuses(docs, today);
+        Assert.Equal(Model.ExpiryReplaced, statuses[A]);
+        Assert.Equal(Tuple.Create(0, 1), DocumentExpiry.Counters(docs, statuses));
+    }
+
+    [Fact]
+    public void DocumentExpiry_NoticeOncePerStep()
+    {
+        Assert.Equal(Model.NoticeExpiring, DocumentExpiry.Notice(true, Model.ExpiryExpiring, null));
+        Assert.Null(DocumentExpiry.Notice(true, Model.ExpiryExpiring, Model.NoticeExpiring));
+        Assert.Equal(Model.NoticeExpired, DocumentExpiry.Notice(true, Model.ExpiryExpired, null));
+        Assert.Equal(Model.NoticeExpired, DocumentExpiry.Notice(true, Model.ExpiryExpired, Model.NoticeExpiring));
+        Assert.Null(DocumentExpiry.Notice(true, Model.ExpiryExpired, Model.NoticeExpired));
+        Assert.Null(DocumentExpiry.Notice(true, Model.ExpiryReplaced, null));
+        Assert.Null(DocumentExpiry.Notice(true, Model.ExpiryValid, null));
+        Assert.Null(DocumentExpiry.Notice(false, Model.ExpiryExpired, null));
+    }
+
+    [Fact]
+    public void EmailTemplates_PickByLanguageThenDefault()
+    {
+        const string json = "{\"DocumentExpiring\":{\"Italian\":\"Documento in scadenza\",\"English\":\"Document expiring\",\"default\":\"English\"}}";
+        Assert.Equal("Documento in scadenza", EmailTemplates.Pick(json, "DocumentExpiring", "Italian"));
+        Assert.Equal("Document expiring", EmailTemplates.Pick(json, "DocumentExpiring", "German"));
+        Assert.Equal("Document expiring", EmailTemplates.Pick(json, "DocumentExpiring", null));
+        Assert.Null(EmailTemplates.Pick(json, "DocumentExpired", "Italian"));
+        Assert.Null(EmailTemplates.Pick("not json", "DocumentExpiring", "Italian"));
+        Assert.Null(EmailTemplates.Pick(null, "DocumentExpiring", "Italian"));
+    }
+}

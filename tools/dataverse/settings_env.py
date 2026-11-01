@@ -6,9 +6,11 @@ Definitions carry the defaults only: per-environment values are set in the targe
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
+import json
 from flow_definitions import LIBRARIES, SITE
+from supplier_email_templates import default_mapping
 
-STRING, NUMBER, BOOLEAN = 100000000, 100000001, 100000002
+STRING, NUMBER, BOOLEAN, JSON = 100000000, 100000001, 100000002, 100000003
 
 VARIABLES = [
     ('op365_TimeApprovalEnabled', 'Time Approval Enabled', BOOLEAN, 'yes',
@@ -18,6 +20,13 @@ VARIABLES = [
     ('op365_PurchasingApprover', 'Purchasing Approver', STRING, None,
      'User Name (UPN) or primary email of the user who approves purchase requests above the threshold and decides '
      'supplier invoices. Empty = every OP365 Administrator.'),
+    ('op365_SupplierEmailTemplates', 'Supplier Email Templates', JSON, json.dumps(default_mapping(), ensure_ascii=False),
+     'E-mail templates (Account type) of the messages to suppliers, by message and supplier Language: '
+     '{"DocumentExpiring": {"Italian": "<template title>", "English": "<template title>", "default": "English"}, '
+     '"DocumentExpired": {...}}. Default: the templates of tools/dataverse/supplier_email_templates.py.'),
+    ('op365_SupplierEmailSender', 'Supplier Email Sender', STRING, None,
+     'Name or e-mail address of the queue (mailbox with server-side synchronization) that sends the e-mails to suppliers. '
+     'Empty = no e-mails.'),
 ]
 # document metadata flows: SharePoint site and library ids, set by tools/sharepoint/document_metadata.py (no default)
 VARIABLES += [(schema, label, STRING, None, desc) for schema, label, desc in [SITE, *LIBRARIES.values()]]

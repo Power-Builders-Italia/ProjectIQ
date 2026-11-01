@@ -77,7 +77,7 @@ Fragen Sie im [Portfolio Agent](portfolio-agent.md#projektdokumente) „zeige di
 
 ### Lieferantendokumente
 
-Ein **Supplier Document** (DURC, Zertifizierung, Versicherung) behält seine Spalte **File**, die das [Lieferantenportal](supplier-portal.md) nutzt. Der SharePoint-Ordner des Datensatzes ist für die übrigen zugehörigen Dateien (Erneuerungen, Korrespondenz). Ablaufdaten und Lieferanten-Compliance beruhen wie bisher auf den Feldern des Supplier Document.
+Ein **Supplier Document** (DURC, Zertifizierung, Versicherung) hat eine Spalte **File**, die das [Lieferantenportal](supplier-portal.md) nutzt. Genehmigt der Einkäufer ein Dokument, verschiebt der Flow **File approved supplier documents** die Datei in den SharePoint-Ordner des Datensatzes und leert die Spalte; so liegen alle genehmigten Dokumente in SharePoint (siehe [unten](#genehmigte-lieferantendokumente-in-sharepoint)). Der SharePoint-Ordner enthält auch die übrigen zugehörigen Dateien (Erneuerungen, Korrespondenz). Ablaufdaten und Lieferanten-Compliance beruhen wie bisher auf den Feldern des Supplier Document.
 
 ## Teil 2: Einrichtung (Administratoren)
 
@@ -122,6 +122,15 @@ Die Flows prüfen die Bibliothek alle 3 Minuten und verwenden zwei Verbindungsve
 | 4 | SharePoint-Admin | Optional, für bereits vorhandene Dateien: Schritt 1 mit `--backfill` und den `PAC_*`-Variablen der Umgebung erneut ausführen |
 
 Die Flows werden **ausgeschaltet** importiert: Prüfen Sie nach jedem Update der Lösung, dass sie noch eingeschaltet sind.
+
+### Genehmigte Lieferantendokumente in SharePoint
+
+Der Flow **File approved supplier documents** startet, wenn ein Lieferantendokument **Approved** wird (**Approve** in der App). Hat das Dokument eine Datei in der Spalte **File**, dann:
+1. sucht der Flow den SharePoint-Ordner des Datensatzes oder registriert einen neuen (`<Beschreibung>_<Datensatz-ID>`) in der Bibliothek **op365_supplierdocument**;
+2. legt er die Datei mit ihrem ursprünglichen Namen in diesem Ordner an (der Flow **Tag supplier documents** füllt danach ihre ProjectIQ-Spalten);
+3. entfernt er die Datei aus der Spalte **File**. Im Portal sieht der Lieferant dann **Filed by your customer** statt der Datei.
+
+Er verwendet dieselben Verbindungsreferenzen **op365_dataverse** und **op365_sharepoint** und die Variable **SharePoint Site URL**; die Bibliothek **op365_supplierdocument** und ihr Dokumentspeicherort müssen vorhanden sein ([Teil 2](#teil-2-einrichtung-administratoren), Schritt 2). Schlägt die Kopie fehl, bleibt die Datei in der Spalte **File**: Prüfen Sie den Ausführungsverlauf und starten Sie den Flow aus der fehlgeschlagenen Ausführung neu (**Resubmit**), ohne erneut zu genehmigen.
 
 ## Mögliche Meldungen
 

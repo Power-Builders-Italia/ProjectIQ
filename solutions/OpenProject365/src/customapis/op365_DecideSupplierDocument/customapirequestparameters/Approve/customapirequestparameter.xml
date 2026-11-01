@@ -1,0 +1,18 @@
+<customapirequestparameter uniquename="Approve">
+  <description default="True to approve, false to reject">
+    <label description="True zum Genehmigen, false zum Ablehnen" languagecode="1031" />
+    <label description="True to approve, false to reject" languagecode="1033" />
+    <label description="True pour approuver, false pour rejeter" languagecode="1036" />
+    <label description="True per approvare, false per rifiutare" languagecode="1040" />
+  </description>
+  <displayname default="Approve">
+    <label description="Genehmigen" languagecode="1031" />
+    <label description="Approve" languagecode="1033" />
+    <label description="Approuver" languagecode="1036" />
+    <label description="Approva" languagecode="1040" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_DecideSupplierDocument.Approve</name>
+  <type>0</type>
+</customapirequestparameter>

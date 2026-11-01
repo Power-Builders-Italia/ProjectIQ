@@ -77,7 +77,7 @@ In the [Portfolio Agent](portfolio-agent.md#project-documents) ask "show the doc
 
 ### Supplier documents
 
-A **Supplier Document** (DURC, certification, insurance) still has its **File** column, used by the [supplier portal](supplier-portal.md). The SharePoint folder of the record is for the other files that go with it (renewals, correspondence). Expiry dates and supplier compliance keep working on the Supplier Document fields as before.
+A **Supplier Document** (DURC, certification, insurance) has a **File** column, used by the [supplier portal](supplier-portal.md). When the buyer approves a document, the flow **File approved supplier documents** moves that file into the SharePoint folder of the record and empties the column, so the approved documents are all in SharePoint (see [below](#approved-supplier-documents-in-sharepoint)). The SharePoint folder also holds the other files that go with the document (renewals, correspondence). Expiry dates and supplier compliance keep working on the Supplier Document fields as before.
 
 ## Part 2: set up (administrators)
 
@@ -122,6 +122,15 @@ The flows check the library every 3 minutes and use two connection references:
 | 4 | SharePoint admin | Optional, for the files that were already there: run step 1 again with `--backfill` and the `PAC_*` variables of the environment |
 
 The flows are imported **off**: after an update of the solution check that they are still on.
+
+### Approved supplier documents in SharePoint
+
+The flow **File approved supplier documents** starts when a supplier document becomes **Approved** (**Approve** in the app). If the document has a file in its **File** column, the flow:
+1. finds the SharePoint folder of the record, or registers a new one (`<description>_<record id>`) in the **op365_supplierdocument** library;
+2. creates the file in that folder with its original name (the **Tag supplier documents** flow then fills its ProjectIQ columns);
+3. removes the file from the **File** column. On the portal the supplier then sees **Filed by your customer** instead of the file.
+
+It uses the same **op365_dataverse** and **op365_sharepoint** connection references and the **SharePoint Site URL** variable; the **op365_supplierdocument** library and its library location must exist ([Part 2](#part-2-set-up-administrators), step 2). If the copy fails, the file stays in the **File** column: check the run history and run the flow again from the failed run (**Resubmit**), without approving again.
 
 ## Messages you may see
 

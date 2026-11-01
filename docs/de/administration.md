@@ -106,6 +106,8 @@ So ändern Sie einen Wert:
 | `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. No: **Submit** genehmigt die Stunden sofort |
 | `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Leer | Betrag, ab dem eine Bedarfsanforderung zusätzlich eine Genehmigung der zweiten Stufe braucht. Leer oder 0 = nie |
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Leer | **User Name** (z. B. `anna.rossi@contoso.com`) oder primäre E-Mail des Benutzers, der Anforderungen über der Schwelle genehmigt und über Lieferantenrechnungen entscheidet. Leer, oder kein aktiver Benutzer mit diesem Namen = jeder OP365 Administrator |
+| `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Die ProjectIQ-Vorlagen | E-Mail-Vorlage (Typ Firma) jeder Nachricht an Lieferanten, je **Language** des Lieferanten: `{"DocumentExpiring": {"Italian": "<Vorlagentitel>", "English": "<Vorlagentitel>", "default": "English"}, "DocumentExpired": {...}}`. `default` ist die Sprache, wenn der Lieferant keine hat oder es keine Vorlage dafür gibt |
+| `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Leer | Name oder E-Mail-Adresse der **Warteschlange** (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails |
 
 Der Purchasing Approver ist ein Benutzername und kein Lookup, weil sich die Benutzer-IDs in jeder Umgebung unterscheiden. Bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
 
@@ -120,7 +122,7 @@ In Test kann die IT die Werte auch bei der Bereitstellung über die Deployment S
 
 ## Automatisierungen im Hintergrund
 
-ProjectIQ hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Nur eine Automatisierung ist zeitgesteuert.
+ProjectIQ hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Zwei Automatisierungen sind zeitgesteuert.
 
 ### Tägliche Stundenerinnerung
 
@@ -132,6 +134,17 @@ Der Flow verwendet den Verbindungsverweis **op365_dataverse** (Microsoft Dataver
 2. sie in der Lösung mit dem Verbindungsverweis verknüpfen (in Test-/Produktionsumgebungen ordnet die Bereitstellung sie über die Deployment Settings zu);
 3. die Verbindung für den Anwendungsbenutzer der Bereitstellung freigeben (*Can use*), damit Importe den Flow einschalten können;
 4. den Flow **einschalten** und am nächsten Arbeitstag seinen Ausführungsverlauf prüfen.
+
+### Täglicher Dokumentenablauf
+
+Der Flow **Daily document expiry** läuft **jeden Tag um 06:00 Uhr** (W. Europe-Zeit) und ruft die Aktion *op365_UpdateDocumentExpiry* auf: Er aktualisiert den Ablaufstatus der Lieferantendokumente und die Hinweiszähler der Lieferanten und sendet den Lieferanten die Ablauf-E-Mails (siehe [Stammdaten](master-data.md#ablauf-und-e-mails)). Er verwendet dieselbe Verbindungsreferenz wie der Daily time reminder; schalten Sie ihn auf dieselbe Weise **ein**.
+
+So werden die E-Mails gesendet:
+
+1. Legen Sie eine **Warteschlange** mit Postfach an (zum Beispiel *Lieferanten*, `lieferanten@contoso.com`), genehmigen Sie die E-Mail-Adresse des Postfachs und aktivieren Sie die **serverseitige Synchronisierung** für ausgehende E-Mails.
+2. Tragen Sie in **Supplier Email Sender** den Namen oder die E-Mail-Adresse der Warteschlange ein.
+3. Prüfen Sie die Vorlagen unter **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* und *ProjectIQ - Document expired*, mit einer Version je Sprache wie *ProjectIQ - Dokument abgelaufen*). Passen Sie den Text nach Belieben an; die Platzhalter `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` und `{ExpiryDate}` werden für jedes Dokument gefüllt. Um andere Vorlagen zu verwenden, tragen Sie ihre Titel in **Supplier Email Templates** ein. Vorlagen sind Daten der Umgebung, nicht der Lösung: Fehlen sie, legt die IT sie mit `tools/dataverse/supplier_email_templates.py` an.
+4. Füllen Sie **Language** und **Email** jedes Lieferantenkontos aus.
 
 ### Was sonst automatisch geschieht
 

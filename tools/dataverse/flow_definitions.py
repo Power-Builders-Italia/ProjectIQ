@@ -171,6 +171,64 @@ def metadata_flow(library):
                       (SITE, variable))
 
 
+def file_approved_flow():
+    """Approved supplier document: its op365_file goes to the SharePoint folder of the record, then leaves Dataverse."""
+    library = 'op365_supplierdocument'
+    doc = "triggerOutputs()?['body/op365_supplierdocumentid']"
+    trigger = {'When_a_supplier_document_is_approved': {
+        'type': 'OpenApiConnectionWebhook', 'inputs': {
+            'host': {'connectionName': 'shared_commondataserviceforapps', 'operationId': 'SubscribeWebhookTrigger',
+                     'apiId': DATAVERSE},
+            'parameters': {'subscriptionRequest/message': 3, 'subscriptionRequest/entityname': library,
+                           'subscriptionRequest/scope': 4, 'subscriptionRequest/filteringattributes': 'statuscode',
+                           'subscriptionRequest/filterexpression': 'statuscode eq 1'},
+            'authentication': "@parameters('$authentication')"}}}
+    name = "coalesce(body('Get_document')?['op365_description'], 'Document')"
+    for ch in '~"#%&*:<>?/\\{|}':
+        name = f"replace({name}, '{ch}', '')"
+    new_folder = f"concat(trim(substring({name}, 0, min(length({name}), 80))), '_', toUpper(replace({doc}, '-', '')))"
+    found = "body('Find_record_folder')?['value']"
+    has_file = {
+        'Download_file': _op('shared_commondataserviceforapps', 'GetEntityFileImageFieldContent', {
+            'entityName': 'op365_supplierdocuments', 'recordId': f'@{doc}', 'fileImageFieldName': 'op365_file'}),
+        'Find_record_folder': _op('shared_commondataserviceforapps', 'ListRecords', {
+            'entityName': 'sharepointdocumentlocations', '$select': 'relativeurl',
+            '$filter': f"@concat('_regardingobjectid_value eq ', {doc})", '$top': 1}, {'Download_file': ['Succeeded']}),
+        'Record_folder': {'runAfter': {'Find_record_folder': ['Succeeded']}, 'type': 'Compose',
+                          'inputs': f"@if(empty({found}), {new_folder}, first({found})?['relativeurl'])"},
+        'Folder_registered': {
+            'runAfter': {'Record_folder': ['Succeeded']}, 'type': 'If',
+            'expression': {'equals': [f'@empty({found})', False]},
+            'actions': {}, 'else': {'actions': {
+                'Find_library': _op('shared_commondataserviceforapps', 'ListRecords', {
+                    'entityName': 'sharepointdocumentlocations', '$select': 'sharepointdocumentlocationid',
+                    '$filter': f"relativeurl eq '{library}' and _regardingobjectid_value eq null", '$top': 1}),
+                'Register_record_folder': _op('shared_commondataserviceforapps', 'CreateRecord', {
+                    'entityName': 'sharepointdocumentlocations',
+                    'item/name': "@concat('Documents on ', outputs('Record_folder'))",
+                    'item/relativeurl': "@outputs('Record_folder')",
+                    'item/parentsiteorlocation_sharepointdocumentlocation@odata.bind':
+                        "@concat('sharepointdocumentlocations(', first(body('Find_library')?['value'])?['sharepointdocumentlocationid'], ')')",
+                    'item/regardingobjectid_op365_supplierdocument@odata.bind': f"@concat('op365_supplierdocuments(', {doc}, ')')"},
+                    {'Find_library': ['Succeeded']})}}},
+        'Create_SharePoint_file': _op('shared_sharepointonline', 'CreateFile', {
+            'dataset': _site(), 'folderPath': f"@concat('/{library}/', outputs('Record_folder'))",
+            'name': "@body('Get_document')?['op365_file_name']", 'body': "@body('Download_file')"},
+            {'Folder_registered': ['Succeeded']}),
+        'Remove_Dataverse_file': dict(unbound_action('DeleteFile', {'FileId': "@body('Get_document')?['op365_file']"}),
+                                      runAfter={'Create_SharePoint_file': ['Succeeded']}),
+    }
+    actions = {
+        'Get_document': _op('shared_commondataserviceforapps', 'GetItem', {
+            'entityName': 'op365_supplierdocuments', 'recordId': f'@{doc}',
+            '$select': 'op365_description,op365_file,op365_file_name'}),
+        'Has_file': {'runAfter': {'Get_document': ['Succeeded']}, 'type': 'If',
+                     'expression': {'not': {'equals': ["@coalesce(body('Get_document')?['op365_file_name'], '')", '']}},
+                     'actions': has_file, 'else': {'actions': {}}},
+    }
+    return clientdata(trigger, actions, ('shared_commondataserviceforapps', 'shared_sharepointonline'), (SITE,))
+
+
 # (id, name, description, clientdata, state code, localized names {lcid: (name, description)})
 FLOWS = [
     ('a58865cd-fbcf-f111-a05b-000d3ad895be', 'Daily time reminder',
@@ -179,6 +237,16 @@ FLOWS = [
          'frequency': 'Week', 'interval': 1, 'timeZone': 'W. Europe Standard Time',
          'schedule': {'weekDays': WEEKDAYS, 'hours': ['17'], 'minutes': [30]}}}},
          {'Send_time_reminders': unbound_action('op365_SendTimeReminders')}), 1, None),
+    ('3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a04', 'Daily document expiry',
+     'Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails',
+     clientdata({'Recurrence': {'type': 'Recurrence', 'recurrence': {
+         'frequency': 'Day', 'interval': 1, 'timeZone': 'W. Europe Standard Time',
+         'schedule': {'hours': ['6'], 'minutes': [0]}}}},
+         {'Update_document_expiry': unbound_action('op365_UpdateDocumentExpiry')}), 0, {
+         1031: ('Tägliche Dokumentenfälligkeit', 'Täglich um 06:00: Ablaufstatus der Lieferantendokumente, Zähler und Ablauf-E-Mails'),
+         1033: ('Daily document expiry', 'Every day at 06:00 (Europe/Rome): expiry status of the supplier documents, supplier alert counters and expiry e-mails'),
+         1036: ('Échéance quotidienne des documents', 'Chaque jour à 06:00 : statut d\'expiration des documents fournisseur, compteurs et e-mails d\'expiration'),
+         1040: ('Scadenza giornaliera documenti', 'Ogni giorno alle 06:00: stato di scadenza dei documenti fornitore, contatori ed e-mail di scadenza')}),
     ('3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a01', 'Tag project documents',
      'Fills the ProjectIQ columns of the files added to the folder of a project',
      metadata_flow('op365_project'), 0, {
@@ -200,6 +268,13 @@ FLOWS = [
          1033: ('Tag supplier documents', 'Fills the ProjectIQ columns of the files added to the folder of a supplier document'),
          1036: ('Étiqueter les documents fournisseur', 'Renseigne les colonnes ProjectIQ des fichiers ajoutés au dossier d\'un document fournisseur'),
          1040: ('Classifica documenti fornitore', 'Compila le colonne ProjectIQ dei file aggiunti alla cartella di un documento fornitore')}),
+    ('3c6f1d2a-8b1e-4f57-9a43-5d2b7e0c1a05', 'File approved supplier documents',
+     'When a supplier document is approved, moves its file to the SharePoint folder of the document',
+     file_approved_flow(), 0, {
+         1031: ('Genehmigte Lieferantendokumente ablegen', 'Verschiebt bei der Genehmigung eines Lieferantendokuments die Datei in seinen SharePoint-Ordner'),
+         1033: ('File approved supplier documents', 'When a supplier document is approved, moves its file to the SharePoint folder of the document'),
+         1036: ('Classer les documents fournisseur approuvés', 'À l\'approbation d\'un document fournisseur, déplace son fichier dans son dossier SharePoint'),
+         1040: ('Archivia documenti fornitore approvati', 'All\'approvazione di un documento fornitore sposta il file nella sua cartella SharePoint')}),
 ]
 
 

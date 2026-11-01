@@ -104,6 +104,8 @@ To change a value:
 | `op365_TimeApprovalEnabled` | **Time Approval Enabled** | Yes/No | Yes | Yes: submitted hours wait for a project manager's approval. No: **Submit** approves hours immediately |
 | `op365_PurchaseRequestThreshold` | **Purchase Request Threshold** | Number | Empty | Amount above which a purchase request also needs second-level approval. Empty or 0 = never |
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Empty | **User Name** (e.g. `anna.rossi@contoso.com`) or primary email of the user who approves requests above the threshold and decides supplier invoices. Empty, or no enabled user with that name = every OP365 Administrator |
+| `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | The ProjectIQ templates | E-mail template (Account type) of each message to suppliers, by supplier **Language**: `{"DocumentExpiring": {"Italian": "<template title>", "English": "<template title>", "default": "English"}, "DocumentExpired": {...}}`. `default` is the language used when the supplier has none or it has no template |
+| `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Empty | Name or e-mail address of the **queue** (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails |
 
 The Purchasing Approver is a user name and not a lookup because user ids differ in every environment. Requests already submitted keep the approval level they were given.
 
@@ -118,7 +120,7 @@ In Test, IT can also set the values at deployment time through the deployment se
 
 ## Background automations
 
-ProjectIQ keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Only one automation is scheduled.
+ProjectIQ keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Two automations are scheduled.
 
 ### Daily time reminder
 
@@ -130,6 +132,17 @@ The flow uses the connection reference **op365_dataverse** (Microsoft Dataverse)
 2. link it to the connection reference in the solution (in Test/Production environments the deployment maps it through the deployment settings);
 3. share the connection with the deployment application user (*Can use*) so imports can turn the flow on;
 4. turn the flow **on** and check its run history the next working day.
+
+### Daily document expiry
+
+The **Daily document expiry** flow runs **every day at 06:00** (W. Europe time) and calls the action *op365_UpdateDocumentExpiry*: it refreshes the expiry status of the supplier documents and the supplier alert counters, and e-mails the expiry notices to suppliers (see [Master data](master-data.md#expiry-and-e-mails)). It uses the same connection reference as the Daily time reminder; turn it **on** in the same way.
+
+To send the e-mails:
+
+1. Create a **queue** with a mailbox (for example *Suppliers*, `suppliers@contoso.com`), approve the mailbox e-mail address and enable **server-side synchronization** for outgoing e-mail.
+2. Set **Supplier Email Sender** to the name or the e-mail address of the queue.
+3. Check the templates in **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* and *ProjectIQ - Document expired*, with a version per language such as *ProjectIQ - Documento scaduto*). Change their text as you like; placeholders `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` and `{ExpiryDate}` are filled in for each document. To use other templates, write their titles in **Supplier Email Templates**. Templates are data of the environment, not of the solution: if they are missing, IT creates them with `tools/dataverse/supplier_email_templates.py`.
+4. Fill in the **Language** and the **Email** of each supplier account.
 
 ### What else happens automatically
 

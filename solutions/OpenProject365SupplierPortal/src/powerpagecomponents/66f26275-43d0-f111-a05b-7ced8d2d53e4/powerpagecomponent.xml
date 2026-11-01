@@ -2,7 +2,7 @@
   <content>{
   "title": "Requests for quotation",
   "partialurl": "rfqs",
-  "displayorder": 2,
+  "displayorder": 3,
   "hiddenfromsitemap": false,
   "excludefromsearch": true,
   "enablerating": false,

@@ -21,7 +21,7 @@ erDiagram
 | `contact` (std) | fullname | – | + IsDecisionMaker |
 | `op365_item` | Name | Code | Code, Category, Uom, UnitCost, DefaultSupplierId, Notes |
 | `op365_itemsupplier` | Name | ItemId + SupplierId | SupplierCode, Price, LeadTimeDays, MinimumLot, Notes |
-| `op365_supplierdocument` | Description | – | DocumentType, Number, IssueDate, ExpiryDate, ExternalUrl, File, Notes |
+| `op365_supplierdocument` | Description | – | DocumentType, Number, IssueDate, ExpiryDate, ExternalUrl, File, Notes; review: statuscode Approved (1) / Pending Review / Rejected, ExpiryStatus (Valid, Expiring, Expired, Replaced), ExpiryNotice, FromPortal, ReviewedById, ReviewedOn, ReviewNote |
 | `op365_resource` | Name | – | Role, HourlyCost (secured), UserId, WeeklyHours (0–80), WorkingDays (multi-choice) |
 | `op365_resourcecost` | Name | ResourceId + ValidFrom | ValidFrom, HourlyCost (secured) |
 | `op365_absence` | Name | – | AbsenceType, FromDate, ToDate, Hours, Notes |
@@ -39,6 +39,10 @@ Company-wide settings are environment variables of the solution, created by `too
 | `op365_TimeApprovalEnabled` | Yes/No | yes | Submit of time entries |
 | `op365_PurchaseRequestThreshold` | Number | – | Submit of purchase requests (Above Threshold) |
 | `op365_PurchasingApprover` | Text (User Name or primary email) | – | Second-level approval of purchase requests, decision of supplier invoices |
+| `op365_SupplierEmailTemplates` | JSON: message → supplier Language → template title, plus `default` language | the templates of `supplier_email_templates.py` | Expiry e-mails to suppliers (`SupplierMailer`, `EmailTemplates.Pick`) |
+| `op365_SupplierEmailSender` | Text (queue name or e-mail address) | – | Sender of the e-mails to suppliers; empty = no e-mails |
+
+Supplier documents (`tools/dataverse/supplier_documents.py`): a document created in the app is Approved, one created by the portal (calling user `# Portals-<site>`) is Pending Review. `SupplierDocumentValidate` blocks hand-made status changes and portal changes to approved documents (a portal change to a rejected one sends it back to Pending Review), `SupplierDocumentDelete` blocks portal deletes of approved documents, `SupplierDocumentAlerts` keeps ExpiryStatus (an approved renewal of the same type replaces the older document) and the account counters ExpiredDocs/ExpiringDocs (approved documents only) and notifies the account owner of a document to review. Custom APIs: `op365_DecideSupplierDocument` (bound; Approve, Note required to reject) and `op365_UpdateDocumentExpiry` (unbound; outputs Count and Sent), called every day at 06:00 by the **Daily document expiry** flow: it refreshes the statuses and sends each approved document's Expiring and Expired e-mails once (Account e-mail template instantiated for the account, regarding the document, sent from the queue; Expiry Notice records it and is cleared when the expiry date changes).
 
 ## Phase 2 – Projects, team, WBS, baselines
 
@@ -302,6 +306,8 @@ python3 tools/dataverse/phase4_forms.py
 python3 tools/dataverse/phase4_dashboard.py
 python3 tools/dataverse/flows.py              # connection reference + Daily time reminder (off)
 python3 tools/dataverse/app.py                  # also publishes (views are read back in their published state)
+python3 tools/dataverse/supplier_documents.py   # supplier document review and expiry columns, status reasons, views, form Review section
+python3 tools/dataverse/supplier_email_templates.py  # default e-mail templates for suppliers (environment data: run in every environment)
 python3 tools/dataverse/settings_env.py         # company settings environment variables; removes the former op365_settings table
 python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugins, clean up after themselves
 python3 tools/dataverse/phase3_smoke.py

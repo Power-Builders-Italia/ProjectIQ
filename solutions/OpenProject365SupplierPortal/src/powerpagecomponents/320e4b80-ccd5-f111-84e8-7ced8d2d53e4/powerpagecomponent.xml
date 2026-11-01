@@ -1,0 +1,139 @@
+<powerpagecomponent powerpagecomponentid="320e4b80-ccd5-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "title": "Dashboard",
+  "partialurl": "dashboard",
+  "displayorder": 1,
+  "hiddenfromsitemap": false,
+  "excludefromsearch": true,
+  "enablerating": false,
+  "sharedpageconfiguration": false,
+  "isroot": false,
+  "pagetemplateid": "51a148a9-7811-439a-9a80-6168a730d34e",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970",
+  "parentpageid": "6edd3e5e-fd04-4274-89bb-baac867cd557",
+  "feedbackpolicy": 756150000,
+  "isofflinecached": false,
+  "rootwebpageid": "ced6467a-ccd5-f111-84e8-7ced8d2d53e4",
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'dashboard' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n{% assign today = now | date: 'yyyy-MM-dd' %}{% assign year = now | date: 'yyyy' %}\n{% fetchxml rfqs %}\n&lt;fetch&gt;&lt;entity name=\"op365_rfqinvitation\"&gt;\n  &lt;attribute name=\"op365_rfqinvitationid\" /&gt;&lt;attribute name=\"op365_rfqnumber\" /&gt;&lt;attribute name=\"op365_rfqid\" /&gt;&lt;attribute name=\"op365_deadline\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"eq\" value=\"365000000\" /&gt;&lt;condition attribute=\"op365_deadline\" operator=\"on-or-after\" value=\"{{ today }}\" /&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_deadline\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% fetchxml orders %}\n&lt;fetch&gt;&lt;entity name=\"op365_purchaseorder\"&gt;\n  &lt;attribute name=\"op365_purchaseorderid\" /&gt;&lt;attribute name=\"op365_number\" /&gt;&lt;attribute name=\"op365_orderdate\" /&gt;&lt;attribute name=\"op365_projectid\" /&gt;\n  &lt;attribute name=\"op365_totalamount\" /&gt;&lt;attribute name=\"statuscode\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_orderdate\" descending=\"true\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% fetchxml docs %}\n&lt;fetch&gt;&lt;entity name=\"op365_supplierdocument\"&gt;\n  &lt;attribute name=\"op365_supplierdocumentid\" /&gt;&lt;attribute name=\"op365_documenttype\" /&gt;&lt;attribute name=\"op365_description\" /&gt;\n  &lt;attribute name=\"op365_expirydate\" /&gt;&lt;attribute name=\"op365_expirystatus\" /&gt;&lt;attribute name=\"statuscode\" /&gt;&lt;attribute name=\"op365_reviewnote\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statecode\" operator=\"eq\" value=\"0\" /&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_expirydate\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% fetchxml invoices %}\n&lt;fetch&gt;&lt;entity name=\"op365_supplierinvoice\"&gt;&lt;attribute name=\"op365_supplierinvoiceid\" /&gt;&lt;attribute name=\"op365_totalamount\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"eq\" value=\"1\" /&gt;&lt;/filter&gt;&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% assign to_confirm = 0 %}{% assign ordered_year = 0 %}\n{% for o in orders.results.entities %}\n  {% if o.statuscode.value == 365000000 %}{% assign to_confirm = to_confirm | plus: 1 %}\n  {% else %}{% assign oy = o.op365_orderdate | date: 'yyyy' %}{% if oy == year %}{% assign ordered_year = ordered_year | plus: o.op365_totalamount %}{% endif %}{% endif %}\n{% endfor %}\n{% assign under_review = 0 %}{% for i in invoices.results.entities %}{% assign under_review = under_review | plus: i.op365_totalamount %}{% endfor %}\n{% assign valid = 0 %}{% assign expiring = 0 %}{% assign expired = 0 %}{% assign pending = 0 %}{% assign rejected = 0 %}\n{% for d in docs.results.entities %}\n  {% if d.statuscode.value == 1 %}\n    {% if d.op365_expirystatus.value == 365000002 %}{% assign expired = expired | plus: 1 %}\n    {% elsif d.op365_expirystatus.value == 365000001 %}{% assign expiring = expiring | plus: 1 %}\n    {% elsif d.op365_expirystatus.value != 365000003 %}{% assign valid = valid | plus: 1 %}{% endif %}\n  {% elsif d.statuscode.value == 365000000 %}{% assign pending = pending | plus: 1 %}\n  {% else %}{% assign rejected = rejected | plus: 1 %}{% endif %}\n{% endfor %}\n{% assign total = valid | plus: expiring | plus: expired %}\n{% if total &gt; 0 %}{% assign pv = valid | times: 100 | divided_by: total %}{% assign pe = valid | plus: expiring | times: 100 | divided_by: total %}{% else %}{% assign pv = 0 %}{% assign pe = 0 %}{% endif %}\n&lt;div class=\"op-head\"&gt;\n  &lt;div&gt;&lt;div class=\"op-crumb\"&gt;{{ user.parentcustomerid.name | escape }}&lt;/div&gt;&lt;h1 class=\"op-h1\"&gt;Welcome, {{ user.firstname | default: user.fullname | escape }}&lt;/h1&gt;&lt;/div&gt;\n  &lt;a class=\"op-btn\" href=\"/documents/#op-docform\"&gt;New document&lt;/a&gt;\n&lt;/div&gt;\n&lt;div class=\"op-kpis\"&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Requests to quote&lt;/span&gt;&lt;b&gt;{{ rfqs.results.entities.size }}&lt;/b&gt;&lt;/div&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Orders to confirm&lt;/span&gt;&lt;b&gt;{{ to_confirm }}&lt;/b&gt;&lt;/div&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Ordered in {{ year }}&lt;/span&gt;&lt;b&gt;{{ ordered_year | round: 0 }}&lt;/b&gt;&lt;/div&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Invoices under review&lt;/span&gt;&lt;b&gt;{{ under_review | round: 0 }}&lt;/b&gt;&lt;/div&gt;\n&lt;/div&gt;\n&lt;div class=\"op-panels\"&gt;\n  &lt;section class=\"op-card\" aria-labelledby=\"op-compliance\"&gt;\n    &lt;h2 class=\"op-h2\" id=\"op-compliance\"&gt;Document compliance&lt;/h2&gt;\n    &lt;div class=\"op-row\" style=\"align-items:center;flex-wrap:wrap;justify-content:flex-start;gap:20px\"&gt;\n      &lt;div class=\"op-ring{% if total == 0 %} empty{% endif %}\" style=\"--v:{{ pv }}%;--e:{{ pe }}%\" role=\"img\"\n           aria-label=\"{{ valid }} valid, {{ expiring }} expiring, {{ expired }} expired approved documents\"&gt;\n        &lt;div&gt;&lt;span&gt;&lt;b&gt;{% if total &gt; 0 %}{{ pv }}%{% else %}&amp;ndash;{% endif %}&lt;/b&gt;valid&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;\n      &lt;ul class=\"op-legend\"&gt;\n        &lt;li&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-green)\"&gt;&lt;/span&gt;{{ valid }} valid&lt;/li&gt;\n        &lt;li&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-amber)\"&gt;&lt;/span&gt;{{ expiring }} expiring within 30 days&lt;/li&gt;\n        &lt;li&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-red)\"&gt;&lt;/span&gt;{{ expired }} expired&lt;/li&gt;\n        &lt;li&gt;&lt;span class=\"op-dot\" style=\"--c:#94a3b8\"&gt;&lt;/span&gt;{{ pending }} waiting for review{% if rejected &gt; 0 %}, {{ rejected }} rejected{% endif %}&lt;/li&gt;\n      &lt;/ul&gt;\n    &lt;/div&gt;\n    &lt;a href=\"/documents/\" class=\"op-btn ghost\"&gt;Open documents&lt;/a&gt;\n  &lt;/section&gt;\n  &lt;section class=\"op-card\" aria-labelledby=\"op-todo\"&gt;\n    &lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\" id=\"op-todo\"&gt;To do&lt;/h2&gt;&lt;span class=\"op-muted\"&gt;Things your customer is waiting for&lt;/span&gt;&lt;/div&gt;\n    {% assign todo = rfqs.results.entities.size | plus: to_confirm | plus: expired | plus: expiring | plus: rejected %}\n    {% if todo == 0 %}&lt;div class=\"op-empty\"&gt;Nothing to do. Everything is up to date.&lt;/div&gt;{% else %}\n    &lt;ul class=\"op-todo\"&gt;\n      {% for d in docs.results.entities %}{% if d.statuscode.value == 1 and d.op365_expirystatus.value == 365000002 %}\n      &lt;li&gt;&lt;a href=\"/documents/#op-docform\"&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-red)\"&gt;&lt;/span&gt;&lt;span class=\"op-what\"&gt;Renew {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;Expired on {{ d.op365_expirydate | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class=\"op-badge b-red\"&gt;Expired&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\n      {% endif %}{% endfor %}\n      {% for d in docs.results.entities %}{% if d.statuscode.value == 365000001 %}\n      &lt;li&gt;&lt;a href=\"/documents/\"&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-red)\"&gt;&lt;/span&gt;&lt;span class=\"op-what\"&gt;Correct {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;{{ d.op365_reviewnote | escape | default: 'Rejected by the buyer' }}&lt;/small&gt;&lt;/span&gt;&lt;span class=\"op-badge b-red\"&gt;Rejected&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\n      {% endif %}{% endfor %}\n      {% for r in rfqs.results.entities %}\n      &lt;li&gt;&lt;a href=\"/rfqs/quote/?id={{ r.op365_rfqinvitationid }}\"&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-accent)\"&gt;&lt;/span&gt;&lt;span class=\"op-what\"&gt;Quote {{ r.op365_rfqnumber | escape }}{% if r.op365_rfqid %}: {{ r.op365_rfqid.name | escape }}{% endif %}&lt;small&gt;Deadline {{ r.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class=\"op-badge b-blue\"&gt;RFQ&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\n      {% endfor %}\n      {% for o in orders.results.entities %}{% if o.statuscode.value == 365000000 %}\n      &lt;li&gt;&lt;a href=\"/orders/order/?id={{ o.op365_purchaseorderid }}\"&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-amber)\"&gt;&lt;/span&gt;&lt;span class=\"op-what\"&gt;Confirm order {{ o.op365_number | escape }}&lt;small&gt;{% if o.op365_projectid %}{{ o.op365_projectid.name | escape }} &amp;middot; {% endif %}{{ o.op365_totalamount | round: 2 }}&lt;/small&gt;&lt;/span&gt;&lt;span class=\"op-badge b-amber\"&gt;Order&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\n      {% endif %}{% endfor %}\n      {% for d in docs.results.entities %}{% if d.statuscode.value == 1 and d.op365_expirystatus.value == 365000001 %}\n      &lt;li&gt;&lt;a href=\"/documents/#op-docform\"&gt;&lt;span class=\"op-dot\" style=\"--c:var(--op-amber)\"&gt;&lt;/span&gt;&lt;span class=\"op-what\"&gt;Renew {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;Expires on {{ d.op365_expirydate | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class=\"op-badge b-amber\"&gt;Expiring&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\n      {% endif %}{% endfor %}\n    &lt;/ul&gt;\n    {% endif %}\n  &lt;/section&gt;\n&lt;/div&gt;\n&lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\"&gt;Your projects&lt;/h2&gt;&lt;a href=\"/projects/\" class=\"op-muted\"&gt;All projects&lt;/a&gt;&lt;/div&gt;\n{% include 'OP365 Supplier Project Cards' limit: 3 %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Dashboard</name>
+  <powerpagecomponenttype>2</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <powerpagesitelanguageid>
+    <powerpagesitelanguageid>ded80c8e-6fd5-4186-a9e9-dd3f7790285b</powerpagesitelanguageid>
+  </powerpagesitelanguageid>
+  <searchcontent>Dashboard{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}
+{% if supplier == false %}
+&lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
+{% else %}
+{% include 'OP365 Supplier Style' %}
+&lt;div class="op-shell"&gt;
+{% include 'OP365 Supplier Nav' active: 'dashboard' %}
+&lt;main class="op-main" id="op-main"&gt;
+{% assign today = now | date: 'yyyy-MM-dd' %}{% assign year = now | date: 'yyyy' %}
+{% fetchxml rfqs %}
+&lt;fetch&gt;&lt;entity name="op365_rfqinvitation"&gt;
+  &lt;attribute name="op365_rfqinvitationid" /&gt;&lt;attribute name="op365_rfqnumber" /&gt;&lt;attribute name="op365_rfqid" /&gt;&lt;attribute name="op365_deadline" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="eq" value="365000000" /&gt;&lt;condition attribute="op365_deadline" operator="on-or-after" value="{{ today }}" /&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_deadline" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% fetchxml orders %}
+&lt;fetch&gt;&lt;entity name="op365_purchaseorder"&gt;
+  &lt;attribute name="op365_purchaseorderid" /&gt;&lt;attribute name="op365_number" /&gt;&lt;attribute name="op365_orderdate" /&gt;&lt;attribute name="op365_projectid" /&gt;
+  &lt;attribute name="op365_totalamount" /&gt;&lt;attribute name="statuscode" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;value&gt;365000002&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_orderdate" descending="true" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% fetchxml docs %}
+&lt;fetch&gt;&lt;entity name="op365_supplierdocument"&gt;
+  &lt;attribute name="op365_supplierdocumentid" /&gt;&lt;attribute name="op365_documenttype" /&gt;&lt;attribute name="op365_description" /&gt;
+  &lt;attribute name="op365_expirydate" /&gt;&lt;attribute name="op365_expirystatus" /&gt;&lt;attribute name="statuscode" /&gt;&lt;attribute name="op365_reviewnote" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statecode" operator="eq" value="0" /&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_expirydate" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% fetchxml invoices %}
+&lt;fetch&gt;&lt;entity name="op365_supplierinvoice"&gt;&lt;attribute name="op365_supplierinvoiceid" /&gt;&lt;attribute name="op365_totalamount" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="eq" value="1" /&gt;&lt;/filter&gt;&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% assign to_confirm = 0 %}{% assign ordered_year = 0 %}
+{% for o in orders.results.entities %}
+  {% if o.statuscode.value == 365000000 %}{% assign to_confirm = to_confirm | plus: 1 %}
+  {% else %}{% assign oy = o.op365_orderdate | date: 'yyyy' %}{% if oy == year %}{% assign ordered_year = ordered_year | plus: o.op365_totalamount %}{% endif %}{% endif %}
+{% endfor %}
+{% assign under_review = 0 %}{% for i in invoices.results.entities %}{% assign under_review = under_review | plus: i.op365_totalamount %}{% endfor %}
+{% assign valid = 0 %}{% assign expiring = 0 %}{% assign expired = 0 %}{% assign pending = 0 %}{% assign rejected = 0 %}
+{% for d in docs.results.entities %}
+  {% if d.statuscode.value == 1 %}
+    {% if d.op365_expirystatus.value == 365000002 %}{% assign expired = expired | plus: 1 %}
+    {% elsif d.op365_expirystatus.value == 365000001 %}{% assign expiring = expiring | plus: 1 %}
+    {% elsif d.op365_expirystatus.value != 365000003 %}{% assign valid = valid | plus: 1 %}{% endif %}
+  {% elsif d.statuscode.value == 365000000 %}{% assign pending = pending | plus: 1 %}
+  {% else %}{% assign rejected = rejected | plus: 1 %}{% endif %}
+{% endfor %}
+{% assign total = valid | plus: expiring | plus: expired %}
+{% if total &gt; 0 %}{% assign pv = valid | times: 100 | divided_by: total %}{% assign pe = valid | plus: expiring | times: 100 | divided_by: total %}{% else %}{% assign pv = 0 %}{% assign pe = 0 %}{% endif %}
+&lt;div class="op-head"&gt;
+  &lt;div&gt;&lt;div class="op-crumb"&gt;{{ user.parentcustomerid.name | escape }}&lt;/div&gt;&lt;h1 class="op-h1"&gt;Welcome, {{ user.firstname | default: user.fullname | escape }}&lt;/h1&gt;&lt;/div&gt;
+  &lt;a class="op-btn" href="/documents/#op-docform"&gt;New document&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="op-kpis"&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Requests to quote&lt;/span&gt;&lt;b&gt;{{ rfqs.results.entities.size }}&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Orders to confirm&lt;/span&gt;&lt;b&gt;{{ to_confirm }}&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Ordered in {{ year }}&lt;/span&gt;&lt;b&gt;{{ ordered_year | round: 0 }}&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Invoices under review&lt;/span&gt;&lt;b&gt;{{ under_review | round: 0 }}&lt;/b&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="op-panels"&gt;
+  &lt;section class="op-card" aria-labelledby="op-compliance"&gt;
+    &lt;h2 class="op-h2" id="op-compliance"&gt;Document compliance&lt;/h2&gt;
+    &lt;div class="op-row" style="align-items:center;flex-wrap:wrap;justify-content:flex-start;gap:20px"&gt;
+      &lt;div class="op-ring{% if total == 0 %} empty{% endif %}" style="--v:{{ pv }}%;--e:{{ pe }}%" role="img"
+           aria-label="{{ valid }} valid, {{ expiring }} expiring, {{ expired }} expired approved documents"&gt;
+        &lt;div&gt;&lt;span&gt;&lt;b&gt;{% if total &gt; 0 %}{{ pv }}%{% else %}&amp;ndash;{% endif %}&lt;/b&gt;valid&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;ul class="op-legend"&gt;
+        &lt;li&gt;&lt;span class="op-dot" style="--c:var(--op-green)"&gt;&lt;/span&gt;{{ valid }} valid&lt;/li&gt;
+        &lt;li&gt;&lt;span class="op-dot" style="--c:var(--op-amber)"&gt;&lt;/span&gt;{{ expiring }} expiring within 30 days&lt;/li&gt;
+        &lt;li&gt;&lt;span class="op-dot" style="--c:var(--op-red)"&gt;&lt;/span&gt;{{ expired }} expired&lt;/li&gt;
+        &lt;li&gt;&lt;span class="op-dot" style="--c:#94a3b8"&gt;&lt;/span&gt;{{ pending }} waiting for review{% if rejected &gt; 0 %}, {{ rejected }} rejected{% endif %}&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;a href="/documents/" class="op-btn ghost"&gt;Open documents&lt;/a&gt;
+  &lt;/section&gt;
+  &lt;section class="op-card" aria-labelledby="op-todo"&gt;
+    &lt;div class="op-row"&gt;&lt;h2 class="op-h2" id="op-todo"&gt;To do&lt;/h2&gt;&lt;span class="op-muted"&gt;Things your customer is waiting for&lt;/span&gt;&lt;/div&gt;
+    {% assign todo = rfqs.results.entities.size | plus: to_confirm | plus: expired | plus: expiring | plus: rejected %}
+    {% if todo == 0 %}&lt;div class="op-empty"&gt;Nothing to do. Everything is up to date.&lt;/div&gt;{% else %}
+    &lt;ul class="op-todo"&gt;
+      {% for d in docs.results.entities %}{% if d.statuscode.value == 1 and d.op365_expirystatus.value == 365000002 %}
+      &lt;li&gt;&lt;a href="/documents/#op-docform"&gt;&lt;span class="op-dot" style="--c:var(--op-red)"&gt;&lt;/span&gt;&lt;span class="op-what"&gt;Renew {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;Expired on {{ d.op365_expirydate | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class="op-badge b-red"&gt;Expired&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}{% endfor %}
+      {% for d in docs.results.entities %}{% if d.statuscode.value == 365000001 %}
+      &lt;li&gt;&lt;a href="/documents/"&gt;&lt;span class="op-dot" style="--c:var(--op-red)"&gt;&lt;/span&gt;&lt;span class="op-what"&gt;Correct {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;{{ d.op365_reviewnote | escape | default: 'Rejected by the buyer' }}&lt;/small&gt;&lt;/span&gt;&lt;span class="op-badge b-red"&gt;Rejected&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}{% endfor %}
+      {% for r in rfqs.results.entities %}
+      &lt;li&gt;&lt;a href="/rfqs/quote/?id={{ r.op365_rfqinvitationid }}"&gt;&lt;span class="op-dot" style="--c:var(--op-accent)"&gt;&lt;/span&gt;&lt;span class="op-what"&gt;Quote {{ r.op365_rfqnumber | escape }}{% if r.op365_rfqid %}: {{ r.op365_rfqid.name | escape }}{% endif %}&lt;small&gt;Deadline {{ r.op365_deadline | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class="op-badge b-blue"&gt;RFQ&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      {% endfor %}
+      {% for o in orders.results.entities %}{% if o.statuscode.value == 365000000 %}
+      &lt;li&gt;&lt;a href="/orders/order/?id={{ o.op365_purchaseorderid }}"&gt;&lt;span class="op-dot" style="--c:var(--op-amber)"&gt;&lt;/span&gt;&lt;span class="op-what"&gt;Confirm order {{ o.op365_number | escape }}&lt;small&gt;{% if o.op365_projectid %}{{ o.op365_projectid.name | escape }} &amp;middot; {% endif %}{{ o.op365_totalamount | round: 2 }}&lt;/small&gt;&lt;/span&gt;&lt;span class="op-badge b-amber"&gt;Order&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}{% endfor %}
+      {% for d in docs.results.entities %}{% if d.statuscode.value == 1 and d.op365_expirystatus.value == 365000001 %}
+      &lt;li&gt;&lt;a href="/documents/#op-docform"&gt;&lt;span class="op-dot" style="--c:var(--op-amber)"&gt;&lt;/span&gt;&lt;span class="op-what"&gt;Renew {{ d.op365_documenttype.label }}: {{ d.op365_description | escape }}&lt;small&gt;Expires on {{ d.op365_expirydate | date: 'dd/MM/yyyy' }}&lt;/small&gt;&lt;/span&gt;&lt;span class="op-badge b-amber"&gt;Expiring&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}{% endfor %}
+    &lt;/ul&gt;
+    {% endif %}
+  &lt;/section&gt;
+&lt;/div&gt;
+&lt;div class="op-row"&gt;&lt;h2 class="op-h2"&gt;Your projects&lt;/h2&gt;&lt;a href="/projects/" class="op-muted"&gt;All projects&lt;/a&gt;&lt;/div&gt;
+{% include 'OP365 Supplier Project Cards' limit: 3 %}
+&lt;/main&gt;
+&lt;/div&gt;
+{% endif %}
+Dashboard</searchcontent>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

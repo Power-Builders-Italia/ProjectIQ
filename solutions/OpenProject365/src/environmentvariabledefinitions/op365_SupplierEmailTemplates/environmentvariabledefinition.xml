@@ -1,0 +1,20 @@
+<environmentvariabledefinition schemaname="op365_SupplierEmailTemplates">
+  <defaultvalue>{"DocumentExpiring": {"English": "ProjectIQ - Document expiring", "Italian": "ProjectIQ - Documento in scadenza", "German": "ProjectIQ - Dokument läuft bald ab", "French": "ProjectIQ - Document bientôt expiré", "default": "English"}, "DocumentExpired": {"English": "ProjectIQ - Document expired", "Italian": "ProjectIQ - Documento scaduto", "German": "ProjectIQ - Dokument abgelaufen", "French": "ProjectIQ - Document expiré", "default": "English"}}</defaultvalue>
+  <description default="E-mail templates (Account type) of the messages to suppliers, by message and supplier Language: {&quot;DocumentExpiring&quot;: {&quot;Italian&quot;: &quot;&lt;template title&gt;&quot;, &quot;English&quot;: &quot;&lt;template title&gt;&quot;, &quot;default&quot;: &quot;English&quot;}, &quot;DocumentExpired&quot;: {...}}. Default: the templates of tools/dataverse/supplier_email_templates.py.">
+    <label description="E-Mail-Vorlagen (Typ Firma) der Nachrichten an Lieferanten, nach Nachricht und Sprache des Lieferanten: {&quot;DocumentExpiring&quot;: {&quot;Italian&quot;: &quot;&lt;template title&gt;&quot;, &quot;English&quot;: &quot;&lt;template title&gt;&quot;, &quot;default&quot;: &quot;English&quot;}, &quot;DocumentExpired&quot;: {...}}. Standard: die Vorlagen von tools/dataverse/supplier_email_templates.py." languagecode="1031" />
+    <label description="E-mail templates (Account type) of the messages to suppliers, by message and supplier Language: {&quot;DocumentExpiring&quot;: {&quot;Italian&quot;: &quot;&lt;template title&gt;&quot;, &quot;English&quot;: &quot;&lt;template title&gt;&quot;, &quot;default&quot;: &quot;English&quot;}, &quot;DocumentExpired&quot;: {...}}. Default: the templates of tools/dataverse/supplier_email_templates.py." languagecode="1033" />
+    <label description="Modèles d'e-mail (type Compte) des messages aux fournisseurs, par message et langue du fournisseur : {&quot;DocumentExpiring&quot;: {&quot;Italian&quot;: &quot;&lt;template title&gt;&quot;, &quot;English&quot;: &quot;&lt;template title&gt;&quot;, &quot;default&quot;: &quot;English&quot;}, &quot;DocumentExpired&quot;: {...}}. Par défaut : les modèles de tools/dataverse/supplier_email_templates.py." languagecode="1036" />
+    <label description="Modelli e-mail (tipo Account) dei messaggi ai fornitori, per messaggio e lingua del fornitore: {&quot;DocumentExpiring&quot;: {&quot;Italian&quot;: &quot;&lt;template title&gt;&quot;, &quot;English&quot;: &quot;&lt;template title&gt;&quot;, &quot;default&quot;: &quot;English&quot;}, &quot;DocumentExpired&quot;: {...}}. Predefinito: i modelli di tools/dataverse/supplier_email_templates.py." languagecode="1040" />
+  </description>
+  <displayname default="Supplier Email Templates">
+    <label description="E-Mail-Vorlagen für Lieferanten" languagecode="1031" />
+    <label description="Supplier Email Templates" languagecode="1033" />
+    <label description="Modèles d'e-mail fournisseurs" languagecode="1036" />
+    <label description="Modelli e-mail fornitori" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000003</type>
+</environmentvariabledefinition>

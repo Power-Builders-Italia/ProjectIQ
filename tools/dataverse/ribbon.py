@@ -43,6 +43,10 @@ COMMANDS = [
         ('ApproveInvoice', 'Approve', 'Approve the invoice', 'Accept', 'approveInvoice', [1]),
         ('RejectInvoice', 'Reject', 'Reject the invoice with a note', 'Cancel', 'rejectInvoice', [1]),
     ]),
+    ('op365_SupplierDocument', 'op365_supplierdocument', [
+        ('ApproveDocument', 'Approve', 'Approve the document: it becomes valid', 'Accept', 'approveDocument', [S]),
+        ('RejectDocument', 'Reject', 'Reject the document with a note for the supplier', 'Cancel', 'rejectDocument', [S]),
+    ]),
 ]
 
 

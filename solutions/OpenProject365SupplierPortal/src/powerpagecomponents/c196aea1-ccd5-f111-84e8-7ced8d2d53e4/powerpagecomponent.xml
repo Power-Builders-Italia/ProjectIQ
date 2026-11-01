@@ -1,0 +1,87 @@
+<powerpagecomponent powerpagecomponentid="c196aea1-ccd5-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "title": "Invoices",
+  "partialurl": "invoices",
+  "displayorder": 5,
+  "hiddenfromsitemap": false,
+  "excludefromsearch": true,
+  "enablerating": false,
+  "sharedpageconfiguration": false,
+  "isroot": false,
+  "pagetemplateid": "51a148a9-7811-439a-9a80-6168a730d34e",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970",
+  "parentpageid": "6edd3e5e-fd04-4274-89bb-baac867cd557",
+  "feedbackpolicy": 756150000,
+  "isofflinecached": false,
+  "rootwebpageid": "b896aea1-ccd5-f111-84e8-7ced8d2d53e4",
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'invoices' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n{% assign year = now | date: 'yyyy' %}\n{% fetchxml invoices %}\n&lt;fetch&gt;&lt;entity name=\"op365_supplierinvoice\"&gt;\n  &lt;attribute name=\"op365_supplierinvoiceid\" /&gt;&lt;attribute name=\"op365_invoicenumber\" /&gt;&lt;attribute name=\"op365_invoicedate\" /&gt;\n  &lt;attribute name=\"op365_totalamount\" /&gt;&lt;attribute name=\"statuscode\" /&gt;&lt;attribute name=\"op365_decisionnote\" /&gt;&lt;attribute name=\"op365_decidedon\" /&gt;\n  &lt;attribute name=\"op365_purchaseorderid\" /&gt;&lt;attribute name=\"op365_projectid\" /&gt;&lt;attribute name=\"op365_documenttype\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statuscode\" operator=\"in\"&gt;&lt;value&gt;1&lt;/value&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_invoicedate\" descending=\"true\" /&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% assign list = invoices.results.entities %}\n{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}{% assign review = 0 %}{% assign approved = 0 %}\n{% for i in list %}{% assign t = i.op365_totalamount | default: 0 %}\n  {% if i.statuscode.value == 1 %}{% assign n1 = n1 | plus: 1 %}{% assign review = review | plus: t %}\n  {% elsif i.statuscode.value == 365000000 %}{% assign n2 = n2 | plus: 1 %}{% assign iy = i.op365_invoicedate | date: 'yyyy' %}{% if iy == year %}{% assign approved = approved | plus: t %}{% endif %}\n  {% else %}{% assign n3 = n3 | plus: 1 %}{% endif %}\n{% endfor %}\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / Invoices&lt;/div&gt;\n  &lt;h1 class=\"op-h1\"&gt;Invoices&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n&lt;div class=\"op-kpis\"&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Under review&lt;/span&gt;&lt;b&gt;{{ review | round: 0 }}&lt;/b&gt;&lt;/div&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Approved in {{ year }}&lt;/span&gt;&lt;b&gt;{{ approved | round: 0 }}&lt;/b&gt;&lt;/div&gt;\n  &lt;div class=\"op-kpi\"&gt;&lt;span class=\"op-muted\"&gt;Rejected&lt;/span&gt;&lt;b&gt;{{ n3 }}&lt;/b&gt;&lt;/div&gt;\n&lt;/div&gt;\n{% if list.size == 0 %}&lt;div class=\"op-empty\"&gt;No invoices received from your company yet.&lt;/div&gt;{% else %}\n&lt;div class=\"op-filter\"&gt;\n  &lt;input type=\"radio\" name=\"op-f\" id=\"f0\" checked&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f1\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f2\"&gt;&lt;input type=\"radio\" name=\"op-f\" id=\"f3\"&gt;\n  &lt;div class=\"op-chips\" role=\"group\" aria-label=\"Filter by status\"&gt;&lt;label for=\"f0\"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for=\"f1\"&gt;Under review &amp;middot; {{ n1 }}&lt;/label&gt;\n    &lt;label for=\"f2\"&gt;Approved &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for=\"f3\"&gt;Rejected &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;\n  &lt;div class=\"op-grid\"&gt;\n  {% for i in list %}\n    {% if i.statuscode.value == 1 %}{% assign s = 1 %}{% elsif i.statuscode.value == 365000000 %}{% assign s = 2 %}{% else %}{% assign s = 3 %}{% endif %}\n    &lt;article class=\"op-card s{{ s }}\"&gt;\n      &lt;div class=\"op-row\"&gt;&lt;span class=\"op-muted\"&gt;{% if i.op365_purchaseorderid %}{{ i.op365_purchaseorderid.name | escape }}{% endif %}{% if i.op365_projectid %} &amp;middot; {{ i.op365_projectid.name | escape }}{% endif %}&lt;/span&gt;\n        {% if s == 1 %}&lt;span class=\"op-badge b-blue\"&gt;Under review&lt;/span&gt;{% elsif s == 2 %}&lt;span class=\"op-badge b-green\"&gt;Approved&lt;/span&gt;{% else %}&lt;span class=\"op-badge b-red\"&gt;Rejected&lt;/span&gt;{% endif %}&lt;/div&gt;\n      &lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\"&gt;{{ i.op365_invoicenumber | escape }}&lt;/h2&gt;&lt;span class=\"op-amount\"&gt;{{ i.op365_totalamount | round: 2 }}&lt;/span&gt;&lt;/div&gt;\n      &lt;ol class=\"op-steps\" aria-label=\"Invoice status\"&gt;&lt;li class=\"done\"&gt;Received&lt;/li&gt;&lt;li class=\"{% if s == 1 %}{% else %}done{% endif %}\"&gt;Reviewed&lt;/li&gt;\n        &lt;li class=\"{% if s == 2 %}ok{% elsif s == 3 %}ko{% endif %}\"&gt;{% if s == 3 %}Rejected{% else %}Approved{% endif %}&lt;/li&gt;&lt;/ol&gt;\n      &lt;p class=\"op-muted\"&gt;{{ i.op365_documenttype.label }} &amp;middot; issued {{ i.op365_invoicedate | date: 'dd/MM/yyyy' }}{% if i.op365_decidedon %} &amp;middot; decided {{ i.op365_decidedon | date: 'dd/MM/yyyy' }}{% endif %}&lt;/p&gt;\n      {% if s == 3 and i.op365_decisionnote %}&lt;p class=\"op-muted\"&gt;&lt;strong&gt;Reason:&lt;/strong&gt; {{ i.op365_decisionnote | escape }}&lt;/p&gt;{% endif %}\n    &lt;/article&gt;\n  {% endfor %}\n  &lt;/div&gt;\n&lt;/div&gt;\n{% endif %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Invoices</name>
+  <powerpagecomponenttype>2</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <powerpagesitelanguageid>
+    <powerpagesitelanguageid>ded80c8e-6fd5-4186-a9e9-dd3f7790285b</powerpagesitelanguageid>
+  </powerpagesitelanguageid>
+  <searchcontent>Invoices{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}
+{% if supplier == false %}
+&lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
+{% else %}
+{% include 'OP365 Supplier Style' %}
+&lt;div class="op-shell"&gt;
+{% include 'OP365 Supplier Nav' active: 'invoices' %}
+&lt;main class="op-main" id="op-main"&gt;
+{% assign year = now | date: 'yyyy' %}
+{% fetchxml invoices %}
+&lt;fetch&gt;&lt;entity name="op365_supplierinvoice"&gt;
+  &lt;attribute name="op365_supplierinvoiceid" /&gt;&lt;attribute name="op365_invoicenumber" /&gt;&lt;attribute name="op365_invoicedate" /&gt;
+  &lt;attribute name="op365_totalamount" /&gt;&lt;attribute name="statuscode" /&gt;&lt;attribute name="op365_decisionnote" /&gt;&lt;attribute name="op365_decidedon" /&gt;
+  &lt;attribute name="op365_purchaseorderid" /&gt;&lt;attribute name="op365_projectid" /&gt;&lt;attribute name="op365_documenttype" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statuscode" operator="in"&gt;&lt;value&gt;1&lt;/value&gt;&lt;value&gt;365000000&lt;/value&gt;&lt;value&gt;365000001&lt;/value&gt;&lt;/condition&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_invoicedate" descending="true" /&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% assign list = invoices.results.entities %}
+{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}{% assign review = 0 %}{% assign approved = 0 %}
+{% for i in list %}{% assign t = i.op365_totalamount | default: 0 %}
+  {% if i.statuscode.value == 1 %}{% assign n1 = n1 | plus: 1 %}{% assign review = review | plus: t %}
+  {% elsif i.statuscode.value == 365000000 %}{% assign n2 = n2 | plus: 1 %}{% assign iy = i.op365_invoicedate | date: 'yyyy' %}{% if iy == year %}{% assign approved = approved | plus: t %}{% endif %}
+  {% else %}{% assign n3 = n3 | plus: 1 %}{% endif %}
+{% endfor %}
+&lt;div class="op-head"&gt;&lt;div&gt;&lt;div class="op-crumb"&gt;&lt;a href="/dashboard/"&gt;Dashboard&lt;/a&gt; / Invoices&lt;/div&gt;
+  &lt;h1 class="op-h1"&gt;Invoices&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-kpis"&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Under review&lt;/span&gt;&lt;b&gt;{{ review | round: 0 }}&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Approved in {{ year }}&lt;/span&gt;&lt;b&gt;{{ approved | round: 0 }}&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="op-kpi"&gt;&lt;span class="op-muted"&gt;Rejected&lt;/span&gt;&lt;b&gt;{{ n3 }}&lt;/b&gt;&lt;/div&gt;
+&lt;/div&gt;
+{% if list.size == 0 %}&lt;div class="op-empty"&gt;No invoices received from your company yet.&lt;/div&gt;{% else %}
+&lt;div class="op-filter"&gt;
+  &lt;input type="radio" name="op-f" id="f0" checked&gt;&lt;input type="radio" name="op-f" id="f1"&gt;&lt;input type="radio" name="op-f" id="f2"&gt;&lt;input type="radio" name="op-f" id="f3"&gt;
+  &lt;div class="op-chips" role="group" aria-label="Filter by status"&gt;&lt;label for="f0"&gt;All &amp;middot; {{ list.size }}&lt;/label&gt;&lt;label for="f1"&gt;Under review &amp;middot; {{ n1 }}&lt;/label&gt;
+    &lt;label for="f2"&gt;Approved &amp;middot; {{ n2 }}&lt;/label&gt;&lt;label for="f3"&gt;Rejected &amp;middot; {{ n3 }}&lt;/label&gt;&lt;/div&gt;
+  &lt;div class="op-grid"&gt;
+  {% for i in list %}
+    {% if i.statuscode.value == 1 %}{% assign s = 1 %}{% elsif i.statuscode.value == 365000000 %}{% assign s = 2 %}{% else %}{% assign s = 3 %}{% endif %}
+    &lt;article class="op-card s{{ s }}"&gt;
+      &lt;div class="op-row"&gt;&lt;span class="op-muted"&gt;{% if i.op365_purchaseorderid %}{{ i.op365_purchaseorderid.name | escape }}{% endif %}{% if i.op365_projectid %} &amp;middot; {{ i.op365_projectid.name | escape }}{% endif %}&lt;/span&gt;
+        {% if s == 1 %}&lt;span class="op-badge b-blue"&gt;Under review&lt;/span&gt;{% elsif s == 2 %}&lt;span class="op-badge b-green"&gt;Approved&lt;/span&gt;{% else %}&lt;span class="op-badge b-red"&gt;Rejected&lt;/span&gt;{% endif %}&lt;/div&gt;
+      &lt;div class="op-row"&gt;&lt;h2 class="op-h2"&gt;{{ i.op365_invoicenumber | escape }}&lt;/h2&gt;&lt;span class="op-amount"&gt;{{ i.op365_totalamount | round: 2 }}&lt;/span&gt;&lt;/div&gt;
+      &lt;ol class="op-steps" aria-label="Invoice status"&gt;&lt;li class="done"&gt;Received&lt;/li&gt;&lt;li class="{% if s == 1 %}{% else %}done{% endif %}"&gt;Reviewed&lt;/li&gt;
+        &lt;li class="{% if s == 2 %}ok{% elsif s == 3 %}ko{% endif %}"&gt;{% if s == 3 %}Rejected{% else %}Approved{% endif %}&lt;/li&gt;&lt;/ol&gt;
+      &lt;p class="op-muted"&gt;{{ i.op365_documenttype.label }} &amp;middot; issued {{ i.op365_invoicedate | date: 'dd/MM/yyyy' }}{% if i.op365_decidedon %} &amp;middot; decided {{ i.op365_decidedon | date: 'dd/MM/yyyy' }}{% endif %}&lt;/p&gt;
+      {% if s == 3 and i.op365_decisionnote %}&lt;p class="op-muted"&gt;&lt;strong&gt;Reason:&lt;/strong&gt; {{ i.op365_decisionnote | escape }}&lt;/p&gt;{% endif %}
+    &lt;/article&gt;
+  {% endfor %}
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endif %}
+&lt;/main&gt;
+&lt;/div&gt;
+{% endif %}
+Invoices</searchcontent>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

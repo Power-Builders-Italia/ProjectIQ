@@ -96,11 +96,11 @@ Valori in sola lettura: **Spend** (totale degli ordini al fornitore, visibile so
 
 La tab **Documents** elenca i **documenti di conformità** del fornitore e mostra i contatori **Document Alerts** (Expired Documents = scaduti, Expiring Documents = in scadenza). La tab **Item Prices** elenca gli articoli che il fornitore vende, con il suo prezzo per ciascuno.
 
-> I contatori degli avvisi documenti sono predisposti per un aggiornamento giornaliero; finché quel processo non viene attivato nel tuo ambiente possono restare vuoti. I documenti, con le loro date di scadenza, sono sempre disponibili nella tab Documents e nelle viste.
+I contatori contano solo i documenti **approvati** e si aggiornano a ogni modifica di un documento e ogni mattina con il flusso **Daily document expiry** (vedi [Scadenze ed email](#scadenze-ed-email)).
 
 ### Documenti del fornitore
 
-Un documento del fornitore registra un documento di conformità che devi conservare: DURC, visura camerale, certificazioni, polizze assicurative, contratti e così via.
+Un documento del fornitore registra un documento di conformità che devi conservare: DURC, visura camerale, certificazioni, polizze assicurative, contratti e così via. I documenti vengono inseriti dal tuo personale oppure caricati dal fornitore nel [portale fornitori](supplier-portal.md#documenti-aziendali); in entrambi i casi è il buyer a decidere se un documento è valido.
 
 | Campo | Significato |
 |---|---|
@@ -113,7 +113,56 @@ Un documento del fornitore registra un documento di conformità che devi conserv
 | **File** | Il documento stesso, caricato in Dataverse |
 | **Notes** | Altro |
 
+La sezione **Review** del form è in sola lettura ed è compilata dal sistema:
+
+| Campo | Significato |
+|---|---|
+| **Status Reason** | **Pending Review**, **Approved** o **Rejected** (vedi sotto) |
+| **Expiry Status** | **Valid**, **Expiring** (scade entro 30 giorni), **Expired**, oppure **Replaced** (esiste un documento approvato più recente dello stesso tipo) |
+| **Reviewed By** / **Reviewed On** | Chi ha approvato o rifiutato il documento, e quando |
+| **From Supplier Portal** | Sì quando il fornitore ha caricato il documento nel portale |
+| **Expiry Notice Sent** | Ultima email di scadenza inviata al fornitore per il documento: Expiring o Expired; si azzera quando cambia la data di scadenza |
+| **Review Note** | Nota del revisore; il motivo mostrato al fornitore quando il documento è rifiutato |
+
 Crea i documenti dalla tab Documents del fornitore (**+ New Supplier Document**), così il fornitore viene compilato in automatico.
+
+#### Revisione
+
+```mermaid
+stateDiagram-v2
+    [*] --> PendingReview: il fornitore carica dal portale
+    [*] --> Approved: creato in ProjectIQ
+    PendingReview --> Approved: Approve
+    PendingReview --> Rejected: Reject (nota)
+    Rejected --> PendingReview: il fornitore lo corregge nel portale
+    Approved --> [*]
+```
+
+- Un documento **creato in ProjectIQ** è subito **Approved**: sei tu a controllarlo.
+- Un documento **caricato dal fornitore** è **Pending Review**. Il proprietario dell'account del fornitore riceve la notifica in-app "Supplier document to review". Apri il documento, controlla il file e clicca **Approve** o **Reject** nella barra dei comandi. **Reject** chiede una nota, che il fornitore vede nel portale.
+- Il fornitore può modificare o eliminare un documento solo finché è **Pending Review** o **Rejected**. Una modifica a un documento rifiutato lo riporta in **Pending Review**. Un documento **Approved** non può più essere modificato né eliminato dal portale: per un rinnovo il fornitore carica un nuovo documento.
+- Lo Status Reason non si cambia a mano: usa **Approve** e **Reject**.
+
+Contano solo i documenti approvati: determinano lo stato di scadenza e i contatori degli avvisi, e solo loro ricevono le email di scadenza. Quando viene approvato un rinnovo dello stesso tipo, il documento precedente diventa **Replaced** e non genera più avvisi.
+
+#### Scadenze ed email
+
+Ogni mattina alle 06:00 (Europa/Roma) il flusso **Daily document expiry** aggiorna lo stato di scadenza di tutti i documenti e i contatori dei fornitori, e invia un'email al fornitore:
+
+- una volta quando un documento approvato diventa **Expiring** (30 giorni prima della scadenza);
+- una volta quando diventa **Expired**.
+
+L'email va all'indirizzo email dell'account del fornitore, viene registrata nella timeline del documento e non viene inviata di nuovo finché la data di scadenza non cambia. Un fornitore senza indirizzo email non riceve nulla: l'email parte la mattina dopo che l'indirizzo è stato compilato. Il fornitore vede gli avvisi anche nel portale (Dashboard e pagina Documents).
+
+Il testo delle email viene dai **modelli email** di Dataverse (tipo Account) nella lingua del fornitore (campo **Language** dell'account). L'amministratore sceglie i modelli e la casella che invia le email nelle variabili d'ambiente **Supplier Email Templates** e **Supplier Email Sender** (vedi [Amministrazione](administration.md#impostazioni-aziendali)). Finché non è impostato un mittente, stati e contatori vengono comunque aggiornati ma nessuna email viene inviata.
+
+#### Viste
+
+| Vista | Mostra |
+|---|---|
+| **Active Supplier Documents** | Tutti i documenti con tipo, fornitore, numero, data di scadenza, stato di scadenza e status reason |
+| **Supplier Documents to Review** | I documenti inviati dai fornitori in attesa di Approve o Reject |
+| **Expiring and Expired Supplier Documents** | I documenti approvati che scadono entro 30 giorni o sono scaduti |
 
 ## Contatti
 
@@ -265,3 +314,6 @@ flowchart LR
 | Errore di chiave duplicata su un item supplier | Quel fornitore ha già una riga prezzo per l'articolo | Apri e modifica la riga esistente |
 | Errore di chiave duplicata su un resource cost | La risorsa ha già un costo con quel Valid From | Modifica la riga esistente |
 | Hourly Cost vuoto o mascherato | Non hai il profilo Cost Visibility | Chiedi a un amministratore se devi vedere i costi |
+| "Use Approve or Reject to review a supplier document." | Hai cambiato a mano lo status reason di un documento fornitore | Usa il pulsante Approve o Reject |
+| "Add a note to reject the supplier document." | Reject senza nota | Scrivi il motivo per il fornitore |
+| "Only supplier documents pending review can be approved or rejected." | Il documento è già approvato o rifiutato | Nulla da fare; il fornitore invia un documento corretto |
