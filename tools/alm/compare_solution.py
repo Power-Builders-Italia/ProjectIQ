@@ -9,7 +9,7 @@ Exit:   0 same, 1 drift, 2 usage error. With --summary the Markdown report is ap
         --check-webresources exits 1 when a file of SRC_DIR differs from (or is missing in) the solution copy.
 
 Before comparing, each file is normalized: UTF-8 BOM, CRLF and trailing whitespace dropped; the solution
-<Version> and the platform version attributes of the root element ignored; Italian (1040) labels of standard components ignored (the Dev language pack adds them);
+<Version>, its <MissingDependencies> and the platform version attributes of the root element ignored; Italian (1040) labels of standard components ignored (the Dev language pack adds them);
 built files (plugin assembly, PCF bundles) compared by presence only, since deploy-dev builds them from source.
 """
 import argparse
@@ -23,6 +23,8 @@ VERSION = re.compile(rb"^\s*<Version>[^<]*</Version>\n?", re.M)
 # set by Dataverse at export time, they change with every service update
 PLATFORM = re.compile(rb'\s(?:version|OrganizationVersion|CRMServerServiceabilityVersion)="[^"]*"')
 ROOT = re.compile(rb"<ImportExportXml\b[^>]*>")
+# computed by Dataverse at export time from the components installed in the environment, not configuration
+MISSING_DEPENDENCIES = re.compile(rb"^[ \t]*<MissingDependencies\s*(?:/>|>.*?</MissingDependencies>)\n?", re.M | re.S)
 STANDARD_ENTITY = re.compile(r"^[^/]+/src/Entities/(?!op365_)[^/]+/")
 BUILT = (re.compile(r"^[^/]+/src/PluginAssemblies/.+\.dll$"), re.compile(r"^[^/]+/src/Controls/.+/bundle\.js$"))
 
@@ -56,6 +58,7 @@ def normalize(rel_path: str, data: bytes) -> bytes:
     data = b"\n".join(line.rstrip() for line in data.replace(b"\r\n", b"\n").split(b"\n"))
     if rel_path.endswith("/src/Other/Solution.xml"):
         data = VERSION.sub(b"", data)
+        data = MISSING_DEPENDENCIES.sub(b"", data)
     if rel_path.endswith(("/src/Other/Solution.xml", "/src/Other/Customizations.xml")):
         data = ROOT.sub(lambda m: PLATFORM.sub(b"", m.group(0)), data, count=1)
     if STANDARD_ENTITY.match(rel_path):

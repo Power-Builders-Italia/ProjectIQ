@@ -46,6 +46,20 @@ class CompareTests(unittest.TestCase):
         self.both(rel, "<x>\n    <Version>1.0.1.0</Version>\n</x>\n", "<x>\n    <Version>1.0.57.0</Version>\n</x>\n")
         self.assertFalse(compare_trees(self.base, self.cur).drift)
 
+    def test_solution_missing_dependencies_ignored(self):
+        rel = "OpenProject365SupplierPortal/src/Other/Solution.xml"
+        dev = "<x>\n    <RootComponents />\n    <MissingDependencies />\n  </x>\n"
+        repo = ("<x>\n    <RootComponents />\n    <MissingDependencies>\n      <MissingDependency>\n"
+                '        <Required type="1" schemaName="op365_project" solution="Active" />\n'
+                "      </MissingDependency>\n    </MissingDependencies>\n  </x>\n")
+        self.both(rel, repo, dev)
+        self.assertFalse(compare_trees(self.base, self.cur).drift)
+
+    def test_missing_dependencies_compared_outside_solution_xml(self):
+        rel = "OpenProject365/src/Other/Customizations.xml"
+        self.both(rel, "<x>\n<MissingDependencies />\n</x>\n", "<x>\n</x>\n")
+        self.assertTrue(compare_trees(self.base, self.cur).drift)
+
     def test_italian_label_on_standard_entity_ignored(self):
         rel = ENTITY.format("Account")
         self.both(rel, "<e>\n</e>\n", "<e>\n" + LABEL + "</e>\n")
