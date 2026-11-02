@@ -1,0 +1,5 @@
+# Documentation website (https://projectiq.powerbuilders.org): every page can be indexed
+User-agent: *
+Allow: /
+
+Sitemap: https://projectiq.powerbuilders.org/sitemap.xml
