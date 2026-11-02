@@ -3,10 +3,16 @@
   <bindingtype>1</bindingtype>
   <boundentitylogicalname>contact</boundentitylogicalname>
   <description default="Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)">
+    <label description="Lädt einen Kontakt eines Lieferanten zum Lieferantenportal ein (Power-Pages-Einladung mit der Webrolle Supplier)" languagecode="1031" />
     <label description="Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)" languagecode="1033" />
+    <label description="Invite un contact d'un fournisseur au portail fournisseurs (invitation Power Pages avec le rôle web Supplier)" languagecode="1036" />
+    <label description="Invita un contatto di un fornitore al portale fornitori (invito Power Pages con il web role Supplier)" languagecode="1040" />
   </description>
   <displayname default="Invite To Portal">
+    <label description="Zum Portal einladen" languagecode="1031" />
     <label description="Invite To Portal" languagecode="1033" />
+    <label description="Inviter au portail" languagecode="1036" />
+    <label description="Invita al portale" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isfunction>0</isfunction>

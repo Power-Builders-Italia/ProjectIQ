@@ -207,6 +207,13 @@ var OP365 = OP365 || {};
             return run(form, { action: "op365_DecideSupplierDocument", body: { Approve: true }, title: t("Approve"), confirm: t("Approve this supplier document? It becomes valid and the supplier can no longer change it."), progress: t("Approving...") });
         },
         rejectDocument: function (form) { return reject(form, "op365_DecideSupplierDocument", t("Reject Supplier Document")); },
+        /** Supplier Document form OnLoad: SharePoint URL shows only once the approved file was moved to SharePoint. */
+        supplierDocumentOnLoad: function (context) {
+            var form = context.getFormContext();
+            var url = form.getAttribute("op365_sharepointurl");
+            var control = form.getControl("op365_sharepointurl");
+            if (url && control) control.setVisible(!!url.getValue());
+        },
         // ----- supplier portal
         inviteToPortal: function (form) {
             return run(form, { action: "op365_InviteToPortal", title: t("Invite to Portal"), progress: t("Sending..."), done: t("Invitation sent to the supplier portal."),

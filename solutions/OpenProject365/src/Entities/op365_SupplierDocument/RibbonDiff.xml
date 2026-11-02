@@ -71,21 +71,33 @@
     <LocLabel Id="op365.supplierdocument.ApproveDocument.Label">
       <Titles>
         <Title description="Approve" languagecode="1033" />
+        <Title description="Approuver" languagecode="1036" />
+        <Title description="Approva" languagecode="1040" />
+        <Title description="Genehmigen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierdocument.ApproveDocument.Tip">
       <Titles>
         <Title description="Approve the document: it becomes valid" languagecode="1033" />
+        <Title description="Approuver le document : il devient valide" languagecode="1036" />
+        <Title description="Approva il documento: diventa valido" languagecode="1040" />
+        <Title description="Dokument genehmigen: es wird gültig" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierdocument.RejectDocument.Label">
       <Titles>
         <Title description="Reject" languagecode="1033" />
+        <Title description="Rejeter" languagecode="1036" />
+        <Title description="Rifiuta" languagecode="1040" />
+        <Title description="Ablehnen" languagecode="1031" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.supplierdocument.RejectDocument.Tip">
       <Titles>
         <Title description="Reject the document with a note for the supplier" languagecode="1033" />
+        <Title description="Rejeter le document avec une note pour le fournisseur" languagecode="1036" />
+        <Title description="Rifiuta il documento con una nota per il fornitore" languagecode="1040" />
+        <Title description="Dokument mit einer Notiz für den Lieferanten ablehnen" languagecode="1031" />
       </Titles>
     </LocLabel>
   </LocLabels>
