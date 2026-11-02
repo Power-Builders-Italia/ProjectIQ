@@ -159,17 +159,18 @@ function ctx(control: keyof typeof STRINGS, entityId: string | undefined, width:
     };
 }
 
-const which = new URLSearchParams(location.search).get("c") ?? "gantt";
+const which = new URLSearchParams(location.search).get("c");
 const W = 1180;
-const apps = new Map<string, () => React.ReactElement>(Object.entries({
-    gantt: () => <GanttChartApp context={ctx("GanttChart", PRJ, W) as never} refreshKey={0} />,
-    wbs: () => <WbsTreeGridApp context={ctx("WbsTreeGrid", PRJ, W) as never} refreshKey={0} />,
-    timesheet: () => <WeeklyTimesheetApp context={ctx("WeeklyTimesheet", undefined, W) as never} refreshKey={0} />,
-    approval: () => <TimeApprovalApp context={ctx("TimeApproval", undefined, W) as never} refreshKey={0} />,
-    load: () => <ResourceLoadApp context={ctx("ResourceLoad", undefined, W) as never} refreshKey={0} />,
-    cost: () => <CostSummaryApp context={ctx("CostSummary", PRJ, W) as never} refreshKey={0} />,
-    quotes: () => <QuoteComparisonApp context={ctx("QuoteComparison", RFQ, W) as never} refreshKey={0} />,
-}));
-// only the known control names are rendered (?c= comes from the page URL)
-const render = apps.get(which) ?? apps.get("gantt")!;
-ReactDOM.render(render(), document.getElementById("root"));
+function app(name: string | null): React.ReactElement {
+    // only the known control names are rendered (?c= comes from the page URL)
+    switch (name) {
+        case "wbs": return <WbsTreeGridApp context={ctx("WbsTreeGrid", PRJ, W) as never} refreshKey={0} />;
+        case "timesheet": return <WeeklyTimesheetApp context={ctx("WeeklyTimesheet", undefined, W) as never} refreshKey={0} />;
+        case "approval": return <TimeApprovalApp context={ctx("TimeApproval", undefined, W) as never} refreshKey={0} />;
+        case "load": return <ResourceLoadApp context={ctx("ResourceLoad", undefined, W) as never} refreshKey={0} />;
+        case "cost": return <CostSummaryApp context={ctx("CostSummary", PRJ, W) as never} refreshKey={0} />;
+        case "quotes": return <QuoteComparisonApp context={ctx("QuoteComparison", RFQ, W) as never} refreshKey={0} />;
+        default: return <GanttChartApp context={ctx("GanttChart", PRJ, W) as never} refreshKey={0} />;
+    }
+}
+ReactDOM.render(app(which), document.getElementById("root"));
