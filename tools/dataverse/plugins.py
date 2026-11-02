@@ -23,7 +23,13 @@ PO_FIELDS = ('statuscode,statecode,op365_supplierid,op365_projectid,op365_purcha
              'op365_deliveryplace,op365_paymentterms,op365_notes,op365_supplierconfirmed')
 POL_FIELDS = 'op365_purchaseorderid,op365_itemid,op365_wbsnodeid,op365_name,op365_quantity,op365_uom,op365_price,op365_receivedquantity'
 INV_FIELDS = ('statuscode,statecode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_invoicenumber,op365_invoicedate,'
-              'op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber')
+              'op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber,'
+              'op365_duedate,op365_paymentstatus,op365_paidamount,op365_paidon,op365_paymentreference,op365_suppliernote,'
+              'op365_orderrefs,op365_deliverynoterefs')
+INV_IMAGE = ('statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber,'
+             'op365_extractionstatus,op365_totalamount,op365_paymentstatus,op365_paidamount,op365_paidon')
+# asynchronous steps (PostOperation only): AI Builder takes several seconds
+ASYNC = {'SupplierInvoiceExtract'}
 
 # class, message, table, stage, filtering attributes, pre-image attributes
 STEPS = [
@@ -109,7 +115,10 @@ STEPS = [
   ('GoodsReceiptGuard', 'Update', 'op365_goodsreceiptline', PRE, 'op365_quantity,op365_orderlineid,op365_goodsreceiptid', None),
   ('GoodsReceiptGuard', 'Delete', 'op365_goodsreceiptline', PRE, None, None),
   ('SupplierInvoiceValidate', 'Create', 'op365_supplierinvoice', PRE, None, None),
-  ('SupplierInvoiceValidate', 'Update', 'op365_supplierinvoice', PRE, INV_FIELDS, 'statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber'),
+  ('SupplierInvoiceValidate', 'Update', 'op365_supplierinvoice', PRE, INV_FIELDS, INV_IMAGE),
+  ('SupplierInvoiceExtract', 'Update', 'op365_supplierinvoice', POST,
+   'op365_xmlfile,op365_extractrequested,op365_purchaseorderid,op365_invoicenumber,op365_invoicedate', None),
+  ('SupplierInvoiceDelete', 'Delete', 'op365_supplierinvoice', PRE, None, 'statuscode'),
   ('SupplierInvoiceLineValidate', 'Create', 'op365_supplierinvoiceline', PRE, None, None),
   ('SupplierInvoiceLineValidate', 'Update', 'op365_supplierinvoiceline', PRE, 'op365_quantity,op365_unitprice,op365_totalprice,op365_vatrate,op365_name,op365_code',
    'op365_supplierinvoiceid,op365_quantity,op365_unitprice'),
@@ -268,16 +277,22 @@ for cls, msg, table, stage, filtering, image in STEPS:
     else:
         flt = one(f"sdkmessagefilters?$select=sdkmessagefilterid&$filter=primaryobjecttypecode eq '{table}' "
                   f"and _sdkmessageid_value eq {message(msg)}")['sdkmessagefilterid']
-        body = {'name': name, 'stage': stage, 'mode': 0, 'rank': 1, 'supporteddeployment': 0,
+        body = {'name': name, 'stage': stage, 'mode': 1 if cls in ASYNC else 0, 'rank': 1, 'supporteddeployment': 0,
                 'sdkmessageid@odata.bind': f'/sdkmessages({message(msg)})',
                 'sdkmessagefilterid@odata.bind': f'/sdkmessagefilters({flt})',
                 'plugintypeid@odata.bind': f'/plugintypes({types[cls]})'}
         if filtering:
             body['filteringattributes'] = filtering
+        if cls in ASYNC:
+            body['asyncautodelete'] = True
         r = S.post(API + 'sdkmessageprocessingsteps', json=body)
         ok(r, name); sid = created_id(r)
-    if image and not one(f"sdkmessageprocessingstepimages?$select=sdkmessageprocessingstepimageid"
-                         f"&$filter=_sdkmessageprocessingstepid_value eq {sid}"):
+    current = one(f"sdkmessageprocessingstepimages?$select=sdkmessageprocessingstepimageid,attributes"
+                  f"&$filter=_sdkmessageprocessingstepid_value eq {sid}") if image else None
+    if current and current.get('attributes') != image:
+        ok(S.patch(API + f"sdkmessageprocessingstepimages({current['sdkmessageprocessingstepimageid']})", json={'attributes': image}),
+           '  pre-image ' + image)
+    if image and not current:
         ok(S.post(API + 'sdkmessageprocessingstepimages', json={
             'name': 'PreImage', 'entityalias': 'PreImage', 'imagetype': 0, 'messagepropertyname': 'Target',
             'attributes': image, 'sdkmessageprocessingstepid@odata.bind': f'/sdkmessageprocessingsteps({sid})'}),

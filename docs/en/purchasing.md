@@ -299,31 +299,81 @@ On a registered receipt only the **delivery note** data and the **notes** can be
 
 ## 5. Supplier invoices
 
-A supplier invoice is a **container** for a passive invoice: it holds the invoice data, its lines, the XML or PDF file, the link to the order, and the approval decision. (Automatic import from the Italian SDI exchange system is planned for a later release; today the file is attached by hand.)
+A supplier invoice is a **container** for a passive invoice: it holds the invoice data, its lines, the XML or PDF file, the link to the order, the approval decision and the payment. Invoices arrive in two ways: the **supplier uploads them on the [supplier portal](supplier-portal.md#invoices)**, where the file is read automatically, or the administrative staff record them by hand. (Automatic import from the Italian SDI exchange system is planned for a later release.)
+
+```mermaid
+flowchart LR
+    U[Supplier uploads XML/PDF<br/>on the portal] --> D[Draft<br/>file being read]
+    D --> C{Checks}
+    C -->|Ready / To Check| S[Supplier sends it]
+    C -->|Blocked: duplicate| X[Supplier deletes it]
+    M[Staff: + New] --> R
+    S --> R[To Review]
+    R -->|Approve| A[Approved]
+    R -->|Reject| J[Rejected]
+    A --> P[Scheduled → Paid]
+```
 
 ### Recording an invoice
 
 1. **Purchasing → Supplier Invoices → + New** (or the **Invoices** tab of the purchase order, so that the order is filled in).
 2. Fill in **Supplier**, **Document Type** (TD01 Invoice, TD02 Advance invoice, TD04 Credit note, TD05 Debit note, TD06 Fee note, TD24 Deferred invoice, TD25 Deferred invoice (triangular)), **Invoice Number**, **Invoice Date**, **Purchase Order**.
 3. **Seller Name** and **Seller VAT Number** are copied from the supplier; the **Project** from the order.
-4. Attach the XML (FatturaPA) or PDF in **Invoice File**.
+4. Attach the XML (FatturaPA) or PDF in **Invoice File**. When the invoice is still To Review, set **Extract Requested** to Yes and save to have the file read as described below (it replaces the lines).
 5. Optionally fill in **Order References** and **Delivery Note References** as written on the invoice.
 6. Add the **Lines**: Line Number, Code, Description, Quantity, Unit, Unit Price, Total Price (= quantity × unit price when empty), VAT Rate %, and optionally the **Order Line** it refers to.
 7. **Taxable Amount**, **VAT Amount** and **Total Amount** are calculated from the lines.
 
-New invoices start in **To Review**.
+New invoices recorded in the app start in **To Review**.
+
+### Reading the file
+
+When a supplier uploads an invoice on the portal, ProjectIQ creates a **Draft** invoice and reads the file in the background (a few seconds):
+
+| File | How it is read | Extraction Source |
+|---|---|---|
+| FatturaPA XML, also signed (`.xml.p7m`) | Every value from the electronic invoice: number, date, document type, seller, VAT number, order and delivery note references, lines with VAT rate, taxable amount, VAT, total, due date | **FatturaPA XML** |
+| PDF or image (JPG, PNG, TIFF) | The AI Builder prebuilt **invoice processing** model, with a confidence for each value | **AI Builder** |
+| Any other file, or the AI is turned off | Nothing: the supplier types the data | **Manual** |
+
+Then the checks run and set the **Extraction Status**:
+
+| Extraction Status | When |
+|---|---|
+| **Pending** | The file is being read, or a changed number, date or order is being checked again |
+| **Ready** | All checks passed |
+| **To Check** | A value was read with low confidence (below 80%) or is missing, no order or several orders match the references, the taxable amount differs from the order, a line is not on the order or has another amount, the lines do not add up, or the VAT number on the invoice is not the supplier's |
+| **Blocked** | Another invoice of the supplier with the same number in the same year exists (not rejected): it is a duplicate and cannot be sent |
+
+The order is found from the references on the invoice (`PO-00031`, `PO00031` or just `31`) among the sent, confirmed and received orders of the supplier; each line is matched to an order line by description or amount (**Order Line**). **Extraction Notes** lists what to check and **Fields to Check** the columns concerned; the supplier sees the same notes and can add a **Supplier Note** for you. The supplier corrects number, dates and order, then sends the invoice: it becomes **To Review** and is locked for the supplier. The **Supplier Portal** section of the form shows all of this; drafts are in the view **Supplier Invoice Drafts** and are left out of the other views.
+
+> Reading PDFs with AI Builder consumes AI Builder credits of the environment (about 32 per page). An administrator can turn it off with **Invoice AI Extraction** ([Administration](administration.md#company-settings)); XML files are always read.
 
 ### Approving
 
-The Purchasing Approver (or an administrator) checks the invoice against the order and the receipts, then clicks **Approve** or **Reject** (reason required). Decided invoices — and their lines — are locked.
+The Purchasing Approver (or an administrator) checks the invoice against the order and the receipts, then clicks **Approve** or **Reject** (reason required). Decided invoices — and their lines — are locked; on approved invoices only the payment can change.
 
 | Status | Meaning |
 |---|---|
+| **Draft** | Uploaded on the portal, not yet sent by the supplier |
 | **To Review** | Waiting for the check; data and lines can be changed |
 | **Approved** | Accepted for payment |
 | **Rejected** | Contested; the reason is in *Decision Note* |
 
-Views: **Invoices to Review**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**.
+### Paying
+
+The **Payment** section of an approved invoice tells the supplier where the payment stands; it is shown on the portal:
+
+| Field | Content |
+|---|---|
+| **Due Date** | From the file when present; can be changed |
+| **Payment Status** | **Not Paid**, **Scheduled**, **Partially Paid**, **Paid**. Anything but Not Paid only on approved invoices |
+| **Paid Amount** / **Paid On** | Filled with the total and today when you choose Paid and they are empty |
+| **Payment Reference** | The bank transfer reference (CRO/TRN) |
+
+Accounting staff update these fields by hand (or an integration with the accounting system does). The view **Invoices to Pay** lists the approved invoices not yet paid, by due date.
+
+Views: **All Supplier Invoices**, **Invoices to Review**, **Invoices to Pay**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**, **Supplier Invoice Drafts**.
 
 > Regular users (OP365 User) can read supplier invoices but not create or change them: invoices are handled by administrative staff with the OP365 Administrator role.
 
@@ -349,7 +399,7 @@ Click a chart segment to filter, or open the list to see the records.
 | RFQs | All, Open, Awarded |
 | Purchase orders | All, Open, Confirmed, Received, By Project, By Supplier |
 | Goods receipts | All, By Order |
-| Supplier invoices | All, To Review, Approved, Rejected, By Order |
+| Supplier invoices | All, To Review, To Pay, Approved, Rejected, By Order, Drafts |
 
 ## Messages you may see
 
@@ -379,5 +429,8 @@ Click a chart segment to filter, or open the list to see the records.
 | "<line>: only N still to receive." / "Nothing to receive." | Check the quantities in the dialog |
 | "Received quantities come from goods receipts." | Do not type received quantities |
 | "Use Register Receipt on the purchase order to receive goods, and Cancel Receipt to undo a receipt." | Receipts are managed only with the buttons |
-| "Approved or rejected invoices cannot be changed." | Decided invoices are final |
+| "Approved or rejected invoices cannot be changed." | Decided invoices are final; on approved ones only the payment fields can change |
+| "Only approved invoices can be scheduled or paid." | Approve the invoice before setting Payment Status |
+| "Sent invoices cannot be changed." / "Only draft invoices can be deleted." | From the portal, only drafts can be changed or deleted |
+| "The invoice cannot be sent while it is being read or when it is a duplicate." | Wait for the reading, or delete the duplicate |
 | "Only the purchasing approver or an administrator can decide supplier invoices." | Ask the purchasing approver |

@@ -81,7 +81,7 @@ def permission(name, table, scope, write=False, relationship=None, parent=None, 
     elif scope == ACCOUNT:
         body['mspp_accountrelationship'] = relationship
     else:
-        body['mspp_parentrelationship'] = relationship
+        body.update({'mspp_parentrelationship': relationship, 'mspp_accountrelationship': None, 'mspp_contactrelationship': None})
         body['mspp_parententitypermission@odata.bind'] = f'/mspp_entitypermissions({PERMISSIONS[parent]})'
     pid = upsert('mspp_entitypermissions', 'mspp_entitypermissionid', f"mspp_entityname eq '{q(name)}'", body)
     # the link lives in the powerpagecomponent self N:N: the virtual mspp_entitypermission_webrole expand always reads empty
@@ -105,7 +105,8 @@ def permission(name, table, scope, write=False, relationship=None, parent=None, 
 permission('Supplier RFQ invitations', 'op365_rfqinvitation', ACCOUNT, write=True, relationship='op365_account_rfqinvitation_supplierid')
 permission('Supplier RFQ quotes', 'op365_rfqquote', PARENT, write=True, relationship='op365_rfqinvitation_rfqquote_invitationid',
            parent='Supplier RFQ invitations')
-permission('Supplier purchase orders', 'op365_purchaseorder', ACCOUNT, write=True, relationship='op365_account_purchaseorder_supplierid')
+permission('Supplier purchase orders', 'op365_purchaseorder', ACCOUNT, write=True, appendto=True,
+           relationship='op365_account_purchaseorder_supplierid')
 permission('Supplier purchase order lines', 'op365_purchaseorderline', PARENT,
            relationship='op365_purchaseorder_purchaseorderline_purchaseorderid', parent='Supplier purchase orders')
 # read-only: the projects of the supplier's orders and the supplier's invoices
@@ -118,7 +119,6 @@ permission('Supplier assigned projects', 'op365_project', PARENT, relationship='
            parent='Supplier project assignments')
 permission('Supplier WBS scope', 'op365_wbsnode', PARENT, write=True, relationship='op365_projectsupplier_wbsnode',
            parent='Supplier project assignments')
-permission('Supplier invoices', 'op365_supplierinvoice', ACCOUNT, relationship='op365_account_supplierinvoice_supplierid')
 # own company documents: upload, change and delete (the plugins refuse changes to approved documents);
 # Append/Append To on both sides (the site checks the account -> document association) let a new document be linked to
 # the supplier's own account (the contact's Company Name)
@@ -127,6 +127,12 @@ permission('Supplier company', 'account', CONTACT, append=True, appendto=True, r
 # needs the parent/child chain, an independent Account-scope permission is refused
 permission('Supplier documents', 'op365_supplierdocument', PARENT, write=True, create=True, delete=True, append=True, appendto=True,
            relationship='op365_account_supplierdocument_supplierid', parent='Supplier company')
+# own invoices: upload (Draft), correct, send and delete drafts; the plugins refuse changes to sent invoices; the
+# purchase order is bound by the supplier (Append To on Supplier purchase orders); lines are read-only
+permission('Supplier invoices', 'op365_supplierinvoice', PARENT, write=True, create=True, delete=True, append=True, appendto=True,
+           relationship='op365_account_supplierinvoice_supplierid', parent='Supplier company')
+permission('Supplier invoice lines', 'op365_supplierinvoiceline', PARENT,
+           relationship='op365_supplierinvoice_supplierinvoiceline_supplierinvoiceid', parent='Supplier invoices')
 
 # ---------- Web API: only the columns a supplier may write ----------
 SETTINGS = {
@@ -142,6 +148,12 @@ SETTINGS = {
     'Webapi/op365_supplierdocument/enabled': 'true',
     'Webapi/op365_supplierdocument/fields': 'op365_documenttype,op365_description,op365_number,op365_issuedate,'
                                             'op365_expirydate,op365_notes,op365_file,op365_supplierid,op365_SupplierId',
+    # never the status columns of the review, the extraction or the payment: the plugins and the staff set them;
+    # statuscode only to send a draft (Draft -> To Review, checked by SupplierInvoiceValidate)
+    'Webapi/op365_supplierinvoice/enabled': 'true',
+    'Webapi/op365_supplierinvoice/fields': 'op365_invoicenumber,op365_invoicedate,op365_duedate,op365_suppliernote,op365_xmlfile,'
+                                           'op365_extractrequested,statuscode,op365_supplierid,op365_SupplierId,'
+                                           'op365_purchaseorderid,op365_PurchaseOrderId',
     # the related table of a lookup bound on create must be Web API enabled too; Supplier company grants no write
     'Webapi/account/enabled': 'true',
     'Webapi/account/fields': 'accountid',
@@ -380,7 +392,8 @@ page('Project', 'project', ui.shell('projects', ui.tokens(ui.PROJECT)), WEBAPI_J
 page('Quote', 'quote', ui.shell('rfqs', QUOTE), QUOTE_JS, parent=rfqs, hidden=True)
 orders = page('Purchase orders', 'orders', ui.shell('orders', ui.tokens(ui.ORDERS)), order=4)
 page('Order', 'order', ui.shell('orders', ORDER), ORDER_JS, parent=orders, hidden=True)
-invoices = page('Invoices', 'invoices', ui.shell('invoices', ui.tokens(ui.INVOICES)), order=5)
+invoices = page('Invoices', 'invoices', ui.shell('invoices', ui.tokens(ui.INVOICES)), ui.CALL_JS + ui.tokens(ui.INVOICES_JS), order=5)
+page('Invoice', 'invoice', ui.shell('invoices', ui.tokens(ui.INVOICE)), ui.CALL_JS + ui.tokens(ui.INVOICE_JS), parent=invoices, hidden=True)
 documents = page('Documents', 'documents', ui.shell('documents', ui.tokens(ui.DOCUMENTS)), ui.DOCUMENTS_JS, order=6)
 
 # ---------- home: suppliers go straight to the dashboard, everyone else gets the sign-in landing ----------
@@ -390,7 +403,7 @@ HOME_HTML = """{% include '""" + ui.STYLE_NAME + """' %}
 <div class="op-shell" style="justify-content:center;align-items:center">
   <div style="max-width:560px;text-align:center;padding:48px 16px">
     <h1 style="font-weight:700">Supplier portal</h1>
-    <p>Answer requests for quotation, confirm purchase orders, follow invoices and keep your company documents up to date.</p>
+    <p>Answer requests for quotation, confirm purchase orders, send your invoices and keep your company documents up to date.</p>
     {% if user %}
     <p>Your account is not yet linked to a supplier. Ask your customer to enable it.</p>
     {% else %}

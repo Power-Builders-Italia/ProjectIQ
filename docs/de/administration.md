@@ -109,6 +109,7 @@ So ändern Sie einen Wert:
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Die ProjectIQ-Vorlagen | E-Mail-Vorlage (Typ Firma) jeder Nachricht an Lieferanten, je **Language** des Lieferanten: `{"DocumentExpiring": {"Italian": "<Vorlagentitel>", "English": "<Vorlagentitel>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` ist die Sprache, wenn der Lieferant keine hat oder es keine Vorlage dafür gibt |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Leer | Name oder E-Mail-Adresse der **Warteschlange** (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: Im Lieferantenportal können Lieferanten den Fortschritt % der PSP-Aktivitäten ihres Umfangs aktualisieren (nur Aktivitäten ohne Unteraktivitäten). No: Sie sehen ihn nur. Siehe [Lieferantenportal](supplier-portal.md#projektlieferanten-und-psp-umfang) |
+| `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes: Im Lieferantenportal hochgeladene PDF- und Bildrechnungen werden vom vorgefertigten Rechnungsverarbeitungsmodell von AI Builder gelesen, das AI-Builder-Credits verbraucht (etwa 32 pro Seite). No: Nur FatturaPA-XML-Dateien werden gelesen; bei den anderen geben die Lieferanten die Daten ein. Siehe [Einkauf](purchasing.md#lesen-der-datei) |
 
 Der Purchasing Approver ist ein Benutzername und kein Lookup, weil sich die Benutzer-IDs in jeder Umgebung unterscheiden. Bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
 
@@ -158,6 +159,7 @@ So werden die E-Mails gesendet:
 | Stundensatz der Ressource | Bei jeder Änderung von Resource Cost |
 | In-App-Benachrichtigungen | Beim Einreichen und Entscheiden von Stunden und Bedarfsanforderungen sowie durch die tägliche Erinnerung |
 | Zugriff des Projektteams | Bei jeder Änderung von Projektmitgliedern |
+| Lesen der Lieferantenrechnungen (FatturaPA-XML oder AI Builder) und ihre Prüfungen | Im Hintergrund, wenige Sekunden nachdem ein Lieferant eine Rechnung hochlädt oder ihre Nummer, ihr Datum oder ihre Bestellung ändert |
 
 ### Benachrichtigungen
 

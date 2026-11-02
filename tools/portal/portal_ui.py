@@ -11,7 +11,9 @@ VALUES = {
     'INVITED': 365000000, 'RESPONDED': 365000001, 'DECLINED': 365000002,
     'PS_ACTIVE': 1, 'PS_INVITED': 365000000,
     'PO_SENT': 365000000, 'PO_CONFIRMED': 365000001, 'PO_RECEIVED': 365000002,
-    'INV_TO_REVIEW': 1, 'INV_APPROVED': 365000000, 'INV_REJECTED': 365000001,
+    'INV_TO_REVIEW': 1, 'INV_APPROVED': 365000000, 'INV_REJECTED': 365000001, 'INV_DRAFT': 365000002,
+    'EX_PENDING': 365000000, 'EX_READY': 365000001, 'EX_TOCHECK': 365000002, 'EX_BLOCKED': 365000003,
+    'PAY_NOTPAID': 365000000, 'PAY_SCHEDULED': 365000001, 'PAY_PARTIAL': 365000002, 'PAY_PAID': 365000003,
     'DOC_APPROVED': 1, 'DOC_PENDING': 365000000, 'DOC_REJECTED': 365000001,
     'EXP_VALID': 365000000, 'EXP_EXPIRING': 365000001, 'EXP_EXPIRED': 365000002, 'EXP_REPLACED': 365000003,
 }
@@ -141,10 +143,31 @@ body:has(.op-shell) header,body:has(.op-shell) .navbar,body:has(.op-shell) foote
 .op-form label{font-size:13px;font-weight:600;color:#334155;display:flex;flex-direction:column;gap:4px}
 .op-form input,.op-form select,.op-form textarea{font:inherit;font-weight:400;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#fff}
 .op-form .wide{grid-column:1/-1}
+/* invoices: upload area, file next to the data read from it, fields to check */
+.op-drop{border:2px dashed #93c5fd;background:#fff;border-radius:14px;padding:24px;display:flex;flex-wrap:wrap;gap:16px;
+  align-items:center;justify-content:center;text-align:center}
+.op-drop.over{background:#eff6ff;border-color:var(--op-accent)}
+.op-drop input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.op-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.op-viewer{background:#fff;border:1px solid var(--op-line);border-radius:14px;overflow:hidden}
+.op-viewer iframe,.op-viewer img{width:100%;height:760px;border:0;display:block;object-fit:contain;background:#e2e8f0}
+.op-sheet{margin:20px;padding:24px;background:#fff;box-shadow:0 1px 3px rgba(15,42,68,.15);font-size:13px;line-height:1.6}
+.op-check{color:#92400e!important}
+.op-check input,.op-check select{border:2px solid var(--op-amber)!important;background:#fffbeb!important}
+.op-note{background:#fef3c7;border-radius:10px;padding:12px 14px;font-size:14px;color:#78350f;white-space:pre-line;margin:0}
+.op-info{background:#e0f2fe;border-radius:10px;padding:12px 14px;font-size:14px;color:#0c4a6e;margin:0}
+.op-ok{color:#047857;font-weight:600}.op-ko{color:#b45309;font-weight:600}
+.op-total{background:var(--op-navy);color:#fff;border-radius:14px;padding:16px 18px;display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12px}
+.op-total b{display:block;font-size:18px}
+.op-spin{display:inline-block;width:12px;height:12px;border:2px solid #93c5fd;border-top-color:var(--op-accent);border-radius:50%;
+  animation:opspin 1s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes opspin{to{transform:rotate(360deg)}}
+@media (max-width:900px){.op-split{grid-template-columns:1fr}}
 @media (max-width:900px){.op-panels{grid-template-columns:1fr}}
 @media (max-width:720px){.op-main{padding:20px 16px}.op-nav{max-width:none;flex-basis:100%;flex-direction:row;flex-wrap:wrap}
   .op-brand{flex-basis:100%;padding-bottom:8px}.op-who{flex-basis:100%}.op-dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (prefers-reduced-motion:reduce){.op-card,.op-nav a.op-link{transition:none}.op-grid>.op-card:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.op-spin{animation:none}.op-card,.op-nav a.op-link{transition:none}.op-grid>.op-card:hover{transform:none}}
 </style>"""
 
 NAV = """{% assign op_today = now | date: 'yyyy-MM-dd' %}
@@ -500,30 +523,82 @@ ORDERS = """{% fetchxml orders %}
 {% endif %}"""
 
 INVOICES = """{% assign year = now | date: 'yyyy' %}
+{% fetchxml drafts %}
+<fetch><entity name="op365_supplierinvoice">
+  <attribute name="op365_supplierinvoiceid" /><attribute name="op365_invoicenumber" /><attribute name="op365_invoicedate" />
+  <attribute name="op365_totalamount" /><attribute name="op365_purchaseorderid" /><attribute name="op365_extractionstatus" />
+  <attribute name="op365_xmlfile" /><attribute name="op365_extractionnotes" /><attribute name="createdon" />
+  <filter><condition attribute="statuscode" operator="eq" value="@INV_DRAFT@" /></filter>
+  <order attribute="createdon" descending="true" />
+</entity></fetch>
+{% endfetchxml %}
 {% fetchxml invoices %}
 <fetch><entity name="op365_supplierinvoice">
   <attribute name="op365_supplierinvoiceid" /><attribute name="op365_invoicenumber" /><attribute name="op365_invoicedate" />
   <attribute name="op365_totalamount" /><attribute name="statuscode" /><attribute name="op365_decisionnote" /><attribute name="op365_decidedon" />
   <attribute name="op365_purchaseorderid" /><attribute name="op365_projectid" /><attribute name="op365_documenttype" />
+  <attribute name="op365_paymentstatus" /><attribute name="op365_duedate" /><attribute name="op365_paidon" /><attribute name="op365_paidamount" />
+  <attribute name="op365_paymentreference" />
   <filter><condition attribute="statuscode" operator="in"><value>@INV_TO_REVIEW@</value><value>@INV_APPROVED@</value><value>@INV_REJECTED@</value></condition></filter>
   <order attribute="op365_invoicedate" descending="true" />
 </entity></fetch>
 {% endfetchxml %}
+{% assign dlist = drafts.results.entities %}
+{% assign ready = 0 %}{% assign pending = 0 %}{% assign tocheck = 0 %}{% assign blocked = 0 %}
+{% for d in dlist %}{% case d.op365_extractionstatus.value %}{% when @EX_READY@ %}{% assign ready = ready | plus: 1 %}{% when @EX_TOCHECK@ %}{% assign tocheck = tocheck | plus: 1 %}{% when @EX_BLOCKED@ %}{% assign blocked = blocked | plus: 1 %}{% else %}{% assign pending = pending | plus: 1 %}{% endcase %}{% endfor %}
 {% assign list = invoices.results.entities %}
-{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}{% assign review = 0 %}{% assign approved = 0 %}
-{% for i in list %}{% assign t = i.op365_totalamount | default: 0 %}
+{% assign n1 = 0 %}{% assign n2 = 0 %}{% assign n3 = 0 %}{% assign review = 0 %}{% assign topay = 0 %}{% assign paid = 0 %}
+{% for i in list %}{% assign t = i.op365_totalamount | default: 0 %}{% assign pa = i.op365_paidamount | default: 0 %}
   {% if i.statuscode.value == @INV_TO_REVIEW@ %}{% assign n1 = n1 | plus: 1 %}{% assign review = review | plus: t %}
-  {% elsif i.statuscode.value == @INV_APPROVED@ %}{% assign n2 = n2 | plus: 1 %}{% assign iy = i.op365_invoicedate | date: 'yyyy' %}{% if iy == year %}{% assign approved = approved | plus: t %}{% endif %}
+  {% elsif i.statuscode.value == @INV_APPROVED@ %}{% assign n2 = n2 | plus: 1 %}
+    {% if i.op365_paymentstatus.value == @PAY_PAID@ %}{% assign py = i.op365_paidon | date: 'yyyy' %}{% if py == year %}{% assign paid = paid | plus: pa %}{% endif %}
+    {% else %}{% assign topay = topay | plus: t | minus: pa %}{% assign py = i.op365_paidon | date: 'yyyy' %}{% if py == year %}{% assign paid = paid | plus: pa %}{% endif %}{% endif %}
   {% else %}{% assign n3 = n3 | plus: 1 %}{% endif %}
 {% endfor %}
 <div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / Invoices</div>
-  <h1 class="op-h1">Invoices</h1></div></div>
+  <h1 class="op-h1">Invoices</h1></div>
+  {% if ready > 0 %}<button type="button" class="op-btn" id="op-send-ready">Send the {{ ready }} ready invoice{% if ready > 1 %}s{% endif %}</button>{% endif %}</div>
+<div id="op365-error" class="alert alert-danger d-none" role="alert"></div>
+<div class="op-drop" id="op-drop" data-account="{{ user.parentcustomerid.id }}">
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="1.8" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg>
+  <div><strong>Drop your invoices here</strong><p class="op-muted">FatturaPA XML (also signed .p7m), PDF or image &middot; several files at once &middot;
+    the data are read automatically and matched with your orders</p></div>
+  <label class="op-btn ghost" for="op-files">Choose files</label>
+  <input type="file" id="op-files" multiple accept=".xml,.p7m,.pdf,.jpg,.jpeg,.png,.tif,.tiff">
+  <p class="op-muted d-none" id="op-progress" role="status" aria-live="polite"></p>
+</div>
+{% if dlist.size > 0 %}
+<section aria-labelledby="op-drafts-title" data-pending="{{ pending }}" id="op-drafts">
+  <div class="op-row"><h2 class="op-h2" id="op-drafts-title">To send</h2>
+    <span class="op-muted">{{ ready }} ready &middot; {{ tocheck }} to check &middot; {{ blocked }} blocked{% if pending > 0 %} &middot; {{ pending }} being read{% endif %}</span></div>
+  <div class="op-tablebox" style="margin-top:12px"><table class="op-table">
+    <thead><tr><th scope="col">File</th><th scope="col">Invoice number</th><th scope="col">Order</th><th scope="col" style="text-align:right">Total</th>
+      <th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+    <tbody>
+    {% for d in dlist %}{% assign ex = d.op365_extractionstatus.value %}
+      <tr data-id="{{ d.op365_supplierinvoiceid }}" data-status="{{ ex }}">
+        <td>{% if d.op365_xmlfile %}{{ d.op365_xmlfile.Name | escape }}{% else %}<span class="op-muted">No file</span>{% endif %}</td>
+        <td>{% if ex == @EX_PENDING@ or ex == nil %}<span class="op-muted"><span class="op-spin" aria-hidden="true"></span>Reading&hellip;</span>{% else %}{{ d.op365_invoicenumber | escape }}{% endif %}</td>
+        <td>{% if d.op365_purchaseorderid %}{{ d.op365_purchaseorderid.name | escape }}{% else %}<span class="op-ko">to choose</span>{% endif %}</td>
+        <td style="text-align:right">{% if d.op365_totalamount %}{{ d.op365_totalamount | round: 2 }}{% endif %}</td>
+        <td>{% case ex %}{% when @EX_READY@ %}<span class="op-badge b-green">Ready</span>{% when @EX_TOCHECK@ %}<span class="op-badge b-amber">To check</span>{% when @EX_BLOCKED@ %}<span class="op-badge b-red">Blocked</span>{% else %}<span class="op-badge b-blue">Reading</span>{% endcase %}
+          {% if ex == @EX_BLOCKED@ and d.op365_extractionnotes %}<small>{{ d.op365_extractionnotes | escape }}</small>{% endif %}</td>
+        <td style="white-space:nowrap"><a class="op-btn ghost small" href="/invoices/invoice/?id={{ d.op365_supplierinvoiceid }}">{% if ex == @EX_TOCHECK@ %}Check{% else %}Open{% endif %}</a>
+          <button type="button" class="op-btn ghost small op365-delete" data-id="{{ d.op365_supplierinvoiceid }}">Delete</button></td>
+      </tr>
+    {% endfor %}
+    </tbody></table></div>
+  <p class="op-muted" style="margin-top:8px">Duplicates are recognised by invoice number and year. A blocked invoice cannot be sent: delete it.</p>
+</section>
+{% endif %}
+<h2 class="op-h2">Sent</h2>
 <div class="op-kpis">
   <div class="op-kpi"><span class="op-muted">Under review</span><b>{{ review | round: 0 }}</b></div>
-  <div class="op-kpi"><span class="op-muted">Approved in {{ year }}</span><b>{{ approved | round: 0 }}</b></div>
+  <div class="op-kpi"><span class="op-muted">To be paid</span><b>{{ topay | round: 0 }}</b></div>
+  <div class="op-kpi"><span class="op-muted">Paid in {{ year }}</span><b>{{ paid | round: 0 }}</b></div>
   <div class="op-kpi"><span class="op-muted">Rejected</span><b>{{ n3 }}</b></div>
 </div>
-{% if list.size == 0 %}<div class="op-empty">No invoices received from your company yet.</div>{% else %}
+{% if list.size == 0 %}<div class="op-empty">No invoices sent yet.</div>{% else %}
 <div class="op-filter">
   <input type="radio" name="op-f" id="f0" checked><input type="radio" name="op-f" id="f1"><input type="radio" name="op-f" id="f2"><input type="radio" name="op-f" id="f3">
   <div class="op-chips" role="group" aria-label="Filter by status"><label for="f0">All &middot; {{ list.size }}</label><label for="f1">Under review &middot; {{ n1 }}</label>
@@ -531,19 +606,217 @@ INVOICES = """{% assign year = now | date: 'yyyy' %}
   <div class="op-grid">
   {% for i in list %}
     {% if i.statuscode.value == @INV_TO_REVIEW@ %}{% assign s = 1 %}{% elsif i.statuscode.value == @INV_APPROVED@ %}{% assign s = 2 %}{% else %}{% assign s = 3 %}{% endif %}
+    {% assign pay = i.op365_paymentstatus.value | default: @PAY_NOTPAID@ %}
     <article class="op-card s{{ s }}">
       <div class="op-row"><span class="op-muted">{% if i.op365_purchaseorderid %}{{ i.op365_purchaseorderid.name | escape }}{% endif %}{% if i.op365_projectid %} &middot; {{ i.op365_projectid.name | escape }}{% endif %}</span>
-        {% if s == 1 %}<span class="op-badge b-blue">Under review</span>{% elsif s == 2 %}<span class="op-badge b-green">Approved</span>{% else %}<span class="op-badge b-red">Rejected</span>{% endif %}</div>
-      <div class="op-row"><h2 class="op-h2">{{ i.op365_invoicenumber | escape }}</h2><span class="op-amount">{{ i.op365_totalamount | round: 2 }}</span></div>
-      <ol class="op-steps" aria-label="Invoice status"><li class="done">Received</li><li class="{% if s == 1 %}{% else %}done{% endif %}">Reviewed</li>
-        <li class="{% if s == 2 %}ok{% elsif s == 3 %}ko{% endif %}">{% if s == 3 %}Rejected{% else %}Approved{% endif %}</li></ol>
-      <p class="op-muted">{{ i.op365_documenttype.label }} &middot; issued {{ i.op365_invoicedate | date: 'dd/MM/yyyy' }}{% if i.op365_decidedon %} &middot; decided {{ i.op365_decidedon | date: 'dd/MM/yyyy' }}{% endif %}</p>
+        {% if s == 1 %}<span class="op-badge b-blue">Under review</span>{% elsif s == 3 %}<span class="op-badge b-red">Rejected</span>{% elsif pay == @PAY_PAID@ %}<span class="op-badge b-green">Paid</span>{% elsif pay == @PAY_PARTIAL@ %}<span class="op-badge b-amber">Partially paid</span>{% elsif pay == @PAY_SCHEDULED@ %}<span class="op-badge b-blue">Payment scheduled</span>{% else %}<span class="op-badge b-green">Approved</span>{% endif %}</div>
+      <div class="op-row"><h2 class="op-h2"><a href="/invoices/invoice/?id={{ i.op365_supplierinvoiceid }}">{{ i.op365_invoicenumber | escape }}</a></h2><span class="op-amount">{{ i.op365_totalamount | round: 2 }}</span></div>
+      {% if s == 3 %}<ol class="op-steps" aria-label="Invoice status"><li class="done">Sent</li><li class="done">Reviewed</li><li class="ko">Rejected</li></ol>
+      {% else %}<ol class="op-steps" aria-label="Invoice status"><li class="done">Sent</li><li class="{% if s == 2 %}ok{% endif %}">Approved</li>
+        <li class="{% if pay == @PAY_SCHEDULED@ or pay == @PAY_PARTIAL@ or pay == @PAY_PAID@ %}ok{% endif %}">Scheduled</li><li class="{% if pay == @PAY_PAID@ %}ok{% endif %}">Paid</li></ol>{% endif %}
+      <p class="op-muted">{{ i.op365_documenttype.label }} &middot; issued {{ i.op365_invoicedate | date: 'dd/MM/yyyy' }}{% if i.op365_duedate %} &middot; due {{ i.op365_duedate | date: 'dd/MM/yyyy' }}{% endif %}{% if i.op365_decidedon %} &middot; decided {{ i.op365_decidedon | date: 'dd/MM/yyyy' }}{% endif %}</p>
+      {% if s == 2 and i.op365_paidamount %}<p class="op-muted"><strong>Paid:</strong> {{ i.op365_paidamount | round: 2 }}{% if i.op365_paidon %} on {{ i.op365_paidon | date: 'dd/MM/yyyy' }}{% endif %}{% if i.op365_paymentreference %} &middot; ref. {{ i.op365_paymentreference | escape }}{% endif %}</p>{% endif %}
       {% if s == 3 and i.op365_decisionnote %}<p class="op-muted"><strong>Reason:</strong> {{ i.op365_decisionnote | escape }}</p>{% endif %}
     </article>
   {% endfor %}
   </div>
 </div>
 {% endif %}"""
+
+INVOICES_JS = """// Invoices: upload of several files (each becomes a Draft invoice that the plugin reads), send the ready ones, delete drafts
+$(function () {
+  var drop = $('#op-drop');
+  if (!drop.length) return;
+  if (parseInt($('#op-drafts').data('pending') || 0, 10) > 0) setTimeout(function () { location.reload(); }, 5000);
+  function upload(files) {
+    files = $.grep(files, function (f) { return f.size > 0; });
+    if (!files.length) return;
+    var big = $.grep(files, function (f) { return f.size > 10 * 1024 * 1024; });
+    if (big.length) { op365Error(big[0].name + ' is larger than 10 MB.'); return; }
+    var today = new Date().toISOString().substring(0, 10), done = 0, chain = $.Deferred().resolve().promise();
+    $('#op-progress').removeClass('d-none').text('Uploading 1 of ' + files.length + '...');
+    $.each(files, function (i, file) {
+      chain = chain.then(function () {
+        $('#op-progress').text('Uploading ' + (i + 1) + ' of ' + files.length + ': ' + file.name);
+        return op365Call('POST', '/_api/op365_supplierinvoices', {
+          op365_invoicenumber: file.name.substring(0, 50), op365_invoicedate: today,
+          'op365_SupplierId@odata.bind': '/accounts(' + drop.data('account') + ')' })
+          .then(function (x) {
+            var id = (x.getResponseHeader('entityid') || '').replace(/[{}]/g, '');
+            return op365Call('PUT', '/_api/op365_supplierinvoices(' + id + ')/op365_xmlfile?x-ms-file-name=' + encodeURIComponent(file.name), null, file)
+              .then(function () { return op365Call('PATCH', '/_api/op365_supplierinvoices(' + id + ')', { op365_extractrequested: true }); });
+          }).then(function () { done++; });
+      });
+    });
+    chain.done(function () { location.reload(); })
+      .fail(function (m) { op365Error((done ? done + ' file(s) uploaded, then: ' : '') + m); $('#op-progress').addClass('d-none'); });
+  }
+  $('#op-files').on('change', function () { upload($.makeArray(this.files)); });
+  drop.on('dragover dragenter', function (e) { e.preventDefault(); drop.addClass('over'); })
+      .on('dragleave drop', function () { drop.removeClass('over'); })
+      .on('drop', function (e) { e.preventDefault(); upload($.makeArray(e.originalEvent.dataTransfer.files)); });
+  $('#op-send-ready').on('click', function () {
+    var b = $(this).prop('disabled', true), calls = [];
+    $('#op-drafts tr[data-status=@EX_READY@]').each(function () {
+      calls.push(op365Call('PATCH', '/_api/op365_supplierinvoices(' + $(this).data('id') + ')', { statuscode: @INV_TO_REVIEW@ }));
+    });
+    $.when.apply($, calls).done(function () { location.reload(); }).fail(function (m) { op365Error(m); b.prop('disabled', false); });
+  });
+  $('.op365-delete').on('click', function () {
+    if (!confirm('Delete this invoice?')) return;
+    op365Call('DELETE', '/_api/op365_supplierinvoices(' + $(this).data('id') + ')').done(function () { location.reload(); }).fail(op365Error);
+  });
+});
+"""
+
+INVOICE = """{% assign id = request.params['id'] %}
+{% fetchxml inv %}
+<fetch top="1"><entity name="op365_supplierinvoice">
+  <all-attributes />
+  <filter><condition attribute="op365_supplierinvoiceid" operator="eq" value="{{ id | escape }}" /></filter>
+</entity></fetch>
+{% endfetchxml %}
+{% assign i = inv.results.entities | first %}
+<div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / <a href="/invoices/">Invoices</a> / Invoice</div>
+  <h1 class="op-h1">{% if i %}{% if i.statuscode.value == @INV_DRAFT@ %}Check the data read from the file{% else %}Invoice {{ i.op365_invoicenumber | escape }}{% endif %}{% else %}Invoice{% endif %}</h1></div>
+  {% if i and i.statuscode.value == @INV_DRAFT@ %}{% assign ex = i.op365_extractionstatus.value %}
+  <div class="op-actions"><button type="button" class="op-btn ghost" id="op-inv-delete">Delete</button>
+    <button type="button" class="op-btn ghost" id="op-inv-save">Save</button>
+    <button type="button" class="op-btn" id="op-inv-send"{% if ex == @EX_PENDING@ or ex == @EX_BLOCKED@ or ex == nil %} disabled{% endif %}>Send invoice</button></div>{% endif %}</div>
+<div id="op365-error" class="alert alert-danger d-none" role="alert"></div>
+{% if i == nil %}<div class="op-empty">Invoice not found.</div>{% else %}
+{% assign draft = false %}{% if i.statuscode.value == @INV_DRAFT@ %}{% assign draft = true %}{% endif %}
+{% assign ex = i.op365_extractionstatus.value %}{% assign cf = i.op365_checkfields | default: '' %}
+{% fetchxml lines %}
+<fetch><entity name="op365_supplierinvoiceline">
+  <attribute name="op365_name" /><attribute name="op365_code" /><attribute name="op365_quantity" /><attribute name="op365_uom" />
+  <attribute name="op365_unitprice" /><attribute name="op365_totalprice" /><attribute name="op365_vatrate" /><attribute name="op365_orderlineid" />
+  <filter><condition attribute="op365_supplierinvoiceid" operator="eq" value="{{ i.op365_supplierinvoiceid }}" /></filter>
+  <order attribute="op365_linenumber" />
+</entity></fetch>
+{% endfetchxml %}
+{% if i.op365_purchaseorderid %}
+{% fetchxml olines %}
+<fetch><entity name="op365_purchaseorderline">
+  <attribute name="op365_purchaseorderlineid" /><attribute name="op365_amount" />
+  <filter><condition attribute="op365_purchaseorderid" operator="eq" value="{{ i.op365_purchaseorderid.id }}" /></filter>
+</entity></fetch>
+{% endfetchxml %}
+{% endif %}
+{% if draft %}
+{% fetchxml orders %}
+<fetch><entity name="op365_purchaseorder">
+  <attribute name="op365_purchaseorderid" /><attribute name="op365_number" /><attribute name="op365_projectid" /><attribute name="op365_totalamount" />
+  <filter><condition attribute="statuscode" operator="in"><value>@PO_SENT@</value><value>@PO_CONFIRMED@</value><value>@PO_RECEIVED@</value></condition></filter>
+  <order attribute="op365_orderdate" descending="true" />
+</entity></fetch>
+{% endfetchxml %}
+{% endif %}
+{% assign fname = i.op365_xmlfile.Name | default: '' | downcase %}
+{% assign kind = 'sheet' %}{% if fname contains '.pdf' %}{% assign kind = 'pdf' %}{% elsif fname contains '.jpg' or fname contains '.jpeg' or fname contains '.png' %}{% assign kind = 'image' %}{% endif %}
+{% if draft and ex == @EX_PENDING@ %}<p class="op-info" id="op-reading" data-pending="1"><span class="op-spin" aria-hidden="true"></span>The file is being read: this page refreshes by itself.</p>{% endif %}
+{% if i.op365_extractionsource %}<p class="op-info">Data read from <strong>{{ i.op365_xmlfile.Name | escape }}</strong> &middot; {{ i.op365_extractionsource.label }}{% if i.op365_extractionsource.value == 365000000 %}: every value comes from the electronic invoice{% elsif i.op365_extractionsource.value == 365000001 %}: check the highlighted fields{% endif %}.</p>{% endif %}
+{% if i.op365_extractionnotes %}<p class="op-note">{{ i.op365_extractionnotes | escape }}</p>{% endif %}
+<div class="op-split">
+  <section class="op-viewer" aria-label="Invoice file">
+    {% if kind != 'sheet' %}<div id="op-file" data-url="{{ i.op365_xmlfile.Url }}" data-kind="{{ kind }}" data-name="{{ i.op365_xmlfile.Name | escape }}"><p class="op-muted" style="padding:20px">Loading the file&hellip;</p></div>
+    {% else %}<div class="op-sheet">
+      <div class="op-row"><div><strong style="font-size:15px">{{ i.op365_sellername | escape }}</strong><br>VAT {{ i.op365_sellervatnumber | escape }}</div>
+        <div style="text-align:right"><strong>{{ i.op365_documenttype.label }}</strong><br>No. {{ i.op365_invoicenumber | escape }}<br>{{ i.op365_invoicedate | date: 'dd/MM/yyyy' }}</div></div>
+      {% if i.op365_orderrefs %}<p>Order: {{ i.op365_orderrefs | escape }}{% if i.op365_deliverynoterefs %} &middot; Delivery notes: {{ i.op365_deliverynoterefs | escape }}{% endif %}</p>{% endif %}
+      <table class="op-table"><thead><tr><th scope="col">Description</th><th scope="col">Qty</th><th scope="col">Price</th><th scope="col">VAT %</th><th scope="col" style="text-align:right">Amount</th></tr></thead><tbody>
+      {% for l in lines.results.entities %}<tr><td>{{ l.op365_name | escape }}</td><td>{{ l.op365_quantity }} {{ l.op365_uom | escape }}</td><td>{{ l.op365_unitprice | round: 2 }}</td><td>{{ l.op365_vatrate }}</td><td style="text-align:right">{{ l.op365_totalprice | round: 2 }}</td></tr>{% endfor %}
+      </tbody></table>
+      <p style="text-align:right">Taxable {{ i.op365_taxableamount | round: 2 }} &middot; VAT {{ i.op365_vatamount | round: 2 }} &middot; <strong>Total {{ i.op365_totalamount | round: 2 }}</strong>{% if i.op365_duedate %}<br>Due {{ i.op365_duedate | date: 'dd/MM/yyyy' }}{% endif %}</p>
+      {% if i.op365_xmlfile %}<p><a href="{{ i.op365_xmlfile.Url }}">Download {{ i.op365_xmlfile.Name | escape }}</a></p>{% endif %}
+    </div>{% endif %}
+  </section>
+  <section aria-label="Invoice data" style="display:flex;flex-direction:column;gap:16px">
+    <form id="op365-inv" class="op-card op-form" data-id="{{ i.op365_supplierinvoiceid }}" data-draft="{{ draft }}">
+      <h2 class="op-h2 wide">Header</h2>
+      <label class="{% if cf contains 'op365_invoicenumber' %}op-check{% endif %}">Invoice number<input id="op-inv-number" maxlength="50" required value="{{ i.op365_invoicenumber | escape }}"{% unless draft %} disabled{% endunless %}></label>
+      <label class="{% if cf contains 'op365_invoicedate' %}op-check{% endif %}">Invoice date<input id="op-inv-date" type="date" required value="{{ i.op365_invoicedate | date: 'yyyy-MM-dd' }}"{% unless draft %} disabled{% endunless %}></label>
+      <label class="{% if cf contains 'op365_duedate' %}op-check{% endif %}">Due date<input id="op-inv-due" type="date" value="{% if i.op365_duedate %}{{ i.op365_duedate | date: 'yyyy-MM-dd' }}{% endif %}"{% unless draft %} disabled{% endunless %}></label>
+      <label class="{% if cf contains 'op365_purchaseorderid' %}op-check{% endif %}">Purchase order
+        {% if draft %}<select id="op-inv-order"><option value=""></option>{% for o in orders.results.entities %}<option value="{{ o.op365_purchaseorderid }}"{% if i.op365_purchaseorderid.id == o.op365_purchaseorderid %} selected{% endif %}>{{ o.op365_number }}{% if o.op365_projectid %} &middot; {{ o.op365_projectid.name | escape }}{% endif %} &middot; {{ o.op365_totalamount | round: 2 }}</option>{% endfor %}</select>
+        {% else %}<input disabled value="{{ i.op365_purchaseorderid.name | escape }}">{% endif %}</label>
+      <label class="wide">Note for your customer<textarea id="op-inv-note" rows="2" maxlength="2000"{% unless draft %} disabled{% endunless %}>{{ i.op365_suppliernote | escape }}</textarea></label>
+    </form>
+    <div class="op-card">
+      <h2 class="op-h2">Lines{% if i.op365_purchaseorderid %} and order {{ i.op365_purchaseorderid.name | escape }}{% endif %}</h2>
+      {% if lines.results.entities.size == 0 %}<p class="op-muted">No lines read from the file.</p>{% else %}
+      <div class="op-tablebox"><table class="op-table"><thead><tr><th scope="col">Line</th><th scope="col" style="text-align:right">Invoice</th><th scope="col" style="text-align:right">Order</th><th scope="col">Check</th></tr></thead><tbody>
+      {% for l in lines.results.entities %}{% assign oa = nil %}
+        {% if l.op365_orderlineid %}{% for ol in olines.results.entities %}{% if ol.op365_purchaseorderlineid == l.op365_orderlineid.id %}{% assign oa = ol.op365_amount | default: 0 %}{% endif %}{% endfor %}{% endif %}
+        {% assign ia = l.op365_totalprice | default: 0 %}
+        <tr><td>{{ l.op365_name | escape }}</td><td style="text-align:right">{{ ia | round: 2 }}</td>
+          <td style="text-align:right">{% if oa != nil %}{{ oa | round: 2 }}{% else %}&ndash;{% endif %}</td>
+          <td>{% if oa == nil %}{% if i.op365_purchaseorderid %}<span class="op-ko">Not on the order</span>{% endif %}{% else %}{% assign diff = ia | minus: oa %}{% if diff == 0 %}<span class="op-ok">Same</span>{% else %}<span class="op-ko">{% if diff > 0 %}+{% endif %}{{ diff | round: 2 }}</span>{% endif %}{% endif %}</td></tr>
+      {% endfor %}
+      </tbody></table></div>{% endif %}
+    </div>
+    <div class="op-total">
+      <div>Taxable<b>{{ i.op365_taxableamount | default: 0 | round: 2 }}</b></div>
+      <div>VAT<b>{{ i.op365_vatamount | default: 0 | round: 2 }}</b></div>
+      <div>Total<b>{{ i.op365_totalamount | default: 0 | round: 2 }}</b></div>
+    </div>
+    {% unless draft %}{% assign pay = i.op365_paymentstatus.value | default: @PAY_NOTPAID@ %}
+    <div class="op-card">
+      <h2 class="op-h2">Status</h2>
+      <p class="op-muted">{{ i.statuscode.label }}{% if i.op365_decidedon %} on {{ i.op365_decidedon | date: 'dd/MM/yyyy' }}{% endif %}{% if i.statuscode.value == @INV_REJECTED@ and i.op365_decisionnote %}: {{ i.op365_decisionnote | escape }}{% endif %}</p>
+      {% if i.statuscode.value == @INV_APPROVED@ %}<p class="op-muted"><strong>Payment:</strong> {{ i.op365_paymentstatus.label | default: 'Not Paid' }}{% if i.op365_duedate %} &middot; due {{ i.op365_duedate | date: 'dd/MM/yyyy' }}{% endif %}{% if i.op365_paidamount %} &middot; paid {{ i.op365_paidamount | round: 2 }}{% endif %}{% if i.op365_paidon %} on {{ i.op365_paidon | date: 'dd/MM/yyyy' }}{% endif %}{% if i.op365_paymentreference %} &middot; ref. {{ i.op365_paymentreference | escape }}{% endif %}</p>{% endif %}
+    </div>{% endunless %}
+  </section>
+</div>
+{% endif %}"""
+
+INVOICE_JS = """// Invoice: shows the file next to the data read from it; the supplier corrects, saves, sends or deletes a draft
+$(function () {
+  var form = $('#op365-inv');
+  if (!form.length) return;
+  var id = form.data('id');
+  if ($('#op-reading').length) setTimeout(function () { location.reload(); }, 4000);
+  var box = $('#op-file');
+  if (box.length) {
+    // the file column answers as a download: show it from a blob so that the browser draws PDF and images inline
+    fetch(box.data('url'), { credentials: 'same-origin' }).then(function (r) { if (!r.ok) throw new Error(r.statusText); return r.blob(); })
+      .then(function (b) {
+        var type = box.data('kind') === 'pdf' ? 'application/pdf' : (b.type || 'image/*');
+        var url = URL.createObjectURL(new Blob([b], { type: type }));
+        box.empty().append(box.data('kind') === 'pdf' ? $('<iframe>', { src: url, title: box.data('name') }) : $('<img>', { src: url, alt: box.data('name') }));
+      }).catch(function () { box.html('<p class="op-muted" style="padding:20px">The file cannot be shown here: <a href="' + box.data('url') + '">download it</a>.</p>'); });
+  }
+  if (String(form.data('draft')) !== 'true') return;
+  function body() {
+    var b = { op365_invoicenumber: $('#op-inv-number').val(), op365_invoicedate: $('#op-inv-date').val() || null,
+              op365_duedate: $('#op-inv-due').val() || null, op365_suppliernote: $('#op-inv-note').val() };
+    var order = $('#op-inv-order').val();
+    if (order) b['op365_PurchaseOrderId@odata.bind'] = '/op365_purchaseorders(' + order + ')';
+    return b;
+  }
+  function save() {
+    if (!$('#op-inv-number').val() || !$('#op-inv-date').val()) return $.Deferred().reject('Fill in the invoice number and date.').promise();
+    return op365Call('PATCH', '/_api/op365_supplierinvoices(' + id + ')', body());
+  }
+  $('#op-inv-save').on('click', function () {
+    var b = $(this).prop('disabled', true);
+    save().done(function () { location.reload(); }).fail(function (m) { op365Error(m); b.prop('disabled', false); });
+  });
+  // a change is checked again before sending: save, wait for the check, then send
+  var dirty = false;
+  form.on('input change', function () { dirty = true; $('#op-inv-send').text('Save and check'); });
+  $('#op-inv-send').on('click', function () {
+    var b = $(this).prop('disabled', true);
+    var call = dirty ? save() : op365Call('PATCH', '/_api/op365_supplierinvoices(' + id + ')', { statuscode: @INV_TO_REVIEW@ });
+    call.done(function () { if (dirty) location.reload(); else location.href = '/invoices/'; })
+      .fail(function (m) { op365Error(m); b.prop('disabled', false); });
+  });
+  $('#op-inv-delete').on('click', function () {
+    if (!confirm('Delete this invoice?')) return;
+    op365Call('DELETE', '/_api/op365_supplierinvoices(' + id + ')').done(function () { location.href = '/invoices/'; }).fail(op365Error);
+  });
+});
+"""
 
 DOCUMENTS = """{% fetchxml docs %}
 <fetch><entity name="op365_supplierdocument">
@@ -603,7 +876,7 @@ DOCUMENTS = """{% fetchxml docs %}
   </form>
 </section>"""
 
-DOCUMENTS_JS = """// Company documents: create, change and delete through the Power Pages Web API; the file goes to the op365_file column
+CALL_JS = """// Power Pages Web API with the anti-forgery token; a file is sent as the body of the request
 function op365Call(method, url, body, file) {
   var d = $.Deferred();
   shell.getTokenDeferred().done(function (token) {
@@ -616,6 +889,9 @@ function op365Call(method, url, body, file) {
   return d.promise();
 }
 function op365Error(text) { $('#op365-error').text(text).removeClass('d-none')[0].scrollIntoView({ block: 'center' }); }
+"""
+
+DOCUMENTS_JS = CALL_JS + """// Company documents: create, change and delete through the Power Pages Web API; the file goes to the op365_file column
 $(function () {
   var form = $('#op365-doc');
   if (!form.length) return;

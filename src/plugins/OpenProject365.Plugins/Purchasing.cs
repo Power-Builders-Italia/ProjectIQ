@@ -1124,7 +1124,9 @@ namespace OpenProject365.Plugins
 
     /// <summary>
     /// op365_supplierinvoice Create/Update, PreOperation (PreImage on Update): status only through Approve/Reject, decided invoices
-    /// locked; seller name and VAT number from the supplier, project from the purchase order.
+    /// locked (approved ones accept the payment columns); seller name and VAT number from the supplier, project from the purchase order.
+    /// The supplier portal creates Draft invoices, changes only its drafts and sends them (Draft → To Review) when they are
+    /// read and not duplicates. Payment Status other than Not Paid only on approved invoices; Paid fills Paid Amount and Paid On.
     /// </summary>
     public class SupplierInvoiceValidate : PluginBase
     {
@@ -1133,17 +1135,58 @@ namespace OpenProject365.Plugins
             var system = context.SystemService;
             var target = context.Target;
             if (context.IsInside("op365_DecideSupplierInvoice")) return;
+            var portal = context.Execution.Depth == 1 && SupplierDocuments.IsPortal(system, context.Execution.InitiatingUserId);
+            var status = context.Message == "Create" ? 0 : Purchasing.Status(context.Pre);
             if (context.Message == "Create")
             {
-                var status = target.GetAttributeValue<OptionSetValue>("statuscode")?.Value;
-                if (status.HasValue && status != Model.InvoiceToReview) Purchasing.Fail("Use Approve or Reject to decide a supplier invoice.");
+                var wanted = target.GetAttributeValue<OptionSetValue>("statuscode")?.Value;
+                if (portal)
+                {
+                    target["statuscode"] = new OptionSetValue(Model.InvoiceDraft);
+                    target["op365_fromportal"] = true;
+                    target[SupplierInvoices.ExtractionStatus] = new OptionSetValue(Model.ExtractionPending);
+                    foreach (var c in SupplierInvoices.PaymentColumns.Where(c => c != "op365_duedate").Concat(new[] { "op365_decidedbyid", "op365_decidedon", "op365_decisionnote" }))
+                        target.Attributes.Remove(c);
+                }
+                else if (wanted.HasValue && wanted != Model.InvoiceToReview && wanted != Model.InvoiceDraft) Purchasing.Fail("Use Approve or Reject to decide a supplier invoice.");
+                status = target.GetAttributeValue<OptionSetValue>("statuscode")?.Value ?? Model.InvoiceToReview;
             }
             else
             {
-                if (target.Contains("statuscode") || target.Contains("statecode")) Purchasing.Fail("Use Approve or Reject to decide a supplier invoice.");
-                if (Purchasing.Status(context.Pre) != Model.InvoiceToReview)
-                    Purchasing.Fail("Approved or rejected invoices cannot be changed.");
+                if (target.Contains("statecode")) Purchasing.Fail("Use Approve or Reject to decide a supplier invoice.");
+                if (portal && status != Model.InvoiceDraft) Purchasing.Fail("Sent invoices cannot be changed.");
+                if (target.Contains("statuscode"))
+                {
+                    // sending a draft is the only status change outside Approve/Reject
+                    if (status != Model.InvoiceDraft || target.GetAttributeValue<OptionSetValue>("statuscode")?.Value != Model.InvoiceToReview)
+                        Purchasing.Fail("Use Approve or Reject to decide a supplier invoice.");
+                    var extraction = context.Pre.GetAttributeValue<OptionSetValue>(SupplierInvoices.ExtractionStatus)?.Value;
+                    if (extraction == Model.ExtractionPending || extraction == Model.ExtractionBlocked)
+                        Purchasing.Fail("The invoice cannot be sent while it is being read or when it is a duplicate.");
+                    status = Model.InvoiceToReview;
+                }
+                // a new file or new key values of a draft are read and checked again by SupplierInvoiceExtract
+                else if (status == Model.InvoiceDraft && context.Execution.Depth == 1
+                         && (context.Changed(SupplierInvoices.File) || context.Changed("op365_invoicenumber") || context.Changed("op365_invoicedate")
+                             || context.Changed(Model.PurchaseOrderId) || target.GetAttributeValue<bool?>(SupplierInvoices.ExtractRequested) == true))
+                    target[SupplierInvoices.ExtractionStatus] = new OptionSetValue(Model.ExtractionPending);
+                if (status == Model.InvoiceApproved || status == Model.InvoiceRejected)
+                {
+                    if (status == Model.InvoiceRejected || !context.ChangesOnly(SupplierInvoices.PaymentColumns))
+                        Purchasing.Fail("Approved or rejected invoices cannot be changed.");
+                }
             }
+            var payment = context.Get<OptionSetValue>("op365_paymentstatus")?.Value;
+            if (context.Changed("op365_paymentstatus") && payment.HasValue && payment != Model.PaymentNotPaid)
+            {
+                if (status != Model.InvoiceApproved) Purchasing.Fail("Only approved invoices can be scheduled or paid.");
+                if (payment == Model.PaymentPaid)
+                {
+                    if (context.Get<Money>("op365_paidamount") == null) target["op365_paidamount"] = context.Get<Money>("op365_totalamount") ?? new Money(0m);
+                    if (context.Get<DateTime?>("op365_paidon") == null) target["op365_paidon"] = DateTime.UtcNow.Date;
+                }
+            }
+            if (status == Model.InvoiceApproved && context.ChangesOnly(SupplierInvoices.PaymentColumns)) return;
             Purchasing.EnsureIsSupplier(context, Model.SupplierId);
             var supplier = context.Get<EntityReference>(Model.SupplierId);
             if (supplier != null && context.Changed(Model.SupplierId))
@@ -1159,7 +1202,7 @@ namespace OpenProject365.Plugins
     }
 
     /// <summary>
-    /// op365_supplierinvoiceline Create/Update/Delete, PreOperation (PreImage on Update/Delete): invoice To Review;
+    /// op365_supplierinvoiceline Create/Update/Delete, PreOperation (PreImage on Update/Delete): invoice Draft or To Review;
     /// total price = quantity x unit price when empty.
     /// </summary>
     public class SupplierInvoiceLineValidate : PluginBase
@@ -1168,7 +1211,8 @@ namespace OpenProject365.Plugins
         {
             if (context.IsCascadeDeleteOf(Model.SupplierInvoice)) return;
             var invoice = context.Message == "Delete" ? context.Pre?.GetAttributeValue<EntityReference>(Model.SupplierInvoiceId) : context.Get<EntityReference>(Model.SupplierInvoiceId);
-            if (Purchasing.Status(context.SystemService.Retrieve(Model.SupplierInvoice, invoice.Id, new ColumnSet("statuscode"))) != Model.InvoiceToReview)
+            var invoiceStatus = Purchasing.Status(context.SystemService.Retrieve(Model.SupplierInvoice, invoice.Id, new ColumnSet("statuscode")));
+            if (invoiceStatus != Model.InvoiceToReview && invoiceStatus != Model.InvoiceDraft)
                 Purchasing.Fail("Lines of approved or rejected invoices cannot be changed.");
             if (context.Message == "Delete") return;
             var target = context.Target;

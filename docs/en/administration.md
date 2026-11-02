@@ -107,6 +107,7 @@ To change a value:
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | The ProjectIQ templates | E-mail template (Account type) of each message to suppliers, by supplier **Language**: `{"DocumentExpiring": {"Italian": "<template title>", "English": "<template title>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` is the language used when the supplier has none or it has no template |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Empty | Name or e-mail address of the **queue** (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: on the supplier portal suppliers can update the progress % of the WBS activities of their scope (activities without sub-activities only). No: they only see it. See [Supplier portal](supplier-portal.md#project-suppliers-and-wbs-scope) |
+| `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing model, which consumes AI Builder credits (about 32 per page). No: only FatturaPA XML files are read; suppliers type the data of the others. See [Purchasing](purchasing.md#reading-the-file) |
 
 The Purchasing Approver is a user name and not a lookup because user ids differ in every environment. Requests already submitted keep the approval level they were given.
 
@@ -156,6 +157,7 @@ To send the e-mails:
 | Resource hourly cost | On every Resource Cost change |
 | In-app notifications | On submissions and decisions of hours and purchase requests, and from the daily reminder |
 | Project team access | On every project member change |
+| Reading of supplier invoices (FatturaPA XML or AI Builder) and their checks | In the background, a few seconds after a supplier uploads an invoice or changes its number, date or order |
 
 ### Notifications
 

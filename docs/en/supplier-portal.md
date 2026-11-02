@@ -8,7 +8,8 @@ The **supplier portal** is a website, built with Microsoft Power Pages on the sa
 - finds on a **dashboard** what you are waiting for: RFQs to quote, orders to confirm, documents to renew;
 - sees the **requests for quotation** (RFQs) you sent them, types **unit prices**, **delivery days** and **notes**, and sends the quote — or declines;
 - sees the **purchase orders** you sent them, with lines and amounts, and **confirms** them;
-- sees how much of each order has already been **received** and the status of its **invoices**;
+- sees how much of each order has already been **received**;
+- **uploads its invoices** (FatturaPA XML or PDF): the data are read automatically and checked against its orders, then it follows their approval and **payment**;
 - sees the **projects** it works on, with the activities of the plan (WBS) assigned to it, and — if you allow it — updates their **progress**;
 - uploads its **company documents** (DURC, certifications, insurance), which your buyer approves, and is warned when they expire.
 
@@ -107,7 +108,31 @@ If something in the order is wrong (price, quantity, date), do not confirm it: c
 
 ### Invoices
 
-**Invoices** shows the invoices your customer received from you: totals **Under review**, **Approved** in the current year and **Rejected**, then one card per invoice with order and project, number, amount, document type and dates. The steps **Received → Reviewed → Approved** (or **Rejected**, in red) show where the invoice is; a rejected invoice shows the **Reason**. The buttons at the top filter the cards. The portal does not receive invoices: send them as usual.
+**Invoices** is where you send your invoices to your customer and follow them until they are paid.
+
+**Sending invoices**
+
+1. Drag your invoice files onto the upload area, or click **Choose files**. You can send several at once: FatturaPA **XML** (also signed `.p7m`), **PDF** or images, up to 10 MB each.
+2. Each file appears in **To send** with *Reading…*: the portal reads the data by itself in a few seconds (the page refreshes).
+3. Each invoice gets a status:
+
+| Status | Meaning | What to do |
+|---|---|---|
+| **Ready** | Data read, order found, amounts consistent | Nothing: send it |
+| **To check** | Something needs your eye: a value read with low confidence, the order to choose, a difference from the order | Click **Check** |
+| **Blocked** | You already sent an invoice with this number this year | Click **Delete** |
+
+4. Click **Send the N ready invoices** to send all the ready ones together.
+
+**Checking an invoice**
+
+**Check** (or **Open**) shows the file on the left and the data read from it on the right. Fields to check are highlighted in orange and the yellow box explains why. Under **Lines and order** each line is compared with the order: **Same**, the difference (for example **+84.00**) or **Not on the order**. Correct **Invoice number**, **Invoice date**, **Due date** or **Purchase order** if needed, and write a **Note for your customer** if you invoice something different from the order (extra hours agreed on site, for example). **Save and check** saves and checks again; then **Send invoice**. **Delete** removes an invoice you have not sent.
+
+From an XML file every value comes from the electronic invoice; from a PDF the values are read by AI: always check them before sending. Once sent, an invoice can no longer be changed: if it is wrong, ask your customer to reject it and send it again.
+
+**Following sent invoices**
+
+Under **Sent** you find the totals **Under review**, **To be paid**, **Paid** in the current year and **Rejected**, then one card per invoice with order and project, number, amount, document type and dates. The steps **Sent → Approved → Scheduled → Paid** (or **Rejected**, in red) show where it is; a rejected invoice shows the **Reason**, a paid one the amount, date and bank reference. The buttons at the top filter the cards.
 
 ### Company documents
 
@@ -130,7 +155,7 @@ You receive an e-mail when an approved document is about to expire (30 days befo
 
 ### Errors
 
-If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (your customer turned them off).
+If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (your customer turned them off), "Sent invoices cannot be changed." (ask your customer to reject the invoice), "The invoice cannot be sent while it is being read or when it is a duplicate." (wait a few seconds, or delete the duplicate), "Fill in the invoice number and date.".
 
 ## Part 2 — Guide for internal staff
 
@@ -147,7 +172,7 @@ The portal is deliberately narrow. Suppliers can read only their own records and
 | Project suppliers of their company (Active and Invited) | Project, role, status | Nothing |
 | Projects of those project suppliers and of their orders | Code, name, start and end date, progress | Nothing |
 | WBS nodes of their scope | Code, name, start and end date, progress | **Progress %** of nodes without child nodes, only when **Supplier Progress Updates** is Yes |
-| Supplier invoices of their company | Number, dates, amount, status, decision note | Nothing |
+| Supplier invoices of their company | Number, dates, amounts, lines, status, decision note, payment, extraction notes | Upload the file, **invoice number**, **dates**, **purchase order** and **supplier note** while Draft; **send** (Draft → To Review) unless Pending or Blocked; delete drafts |
 | Supplier documents of their company | All fields, including the review note | Type, description, number, dates, notes, file; can create and delete, only while the document is not approved |
 
 Draft and cancelled orders and RFQs not yet sent are never shown. Prices of other suppliers, budgets and costs are never visible.

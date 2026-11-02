@@ -97,6 +97,19 @@ namespace OpenProject365.Plugins
         public const int InvoiceToReview = 1;
         public const int InvoiceApproved = 365000000;
         public const int InvoiceRejected = 365000001;
+        public const int InvoiceDraft = 365000002;
+        // supplier invoice extraction status, extraction source, payment status
+        public const int ExtractionPending = 365000000;
+        public const int ExtractionReady = 365000001;
+        public const int ExtractionToCheck = 365000002;
+        public const int ExtractionBlocked = 365000003;
+        public const int SourceXml = 365000000;
+        public const int SourceAi = 365000001;
+        public const int SourceManual = 365000002;
+        public const int PaymentNotPaid = 365000000;
+        public const int PaymentScheduled = 365000001;
+        public const int PaymentPartiallyPaid = 365000002;
+        public const int PaymentPaid = 365000003;
 
         // supplier documents: status reasons (review), expiry status, expiry notice sent
         public const int DocumentApproved = 1;
