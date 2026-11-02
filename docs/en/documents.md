@@ -128,7 +128,10 @@ The flows are imported **off**: after an update of the solution check that they 
 The flow **File approved supplier documents** starts when a supplier document becomes **Approved** (**Approve** in the app). If the document has a file in its **File** column, the flow:
 1. finds the SharePoint folder of the record, or registers a new one (`<description>_<record id>`) in the **op365_supplierdocument** library;
 2. creates the file in that folder with its original name (the **Tag supplier documents** flow then fills its ProjectIQ columns);
-3. removes the file from the **File** column. On the portal the supplier then sees **Filed by your customer** instead of the file.
+3. writes the link to the file in **SharePoint URL** (under **File** on the form, read-only and shown only once it is filled: click it to open the file);
+4. removes the file from the **File** column. On the portal the supplier then sees **Filed by your customer** instead of the file.
+
+Documents filed before **SharePoint URL** existed get the link to their SharePoint folder (the file name is no longer known) the first time `deploy-test` runs after the update.
 
 It uses the same **op365_dataverse** and **op365_sharepoint** connection references and the **SharePoint Site URL** variable; the **op365_supplierdocument** library must exist in SharePoint and the site must be the default site of **Document Management Settings** ([Part 2](#part-2-set-up-administrators), step 2); if Dataverse has no location for the library yet, the flow registers it under that site. If the copy fails, the file stays in the **File** column: check the run history and run the flow again from the failed run (**Resubmit**), without approving again.
 

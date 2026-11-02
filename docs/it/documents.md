@@ -128,7 +128,10 @@ I flussi vengono importati **disattivati**: dopo ogni aggiornamento della soluzi
 Il flusso **File approved supplier documents** parte quando un documento fornitore diventa **Approved** (**Approve** nell'app). Se il documento ha un file nella colonna **File**, il flusso:
 1. trova la cartella SharePoint del record, oppure ne registra una nuova (`<descrizione>_<id del record>`) nella raccolta **op365_supplierdocument**;
 2. crea il file in quella cartella con il nome originale (il flusso **Tag supplier documents** compila poi le sue colonne ProjectIQ);
-3. rimuove il file dalla colonna **File**. Sul portale il fornitore vede allora **Filed by your customer** al posto del file.
+3. scrive il link al file in **SharePoint URL** (sotto **File** nel form, di sola lettura e visibile solo quando è compilato: cliccalo per aprire il file);
+4. rimuove il file dalla colonna **File**. Sul portale il fornitore vede allora **Filed by your customer** al posto del file.
+
+I documenti archiviati prima dell'esistenza di **SharePoint URL** ricevono il link alla loro cartella SharePoint (il nome del file non è più noto) la prima volta che `deploy-test` viene eseguito dopo l'aggiornamento.
 
 Usa gli stessi riferimenti di connessione **op365_dataverse** e **op365_sharepoint** e la variabile **SharePoint Site URL**; la raccolta **op365_supplierdocument** deve esistere in SharePoint e il sito deve essere quello predefinito di **Document Management Settings** ([Parte 2](#parte-2-configurazione-amministratori), passo 2); se Dataverse non ha ancora una document location per la raccolta, il flusso la registra sotto quel sito. Se la copia non riesce, il file resta nella colonna **File**: controlla la cronologia delle esecuzioni e rilancia il flusso dall'esecuzione fallita (**Resubmit**), senza approvare di nuovo.
 

@@ -21,7 +21,7 @@ erDiagram
 | `contact` (std) | fullname | – | + IsDecisionMaker |
 | `op365_item` | Name | Code | Code, Category, Uom, UnitCost, DefaultSupplierId, Notes |
 | `op365_itemsupplier` | Name | ItemId + SupplierId | SupplierCode, Price, LeadTimeDays, MinimumLot, Notes |
-| `op365_supplierdocument` | Description | – | DocumentType, Number, IssueDate, ExpiryDate, ExternalUrl, File, Notes; review: statuscode Approved (1) / Pending Review / Rejected, ExpiryStatus (Valid, Expiring, Expired, Replaced), ExpiryNotice, FromPortal, ReviewedById, ReviewedOn, ReviewNote |
+| `op365_supplierdocument` | Description | – | DocumentType, Number, IssueDate, ExpiryDate, ExternalUrl, File, Notes; review: statuscode Approved (1) / Pending Review / Rejected, ExpiryStatus (Valid, Expiring, Expired, Replaced), ExpiryNotice, FromPortal, ReviewedById, ReviewedOn, ReviewNote; SharePointUrl (URL, link to the file once the flow File approved supplier documents moved it to SharePoint) |
 | `op365_resource` | Name | – | Role, HourlyCost (secured), UserId, WeeklyHours (0–80), WorkingDays (multi-choice) |
 | `op365_resourcecost` | Name | ResourceId + ValidFrom | ValidFrom, HourlyCost (secured) |
 | `op365_absence` | Name | – | AbsenceType, FromDate, ToDate, Hours, Notes |

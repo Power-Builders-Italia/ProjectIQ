@@ -32,6 +32,9 @@ create_columns({T: [
     col('bool', 'FromPortal', 'From Supplier Portal', 'The supplier uploaded the document in the supplier portal'),
     col('datetime', 'ReviewedOn', 'Reviewed On', 'When the document was approved or rejected'),
     col('memo', 'ReviewNote', 'Review Note', 'Note of the reviewer; the reason when the document is rejected', max=2000),
+    col('text', 'SharePointUrl', 'SharePoint URL',
+        'Link to the file in SharePoint, filled by the flow File approved supplier documents when it moves the approved '
+        'file out of Dataverse', max=2000, fmt='Url'),
 ]})
 create_lookups([(T, 'ReviewedById', 'Reviewed By', 'systemuser', False, False)])
 enable_timeline(T, activities=True)
@@ -58,4 +61,19 @@ if 'name="review"' not in f['formxml']:
     xml = head + '<section name="document"' + tail[:end] + REVIEW + tail[end:]
     formlib.ok(formlib.S.patch(formlib.API + f"systemforms({f['formid']})", json={'formxml': xml}),
                'form Supplier Document: Review sections')
+
+# SharePoint URL under File (read-only, shown by the OnLoad script only when the flow filled it)
+JS = 'op365_/scripts/purchasing.js'
+f = formlib.S.get(formlib.API + f"systemforms?$select=formid,formxml&$filter=objecttypecode eq '{T}' and type eq 2 "
+                  "and name eq 'Supplier Document'").json()['value'][0]
+xml = f['formxml']
+if 'datafieldname="op365_sharepointurl"' not in xml:
+    head, tail = xml.split('<section name="file"', 1)
+    end = tail.index('</rows>')
+    xml = head + '<section name="file"' + tail[:end] + '<row>' + formlib.field_cell(T, 'op365_sharepointurl!') + '</row>' + tail[end:]
+if 'OP365.Purchasing.supplierDocumentOnLoad' not in xml:
+    xml = xml.replace('</tabs>', '</tabs>' + formlib.onload(JS, 'OP365.Purchasing.supplierDocumentOnLoad'), 1)
+if xml != f['formxml']:
+    formlib.ok(formlib.S.patch(formlib.API + f"systemforms({f['formid']})", json={'formxml': xml}),
+               'form Supplier Document: SharePoint URL')
 publish()

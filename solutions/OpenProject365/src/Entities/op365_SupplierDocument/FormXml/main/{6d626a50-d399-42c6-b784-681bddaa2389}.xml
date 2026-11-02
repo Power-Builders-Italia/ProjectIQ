@@ -114,7 +114,10 @@
                 </section>
                 <section name="review" showlabel="true" showbar="false" columns="2" id="{1f95b8f5-4fd8-541f-8ab4-ee18e8278d91}">
                   <labels>
+                    <label description="Prüfung" languagecode="1031" />
                     <label description="Review" languagecode="1033" />
+                    <label description="Examen" languagecode="1036" />
+                    <label description="Revisione" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
@@ -181,7 +184,10 @@
                 </section>
                 <section name="review_note" showlabel="true" showbar="false" columns="1" id="{af0cccb9-c4be-5760-92f6-62aaa6556dcb}">
                   <labels>
+                    <label description="Prüfnotiz" languagecode="1031" />
                     <label description="Review Note" languagecode="1033" />
+                    <label description="Note d'examen" languagecode="1036" />
+                    <label description="Nota di revisione" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>
@@ -214,6 +220,17 @@
                           <label description="Fichier" languagecode="1036" />
                         </labels>
                         <control id="op365_file" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_file" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{be371f0d-564c-52fd-87e5-bef545b5b023}">
+                        <labels>
+                          <label description="SharePoint URL" languagecode="1033" />
+                          <label description="URL SharePoint" languagecode="1040" />
+                          <label description="SharePoint-URL" languagecode="1031" />
+                          <label description="URL SharePoint" languagecode="1036" />
+                        </labels>
+                        <control id="op365_sharepointurl" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_sharepointurl" disabled="true" />
                       </cell>
                     </row>
                   </rows>
@@ -269,6 +286,16 @@
           </columns>
         </tab>
       </tabs>
+      <formLibraries>
+        <Library name="op365_/scripts/purchasing.js" libraryUniqueId="{1888806c-d398-5456-96ad-593d65d38653}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="OP365.Purchasing.supplierDocumentOnLoad" libraryName="op365_/scripts/purchasing.js" handlerUniqueId="{e6fdee78-482c-5f83-99e9-7fc8bbec978f}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

@@ -36,11 +36,17 @@
     <LocLabel Id="op365.contact.InviteToPortal.Label">
       <Titles>
         <Title description="Invite to Portal" languagecode="1033" />
+        <Title description="Zum Portal einladen" languagecode="1031" />
+        <Title description="Invita al portale" languagecode="1040" />
+        <Title description="Inviter au portail" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.contact.InviteToPortal.Tip">
       <Titles>
         <Title description="E-mail the contact an invitation to the supplier portal (its Company Name must be a supplier)" languagecode="1033" />
+        <Title description="Dem Kontakt per E-Mail eine Einladung zum Lieferantenportal senden (sein Company Name muss ein Lieferant sein)" languagecode="1031" />
+        <Title description="Invia al contatto un invito al portale fornitori via e-mail (la sua Company Name deve essere un fornitore)" languagecode="1040" />
+        <Title description="Envoyer au contact une invitation au portail fournisseurs par e-mail (son Company Name doit être un fournisseur)" languagecode="1036" />
       </Titles>
     </LocLabel>
   </LocLabels>

@@ -128,7 +128,10 @@ Die Flows werden **ausgeschaltet** importiert: Prüfen Sie nach jedem Update der
 Der Flow **File approved supplier documents** startet, wenn ein Lieferantendokument **Approved** wird (**Approve** in der App). Hat das Dokument eine Datei in der Spalte **File**, dann:
 1. sucht der Flow den SharePoint-Ordner des Datensatzes oder registriert einen neuen (`<Beschreibung>_<Datensatz-ID>`) in der Bibliothek **op365_supplierdocument**;
 2. legt er die Datei mit ihrem ursprünglichen Namen in diesem Ordner an (der Flow **Tag supplier documents** füllt danach ihre ProjectIQ-Spalten);
-3. entfernt er die Datei aus der Spalte **File**. Im Portal sieht der Lieferant dann **Filed by your customer** statt der Datei.
+3. schreibt er den Link zur Datei in **SharePoint URL** (unter **File** im Formular, schreibgeschützt und erst sichtbar, wenn es gefüllt ist: Klicken Sie darauf, um die Datei zu öffnen);
+4. entfernt er die Datei aus der Spalte **File**. Im Portal sieht der Lieferant dann **Filed by your customer** statt der Datei.
+
+Dokumente, die vor **SharePoint URL** abgelegt wurden, erhalten beim ersten Lauf von `deploy-test` nach dem Update den Link zu ihrem SharePoint-Ordner (der Dateiname ist nicht mehr bekannt).
 
 Er verwendet dieselben Verbindungsreferenzen **op365_dataverse** und **op365_sharepoint** und die Variable **SharePoint Site URL**; die Bibliothek **op365_supplierdocument** muss in SharePoint vorhanden sein und die Website muss die Standardwebsite der **Document Management Settings** sein ([Teil 2](#teil-2-einrichtung-administratoren), Schritt 2); hat Dataverse noch keinen Dokumentspeicherort für die Bibliothek, registriert der Flow ihn unter dieser Website. Schlägt die Kopie fehl, bleibt die Datei in der Spalte **File**: Prüfen Sie den Ausführungsverlauf und starten Sie den Flow aus der fehlgeschlagenen Ausführung neu (**Resubmit**), ohne erneut zu genehmigen.
 

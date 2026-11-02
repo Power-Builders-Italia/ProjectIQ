@@ -322,9 +322,30 @@
                 "authentication": "@parameters('$authentication')"
               }
             },
-            "Remove_Dataverse_file": {
+            "Set_SharePoint_URL": {
               "runAfter": {
                 "Create_SharePoint_file": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "op365_supplierdocuments",
+                  "recordId": "@triggerOutputs()?['body/op365_supplierdocumentid']",
+                  "item/op365_sharepointurl": "@replace(replace(concat(parameters('SharePoint Site URL (op365_SharePointSiteUrl)'), '|', replace(replace(replace(body('Create_SharePoint_file')?['Path'], '%', '%25'), ' ', '%20'), '#', '%23')), '/|', ''), '|', '')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Remove_Dataverse_file": {
+              "runAfter": {
+                "Set_SharePoint_URL": [
                   "Succeeded"
                 ]
               },
