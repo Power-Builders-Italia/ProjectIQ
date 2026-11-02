@@ -1,0 +1,8 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script>
+// Fixed "today" (Friday 6 November 2026), so the timesheet week and the Gantt today line match the demo data
+(function () { const R = Date, F = R.UTC(2026, 10, 6, 15, 0, 0); class D extends R { constructor(...a) { a.length ? super(...a) : super(F); } static now() { return F; } } window.Date = D; })();
+</script>
+<style>body{margin:0;padding:20px;background:#fff;font-family:"Segoe UI",sans-serif}#root{width:1180px}</style>
+</head><body><div id="root"></div><script src="build/demo.js"></script></body></html>

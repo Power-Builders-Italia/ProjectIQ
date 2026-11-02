@@ -5,7 +5,7 @@
 
 Questa guida è la prima cosa da leggere se sei nuovo in ProjectIQ. Spiega a cosa serve l'applicazione, come si incastrano le sue parti, come orientarsi tra le schermate e quale manuale aprire per ogni attività. Gli altri manuali approfondiscono ogni area funzionale; questo ti dà la mappa.
 
-> **Nota sui nomi a video.** L'interfaccia dell'applicazione è oggi in **inglese** (le traduzioni italiana, francese e tedesca sono pianificate). In questo manuale i nomi di pulsanti, campi e pagine sono scritti in inglese, esattamente come li vedi a schermo, con la traduzione quando aiuta.
+> **Nota sui nomi a video.** L'interfaccia è disponibile in inglese, italiano, francese e tedesco (vedi [Lingua](#lingua)). In questo manuale i nomi di pulsanti, campi e pagine sono scritti in inglese, come appaiono nell'interfaccia in inglese, con la traduzione quando aiuta.
 
 ## Cosa fa ProjectIQ
 

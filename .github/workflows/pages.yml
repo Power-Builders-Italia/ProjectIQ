@@ -4,10 +4,10 @@ name: pages
 # Pull requests only build it (--strict fails on broken links); a push to main publishes it.
 on:
   pull_request:
-    paths: [README.md, 'docs/**', mkdocs.yml, 'tools/docs/**', .github/workflows/pages.yml]
+    paths: [README.md, 'docs/**', 'overrides/**', mkdocs.yml, 'tools/docs/**', .github/workflows/pages.yml]
   push:
     branches: [main]
-    paths: [README.md, 'docs/**', mkdocs.yml, 'tools/docs/**', .github/workflows/pages.yml]
+    paths: [README.md, 'docs/**', 'overrides/**', mkdocs.yml, 'tools/docs/**', .github/workflows/pages.yml]
   workflow_dispatch:
 
 permissions:
