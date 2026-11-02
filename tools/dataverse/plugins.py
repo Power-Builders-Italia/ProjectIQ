@@ -290,8 +290,10 @@ for cls, msg, table, stage, filtering, image in STEPS:
     current = one(f"sdkmessageprocessingstepimages?$select=sdkmessageprocessingstepimageid,attributes"
                   f"&$filter=_sdkmessageprocessingstepid_value eq {sid}") if image else None
     if current and current.get('attributes') != image:
-        ok(S.patch(API + f"sdkmessageprocessingstepimages({current['sdkmessageprocessingstepimageid']})", json={'attributes': image}),
-           '  pre-image ' + image)
+        # PATCH of the attributes fails with a generic 0x80040216: recreate the image
+        ok(S.delete(API + f"sdkmessageprocessingstepimages({current['sdkmessageprocessingstepimageid']})"),
+           '  remove old pre-image')
+        current = None
     if image and not current:
         ok(S.post(API + 'sdkmessageprocessingstepimages', json={
             'name': 'PreImage', 'entityalias': 'PreImage', 'imagetype': 0, 'messagepropertyname': 'Target',

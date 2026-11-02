@@ -18,6 +18,7 @@
           <cell name="op365_projectid" width="180" />
           <cell name="statuscode" width="100" />
           <cell name="op365_totalamount" width="120" />
+          <cell name="op365_paymentstatus" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -33,10 +34,14 @@
           <attribute name="op365_projectid" />
           <attribute name="statuscode" />
           <attribute name="op365_totalamount" />
+          <attribute name="op365_paymentstatus" />
           <attribute name="op365_supplierinvoiceid" />
           <order attribute="op365_invoicedate" descending="true" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="and">
+            <condition attribute="statuscode" operator="ne" value="365000002" />
           </filter>
         </entity>
       </fetch>
@@ -48,5 +53,8 @@
       <LocalizedName description="Toutes les factures fournisseur" languagecode="1036" />
       <LocalizedName description="Tutte le fatture fornitore" languagecode="1040" />
     </LocalizedNames>
+    <Descriptions>
+      <Description description="Invoices received (supplier drafts not yet sent are left out)" languagecode="1033" />
+    </Descriptions>
   </savedquery>
 </savedqueries>

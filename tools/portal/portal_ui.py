@@ -643,8 +643,8 @@ $(function () {
           'op365_SupplierId@odata.bind': '/accounts(' + drop.data('account') + ')' })
           .then(function (x) {
             var id = (x.getResponseHeader('entityid') || '').replace(/[{}]/g, '');
-            return op365Call('PUT', '/_api/op365_supplierinvoices(' + id + ')/op365_xmlfile?x-ms-file-name=' + encodeURIComponent(file.name), null, file)
-              .then(function () { return op365Call('PATCH', '/_api/op365_supplierinvoices(' + id + ')', { op365_extractrequested: true }); });
+            // the upload fires the reading of the file (asynchronous step on op365_xmlfile)
+            return op365Call('PUT', '/_api/op365_supplierinvoices(' + id + ')/op365_xmlfile?x-ms-file-name=' + encodeURIComponent(file.name), null, file);
           }).then(function () { done++; });
       });
     });

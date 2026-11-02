@@ -78,7 +78,11 @@ namespace OpenProject365.Plugins
 
         /// <summary>True when the update touches only the given columns (the primary key and modifiedon don't count).</summary>
         public bool ChangesOnly(params string[] attributes) =>
-            Target != null && Target.Attributes.Keys.All(k => k == Execution.PrimaryEntityName + "id" || k == "modifiedon" || attributes.Contains(k));
+            Target != null && Target.Attributes.Keys.All(k => k == Execution.PrimaryEntityName + "id" || SystemColumns.Contains(k) || attributes.Contains(k));
+
+        // columns the platform adds to the Target in PreOperation
+        private static readonly string[] SystemColumns =
+            { "modifiedon", "modifiedby", "modifiedonbehalfby", "exchangerate", "transactioncurrencyid", "timezoneruleversionnumber", "utcconversiontimezonecode" };
 
         /// <summary>True when this operation runs because a parent record of the given table is being deleted.</summary>
         public bool IsCascadeDeleteOf(string table)

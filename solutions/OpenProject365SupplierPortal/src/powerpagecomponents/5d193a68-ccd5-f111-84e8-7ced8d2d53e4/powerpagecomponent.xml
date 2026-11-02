@@ -2,17 +2,18 @@
   <content>{
   "entityname": "Supplier invoices",
   "entitylogicalname": "op365_supplierinvoice",
-  "scope": 756150002,
+  "scope": 756150003,
   "read": true,
-  "write": false,
-  "create": false,
-  "delete": false,
-  "append": false,
-  "appendto": false,
-  "accountrelationship": "op365_account_supplierinvoice_supplierid",
+  "write": true,
+  "create": true,
+  "delete": true,
+  "append": true,
+  "appendto": true,
   "adx_entitypermission_webrole": [
     "6942ba37-43d0-f111-a05b-7ced8d2d53e4"
-  ]
+  ],
+  "parentrelationship": "op365_account_supplierinvoice_supplierid",
+  "parententitypermission": "aeca406e-ccd5-f111-84e8-7ced8d2d53e4"
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Supplier invoices</name>

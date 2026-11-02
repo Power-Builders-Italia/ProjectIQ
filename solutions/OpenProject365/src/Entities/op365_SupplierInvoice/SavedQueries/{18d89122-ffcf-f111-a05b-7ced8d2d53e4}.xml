@@ -18,6 +18,8 @@
           <cell name="op365_projectid" width="180" />
           <cell name="statuscode" width="100" />
           <cell name="op365_totalamount" width="120" />
+          <cell name="op365_fromportal" width="90" />
+          <cell name="op365_extractionstatus" width="110" />
         </row>
       </grid>
     </layoutxml>
@@ -33,6 +35,8 @@
           <attribute name="op365_projectid" />
           <attribute name="statuscode" />
           <attribute name="op365_totalamount" />
+          <attribute name="op365_fromportal" />
+          <attribute name="op365_extractionstatus" />
           <attribute name="op365_supplierinvoiceid" />
           <order attribute="op365_invoicedate" descending="true" />
           <filter type="and">
