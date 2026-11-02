@@ -184,7 +184,7 @@ The manual `publish-appsource` workflow takes the managed solutions of a `deploy
 
 ## Documentation website (GitHub Pages)
 
-The manuals are also published as a website at <https://power-builders-italia.github.io/projectiq/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.
+The manuals are also published as a website at <https://projectiq.powerbuilders.org/>, built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) from the same Markdown files: the repository stays the only source, and every page has an edit link back to its file on GitHub.
 
 ```mermaid
 flowchart LR
@@ -197,6 +197,7 @@ flowchart LR
 - Look and feel: logo and favicon in `docs/assets/` (from the ProjectIQ icon). `docs/assets/extra.css` gives every page the same look as the home page: cream background, Instrument Serif headings, Geist text, dark-green footer, manual content on a white card (brand green `#0c723d`), with a dark variant.
 - Home page: `overrides/home.html` (theme `custom_dir`) draws the home with hero, one card per user manual, Copilot, manuals by language, technical documentation and FAQ; `build_site.py` gives the README the `template: home.html` front matter, so the README text is still indexed by the search. When a manual is added, add its card there too. Cards without an image show a placeholder until a screenshot is available.
 - Screenshots of the home page (`docs/assets/screenshots/`): they are the real PCF controls of `src/pcf`, rendered with demo data by `tools/docs/screenshots/` (stub context and demo rows in `demo.tsx`). Regenerate them when a control changes its look: `npm ci` in `src/pcf`, then `python3 tools/docs/screenshots/screenshots.py` (needs Node.js and Playwright with Chromium).
+- Custom domain: the site is served at `projectiq.powerbuilders.org`. DNS: a `CNAME` record `projectiq` → `power-builders-italia.github.io` in the `powerbuilders.org` zone. GitHub: **Settings › Pages › Custom domain** = `projectiq.powerbuilders.org`, **Enforce HTTPS** on; verify the domain in the organization settings (**Pages › Verified domains**) so that no other repository can claim it. No `CNAME` file is needed because the site is deployed by GitHub Actions. `site_url` in `mkdocs.yml` must match the domain; the old address `power-builders-italia.github.io/projectiq/` redirects to it.
 - `mkdocs.yml` holds the menu (one tab per language plus Technical): add a new manual there too. Mermaid diagrams and the `#anchors` of the manuals work as on GitHub.
 - The `pages` workflow builds the site on pull requests that touch the docs (`--strict` fails on broken links) and publishes it on every push to `main` (or Actions > pages > Run workflow).
 - One-time setup: Settings > Pages > Build and deployment > Source **GitHub Actions**. The `github-pages` environment is created on the first run.
