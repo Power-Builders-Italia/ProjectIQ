@@ -129,7 +129,7 @@ Partner Center → **Marketplace offers** → **+ New offer** → **Dynamics 365
 | | Search results summary | see [Listing texts](#listing-texts) |
 | | Description | see [Listing texts](#listing-texts) |
 | | Search keywords | `project management`, `job costing`, `timesheet` |
-| | Help link | `https://power-builders-italia.github.io/projectiq/` |
+| | Help link | `https://projectiq.powerbuilders.it/` |
 | | Privacy policy link | URL of the [privacy statement](legal/privacy.md) on the website |
 | | Support contact / URL | a monitored mailbox; support URL `https://github.com/Power-Builders-Italia/ProjectIQ/issues` (must differ from the help link) |
 | | Engineering contact | name, e-mail, phone (digits and spaces only) |
@@ -169,7 +169,7 @@ Listing content is entered in **one language**: English.
 <li><b>Purchasing</b>: purchase requests with approval threshold, RFQs with quote comparison, purchase orders, goods receipts and supplier invoices.</li>
 <li><b>Supplier portal</b> (Power Pages): suppliers answer RFQs and confirm purchase orders online.</li>
 </ul>
-<p>Available in English, Italian, French and German. Open source under the Apache License 2.0; user manuals at power-builders-italia.github.io/projectiq.</p>
+<p>Available in English, Italian, French and German. Open source under the Apache License 2.0; user manuals at projectiq.powerbuilders.it.</p>
 <p><b>Requirements</b>: a Microsoft Dataverse environment; Power Apps Premium (or equivalent) licences for internal users; Power Pages capacity for the supplier portal (optional).</p>
 ```
 
