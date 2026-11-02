@@ -11,7 +11,7 @@
   <StartDate>{START_DATE}</StartDate>
   <EndDate>12/31/2035</EndDate>
   <SupportedCountries>{COUNTRIES}</SupportedCountries>
-  <LearnMoreLink>https://projectiq.powerbuilders.it/</LearnMoreLink>
+  <LearnMoreLink>https://projectiq.powerbuilders.org/</LearnMoreLink>
   <Locales>
     <PackageLocale Code="1033" IsDefault="true">
       <Logo>logo32.png</Logo>

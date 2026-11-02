@@ -40,7 +40,7 @@ flowchart LR
 
 ## User manuals
 
-The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages, also as a website at <https://projectiq.powerbuilders.it/>, and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
+The user manuals describe every functional area in depth, with diagrams, step-by-step procedures, field tables and the messages users may see. They are available in four languages, also as a website at <https://projectiq.powerbuilders.org/>, and are kept aligned with the application (see [Keeping the documentation aligned](#keeping-the-documentation-aligned)).
 
 | Manual | English | Italiano | Français | Deutsch |
 |---|---|---|---|---|

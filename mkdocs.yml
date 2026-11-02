@@ -3,7 +3,7 @@
 # Local preview: python3 tools/docs/build_site.py && mkdocs serve
 site_name: ProjectIQ
 site_description: Project management on Microsoft Dataverse and Power Apps - user manuals in English, Italian, French and German
-site_url: https://projectiq.powerbuilders.it/
+site_url: https://projectiq.powerbuilders.org/
 repo_url: https://github.com/Power-Builders-Italia/ProjectIQ
 repo_name: Power-Builders-Italia/ProjectIQ
 edit_uri: edit/main/docs/
