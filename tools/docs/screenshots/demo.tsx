@@ -161,7 +161,7 @@ function ctx(control: keyof typeof STRINGS, entityId: string | undefined, width:
 
 const which = new URLSearchParams(location.search).get("c") ?? "gantt";
 const W = 1180;
-const apps: Record<string, () => React.ReactElement> = {
+const apps = new Map<string, () => React.ReactElement>(Object.entries({
     gantt: () => <GanttChartApp context={ctx("GanttChart", PRJ, W) as never} refreshKey={0} />,
     wbs: () => <WbsTreeGridApp context={ctx("WbsTreeGrid", PRJ, W) as never} refreshKey={0} />,
     timesheet: () => <WeeklyTimesheetApp context={ctx("WeeklyTimesheet", undefined, W) as never} refreshKey={0} />,
@@ -169,5 +169,7 @@ const apps: Record<string, () => React.ReactElement> = {
     load: () => <ResourceLoadApp context={ctx("ResourceLoad", undefined, W) as never} refreshKey={0} />,
     cost: () => <CostSummaryApp context={ctx("CostSummary", PRJ, W) as never} refreshKey={0} />,
     quotes: () => <QuoteComparisonApp context={ctx("QuoteComparison", RFQ, W) as never} refreshKey={0} />,
-};
-ReactDOM.render(apps[which](), document.getElementById("root"));
+}));
+// only the known control names are rendered (?c= comes from the page URL)
+const render = apps.get(which) ?? apps.get("gantt")!;
+ReactDOM.render(render(), document.getElementById("root"));
