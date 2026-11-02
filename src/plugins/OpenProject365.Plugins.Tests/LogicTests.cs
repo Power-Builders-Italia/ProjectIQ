@@ -187,4 +187,22 @@ public class DocumentExpiryTests
         Assert.Null(EmailTemplates.Pick("not json", "DocumentExpiring", "Italian"));
         Assert.Null(EmailTemplates.Pick(null, "DocumentExpiring", "Italian"));
     }
+
+    [Fact]
+    public void WbsScope_ExpandsBranchesAndIgnoresOtherNodes()
+    {
+        Guid A = Guid.NewGuid(), B = Guid.NewGuid(), C = Guid.NewGuid(), D = Guid.NewGuid();
+        var rows = new List<WbsRow>
+        {
+            new WbsRow { Id = A },
+            new WbsRow { Id = B, ParentId = A },
+            new WbsRow { Id = C, ParentId = B },
+            new WbsRow { Id = D },
+        };
+        Assert.Equal(new HashSet<Guid> { B, C }, WbsScope.Expand(rows, new[] { B }));
+        Assert.Equal(new HashSet<Guid> { A, B, C, D }, WbsScope.Expand(rows, new[] { A, D, C }));
+        Assert.Empty(WbsScope.Expand(rows, new[] { Guid.NewGuid() }));
+        Assert.True(WbsScope.IsLeaf(rows, C));
+        Assert.False(WbsScope.IsLeaf(rows, A));
+    }
 }

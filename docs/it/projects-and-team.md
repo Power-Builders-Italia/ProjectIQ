@@ -123,7 +123,7 @@ Ogni cliente mostra inoltre **Projects** (numero) e **Contract Value Total** (so
 | **Costs** | Il riepilogo costi: contratto, budget, effettivo, stima a finire, margine, budget vs effettivo per ramo WBS | [Materiali e costi](materials-and-costs.md) |
 | **Time** | Registrazioni ore del progetto | [Rilevazione ore](time-tracking.md) |
 | **Materials** | Consumi di materiale del progetto | [Materiali e costi](materials-and-costs.md) |
-| **Purchasing** | Richieste d'acquisto e ordini del progetto | [Acquisti](purchasing.md) |
+| **Purchasing** | Richieste d'acquisto e ordini del progetto; i **Suppliers** che ci lavorano, con le attività WBS che vedono sul portale fornitori | [Acquisti](purchasing.md), [Portale fornitori](supplier-portal.md#fornitori-di-commessa-e-perimetro-wbs) |
 | **Team** | Membri del progetto e loro ruoli | questo manuale |
 
 La barra dei comandi del form progetto ha anche **Save Baseline** (vedi [WBS e pianificazione](wbs-and-planning.md#baseline)).

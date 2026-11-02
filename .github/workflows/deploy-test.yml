@@ -185,6 +185,15 @@ jobs:
         run: |
           python -m pip install --quiet requests
           python tools/dataverse/backfill_sharepoint_urls.py
+      # data step, idempotent: project suppliers (and WBS scope) of the orders and RFQ invitations sent before the table
+      - name: Backfill project suppliers
+        shell: bash
+        env:
+          PAC_ENVIRONMENT_URL: ${{ env.TARGET_URL }}
+          PAC_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+          PAC_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PAC_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+        run: python tools/dataverse/backfill_project_suppliers.py
       - name: Upload managed package
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

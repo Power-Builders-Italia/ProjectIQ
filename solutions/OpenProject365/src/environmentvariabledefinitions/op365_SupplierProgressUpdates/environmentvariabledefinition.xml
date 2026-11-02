@@ -1,0 +1,20 @@
+<environmentvariabledefinition schemaname="op365_SupplierProgressUpdates">
+  <defaultvalue>no</defaultvalue>
+  <description default="Yes: suppliers can update the progress % of the WBS nodes of their scope (leaf nodes only) on the supplier portal. No: they only see it.">
+    <label description="Ja: Lieferanten können im Lieferantenportal den Fortschritt % der PSP-Elemente ihres Umfangs aktualisieren (nur Elemente ohne Unterelemente). Nein: sie sehen ihn nur." languagecode="1031" />
+    <label description="Yes: suppliers can update the progress % of the WBS nodes of their scope (leaf nodes only) on the supplier portal. No: they only see it." languagecode="1033" />
+    <label description="Oui : les fournisseurs peuvent mettre à jour l'avancement % des nœuds WBS de leur périmètre (nœuds sans enfants uniquement) sur le portail fournisseurs. Non : ils le voient seulement." languagecode="1036" />
+    <label description="Sì: i fornitori possono aggiornare l'avanzamento % dei nodi WBS del loro perimetro (solo nodi senza figli) sul portale fornitori. No: lo vedono soltanto." languagecode="1040" />
+  </description>
+  <displayname default="Supplier Progress Updates">
+    <label description="Fortschrittsaktualisierung durch Lieferanten" languagecode="1031" />
+    <label description="Supplier Progress Updates" languagecode="1033" />
+    <label description="Mises à jour d'avancement par les fournisseurs" languagecode="1036" />
+    <label description="Aggiornamento avanzamento da fornitori" languagecode="1040" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000002</type>
+</environmentvariabledefinition>

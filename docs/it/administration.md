@@ -108,6 +108,7 @@ Per cambiare un valore:
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Vuoto | **User Name** (es. `anna.rossi@contoso.com`) o email principale dell'utente che approva le richieste sopra soglia e decide le fatture fornitori. Vuoto, o nessun utente attivo con quel nome = tutti gli OP365 Administrator |
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | I modelli ProjectIQ | Modello email (tipo Account) di ogni messaggio ai fornitori, per **Language** del fornitore: `{"DocumentExpiring": {"Italian": "<titolo modello>", "English": "<titolo modello>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` è la lingua usata quando il fornitore non ne ha una o non esiste il modello |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Vuoto | Nome o indirizzo email della **coda** (casella con sincronizzazione lato server) che invia le email ai fornitori. Vuoto = nessuna email |
+| `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: sul portale fornitori i fornitori possono aggiornare l'avanzamento % delle attività WBS del loro perimetro (solo attività senza sotto-attività). No: lo vedono soltanto. Vedi [Portale fornitori](supplier-portal.md#fornitori-di-commessa-e-perimetro-wbs) |
 
 Il Purchasing Approver è un nome utente e non una lookup perché gli id degli utenti cambiano in ogni ambiente. Le richieste già inviate mantengono il livello di approvazione assegnato.
 

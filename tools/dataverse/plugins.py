@@ -130,6 +130,18 @@ STEPS = [
   ('SupplierDocumentAlerts', 'Update', 'op365_supplierdocument', POST,
    'op365_expirydate,statuscode,statecode,op365_documenttype,op365_supplierid', 'op365_supplierid,statuscode,op365_description'),
   ('SupplierDocumentAlerts', 'Delete', 'op365_supplierdocument', POST, None, 'op365_supplierid'),
+  # project suppliers and their WBS scope on the supplier portal (project_suppliers.py)
+  ('ProjectSupplierName', 'Create', 'op365_projectsupplier', PRE, None, None),
+  ('ProjectSupplierName', 'Update', 'op365_projectsupplier', PRE, 'op365_projectid,op365_supplierid', 'op365_projectid,op365_supplierid'),
+  ('ProjectSupplierFlags', 'Retrieve', 'op365_projectsupplier', POST, None, None),
+  ('ProjectSupplierFlags', 'RetrieveMultiple', 'op365_projectsupplier', POST, None, None),
+  ('RfqInvitationProjectSupplier', 'Create', 'op365_rfqinvitation', POST, None, None),
+  ('RfqInvitationProjectSupplier', 'Update', 'op365_rfqinvitation', POST, 'statuscode', None),
+  ('PurchaseOrderProjectSupplier', 'Update', 'op365_purchaseorder', POST, 'statuscode', None),
+  ('ProjectSupplierScope', 'Associate', 'none', POST, None, None),  # Associate has no table filter
+  ('WbsNodeSupplierScope', 'Create', 'op365_wbsnode', POST, None, None),
+  ('WbsNodeSupplierScope', 'Update', 'op365_wbsnode', POST, 'op365_parentid', 'op365_projectid'),
+  ('WbsNodePortalGuard', 'Update', 'op365_wbsnode', PRE, None, None),
 ]
 
 # Custom APIs: unique name -> class, display name, description, binding table (None = unbound), function,

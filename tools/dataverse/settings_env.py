@@ -27,6 +27,9 @@ VARIABLES = [
     ('op365_SupplierEmailSender', 'Supplier Email Sender', STRING, None,
      'Name or e-mail address of the queue (mailbox with server-side synchronization) that sends the e-mails to suppliers. '
      'Empty = no e-mails.'),
+    ('op365_SupplierProgressUpdates', 'Supplier Progress Updates', BOOLEAN, 'no',
+     'Yes: suppliers can update the progress % of the WBS nodes of their scope (leaf nodes only) on the supplier portal. '
+     'No: they only see it.'),
 ]
 # document metadata flows: SharePoint site and library ids, set by tools/sharepoint/document_metadata.py (no default)
 VARIABLES += [(schema, label, STRING, None, desc) for schema, label, desc in [SITE, *LIBRARIES.values()]]

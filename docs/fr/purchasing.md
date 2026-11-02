@@ -143,7 +143,7 @@ Un appel d'offres demande à un ou plusieurs fournisseurs de chiffrer les lignes
 1. Sur la demande approuvée, cliquez sur **Create RFQ**. L'appel d'offres est créé avec une **Deadline** (échéance) à 7 jours et le titre de la demande dans les **Notes** ; le fournisseur préféré et les fournisseurs habituels des articles figurent dans **Invitations** avec le statut *To Invite*.
 2. Ouvrez l'appel d'offres. Ajustez la **Deadline** (aujourd'hui ou plus tard) et les **Notes** destinées aux fournisseurs.
 3. Ajoutez d'autres fournisseurs dans **Invitations** (**+ New RFQ Invitation**) : choisissez le **Supplier** ; l'**Email** est repris du fournisseur. Les comptes inactifs, non fournisseurs ou bloqués sont refusés.
-4. Cliquez sur **Send**. L'appel d'offres passe en **Sent**, chaque invitation *To Invite* passe en **Invited** (avec numéro, échéance et notes), et pour chaque fournisseur est préparée **une ligne de devis vide par ligne de demande**.
+4. Cliquez sur **Send**. L'appel d'offres passe en **Sent**, chaque invitation *To Invite* passe en **Invited** (avec numéro, échéance et notes), et pour chaque fournisseur est préparée **une ligne de devis vide par ligne de demande**. Chaque fournisseur invité devient aussi un **fournisseur du projet** (statut *Invited*), le projet apparaît donc sur son portail.
 
 Vous pouvez ajouter des fournisseurs après l'envoi : ajoutez l'invitation et cliquez de nouveau sur **Send** ; seules les nouvelles invitations sont envoyées.
 
@@ -240,7 +240,7 @@ stateDiagram-v2
 
 | Bouton | Depuis | Effet |
 |---|---|---|
-| **Send to Supplier** | Draft | → **Sent**. Les lignes sont verrouillées. *Sent To* enregistre l'e-mail du fournisseur, *Sent On* la date. La commande devient visible pour le fournisseur sur le portail. Au moins une ligne est requise |
+| **Send to Supplier** | Draft | → **Sent**. Les lignes sont verrouillées. *Sent To* enregistre l'e-mail du fournisseur, *Sent On* la date. La commande devient visible pour le fournisseur sur le portail, et le fournisseur devient un **fournisseur du projet** actif qui voit les nœuds WBS des lignes de la commande ([Portail fournisseurs](supplier-portal.md#fournisseurs-du-projet-et-périmètre-wbs)). Au moins une ligne est requise |
 | **Back to Draft** | Sent | → **Draft**, pour modifier la commande (puis la renvoyer) |
 | **Confirm** | Sent | → **Confirmed**, enregistre la confirmation du fournisseur. Le fournisseur peut aussi confirmer sur le portail, avec le même effet |
 | **Register Receipt** | Sent, Confirmed | Ouvre la boîte de dialogue de réception (voir plus bas) |

@@ -587,6 +587,43 @@
                     </row>
                   </rows>
                 </section>
+                <section name="suppliers" showlabel="true" showbar="false" columns="1" id="{3acbb65c-b2ba-593d-a287-349bdfe1f987}">
+                  <labels>
+                    <label description="Lieferanten" languagecode="1031" />
+                    <label description="Suppliers" languagecode="1033" />
+                    <label description="Fournisseurs" languagecode="1036" />
+                    <label description="Fornitori" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3792de01-6c3b-5ac0-9937-2223e7da4938}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Suppliers" languagecode="1033" />
+                          <label description="Fornitori" languagecode="1040" />
+                          <label description="Lieferanten" languagecode="1031" />
+                          <label description="Fournisseurs" languagecode="1036" />
+                        </labels>
+                        <control id="suppliers" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{b48bbd53-828e-473d-a49e-522e46a66793}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_project_projectsupplier_projectid</RelationshipName>
+                            <TargetEntityType>op365_projectsupplier</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
               </sections>
             </column>
           </columns>

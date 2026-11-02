@@ -9,6 +9,7 @@ import re
 
 VALUES = {
     'INVITED': 365000000, 'RESPONDED': 365000001, 'DECLINED': 365000002,
+    'PS_ACTIVE': 1, 'PS_INVITED': 365000000,
     'PO_SENT': 365000000, 'PO_CONFIRMED': 365000001, 'PO_RECEIVED': 365000002,
     'INV_TO_REVIEW': 1, 'INV_APPROVED': 365000000, 'INV_REJECTED': 365000001,
     'DOC_APPROVED': 1, 'DOC_PENDING': 365000000, 'DOC_REJECTED': 365000001,
@@ -179,52 +180,133 @@ NAV = """{% assign op_today = now | date: 'yyyy-MM-dd' %}
 
 # projects of the supplier's orders, one card per project (orders sorted by project, a card at each change)
 PROJECT_CARDS = """{% fetchxml op_prj %}
-<fetch><entity name="op365_purchaseorder">
-  <attribute name="op365_purchaseorderid" /><attribute name="op365_projectid" /><attribute name="op365_totalamount" />
-  <attribute name="op365_receivedamount" /><attribute name="statuscode" />
-  <filter><condition attribute="statuscode" operator="in"><value>@PO_SENT@</value><value>@PO_CONFIRMED@</value><value>@PO_RECEIVED@</value></condition>
-    <condition attribute="op365_projectid" operator="not-null" /></filter>
-  <order attribute="op365_projectid" />
+<fetch><entity name="op365_projectsupplier">
+  <attribute name="op365_projectsupplierid" /><attribute name="op365_projectid" /><attribute name="op365_role" /><attribute name="statuscode" />
+  <filter><condition attribute="statecode" operator="eq" value="0" /></filter>
   <link-entity name="op365_project" from="op365_projectid" to="op365_projectid" link-type="inner" alias="pr">
-    <attribute name="op365_name" /><attribute name="op365_code" /><attribute name="op365_enddate" /><attribute name="op365_progresspct" />
+    <attribute name="op365_name" /><attribute name="op365_code" /><attribute name="op365_startdate" /><attribute name="op365_enddate" />
+    <attribute name="op365_progresspct" /><order attribute="op365_name" />
   </link-entity>
 </entity></fetch>
 {% endfetchxml %}
 {% assign op_list = op_prj.results.entities %}
 {% if op_list.size == 0 %}
-<div class="op-empty">No projects yet: they appear here with your first purchase order.</div>
+<div class="op-empty">No projects yet: they appear here when your customer invites you to a request for quotation, sends you a purchase order or adds you to a project.</div>
 {% else %}
-{% assign op_shown = 0 %}{% assign op_n = 0 %}{% assign op_open = 0 %}{% assign op_ordered = 0 %}{% assign op_received = 0 %}
+{% fetchxml op_pos %}
+<fetch><entity name="op365_purchaseorder">
+  <attribute name="op365_projectid" /><attribute name="op365_totalamount" /><attribute name="op365_receivedamount" /><attribute name="statuscode" />
+  <filter><condition attribute="statuscode" operator="in"><value>@PO_SENT@</value><value>@PO_CONFIRMED@</value><value>@PO_RECEIVED@</value></condition></filter>
+</entity></fetch>
+{% endfetchxml %}
 <div class="op-grid">
-{% for o in op_list %}
-  {% assign op_t = o.op365_totalamount | default: 0 %}{% assign op_r = o.op365_receivedamount | default: 0 %}
-  {% assign op_n = op_n | plus: 1 %}{% assign op_ordered = op_ordered | plus: op_t %}{% assign op_received = op_received | plus: op_r %}
-  {% if o.statuscode.value == @PO_SENT@ %}{% assign op_open = op_open | plus: 1 %}{% endif %}
-  {% assign op_close = forloop.last %}
-  {% unless forloop.last %}{% assign op_next = op_list[forloop.index] %}{% if op_next.op365_projectid.id != o.op365_projectid.id %}{% assign op_close = true %}{% endif %}{% endunless %}
-  {% if op_close %}
-    {% if op_shown < limit %}
-    {% assign op_progress = o['pr.op365_progresspct'] | default: 0 | round: 0 %}
-    {% if op_ordered > 0 %}{% assign op_delivered = op_received | times: 100 | divided_by: op_ordered | round: 0 %}{% else %}{% assign op_delivered = 0 %}{% endif %}
-    <article class="op-card{% if op_open > 0 %} attention{% endif %}">
-      <div class="op-row"><span class="op-muted">{{ o['pr.op365_code'] | escape }}</span>
-        {% if op_open > 0 %}<span class="op-badge b-amber">{{ op_open }} to confirm</span>{% elsif op_delivered >= 100 %}<span class="op-badge b-grey">Delivered</span>{% else %}<span class="op-badge b-green">Active</span>{% endif %}</div>
-      <h2 class="op-h2">{{ o['pr.op365_name'] | escape }}</h2>
-      <div class="op-meter"><div class="op-row"><span>Project progress</span><span>{{ op_progress }}%</span></div>
-        <div class="op-bar blue"><span style="--w:{{ op_progress }}%"></span></div></div>
-      <div class="op-meter"><div class="op-row"><span>Your deliveries</span><span>{{ op_delivered }}%</span></div>
-        <div class="op-bar"><span style="--w:{{ op_delivered }}%"></span></div></div>
-      <dl class="op-dl"><div><dt>Orders</dt><dd>{{ op_n }}</dd></div><div><dt>Ordered</dt><dd>{{ op_ordered | round: 0 }}</dd></div>
-        <div><dt>End date</dt><dd>{% if o['pr.op365_enddate'] %}{{ o['pr.op365_enddate'] | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</dd></div></dl>
-      <a href="/orders/" class="op-btn ghost">See orders</a>
-    </article>
-    {% assign op_shown = op_shown | plus: 1 %}
-    {% endif %}
-    {% assign op_n = 0 %}{% assign op_open = 0 %}{% assign op_ordered = 0 %}{% assign op_received = 0 %}
-  {% endif %}
+{% assign op_max = limit | default: 1000 %}
+{% for ps in op_list limit: op_max %}
+  {% assign op_n = 0 %}{% assign op_open = 0 %}{% assign op_ordered = 0 %}{% assign op_received = 0 %}
+  {% for o in op_pos.results.entities %}{% if o.op365_projectid.id == ps.op365_projectid.id %}
+    {% assign op_t = o.op365_totalamount | default: 0 %}{% assign op_r = o.op365_receivedamount | default: 0 %}
+    {% assign op_n = op_n | plus: 1 %}{% assign op_ordered = op_ordered | plus: op_t %}{% assign op_received = op_received | plus: op_r %}
+    {% if o.statuscode.value == @PO_SENT@ %}{% assign op_open = op_open | plus: 1 %}{% endif %}
+  {% endif %}{% endfor %}
+  {% assign op_progress = ps['pr.op365_progresspct'] | default: 0 | round: 0 %}
+  {% if op_ordered > 0 %}{% assign op_delivered = op_received | times: 100 | divided_by: op_ordered | round: 0 %}{% else %}{% assign op_delivered = 0 %}{% endif %}
+  <article class="op-card{% if op_open > 0 %} attention{% endif %}">
+    <div class="op-row"><span class="op-muted">{{ ps['pr.op365_code'] | escape }}{% if ps.op365_role %} &middot; {{ ps.op365_role | escape }}{% endif %}</span>
+      {% if ps.statuscode.value == @PS_INVITED@ %}<span class="op-badge b-blue">Invited</span>{% elsif op_open > 0 %}<span class="op-badge b-amber">{{ op_open }} to confirm</span>{% elsif op_n > 0 and op_delivered >= 100 %}<span class="op-badge b-grey">Delivered</span>{% else %}<span class="op-badge b-green">Active</span>{% endif %}</div>
+    <h2 class="op-h2">{{ ps['pr.op365_name'] | escape }}</h2>
+    <div class="op-meter"><div class="op-row"><span>Project progress</span><span>{{ op_progress }}%</span></div>
+      <div class="op-bar blue"><span style="--w:{{ op_progress }}%"></span></div></div>
+    {% if op_n > 0 %}<div class="op-meter"><div class="op-row"><span>Your deliveries</span><span>{{ op_delivered }}%</span></div>
+      <div class="op-bar"><span style="--w:{{ op_delivered }}%"></span></div></div>{% endif %}
+    <dl class="op-dl"><div><dt>Start date</dt><dd>{% if ps['pr.op365_startdate'] %}{{ ps['pr.op365_startdate'] | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</dd></div>
+      <div><dt>End date</dt><dd>{% if ps['pr.op365_enddate'] %}{{ ps['pr.op365_enddate'] | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</dd></div>
+      <div><dt>Orders</dt><dd>{{ op_n }}</dd></div></dl>
+    <a href="/projects/project/?id={{ ps.op365_projectsupplierid }}" class="op-btn ghost">Open project</a>
+  </article>
 {% endfor %}
 </div>
 {% endif %}"""
+
+PROJECT = """{% assign id = request.params['id'] %}
+{% fetchxml op_ps %}
+<fetch top="1"><entity name="op365_projectsupplier">
+  <attribute name="op365_projectsupplierid" /><attribute name="op365_role" /><attribute name="statuscode" /><attribute name="op365_canupdateprogress" />
+  <filter><condition attribute="op365_projectsupplierid" operator="eq" value="{{ id | xml_escape }}" /><condition attribute="statecode" operator="eq" value="0" /></filter>
+  <link-entity name="op365_project" from="op365_projectid" to="op365_projectid" link-type="inner" alias="pr">
+    <attribute name="op365_name" /><attribute name="op365_code" /><attribute name="op365_startdate" /><attribute name="op365_enddate" /><attribute name="op365_progresspct" />
+  </link-entity>
+</entity></fetch>
+{% endfetchxml %}
+<div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / <a href="/projects/">Projects</a></div>
+{% if op_ps.results.entities.size == 0 %}
+  <h1 class="op-h1">Project not found</h1></div></div>
+<div class="op-empty">This project is not shared with your company.</div>
+{% else %}
+{% assign ps = op_ps.results.entities[0] %}
+{% assign editable = false %}{% if ps.op365_canupdateprogress %}{% assign editable = true %}{% endif %}
+  <h1 class="op-h1">{{ ps['pr.op365_name'] | escape }}</h1></div>
+  {% if ps.statuscode.value == @PS_INVITED@ %}<span class="op-badge b-blue">Invited</span>{% endif %}</div>
+{% assign op_progress = ps['pr.op365_progresspct'] | default: 0 | round: 0 %}
+<section class="op-card">
+  <dl class="op-dl"><div><dt>Code</dt><dd>{{ ps['pr.op365_code'] | escape }}</dd></div>
+    <div><dt>Start date</dt><dd>{% if ps['pr.op365_startdate'] %}{{ ps['pr.op365_startdate'] | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</dd></div>
+    <div><dt>End date</dt><dd>{% if ps['pr.op365_enddate'] %}{{ ps['pr.op365_enddate'] | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</dd></div>
+    {% if ps.op365_role %}<div><dt>Your role</dt><dd>{{ ps.op365_role | escape }}</dd></div>{% endif %}</dl>
+  <div class="op-meter"><div class="op-row"><span>Project progress</span><span>{{ op_progress }}%</span></div>
+    <div class="op-bar blue"><span style="--w:{{ op_progress }}%"></span></div></div>
+</section>
+{% fetchxml op_wbs %}
+<fetch><entity name="op365_wbsnode">
+  <attribute name="op365_wbsnodeid" /><attribute name="op365_code" /><attribute name="op365_name" /><attribute name="op365_parentid" />
+  <attribute name="op365_startdate" /><attribute name="op365_enddate" /><attribute name="op365_progresspct" />
+  <filter><condition attribute="statecode" operator="eq" value="0" /></filter>
+  <order attribute="op365_sortorder" /><order attribute="op365_code" />
+  <link-entity name="op365_projectsupplier_wbsnode" from="op365_wbsnodeid" to="op365_wbsnodeid" link-type="inner" intersect="true">
+    <filter><condition attribute="op365_projectsupplierid" operator="eq" value="{{ ps.op365_projectsupplierid }}" /></filter>
+  </link-entity>
+</entity></fetch>
+{% endfetchxml %}
+{% assign nodes = op_wbs.results.entities %}
+<div class="op-row"><h2 class="op-h2">Your work</h2>
+  <span class="op-muted">{% if editable %}Update the progress of your activities: the project progress is calculated from them.{% else %}The activities of the plan assigned to your company.{% endif %}</span></div>
+<div id="op365-error" class="alert alert-danger d-none" role="alert"></div>
+{% if nodes.size == 0 %}<div class="op-empty">No activities of the plan are assigned to your company yet.</div>{% else %}
+<div class="op-tablebox"><table class="op-table">
+  <thead><tr><th scope="col">Code</th><th scope="col">Activity</th><th scope="col">Start</th><th scope="col">End</th><th scope="col">Progress</th></tr></thead>
+  <tbody>
+  {% for n in nodes %}
+    {% assign leaf = true %}{% for c in nodes %}{% if c.op365_parentid.id == n.op365_wbsnodeid %}{% assign leaf = false %}{% break %}{% endif %}{% endfor %}
+    {% assign pct = n.op365_progresspct | default: 0 | round: 0 %}
+    <tr>
+      <td>{{ n.op365_code | escape }}</td>
+      <td>{% if leaf %}{{ n.op365_name | escape }}{% else %}<strong>{{ n.op365_name | escape }}</strong>{% endif %}</td>
+      <td>{% if n.op365_startdate %}{{ n.op365_startdate | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</td>
+      <td>{% if n.op365_enddate %}{{ n.op365_enddate | date: 'dd/MM/yyyy' }}{% else %}&ndash;{% endif %}</td>
+      <td style="min-width:12rem">{% if editable and leaf %}
+        <form class="op365-progress" data-id="{{ n.op365_wbsnodeid }}" style="display:flex;gap:.5rem;align-items:center">
+          <input type="number" min="0" max="100" step="1" value="{{ pct }}" aria-label="Progress % of {{ n.op365_name | escape }}" style="width:5rem">
+          <button type="submit" class="op-btn ghost small">Save</button></form>
+        {% else %}<div class="op-meter"><div class="op-row"><span></span><span>{{ pct }}%</span></div>
+          <div class="op-bar"><span style="--w:{{ pct }}%"></span></div></div>{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endif %}
+{% endif %}"""
+
+PROJECT_JS = """// Progress % of the supplier's WBS nodes through the Power Pages Web API (the plugins allow leaf nodes only)
+$(function () {
+  $('form.op365-progress').on('submit', function (e) {
+    e.preventDefault();
+    var f = $(this), v = Number(f.find('input').val()), b = f.find('button');
+    if (isNaN(v) || v < 0 || v > 100) { op365Error('Progress must be between 0 and 100.'); return; }
+    b.prop('disabled', true);
+    op365Api('PATCH', '/_api/op365_wbsnodes(' + f.data('id') + ')', { op365_progresspct: v })
+      .done(function () { location.reload(); }).fail(function (m) { op365Error(m); b.prop('disabled', false); });
+  });
+});
+"""
 
 DASHBOARD = """{% assign today = now | date: 'yyyy-MM-dd' %}{% assign year = now | date: 'yyyy' %}
 {% fetchxml rfqs %}
@@ -326,7 +408,7 @@ DASHBOARD = """{% assign today = now | date: 'yyyy-MM-dd' %}{% assign year = now
 
 PROJECTS = """<div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / Projects</div>
   <h1 class="op-h1">Projects</h1></div></div>
-<p class="op-muted">The projects of your purchase orders: progress of the project and of your deliveries.</p>
+<p class="op-muted">The projects your company works on: progress of the project and of your deliveries. Open a project to see the activities assigned to you.</p>
 {% include '@PROJECT_CARDS@' limit: 1000 %}"""
 
 RFQS = """{% assign today = now | date: 'yyyy-MM-dd' %}

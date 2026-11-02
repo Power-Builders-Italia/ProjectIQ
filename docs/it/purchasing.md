@@ -143,7 +143,7 @@ Una RdO chiede a uno o più fornitori di quotare le righe di una richiesta appro
 1. Sulla richiesta approvata clicca **Create RFQ**. La RdO viene creata con una **Deadline** (scadenza) a 7 giorni e il titolo della richiesta nelle **Notes**; il fornitore preferito e i fornitori abituali degli articoli sono elencati in **Invitations** con stato *To Invite*.
 2. Apri la RdO. Sistema la **Deadline** (oggi o successiva) e le **Notes** per i fornitori.
 3. Aggiungi altri fornitori in **Invitations** (**+ New RFQ Invitation**): scegli il **Supplier**; l'**Email** viene copiata dal fornitore. Account inattivi, non fornitori o bloccati vengono rifiutati.
-4. Clicca **Send**. La RdO diventa **Sent**, ogni invito *To Invite* diventa **Invited** (con numero RdO, scadenza e note), e per ogni fornitore viene preparata **una riga d'offerta vuota per ogni riga della richiesta**.
+4. Clicca **Send**. La RdO diventa **Sent**, ogni invito *To Invite* diventa **Invited** (con numero RdO, scadenza e note), e per ogni fornitore viene preparata **una riga d'offerta vuota per ogni riga della richiesta**. Ogni fornitore invitato diventa anche un **fornitore di commessa** (stato *Invited*), così la commessa compare sul suo portale.
 
 Puoi aggiungere fornitori dopo l'invio: aggiungi l'invito e clicca di nuovo **Send**; vengono invitati solo i nuovi.
 
@@ -240,7 +240,7 @@ stateDiagram-v2
 
 | Pulsante | Da | Effetto |
 |---|---|---|
-| **Send to Supplier** | Draft | → **Sent**. Le righe vengono bloccate. *Sent To* registra l'email del fornitore, *Sent On* la data. L'ordine diventa visibile al fornitore sul portale. Serve almeno una riga |
+| **Send to Supplier** | Draft | → **Sent**. Le righe vengono bloccate. *Sent To* registra l'email del fornitore, *Sent On* la data. L'ordine diventa visibile al fornitore sul portale e il fornitore diventa un **fornitore di commessa** attivo che vede i nodi WBS delle righe dell'ordine ([Portale fornitori](supplier-portal.md#fornitori-di-commessa-e-perimetro-wbs)). Serve almeno una riga |
 | **Back to Draft** | Sent | → **Draft**, per modificare l'ordine (poi va reinviato) |
 | **Confirm** | Sent | → **Confirmed**, registra la conferma del fornitore. Il fornitore può anche confermare dal portale, con lo stesso effetto |
 | **Register Receipt** | Sent, Confirmed | Apre la finestra dell'entrata merci (vedi sotto) |

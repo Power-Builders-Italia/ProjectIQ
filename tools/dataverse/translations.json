@@ -1724,6 +1724,11 @@
 "Numéro de rappel",
 "Numero richiamata"
 ],
+"Can Update Progress": [
+"Kann Fortschritt aktualisieren",
+"Peut mettre à jour l'avancement",
+"Può aggiornare avanzamento"
+],
 "Cancel Goods Receipt": [
 "Wareneingang stornieren",
 "Annuler la réception",
@@ -6539,6 +6544,16 @@
 "Project Service",
 "Project Service"
 ],
+"Project Supplier": [
+"Projektlieferant",
+"Fournisseur du projet",
+"Fornitore di commessa"
+],
+"Project Suppliers": [
+"Projektlieferanten",
+"Fournisseurs du projet",
+"Fornitori di commessa"
+],
 "Project and User": [
 "Projekt und Benutzer",
 "Projet et utilisateur",
@@ -7268,6 +7283,11 @@
 "Lesen-Schreiben",
 "Lecture-écriture",
 "Lettura-scrittura"
+],
+"Read-only: the value of the environment variable Supplier Progress Updates, filled when the row is read (used by the supplier portal)": [
+"Schreibgeschützt: der Wert der Umgebungsvariablen Supplier Progress Updates, beim Lesen der Zeile gefüllt (vom Lieferantenportal verwendet)",
+"Lecture seule : la valeur de la variable d'environnement Supplier Progress Updates, renseignée à la lecture de la ligne (utilisée par le portail fournisseurs)",
+"Sola lettura: il valore della variabile di ambiente Supplier Progress Updates, valorizzato alla lettura della riga (usato dal portale fornitori)"
 ],
 "Reader": [
 "Leser",
@@ -9194,6 +9214,11 @@
 "Notes du fournisseur",
 "Note fornitore"
 ],
+"Supplier Progress Updates": [
+"Fortschrittsaktualisierung durch Lieferanten",
+"Mises à jour d'avancement par les fournisseurs",
+"Aggiornamento avanzamento da fornitori"
+],
 "Supplier Status": [
 "Lieferantenstatus",
 "Statut du fournisseur",
@@ -9228,6 +9253,11 @@
 "Lieferantennotizen zur angebotenen Position",
 "Notes du fournisseur sur la ligne chiffrée",
 "Note del fornitore sulla riga quotata"
+],
+"Supplier of a project and its WBS scope on the supplier portal (ProjectIQ)": [
+"Lieferant eines Projekts und sein PSP-Umfang im Lieferantenportal (ProjectIQ)",
+"Fournisseur d'un projet et son périmètre WBS sur le portail fournisseurs (ProjectIQ)",
+"Fornitore di una commessa e il suo perimetro WBS sul portale fornitori (ProjectIQ)"
 ],
 "Supplier offering the item": [
 "Lieferant, der den Artikel anbietet",
@@ -9723,6 +9753,11 @@
 "Von mir aufgewendete Gesamtzeit für E-Mails (lesen und schreiben) und Meetings in Bezug auf den Kontaktdatensatz",
 "Temps total que je consacre aux courriers électroniques (lecture et écriture) et aux réunions pour l'enregistrement de contact.",
 "Tempo totale dedicato personalmente ai messaggi e-mail (lettura e scrittura) e alle riunioni relativamente al record del contatto."
+],
+"Trade or role of the supplier on the project (e.g. electrical works)": [
+"Gewerk oder Rolle des Lieferanten im Projekt (z. B. Elektroarbeiten)",
+"Corps de métier ou rôle du fournisseur sur le projet (ex. travaux électriques)",
+"Lavorazione o ruolo del fornitore sulla commessa (es. impianti elettrici)"
 ],
 "Transportation": [
 "Transport",
@@ -11169,6 +11204,11 @@
 "Nœuds WBS par projet",
 "Nodi WBS per commessa"
 ],
+"WBS Scope": [
+"PSP-Umfang",
+"Périmètre WBS",
+"Perimetro WBS"
+],
 "WBS node that used the material": [
 "PSP-Element, das das Material verwendet hat",
 "Nœud WBS ayant utilisé le matériel",
@@ -11433,6 +11473,11 @@
 "Ja: Eingereichte Stunden warten auf die Genehmigung eines Projektleiters. Nein: Einreichen genehmigt die Stunden sofort.",
 "Oui : les heures soumises attendent l'approbation d'un chef de projet. Non : Soumettre approuve immédiatement les heures.",
 "Sì: le ore inviate attendono l'approvazione di un capo commessa. No: Invia approva subito le ore."
+],
+"Yes: suppliers can update the progress % of the WBS nodes of their scope (leaf nodes only) on the supplier portal. No: they only see it.": [
+"Ja: Lieferanten können im Lieferantenportal den Fortschritt % der PSP-Elemente ihres Umfangs aktualisieren (nur Elemente ohne Unterelemente). Nein: sie sehen ihn nur.",
+"Oui : les fournisseurs peuvent mettre à jour l'avancement % des nœuds WBS de leur périmètre (nœuds sans enfants uniquement) sur le portail fournisseurs. Non : ils le voient seulement.",
+"Sì: i fornitori possono aggiornare l'avanzamento % dei nodi WBS del loro perimetro (solo nodi senza figli) sul portale fornitori. No: lo vedono soltanto."
 ],
 "Yomi Account Name": [
 "Yom - Firmenname",

@@ -143,7 +143,7 @@ Eine Angebotsanfrage (Request for Quotation, RFQ) bittet einen oder mehrere Lief
 1. Klicken Sie in der genehmigten Anforderung auf **Create RFQ**. Die Angebotsanfrage wird mit einer **Deadline** (Frist) in 7 Tagen und dem Titel der Anforderung in **Notes** angelegt; der bevorzugte Lieferant und die Standardlieferanten der Artikel stehen in **Invitations** mit Status *To Invite*.
 2. Öffnen Sie die Angebotsanfrage. Passen Sie **Deadline** (heute oder später) und **Notes** für die Lieferanten an.
 3. Fügen Sie in **Invitations** weitere Lieferanten hinzu (**+ New RFQ Invitation**): Wählen Sie den **Supplier**; die **Email** wird vom Lieferanten übernommen. Inaktive, gesperrte oder nicht als Lieferant gekennzeichnete Accounts werden abgelehnt.
-4. Klicken Sie auf **Send**. Die Angebotsanfrage wird **Sent**, jede Einladung *To Invite* wird **Invited** (mit Nummer, Frist und Notizen der Anfrage), und für jeden Lieferanten wird **eine leere Angebotsposition je Anforderungsposition** vorbereitet.
+4. Klicken Sie auf **Send**. Die Angebotsanfrage wird **Sent**, jede Einladung *To Invite* wird **Invited** (mit Nummer, Frist und Notizen der Anfrage), und für jeden Lieferanten wird **eine leere Angebotsposition je Anforderungsposition** vorbereitet. Jeder eingeladene Lieferant wird außerdem ein **Projektlieferant** (Status *Invited*), damit das Projekt in seinem Portal erscheint.
 
 Sie können nach dem Versand weitere Lieferanten hinzufügen: Fügen Sie die Einladung hinzu und klicken Sie erneut auf **Send**; nur die neuen Einladungen werden versandt.
 
@@ -240,7 +240,7 @@ stateDiagram-v2
 
 | Schaltfläche | Ausgangsstatus | Wirkung |
 |---|---|---|
-| **Send to Supplier** | Draft | → **Sent**. Positionen werden gesperrt. *Sent To* hält die E-Mail des Lieferanten fest, *Sent On* das Datum. Die Bestellung wird für den Lieferanten im Portal sichtbar. Erfordert mindestens eine Position |
+| **Send to Supplier** | Draft | → **Sent**. Positionen werden gesperrt. *Sent To* hält die E-Mail des Lieferanten fest, *Sent On* das Datum. Die Bestellung wird für den Lieferanten im Portal sichtbar, und der Lieferant wird ein aktiver **Projektlieferant**, der die PSP-Elemente der Bestellpositionen sieht ([Lieferantenportal](supplier-portal.md#projektlieferanten-und-psp-umfang)). Erfordert mindestens eine Position |
 | **Back to Draft** | Sent | → **Draft**, um die Bestellung zu ändern (danach erneut versenden) |
 | **Confirm** | Sent | → **Confirmed**, hält die Bestätigung des Lieferanten fest. Der Lieferant kann auch im Portal bestätigen, mit derselben Wirkung |
 | **Register Receipt** | Sent, Confirmed | Öffnet den Dialog für den Wareneingang (siehe unten) |

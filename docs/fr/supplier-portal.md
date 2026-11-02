@@ -8,7 +8,8 @@ Le **portail fournisseurs** est un site web, réalisé avec Microsoft Power Page
 - trouve sur un **tableau de bord** ce que vous attendez de lui : appels d'offres à chiffrer, commandes à confirmer, documents à renouveler ;
 - voit les **appels d'offres** que vous lui avez envoyés, saisit les **prix unitaires**, le **délai de livraison** et des **notes**, et envoie son devis — ou décline ;
 - voit les **commandes** que vous lui avez envoyées, avec lignes et montants, et les **confirme** ;
-- voit la part de chaque commande déjà **reçue**, les **projets** de ses commandes et le statut de ses **factures** ;
+- voit la part de chaque commande déjà **reçue** et le statut de ses **factures** ;
+- voit les **projets** sur lesquels il travaille, avec les activités du planning (WBS) qui lui sont attribuées, et — si vous l'autorisez — met à jour leur **avancement** ;
 - dépose ses **documents d'entreprise** (DURC, certifications, assurances), que votre acheteur approuve, et est averti quand ils expirent.
 
 Tout ce que fait le fournisseur est immédiatement visible dans ProjectIQ : les devis apparaissent dans la Quote Comparison de l'appel d'offres, les confirmations changent le statut de la commande, les documents déposés attendent votre vérification.
@@ -62,7 +63,13 @@ Le **Dashboard** est la page d'accueil :
 
 ### Projets
 
-**Projects** affiche une carte par projet de vos commandes : code et nom, **Project progress** (avancement du projet), **Your deliveries** (la part de votre montant commandé déjà reçue), le nombre d'**Orders**, le montant **Ordered** et la **End date** du projet. Un projet avec une commande à confirmer a une bordure orange. **See orders** ouvre les commandes.
+**Projects** affiche une carte par projet que votre client a attribué à votre entreprise : code et nom (avec votre **rôle**, s'il est indiqué), **Project progress** (avancement du projet), **Your deliveries** (la part de votre montant commandé déjà reçue, seulement si vous avez des commandes), **Start date**, **End date** et le nombre d'**Orders**. Un projet apparaît quand votre client vous invite à un appel d'offres (badge **Invited**), vous envoie une commande ou vous ajoute au projet. Un projet avec une commande à confirmer a une bordure orange.
+
+**Open project** affiche l'en-tête du projet (code, dates de début et de fin, avancement) et, sous **Your work**, les activités du planning attribuées à votre entreprise : **Code**, **Activity**, **Start**, **End** et **Progress**. Les budgets et les coûts ne sont jamais affichés.
+
+### Mettre à jour l'avancement de vos activités
+
+Si votre client l'autorise, le **Progress** de chaque activité sans sous-activités est une case avec **Save** : saisissez le pourcentage (0–100) et cliquez sur **Save**. L'avancement des activités récapitulatives (en gras) et du projet est calculé à partir d'elles, il ne peut donc pas être saisi. Si votre client ne l'autorise pas, vous voyez seulement les barres d'avancement.
 
 ### Répondre à un appel d'offres
 
@@ -125,7 +132,7 @@ Vous recevez un e-mail quand un document approuvé va expirer (30 jours avant) e
 
 ### Erreurs
 
-Si une action échoue, un message rouge en explique la raison. Cas fréquents : « Session expired: sign in again. » (reconnectez-vous et recommencez), « The deadline of the request for quotation has passed. » (contactez l'acheteur pour une prolongation), « The request for quotation is closed. » (il a été attribué ou annulé), « Approved documents cannot be changed. » ou « Approved documents cannot be deleted. » (déposez plutôt un nouveau document), « Choose the file of the document. » (un nouveau document nécessite son fichier).
+Si une action échoue, un message rouge en explique la raison. Cas fréquents : « Session expired: sign in again. » (reconnectez-vous et recommencez), « The deadline of the request for quotation has passed. » (contactez l'acheteur pour une prolongation), « The request for quotation is closed. » (il a été attribué ou annulé), « Approved documents cannot be changed. » ou « Approved documents cannot be deleted. » (déposez plutôt un nouveau document), « Choose the file of the document. » (un nouveau document nécessite son fichier), « Progress must be between 0 and 100. », « Progress updates from the supplier portal are disabled. » (votre client les a désactivées).
 
 ## Partie 2 — Guide pour le personnel interne
 
@@ -139,11 +146,33 @@ Le portail est volontairement restreint. Les fournisseurs ne lisent que leurs pr
 | Lignes de devis de ces invitations | Article, quantité, unité, prix, notes | **Unit price**, **notes** |
 | Commandes de son entreprise (Sent, Confirmed, Received) | En-tête et montants | **Supplier confirmed** (qui confirme la commande) |
 | Lignes de ces commandes | Article, quantité, prix, montant, quantité reçue | Rien |
-| Projets de ces commandes | Code, nom, avancement, date de fin | Rien |
+| Fournisseurs du projet de son entreprise (Active et Invited) | Projet, rôle, statut | Rien |
+| Projets de ces fournisseurs du projet et de ses commandes | Code, nom, dates de début et de fin, avancement | Rien |
+| Nœuds WBS de son périmètre | Code, nom, dates de début et de fin, avancement | **Progress %** des nœuds sans nœuds enfants, seulement si **Supplier Progress Updates** vaut Yes |
 | Factures fournisseur de son entreprise | Numéro, dates, montant, statut, note de décision | Rien |
 | Documents fournisseur de son entreprise | Tous les champs, y compris la note de vérification | Type, description, numéro, dates, notes, fichier ; peut les créer et les supprimer, seulement tant que le document n'est pas approuvé |
 
-Les commandes en brouillon ou annulées et les appels d'offres non envoyés ne sont jamais affichés. Les prix des autres fournisseurs ne sont jamais visibles.
+Les commandes en brouillon ou annulées et les appels d'offres non envoyés ne sont jamais affichés. Les prix des autres fournisseurs, les budgets et les coûts ne sont jamais visibles.
+
+### Fournisseurs du projet et périmètre WBS
+
+Un **Project Supplier** (fournisseur du projet) indique qu'un fournisseur travaille sur un projet et quelles activités de la WBS il voit sur le portail (son **WBS Scope**). Vous les trouvez dans la liste **Suppliers** du projet (onglet Purchasing) et dans la liste **Projects** du compte fournisseur.
+
+```mermaid
+flowchart LR
+    I[RFQ Send: invitation Invited] -->|creates| PS[Project Supplier<br/>status Invited]
+    O[Send to Supplier] -->|creates or activates| PS2[Project Supplier<br/>status Active]
+    O -->|adds| W[WBS nodes of the order lines<br/>with their branches]
+    M[+ New Project Supplier<br/>by hand] --> PS2
+    PS2 --> P[Portal: project card<br/>+ Your work]
+    PS --> P
+```
+
+- **Send** sur un appel d'offres fait de chaque fournisseur invité un fournisseur du projet **Invited** (s'il n'y est pas déjà).
+- **Send to Supplier** sur une commande rend le fournisseur **Active** et ajoute à son WBS Scope les nœuds WBS des lignes de la commande. Si la commande est ensuite annulée, le fournisseur du projet et son périmètre restent.
+- Vous pouvez ajouter un fournisseur du projet à la main depuis la liste **Suppliers** du projet (**Project**, **Supplier**, **Role**), et ajouter des nœuds WBS dans sa liste **WBS Scope** (**Add Existing WBS Node**). Un nœud apporte toujours toutes ses sous-activités, y compris celles créées plus tard.
+- Pour masquer des activités, retirez-les du WBS Scope (retirer un nœud ne retire pas ses sous-activités : retirez-les aussi), ou désactivez le fournisseur du projet pour masquer tout le projet.
+- L'autorisation pour les fournisseurs de mettre à jour l'avancement est un paramètre de l'entreprise, **Supplier Progress Updates** ([Administration](administration.md#paramètres-de-lentreprise)) ; la valeur par défaut est No. *Can Update Progress* sur le fournisseur du projet affiche la valeur actuelle.
 
 ### Donner l'accès à un fournisseur
 
@@ -181,7 +210,7 @@ Un document déposé sur le portail est **Pending Review** et le propriétaire d
 
 - Un appel d'offres n'apparaît sur le portail qu'après **Send** ; une commande qu'après **Send to Supplier**.
 - Aucune de ces actions n'envoie d'e-mail à elle seule : prévenez le fournisseur qu'un nouvel appel d'offres ou une nouvelle commande l'attend (par votre e-mail habituel, ou par une automatisation que votre administrateur peut ajouter).
-- Si vous repassez une commande en **Back to Draft**, elle disparaît du portail jusqu'à son nouvel envoi.
+- Si vous repassez une commande en **Back to Draft**, elle disparaît du portail jusqu'à son nouvel envoi (le projet reste, grâce au fournisseur du projet).
 - Après l'échéance, le fournisseur ne peut plus modifier son devis : prolongez la **Deadline** et cliquez de nouveau sur **Send** si vous souhaitez d'autres réponses.
 
 ### Pour les administrateurs

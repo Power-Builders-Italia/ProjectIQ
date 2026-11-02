@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EntityRelationship Name="op365_projectsupplier_wbsnode">
+    <EntityRelationshipType>ManyToMany</EntityRelationshipType>
+    <IsCustomizable>1</IsCustomizable>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <IsHierarchical>0</IsHierarchical>
+    <FirstEntityName>op365_ProjectSupplier</FirstEntityName>
+    <SecondEntityName>op365_WbsNode</SecondEntityName>
+    <IntersectEntityName>op365_projectsupplier_wbsnode</IntersectEntityName>
+    <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+    <EntityRelationshipRoles>
+      <EntityRelationshipRole>
+        <NavPaneDisplayOption>UseLabel</NavPaneDisplayOption>
+        <NavPaneArea>Details</NavPaneArea>
+        <NavPaneOrder>10000</NavPaneOrder>
+        <NavigationPropertyName>op365_projectsupplier_wbsnode</NavigationPropertyName>
+        <CustomLabels>
+          <CustomLabel description="WBS Scope" languagecode="1033" />
+          <CustomLabel description="PSP-Umfang" languagecode="1031" />
+          <CustomLabel description="Périmètre WBS" languagecode="1036" />
+          <CustomLabel description="Perimetro WBS" languagecode="1040" />
+        </CustomLabels>
+        <AssociationRoleOrdinal>1</AssociationRoleOrdinal>
+      </EntityRelationshipRole>
+      <EntityRelationshipRole>
+        <NavPaneDisplayOption>UseLabel</NavPaneDisplayOption>
+        <NavPaneArea>Details</NavPaneArea>
+        <NavPaneOrder>10000</NavPaneOrder>
+        <NavigationPropertyName>op365_projectsupplier_wbsnode</NavigationPropertyName>
+        <CustomLabels>
+          <CustomLabel description="Project Suppliers" languagecode="1033" />
+          <CustomLabel description="Projektlieferanten" languagecode="1031" />
+          <CustomLabel description="Fournisseurs du projet" languagecode="1036" />
+          <CustomLabel description="Fornitori di commessa" languagecode="1040" />
+        </CustomLabels>
+        <AssociationRoleOrdinal>2</AssociationRoleOrdinal>
+      </EntityRelationshipRole>
+    </EntityRelationshipRoles>
+  </EntityRelationship>
+</EntityRelationships>

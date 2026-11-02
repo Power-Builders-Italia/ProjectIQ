@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{9819a0dd-76b3-4f3d-bb35-c2aa785266f7}</savedqueryid>
+    <layoutxml>
+      <grid name="op365_projectsuppliers" jump="op365_name" select="1" icon="1" preview="0">
+        <row name="op365_projectsupplier" id="op365_projectsupplierid">
+          <cell name="op365_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>64</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_projectsupplier">
+          <attribute name="op365_projectsupplierid" />
+          <attribute name="op365_name" />
+          <attribute name="createdon" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Project Supplier Suchansicht" languagecode="1031" />
+      <LocalizedName description="Project Supplier Lookup View" languagecode="1033" />
+      <LocalizedName description="Vue Recherche : Project Supplier" languagecode="1036" />
+      <LocalizedName description="Visualizzazione ricerca Project Supplier" languagecode="1040" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

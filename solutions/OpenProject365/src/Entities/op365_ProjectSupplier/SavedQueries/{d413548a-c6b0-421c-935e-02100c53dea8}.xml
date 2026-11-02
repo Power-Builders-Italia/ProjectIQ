@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{d413548a-c6b0-421c-935e-02100c53dea8}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+        <row name="result" id="op365_projectsupplierid">
+          <cell name="op365_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>1</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_projectsupplier">
+          <attribute name="op365_projectsupplierid" />
+          <attribute name="op365_name" />
+          <attribute name="createdon" />
+          <order attribute="op365_name" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Project Supplier Ansicht für die erweiterte Suche" languagecode="1031" />
+      <LocalizedName description="Project Supplier Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Vue Recherche avancée : Project Supplier" languagecode="1036" />
+      <LocalizedName description="Visualizzazione ricerca avanzata Project Supplier" languagecode="1040" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
