@@ -301,31 +301,81 @@ In einem gebuchten Wareneingang können nur die **Lieferscheindaten** und die **
 
 ## 5. Lieferantenrechnungen
 
-Eine Lieferantenrechnung ist ein **Container** für eine Eingangsrechnung: Sie enthält die Rechnungsdaten, ihre Positionen, die XML- oder PDF-Datei, die Verknüpfung zur Bestellung und die Genehmigungsentscheidung. (Der automatische Import aus dem italienischen Austauschsystem SDI ist für eine spätere Version geplant; heute wird die Datei von Hand angehängt.)
+Eine Lieferantenrechnung ist ein **Container** für eine Eingangsrechnung: Sie enthält die Rechnungsdaten, ihre Positionen, die XML- oder PDF-Datei, die Verknüpfung zur Bestellung, die Genehmigungsentscheidung und die Zahlung. Rechnungen kommen auf zwei Wegen: Der **Lieferant lädt sie im [Lieferantenportal](supplier-portal.md#rechnungen) hoch**, wo die Datei automatisch gelesen wird, oder die Verwaltungsmitarbeiter erfassen sie von Hand. (Der automatische Import aus dem italienischen Austauschsystem SDI ist für eine spätere Version geplant.)
+
+```mermaid
+flowchart LR
+    U[Lieferant lädt XML/PDF<br/>im Portal hoch] --> D[Draft<br/>Datei wird gelesen]
+    D --> C{Prüfungen}
+    C -->|Ready / To Check| S[Lieferant sendet sie]
+    C -->|Blocked: Duplikat| X[Lieferant löscht sie]
+    M[Mitarbeiter: + New] --> R
+    S --> R[To Review]
+    R -->|Approve| A[Approved]
+    R -->|Reject| J[Rejected]
+    A --> P[Scheduled → Paid]
+```
 
 ### Eine Rechnung erfassen
 
 1. **Purchasing → Supplier Invoices → + New** (oder die Registerkarte **Invoices** der Bestellung, damit die Bestellung bereits eingetragen ist).
 2. Füllen Sie **Supplier**, **Document Type** (TD01 Invoice – Rechnung, TD02 Advance invoice – Anzahlungsrechnung, TD04 Credit note – Gutschrift, TD05 Debit note – Belastungsanzeige, TD06 Fee note – Honorarnote, TD24 Deferred invoice – Sammelrechnung, TD25 Deferred invoice (triangular) – Sammelrechnung im Dreiecksgeschäft), **Invoice Number**, **Invoice Date** und **Purchase Order** aus.
 3. **Seller Name** und **Seller VAT Number** werden vom Lieferanten übernommen; das **Project** von der Bestellung.
-4. Hängen Sie die XML-Datei (FatturaPA) oder das PDF in **Invoice File** an.
+4. Hängen Sie die XML-Datei (FatturaPA) oder das PDF in **Invoice File** an. Solange die Rechnung To Review ist, setzen Sie **Extract Requested** auf Yes und speichern, um die Datei wie unten beschrieben lesen zu lassen (das ersetzt die Positionen).
 5. Füllen Sie optional **Order References** und **Delivery Note References** so aus, wie sie auf der Rechnung stehen.
 6. Fügen Sie die **Lines** hinzu: Line Number, Code, Description, Quantity, Unit, Unit Price, Total Price (= Menge × Stückpreis, wenn leer), VAT Rate % (MwSt.-Satz) und optional die **Order Line**, auf die sie sich bezieht.
 7. **Taxable Amount** (Nettobetrag), **VAT Amount** (MwSt.-Betrag) und **Total Amount** werden aus den Positionen berechnet.
 
-Neue Rechnungen beginnen im Status **To Review**.
+Neue, in der App erfasste Rechnungen beginnen im Status **To Review**.
+
+### Lesen der Datei
+
+Wenn ein Lieferant im Portal eine Rechnung hochlädt, legt ProjectIQ eine **Draft**-Rechnung an und liest die Datei im Hintergrund (wenige Sekunden):
+
+| Datei | Wie sie gelesen wird | Extraction Source |
+|---|---|---|
+| FatturaPA-XML, auch signiert (`.xml.p7m`) | Alle Werte aus der elektronischen Rechnung: Nummer, Datum, Dokumenttyp, Verkäufer, USt-IdNr., Bestell- und Lieferscheinreferenzen, Positionen mit MwSt.-Satz, Nettobetrag, MwSt., Gesamtbetrag, Fälligkeit | **FatturaPA XML** |
+| PDF oder Bild (JPG, PNG, TIFF) | Das vorgefertigte Modell **Rechnungsverarbeitung** von AI Builder, mit einer Konfidenz je Wert | **AI Builder** |
+| Jede andere Datei, oder KI ausgeschaltet | Nichts: Der Lieferant gibt die Daten ein | **Manual** |
+
+Danach laufen die Prüfungen und setzen den **Extraction Status**:
+
+| Extraction Status | Wann |
+|---|---|
+| **Pending** | Die Datei wird gelesen, oder eine geänderte Nummer, ein geändertes Datum oder eine geänderte Bestellung wird erneut geprüft |
+| **Ready** | Alle Prüfungen bestanden |
+| **To Check** | Ein Wert wurde mit geringer Konfidenz (unter 80 %) gelesen oder fehlt, keine oder mehrere Bestellungen passen zu den Referenzen, der Nettobetrag weicht von der Bestellung ab, eine Position steht nicht in der Bestellung oder hat einen anderen Betrag, die Positionen ergeben nicht den Nettobetrag, oder die USt-IdNr. auf der Rechnung ist nicht die des Lieferanten |
+| **Blocked** | Es gibt eine andere Rechnung des Lieferanten mit derselben Nummer im selben Jahr (nicht abgelehnt): Sie ist ein Duplikat und kann nicht gesendet werden |
+
+Die Bestellung wird anhand der Referenzen auf der Rechnung (`PO-00031`, `PO00031` oder nur `31`) unter den gesendeten, bestätigten und gelieferten Bestellungen des Lieferanten gefunden; jede Position wird über Beschreibung oder Betrag einer Bestellposition zugeordnet (**Order Line**). **Extraction Notes** listet, was zu prüfen ist, und **Fields to Check** die betroffenen Spalten; der Lieferant sieht dieselben Hinweise und kann eine **Supplier Note** für Sie hinzufügen. Der Lieferant korrigiert Nummer, Daten und Bestellung und sendet die Rechnung: Sie wird **To Review** und ist für ihn gesperrt. Der Abschnitt **Supplier Portal** des Formulars zeigt all dies; Entwürfe stehen in der Ansicht **Supplier Invoice Drafts** und fehlen in den anderen Ansichten.
+
+> Das Lesen von PDFs mit AI Builder verbraucht AI-Builder-Credits der Umgebung (etwa 32 pro Seite). Ein Administrator kann es mit **Invoice AI Extraction** ausschalten ([Administration](administration.md#unternehmenseinstellungen)); XML-Dateien werden immer gelesen.
 
 ### Genehmigen
 
-Der Purchasing Approver (oder ein Administrator) prüft die Rechnung gegen Bestellung und Wareneingänge und klickt dann auf **Approve** oder **Reject** (Begründung Pflicht). Entschiedene Rechnungen — und ihre Positionen — sind gesperrt.
+Der Purchasing Approver (oder ein Administrator) prüft die Rechnung gegen Bestellung und Wareneingänge und klickt dann auf **Approve** oder **Reject** (Begründung Pflicht). Entschiedene Rechnungen — und ihre Positionen — sind gesperrt; bei genehmigten Rechnungen kann nur die Zahlung geändert werden.
 
 | Status | Bedeutung |
 |---|---|
+| **Draft** | Im Portal hochgeladen, vom Lieferanten noch nicht gesendet |
 | **To Review** | Wartet auf die Prüfung; Daten und Positionen können geändert werden |
 | **Approved** | Zur Zahlung freigegeben |
 | **Rejected** | Beanstandet; die Begründung steht in *Decision Note* |
 
-Ansichten: **Invoices to Review**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**.
+### Bezahlen
+
+Der Abschnitt **Payment** einer genehmigten Rechnung zeigt dem Lieferanten, wo die Zahlung steht; er wird im Portal angezeigt:
+
+| Feld | Inhalt |
+|---|---|
+| **Due Date** | Aus der Datei, wenn vorhanden; änderbar |
+| **Payment Status** | **Not Paid**, **Scheduled** (eingeplant), **Partially Paid**, **Paid**. Anderes als Not Paid nur bei genehmigten Rechnungen |
+| **Paid Amount** / **Paid On** | Werden mit dem Gesamtbetrag und dem heutigen Datum gefüllt, wenn Sie Paid wählen und sie leer sind |
+| **Payment Reference** | Die Referenz der Überweisung (CRO/TRN) |
+
+Die Buchhaltung pflegt diese Felder von Hand (oder eine Integration mit der Buchhaltung). Die Ansicht **Invoices to Pay** listet die genehmigten, noch nicht bezahlten Rechnungen nach Fälligkeit.
+
+Ansichten: **All Supplier Invoices**, **Invoices to Review**, **Invoices to Pay**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**, **Supplier Invoice Drafts**.
 
 > Normale Benutzer (OP365 User) können Lieferantenrechnungen lesen, aber weder anlegen noch ändern: Rechnungen werden von Verwaltungsmitarbeitern mit der Rolle OP365 Administrator bearbeitet.
 
@@ -351,7 +401,7 @@ Klicken Sie auf ein Diagrammsegment, um zu filtern, oder öffnen Sie die Liste, 
 | Angebotsanfragen | All, Open, Awarded |
 | Bestellungen | All, Open, Confirmed, Received, By Project, By Supplier |
 | Wareneingänge | All, By Order |
-| Lieferantenrechnungen | All, To Review, Approved, Rejected, By Order |
+| Lieferantenrechnungen | All, To Review, To Pay, Approved, Rejected, By Order, Drafts |
 
 ## Mögliche Meldungen
 
@@ -381,5 +431,8 @@ Klicken Sie auf ein Diagrammsegment, um zu filtern, oder öffnen Sie die Liste, 
 | „<line>: only N still to receive.“ / „Nothing to receive.“ | Die Mengen im Dialog prüfen |
 | „Received quantities come from goods receipts.“ | Gelieferte Mengen nicht von Hand eingeben |
 | „Use Register Receipt on the purchase order to receive goods, and Cancel Receipt to undo a receipt.“ | Wareneingänge werden nur über die Schaltflächen verwaltet |
-| „Approved or rejected invoices cannot be changed.“ | Entschiedene Rechnungen sind endgültig |
+| „Approved or rejected invoices cannot be changed.“ | Entschiedene Rechnungen sind endgültig; bei genehmigten können nur die Zahlungsfelder geändert werden |
+| „Only approved invoices can be scheduled or paid.“ | Genehmigen Sie die Rechnung, bevor Sie Payment Status setzen |
+| „Sent invoices cannot be changed.“ / „Only draft invoices can be deleted.“ | Im Portal können nur Entwürfe geändert oder gelöscht werden |
+| „The invoice cannot be sent while it is being read or when it is a duplicate.“ | Warten Sie das Lesen ab, oder löschen Sie das Duplikat |
 | „Only the purchasing approver or an administrator can decide supplier invoices.“ | Den Einkaufsgenehmiger fragen |

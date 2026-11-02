@@ -8,7 +8,8 @@ Le **portail fournisseurs** est un site web, réalisé avec Microsoft Power Page
 - trouve sur un **tableau de bord** ce que vous attendez de lui : appels d'offres à chiffrer, commandes à confirmer, documents à renouveler ;
 - voit les **appels d'offres** que vous lui avez envoyés, saisit les **prix unitaires**, le **délai de livraison** et des **notes**, et envoie son devis — ou décline ;
 - voit les **commandes** que vous lui avez envoyées, avec lignes et montants, et les **confirme** ;
-- voit la part de chaque commande déjà **reçue** et le statut de ses **factures** ;
+- voit la part de chaque commande déjà **reçue** ;
+- **dépose ses factures** (XML FatturaPA ou PDF) : les données sont lues automatiquement et contrôlées par rapport à ses commandes, puis il en suit l'approbation et le **paiement** ;
 - voit les **projets** sur lesquels il travaille, avec les activités du planning (WBS) qui lui sont attribuées, et — si vous l'autorisez — met à jour leur **avancement** ;
 - dépose ses **documents d'entreprise** (DURC, certifications, assurances), que votre acheteur approuve, et est averti quand ils expirent.
 
@@ -109,7 +110,31 @@ Si quelque chose ne va pas dans la commande (prix, quantité, date), ne la confi
 
 ### Factures
 
-**Invoices** affiche les factures que votre client a reçues de vous : les totaux **Under review** (en vérification), **Approved** de l'année en cours et **Rejected** (rejetées), puis une carte par facture avec commande et projet, numéro, montant, type de document et dates. Les étapes **Received → Reviewed → Approved** (ou **Rejected**, en rouge) montrent où en est la facture ; une facture rejetée affiche la **Reason** (motif). Les boutons en haut filtrent les cartes. Le portail ne reçoit pas de factures : envoyez-les comme d'habitude.
+**Invoices** est l'endroit où vous envoyez vos factures à votre client et les suivez jusqu'au paiement.
+
+**Envoyer des factures**
+
+1. Faites glisser vos fichiers de facture sur la zone de dépôt, ou cliquez sur **Choose files**. Vous pouvez en envoyer plusieurs à la fois : **XML** FatturaPA (même signé `.p7m`), **PDF** ou images, jusqu'à 10 Mo chacun.
+2. Chaque fichier apparaît dans **To send** avec *Reading…* : le portail lit les données tout seul en quelques secondes (la page se rafraîchit).
+3. Chaque facture reçoit un statut :
+
+| Statut | Signification | Que faire |
+|---|---|---|
+| **Ready** | Données lues, commande trouvée, montants cohérents | Rien : envoyez-la |
+| **To check** | Quelque chose demande votre attention : une valeur lue avec une confiance faible, la commande à choisir, un écart avec la commande | Cliquez sur **Check** |
+| **Blocked** | Vous avez déjà envoyé cette année une facture avec ce numéro | Cliquez sur **Delete** |
+
+4. Cliquez sur **Send the N ready invoices** pour envoyer ensemble toutes les factures prêtes.
+
+**Vérifier une facture**
+
+**Check** (ou **Open**) affiche le fichier à gauche et les données lues à droite. Les champs à vérifier sont surlignés en orange et l'encadré jaune explique pourquoi. Sous **Lines and order**, chaque ligne est comparée à la commande : **Same** (identique), l'écart (par exemple **+84.00**) ou **Not on the order** (absente de la commande). Corrigez si besoin **Invoice number**, **Invoice date**, **Due date** ou **Purchase order**, et écrivez une **Note for your customer** si vous facturez autre chose que la commande (par exemple des heures supplémentaires convenues sur le chantier). **Save and check** enregistre et recontrôle ; puis **Send invoice**. **Delete** supprime une facture non encore envoyée.
+
+Depuis un fichier XML, chaque valeur provient de la facture électronique ; depuis un PDF, les valeurs sont lues par l'IA : vérifiez-les toujours avant d'envoyer. Une fois envoyée, une facture ne peut plus être modifiée : si elle est erronée, demandez à votre client de la rejeter et renvoyez-la.
+
+**Suivre les factures envoyées**
+
+Sous **Sent** vous trouvez les totaux **Under review** (en vérification), **To be paid** (à payer), **Paid** de l'année en cours et **Rejected**, puis une carte par facture avec commande et projet, numéro, montant, type de document et dates. Les étapes **Sent → Approved → Scheduled → Paid** (ou **Rejected**, en rouge) montrent où elle en est ; une facture rejetée affiche la **Reason** (motif), une facture payée le montant, la date et la référence du virement. Les boutons en haut filtrent les cartes.
 
 ### Documents d'entreprise
 
@@ -132,7 +157,7 @@ Vous recevez un e-mail quand un document approuvé va expirer (30 jours avant) e
 
 ### Erreurs
 
-Si une action échoue, un message rouge en explique la raison. Cas fréquents : « Session expired: sign in again. » (reconnectez-vous et recommencez), « The deadline of the request for quotation has passed. » (contactez l'acheteur pour une prolongation), « The request for quotation is closed. » (il a été attribué ou annulé), « Approved documents cannot be changed. » ou « Approved documents cannot be deleted. » (déposez plutôt un nouveau document), « Choose the file of the document. » (un nouveau document nécessite son fichier), « Progress must be between 0 and 100. », « Progress updates from the supplier portal are disabled. » (votre client les a désactivées).
+Si une action échoue, un message rouge en explique la raison. Cas fréquents : « Session expired: sign in again. » (reconnectez-vous et recommencez), « The deadline of the request for quotation has passed. » (contactez l'acheteur pour une prolongation), « The request for quotation is closed. » (il a été attribué ou annulé), « Approved documents cannot be changed. » ou « Approved documents cannot be deleted. » (déposez plutôt un nouveau document), « Choose the file of the document. » (un nouveau document nécessite son fichier), « Progress must be between 0 and 100. », « Progress updates from the supplier portal are disabled. » (votre client les a désactivées), « Sent invoices cannot be changed. » (demandez à votre client de rejeter la facture), « The invoice cannot be sent while it is being read or when it is a duplicate. » (attendez quelques secondes, ou supprimez le doublon), « Fill in the invoice number and date. ».
 
 ## Partie 2 — Guide pour le personnel interne
 
@@ -149,7 +174,7 @@ Le portail est volontairement restreint. Les fournisseurs ne lisent que leurs pr
 | Fournisseurs du projet de son entreprise (Active et Invited) | Projet, rôle, statut | Rien |
 | Projets de ces fournisseurs du projet et de ses commandes | Code, nom, dates de début et de fin, avancement | Rien |
 | Nœuds WBS de son périmètre | Code, nom, dates de début et de fin, avancement | **Progress %** des nœuds sans nœuds enfants, seulement si **Supplier Progress Updates** vaut Yes |
-| Factures fournisseur de son entreprise | Numéro, dates, montant, statut, note de décision | Rien |
+| Factures fournisseur de son entreprise | Numéro, dates, montants, lignes, statut, note de décision, paiement, notes d'extraction | Déposer le fichier, **numéro de facture**, **dates**, **commande** et **note du fournisseur** tant qu'elle est Draft ; l'**envoyer** (Draft → To Review) si elle n'est ni Pending ni Blocked ; supprimer les brouillons |
 | Documents fournisseur de son entreprise | Tous les champs, y compris la note de vérification | Type, description, numéro, dates, notes, fichier ; peut les créer et les supprimer, seulement tant que le document n'est pas approuvé |
 
 Les commandes en brouillon ou annulées et les appels d'offres non envoyés ne sont jamais affichés. Les prix des autres fournisseurs, les budgets et les coûts ne sont jamais visibles.

@@ -8,7 +8,8 @@ Das **Lieferantenportal** ist eine Website, erstellt mit Microsoft Power Pages a
 - auf einem **Dashboard** sehen, worauf Sie warten: zu beantwortende Angebotsanfragen, zu bestätigende Bestellungen, zu erneuernde Dokumente;
 - die **Angebotsanfragen** sehen, die Sie ihm gesendet haben, **Stückpreise**, **Lieferzeit** und **Notizen** eingeben und sein Angebot senden — oder absagen;
 - die **Bestellungen** sehen, die Sie ihm gesendet haben, mit Positionen und Beträgen, und sie **bestätigen**;
-- sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde, und den Status seiner **Rechnungen**;
+- sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde;
+- **seine Rechnungen hochladen** (FatturaPA-XML oder PDF): Die Daten werden automatisch gelesen und mit seinen Bestellungen abgeglichen, dann verfolgt er Genehmigung und **Zahlung**;
 - die **Projekte** sehen, an denen er arbeitet, mit den ihm zugewiesenen Aktivitäten des Plans (PSP), und — wenn Sie es erlauben — deren **Fortschritt** aktualisieren;
 - seine **Unternehmensdokumente** (DURC, Zertifizierungen, Versicherungen) hochladen, die Ihr Einkäufer genehmigt, und wird vor ihrem Ablauf gewarnt.
 
@@ -109,7 +110,31 @@ Stimmt etwas an der Bestellung nicht (Preis, Menge, Termin), bestätigen Sie sie
 
 ### Rechnungen
 
-**Invoices** zeigt die Rechnungen, die Ihr Kunde von Ihnen erhalten hat: die Summen **Under review** (in Prüfung), **Approved** im laufenden Jahr und **Rejected** (abgelehnt), dann eine Karte je Rechnung mit Bestellung und Projekt, Nummer, Betrag, Dokumenttyp und Daten. Die Schritte **Received → Reviewed → Approved** (oder **Rejected**, in Rot) zeigen, wo die Rechnung steht; eine abgelehnte Rechnung zeigt den **Reason** (Grund). Die Schaltflächen oben filtern die Karten. Das Portal nimmt keine Rechnungen entgegen: Senden Sie sie wie gewohnt.
+Unter **Invoices** senden Sie Ihre Rechnungen an Ihren Kunden und verfolgen sie bis zur Zahlung.
+
+**Rechnungen senden**
+
+1. Ziehen Sie Ihre Rechnungsdateien auf den Upload-Bereich oder klicken Sie auf **Choose files**. Sie können mehrere auf einmal senden: FatturaPA-**XML** (auch signiert `.p7m`), **PDF** oder Bilder, je bis 10 MB.
+2. Jede Datei erscheint unter **To send** mit *Reading…*: Das Portal liest die Daten in wenigen Sekunden selbst (die Seite aktualisiert sich).
+3. Jede Rechnung erhält einen Status:
+
+| Status | Bedeutung | Was tun |
+|---|---|---|
+| **Ready** | Daten gelesen, Bestellung gefunden, Beträge stimmig | Nichts: senden |
+| **To check** | Etwas braucht Ihren Blick: ein mit geringer Konfidenz gelesener Wert, die zu wählende Bestellung, eine Abweichung von der Bestellung | Auf **Check** klicken |
+| **Blocked** | Sie haben in diesem Jahr bereits eine Rechnung mit dieser Nummer gesendet | Auf **Delete** klicken |
+
+4. Klicken Sie auf **Send the N ready invoices**, um alle fertigen Rechnungen zusammen zu senden.
+
+**Eine Rechnung prüfen**
+
+**Check** (oder **Open**) zeigt links die Datei und rechts die daraus gelesenen Daten. Zu prüfende Felder sind orange markiert, und der gelbe Kasten erklärt warum. Unter **Lines and order** wird jede Position mit der Bestellung verglichen: **Same** (gleich), die Abweichung (zum Beispiel **+84.00**) oder **Not on the order** (nicht in der Bestellung). Korrigieren Sie bei Bedarf **Invoice number**, **Invoice date**, **Due date** oder **Purchase order** und schreiben Sie eine **Note for your customer**, wenn Sie etwas anderes als die Bestellung berechnen (zum Beispiel auf der Baustelle vereinbarte Mehrstunden). **Save and check** speichert und prüft erneut; dann **Send invoice**. **Delete** löscht eine noch nicht gesendete Rechnung.
+
+Aus einer XML-Datei stammt jeder Wert aus der elektronischen Rechnung; aus einem PDF liest die KI die Werte: Prüfen Sie sie immer vor dem Senden. Eine gesendete Rechnung kann nicht mehr geändert werden: Ist sie falsch, bitten Sie Ihren Kunden, sie abzulehnen, und senden Sie sie erneut.
+
+**Gesendete Rechnungen verfolgen**
+
+Unter **Sent** finden Sie die Summen **Under review** (in Prüfung), **To be paid** (zu zahlen), **Paid** im laufenden Jahr und **Rejected**, dann eine Karte je Rechnung mit Bestellung und Projekt, Nummer, Betrag, Dokumenttyp und Daten. Die Schritte **Sent → Approved → Scheduled → Paid** (oder **Rejected**, in Rot) zeigen, wo sie steht; eine abgelehnte Rechnung zeigt den **Reason** (Grund), eine bezahlte Betrag, Datum und Überweisungsreferenz. Die Schaltflächen oben filtern die Karten.
 
 ### Unternehmensdokumente
 
@@ -132,7 +157,7 @@ Sie erhalten eine E-Mail, wenn ein genehmigtes Dokument bald abläuft (30 Tage v
 
 ### Fehler
 
-Schlägt eine Aktion fehl, erklärt eine rote Meldung den Grund. Häufige Fälle: „Session expired: sign in again.“ (melden Sie sich erneut an und wiederholen Sie den Vorgang), „The deadline of the request for quotation has passed.“ (bitten Sie den Einkäufer um eine Fristverlängerung), „The request for quotation is closed.“ (sie wurde vergeben oder storniert), „Approved documents cannot be changed.“ oder „Approved documents cannot be deleted.“ (laden Sie stattdessen ein neues Dokument hoch), „Choose the file of the document.“ (ein neues Dokument braucht seine Datei), „Progress must be between 0 and 100.“, „Progress updates from the supplier portal are disabled.“ (Ihr Kunde hat sie deaktiviert).
+Schlägt eine Aktion fehl, erklärt eine rote Meldung den Grund. Häufige Fälle: „Session expired: sign in again.“ (melden Sie sich erneut an und wiederholen Sie den Vorgang), „The deadline of the request for quotation has passed.“ (bitten Sie den Einkäufer um eine Fristverlängerung), „The request for quotation is closed.“ (sie wurde vergeben oder storniert), „Approved documents cannot be changed.“ oder „Approved documents cannot be deleted.“ (laden Sie stattdessen ein neues Dokument hoch), „Choose the file of the document.“ (ein neues Dokument braucht seine Datei), „Progress must be between 0 and 100.“, „Progress updates from the supplier portal are disabled.“ (Ihr Kunde hat sie deaktiviert), „Sent invoices cannot be changed.“ (bitten Sie Ihren Kunden, die Rechnung abzulehnen), „The invoice cannot be sent while it is being read or when it is a duplicate.“ (warten Sie einige Sekunden, oder löschen Sie das Duplikat), „Fill in the invoice number and date.“.
 
 ## Teil 2 — Leitfaden für interne Mitarbeiter
 
@@ -149,7 +174,7 @@ Das Portal ist bewusst eingeschränkt. Lieferanten lesen nur ihre eigenen Datens
 | Projektlieferanten seines Unternehmens (Active und Invited) | Projekt, Rolle, Status | Nichts |
 | Projekte dieser Projektlieferanten und seiner Bestellungen | Code, Name, Start- und Enddatum, Fortschritt | Nichts |
 | PSP-Elemente seines Umfangs | Code, Name, Start- und Enddatum, Fortschritt | **Progress %** der Elemente ohne Unterelemente, nur wenn **Supplier Progress Updates** Yes ist |
-| Lieferantenrechnungen seines Unternehmens | Nummer, Daten, Betrag, Status, Entscheidungsnotiz | Nichts |
+| Lieferantenrechnungen seines Unternehmens | Nummer, Daten, Beträge, Positionen, Status, Entscheidungsnotiz, Zahlung, Lesehinweise | Datei hochladen, **Rechnungsnummer**, **Daten**, **Bestellung** und **Lieferantennotiz**, solange Draft; **senden** (Draft → To Review), wenn nicht Pending oder Blocked; Entwürfe löschen |
 | Lieferantendokumente seines Unternehmens | Alle Felder, einschließlich der Prüfnotiz | Typ, Beschreibung, Nummer, Daten, Notizen, Datei; kann sie anlegen und löschen, nur solange das Dokument nicht genehmigt ist |
 
 Bestellungen im Entwurf oder stornierte Bestellungen und nicht versandte Angebotsanfragen werden nie angezeigt. Die Preise anderer Lieferanten, Budgets und Kosten sind nie sichtbar.

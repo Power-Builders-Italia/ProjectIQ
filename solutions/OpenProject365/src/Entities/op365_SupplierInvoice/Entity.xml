@@ -386,6 +386,46 @@
             <Description description="Identificatore univoco dell'utente delegato che ha modificato il record." languagecode="1040" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="op365_CheckFields">
+          <Type>nvarchar</Type>
+          <Name>op365_checkfields</Name>
+          <LogicalName>op365_checkfields</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>400</MaxLength>
+          <Length>800</Length>
+          <displaynames>
+            <displayname description="Fields to Check" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Columns read with low confidence or missing. Set by plugin" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="op365_DecidedById">
           <Type>lookup</Type>
           <Name>op365_decidedbyid</Name>
@@ -687,6 +727,342 @@
             <Description description="Tipo documento FatturaPA" languagecode="1040" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="op365_DueDate">
+          <Type>datetime</Type>
+          <Name>op365_duedate</Name>
+          <LogicalName>op365_duedate</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>inactive</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>date</Format>
+          <CanChangeDateTimeBehavior>1</CanChangeDateTimeBehavior>
+          <Behavior>2</Behavior>
+          <displaynames>
+            <displayname description="Due Date" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Payment due date, from the FatturaPA or the PDF when present" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ExtractionNotes">
+          <Type>ntext</Type>
+          <Name>op365_extractionnotes</Name>
+          <LogicalName>op365_extractionnotes</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>textarea</Format>
+          <MaxLength>4000</MaxLength>
+          <displaynames>
+            <displayname description="Extraction Notes" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="What the supplier and the reviewer should check. Set by plugin" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ExtractionSource">
+          <Type>picklist</Type>
+          <Name>op365_extractionsource</Name>
+          <LogicalName>op365_extractionsource</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <optionset Name="op365_supplierinvoice_op365_extractionsource">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Extraction Source" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="How the data were read from the file. Set by plugin" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="365000000" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="FatturaPA XML" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000001" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="AI Builder" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000002" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Manual" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Extraction Source" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="How the data were read from the file. Set by plugin" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ExtractionStatus">
+          <Type>picklist</Type>
+          <Name>op365_extractionstatus</Name>
+          <LogicalName>op365_extractionstatus</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <optionset Name="op365_supplierinvoice_op365_extractionstatus">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Extraction Status" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="Pending while the file is read; Ready, To Check (low confidence, differences from the order, order to choose) or Blocked (duplicate of another invoice) afterwards. Set by plugin" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="365000000" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Pending" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000001" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Ready" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000002" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="To Check" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000003" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Blocked" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Extraction Status" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Pending while the file is read; Ready, To Check (low confidence, differences from the order, order to choose) or Blocked (duplicate of another invoice) afterwards. Set by plugin" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_ExtractRequested">
+          <Type>bit</Type>
+          <Name>op365_extractrequested</Name>
+          <LogicalName>op365_extractrequested</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>0</AppDefaultValue>
+          <optionset Name="op365_supplierinvoice_op365_extractrequested">
+            <OptionSetType>bit</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Extract Requested" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="Set to Yes to read the file again (the plugin sets it back to No)" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="1" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Yes" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="0" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="No" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Extract Requested" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Set to Yes to read the file again (the plugin sets it back to No)" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_FromPortal">
+          <Type>bit</Type>
+          <Name>op365_fromportal</Name>
+          <LogicalName>op365_fromportal</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>0</AppDefaultValue>
+          <optionset Name="op365_supplierinvoice_op365_fromportal">
+            <OptionSetType>bit</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="From Supplier Portal" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="The supplier uploaded the invoice in the supplier portal" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="1" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Yes" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="0" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="No" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="From Supplier Portal" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="The supplier uploaded the invoice in the supplier portal" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="op365_InvoiceDate">
           <Type>datetime</Type>
           <Name>op365_invoicedate</Name>
@@ -869,6 +1245,246 @@
             <Description description="Auf der Rechnung angegebene Bestellungen" languagecode="1031" />
             <Description description="Commandes citées sur la facture" languagecode="1036" />
             <Description description="Ordini citati in fattura" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_PaidAmount">
+          <Type>money</Type>
+          <Name>op365_paidamount</Name>
+          <LogicalName>op365_paidamount</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>disabled</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <MinValue>0</MinValue>
+          <MaxValue>922337203685477</MaxValue>
+          <Accuracy>2</Accuracy>
+          <AccuracySource>2</AccuracySource>
+          <displaynames>
+            <displayname description="Paid Amount" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Amount paid so far; Paid fills it with the total when empty" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_paidamount_Base">
+          <Type>money</Type>
+          <Name>op365_paidamount_base</Name>
+          <LogicalName>op365_paidamount_base</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>disabled</ImeMode>
+          <ValidForUpdateApi>0</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>0</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <MinValue>-922337203685477</MinValue>
+          <MaxValue>922337203685477</MaxValue>
+          <Accuracy>2</Accuracy>
+          <AccuracySource>2</AccuracySource>
+          <CalculationOf>op365_PaidAmount</CalculationOf>
+          <displaynames>
+            <displayname description="Paid Amount (Base)" languagecode="1033" />
+            <displayname description="Paid Amount (base)" languagecode="1040" />
+            <displayname description="'Paid Amount' (Basis)" languagecode="1031" />
+            <displayname description="Paid Amount (de base)" languagecode="1036" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Value of the Paid Amount in base currency." languagecode="1033" />
+            <Description description="Valore di Paid Amount nella valuta di base." languagecode="1040" />
+            <Description description="Wert von 'Paid Amount' in der Basiswährung." languagecode="1031" />
+            <Description description="Valeur de Paid Amount dans la devise de base." languagecode="1036" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_PaidOn">
+          <Type>datetime</Type>
+          <Name>op365_paidon</Name>
+          <LogicalName>op365_paidon</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>inactive</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>date</Format>
+          <CanChangeDateTimeBehavior>1</CanChangeDateTimeBehavior>
+          <Behavior>2</Behavior>
+          <displaynames>
+            <displayname description="Paid On" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Date of the (last) payment; Paid fills it with today when empty" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_PaymentReference">
+          <Type>nvarchar</Type>
+          <Name>op365_paymentreference</Name>
+          <LogicalName>op365_paymentreference</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>100</MaxLength>
+          <Length>200</Length>
+          <displaynames>
+            <displayname description="Payment Reference" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Bank transfer reference (CRO/TRN) shown to the supplier" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_PaymentStatus">
+          <Type>picklist</Type>
+          <Name>op365_paymentstatus</Name>
+          <LogicalName>op365_paymentstatus</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>365000000</AppDefaultValue>
+          <optionset Name="op365_supplierinvoice_op365_paymentstatus">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.1.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <displaynames>
+              <displayname description="Payment Status" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="Set by the accounting staff on approved invoices; shown to the supplier" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="365000000" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Not Paid" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000001" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Scheduled" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000002" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Partially Paid" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="365000003" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Paid" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Payment Status" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Set by the accounting staff on approved invoices; shown to the supplier" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_ProjectId">
@@ -1139,6 +1755,45 @@
             <Description description="Eindeutiger Bezeichner für Entitätsinstanzen" languagecode="1031" />
             <Description description="Identificateur unique des instances d'entité" languagecode="1036" />
             <Description description="Identificatore univoco delle istanze dell'entità" languagecode="1040" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="op365_SupplierNote">
+          <Type>ntext</Type>
+          <Name>op365_suppliernote</Name>
+          <LogicalName>op365_suppliernote</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>textarea</Format>
+          <MaxLength>2000</MaxLength>
+          <displaynames>
+            <displayname description="Supplier Note" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Note of the supplier for the reviewer, for example about a difference from the order" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="op365_TaxableAmount">
@@ -1830,6 +2485,11 @@
                   <label description="Zu prüfen" languagecode="1031" />
                   <label description="À examiner" languagecode="1036" />
                   <label description="Da verificare" languagecode="1040" />
+                </labels>
+              </status>
+              <status value="365000002" state="0" IsHidden="0">
+                <labels>
+                  <label description="Draft" languagecode="1033" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">

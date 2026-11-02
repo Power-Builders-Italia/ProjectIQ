@@ -8,7 +8,8 @@ Il **portale fornitori** è un sito web, realizzato con Microsoft Power Pages su
 - trova in una **dashboard** ciò che stai aspettando: RdO da quotare, ordini da confermare, documenti da rinnovare;
 - vede le **richieste d'offerta** (RdO) che gli hai inviato, inserisce **prezzi unitari**, **giorni di consegna** e **note**, e invia l'offerta — oppure rinuncia;
 - vede gli **ordini d'acquisto** che gli hai inviato, con righe e importi, e li **conferma**;
-- vede quanto di ogni ordine è già stato **ricevuto** e lo stato delle sue **fatture**;
+- vede quanto di ogni ordine è già stato **ricevuto**;
+- **carica le sue fatture** (XML FatturaPA o PDF): i dati vengono letti automaticamente e controllati rispetto ai suoi ordini, poi ne segue l'approvazione e il **pagamento**;
 - vede le **commesse** su cui lavora, con le attività del piano (WBS) assegnate a lui e, se lo consenti, ne aggiorna l'**avanzamento**;
 - carica i suoi **documenti aziendali** (DURC, certificazioni, assicurazioni), che il tuo buyer approva, e viene avvisato quando scadono.
 
@@ -109,7 +110,31 @@ Se qualcosa nell'ordine non va (prezzo, quantità, data), non confermarlo: conta
 
 ### Fatture
 
-**Invoices** mostra le fatture che il cliente ha ricevuto da te: i totali **Under review** (in verifica), **Approved** nell'anno in corso e **Rejected** (rifiutate), poi una scheda per fattura con ordine e commessa, numero, importo, tipo documento e date. I passi **Received → Reviewed → Approved** (oppure **Rejected**, in rosso) mostrano a che punto è la fattura; una fattura rifiutata mostra la **Reason** (motivo). I pulsanti in alto filtrano le schede. Il portale non riceve fatture: inviale come di consueto.
+**Invoices** è dove invii le fatture al cliente e le segui fino al pagamento.
+
+**Inviare le fatture**
+
+1. Trascina i file delle fatture sull'area di caricamento, oppure clicca **Choose files**. Puoi inviarne più di una insieme: **XML** FatturaPA (anche firmato `.p7m`), **PDF** o immagini, fino a 10 MB ciascuno.
+2. Ogni file compare in **To send** con *Reading…*: il portale legge i dati da solo in pochi secondi (la pagina si aggiorna).
+3. Ogni fattura riceve uno stato:
+
+| Stato | Significato | Cosa fare |
+|---|---|---|
+| **Ready** | Dati letti, ordine trovato, importi coerenti | Nulla: inviala |
+| **To check** | Qualcosa va guardato: un valore letto con bassa confidenza, l'ordine da scegliere, una differenza rispetto all'ordine | Clicca **Check** |
+| **Blocked** | Hai già inviato quest'anno una fattura con questo numero | Clicca **Delete** |
+
+4. Clicca **Send the N ready invoices** per inviare insieme tutte quelle pronte.
+
+**Controllare una fattura**
+
+**Check** (o **Open**) mostra il file a sinistra e i dati letti a destra. I campi da controllare sono evidenziati in arancione e il riquadro giallo spiega perché. Sotto **Lines and order** ogni riga è confrontata con l'ordine: **Same** (uguale), la differenza (per esempio **+84.00**) oppure **Not on the order** (non nell'ordine). Correggi se serve **Invoice number**, **Invoice date**, **Due date** o **Purchase order**, e scrivi una **Note for your customer** se fatturi qualcosa di diverso dall'ordine (ad esempio ore extra concordate in cantiere). **Save and check** salva e ricontrolla; poi **Send invoice**. **Delete** elimina una fattura non ancora inviata.
+
+Da un file XML ogni valore viene dalla fattura elettronica; da un PDF i valori sono letti dall'AI: controllali sempre prima di inviare. Una volta inviata, la fattura non si può più modificare: se è sbagliata, chiedi al cliente di rifiutarla e inviala di nuovo.
+
+**Seguire le fatture inviate**
+
+Sotto **Sent** trovi i totali **Under review** (in verifica), **To be paid** (da pagare), **Paid** nell'anno in corso e **Rejected**, poi una scheda per fattura con ordine e commessa, numero, importo, tipo documento e date. I passi **Sent → Approved → Scheduled → Paid** (oppure **Rejected**, in rosso) mostrano a che punto è; una fattura rifiutata mostra la **Reason** (motivo), una pagata l'importo, la data e il riferimento del bonifico. I pulsanti in alto filtrano le schede.
 
 ### Documenti aziendali
 
@@ -132,7 +157,7 @@ Ricevi un'email quando un documento approvato sta per scadere (30 giorni prima) 
 
 ### Errori
 
-Se un'azione non riesce, un messaggio rosso spiega il motivo. Casi comuni: "Session expired: sign in again." (accedi di nuovo e ripeti), "The deadline of the request for quotation has passed." (contatta il buyer per una proroga), "The request for quotation is closed." (è stata aggiudicata o annullata), "Approved documents cannot be changed." o "Approved documents cannot be deleted." (carica invece un nuovo documento), "Choose the file of the document." (un nuovo documento richiede il suo file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (il cliente li ha disattivati).
+Se un'azione non riesce, un messaggio rosso spiega il motivo. Casi comuni: "Session expired: sign in again." (accedi di nuovo e ripeti), "The deadline of the request for quotation has passed." (contatta il buyer per una proroga), "The request for quotation is closed." (è stata aggiudicata o annullata), "Approved documents cannot be changed." o "Approved documents cannot be deleted." (carica invece un nuovo documento), "Choose the file of the document." (un nuovo documento richiede il suo file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (il cliente li ha disattivati), "Sent invoices cannot be changed." (chiedi al cliente di rifiutare la fattura), "The invoice cannot be sent while it is being read or when it is a duplicate." (attendi qualche secondo, oppure elimina il duplicato), "Fill in the invoice number and date.".
 
 ## Parte 2 — Guida per il personale interno
 
@@ -149,7 +174,7 @@ Il portale è volutamente ristretto. I fornitori possono leggere solo i propri r
 | Fornitori di commessa della sua azienda (Active e Invited) | Commessa, ruolo, stato | Nulla |
 | Commesse di quei fornitori di commessa e dei suoi ordini | Codice, nome, data inizio e fine, avanzamento | Nulla |
 | Nodi WBS del suo perimetro | Codice, nome, data inizio e fine, avanzamento | **Progress %** dei nodi senza nodi figli, solo se **Supplier Progress Updates** è Yes |
-| Fatture fornitore della sua azienda | Numero, date, importo, stato, nota della decisione | Nulla |
+| Fatture fornitore della sua azienda | Numero, date, importi, righe, stato, nota della decisione, pagamento, note di estrazione | Caricare il file, **numero fattura**, **date**, **ordine d'acquisto** e **nota del fornitore** finché è Draft; **inviarla** (Draft → To Review) se non è Pending o Blocked; eliminare le bozze |
 | Documenti fornitore della sua azienda | Tutti i campi, compresa la nota di revisione | Tipo, descrizione, numero, date, note, file; può crearli ed eliminarli, solo finché il documento non è approvato |
 
 Ordini in bozza o annullati e RdO non ancora inviate non vengono mai mostrati. I prezzi degli altri fornitori, i budget e i costi non sono mai visibili.

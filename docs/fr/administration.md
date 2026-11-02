@@ -109,6 +109,7 @@ Pour modifier une valeur :
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Les modèles ProjectIQ | Modèle d'e-mail (type Compte) de chaque message aux fournisseurs, par **Language** du fournisseur : `{"DocumentExpiring": {"Italian": "<titre du modèle>", "English": "<titre du modèle>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` est la langue utilisée quand le fournisseur n'en a pas ou qu'il n'existe pas de modèle |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Vide | Nom ou adresse e-mail de la **file d'attente** (boîte aux lettres avec synchronisation côté serveur) qui envoie les e-mails aux fournisseurs. Vide = aucun e-mail |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes : sur le portail fournisseurs, les fournisseurs peuvent mettre à jour l'avancement % des activités WBS de leur périmètre (activités sans sous-activités uniquement). No : ils le voient seulement. Voir [Portail fournisseurs](supplier-portal.md#fournisseurs-du-projet-et-périmètre-wbs) |
+| `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes : les factures PDF et image déposées sur le portail fournisseurs sont lues par le modèle prédéfini de traitement des factures d'AI Builder, qui consomme des crédits AI Builder (environ 32 par page). No : seuls les fichiers XML FatturaPA sont lus ; pour les autres, les fournisseurs saisissent les données. Voir [Achats](purchasing.md#lecture-du-fichier) |
 
 Le Purchasing Approver est un nom d'utilisateur et non une recherche (lookup), car les identifiants des utilisateurs diffèrent dans chaque environnement. Les demandes déjà soumises gardent le niveau d'approbation qui leur a été attribué.
 
@@ -158,6 +159,7 @@ Pour envoyer les e-mails :
 | Coût horaire de la ressource | À chaque modification d'un Resource Cost |
 | Notifications dans l'application | À la soumission et à la décision des heures et des demandes d'achat, et depuis le rappel quotidien |
 | Accès aux équipes projet | À chaque modification d'un membre de projet |
+| Lecture des factures fournisseurs (XML FatturaPA ou AI Builder) et leurs contrôles | En arrière-plan, quelques secondes après qu'un fournisseur dépose une facture ou en modifie le numéro, la date ou la commande |
 
 ### Notifications
 

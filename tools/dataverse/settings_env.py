@@ -30,6 +30,10 @@ VARIABLES = [
     ('op365_SupplierProgressUpdates', 'Supplier Progress Updates', BOOLEAN, 'no',
      'Yes: suppliers can update the progress % of the WBS nodes of their scope (leaf nodes only) on the supplier portal. '
      'No: they only see it.'),
+    ('op365_InvoiceAiExtraction', 'Invoice AI Extraction', BOOLEAN, 'yes',
+     'Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing '
+     'model (it consumes AI Builder credits, about 32 per page). No: only FatturaPA XML files are read; the supplier '
+     'fills in the data of the others.'),
 ]
 # document metadata flows: SharePoint site and library ids, set by tools/sharepoint/document_metadata.py (no default)
 VARIABLES += [(schema, label, STRING, None, desc) for schema, label, desc in [SITE, *LIBRARIES.values()]]

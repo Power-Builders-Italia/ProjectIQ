@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="op365_InvoiceAiExtraction">
+  <defaultvalue>yes</defaultvalue>
+  <description default="Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing model (it consumes AI Builder credits, about 32 per page). No: only FatturaPA XML files are read; the supplier fills in the data of the others.">
+    <label description="Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing model (it consumes AI Builder credits, about 32 per page). No: only FatturaPA XML files are read; the supplier fills in the data of the others." languagecode="1033" />
+  </description>
+  <displayname default="Invoice AI Extraction">
+    <label description="Invoice AI Extraction" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000002</type>
+</environmentvariabledefinition>

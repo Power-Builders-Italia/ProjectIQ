@@ -5,7 +5,7 @@
   <PluginTypeId>c315c1e8-fdcf-f111-a05b-7ced8d2d53e4</PluginTypeId>
   <PrimaryEntity>op365_supplierinvoice</PrimaryEntity>
   <AsyncAutoDelete>0</AsyncAutoDelete>
-  <FilteringAttributes>statuscode,statecode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_invoicenumber,op365_invoicedate,op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber</FilteringAttributes>
+  <FilteringAttributes>statuscode,statecode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_invoicenumber,op365_invoicedate,op365_documenttype,op365_taxableamount,op365_vatamount,op365_totalamount,op365_sellername,op365_sellervatnumber,op365_duedate,op365_paymentstatus,op365_paidamount,op365_paidon,op365_paymentreference,op365_suppliernote,op365_orderrefs,op365_deliverynoterefs</FilteringAttributes>
   <ImpersonatingUserIdName></ImpersonatingUserIdName>
   <InvocationSource>1</InvocationSource>
   <Mode>0</Mode>
@@ -18,8 +18,8 @@
   <IntroducedVersion>1.0.4.0</IntroducedVersion>
   <SdkMessageProcessingStepImages>
     <SdkMessageProcessingStepImage Name="PreImage">
-      <SdkMessageProcessingStepImageId>{34fb06fb-fdcf-f111-a05b-7ced8d2d53e4}</SdkMessageProcessingStepImageId>
-      <Attributes>statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber</Attributes>
+      <SdkMessageProcessingStepImageId>{4c806a10-01d7-f111-84e8-7ced8d2d53e4}</SdkMessageProcessingStepImageId>
+      <Attributes>statuscode,op365_supplierid,op365_purchaseorderid,op365_projectid,op365_sellername,op365_sellervatnumber,op365_extractionstatus,op365_totalamount,op365_paymentstatus,op365_paidamount,op365_paidon</Attributes>
       <EntityAlias>PreImage</EntityAlias>
       <ImageType>0</ImageType>
       <MessagePropertyName>Target</MessagePropertyName>

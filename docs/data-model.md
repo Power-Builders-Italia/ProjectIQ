@@ -193,7 +193,7 @@ erDiagram
 | `op365_purchaseorder` | PO-##### | Supplier, delivery place, total, received, supplier confirmed. Status: Draft, Sent, Confirmed, Received, Cancelled |
 | `op365_purchaseorderline` | – | Item, WBS node, quantity, price, amount, received quantity |
 | `op365_goodsreceipt` (+ lines) | GR-##### | Delivery note number and date; each line creates the material usage on the project (actual cost) |
-| `op365_supplierinvoice` (+ lines) | INV-##### | Passive invoice container (manual XML/PDF, SDI later). Status: To Review, Approved, Rejected |
+| `op365_supplierinvoice` (+ lines) | INV-##### | Passive invoice container (uploaded on the supplier portal and read from FatturaPA XML or by AI Builder, or recorded by hand; SDI later). Status: Draft, To Review, Approved, Rejected. Extraction Status (Pending, Ready, To Check, Blocked) and Payment Status (Not Paid, Scheduled, Partially Paid, Paid) |
 | Account, Item, Project (+) | – | Supplier spend and contact count; item usage count and spend; project committed cost |
 | `op365_projectsupplier` | – | Supplier working on a project (`tools/dataverse/project_suppliers.py`): Project (parental), Supplier, Role, Can Update Progress (read-only, filled on read). Status: Active, Invited. Key Project + Supplier. N:N `op365_projectsupplier_wbsnode` = the WBS nodes the supplier sees on the portal (a node always brings its branch) |
 

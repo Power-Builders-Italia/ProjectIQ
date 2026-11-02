@@ -235,6 +235,108 @@
                     </row>
                   </rows>
                 </section>
+                <section name="supplier_portal" showlabel="true" showbar="false" columns="1" id="{b365661f-98fb-5171-8d6e-9caa72894234}">
+                  <labels>
+                    <label description="Supplier Portal" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{655a01ca-d84c-5606-a79d-40c69e576425}">
+                        <labels>
+                          <label description="From Supplier Portal" languagecode="1033" />
+                        </labels>
+                        <control id="op365_fromportal" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_fromportal" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bf7aa814-d556-5493-82de-5047fcc656fc}">
+                        <labels>
+                          <label description="Extraction Status" languagecode="1033" />
+                        </labels>
+                        <control id="op365_extractionstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_extractionstatus" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3b4d141b-62af-5b8b-bb8e-21c8b336e5bb}">
+                        <labels>
+                          <label description="Extraction Source" languagecode="1033" />
+                        </labels>
+                        <control id="op365_extractionsource" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_extractionsource" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{894d5dc4-1264-5202-9ad1-687fcc17ff39}">
+                        <labels>
+                          <label description="Fields to Check" languagecode="1033" />
+                        </labels>
+                        <control id="op365_checkfields" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_checkfields" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8277282a-efaa-5fd5-bea7-ac3680e1b603}">
+                        <labels>
+                          <label description="Extraction Notes" languagecode="1033" />
+                        </labels>
+                        <control id="op365_extractionnotes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_extractionnotes" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{91f8cabe-8980-518c-a42d-4881b1dd7ba3}">
+                        <labels>
+                          <label description="Supplier Note" languagecode="1033" />
+                        </labels>
+                        <control id="op365_suppliernote" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_suppliernote" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="payment" showlabel="true" showbar="false" columns="1" id="{b10903d3-c522-5e64-a72d-d70144a2cbda}">
+                  <labels>
+                    <label description="Payment" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4cbcc0e2-f92a-56c9-b761-fbdbd1f04e00}">
+                        <labels>
+                          <label description="Due Date" languagecode="1033" />
+                        </labels>
+                        <control id="op365_duedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_duedate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d71e5f73-6f4d-5b8f-9625-732c6202c5ce}">
+                        <labels>
+                          <label description="Payment Status" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paymentstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_paymentstatus" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b67aa65b-4350-5b56-9359-a2d75e90652d}">
+                        <labels>
+                          <label description="Paid Amount" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paidamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_paidamount" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{366f6050-3b7f-5bb3-9dd1-fcbe7b5db5e3}">
+                        <labels>
+                          <label description="Paid On" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paidon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_paidon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2e9514b0-89be-5ba1-b886-af1c933e1a24}">
+                        <labels>
+                          <label description="Payment Reference" languagecode="1033" />
+                        </labels>
+                        <control id="op365_paymentreference" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_paymentreference" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section name="references" showlabel="true" showbar="false" columns="1" id="{c6b57d4f-6d21-583f-9df1-7979fc3abd48}">
                   <labels>
                     <label description="Referenzen" languagecode="1031" />

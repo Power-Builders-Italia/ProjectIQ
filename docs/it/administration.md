@@ -109,6 +109,7 @@ Per cambiare un valore:
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | I modelli ProjectIQ | Modello email (tipo Account) di ogni messaggio ai fornitori, per **Language** del fornitore: `{"DocumentExpiring": {"Italian": "<titolo modello>", "English": "<titolo modello>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` è la lingua usata quando il fornitore non ne ha una o non esiste il modello |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Vuoto | Nome o indirizzo email della **coda** (casella con sincronizzazione lato server) che invia le email ai fornitori. Vuoto = nessuna email |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: sul portale fornitori i fornitori possono aggiornare l'avanzamento % delle attività WBS del loro perimetro (solo attività senza sotto-attività). No: lo vedono soltanto. Vedi [Portale fornitori](supplier-portal.md#fornitori-di-commessa-e-perimetro-wbs) |
+| `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes: le fatture PDF e immagine caricate sul portale fornitori vengono lette dal modello predefinito di elaborazione fatture di AI Builder, che consuma crediti AI Builder (circa 32 per pagina). No: vengono letti solo i file XML FatturaPA; per gli altri i fornitori digitano i dati. Vedi [Acquisti](purchasing.md#lettura-del-file) |
 
 Il Purchasing Approver è un nome utente e non una lookup perché gli id degli utenti cambiano in ogni ambiente. Le richieste già inviate mantengono il livello di approvazione assegnato.
 
@@ -158,6 +159,7 @@ Per inviare le email:
 | Costo orario della risorsa | A ogni modifica di un Resource Cost |
 | Notifiche in-app | All'invio e alla decisione di ore e richieste d'acquisto, e dal promemoria giornaliero |
 | Accesso al team di progetto | A ogni modifica di un membro del progetto |
+| Lettura delle fatture fornitore (XML FatturaPA o AI Builder) e relativi controlli | In background, pochi secondi dopo che un fornitore carica una fattura o ne modifica numero, data o ordine |
 
 ### Notifiche
 

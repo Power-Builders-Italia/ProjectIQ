@@ -301,31 +301,81 @@ Sur une réception enregistrée, seules les données du **bon de livraison** et 
 
 ## 5. Factures fournisseurs
 
-Une facture fournisseur est un **conteneur** pour une facture d'achat : elle contient les données de la facture, ses lignes, le fichier XML ou PDF, le lien vers la commande et la décision d'approbation. (L'import automatique depuis le système d'échange italien SDI est prévu dans une version ultérieure ; aujourd'hui, le fichier est joint à la main.)
+Une facture fournisseur est un **conteneur** pour une facture d'achat : elle contient les données de la facture, ses lignes, le fichier XML ou PDF, le lien vers la commande, la décision d'approbation et le paiement. Les factures arrivent de deux façons : le **fournisseur les dépose sur le [portail fournisseurs](supplier-portal.md#factures)**, où le fichier est lu automatiquement, ou le personnel administratif les saisit à la main. (L'import automatique depuis le système d'échange italien SDI est prévu dans une version ultérieure.)
+
+```mermaid
+flowchart LR
+    U[Le fournisseur dépose XML/PDF<br/>sur le portail] --> D[Draft<br/>lecture du fichier]
+    D --> C{Contrôles}
+    C -->|Ready / To Check| S[Le fournisseur l'envoie]
+    C -->|Blocked : doublon| X[Le fournisseur la supprime]
+    M[Personnel : + New] --> R
+    S --> R[To Review]
+    R -->|Approve| A[Approved]
+    R -->|Reject| J[Rejected]
+    A --> P[Scheduled → Paid]
+```
 
 ### Enregistrer une facture
 
 1. **Purchasing → Supplier Invoices → + New** (ou l'onglet **Invoices** de la commande, pour que la commande soit préremplie).
 2. Renseignez **Supplier**, **Document Type** (types FatturaPA : TD01 Invoice = facture, TD02 Advance invoice = acompte, TD04 Credit note = avoir, TD05 Debit note = note de débit, TD06 Fee note = note d'honoraires, TD24 Deferred invoice = facture différée, TD25 Deferred invoice (triangular) = facture différée triangulaire), **Invoice Number**, **Invoice Date**, **Purchase Order**.
 3. **Seller Name** et **Seller VAT Number** sont repris du fournisseur ; le **Project** de la commande.
-4. Joignez le XML (FatturaPA) ou le PDF dans **Invoice File**.
+4. Joignez le XML (FatturaPA) ou le PDF dans **Invoice File**. Tant que la facture est To Review, mettez **Extract Requested** à Yes et enregistrez pour faire lire le fichier comme décrit ci-dessous (cela remplace les lignes).
 5. Renseignez éventuellement **Order References** et **Delivery Note References** tels qu'ils figurent sur la facture.
 6. Ajoutez les **Lines** : Line Number, Code, Description, Quantity, Unit, Unit Price, Total Price (= quantité × prix unitaire si vide), VAT Rate % (taux de TVA) et éventuellement l'**Order Line** concernée.
 7. **Taxable Amount** (HT), **VAT Amount** (TVA) et **Total Amount** sont calculés à partir des lignes.
 
-Les nouvelles factures démarrent en **To Review**.
+Les nouvelles factures saisies dans l'application démarrent en **To Review**.
+
+### Lecture du fichier
+
+Quand un fournisseur dépose une facture sur le portail, ProjectIQ crée une facture **Draft** et lit le fichier en arrière-plan (quelques secondes) :
+
+| Fichier | Comment il est lu | Extraction Source |
+|---|---|---|
+| XML FatturaPA, même signé (`.xml.p7m`) | Toutes les valeurs de la facture électronique : numéro, date, type de document, vendeur, numéro de TVA, références de commande et de bon de livraison, lignes avec taux de TVA, HT, TVA, total, échéance | **FatturaPA XML** |
+| PDF ou image (JPG, PNG, TIFF) | Le modèle prédéfini de **traitement des factures** d'AI Builder, avec un niveau de confiance pour chaque valeur | **AI Builder** |
+| Tout autre fichier, ou IA désactivée | Rien : le fournisseur saisit les données | **Manual** |
+
+Ensuite les contrôles s'exécutent et fixent l'**Extraction Status** :
+
+| Extraction Status | Quand |
+|---|---|
+| **Pending** | Le fichier est en cours de lecture, ou un numéro, une date ou une commande modifiés sont recontrôlés |
+| **Ready** | Tous les contrôles sont passés |
+| **To Check** | Une valeur a été lue avec une confiance faible (moins de 80 %) ou manque, aucune ou plusieurs commandes correspondent aux références, le HT diffère de la commande, une ligne n'est pas dans la commande ou a un autre montant, les lignes ne totalisent pas le HT, ou le numéro de TVA de la facture n'est pas celui du fournisseur |
+| **Blocked** | Une autre facture du fournisseur avec le même numéro la même année existe (non rejetée) : c'est un doublon, elle ne peut pas être envoyée |
+
+La commande est trouvée à partir des références de la facture (`PO-00031`, `PO00031` ou simplement `31`) parmi les commandes envoyées, confirmées et reçues du fournisseur ; chaque ligne est rapprochée d'une ligne de commande par description ou montant (**Order Line**). **Extraction Notes** liste ce qu'il faut vérifier et **Fields to Check** les colonnes concernées ; le fournisseur voit les mêmes notes et peut ajouter une **Supplier Note** pour vous. Le fournisseur corrige numéro, dates et commande, puis envoie la facture : elle passe en **To Review** et devient verrouillée pour lui. La section **Supplier Portal** du formulaire montre tout cela ; les brouillons sont dans la vue **Supplier Invoice Drafts** et sont exclus des autres vues.
+
+> La lecture des PDF avec AI Builder consomme des crédits AI Builder de l'environnement (environ 32 par page). Un administrateur peut la désactiver avec **Invoice AI Extraction** ([Administration](administration.md#paramètres-de-lentreprise)) ; les fichiers XML sont toujours lus.
 
 ### Approuver
 
-Le Purchasing Approver (ou un administrateur) contrôle la facture par rapport à la commande et aux réceptions, puis clique sur **Approve** ou **Reject** (motif obligatoire). Les factures décidées — et leurs lignes — sont verrouillées.
+Le Purchasing Approver (ou un administrateur) contrôle la facture par rapport à la commande et aux réceptions, puis clique sur **Approve** ou **Reject** (motif obligatoire). Les factures décidées — et leurs lignes — sont verrouillées ; sur les factures approuvées, seul le paiement peut changer.
 
 | Statut | Signification |
 |---|---|
+| **Draft** | Déposée sur le portail, pas encore envoyée par le fournisseur |
 | **To Review** | À contrôler ; données et lignes modifiables |
 | **Approved** | Acceptée pour paiement |
 | **Rejected** | Contestée ; le motif figure dans *Decision Note* |
 
-Vues : **Invoices to Review**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**.
+### Payer
+
+La section **Payment** d'une facture approuvée indique au fournisseur où en est le paiement ; elle est affichée sur le portail :
+
+| Champ | Contenu |
+|---|---|
+| **Due Date** | Reprise du fichier si présente ; modifiable |
+| **Payment Status** | **Not Paid**, **Scheduled** (planifié), **Partially Paid**, **Paid**. Autre que Not Paid uniquement sur les factures approuvées |
+| **Paid Amount** / **Paid On** | Remplis avec le total et la date du jour quand vous choisissez Paid et qu'ils sont vides |
+| **Payment Reference** | La référence du virement (CRO/TRN) |
+
+La comptabilité met à jour ces champs à la main (ou une intégration avec la comptabilité le fait). La vue **Invoices to Pay** liste les factures approuvées pas encore payées, par échéance.
+
+Vues : **All Supplier Invoices**, **Invoices to Review**, **Invoices to Pay**, **Approved Invoices**, **Rejected Invoices**, **Supplier Invoices by Order**, **Supplier Invoice Drafts**.
 
 > Les utilisateurs standard (OP365 User) peuvent lire les factures fournisseurs mais pas les créer ni les modifier : elles sont gérées par le personnel administratif disposant du rôle OP365 Administrator.
 
@@ -351,7 +401,7 @@ Cliquez sur un segment de graphique pour filtrer, ou ouvrez la liste pour voir l
 | Appels d'offres | All, Open, Awarded |
 | Commandes | All, Open, Confirmed, Received, By Project, By Supplier |
 | Réceptions | All, By Order |
-| Factures fournisseurs | All, To Review, Approved, Rejected, By Order |
+| Factures fournisseurs | All, To Review, To Pay, Approved, Rejected, By Order, Drafts |
 
 ## Messages possibles
 
@@ -381,5 +431,8 @@ Cliquez sur un segment de graphique pour filtrer, ou ouvrez la liste pour voir l
 | « <line>: only N still to receive. » / « Nothing to receive. » | Vérifiez les quantités dans la boîte de dialogue |
 | « Received quantities come from goods receipts. » | Ne saisissez pas les quantités reçues à la main |
 | « Use Register Receipt on the purchase order to receive goods, and Cancel Receipt to undo a receipt. » | Les réceptions ne se gèrent qu'avec les boutons |
-| « Approved or rejected invoices cannot be changed. » | Les factures décidées sont définitives |
+| « Approved or rejected invoices cannot be changed. » | Les factures décidées sont définitives ; sur les factures approuvées seuls les champs de paiement peuvent changer |
+| « Only approved invoices can be scheduled or paid. » | Approuvez la facture avant de renseigner Payment Status |
+| « Sent invoices cannot be changed. » / « Only draft invoices can be deleted. » | Depuis le portail, seuls les brouillons peuvent être modifiés ou supprimés |
+| « The invoice cannot be sent while it is being read or when it is a duplicate. » | Attendez la fin de la lecture, ou supprimez le doublon |
 | « Only the purchasing approver or an administrator can decide supplier invoices. » | Demandez à l'approbateur achats |
