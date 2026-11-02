@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{9b1117e6-cad6-f111-84e8-7ced8d2d53e4}</formid>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{7078c8ac-f722-543b-be7c-8833cc5be642}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Allgemein" languagecode="1031" />
+            <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="project_supplier" showlabel="true" showbar="false" columns="2" id="{fca015fb-ec93-5ec8-816e-f3721ccd6906}">
+                  <labels>
+                    <label description="Projektlieferant" languagecode="1031" />
+                    <label description="Project Supplier" languagecode="1033" />
+                    <label description="Fournisseur du projet" languagecode="1036" />
+                    <label description="Fornitore di commessa" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7de26598-f221-595f-a2de-1c4124280282}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" />
+                      </cell>
+                      <cell id="{f1ac57a9-cbda-5cd2-be47-4fcb7d162c95}">
+                        <labels>
+                          <label description="Supplier" languagecode="1033" />
+                          <label description="Produttore" languagecode="1040" />
+                          <label description="Lieferant" languagecode="1031" />
+                          <label description="Fournisseur" languagecode="1036" />
+                        </labels>
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0c0a450d-5327-556f-b1e1-0b3437d16fb3}">
+                        <labels>
+                          <label description="Role" languagecode="1033" />
+                          <label description="Ruolo" languagecode="1040" />
+                          <label description="Rolle" languagecode="1031" />
+                          <label description="Rôle" languagecode="1036" />
+                        </labels>
+                        <control id="op365_role" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_role" />
+                      </cell>
+                      <cell id="{23b72bd4-8450-5f7d-bd7c-8b59aa92f7e7}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="wbs_scope" showlabel="true" showbar="false" columns="1" id="{d9c1207b-7b2b-5689-9a82-3ec1449cf091}">
+                  <labels>
+                    <label description="PSP-Umfang" languagecode="1031" />
+                    <label description="WBS Scope" languagecode="1033" />
+                    <label description="Périmètre WBS" languagecode="1036" />
+                    <label description="Perimetro WBS" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ea55344e-60f8-5fa5-bd05-b9156ccbb162}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="WBS Scope" languagecode="1033" />
+                          <label description="Perimetro WBS" languagecode="1040" />
+                          <label description="PSP-Umfang" languagecode="1031" />
+                          <label description="Périmètre WBS" languagecode="1036" />
+                        </labels>
+                        <control id="wbs_scope" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{5a26f37e-c44e-4312-b702-0001a62a2b28}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_projectsupplier_wbsnode</RelationshipName>
+                            <TargetEntityType>op365_wbsnode</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Projektlieferant" languagecode="1031" />
+      <LocalizedName description="Project Supplier" languagecode="1033" />
+      <LocalizedName description="Fournisseur du projet" languagecode="1036" />
+      <LocalizedName description="Fornitore di commessa" languagecode="1040" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Lieferant eines Projekts und sein PSP-Umfang im Lieferantenportal (ProjectIQ)" languagecode="1031" />
+      <Description description="Supplier of a project and its WBS scope on the supplier portal (ProjectIQ)" languagecode="1033" />
+      <Description description="Fournisseur d'un projet et son périmètre WBS sur le portail fournisseurs (ProjectIQ)" languagecode="1036" />
+      <Description description="Fornitore di una commessa e il suo perimetro WBS sul portale fornitori (ProjectIQ)" languagecode="1040" />
+    </Descriptions>
+  </systemform>
+</forms>

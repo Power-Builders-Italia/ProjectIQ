@@ -14,7 +14,7 @@
   "feedbackpolicy": 756150000,
   "isofflinecached": false,
   "rootwebpageid": "227da786-ccd5-f111-84e8-7ced8d2d53e4",
-  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'projects' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / Projects&lt;/div&gt;\n  &lt;h1 class=\"op-h1\"&gt;Projects&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n&lt;p class=\"op-muted\"&gt;The projects of your purchase orders: progress of the project and of your deliveries.&lt;/p&gt;\n{% include 'OP365 Supplier Project Cards' limit: 1000 %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'projects' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / Projects&lt;/div&gt;\n  &lt;h1 class=\"op-h1\"&gt;Projects&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n&lt;p class=\"op-muted\"&gt;The projects your company works on: progress of the project and of your deliveries. Open a project to see the activities assigned to you.&lt;/p&gt;\n{% include 'OP365 Supplier Project Cards' limit: 1000 %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n"
 }</content>
   <iscustomizable>1</iscustomizable>
   <name>Projects</name>
@@ -35,7 +35,7 @@
 &lt;main class="op-main" id="op-main"&gt;
 &lt;div class="op-head"&gt;&lt;div&gt;&lt;div class="op-crumb"&gt;&lt;a href="/dashboard/"&gt;Dashboard&lt;/a&gt; / Projects&lt;/div&gt;
   &lt;h1 class="op-h1"&gt;Projects&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p class="op-muted"&gt;The projects of your purchase orders: progress of the project and of your deliveries.&lt;/p&gt;
+&lt;p class="op-muted"&gt;The projects your company works on: progress of the project and of your deliveries. Open a project to see the activities assigned to you.&lt;/p&gt;
 {% include 'OP365 Supplier Project Cards' limit: 1000 %}
 &lt;/main&gt;
 &lt;/div&gt;

@@ -41,6 +41,7 @@ Company-wide settings are environment variables of the solution, created by `too
 | `op365_PurchasingApprover` | Text (User Name or primary email) | – | Second-level approval of purchase requests, decision of supplier invoices |
 | `op365_SupplierEmailTemplates` | JSON: message → supplier Language → template title, plus `default` language | the templates of `supplier_email_templates.py` | Expiry e-mails to suppliers (`SupplierMailer`, `EmailTemplates.Pick`) |
 | `op365_SupplierEmailSender` | Text (queue name or e-mail address) | – | Sender of the e-mails to suppliers; empty = no e-mails |
+| `op365_SupplierProgressUpdates` | Yes/No | no | Supplier portal: yes lets suppliers update the progress % of the leaf WBS nodes of their scope (`WbsNodePortalGuard`); stamped on read into Project Supplier *Can Update Progress* (`ProjectSupplierFlags`) |
 
 Supplier documents (`tools/dataverse/supplier_documents.py`): a document created in the app is Approved, one created by the portal (calling user `# Portals-<site>`) is Pending Review. `SupplierDocumentValidate` blocks hand-made status changes and portal changes to approved documents (a portal change to a rejected one sends it back to Pending Review), `SupplierDocumentDelete` blocks portal deletes of approved documents, `SupplierDocumentAlerts` keeps ExpiryStatus (an approved renewal of the same type replaces the older document) and the account counters ExpiredDocs/ExpiringDocs (approved documents only) and notifies the account owner of a document to review. Custom APIs: `op365_DecideSupplierDocument` (bound; Approve, Note required to reject) and `op365_UpdateDocumentExpiry` (unbound; outputs Count and Sent), called every day at 06:00 by the **Daily document expiry** flow: it refreshes the statuses and sends each approved document's Expiring and Expired e-mails once (Account e-mail template instantiated for the account, regarding the document, sent from the queue; Expiry Notice records it and is cleared when the expiry date changes).
 
@@ -177,6 +178,9 @@ erDiagram
     op365_purchaseorder |o--o{ op365_supplierinvoice : invoices
     op365_supplierinvoice ||--o{ op365_supplierinvoiceline : lines
     account ||--o{ op365_purchaseorder : supplier
+    op365_project ||--o{ op365_projectsupplier : "parental"
+    account ||--o{ op365_projectsupplier : "supplier (restrict)"
+    op365_projectsupplier }o--o{ op365_wbsnode : "WBS scope (N:N)"
 ```
 
 | Table | Number | Notes |
@@ -191,6 +195,7 @@ erDiagram
 | `op365_goodsreceipt` (+ lines) | GR-##### | Delivery note number and date; each line creates the material usage on the project (actual cost) |
 | `op365_supplierinvoice` (+ lines) | INV-##### | Passive invoice container (manual XML/PDF, SDI later). Status: To Review, Approved, Rejected |
 | Account, Item, Project (+) | – | Supplier spend and contact count; item usage count and spend; project committed cost |
+| `op365_projectsupplier` | – | Supplier working on a project (`tools/dataverse/project_suppliers.py`): Project (parental), Supplier, Role, Can Update Progress (read-only, filled on read). Status: Active, Invited. Key Project + Supplier. N:N `op365_projectsupplier_wbsnode` = the WBS nodes the supplier sees on the portal (a node always brings its branch) |
 
 ```mermaid
 stateDiagram-v2
@@ -226,6 +231,8 @@ Committed cost of a project = open order amounts not yet received; actual cost c
 | `op365_SendTimeReminders` | Daily reminder to resources with missing hours (skips company closures); called by the **Daily time reminder** cloud flow |
 
 Validation plugins lock records outside their editable status and keep the totals (request, quote, order, invoice, project committed, supplier and item spend) in sync.
+
+Project suppliers (`ProjectSuppliers.cs`): `RfqInvitationProjectSupplier` (an invitation that becomes Invited creates the project supplier as Invited), `PurchaseOrderProjectSupplier` (an order that becomes Sent, Confirmed or Received makes it Active and adds the WBS nodes of its lines; cancelling keeps it), `ProjectSupplierScope` (Associate of the N:N, registered on all tables: adds the descendants of the added nodes), `WbsNodeSupplierScope` (a node created or moved under a scope node joins that scope), `ProjectSupplierName` (Name = Project - Supplier), `ProjectSupplierFlags` (Retrieve/RetrieveMultiple: Can Update Progress = `op365_SupplierProgressUpdates`) and `WbsNodePortalGuard` (portal callers may change only the progress % of leaf nodes, 0–100, when the variable is yes). `tools/dataverse/backfill_project_suppliers.py` creates the rows of the orders and invitations sent before the table.
 
 ### Code component and commands (Phase 4)
 
@@ -308,6 +315,7 @@ python3 tools/dataverse/flows.py              # connection reference + Daily tim
 python3 tools/dataverse/app.py                  # also publishes (views are read back in their published state)
 python3 tools/dataverse/supplier_documents.py   # supplier document review and expiry columns, status reasons, views, form Review section
 python3 tools/dataverse/supplier_email_templates.py  # default e-mail templates for suppliers (environment data: run in every environment)
+python3 tools/dataverse/project_suppliers.py    # Project Supplier table + WBS scope N:N, form and subgrids (then plugins.py again)
 python3 tools/dataverse/settings_env.py         # company settings environment variables; removes the former op365_settings table
 python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugins, clean up after themselves
 python3 tools/dataverse/phase3_smoke.py

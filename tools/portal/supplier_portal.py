@@ -111,6 +111,13 @@ permission('Supplier purchase order lines', 'op365_purchaseorderline', PARENT,
 # read-only: the projects of the supplier's orders and the supplier's invoices
 permission('Supplier projects', 'op365_project', PARENT, relationship='op365_project_purchaseorder_projectid',
            parent='Supplier purchase orders')
+# projects the supplier is assigned to (Project Supplier rows of its account): header and the WBS nodes of its scope;
+# progress is writable, the plugin WbsNodePortalGuard allows only leaf nodes and only with Supplier Progress Updates = yes
+permission('Supplier project assignments', 'op365_projectsupplier', ACCOUNT, relationship='op365_account_projectsupplier_supplierid')
+permission('Supplier assigned projects', 'op365_project', PARENT, relationship='op365_project_projectsupplier_projectid',
+           parent='Supplier project assignments')
+permission('Supplier WBS scope', 'op365_wbsnode', PARENT, write=True, relationship='op365_projectsupplier_wbsnode',
+           parent='Supplier project assignments')
 permission('Supplier invoices', 'op365_supplierinvoice', ACCOUNT, relationship='op365_account_supplierinvoice_supplierid')
 # own company documents: upload, change and delete (the plugins refuse changes to approved documents);
 # Append/Append To on both sides (the site checks the account -> document association) let a new document be linked to
@@ -129,6 +136,8 @@ SETTINGS = {
     'Webapi/op365_rfqquote/fields': 'op365_price,op365_notes',
     'Webapi/op365_purchaseorder/enabled': 'true',
     'Webapi/op365_purchaseorder/fields': 'op365_supplierconfirmed',
+    'Webapi/op365_wbsnode/enabled': 'true',
+    'Webapi/op365_wbsnode/fields': 'op365_progresspct',
     # never statuscode or the review columns: the plugins set them
     'Webapi/op365_supplierdocument/enabled': 'true',
     'Webapi/op365_supplierdocument/fields': 'op365_documenttype,op365_description,op365_number,op365_issuedate,'
@@ -367,6 +376,7 @@ for name, source in ((ui.STYLE_NAME, ui.STYLE), (ui.NAV_NAME, ui.tokens(ui.NAV))
 dashboard = page('Dashboard', 'dashboard', ui.shell('dashboard', ui.tokens(ui.DASHBOARD)), order=1)
 projects = page('Projects', 'projects', ui.shell('projects', ui.tokens(ui.PROJECTS)), order=2)
 rfqs = page('Requests for quotation', 'rfqs', ui.shell('rfqs', ui.tokens(ui.RFQS)), order=3)
+page('Project', 'project', ui.shell('projects', ui.tokens(ui.PROJECT)), WEBAPI_JS + ui.PROJECT_JS, parent=projects, hidden=True)
 page('Quote', 'quote', ui.shell('rfqs', QUOTE), QUOTE_JS, parent=rfqs, hidden=True)
 orders = page('Purchase orders', 'orders', ui.shell('orders', ui.tokens(ui.ORDERS)), order=4)
 page('Order', 'order', ui.shell('orders', ORDER), ORDER_JS, parent=orders, hidden=True)

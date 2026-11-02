@@ -123,7 +123,7 @@ Jeder Kunde zeigt außerdem **Projects** (Anzahl) und **Contract Value Total** (
 | **Costs** | Die Kostenübersicht: Auftrag, Budget, Ist, Prognose bei Fertigstellung, Marge, Budget vs. Ist je PSP-Zweig | [Material und Kosten](materials-and-costs.md) |
 | **Time** | Zeiteinträge des Projekts | [Zeiterfassung](time-tracking.md) |
 | **Materials** | Materialverbräuche des Projekts | [Material und Kosten](materials-and-costs.md) |
-| **Purchasing** | Bedarfsanforderungen und Bestellungen des Projekts | [Einkauf](purchasing.md) |
+| **Purchasing** | Bedarfsanforderungen und Bestellungen des Projekts; die **Suppliers**, die daran arbeiten, mit den PSP-Aktivitäten, die sie im Lieferantenportal sehen | [Einkauf](purchasing.md), [Lieferantenportal](supplier-portal.md#projektlieferanten-und-psp-umfang) |
 | **Team** | Projektmitglieder und ihre Rollen | dieses Handbuch |
 
 Die Befehlsleiste des Projektformulars enthält außerdem **Save Baseline** (siehe [PSP und Planung](wbs-and-planning.md#basispläne)).

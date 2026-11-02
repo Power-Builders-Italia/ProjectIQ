@@ -123,7 +123,7 @@ Chaque client affiche aussi **Projects** (nombre) et **Contract Value Total** (s
 | **Costs** | La synthèse des coûts : contrat, budget, réel, estimation à terminaison, marge, budget vs réel par branche WBS | [Matériaux et coûts](materials-and-costs.md) |
 | **Time** | Saisies d'heures du projet | [Saisie des temps](time-tracking.md) |
 | **Materials** | Consommations de matériaux du projet | [Matériaux et coûts](materials-and-costs.md) |
-| **Purchasing** | Demandes d'achat et commandes du projet | [Achats](purchasing.md) |
+| **Purchasing** | Demandes d'achat et commandes du projet ; les **Suppliers** qui y travaillent, avec les activités WBS qu'ils voient sur le portail fournisseurs | [Achats](purchasing.md), [Portail fournisseurs](supplier-portal.md#fournisseurs-du-projet-et-périmètre-wbs) |
 | **Team** | Membres du projet et leurs rôles | ce manuel |
 
 La barre de commandes du formulaire projet propose aussi **Save Baseline** (voir [WBS et planification](wbs-and-planning.md#baselines)).

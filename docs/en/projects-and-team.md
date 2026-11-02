@@ -121,7 +121,7 @@ Each customer also shows **Projects** (count) and **Contract Value Total** (sum 
 | **Costs** | The cost summary: contract, budget, actual, estimate at completion, margin, budget vs actual by WBS branch | [Materials and costs](materials-and-costs.md) |
 | **Time** | Time entries of the project | [Time tracking](time-tracking.md) |
 | **Materials** | Material usage of the project | [Materials and costs](materials-and-costs.md) |
-| **Purchasing** | Purchase requests and purchase orders of the project | [Purchasing](purchasing.md) |
+| **Purchasing** | Purchase requests and purchase orders of the project; the **Suppliers** working on it, with the WBS activities they see on the supplier portal | [Purchasing](purchasing.md), [Supplier portal](supplier-portal.md#project-suppliers-and-wbs-scope) |
 | **Team** | Project members and their roles | this manual |
 
 The command bar of the project form also has **Save Baseline** (see [WBS and planning](wbs-and-planning.md#baselines)).

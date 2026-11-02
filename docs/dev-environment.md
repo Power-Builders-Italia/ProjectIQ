@@ -127,6 +127,11 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   project/RFQ/order/invoice cards with CSS-only status filters, documents grid and upload form) are in `tools/portal/portal_ui.py`; the shared parts are
   the web templates **OP365 Supplier Style**, **OP365 Supplier Nav** and **OP365 Supplier Project Cards**.
 - Read-only permissions cover the projects of the supplier's orders (Parent of *Supplier purchase orders*) and its supplier invoices (Account).
+  *Supplier project assignments* (`op365_projectsupplier`, Account scope via `op365_account_projectsupplier_supplierid`) drives the project
+  cards and the hidden page **Project** (`/projects/project/?id=<project supplier>`); its children are *Supplier assigned projects*
+  (`op365_project`, Parent via `op365_project_projectsupplier_projectid`, read) and *Supplier WBS scope* (`op365_wbsnode`, Parent via the N:N
+  `op365_projectsupplier_wbsnode`, read and write). `op365_wbsnode` is Web API enabled with the single field `op365_progresspct`; the plugin
+  `WbsNodePortalGuard` refuses portal writes unless `op365_SupplierProgressUpdates` is yes, the node has no children and only the progress changes.
   *Supplier company* (account table, Contact scope via `contact_customer_accounts`, i.e. the
   contact's Company Name) gives read, Append and Append To on the user's own account; *Supplier documents* is its child (Parent scope via
   `op365_account_supplierdocument_supplierid`) with read, write, create, delete, append and Append To, so that a new document can be linked
@@ -305,7 +310,8 @@ Before you start: Dev matches `main` (see above), and the secrets of the environ
    3. imports it into Test with *stage and upgrade* (components removed from the solution are deleted in Test), activates the plugin steps and applies `deployment/test.settings.json`: the `op365_dataverse` and `op365_sharepoint` connection references, the company settings and the SharePoint site and library ids come from the secrets of the environment `test` (an empty secret keeps the value in Test);
    4. does the same for `OpenProject365SupplierPortal`, after the main solution;
    5. runs `tools/dataverse/backfill_sharepoint_urls.py` in Test (data only, idempotent): approved supplier documents filed in SharePoint before the **SharePoint URL** column get the link to their SharePoint folder;
-   6. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
+   6. runs `tools/dataverse/backfill_project_suppliers.py` in Test (data only, idempotent): the suppliers of the orders already sent (Active, with the WBS nodes of the order lines) and of the open RFQ invitations (Invited) become **Project Suppliers**, so their projects stay on the supplier portal;
+   7. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
 4. After the run:
    - check in Test that the plugin steps are enabled (an interrupted import can leave them disabled);
    - clear the portal cache (`/_services/about` > *Clear cache*) and sign in again;

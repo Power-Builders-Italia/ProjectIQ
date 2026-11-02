@@ -8,7 +8,8 @@ Il **portale fornitori** è un sito web, realizzato con Microsoft Power Pages su
 - trova in una **dashboard** ciò che stai aspettando: RdO da quotare, ordini da confermare, documenti da rinnovare;
 - vede le **richieste d'offerta** (RdO) che gli hai inviato, inserisce **prezzi unitari**, **giorni di consegna** e **note**, e invia l'offerta — oppure rinuncia;
 - vede gli **ordini d'acquisto** che gli hai inviato, con righe e importi, e li **conferma**;
-- vede quanto di ogni ordine è già stato **ricevuto**, le **commesse** dei suoi ordini e lo stato delle sue **fatture**;
+- vede quanto di ogni ordine è già stato **ricevuto** e lo stato delle sue **fatture**;
+- vede le **commesse** su cui lavora, con le attività del piano (WBS) assegnate a lui e, se lo consenti, ne aggiorna l'**avanzamento**;
 - carica i suoi **documenti aziendali** (DURC, certificazioni, assicurazioni), che il tuo buyer approva, e viene avvisato quando scadono.
 
 Tutto ciò che il fornitore fa è subito visibile in ProjectIQ: le offerte compaiono nel Quote Comparison della RdO, le conferme cambiano lo stato dell'ordine, i documenti caricati attendono la tua revisione.
@@ -62,7 +63,13 @@ La **Dashboard** è la pagina iniziale:
 
 ### Commesse
 
-**Projects** mostra una scheda per ogni commessa dei tuoi ordini d'acquisto: codice e nome, **Project progress** (avanzamento della commessa), **Your deliveries** (la quota del tuo importo ordinato già ricevuta), il numero di **Orders**, l'importo **Ordered** e la **End date** della commessa. Una commessa con un ordine da confermare ha il bordo arancione. **See orders** apre gli ordini d'acquisto.
+**Projects** mostra una scheda per ogni commessa che il cliente ha assegnato alla tua azienda: codice e nome (con il tuo **ruolo**, se indicato), **Project progress** (avanzamento della commessa), **Your deliveries** (la quota del tuo importo ordinato già ricevuta, solo se hai ordini), **Start date**, **End date** e il numero di **Orders**. Una commessa compare quando il cliente ti invita a una richiesta d'offerta (badge **Invited**), ti invia un ordine d'acquisto o ti aggiunge alla commessa. Una commessa con un ordine da confermare ha il bordo arancione.
+
+**Open project** mostra l'intestazione della commessa (codice, data inizio e fine, avanzamento) e, sotto **Your work**, le attività del piano assegnate alla tua azienda: **Code**, **Activity**, **Start**, **End** e **Progress**. Budget e costi non sono mai mostrati.
+
+### Aggiornare l'avanzamento delle tue attività
+
+Se il cliente lo consente, il **Progress** di ogni attività senza sotto-attività è una casella con **Save**: scrivi la percentuale (0–100) e clicca **Save**. L'avanzamento delle attività di riepilogo (in grassetto) e della commessa è calcolato da queste, quindi non si può scrivere. Se il cliente non lo consente, vedi solo le barre di avanzamento.
 
 ### Rispondere a una richiesta d'offerta
 
@@ -125,7 +132,7 @@ Ricevi un'email quando un documento approvato sta per scadere (30 giorni prima) 
 
 ### Errori
 
-Se un'azione non riesce, un messaggio rosso spiega il motivo. Casi comuni: "Session expired: sign in again." (accedi di nuovo e ripeti), "The deadline of the request for quotation has passed." (contatta il buyer per una proroga), "The request for quotation is closed." (è stata aggiudicata o annullata), "Approved documents cannot be changed." o "Approved documents cannot be deleted." (carica invece un nuovo documento), "Choose the file of the document." (un nuovo documento richiede il suo file).
+Se un'azione non riesce, un messaggio rosso spiega il motivo. Casi comuni: "Session expired: sign in again." (accedi di nuovo e ripeti), "The deadline of the request for quotation has passed." (contatta il buyer per una proroga), "The request for quotation is closed." (è stata aggiudicata o annullata), "Approved documents cannot be changed." o "Approved documents cannot be deleted." (carica invece un nuovo documento), "Choose the file of the document." (un nuovo documento richiede il suo file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (il cliente li ha disattivati).
 
 ## Parte 2 — Guida per il personale interno
 
@@ -139,11 +146,33 @@ Il portale è volutamente ristretto. I fornitori possono leggere solo i propri r
 | Righe d'offerta di quegli inviti | Articolo, quantità, unità, prezzo, note | **Unit price**, **notes** |
 | Ordini d'acquisto della sua azienda (Sent, Confirmed, Received) | Testata e importi | **Supplier confirmed** (che conferma l'ordine) |
 | Righe di quegli ordini | Articolo, quantità, prezzo, importo, quantità ricevuta | Nulla |
-| Commesse di quegli ordini | Codice, nome, avanzamento, data fine | Nulla |
+| Fornitori di commessa della sua azienda (Active e Invited) | Commessa, ruolo, stato | Nulla |
+| Commesse di quei fornitori di commessa e dei suoi ordini | Codice, nome, data inizio e fine, avanzamento | Nulla |
+| Nodi WBS del suo perimetro | Codice, nome, data inizio e fine, avanzamento | **Progress %** dei nodi senza nodi figli, solo se **Supplier Progress Updates** è Yes |
 | Fatture fornitore della sua azienda | Numero, date, importo, stato, nota della decisione | Nulla |
 | Documenti fornitore della sua azienda | Tutti i campi, compresa la nota di revisione | Tipo, descrizione, numero, date, note, file; può crearli ed eliminarli, solo finché il documento non è approvato |
 
-Ordini in bozza o annullati e RdO non ancora inviate non vengono mai mostrati. I prezzi degli altri fornitori non sono mai visibili.
+Ordini in bozza o annullati e RdO non ancora inviate non vengono mai mostrati. I prezzi degli altri fornitori, i budget e i costi non sono mai visibili.
+
+### Fornitori di commessa e perimetro WBS
+
+Un **Project Supplier** (fornitore di commessa) indica che un fornitore lavora su una commessa e quali attività della WBS vede sul portale (il suo **WBS Scope**). Li trovi nell'elenco **Suppliers** della commessa (scheda Purchasing) e nell'elenco **Projects** dell'account fornitore.
+
+```mermaid
+flowchart LR
+    I[RFQ Send: invitation Invited] -->|creates| PS[Project Supplier<br/>status Invited]
+    O[Send to Supplier] -->|creates or activates| PS2[Project Supplier<br/>status Active]
+    O -->|adds| W[WBS nodes of the order lines<br/>with their branches]
+    M[+ New Project Supplier<br/>by hand] --> PS2
+    PS2 --> P[Portal: project card<br/>+ Your work]
+    PS --> P
+```
+
+- **Send** su una RdO rende ogni fornitore invitato un fornitore di commessa **Invited** (se non c'è già).
+- **Send to Supplier** su un ordine rende il fornitore **Active** e aggiunge al suo WBS Scope i nodi WBS delle righe dell'ordine. Se poi l'ordine viene annullato, il fornitore di commessa e il suo perimetro restano.
+- Puoi aggiungere un fornitore di commessa a mano dall'elenco **Suppliers** della commessa (**Project**, **Supplier**, **Role**) e aggiungere nodi WBS nel suo elenco **WBS Scope** (**Add Existing WBS Node**). Un nodo porta sempre con sé tutte le sue sotto-attività, anche quelle create dopo.
+- Per nascondere attività, rimuovile dal WBS Scope (rimuovere un nodo non rimuove le sue sotto-attività: rimuovi anche quelle), oppure disattiva il fornitore di commessa per nascondere l'intera commessa.
+- Se i fornitori possono aggiornare l'avanzamento è un'impostazione aziendale, **Supplier Progress Updates** ([Amministrazione](administration.md#impostazioni-aziendali)); il valore predefinito è No. *Can Update Progress* sul fornitore di commessa mostra il valore attuale.
 
 ### Dare accesso a un fornitore
 
@@ -181,7 +210,7 @@ Un documento caricato sul portale è **Pending Review** e il proprietario dell'a
 
 - Una RdO compare sul portale solo dopo **Send**; un ordine solo dopo **Send to Supplier**.
 - Nessuna delle due azioni invia da sola un'email: avvisa il fornitore che c'è una nuova RdO o un nuovo ordine (con la tua email abituale, o con un'automazione che l'amministratore può aggiungere).
-- Se riporti un ordine **Back to Draft**, sparisce dal portale finché non lo invii di nuovo.
+- Se riporti un ordine **Back to Draft**, sparisce dal portale finché non lo invii di nuovo (la commessa resta, tramite il fornitore di commessa).
 - Dopo la scadenza il fornitore non può più modificare l'offerta: proroga la **Deadline** e clicca di nuovo **Send** se vuoi altre risposte.
 
 ### Per gli amministratori

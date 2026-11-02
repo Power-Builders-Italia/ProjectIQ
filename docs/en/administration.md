@@ -106,6 +106,7 @@ To change a value:
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Empty | **User Name** (e.g. `anna.rossi@contoso.com`) or primary email of the user who approves requests above the threshold and decides supplier invoices. Empty, or no enabled user with that name = every OP365 Administrator |
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | The ProjectIQ templates | E-mail template (Account type) of each message to suppliers, by supplier **Language**: `{"DocumentExpiring": {"Italian": "<template title>", "English": "<template title>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` is the language used when the supplier has none or it has no template |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Empty | Name or e-mail address of the **queue** (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails |
+| `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: on the supplier portal suppliers can update the progress % of the WBS activities of their scope (activities without sub-activities only). No: they only see it. See [Supplier portal](supplier-portal.md#project-suppliers-and-wbs-scope) |
 
 The Purchasing Approver is a user name and not a lookup because user ids differ in every environment. Requests already submitted keep the approval level they were given.
 

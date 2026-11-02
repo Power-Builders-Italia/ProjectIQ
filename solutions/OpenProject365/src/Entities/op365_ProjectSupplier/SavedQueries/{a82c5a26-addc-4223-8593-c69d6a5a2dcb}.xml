@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{a82c5a26-addc-4223-8593-c69d6a5a2dcb}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+        <row name="result" id="op365_projectsupplierid">
+          <cell name="op365_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_projectsupplier">
+          <attribute name="op365_projectsupplierid" />
+          <attribute name="op365_name" />
+          <attribute name="createdon" />
+          <order attribute="op365_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="op365_name" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Schnellsuche für aktive Project Suppliers" languagecode="1031" />
+      <LocalizedName description="Quick Find Active Project Suppliers" languagecode="1033" />
+      <LocalizedName description="Éléments Project Suppliers actifs Quick Find" languagecode="1036" />
+      <LocalizedName description="Ricerca rapida Project Suppliers attivi/e" languagecode="1040" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

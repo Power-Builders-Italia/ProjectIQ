@@ -32,6 +32,29 @@ namespace OpenProject365.Plugins
         }
     }
 
+    /// <summary>WBS scope of a project supplier: a selected node brings its whole branch.</summary>
+    public static class WbsScope
+    {
+        /// <summary>The selected nodes and all their descendants (nodes of other projects are ignored).</summary>
+        public static HashSet<Guid> Expand(IList<WbsRow> rows, IEnumerable<Guid> selected)
+        {
+            var children = rows.Where(r => r.ParentId.HasValue).ToLookup(r => r.ParentId.Value, r => r.Id);
+            var known = new HashSet<Guid>(rows.Select(r => r.Id));
+            var result = new HashSet<Guid>();
+            var stack = new Stack<Guid>(selected.Where(known.Contains));
+            while (stack.Count > 0)
+            {
+                var id = stack.Pop();
+                if (!result.Add(id)) continue;
+                foreach (var child in children[id]) stack.Push(child);
+            }
+            return result;
+        }
+
+        /// <summary>True when no node has this one as parent (only leaf progress is entered, the rest is calculated).</summary>
+        public static bool IsLeaf(IList<WbsRow> rows, Guid id) => !rows.Any(r => r.ParentId == id);
+    }
+
     public static class DependencyGraph
     {
         /// <summary>True if <paramref name="to"/> can be reached from <paramref name="from"/> following predecessor → successor edges.</summary>

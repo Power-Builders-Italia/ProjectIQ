@@ -10,6 +10,7 @@
   <EntityRelationship Name="business_unit_op365_materialusage" />
   <EntityRelationship Name="business_unit_op365_project" />
   <EntityRelationship Name="business_unit_op365_projectmember" />
+  <EntityRelationship Name="business_unit_op365_projectsupplier" />
   <EntityRelationship Name="business_unit_op365_purchaseorder" />
   <EntityRelationship Name="business_unit_op365_purchaseorderline" />
   <EntityRelationship Name="business_unit_op365_purchaserequest" />
@@ -48,6 +49,8 @@
   <EntityRelationship Name="lk_op365_project_modifiedby" />
   <EntityRelationship Name="lk_op365_projectmember_createdby" />
   <EntityRelationship Name="lk_op365_projectmember_modifiedby" />
+  <EntityRelationship Name="lk_op365_projectsupplier_createdby" />
+  <EntityRelationship Name="lk_op365_projectsupplier_modifiedby" />
   <EntityRelationship Name="lk_op365_purchaseorder_createdby" />
   <EntityRelationship Name="lk_op365_purchaseorder_modifiedby" />
   <EntityRelationship Name="lk_op365_purchaseorderline_createdby" />
@@ -84,6 +87,7 @@
   <EntityRelationship Name="op365_account_itemsupplier_supplierid" />
   <EntityRelationship Name="op365_account_materialusage_supplierid" />
   <EntityRelationship Name="op365_account_project_customerid" />
+  <EntityRelationship Name="op365_account_projectsupplier_supplierid" />
   <EntityRelationship Name="op365_account_purchaseorder_supplierid" />
   <EntityRelationship Name="op365_account_purchaserequest_preferredsupplierid" />
   <EntityRelationship Name="op365_account_rfqinvitation_supplierid" />
@@ -100,6 +104,7 @@
   <EntityRelationship Name="op365_project_goodsreceipt_projectid" />
   <EntityRelationship Name="op365_project_materialusage_projectid" />
   <EntityRelationship Name="op365_project_projectmember_projectid" />
+  <EntityRelationship Name="op365_project_projectsupplier_projectid" />
   <EntityRelationship Name="op365_project_purchaseorder_projectid" />
   <EntityRelationship Name="op365_project_purchaserequest_projectid" />
   <EntityRelationship Name="op365_project_rfq_projectid" />
@@ -107,6 +112,7 @@
   <EntityRelationship Name="op365_project_timeentry_projectid" />
   <EntityRelationship Name="op365_project_wbsdependency_projectid" />
   <EntityRelationship Name="op365_project_wbsnode_projectid" />
+  <EntityRelationship Name="op365_projectsupplier_wbsnode" />
   <EntityRelationship Name="op365_purchaseorder_goodsreceipt_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_purchaseorderline_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_rfq_purchaseorderid" />
@@ -156,6 +162,7 @@
   <EntityRelationship Name="owner_op365_materialusage" />
   <EntityRelationship Name="owner_op365_project" />
   <EntityRelationship Name="owner_op365_projectmember" />
+  <EntityRelationship Name="owner_op365_projectsupplier" />
   <EntityRelationship Name="owner_op365_purchaseorder" />
   <EntityRelationship Name="owner_op365_purchaseorderline" />
   <EntityRelationship Name="owner_op365_purchaserequest" />
@@ -182,6 +189,7 @@
   <EntityRelationship Name="team_op365_materialusage" />
   <EntityRelationship Name="team_op365_project" />
   <EntityRelationship Name="team_op365_projectmember" />
+  <EntityRelationship Name="team_op365_projectsupplier" />
   <EntityRelationship Name="team_op365_purchaseorder" />
   <EntityRelationship Name="team_op365_purchaseorderline" />
   <EntityRelationship Name="team_op365_purchaserequest" />
@@ -226,6 +234,7 @@
   <EntityRelationship Name="user_op365_materialusage" />
   <EntityRelationship Name="user_op365_project" />
   <EntityRelationship Name="user_op365_projectmember" />
+  <EntityRelationship Name="user_op365_projectsupplier" />
   <EntityRelationship Name="user_op365_purchaseorder" />
   <EntityRelationship Name="user_op365_purchaseorderline" />
   <EntityRelationship Name="user_op365_purchaserequest" />

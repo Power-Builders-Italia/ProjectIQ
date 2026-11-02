@@ -141,7 +141,7 @@ An RFQ asks one or more suppliers to quote the lines of an approved request.
 1. On the approved request click **Create RFQ**. The RFQ is created with a **Deadline** in 7 days and the request title in **Notes**; the preferred supplier and the items' default suppliers are listed in **Invitations** with status *To Invite*.
 2. Open the RFQ. Adjust the **Deadline** (today or later) and the **Notes** for the suppliers.
 3. Add more suppliers in **Invitations** (**+ New RFQ Invitation**): choose the **Supplier**; the **Email** is copied from the supplier. Inactive, non-supplier or blocked accounts are refused.
-4. Click **Send**. The RFQ becomes **Sent**, every *To Invite* invitation becomes **Invited** (with the RFQ number, deadline and notes), and **one empty quote line per request line** is prepared for each supplier.
+4. Click **Send**. The RFQ becomes **Sent**, every *To Invite* invitation becomes **Invited** (with the RFQ number, deadline and notes), and **one empty quote line per request line** is prepared for each supplier. Each invited supplier also becomes a **project supplier** (status *Invited*), so the project appears on its portal.
 
 You can add suppliers after sending: add the invitation and click **Send** again; only the new invitations are invited.
 
@@ -238,7 +238,7 @@ stateDiagram-v2
 
 | Button | From | Effect |
 |---|---|---|
-| **Send to Supplier** | Draft | → **Sent**. Lines are locked. *Sent To* records the supplier's email, *Sent On* the date. The order becomes visible to the supplier on the portal. Requires at least one line |
+| **Send to Supplier** | Draft | → **Sent**. Lines are locked. *Sent To* records the supplier's email, *Sent On* the date. The order becomes visible to the supplier on the portal, and the supplier becomes an active **project supplier** that sees the WBS nodes of the order lines ([Supplier portal](supplier-portal.md#project-suppliers-and-wbs-scope)). Requires at least one line |
 | **Back to Draft** | Sent | → **Draft**, to change the order (then send it again) |
 | **Confirm** | Sent | → **Confirmed**, records the supplier's confirmation. The supplier can also confirm on the portal, with the same effect |
 | **Register Receipt** | Sent, Confirmed | Opens the goods receipt dialog (see below) |

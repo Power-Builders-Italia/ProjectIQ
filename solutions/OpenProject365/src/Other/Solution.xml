@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26103.137" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26103.137" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26104.00129">
+<ImportExportXml version="9.2.26104.129" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26104.129" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26104.00129">
   <SolutionManifest>
     <UniqueName>OpenProject365</UniqueName>
     <LocalizedNames>
@@ -106,6 +106,7 @@
       <RootComponent type="1" schemaName="op365_materialusage" behavior="0" />
       <RootComponent type="1" schemaName="op365_project" behavior="0" />
       <RootComponent type="1" schemaName="op365_projectmember" behavior="0" />
+      <RootComponent type="1" schemaName="op365_projectsupplier" behavior="0" />
       <RootComponent type="1" schemaName="op365_purchaseorder" behavior="0" />
       <RootComponent type="1" schemaName="op365_purchaseorderline" behavior="0" />
       <RootComponent type="1" schemaName="op365_purchaserequest" behavior="0" />
@@ -154,15 +155,22 @@
       <RootComponent type="70" id="{85a50f28-d6cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="80" schemaName="op365_OpenProject365" behavior="0" />
       <RootComponent type="91" id="{06e7fb53-e1cf-f111-a05b-7ced8d2d53e4}" schemaName="OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" behavior="0" />
+      <RootComponent type="92" id="{02feaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0361c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{05feaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0761c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{07fcdfc6-20d6-f111-84e8-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{08feaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0afcdfc6-20d6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0b61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{0bfeaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{0e61c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{0efeaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{10fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{11feaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1261c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{14fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{15feaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1661c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{18fb06fb-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{1961c67e-e9cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
@@ -242,8 +250,12 @@
       <RootComponent type="92" id="{c815c1e8-fdcf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{efeb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{f2eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{f5fdaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{f6eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{f8fdaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
       <RootComponent type="92" id="{f9eb1e60-e1cf-f111-a05b-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{fcfdaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
+      <RootComponent type="92" id="{fffdaf02-ccd6-f111-84e8-7ced8d2d53e4}" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>

@@ -8,7 +8,8 @@ Das **Lieferantenportal** ist eine Website, erstellt mit Microsoft Power Pages a
 - auf einem **Dashboard** sehen, worauf Sie warten: zu beantwortende Angebotsanfragen, zu bestätigende Bestellungen, zu erneuernde Dokumente;
 - die **Angebotsanfragen** sehen, die Sie ihm gesendet haben, **Stückpreise**, **Lieferzeit** und **Notizen** eingeben und sein Angebot senden — oder absagen;
 - die **Bestellungen** sehen, die Sie ihm gesendet haben, mit Positionen und Beträgen, und sie **bestätigen**;
-- sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde, die **Projekte** seiner Bestellungen und den Status seiner **Rechnungen**;
+- sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde, und den Status seiner **Rechnungen**;
+- die **Projekte** sehen, an denen er arbeitet, mit den ihm zugewiesenen Aktivitäten des Plans (PSP), und — wenn Sie es erlauben — deren **Fortschritt** aktualisieren;
 - seine **Unternehmensdokumente** (DURC, Zertifizierungen, Versicherungen) hochladen, die Ihr Einkäufer genehmigt, und wird vor ihrem Ablauf gewarnt.
 
 Alles, was der Lieferant tut, ist sofort in ProjectIQ sichtbar: Angebote erscheinen im Quote Comparison der Angebotsanfrage, Bestätigungen ändern den Status der Bestellung, hochgeladene Dokumente warten auf Ihre Prüfung.
@@ -62,7 +63,13 @@ Das **Dashboard** ist die Startseite:
 
 ### Projekte
 
-**Projects** zeigt eine Karte je Projekt Ihrer Bestellungen: Code und Name, **Project progress** (Projektfortschritt), **Your deliveries** (der bereits gelieferte Anteil Ihres bestellten Betrags), die Anzahl der **Orders**, den Betrag **Ordered** und das **End date** des Projekts. Ein Projekt mit einer zu bestätigenden Bestellung hat einen orangefarbenen Rahmen. **See orders** öffnet die Bestellungen.
+**Projects** zeigt eine Karte je Projekt, das Ihr Kunde Ihrem Unternehmen zugewiesen hat: Code und Name (mit Ihrer **Rolle**, falls angegeben), **Project progress** (Projektfortschritt), **Your deliveries** (der bereits gelieferte Anteil Ihres bestellten Betrags, nur wenn Sie Bestellungen haben), **Start date**, **End date** und die Anzahl der **Orders**. Ein Projekt erscheint, wenn Ihr Kunde Sie zu einer Angebotsanfrage einlädt (Badge **Invited**), Ihnen eine Bestellung sendet oder Sie dem Projekt hinzufügt. Ein Projekt mit einer zu bestätigenden Bestellung hat einen orangefarbenen Rahmen.
+
+**Open project** zeigt den Projektkopf (Code, Start- und Enddatum, Fortschritt) und unter **Your work** die Ihrem Unternehmen zugewiesenen Aktivitäten des Plans: **Code**, **Activity**, **Start**, **End** und **Progress**. Budgets und Kosten werden nie angezeigt.
+
+### Den Fortschritt Ihrer Aktivitäten aktualisieren
+
+Wenn Ihr Kunde es erlaubt, ist der **Progress** jeder Aktivität ohne Unteraktivitäten ein Feld mit **Save**: Geben Sie den Prozentsatz (0–100) ein und klicken Sie auf **Save**. Der Fortschritt der Sammelaktivitäten (fett) und des Projekts wird daraus berechnet und kann daher nicht eingegeben werden. Erlaubt Ihr Kunde es nicht, sehen Sie nur die Fortschrittsbalken.
 
 ### Eine Angebotsanfrage beantworten
 
@@ -125,7 +132,7 @@ Sie erhalten eine E-Mail, wenn ein genehmigtes Dokument bald abläuft (30 Tage v
 
 ### Fehler
 
-Schlägt eine Aktion fehl, erklärt eine rote Meldung den Grund. Häufige Fälle: „Session expired: sign in again.“ (melden Sie sich erneut an und wiederholen Sie den Vorgang), „The deadline of the request for quotation has passed.“ (bitten Sie den Einkäufer um eine Fristverlängerung), „The request for quotation is closed.“ (sie wurde vergeben oder storniert), „Approved documents cannot be changed.“ oder „Approved documents cannot be deleted.“ (laden Sie stattdessen ein neues Dokument hoch), „Choose the file of the document.“ (ein neues Dokument braucht seine Datei).
+Schlägt eine Aktion fehl, erklärt eine rote Meldung den Grund. Häufige Fälle: „Session expired: sign in again.“ (melden Sie sich erneut an und wiederholen Sie den Vorgang), „The deadline of the request for quotation has passed.“ (bitten Sie den Einkäufer um eine Fristverlängerung), „The request for quotation is closed.“ (sie wurde vergeben oder storniert), „Approved documents cannot be changed.“ oder „Approved documents cannot be deleted.“ (laden Sie stattdessen ein neues Dokument hoch), „Choose the file of the document.“ (ein neues Dokument braucht seine Datei), „Progress must be between 0 and 100.“, „Progress updates from the supplier portal are disabled.“ (Ihr Kunde hat sie deaktiviert).
 
 ## Teil 2 — Leitfaden für interne Mitarbeiter
 
@@ -139,11 +146,33 @@ Das Portal ist bewusst eingeschränkt. Lieferanten lesen nur ihre eigenen Datens
 | Angebotspositionen dieser Einladungen | Artikel, Menge, Einheit, Preis, Notizen | **Unit price**, **notes** |
 | Bestellungen seines Unternehmens (Sent, Confirmed, Received) | Kopf und Beträge | **Supplier confirmed** (bestätigt die Bestellung) |
 | Positionen dieser Bestellungen | Artikel, Menge, Preis, Betrag, gelieferte Menge | Nichts |
-| Projekte dieser Bestellungen | Code, Name, Fortschritt, Enddatum | Nichts |
+| Projektlieferanten seines Unternehmens (Active und Invited) | Projekt, Rolle, Status | Nichts |
+| Projekte dieser Projektlieferanten und seiner Bestellungen | Code, Name, Start- und Enddatum, Fortschritt | Nichts |
+| PSP-Elemente seines Umfangs | Code, Name, Start- und Enddatum, Fortschritt | **Progress %** der Elemente ohne Unterelemente, nur wenn **Supplier Progress Updates** Yes ist |
 | Lieferantenrechnungen seines Unternehmens | Nummer, Daten, Betrag, Status, Entscheidungsnotiz | Nichts |
 | Lieferantendokumente seines Unternehmens | Alle Felder, einschließlich der Prüfnotiz | Typ, Beschreibung, Nummer, Daten, Notizen, Datei; kann sie anlegen und löschen, nur solange das Dokument nicht genehmigt ist |
 
-Bestellungen im Entwurf oder stornierte Bestellungen und nicht versandte Angebotsanfragen werden nie angezeigt. Die Preise anderer Lieferanten sind nie sichtbar.
+Bestellungen im Entwurf oder stornierte Bestellungen und nicht versandte Angebotsanfragen werden nie angezeigt. Die Preise anderer Lieferanten, Budgets und Kosten sind nie sichtbar.
+
+### Projektlieferanten und PSP-Umfang
+
+Ein **Project Supplier** (Projektlieferant) gibt an, dass ein Lieferant an einem Projekt arbeitet und welche Aktivitäten des PSP er im Portal sieht (sein **WBS Scope**). Sie finden sie in der Liste **Suppliers** des Projekts (Registerkarte Purchasing) und in der Liste **Projects** des Lieferantenkontos.
+
+```mermaid
+flowchart LR
+    I[RFQ Send: invitation Invited] -->|creates| PS[Project Supplier<br/>status Invited]
+    O[Send to Supplier] -->|creates or activates| PS2[Project Supplier<br/>status Active]
+    O -->|adds| W[WBS nodes of the order lines<br/>with their branches]
+    M[+ New Project Supplier<br/>by hand] --> PS2
+    PS2 --> P[Portal: project card<br/>+ Your work]
+    PS --> P
+```
+
+- **Send** auf einer Angebotsanfrage macht jeden eingeladenen Lieferanten zu einem Projektlieferanten **Invited** (falls er es noch nicht ist).
+- **Send to Supplier** auf einer Bestellung macht den Lieferanten **Active** und fügt seinem WBS Scope die PSP-Elemente der Bestellpositionen hinzu. Wird die Bestellung später storniert, bleiben der Projektlieferant und sein Umfang erhalten.
+- Sie können einen Projektlieferanten von Hand über die Liste **Suppliers** des Projekts anlegen (**Project**, **Supplier**, **Role**) und in seiner Liste **WBS Scope** PSP-Elemente hinzufügen (**Add Existing WBS Node**). Ein Element bringt immer alle seine Unteraktivitäten mit, auch später angelegte.
+- Um Aktivitäten auszublenden, entfernen Sie sie aus dem WBS Scope (das Entfernen eines Elements entfernt seine Unteraktivitäten nicht: entfernen Sie diese auch), oder deaktivieren Sie den Projektlieferanten, um das ganze Projekt auszublenden.
+- Ob Lieferanten den Fortschritt aktualisieren dürfen, ist eine Unternehmenseinstellung, **Supplier Progress Updates** ([Administration](administration.md#unternehmenseinstellungen)); Standard ist No. *Can Update Progress* am Projektlieferanten zeigt den aktuellen Wert.
 
 ### Einem Lieferanten Zugriff geben
 
@@ -181,7 +210,7 @@ Ein im Portal hochgeladenes Dokument ist **Pending Review**, und der Besitzer de
 
 - Eine Angebotsanfrage erscheint erst nach **Send** im Portal; eine Bestellung erst nach **Send to Supplier**.
 - Keine dieser Aktionen sendet von sich aus eine E-Mail: Teilen Sie dem Lieferanten mit, dass eine neue Angebotsanfrage oder Bestellung auf ihn wartet (über Ihre übliche E-Mail oder über eine Automatisierung, die Ihr Administrator hinzufügen kann).
-- Setzen Sie eine Bestellung mit **Back to Draft** zurück, verschwindet sie aus dem Portal, bis sie erneut gesendet wird.
+- Setzen Sie eine Bestellung mit **Back to Draft** zurück, verschwindet sie aus dem Portal, bis sie erneut gesendet wird (das Projekt bleibt über den Projektlieferanten sichtbar).
 - Nach Ablauf der Frist kann der Lieferant sein Angebot nicht mehr ändern: Verlängern Sie die **Deadline** und klicken Sie erneut auf **Send**, wenn Sie weitere Antworten möchten.
 
 ### Für Administratoren

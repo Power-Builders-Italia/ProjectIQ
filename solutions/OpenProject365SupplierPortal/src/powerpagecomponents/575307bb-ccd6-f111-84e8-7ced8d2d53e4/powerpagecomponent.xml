@@ -1,0 +1,110 @@
+<powerpagecomponent powerpagecomponentid="575307bb-ccd6-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "title": "Project",
+  "partialurl": "project",
+  "displayorder": 10,
+  "hiddenfromsitemap": true,
+  "excludefromsearch": true,
+  "enablerating": false,
+  "sharedpageconfiguration": false,
+  "isroot": false,
+  "pagetemplateid": "51a148a9-7811-439a-9a80-6168a730d34e",
+  "publishingstateid": "e2c88499-4776-42af-b289-f091f60f4970",
+  "parentpageid": "227da786-ccd5-f111-84e8-7ced8d2d53e4",
+  "feedbackpolicy": 756150000,
+  "isofflinecached": false,
+  "rootwebpageid": "4e5307bb-ccd6-f111-84e8-7ced8d2d53e4",
+  "copy": "{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}\n{% if supplier == false %}\n&lt;div class=\"container py-5\"&gt;&lt;div class=\"alert alert-warning\"&gt;This area is reserved to suppliers. &lt;a href=\"/SignIn?returnUrl={{ request.path_and_query | escape }}\"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;\n{% else %}\n{% include 'OP365 Supplier Style' %}\n&lt;div class=\"op-shell\"&gt;\n{% include 'OP365 Supplier Nav' active: 'projects' %}\n&lt;main class=\"op-main\" id=\"op-main\"&gt;\n{% assign id = request.params['id'] %}\n{% fetchxml op_ps %}\n&lt;fetch top=\"1\"&gt;&lt;entity name=\"op365_projectsupplier\"&gt;\n  &lt;attribute name=\"op365_projectsupplierid\" /&gt;&lt;attribute name=\"op365_role\" /&gt;&lt;attribute name=\"statuscode\" /&gt;&lt;attribute name=\"op365_canupdateprogress\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"op365_projectsupplierid\" operator=\"eq\" value=\"{{ id | xml_escape }}\" /&gt;&lt;condition attribute=\"statecode\" operator=\"eq\" value=\"0\" /&gt;&lt;/filter&gt;\n  &lt;link-entity name=\"op365_project\" from=\"op365_projectid\" to=\"op365_projectid\" link-type=\"inner\" alias=\"pr\"&gt;\n    &lt;attribute name=\"op365_name\" /&gt;&lt;attribute name=\"op365_code\" /&gt;&lt;attribute name=\"op365_startdate\" /&gt;&lt;attribute name=\"op365_enddate\" /&gt;&lt;attribute name=\"op365_progresspct\" /&gt;\n  &lt;/link-entity&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n&lt;div class=\"op-head\"&gt;&lt;div&gt;&lt;div class=\"op-crumb\"&gt;&lt;a href=\"/dashboard/\"&gt;Dashboard&lt;/a&gt; / &lt;a href=\"/projects/\"&gt;Projects&lt;/a&gt;&lt;/div&gt;\n{% if op_ps.results.entities.size == 0 %}\n  &lt;h1 class=\"op-h1\"&gt;Project not found&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;\n&lt;div class=\"op-empty\"&gt;This project is not shared with your company.&lt;/div&gt;\n{% else %}\n{% assign ps = op_ps.results.entities[0] %}\n{% assign editable = false %}{% if ps.op365_canupdateprogress %}{% assign editable = true %}{% endif %}\n  &lt;h1 class=\"op-h1\"&gt;{{ ps['pr.op365_name'] | escape }}&lt;/h1&gt;&lt;/div&gt;\n  {% if ps.statuscode.value == 365000000 %}&lt;span class=\"op-badge b-blue\"&gt;Invited&lt;/span&gt;{% endif %}&lt;/div&gt;\n{% assign op_progress = ps['pr.op365_progresspct'] | default: 0 | round: 0 %}\n&lt;section class=\"op-card\"&gt;\n  &lt;dl class=\"op-dl\"&gt;&lt;div&gt;&lt;dt&gt;Code&lt;/dt&gt;&lt;dd&gt;{{ ps['pr.op365_code'] | escape }}&lt;/dd&gt;&lt;/div&gt;\n    &lt;div&gt;&lt;dt&gt;Start date&lt;/dt&gt;&lt;dd&gt;{% if ps['pr.op365_startdate'] %}{{ ps['pr.op365_startdate'] | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;\n    &lt;div&gt;&lt;dt&gt;End date&lt;/dt&gt;&lt;dd&gt;{% if ps['pr.op365_enddate'] %}{{ ps['pr.op365_enddate'] | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;\n    {% if ps.op365_role %}&lt;div&gt;&lt;dt&gt;Your role&lt;/dt&gt;&lt;dd&gt;{{ ps.op365_role | escape }}&lt;/dd&gt;&lt;/div&gt;{% endif %}&lt;/dl&gt;\n  &lt;div class=\"op-meter\"&gt;&lt;div class=\"op-row\"&gt;&lt;span&gt;Project progress&lt;/span&gt;&lt;span&gt;{{ op_progress }}%&lt;/span&gt;&lt;/div&gt;\n    &lt;div class=\"op-bar blue\"&gt;&lt;span style=\"--w:{{ op_progress }}%\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;\n&lt;/section&gt;\n{% fetchxml op_wbs %}\n&lt;fetch&gt;&lt;entity name=\"op365_wbsnode\"&gt;\n  &lt;attribute name=\"op365_wbsnodeid\" /&gt;&lt;attribute name=\"op365_code\" /&gt;&lt;attribute name=\"op365_name\" /&gt;&lt;attribute name=\"op365_parentid\" /&gt;\n  &lt;attribute name=\"op365_startdate\" /&gt;&lt;attribute name=\"op365_enddate\" /&gt;&lt;attribute name=\"op365_progresspct\" /&gt;\n  &lt;filter&gt;&lt;condition attribute=\"statecode\" operator=\"eq\" value=\"0\" /&gt;&lt;/filter&gt;\n  &lt;order attribute=\"op365_sortorder\" /&gt;&lt;order attribute=\"op365_code\" /&gt;\n  &lt;link-entity name=\"op365_projectsupplier_wbsnode\" from=\"op365_wbsnodeid\" to=\"op365_wbsnodeid\" link-type=\"inner\" intersect=\"true\"&gt;\n    &lt;filter&gt;&lt;condition attribute=\"op365_projectsupplierid\" operator=\"eq\" value=\"{{ ps.op365_projectsupplierid }}\" /&gt;&lt;/filter&gt;\n  &lt;/link-entity&gt;\n&lt;/entity&gt;&lt;/fetch&gt;\n{% endfetchxml %}\n{% assign nodes = op_wbs.results.entities %}\n&lt;div class=\"op-row\"&gt;&lt;h2 class=\"op-h2\"&gt;Your work&lt;/h2&gt;\n  &lt;span class=\"op-muted\"&gt;{% if editable %}Update the progress of your activities: the project progress is calculated from them.{% else %}The activities of the plan assigned to your company.{% endif %}&lt;/span&gt;&lt;/div&gt;\n&lt;div id=\"op365-error\" class=\"alert alert-danger d-none\" role=\"alert\"&gt;&lt;/div&gt;\n{% if nodes.size == 0 %}&lt;div class=\"op-empty\"&gt;No activities of the plan are assigned to your company yet.&lt;/div&gt;{% else %}\n&lt;div class=\"op-tablebox\"&gt;&lt;table class=\"op-table\"&gt;\n  &lt;thead&gt;&lt;tr&gt;&lt;th scope=\"col\"&gt;Code&lt;/th&gt;&lt;th scope=\"col\"&gt;Activity&lt;/th&gt;&lt;th scope=\"col\"&gt;Start&lt;/th&gt;&lt;th scope=\"col\"&gt;End&lt;/th&gt;&lt;th scope=\"col\"&gt;Progress&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;\n  &lt;tbody&gt;\n  {% for n in nodes %}\n    {% assign leaf = true %}{% for c in nodes %}{% if c.op365_parentid.id == n.op365_wbsnodeid %}{% assign leaf = false %}{% break %}{% endif %}{% endfor %}\n    {% assign pct = n.op365_progresspct | default: 0 | round: 0 %}\n    &lt;tr&gt;\n      &lt;td&gt;{{ n.op365_code | escape }}&lt;/td&gt;\n      &lt;td&gt;{% if leaf %}{{ n.op365_name | escape }}{% else %}&lt;strong&gt;{{ n.op365_name | escape }}&lt;/strong&gt;{% endif %}&lt;/td&gt;\n      &lt;td&gt;{% if n.op365_startdate %}{{ n.op365_startdate | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/td&gt;\n      &lt;td&gt;{% if n.op365_enddate %}{{ n.op365_enddate | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/td&gt;\n      &lt;td style=\"min-width:12rem\"&gt;{% if editable and leaf %}\n        &lt;form class=\"op365-progress\" data-id=\"{{ n.op365_wbsnodeid }}\" style=\"display:flex;gap:.5rem;align-items:center\"&gt;\n          &lt;input type=\"number\" min=\"0\" max=\"100\" step=\"1\" value=\"{{ pct }}\" aria-label=\"Progress % of {{ n.op365_name | escape }}\" style=\"width:5rem\"&gt;\n          &lt;button type=\"submit\" class=\"op-btn ghost small\"&gt;Save&lt;/button&gt;&lt;/form&gt;\n        {% else %}&lt;div class=\"op-meter\"&gt;&lt;div class=\"op-row\"&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;{{ pct }}%&lt;/span&gt;&lt;/div&gt;\n          &lt;div class=\"op-bar\"&gt;&lt;span style=\"--w:{{ pct }}%\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;{% endif %}&lt;/td&gt;\n    &lt;/tr&gt;\n  {% endfor %}\n  &lt;/tbody&gt;\n&lt;/table&gt;&lt;/div&gt;\n{% endif %}\n{% endif %}\n&lt;/main&gt;\n&lt;/div&gt;\n{% endif %}\n",
+  "customjavascript": "// Power Pages Web API with the anti-forgery token\nfunction op365Api(method, url, body) {\n  var d = $.Deferred();\n  shell.getTokenDeferred().done(function (token) {\n    $.ajax({ type: method, url: url, contentType: 'application/json', data: body ? JSON.stringify(body) : null,\n             headers: { '__RequestVerificationToken': token } })\n      .done(function () { d.resolve(); })\n      .fail(function (x) { var m = x.responseJSON &amp;&amp; x.responseJSON.error ? x.responseJSON.error.message : x.statusText; d.reject(m); });\n  }).fail(function () { d.reject('Session expired: sign in again.'); });\n  return d.promise();\n}\nfunction op365Error(text) { $('#op365-error').text(text).removeClass('d-none'); }\n// Progress % of the supplier's WBS nodes through the Power Pages Web API (the plugins allow leaf nodes only)\n$(function () {\n  $('form.op365-progress').on('submit', function (e) {\n    e.preventDefault();\n    var f = $(this), v = Number(f.find('input').val()), b = f.find('button');\n    if (isNaN(v) || v &lt; 0 || v &gt; 100) { op365Error('Progress must be between 0 and 100.'); return; }\n    b.prop('disabled', true);\n    op365Api('PATCH', '/_api/op365_wbsnodes(' + f.data('id') + ')', { op365_progresspct: v })\n      .done(function () { location.reload(); }).fail(function (m) { op365Error(m); b.prop('disabled', false); });\n  });\n});\n"
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Project</name>
+  <powerpagecomponenttype>2</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <powerpagesitelanguageid>
+    <powerpagesitelanguageid>ded80c8e-6fd5-4186-a9e9-dd3f7790285b</powerpagesitelanguageid>
+  </powerpagesitelanguageid>
+  <searchcontent>Project{% assign supplier = false %}{% if user %}{% for r in user.roles %}{% if r == 'Supplier' %}{% assign supplier = true %}{% endif %}{% endfor %}{% endif %}
+{% if supplier == false %}
+&lt;div class="container py-5"&gt;&lt;div class="alert alert-warning"&gt;This area is reserved to suppliers. &lt;a href="/SignIn?returnUrl={{ request.path_and_query | escape }}"&gt;Sign in&lt;/a&gt; with the account your customer invited.&lt;/div&gt;&lt;/div&gt;
+{% else %}
+{% include 'OP365 Supplier Style' %}
+&lt;div class="op-shell"&gt;
+{% include 'OP365 Supplier Nav' active: 'projects' %}
+&lt;main class="op-main" id="op-main"&gt;
+{% assign id = request.params['id'] %}
+{% fetchxml op_ps %}
+&lt;fetch top="1"&gt;&lt;entity name="op365_projectsupplier"&gt;
+  &lt;attribute name="op365_projectsupplierid" /&gt;&lt;attribute name="op365_role" /&gt;&lt;attribute name="statuscode" /&gt;&lt;attribute name="op365_canupdateprogress" /&gt;
+  &lt;filter&gt;&lt;condition attribute="op365_projectsupplierid" operator="eq" value="{{ id | xml_escape }}" /&gt;&lt;condition attribute="statecode" operator="eq" value="0" /&gt;&lt;/filter&gt;
+  &lt;link-entity name="op365_project" from="op365_projectid" to="op365_projectid" link-type="inner" alias="pr"&gt;
+    &lt;attribute name="op365_name" /&gt;&lt;attribute name="op365_code" /&gt;&lt;attribute name="op365_startdate" /&gt;&lt;attribute name="op365_enddate" /&gt;&lt;attribute name="op365_progresspct" /&gt;
+  &lt;/link-entity&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+&lt;div class="op-head"&gt;&lt;div&gt;&lt;div class="op-crumb"&gt;&lt;a href="/dashboard/"&gt;Dashboard&lt;/a&gt; / &lt;a href="/projects/"&gt;Projects&lt;/a&gt;&lt;/div&gt;
+{% if op_ps.results.entities.size == 0 %}
+  &lt;h1 class="op-h1"&gt;Project not found&lt;/h1&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-empty"&gt;This project is not shared with your company.&lt;/div&gt;
+{% else %}
+{% assign ps = op_ps.results.entities[0] %}
+{% assign editable = false %}{% if ps.op365_canupdateprogress %}{% assign editable = true %}{% endif %}
+  &lt;h1 class="op-h1"&gt;{{ ps['pr.op365_name'] | escape }}&lt;/h1&gt;&lt;/div&gt;
+  {% if ps.statuscode.value == 365000000 %}&lt;span class="op-badge b-blue"&gt;Invited&lt;/span&gt;{% endif %}&lt;/div&gt;
+{% assign op_progress = ps['pr.op365_progresspct'] | default: 0 | round: 0 %}
+&lt;section class="op-card"&gt;
+  &lt;dl class="op-dl"&gt;&lt;div&gt;&lt;dt&gt;Code&lt;/dt&gt;&lt;dd&gt;{{ ps['pr.op365_code'] | escape }}&lt;/dd&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;dt&gt;Start date&lt;/dt&gt;&lt;dd&gt;{% if ps['pr.op365_startdate'] %}{{ ps['pr.op365_startdate'] | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;dt&gt;End date&lt;/dt&gt;&lt;dd&gt;{% if ps['pr.op365_enddate'] %}{{ ps['pr.op365_enddate'] | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/dd&gt;&lt;/div&gt;
+    {% if ps.op365_role %}&lt;div&gt;&lt;dt&gt;Your role&lt;/dt&gt;&lt;dd&gt;{{ ps.op365_role | escape }}&lt;/dd&gt;&lt;/div&gt;{% endif %}&lt;/dl&gt;
+  &lt;div class="op-meter"&gt;&lt;div class="op-row"&gt;&lt;span&gt;Project progress&lt;/span&gt;&lt;span&gt;{{ op_progress }}%&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="op-bar blue"&gt;&lt;span style="--w:{{ op_progress }}%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/section&gt;
+{% fetchxml op_wbs %}
+&lt;fetch&gt;&lt;entity name="op365_wbsnode"&gt;
+  &lt;attribute name="op365_wbsnodeid" /&gt;&lt;attribute name="op365_code" /&gt;&lt;attribute name="op365_name" /&gt;&lt;attribute name="op365_parentid" /&gt;
+  &lt;attribute name="op365_startdate" /&gt;&lt;attribute name="op365_enddate" /&gt;&lt;attribute name="op365_progresspct" /&gt;
+  &lt;filter&gt;&lt;condition attribute="statecode" operator="eq" value="0" /&gt;&lt;/filter&gt;
+  &lt;order attribute="op365_sortorder" /&gt;&lt;order attribute="op365_code" /&gt;
+  &lt;link-entity name="op365_projectsupplier_wbsnode" from="op365_wbsnodeid" to="op365_wbsnodeid" link-type="inner" intersect="true"&gt;
+    &lt;filter&gt;&lt;condition attribute="op365_projectsupplierid" operator="eq" value="{{ ps.op365_projectsupplierid }}" /&gt;&lt;/filter&gt;
+  &lt;/link-entity&gt;
+&lt;/entity&gt;&lt;/fetch&gt;
+{% endfetchxml %}
+{% assign nodes = op_wbs.results.entities %}
+&lt;div class="op-row"&gt;&lt;h2 class="op-h2"&gt;Your work&lt;/h2&gt;
+  &lt;span class="op-muted"&gt;{% if editable %}Update the progress of your activities: the project progress is calculated from them.{% else %}The activities of the plan assigned to your company.{% endif %}&lt;/span&gt;&lt;/div&gt;
+&lt;div id="op365-error" class="alert alert-danger d-none" role="alert"&gt;&lt;/div&gt;
+{% if nodes.size == 0 %}&lt;div class="op-empty"&gt;No activities of the plan are assigned to your company yet.&lt;/div&gt;{% else %}
+&lt;div class="op-tablebox"&gt;&lt;table class="op-table"&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Code&lt;/th&gt;&lt;th scope="col"&gt;Activity&lt;/th&gt;&lt;th scope="col"&gt;Start&lt;/th&gt;&lt;th scope="col"&gt;End&lt;/th&gt;&lt;th scope="col"&gt;Progress&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+  {% for n in nodes %}
+    {% assign leaf = true %}{% for c in nodes %}{% if c.op365_parentid.id == n.op365_wbsnodeid %}{% assign leaf = false %}{% break %}{% endif %}{% endfor %}
+    {% assign pct = n.op365_progresspct | default: 0 | round: 0 %}
+    &lt;tr&gt;
+      &lt;td&gt;{{ n.op365_code | escape }}&lt;/td&gt;
+      &lt;td&gt;{% if leaf %}{{ n.op365_name | escape }}{% else %}&lt;strong&gt;{{ n.op365_name | escape }}&lt;/strong&gt;{% endif %}&lt;/td&gt;
+      &lt;td&gt;{% if n.op365_startdate %}{{ n.op365_startdate | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/td&gt;
+      &lt;td&gt;{% if n.op365_enddate %}{{ n.op365_enddate | date: 'dd/MM/yyyy' }}{% else %}&amp;ndash;{% endif %}&lt;/td&gt;
+      &lt;td style="min-width:12rem"&gt;{% if editable and leaf %}
+        &lt;form class="op365-progress" data-id="{{ n.op365_wbsnodeid }}" style="display:flex;gap:.5rem;align-items:center"&gt;
+          &lt;input type="number" min="0" max="100" step="1" value="{{ pct }}" aria-label="Progress % of {{ n.op365_name | escape }}" style="width:5rem"&gt;
+          &lt;button type="submit" class="op-btn ghost small"&gt;Save&lt;/button&gt;&lt;/form&gt;
+        {% else %}&lt;div class="op-meter"&gt;&lt;div class="op-row"&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;{{ pct }}%&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="op-bar"&gt;&lt;span style="--w:{{ pct }}%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;{% endif %}&lt;/td&gt;
+    &lt;/tr&gt;
+  {% endfor %}
+  &lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+{% endif %}
+{% endif %}
+&lt;/main&gt;
+&lt;/div&gt;
+{% endif %}
+Project</searchcontent>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>

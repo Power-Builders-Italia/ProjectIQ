@@ -8,7 +8,8 @@ The **supplier portal** is a website, built with Microsoft Power Pages on the sa
 - finds on a **dashboard** what you are waiting for: RFQs to quote, orders to confirm, documents to renew;
 - sees the **requests for quotation** (RFQs) you sent them, types **unit prices**, **delivery days** and **notes**, and sends the quote — or declines;
 - sees the **purchase orders** you sent them, with lines and amounts, and **confirms** them;
-- sees how much of each order has already been **received**, the **projects** of its orders and the status of its **invoices**;
+- sees how much of each order has already been **received** and the status of its **invoices**;
+- sees the **projects** it works on, with the activities of the plan (WBS) assigned to it, and — if you allow it — updates their **progress**;
 - uploads its **company documents** (DURC, certifications, insurance), which your buyer approves, and is warned when they expire.
 
 Everything the supplier does is immediately visible in ProjectIQ: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status, uploaded documents wait for your review.
@@ -60,7 +61,13 @@ The **Dashboard** is the start page:
 
 ### Projects
 
-**Projects** shows one card for each project of your purchase orders: code and name, **Project progress**, **Your deliveries** (the share of your ordered amount already received), the number of **Orders**, the **Ordered** amount and the **End date** of the project. A project with an order to confirm has an orange border. **See orders** opens the purchase orders.
+**Projects** shows one card for each project your customer has assigned to your company: code and name (with your **role**, when given), **Project progress**, **Your deliveries** (the share of your ordered amount already received, only when you have orders), **Start date**, **End date** and the number of **Orders**. A project appears when your customer invites you to a request for quotation (badge **Invited**), sends you a purchase order or adds you to the project. A project with an order to confirm has an orange border.
+
+**Open project** shows the project header (code, start and end date, progress) and, under **Your work**, the activities of the plan assigned to your company: **Code**, **Activity**, **Start**, **End** and **Progress**. Budgets and costs are never shown.
+
+### Updating the progress of your activities
+
+If your customer allows it, the **Progress** of each activity without sub-activities is a box with **Save**: type the percentage (0–100) and click **Save**. The progress of the summary activities (in bold) and of the project is calculated from them, so it cannot be typed. If your customer does not allow it, you only see the progress bars.
 
 ### Answering a request for quotation
 
@@ -123,7 +130,7 @@ You receive an e-mail when an approved document is about to expire (30 days befo
 
 ### Errors
 
-If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file).
+If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (your customer turned them off).
 
 ## Part 2 — Guide for internal staff
 
@@ -137,11 +144,33 @@ The portal is deliberately narrow. Suppliers can read only their own records and
 | Quote lines of those invitations | Item, quantity, unit, price, notes | **Unit price**, **notes** |
 | Purchase orders of their company (Sent, Confirmed, Received) | Header and amounts | **Supplier confirmed** (which confirms the order) |
 | Lines of those orders | Item, quantity, price, amount, received quantity | Nothing |
-| Projects of those orders | Code, name, progress, end date | Nothing |
+| Project suppliers of their company (Active and Invited) | Project, role, status | Nothing |
+| Projects of those project suppliers and of their orders | Code, name, start and end date, progress | Nothing |
+| WBS nodes of their scope | Code, name, start and end date, progress | **Progress %** of nodes without child nodes, only when **Supplier Progress Updates** is Yes |
 | Supplier invoices of their company | Number, dates, amount, status, decision note | Nothing |
 | Supplier documents of their company | All fields, including the review note | Type, description, number, dates, notes, file; can create and delete, only while the document is not approved |
 
-Draft and cancelled orders and RFQs not yet sent are never shown. Prices of other suppliers are never visible.
+Draft and cancelled orders and RFQs not yet sent are never shown. Prices of other suppliers, budgets and costs are never visible.
+
+### Project suppliers and WBS scope
+
+A **Project Supplier** says that a supplier works on a project and which activities of the WBS it sees on the portal (its **WBS Scope**). You find them in the **Suppliers** list of the project (Purchasing tab) and in the **Projects** list of the supplier account.
+
+```mermaid
+flowchart LR
+    I[RFQ Send: invitation Invited] -->|creates| PS[Project Supplier<br/>status Invited]
+    O[Send to Supplier] -->|creates or activates| PS2[Project Supplier<br/>status Active]
+    O -->|adds| W[WBS nodes of the order lines<br/>with their branches]
+    M[+ New Project Supplier<br/>by hand] --> PS2
+    PS2 --> P[Portal: project card<br/>+ Your work]
+    PS --> P
+```
+
+- **Send** on an RFQ makes every invited supplier a project supplier **Invited** of the project (if not already there).
+- **Send to Supplier** on an order makes the supplier **Active** and adds to its WBS Scope the WBS nodes of the order lines. Cancelling the order later keeps the project supplier and its scope.
+- You can add a project supplier by hand from the **Suppliers** list of the project (**Project**, **Supplier**, **Role**), and add WBS nodes in its **WBS Scope** list (**Add Existing WBS Node**). A node always brings all its sub-activities, also those created later.
+- To hide activities, remove them from the WBS Scope (removing a node does not remove its sub-activities: remove them too), or deactivate the project supplier to hide the whole project.
+- Whether suppliers may update the progress is a company setting, **Supplier Progress Updates** ([Administration](administration.md#company-settings)); the default is No. *Can Update Progress* on the project supplier shows the current value.
 
 ### Giving a supplier access
 
@@ -179,7 +208,7 @@ A document uploaded on the portal is **Pending Review** and the owner of the sup
 
 - An RFQ appears on the portal only after **Send**; an order only after **Send to Supplier**.
 - Neither action sends an email by itself: tell the supplier that a new RFQ or order is waiting (your usual email, or an automation your administrator may add).
-- If you move an order **Back to Draft**, it disappears from the portal until you send it again.
+- If you move an order **Back to Draft**, it disappears from the portal until you send it again (the project stays, through the project supplier).
 - After the deadline the supplier can no longer change the quote: extend the **Deadline** and **Send** again if you want more answers.
 
 ### For administrators

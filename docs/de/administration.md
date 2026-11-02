@@ -108,6 +108,7 @@ So ändern Sie einen Wert:
 | `op365_PurchasingApprover` | **Purchasing Approver** | Text | Leer | **User Name** (z. B. `anna.rossi@contoso.com`) oder primäre E-Mail des Benutzers, der Anforderungen über der Schwelle genehmigt und über Lieferantenrechnungen entscheidet. Leer, oder kein aktiver Benutzer mit diesem Namen = jeder OP365 Administrator |
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Die ProjectIQ-Vorlagen | E-Mail-Vorlage (Typ Firma) jeder Nachricht an Lieferanten, je **Language** des Lieferanten: `{"DocumentExpiring": {"Italian": "<Vorlagentitel>", "English": "<Vorlagentitel>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` ist die Sprache, wenn der Lieferant keine hat oder es keine Vorlage dafür gibt |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Leer | Name oder E-Mail-Adresse der **Warteschlange** (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails |
+| `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: Im Lieferantenportal können Lieferanten den Fortschritt % der PSP-Aktivitäten ihres Umfangs aktualisieren (nur Aktivitäten ohne Unteraktivitäten). No: Sie sehen ihn nur. Siehe [Lieferantenportal](supplier-portal.md#projektlieferanten-und-psp-umfang) |
 
 Der Purchasing Approver ist ein Benutzername und kein Lookup, weil sich die Benutzer-IDs in jeder Umgebung unterscheiden. Bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
 
