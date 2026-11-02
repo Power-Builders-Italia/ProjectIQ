@@ -133,6 +133,7 @@ nav:
       - adr/0001-copilot-work-iq-read-only.md
       - adr/0002-deploy-dev.md
       - appsource.md
+      - appsource-key-usage-scenarios.md
   - Legal:
       - legal/privacy.md
       - legal/terms-of-use.md

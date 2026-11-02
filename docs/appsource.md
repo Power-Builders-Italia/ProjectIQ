@@ -142,6 +142,7 @@ Partner Center → **Marketplace offers** → **+ New offer** → **Dynamics 365
 | | Application configuration URL | empty |
 | | URL of your package location | the SAS URL of the blob |
 | | More than one CRM package | **off** |
+| Supplemental content | Key Usage Scenario | PDF of [Key usage scenarios](appsource-key-usage-scenarios.md) (print the page from the website to PDF) |
 | Supplemental content | E2E functional document | Microsoft template downloaded from Partner Center, filled in from the user manuals (main user and admin journeys) |
 | Supplemental content | Solution Checker report | the `appsource-checker` artifact, if requested |
 
