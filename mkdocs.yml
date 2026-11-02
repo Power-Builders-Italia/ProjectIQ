@@ -15,6 +15,10 @@ hooks:
 
 theme:
   name: material
+  # overrides/home.html: layout of the home page
+  custom_dir: overrides
+  # Instrument Serif (headings) and Geist (text) are loaded by docs/assets/extra.css
+  font: false
   features:
     - navigation.tabs
     - navigation.sections
@@ -25,7 +29,7 @@ theme:
     - content.action.edit
   logo: assets/logo.png
   favicon: assets/favicon.png
-  # Brand colours (green, red, grey of the logo) are set in docs/assets/extra.css
+  # Brand colours and the look of the pages (as on the home page) are set in docs/assets/extra.css
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

@@ -1,7 +1,7 @@
 """Stages the documentation website sources for MkDocs (see mkdocs.yml).
 
 The Markdown files stay where they are on GitHub; this script copies them into build/site-src:
-- README.md becomes the home page (index.md);
+- README.md becomes the home page (index.md), drawn by overrides/home.html (front matter HOME_FRONT_MATTER);
 - docs/** keeps its layout (docs/en/... -> en/...); docs/README.md is left out, the home page replaces it;
 - relative links are rewritten for the site: to README.md -> home page, to other files under docs/ -> unchanged,
   to files outside docs/ (CONTRIBUTING.md, copilot/, LICENSE...) -> the file on GitHub.
@@ -18,6 +18,8 @@ OUT = os.path.join(ROOT, 'build', 'site-src')
 REPO_URL = 'https://github.com/Power-Builders-Italia/ProjectIQ'
 LINK = re.compile(r'\]\(([^)\s]+)\)')
 FENCE = re.compile(r'^\s*(```|~~~)')
+# The home page has its own layout (hero, feature cards, FAQ): the README text stays in the search index
+HOME_FRONT_MATTER = '---\ntemplate: home.html\nhide:\n  - navigation\n  - toc\n---\n'
 
 
 def site_path(repo_path):
@@ -44,7 +46,7 @@ def rewrite(target, source):
 
 
 def convert(source):
-    lines, fenced = [], False
+    lines, fenced = ([HOME_FRONT_MATTER] if source == 'README.md' else []), False
     with open(os.path.join(ROOT, source), encoding='utf-8') as f:
         for line in f:
             if FENCE.match(line):

@@ -189,7 +189,9 @@ flowchart LR
 ```
 
 - `tools/docs/build_site.py` stages the files: the README becomes the home page, links to files outside `docs/` (CONTRIBUTING, copilot, LICENSE) point to GitHub. The sources are never changed.
-- Look and feel: logo and favicon in `docs/assets/` (from the ProjectIQ icon), brand colours (green `#0c723d`, red `#d3010f`, grey `#5b5959`) in `docs/assets/extra.css`.
+- Look and feel: logo and favicon in `docs/assets/` (from the ProjectIQ icon). `docs/assets/extra.css` gives every page the same look as the home page: cream background, Instrument Serif headings, Geist text, dark-green footer, manual content on a white card (brand green `#0c723d`), with a dark variant.
+- Home page: `overrides/home.html` (theme `custom_dir`) draws the home with hero, one card per user manual, Copilot, manuals by language, technical documentation and FAQ; `build_site.py` gives the README the `template: home.html` front matter, so the README text is still indexed by the search. When a manual is added, add its card there too. Cards without an image show a placeholder until a screenshot is available.
+- Screenshots of the home page (`docs/assets/screenshots/`): they are the real PCF controls of `src/pcf`, rendered with demo data by `tools/docs/screenshots/` (stub context and demo rows in `demo.tsx`). Regenerate them when a control changes its look: `npm ci` in `src/pcf`, then `python3 tools/docs/screenshots/screenshots.py` (needs Node.js and Playwright with Chromium).
 - `mkdocs.yml` holds the menu (one tab per language plus Technical): add a new manual there too. Mermaid diagrams and the `#anchors` of the manuals work as on GitHub.
 - The `pages` workflow builds the site on pull requests that touch the docs (`--strict` fails on broken links) and publishes it on every push to `main` (or Actions > pages > Run workflow).
 - One-time setup: Settings > Pages > Build and deployment > Source **GitHub Actions**. The `github-pages` environment is created on the first run.

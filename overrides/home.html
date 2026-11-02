@@ -1,0 +1,137 @@
+{#- Home page of the documentation website (README.md gets `template: home.html` from tools/docs/build_site.py).
+    Layout of the home: hero, feature cards (one per user manual), Copilot, manuals by language, technical docs, FAQ.
+    The images in assets/screenshots/ are the ProjectIQ PCF controls rendered with demo data (tools/docs/screenshots). -#}
+{% extends "main.html" %}
+
+{% macro card(title, text, manual, image=None, placeholder=None) -%}
+<a class="piq-feat" href="{{ manual }}">
+  <h3>{{ title }}</h3>
+  <p>{{ text }}</p>
+  {% if image %}
+  <div class="piq-shot"><img src="{{ image }}" alt="{{ title }}" loading="lazy"></div>
+  {% else %}
+  <div class="piq-ph"><b>Screenshot coming soon</b>{{ placeholder }}</div>
+  {% endif %}
+  <span class="piq-more">Read the manual &rarr;</span>
+</a>
+{%- endmacro %}
+
+{% block tabs %}
+{{ super() }}
+<div class="piq-home">
+
+  <section class="piq-hero piq-wrap">
+    <div class="piq-kicker">ProjectIQ</div>
+    <h1>Project management on Microsoft Dataverse</h1>
+    <div class="piq-sub">What was planned, what has been spent, what is still committed.</div>
+    <p class="piq-desc">From the offer to the closing of the job: WBS and budget, Gantt with critical path and baselines, timesheets,
+      materials, purchasing and a supplier portal, in one Power Apps model-driven app on Microsoft Dataverse.</p>
+    <div class="piq-ctas">
+      <a class="piq-btn piq-solid" href="{{ 'en/getting-started/' | url }}">Get started &rarr;</a>
+      <a class="piq-btn" href="#features">Explore the features &darr;</a>
+    </div>
+    <div class="piq-note">Open source under the Apache License 2.0. Requires Power Apps Premium for internal users.</div>
+    <div class="piq-frame">
+      <div class="piq-fbar"><img src="{{ 'assets/logo.png' | url }}" alt="">ProjectIQ <span>&middot; Project &middot; PRJ-000124 Rooftop solar plant 450 kWp &middot; Gantt</span></div>
+      <div class="piq-fpad"><img src="{{ 'assets/screenshots/gantt.png' | url }}" alt="ProjectIQ Gantt chart with critical path and baseline"></div>
+    </div>
+    <div class="piq-caption">The Gantt chart of ProjectIQ, with critical path and baseline. Demo data.</div>
+  </section>
+
+  <div class="piq-strip">
+    <div class="piq-wrap">
+      <div><b>Planning</b><span>WBS, Gantt, critical path, baselines</span></div>
+      <div><b>Time tracking</b><span>Weekly timesheet, approval, reminders</span></div>
+      <div><b>Purchasing</b><span>Requests, RFQs, orders, receipts, invoices</span></div>
+      <div><b>Costs and margin</b><span>Actual, committed, estimate at completion</span></div>
+    </div>
+  </div>
+
+  <section class="piq-wrap piq-sec">
+    <div class="piq-eyebrow">The problem</div>
+    <h2>The job is spread across tools. The numbers should not be.</h2>
+    <div class="piq-why">
+      <div><h3>One shared plan.</h3><p>Budget, WBS, plan, hours and purchases live in the project, not in separate spreadsheets and e-mails.</p></div>
+      <div><h3>Hours valued on the day they were worked.</h3><p>Approved hours become actual cost of the WBS, valued at the hourly cost valid on the day.</p></div>
+      <div><h3>Committed cost before the invoice.</h3><p>Open purchase orders show the committed cost, so the loss of margin is visible before the job closes.</p></div>
+    </div>
+  </section>
+
+  <section class="piq-wrap piq-sec piq-top0" id="features">
+    <div class="piq-eyebrow">Features</div>
+    <h2>From the offer to the closing of the job</h2>
+    <p class="piq-lead">Every area of ProjectIQ, each with its user manual in English, Italian, French and German.</p>
+    <div class="piq-grid">
+      {{ card("Projects and team", "The project is the heart of ProjectIQ: customer, project manager, dates, contract value, budget, actual and committed cost, progress. Each member has a project role.", "en/projects-and-team/"|url, placeholder="Project form") }}
+      {{ card("WBS, budget, Gantt and baselines", "Phases, work packages and tasks with budget, a Gantt chart with dependencies and critical path, and baselines to compare the plan with what is happening.", "en/wbs-and-planning/"|url, "assets/screenshots/wbs.png"|url) }}
+      {{ card("Resource load", "Allocate hours of resources on WBS nodes and read the heat map that compares, week by week, allocated hours with each person's capacity.", "en/resource-load/"|url, "assets/screenshots/load.png"|url) }}
+      {{ card("Time tracking", "Weekly timesheet by project and task, approval or rejection by the project managers, and a daily reminder for people who forgot their hours.", "en/time-tracking/"|url, "assets/screenshots/timesheet.png"|url) }}
+      {{ card("Materials and costs", "Material usage, actual cost from approved hours and materials, committed cost of open orders, and a cost summary with estimate at completion and margin.", "en/materials-and-costs/"|url, "assets/screenshots/cost.png"|url) }}
+      {{ card("Purchasing", "Requests with budget check, approval, RFQs with quote comparison, purchase orders, goods receipts and supplier invoices.", "en/purchasing/"|url, "assets/screenshots/quotes.png"|url) }}
+      {{ card("Supplier portal", "A Power Pages site where suppliers quote RFQs, confirm orders and keep their documents up to date.", "en/supplier-portal/"|url, placeholder="Supplier portal dashboard") }}
+      {{ card("Documents in SharePoint", "Each project, purchase order and supplier document gets its own SharePoint folder, opened from the record.", "en/documents/"|url, placeholder="Documents tab of a project") }}
+      {{ card("Master data", "Customers, suppliers, contacts, items and resources: the records costs, purchasing and planning rely on.", "en/master-data/"|url, placeholder="Master Data area") }}
+      {{ card("Administration", "Users, security roles, cost visibility, company settings and the background automations.", "en/administration/"|url, placeholder="Settings area") }}
+      {{ card("Copilot and Cowork", "Questions in natural language on ProjectIQ data, read-only, with the same permissions as the app.", "en/copilot/"|url, placeholder="Copilot pane in the app") }}
+      {{ card("Portfolio Agent", "ProjectIQ cards in Microsoft 365 Copilot: portfolio KPIs, hours logged and approved, draft projects from documents.", "en/portfolio-agent/"|url, placeholder="Portfolio Agent card in Copilot") }}
+    </div>
+  </section>
+
+  <section class="piq-ai" id="copilot">
+    <div class="piq-wrap piq-cols2">
+      <div>
+        <div class="piq-eyebrow">AI in daily work</div>
+        <h2>Ask your project data</h2>
+        <p class="piq-lead">Copilot and Cowork answer questions in natural language, read-only, with the same security as the app.
+          The Portfolio Agent brings ProjectIQ cards into Microsoft 365 Copilot.</p>
+        <div class="piq-q"><small>Copilot Chat</small><b>&ldquo;How is project PRJ-000123 going?&rdquo;</b><span>An answer built from the same records you see in the app.</span></div>
+        <div class="piq-q"><small>Project manager</small><b>&ldquo;Which hours do I have to approve?&rdquo;</b><span>Read-only: every action stays on the buttons of the app.</span></div>
+        <div class="piq-q piq-y"><small>Portfolio Agent</small><b>&ldquo;Create a draft project from this document&rdquo;</b><span>A draft to complete; nothing is created before Confirm.</span></div>
+        <p class="piq-disc">AI can make mistakes. Check the answers; Copilot reads only the data your role can already see.</p>
+        <a class="piq-btn piq-light" href="{{ 'en/copilot/' | url }}">Explore Copilot &rarr;</a>
+      </div>
+      <div><img class="piq-illu" src="{{ 'assets/projectiq-hero.png' | url }}" alt="ProjectIQ: Copilot at the centre, the Power Platform technologies around it and the ProjectIQ features on the outer ring" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="piq-wrap piq-sec" id="manuals">
+    <div class="piq-head"><div><div class="piq-eyebrow">User manuals</div><h2>Read the manuals in your language</h2></div>
+      <a href="https://github.com/Power-Builders-Italia/ProjectIQ#user-manuals">All manuals &rarr;</a></div>
+    <div class="piq-langs">
+      <div class="piq-lang"><div class="piq-n">English <span class="piq-badge">Reference</span></div><div class="piq-big">EN</div><p>13 manuals, from getting started to the Portfolio Agent.</p><a class="piq-btn piq-sm" href="{{ 'en/getting-started/' | url }}">Open</a></div>
+      <div class="piq-lang"><div class="piq-n">Italiano</div><div class="piq-big">IT</div><p>Gli stessi manuali, allineati a ogni rilascio.</p><a class="piq-btn piq-sm" href="{{ 'it/getting-started/' | url }}">Apri</a></div>
+      <div class="piq-lang"><div class="piq-n">Français</div><div class="piq-big">FR</div><p>Les mêmes manuels, alignés à chaque version.</p><a class="piq-btn piq-sm" href="{{ 'fr/getting-started/' | url }}">Ouvrir</a></div>
+      <div class="piq-lang"><div class="piq-n">Deutsch</div><div class="piq-big">DE</div><p>Dieselben Handbücher, bei jeder Version abgeglichen.</p><a class="piq-btn piq-sm" href="{{ 'de/getting-started/' | url }}">Öffnen</a></div>
+    </div>
+  </section>
+
+  <section class="piq-white" id="technical">
+    <div class="piq-wrap piq-sec">
+      <div class="piq-head"><div><div class="piq-eyebrow">Technical documentation</div><h2>Build, deploy and extend ProjectIQ</h2></div>
+        <a href="https://github.com/Power-Builders-Italia/ProjectIQ">View on GitHub &rarr;</a></div>
+      <div class="piq-guides">
+        <a class="piq-guide" href="{{ 'dev-environment/' | url }}"><span class="piq-tag">Setup</span><h3>Development environment</h3><p>Tools, environments and deployment of the solution, plugins and PCF controls.</p></a>
+        <a class="piq-guide" href="{{ 'data-model/' | url }}"><span class="piq-tag">Schema</span><h3>Data model</h3><p>Tables, relationships and choices of the Dataverse solution, with diagrams.</p></a>
+        <a class="piq-guide" href="{{ 'appsource/' | url }}"><span class="piq-tag">Release</span><h3>Publishing on Microsoft AppSource</h3><p>Package Deployer project, listing assets and the release workflow.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="piq-wrap piq-sec piq-faq">
+    <h2>Frequently asked questions</h2>
+    <details><summary>Which licences do I need?</summary><p>Power Apps Premium for internal users. Suppliers use the Power Pages portal.</p></details>
+    <details><summary>Where are my data stored?</summary><p>In your company's own Dataverse environment: one database per company, nothing shared with other customers.</p></details>
+    <details><summary>Can team members see costs and margins?</summary><p>Only users with the OP365 Cost Visibility column security profile see hourly costs and the other protected cost columns.</p></details>
+    <details><summary>Can Copilot change data?</summary><p>No. Copilot and Cowork are read-only and see only the data your role can already access. The Portfolio Agent logs hours or creates a draft project only after you confirm.</p></details>
+    <details><summary>Which languages are available?</summary><p>The app and the manuals are in English, Italian, French and German.</p></details>
+    <details><summary>Is it open source?</summary><p>Yes, under the Apache License 2.0. The source is on GitHub.</p></details>
+  </section>
+
+  <section class="piq-cta">
+    <div class="piq-wrap"><h3>Bring your jobs into one shared place.</h3><a class="piq-btn piq-yellow" href="{{ 'en/getting-started/' | url }}">Get started &rarr;</a></div>
+  </section>
+</div>
+{% endblock %}
+
+{% block site_nav %}{% endblock %}
+{% block container %}{% endblock %}
