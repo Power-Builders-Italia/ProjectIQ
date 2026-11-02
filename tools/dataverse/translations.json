@@ -3109,6 +3109,11 @@
 "Modèles d'e-mail (type Compte) des messages aux fournisseurs, par message et langue du fournisseur : {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Par défaut : les modèles de tools/dataverse/supplier_email_templates.py.",
 "Modelli e-mail (tipo Account) dei messaggi ai fornitori, per messaggio e lingua del fornitore: {\"DocumentExpiring\": {\"Italian\": \"<template title>\", \"English\": \"<template title>\", \"default\": \"English\"}, \"DocumentExpired\": {...}}. Predefinito: i modelli di tools/dataverse/supplier_email_templates.py."
 ],
+"E-mail the contact an invitation to the supplier portal (its Company Name must be a supplier)": [
+"Dem Kontakt per E-Mail eine Einladung zum Lieferantenportal senden (sein Company Name muss ein Lieferant sein)",
+"Envoyer au contact une invitation au portail fournisseurs par e-mail (son Company Name doit être un fournisseur)",
+"Invia al contatto un invito al portale fornitori via e-mail (la sua Company Name deve essere un fornitore)"
+],
 "E-mails sent to suppliers": [
 "An Lieferanten gesendete E-Mails",
 "E-mails envoyés aux fournisseurs",
@@ -3453,6 +3458,11 @@
 "Datei",
 "Fichier",
 "File"
+],
+"File approved supplier documents": [
+"Genehmigte Lieferantendokumente ablegen",
+"Classer les documents fournisseurs approuvés",
+"Archivia i documenti fornitore approvati"
 ],
 "Fills the ProjectIQ columns of the files added to the folder of a project": [
 "Füllt die ProjectIQ-Spalten der Dateien im Ordner eines Projekts",
@@ -4454,6 +4464,11 @@
 "Inviter des contacts",
 "Invita contatti"
 ],
+"Invite To Portal": [
+"Zum Portal einladen",
+"Inviter au portail",
+"Invita al portale"
+],
 "Invite Web Form": [
 "Einladungswebformular",
 "Formulaire web d’invitation",
@@ -4463,6 +4478,11 @@
 "Lieferanten zur Angebotsabgabe einladen",
 "Inviter les fournisseurs à soumettre une offre",
 "Invita i fornitori a fare un'offerta"
+],
+"Invite to Portal": [
+"Zum Portal einladen",
+"Inviter au portail",
+"Invita al portale"
 ],
 "Invited": [
 "Eingeladen",
@@ -4478,6 +4498,11 @@
 "Eingeladener Lieferant",
 "Fournisseur invité",
 "Fornitore invitato"
+],
+"Invites a contact of a supplier to the supplier portal (Power Pages invitation with the Supplier web role)": [
+"Lädt einen Kontakt eines Lieferanten zum Lieferantenportal ein (Power-Pages-Einladung mit der Webrolle Supplier)",
+"Invite un contact d'un fournisseur au portail fournisseurs (invitation Power Pages avec le rôle web Supplier)",
+"Invita un contatto di un fornitore al portale fornitori (invito Power Pages con il web role Supplier)"
 ],
 "Invoice": [
 "Rechnung",
@@ -4878,6 +4903,11 @@
 "Link zum Dokument, wenn es außerhalb von Dataverse gespeichert ist",
 "Lien vers le document lorsqu'il est stocké hors de Dataverse",
 "Link al documento quando è archiviato fuori da Dataverse"
+],
+"Link to the file in SharePoint, filled by the flow File approved supplier documents when it moves the approved file out of Dataverse": [
+"Link zur Datei in SharePoint; wird vom Flow File approved supplier documents gefüllt, wenn er die genehmigte Datei aus Dataverse verschiebt",
+"Lien vers le fichier dans SharePoint, renseigné par le flux File approved supplier documents quand il sort le fichier approuvé de Dataverse",
+"Link al file in SharePoint, compilato dal flusso File approved supplier documents quando sposta il file approvato fuori da Dataverse"
 ],
 "List of Enabled Users.": [
 "Liste der aktivierten Benutzer.",
@@ -5513,6 +5543,11 @@
 "Neuer Wareneingang",
 "Nouvelle réception",
 "Nuovo ricevimento"
+],
+"New invitation": [
+"Neue Einladung",
+"Nouvelle invitation",
+"Nuovo invito"
 ],
 "New purchase order": [
 "Neue Bestellung",
@@ -7744,6 +7779,11 @@
 "Chiffre d'affaires (base)",
 "Ricavi (base)"
 ],
+"Review": [
+"Prüfung",
+"Examen",
+"Revisione"
+],
 "Review Note": [
 "Prüfnotiz",
 "Note d'examen",
@@ -8263,6 +8303,11 @@
 "SharePoint-E-Mail-Adresse",
 "Adresse de messagerie SharePoint",
 "Indirizzo e-mail di SharePoint"
+],
+"SharePoint URL": [
+"SharePoint-URL",
+"URL SharePoint",
+"URL SharePoint"
 ],
 "SharePoint Work Email Address": [
 "SharePoint-E-Mail-Adresse geschäftlich",
@@ -11188,6 +11233,11 @@
 "Was getan wurde",
 "Travail effectué",
 "Attività svolta"
+],
+"When a supplier document is approved, moves its file to the SharePoint folder of the document": [
+"Verschiebt die Datei eines genehmigten Lieferantendokuments in den SharePoint-Ordner des Dokuments",
+"Quand un document fournisseur est approuvé, déplace son fichier dans le dossier SharePoint du document",
+"Quando un documento fornitore è approvato, ne sposta il file nella cartella SharePoint del documento"
 ],
 "When all the goods were received": [
 "Wann alle Waren eingegangen sind",

@@ -128,7 +128,10 @@ Les flux sont importés **désactivés** : après chaque mise à jour de la solu
 Le flux **File approved supplier documents** démarre quand un document fournisseur devient **Approved** (**Approve** dans l'application). Si le document a un fichier dans sa colonne **File**, le flux :
 1. trouve le dossier SharePoint de l'enregistrement, ou en enregistre un nouveau (`<description>_<id de l'enregistrement>`) dans la bibliothèque **op365_supplierdocument** ;
 2. crée le fichier dans ce dossier avec son nom d'origine (le flux **Tag supplier documents** renseigne ensuite ses colonnes ProjectIQ) ;
-3. retire le fichier de la colonne **File**. Sur le portail, le fournisseur voit alors **Filed by your customer** à la place du fichier.
+3. écrit le lien vers le fichier dans **SharePoint URL** (sous **File** dans le formulaire, en lecture seule et affiché seulement une fois renseigné : cliquez dessus pour ouvrir le fichier) ;
+4. retire le fichier de la colonne **File**. Sur le portail, le fournisseur voit alors **Filed by your customer** à la place du fichier.
+
+Les documents classés avant l'existence de **SharePoint URL** reçoivent le lien vers leur dossier SharePoint (le nom du fichier n'est plus connu) à la première exécution de `deploy-test` après la mise à jour.
 
 Il utilise les mêmes références de connexion **op365_dataverse** et **op365_sharepoint** et la variable **SharePoint Site URL** ; la bibliothèque **op365_supplierdocument** doit exister dans SharePoint et le site doit être le site par défaut de **Document Management Settings** ([Partie 2](#partie-2--configuration-administrateurs), étape 2) ; si Dataverse n'a pas encore d'emplacement de document pour la bibliothèque, le flux l'enregistre sous ce site. Si la copie échoue, le fichier reste dans la colonne **File** : consultez l'historique des exécutions et relancez le flux depuis l'exécution en échec (**Resubmit**), sans approuver à nouveau.
 

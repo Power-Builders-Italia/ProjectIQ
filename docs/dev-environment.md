@@ -302,7 +302,8 @@ Before you start: Dev matches `main` (see above), and the secrets of the environ
    2. sets the version `1.0.<run number>.0` of `OpenProject365` in Dev and exports it as managed;
    3. imports it into Test with *stage and upgrade* (components removed from the solution are deleted in Test), activates the plugin steps and applies `deployment/test.settings.json`: the `op365_dataverse` and `op365_sharepoint` connection references, the company settings and the SharePoint site and library ids come from the secrets of the environment `test` (an empty secret keeps the value in Test);
    4. does the same for `OpenProject365SupplierPortal`, after the main solution;
-   5. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
+   5. runs `tools/dataverse/backfill_sharepoint_urls.py` in Test (data only, idempotent): approved supplier documents filed in SharePoint before the **SharePoint URL** column get the link to their SharePoint folder;
+   6. keeps both managed packages as the `OpenProject365-managed` artifact of the run.
 4. After the run:
    - check in Test that the plugin steps are enabled (an interrupted import can leave them disabled);
    - clear the portal cache (`/_services/about` > *Clear cache*) and sign in again;

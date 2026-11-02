@@ -1156,6 +1156,52 @@
             <Description description="Nota del revisore; il motivo quando il documento è rifiutato" languagecode="1040" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="op365_SharePointUrl">
+          <Type>nvarchar</Type>
+          <Name>op365_sharepointurl</Name>
+          <LogicalName>op365_sharepointurl</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>url</Format>
+          <MaxLength>2000</MaxLength>
+          <Length>4000</Length>
+          <displaynames>
+            <displayname description="SharePoint URL" languagecode="1033" />
+            <displayname description="SharePoint-URL" languagecode="1031" />
+            <displayname description="URL SharePoint" languagecode="1036" />
+            <displayname description="URL SharePoint" languagecode="1040" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Link to the file in SharePoint, filled by the flow File approved supplier documents when it moves the approved file out of Dataverse" languagecode="1033" />
+            <Description description="Link zur Datei in SharePoint; wird vom Flow File approved supplier documents gefüllt, wenn er die genehmigte Datei aus Dataverse verschiebt" languagecode="1031" />
+            <Description description="Lien vers le fichier dans SharePoint, renseigné par le flux File approved supplier documents quand il sort le fichier approuvé de Dataverse" languagecode="1036" />
+            <Description description="Link al file in SharePoint, compilato dal flusso File approved supplier documents quando sposta il file approvato fuori da Dataverse" languagecode="1040" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="op365_SupplierDocumentId">
           <Type>primarykey</Type>
           <Name>op365_supplierdocumentid</Name>

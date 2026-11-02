@@ -188,6 +188,8 @@ def file_approved_flow():
         name = f"replace({name}, '{ch}', '')"
     new_folder = f"concat(trim(substring({name}, 0, min(length({name}), 80))), '_', toUpper(replace({doc}, '-', '')))"
     found = "body('Find_record_folder')?['value']"
+    path = "body('Create_SharePoint_file')?['Path']"
+    enc = f"replace(replace(replace({path}, '%', '%25'), ' ', '%20'), '#', '%23')"
     has_file = {
         'Download_file': _op('shared_commondataserviceforapps', 'GetEntityFileImageFieldContent', {
             'entityName': 'op365_supplierdocuments', 'recordId': f'@{doc}', 'fileImageFieldName': 'op365_file'}),
@@ -235,8 +237,13 @@ def file_approved_flow():
             'dataset': _site(), 'folderPath': f"@concat('/{library}/', outputs('Record_folder'))",
             'name': "@body('Get_document')?['op365_file_name']", 'body': "@body('Download_file')"},
             {'Folder_registered': ['Succeeded']}),
+        # link to the file (Path is relative to the site), shown on the form once the file left Dataverse
+        'Set_SharePoint_URL': _op('shared_commondataserviceforapps', 'UpdateRecord', {
+            'entityName': 'op365_supplierdocuments', 'recordId': f'@{doc}',
+            'item/op365_sharepointurl': f"@replace(replace(concat({_site()[1:]}, '|', {enc}), '/|', ''), '|', '')"},
+            {'Create_SharePoint_file': ['Succeeded']}),
         'Remove_Dataverse_file': dict(unbound_action('DeleteFile', {'FileId': "@body('Get_document')?['op365_file']"}),
-                                      runAfter={'Create_SharePoint_file': ['Succeeded']}),
+                                      runAfter={'Set_SharePoint_URL': ['Succeeded']}),
     }
     actions = {
         'Library_location': {'runAfter': {}, 'type': 'InitializeVariable',
