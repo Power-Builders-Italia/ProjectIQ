@@ -245,6 +245,18 @@ APIS = {
       [('ProposalId', 12, False, 'Agent proposal'), ('Error', 10, False, 'Error message of the failed action'),
        ('DecidedBy', 10, True, 'User Name or e-mail of the person who approved; accepted only from (and required of) the sourcing agent')],
       []),
+  # sourcing agent: analysis (read-only, with the caller's privileges)
+  'op365_SourcingSuggestSuppliers': ('SourcingSuggestSuppliers', 'Sourcing Suggest Suppliers',
+      'Ranks the suppliers that could serve a purchase request (coverage, price, lead time, answers, documents); read-only',
+      'op365_purchaserequest', False, [],
+      [('Result', 10, 'JSON array of the candidate suppliers, best first')]),
+  'op365_SourcingRouteRequest': ('SourcingRouteRequest', 'Sourcing Route Request',
+      'Recommends a request for quotation or a direct order for an approved purchase request and the suppliers; read-only',
+      'op365_purchaserequest', False, [],
+      [('Route', 10, 'SourceViaRfq, DirectOrder, NoSupplier or NotApplicable'),
+       ('ActionType', 7, 'Agent proposal action type to create; 0 when none'),
+       ('Payload', 10, 'JSON payload of the agent proposal'),
+       ('Result', 10, 'Whole analysis as JSON (agent proposal Evidence)')]),
 }
 
 

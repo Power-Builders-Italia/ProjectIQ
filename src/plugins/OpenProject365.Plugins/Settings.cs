@@ -49,6 +49,17 @@ namespace OpenProject365.Plugins
         public static Guid? SourcingAgentUser(IOrganizationService system) =>
             Rules.UserByName(system, Value(system, SourcingAgentUserVariable));
 
+        /// <summary>Estimated amount up to which the sourcing agent proposes a direct order; null = always a request for quotation.</summary>
+        public static decimal? SourcingDirectOrderLimit(IOrganizationService system) =>
+            EnvironmentValue.Number(Value(system, SourcingDirectOrderLimitVariable));
+
+        /// <summary>Suppliers the sourcing agent invites to a request for quotation; 3 when not set.</summary>
+        public static int SourcingMinQuotes(IOrganizationService system)
+        {
+            var n = (int)(EnvironmentValue.Number(Value(system, SourcingMinQuotesVariable)) ?? SourcingRules.DefaultMinQuotes);
+            return n <= 0 ? SourcingRules.DefaultMinQuotes : n;
+        }
+
         /// <summary>Days after which an open agent proposal expires; 5 when not set.</summary>
         public static int SourcingProposalExpiryDays(IOrganizationService system) =>
             (int)(EnvironmentValue.Number(Value(system, SourcingProposalExpiryDaysVariable)) ?? 5m);
