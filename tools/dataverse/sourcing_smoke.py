@@ -458,33 +458,49 @@ finally:
             return [x[key] for x in rows(es, f'{col} eq {id_}', key)]
         except Exception:  # noqa: BLE001
             return []
-    for pid in created_proposals:
-        drop('op365_agentproposals', pid)
-    for pr in created_prs:
-        for rfq in [x['op365_rfqid'] for x in rows('op365_rfqs', f'_op365_purchaserequestid_value eq {pr}', 'op365_rfqid')]:
-            for inv in children('op365_rfqinvitations', '_op365_rfqid_value', rfq, 'op365_rfqinvitationid'):
-                for q in children('op365_rfqquotes', '_op365_invitationid_value', inv, 'op365_rfqquoteid'):
-                    drop('op365_rfqquotes', q)
+    # Order, from the relationship kinds in phase4_tables.py: proposals first (their target lookups are referential, but
+    # they are ours); then per request the purchase orders (referential to request/RFQ/invoice: no block) with their
+    # receipts and lines, then RFQs with invitations and quotes (RFQ -> winning invitation/order lookups are referential, so
+    # they do not block), then request lines and the request (parental children go before it). Supplier invoices and
+    # invitations/orders that point to a supplier must go before the suppliers, the only restrict relationships
+    # (invitation, order, invoice -> supplier). Last the project and the customer. Every step is guarded: nothing here can
+    # skip the summary and the exit code.
+    def safe(label, fn, *args):
+        try:
+            fn(*args)
+        except Exception as ex:  # noqa: BLE001
+            left.append(f'{label}: {type(ex).__name__}: {ex}')
+
+    def clean_request(pr):
         for po in children('op365_purchaseorders', '_op365_purchaserequestid_value', pr, 'op365_purchaseorderid'):
             for gr in children('op365_goodsreceipts', '_op365_purchaseorderid_value', po, 'op365_goodsreceiptid'):
+                for gl in children('op365_goodsreceiptlines', '_op365_goodsreceiptid_value', gr, 'op365_goodsreceiptlineid'):
+                    drop('op365_goodsreceiptlines', gl)
                 drop('op365_goodsreceipts', gr)
             for pl in children('op365_purchaseorderlines', '_op365_purchaseorderid_value', po, 'op365_purchaseorderlineid'):
                 drop('op365_purchaseorderlines', pl)
             drop('op365_purchaseorders', po)
         for rfq in children('op365_rfqs', '_op365_purchaserequestid_value', pr, 'op365_rfqid'):
             for inv in children('op365_rfqinvitations', '_op365_rfqid_value', rfq, 'op365_rfqinvitationid'):
+                for q in children('op365_rfqquotes', '_op365_invitationid_value', inv, 'op365_rfqquoteid'):
+                    drop('op365_rfqquotes', q)
                 drop('op365_rfqinvitations', inv)
             drop('op365_rfqs', rfq)
         for ln in children('op365_purchaserequestlines', '_op365_purchaserequestid_value', pr, 'op365_purchaserequestlineid'):
             drop('op365_purchaserequestlines', ln)
         drop('op365_purchaserequests', pr)
+
+    for pid in created_proposals:
+        safe(f'proposal {pid}', drop, 'op365_agentproposals', pid)
+    for pr in created_prs:
+        safe(f'request {pr}', clean_request, pr)
     for inv in created_invoices:
-        drop('op365_supplierinvoices', inv)
+        safe(f'invoice {inv}', drop, 'op365_supplierinvoices', inv)
     if prj:
-        drop('op365_projects', prj)
+        safe('project', drop, 'op365_projects', prj)
     for id_ in (sup1, sup2, cust):
         if id_:
-            drop('accounts', id_)
+            safe(f'account {id_}', drop, 'accounts', id_)
     if left:
         print('WARNING: left behind in Dev (delete by hand):')
         for x in left:
