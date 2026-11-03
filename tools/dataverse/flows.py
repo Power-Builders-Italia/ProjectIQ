@@ -14,6 +14,7 @@ from flow_definitions import CONNECTORS, FLOWS
 REFERENCES = {
     'op365_dataverse': ('ProjectIQ Dataverse', 'Dataverse connection used by the ProjectIQ flows'),
     'op365_sharepoint': ('ProjectIQ SharePoint', 'SharePoint connection (dedicated user) used by the ProjectIQ document flows'),
+    'op365_teams': ('ProjectIQ Teams', 'Teams connection (service account member of the approval team) used by the agent proposal approval card'),
 }
 
 connections = {}
