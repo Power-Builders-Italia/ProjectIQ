@@ -1,5 +1,5 @@
 // Purchasing commands (classic ribbon buttons on the purchase request, RFQ, purchase order, goods receipt and supplier
-// invoice and supplier document forms; enable rules on the status show each button only where it applies).
+// invoice, supplier document and agent proposal forms; enable rules on the status show each button only where it applies).
 // Web resource op365_/scripts/purchasing.js; every handler receives the form (PrimaryControl).
 var OP365 = OP365 || {};
 (function () {
@@ -51,6 +51,13 @@ var OP365 = OP365 || {};
         "Invite to Portal": ["Zum Portal einladen", "Inviter au portail", "Invita al portale"],
         "Send this contact an invitation to the supplier portal? It is valid for 30 days and gives access to the documents and orders of its company.": ["Diesem Kontakt eine Einladung zum Lieferantenportal senden? Sie ist 30 Tage gültig und gibt Zugriff auf die Dokumente und Bestellungen seines Unternehmens.", "Envoyer à ce contact une invitation au portail fournisseurs ? Elle est valable 30 jours et donne accès aux documents et commandes de sa société.", "Inviare a questo contatto un invito al portale fornitori? Vale 30 giorni e dà accesso ai documenti e agli ordini della sua società."],
         "Sending...": ["Wird gesendet...", "Envoi...", "Invio..."],
+        "Approve this proposal? The agent's action runs with your identity.": ["Diesen Vorschlag genehmigen? Die Aktion des Agenten wird mit Ihrer Identität ausgeführt.", "Approuver cette proposition ? L'action de l'agent s'exécute avec votre identité.", "Approvare questa proposta? L'azione dell'agente viene eseguita con la tua identità."],
+        "Reject Proposal": ["Vorschlag ablehnen", "Rejeter la proposition", "Rifiuta proposta"],
+        "Retry": ["Wiederholen", "Réessayer", "Riprova"],
+        "Retry this proposal?": ["Diesen Vorschlag erneut versuchen?", "Réessayer cette proposition ?", "Riprovare questa proposta?"],
+        "Retrying...": ["Wird wiederholt...", "Nouvelle tentative...", "Nuovo tentativo in corso..."],
+        "Acknowledge": ["Zur Kenntnis nehmen", "Prendre note", "Prendi atto"],
+        "Acknowledging...": ["Wird bestätigt...", "Prise en compte...", "Presa d'atto in corso..."],
         "Invitation sent to the supplier portal.": ["Einladung zum Lieferantenportal gesendet.", "Invitation au portail fournisseurs envoyée.", "Invito al portale fornitori inviato."]
     };
     function t(text) {
@@ -61,7 +68,7 @@ var OP365 = OP365 || {};
     var SETS = {
         op365_purchaserequest: "op365_purchaserequests", op365_rfq: "op365_rfqs", op365_purchaseorder: "op365_purchaseorders",
         op365_goodsreceipt: "op365_goodsreceipts", op365_supplierinvoice: "op365_supplierinvoices",
-        op365_supplierdocument: "op365_supplierdocuments", contact: "contacts"
+        op365_supplierdocument: "op365_supplierdocuments", op365_agentproposal: "op365_agentproposals", contact: "contacts"
     };
 
     function idOf(form) { return form.data.entity.getId().replace(/[{}]/g, ""); }
@@ -99,7 +106,8 @@ var OP365 = OP365 || {};
                 return refresh(form);
             }, function (error) {
                 Xrm.Utility.closeProgressIndicator();
-                Xrm.Navigation.openErrorDialog({ message: error.message });
+                var after = options.onError ? options.onError(error) : Promise.resolve();
+                return after.then(function () { Xrm.Navigation.openErrorDialog({ message: error.message }); });
             });
         };
         var start = form.data.entity.getIsDirty() ? form.data.save() : Promise.resolve();
@@ -117,6 +125,23 @@ var OP365 = OP365 || {};
             { pageType: "webresource", webresourceName: "op365_/pages/decision.html", data: data },
             { target: 2, position: 1, width: { value: 480, unit: "px" }, height: { value: 320, unit: "px" }, title: title }
         ).then(function () { return refresh(form); });
+    }
+
+    // After a failed op365_DecideAgentProposal (Approve): the approved action rolled back, so the proposal must be marked Failed with
+    // op365_RecordProposalError. Rule: refresh first and record only if the proposal is still Pending (statuscode 1). A refusal
+    // that happens before the action runs ("This proposal has already been decided.") leaves a non-Pending status and is skipped;
+    // a refusal that leaves it Pending ("You cannot decide this proposal.") is refused by RecordProposalError too, so that call's
+    // own failure is ignored. Reject and Acknowledge never run an action, so they never record an error.
+    function recordProposalError(form, error) {
+        return refresh(form).then(function () {
+            var status = form.getAttribute("statuscode");
+            if (!status || status.getValue() !== 1) { return; }
+            var url = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.2/op365_RecordProposalError";
+            return fetch(url, {
+                method: "POST", credentials: "same-origin", body: JSON.stringify({ ProposalId: idOf(form), Error: error.message }),
+                headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json", "OData-Version": "4.0", "OData-MaxVersion": "4.0" }
+            }).then(function () { return refresh(form); });
+        }).catch(function () { /* refused or unreachable: the original error is shown anyway */ });
     }
 
     OP365.Purchasing = {
@@ -213,6 +238,20 @@ var OP365 = OP365 || {};
             var url = form.getAttribute("op365_sharepointurl");
             var control = form.getControl("op365_sharepointurl");
             if (url && control) control.setVisible(!!url.getValue());
+        },
+        // ----- agent proposal
+        approveProposal: function (form) {
+            return run(form, {
+                action: "op365_DecideAgentProposal", body: { Approve: true }, title: t("Approve"), confirm: t("Approve this proposal? The agent's action runs with your identity."),
+                progress: t("Approving..."), onError: function (error) { return recordProposalError(form, error); }
+            });
+        },
+        rejectProposal: function (form) { return reject(form, "op365_DecideAgentProposal", t("Reject Proposal")); },
+        retryProposal: function (form) {
+            return run(form, { action: "op365_RetryAgentProposal", title: t("Retry"), confirm: t("Retry this proposal?"), progress: t("Retrying...") });
+        },
+        acknowledgeProposal: function (form) {
+            return run(form, { action: "op365_DecideAgentProposal", body: { Approve: true }, title: t("Acknowledge"), progress: t("Acknowledging...") });
         },
         // ----- supplier portal
         inviteToPortal: function (form) {
