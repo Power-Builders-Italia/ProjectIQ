@@ -24,6 +24,15 @@ Prerequisites
     prvActOnBehalfOfAnotherUser privilege (e.g. the Delegate role). The plugins see the buyer as the calling user.
   * The admin application user is the project manager and approver of the test purchase requests.
 
+Exit codes: 0 all cases passed; 1 at least one case failed; 2 no failure but at least one case was skipped (the run is
+not complete: a green 0 means every case ran).
+
+Expiry (manual part): Expires On is set by the create plugin and cannot be edited, so the script cannot make a proposal
+overdue and reports that case as SKIP (it does not call op365_ExpireAgentProposals, which would expire other people's
+overdue proposals in the shared Dev environment). Check it by hand: create a proposal, back-date its Expires On with an
+admin tool (e.g. direct database/bulk-edit tool) or wait until it is past, run the "Daily agent proposal expiry" flow (or
+call op365_ExpireAgentProposals), and confirm the proposal is Expired and Count >= 1.
+
 Run:  python3 tools/dataverse/sourcing_smoke.py
 """
 import datetime as dt, os, sys, threading
@@ -56,6 +65,8 @@ E_NOTE = 'Add a note to reject the proposal.'
 SKIP = 'SKIP:'
 results = []
 created_proposals = []
+created_prs = []
+created_invoices = []
 
 
 def agent_session():
@@ -121,7 +132,7 @@ def case(name):
             ok, reason = (out is None or out is True), (out if isinstance(out, str) else '')
             if isinstance(out, str) and out.startswith(SKIP):
                 print('SKIP ' + name + ' - ' + out[len(SKIP):].strip()[:500])
-                results.append((name, True, 'skipped'))
+                results.append((name, None, 'skipped'))
                 return fn
         except Exception as ex:  # noqa: BLE001 - a broken case must not stop the others
             ok, reason = False, f'{type(ex).__name__}: {ex}'
@@ -186,6 +197,7 @@ def expect_error(r, message):
 
 def make_pr(title):
     pr = post('op365_purchaserequests', {'op365_ProjectId@odata.bind': f'/op365_projects({prj})', 'op365_title': title})['op365_purchaserequestid']
+    created_prs.append(pr)
     post('op365_purchaserequestlines', {'op365_PurchaseRequestId@odata.bind': f'/op365_purchaserequests({pr})', 'op365_name': 'Cable',
                                         'op365_quantity': 2, 'op365_estimatedprice': 10})
     must(bound('op365_purchaserequests', pr, 'op365_SubmitPurchaseRequest'), 'submit request')
@@ -318,6 +330,10 @@ try:
         r = approve(pid, caller=BUYER)
         if r.ok:
             return 'approve succeeded with a deadline in the past'
+        # the Source via RFQ action runs CreateRfq first, which itself refuses a past deadline before inserting the RFQ
+        # (Purchasing.cs); SendRfq's "The deadline has passed" check cannot be reached through the payload
+        if 'The deadline must be today or later.' not in err(r):
+            return f'wrong error: {err(r)[:300]}'
         if rfqs_of(pr):
             return 'an RFQ was left behind after the failed approve'
         if proposal(pid)['statuscode'] != ST_PENDING:
@@ -342,6 +358,7 @@ try:
         global invoice
         invoice = post('op365_supplierinvoices', {'op365_invoicenumber': 'SMOKE-SRC-1', 'op365_invoicedate': dt.date.today().isoformat(),
                                                   'op365_SupplierId@odata.bind': f'/accounts({sup1})'})['op365_supplierinvoiceid']
+        created_invoices.append(invoice)
         pid = propose(invoice=invoice, project=prj, action=A_APPROVE_INV)
         e = expect_error(approve(pid, caller=BUYER), E_CANNOT)
         if e:
@@ -367,17 +384,14 @@ try:
         pid = propose(pr=pr, project=prj, payload=payload(sup1))
         yesterday = (dt.date.today() - dt.timedelta(days=1)).isoformat()
         r = S.patch(API + f'op365_agentproposals({pid})', json={'op365_expireson': yesterday})
+        if not r.ok:
+            # do NOT run op365_ExpireAgentProposals: it would expire other people's overdue proposals in the shared Dev environment
+            return SKIP + 'expiry needs a proposal past its Expires On: check by hand in Dev (see docstring)'
         r2 = unbound('op365_ExpireAgentProposals')
         if not r2.ok:
             return f'ExpireAgentProposals failed: {err(r2)}'
         count = r2.json().get('Count')
         st = proposal(pid)['statuscode']
-        if not r.ok:
-            # the create plugin sets Expires On and refuses later edits, so a past date cannot be set from outside
-            if st != ST_PENDING:
-                return f'a proposal with a future Expires On was expired (statuscode {st})'
-            return SKIP + ('Expires On cannot be set to a past date from outside the plugins (Update refused: ' + err(r)[:120]
-                           + '); a fresh proposal correctly stayed Pending, the expiry itself needs a one-off manual check in Dev')
         if st != ST_EXPIRED or not count or count < 1:
             return f'statuscode {st}, Count {count}, expected Expired and Count >= 1'
 
@@ -429,16 +443,55 @@ try:
         if n != 1:
             return f'{n} RFQs for the request, expected 1'
 finally:
-    for pid in created_proposals:
-        S.delete(API + f'op365_agentproposals({pid})')
-    if invoice:
-        S.delete(API + f'op365_supplierinvoices({invoice})')
-    if prj:
-        S.delete(API + f'op365_projects({prj})')
-    for es, id_ in [('accounts', sup1), ('accounts', sup2), ('accounts', cust)]:
-        if id_:
-            S.delete(API + f'{es}({id_})')
+    left = []
 
-failed = [n for n, ok, _ in results if not ok]
-print(f'{len(results) - len(failed)} passed, {len(failed)} failed')
-sys.exit(1 if failed else 0)
+    def drop(es, id_):
+        try:
+            r = S.delete(API + f'{es}({id_})')
+            if r.status_code >= 300 and r.status_code != 404:
+                left.append(f'{es}({id_}): {r.status_code} {err(r)[:120]}')
+        except Exception as ex:  # noqa: BLE001
+            left.append(f'{es}({id_}): {ex}')
+
+    def children(es, col, id_, key):
+        try:
+            return [x[key] for x in rows(es, f'{col} eq {id_}', key)]
+        except Exception:  # noqa: BLE001
+            return []
+    for pid in created_proposals:
+        drop('op365_agentproposals', pid)
+    for pr in created_prs:
+        for rfq in [x['op365_rfqid'] for x in rows('op365_rfqs', f'_op365_purchaserequestid_value eq {pr}', 'op365_rfqid')]:
+            for inv in children('op365_rfqinvitations', '_op365_rfqid_value', rfq, 'op365_rfqinvitationid'):
+                for q in children('op365_rfqquotes', '_op365_invitationid_value', inv, 'op365_rfqquoteid'):
+                    drop('op365_rfqquotes', q)
+        for po in children('op365_purchaseorders', '_op365_purchaserequestid_value', pr, 'op365_purchaseorderid'):
+            for gr in children('op365_goodsreceipts', '_op365_purchaseorderid_value', po, 'op365_goodsreceiptid'):
+                drop('op365_goodsreceipts', gr)
+            for pl in children('op365_purchaseorderlines', '_op365_purchaseorderid_value', po, 'op365_purchaseorderlineid'):
+                drop('op365_purchaseorderlines', pl)
+            drop('op365_purchaseorders', po)
+        for rfq in children('op365_rfqs', '_op365_purchaserequestid_value', pr, 'op365_rfqid'):
+            for inv in children('op365_rfqinvitations', '_op365_rfqid_value', rfq, 'op365_rfqinvitationid'):
+                drop('op365_rfqinvitations', inv)
+            drop('op365_rfqs', rfq)
+        for ln in children('op365_purchaserequestlines', '_op365_purchaserequestid_value', pr, 'op365_purchaserequestlineid'):
+            drop('op365_purchaserequestlines', ln)
+        drop('op365_purchaserequests', pr)
+    for inv in created_invoices:
+        drop('op365_supplierinvoices', inv)
+    if prj:
+        drop('op365_projects', prj)
+    for id_ in (sup1, sup2, cust):
+        if id_:
+            drop('accounts', id_)
+    if left:
+        print('WARNING: left behind in Dev (delete by hand):')
+        for x in left:
+            print('  ' + x)
+
+passed = sum(1 for _, ok, _ in results if ok is True)
+skipped = sum(1 for _, ok, _ in results if ok is None)
+failed = [n for n, ok, _ in results if ok is False]
+print(f'{passed} passed, {skipped} skipped, {len(failed)} failed')
+sys.exit(1 if failed else (2 if skipped else 0))
