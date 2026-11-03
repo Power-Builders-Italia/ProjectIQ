@@ -1,11 +1,19 @@
-import os, requests
+import os, re, requests
 def env_url(value):
     # pac accepts the environment URL without scheme or with spaces; the token scope needs https://<host>
     value=value.strip().rstrip('/')
     return value if value.lower().startswith('https://') else 'https://'+value.split('://')[-1]
 ENV=env_url(os.environ['PAC_ENVIRONMENT_URL'])
+def tenant():
+    # the environment names its own tenant in the 401 challenge; PAC_TENANT_ID is only the fallback
+    try:
+        h=requests.get(ENV+'/api/data/v9.2/',headers={'Authorization':'Bearer'},timeout=30).headers.get('WWW-Authenticate','')
+        m=re.search(r'login\.microsoftonline\.com/([0-9a-fA-F-]{36})/',h)
+        if m: return m.group(1)
+    except requests.RequestException: pass
+    return os.environ['PAC_TENANT_ID'].strip()
 def token():
-    r=requests.post(f"https://login.microsoftonline.com/{os.environ['PAC_TENANT_ID'].strip()}/oauth2/v2.0/token",data={
+    r=requests.post(f"https://login.microsoftonline.com/{tenant()}/oauth2/v2.0/token",data={
         'grant_type':'client_credentials','client_id':os.environ['PAC_CLIENT_ID'].strip(),
         'client_secret':os.environ['PAC_CLIENT_SECRET'].strip(),'scope':ENV+'/.default'})
     if not r.ok:
