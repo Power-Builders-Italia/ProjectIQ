@@ -94,6 +94,7 @@
     <RolePrivilege name="prvReadAccount" level="Global" />
     <RolePrivilege name="prvReadContact" level="Global" />
     <RolePrivilege name="prvReadop365_Absence" level="Global" />
+    <RolePrivilege name="prvReadop365_AgentProposal" level="Basic" />
     <RolePrivilege name="prvReadop365_Baseline" level="Basic" />
     <RolePrivilege name="prvReadop365_BaselineNode" level="Basic" />
     <RolePrivilege name="prvReadop365_GoodsReceipt" level="Basic" />

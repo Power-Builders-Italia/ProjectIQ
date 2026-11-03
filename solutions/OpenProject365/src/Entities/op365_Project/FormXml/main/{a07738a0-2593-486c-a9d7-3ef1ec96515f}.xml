@@ -624,6 +624,43 @@
                     </row>
                   </rows>
                 </section>
+                <section name="agent_proposals" showlabel="true" showbar="false" columns="1" id="{a3efcf83-2dfd-5816-9266-dd873190fd74}">
+                  <labels>
+                    <label description="Agentenvorschläge" languagecode="1031" />
+                    <label description="Agent Proposals" languagecode="1033" />
+                    <label description="Propositions de l’agent" languagecode="1036" />
+                    <label description="Proposte agente" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{71adf179-aad3-559a-b2d5-1a35bb5d0ed1}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="WBS Nodes" languagecode="1033" />
+                          <label description="Nodi WBS" languagecode="1040" />
+                          <label description="PSP-Elemente" languagecode="1031" />
+                          <label description="Nœuds WBS" languagecode="1036" />
+                        </labels>
+                        <control id="agent_proposals" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{229ebe96-63d7-f111-84e8-7ced8d2d53e4}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>op365_project_agentproposal_projectid</RelationshipName>
+                            <TargetEntityType>op365_agentproposal</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
               </sections>
             </column>
           </columns>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{999aa78d-63d7-f111-84e8-7ced8d2d53e4}" name="OP365 Sourcing Agent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendop365_AgentProposal" level="Global" />
+    <RolePrivilege name="prvAppendToAccount" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Project" level="Global" />
+    <RolePrivilege name="prvAppendToop365_PurchaseOrder" level="Global" />
+    <RolePrivilege name="prvAppendToop365_PurchaseRequest" level="Global" />
+    <RolePrivilege name="prvAppendToop365_Rfq" level="Global" />
+    <RolePrivilege name="prvAppendToop365_RfqInvitation" level="Global" />
+    <RolePrivilege name="prvAppendToop365_SupplierInvoice" level="Global" />
+    <RolePrivilege name="prvCreateop365_AgentProposal" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadAccount" level="Global" />
+    <RolePrivilege name="prvReadContact" level="Global" />
+    <RolePrivilege name="prvReadop365_AgentProposal" level="Global" />
+    <RolePrivilege name="prvReadop365_GoodsReceipt" level="Global" />
+    <RolePrivilege name="prvReadop365_GoodsReceiptLine" level="Global" />
+    <RolePrivilege name="prvReadop365_Item" level="Global" />
+    <RolePrivilege name="prvReadop365_ItemSupplier" level="Global" />
+    <RolePrivilege name="prvReadop365_Project" level="Global" />
+    <RolePrivilege name="prvReadop365_ProjectMember" level="Global" />
+    <RolePrivilege name="prvReadop365_ProjectSupplier" level="Global" />
+    <RolePrivilege name="prvReadop365_PurchaseOrder" level="Global" />
+    <RolePrivilege name="prvReadop365_PurchaseOrderLine" level="Global" />
+    <RolePrivilege name="prvReadop365_PurchaseRequest" level="Global" />
+    <RolePrivilege name="prvReadop365_PurchaseRequestLine" level="Global" />
+    <RolePrivilege name="prvReadop365_Resource" level="Global" />
+    <RolePrivilege name="prvReadop365_Rfq" level="Global" />
+    <RolePrivilege name="prvReadop365_RfqInvitation" level="Global" />
+    <RolePrivilege name="prvReadop365_RfqQuote" level="Global" />
+    <RolePrivilege name="prvReadop365_SupplierDocument" level="Global" />
+    <RolePrivilege name="prvReadop365_SupplierInvoice" level="Global" />
+    <RolePrivilege name="prvReadop365_SupplierInvoiceLine" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsAllocation" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsDependency" level="Global" />
+    <RolePrivilege name="prvReadop365_WbsNode" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

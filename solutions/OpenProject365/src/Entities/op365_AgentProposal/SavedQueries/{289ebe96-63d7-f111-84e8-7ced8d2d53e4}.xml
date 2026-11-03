@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{289ebe96-63d7-f111-84e8-7ced8d2d53e4}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="op365_name" select="1" icon="1" preview="1">
+        <row name="result" id="op365_agentproposalid">
+          <cell name="op365_name" width="300" />
+          <cell name="op365_actiontype" width="150" />
+          <cell name="op365_projectid" width="200" />
+          <cell name="op365_supplierid" width="200" />
+          <cell name="op365_amount" width="110" />
+          <cell name="op365_expireson" width="100" />
+          <cell name="statuscode" width="110" />
+          <cell name="op365_kind" width="100" />
+          <cell name="createdon" width="140" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="op365_agentproposal">
+          <attribute name="op365_name" />
+          <attribute name="op365_actiontype" />
+          <attribute name="op365_projectid" />
+          <attribute name="op365_supplierid" />
+          <attribute name="op365_amount" />
+          <attribute name="op365_expireson" />
+          <attribute name="statuscode" />
+          <attribute name="op365_kind" />
+          <attribute name="createdon" />
+          <attribute name="op365_agentproposalid" />
+          <order attribute="createdon" descending="true" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Agentenprotokoll" languagecode="1031" />
+      <LocalizedName description="Agent Log" languagecode="1033" />
+      <LocalizedName description="Journal de l’agent" languagecode="1036" />
+      <LocalizedName description="Registro agente" languagecode="1040" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Alles, was der Beschaffungsagent vorgeschlagen, gefunden oder getan hat, neueste zuerst" languagecode="1031" />
+      <Description description="Everything the sourcing agent proposed, found or did, newest first" languagecode="1033" />
+      <Description description="Tout ce que l’agent d’approvisionnement a proposé, constaté ou fait, le plus récent d’abord" languagecode="1036" />
+      <Description description="Tutto ciò che l’agente acquisti ha proposto, rilevato o fatto, dal più recente" languagecode="1040" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

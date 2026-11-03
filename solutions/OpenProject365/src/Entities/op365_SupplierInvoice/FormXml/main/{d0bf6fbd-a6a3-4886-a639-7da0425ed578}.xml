@@ -244,6 +244,9 @@
                       <cell id="{655a01ca-d84c-5606-a79d-40c69e576425}">
                         <labels>
                           <label description="From Supplier Portal" languagecode="1033" />
+                          <label description="Dal portale fornitori" languagecode="1040" />
+                          <label description="Aus dem Lieferantenportal" languagecode="1031" />
+                          <label description="Depuis le portail fournisseurs" languagecode="1036" />
                         </labels>
                         <control id="op365_fromportal" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="op365_fromportal" disabled="true" />
                       </cell>
@@ -292,7 +295,10 @@
                 </section>
                 <section name="payment" showlabel="true" showbar="false" columns="1" id="{b10903d3-c522-5e64-a72d-d70144a2cbda}">
                   <labels>
+                    <label description="Zahlung" languagecode="1031" />
                     <label description="Payment" languagecode="1033" />
+                    <label description="Paiement" languagecode="1036" />
+                    <label description="Pagamento" languagecode="1040" />
                   </labels>
                   <rows>
                     <row>

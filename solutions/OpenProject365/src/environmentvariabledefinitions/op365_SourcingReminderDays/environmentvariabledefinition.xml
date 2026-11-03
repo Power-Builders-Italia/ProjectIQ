@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="op365_SourcingReminderDays">
+  <defaultvalue>2</defaultvalue>
+  <description default="Days before the RFQ deadline when the agent reminds the suppliers who have not answered.">
+    <label description="Days before the RFQ deadline when the agent reminds the suppliers who have not answered." languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Reminder Days">
+    <label description="Sourcing Reminder Days" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>
