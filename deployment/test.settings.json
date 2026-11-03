@@ -31,6 +31,18 @@
     {
       "SchemaName": "op365_SupplierDocumentLibraryId",
       "Value": "#{OP365_SUPPLIER_DOCUMENT_LIBRARY_ID}#"
+    },
+    {
+      "SchemaName": "op365_SourcingAgentEnabled",
+      "Value": "#{OP365_SOURCING_AGENT_ENABLED}#"
+    },
+    {
+      "SchemaName": "op365_SourcingAgentUser",
+      "Value": "#{OP365_SOURCING_AGENT_USER}#"
+    },
+    {
+      "SchemaName": "op365_SourcingApprovalTeam",
+      "Value": "#{OP365_SOURCING_APPROVAL_TEAM}#"
     }
   ],
   "ConnectionReferences": [
@@ -43,6 +55,16 @@
       "LogicalName": "op365_sharepoint",
       "ConnectionId": "#{OP365_SHAREPOINT_CONNECTION_ID}#",
       "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+    },
+    {
+      "LogicalName": "op365_teams",
+      "ConnectionId": "#{OP365_TEAMS_CONNECTION_ID}#",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+    },
+    {
+      "LogicalName": "op365_dataverse_agent",
+      "ConnectionId": "#{OP365_DATAVERSE_AGENT_CONNECTION_ID}#",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
     }
   ]
 }
