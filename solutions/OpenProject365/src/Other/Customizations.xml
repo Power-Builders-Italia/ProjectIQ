@@ -37,10 +37,28 @@
       <statecode>0</statecode>
       <statuscode>1</statuscode>
     </connectionreference>
+    <connectionreference connectionreferencelogicalname="op365_dataverse_agent">
+      <connectionreferencedisplayname>ProjectIQ Dataverse (sourcing agent)</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <description>Dataverse connection of the sourcing agent application user, used only by the agent proposal approval flow; not shared</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
     <connectionreference connectionreferencelogicalname="op365_sharepoint">
       <connectionreferencedisplayname>ProjectIQ SharePoint</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_sharepointonline</connectorid>
       <description>SharePoint connection (dedicated user) used by the ProjectIQ document flows</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="op365_teams">
+      <connectionreferencedisplayname>ProjectIQ Teams</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_teams</connectorid>
+      <description>Teams connection (service account member of the approval team) used by the agent proposal approval card</description>
       <iscustomizable>1</iscustomizable>
       <promptingbehavior>0</promptingbehavior>
       <statecode>0</statecode>

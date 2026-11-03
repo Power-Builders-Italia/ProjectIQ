@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Error">
+  <description default="Error message of the failed action">
+    <label description="Error message of the failed action" languagecode="1033" />
+  </description>
+  <displayname default="Error">
+    <label description="Error" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_RecordProposalError.Error</name>
+  <type>10</type>
+</customapirequestparameter>

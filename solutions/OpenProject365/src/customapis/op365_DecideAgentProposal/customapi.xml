@@ -1,0 +1,19 @@
+<customapi uniquename="op365_DecideAgentProposal">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_agentproposal</boundentitylogicalname>
+  <description default="Approves (runs the proposed action as the person who decided) or rejects a pending agent proposal, or acknowledges an insight">
+    <label description="Approves (runs the proposed action as the person who decided) or rejects a pending agent proposal, or acknowledges an insight" languagecode="1033" />
+  </description>
+  <displayname default="Decide Agent Proposal">
+    <label description="Decide Agent Proposal" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Decide Agent Proposal</name>
+  <plugintypeid>
+    <plugintypeexportkey>6cf686f8-74d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

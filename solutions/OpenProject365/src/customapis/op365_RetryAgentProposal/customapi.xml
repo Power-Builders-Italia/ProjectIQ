@@ -1,0 +1,19 @@
+<customapi uniquename="op365_RetryAgentProposal">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_agentproposal</boundentitylogicalname>
+  <description default="Moves a failed agent proposal back to Pending so that it can be approved again">
+    <label description="Moves a failed agent proposal back to Pending so that it can be approved again" languagecode="1033" />
+  </description>
+  <displayname default="Retry Agent Proposal">
+    <label description="Retry Agent Proposal" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Retry Agent Proposal</name>
+  <plugintypeid>
+    <plugintypeexportkey>8b66c4fe-74d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>
