@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="DecidedBy">
+  <description default="User Name or e-mail of the person who approved; accepted only from (and required of) the sourcing agent">
+    <label description="User Name or e-mail of the person who approved; accepted only from (and required of) the sourcing agent" languagecode="1033" />
+  </description>
+  <displayname default="DecidedBy">
+    <label description="DecidedBy" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>op365_RecordProposalError.DecidedBy</name>
+  <type>10</type>
+</customapirequestparameter>

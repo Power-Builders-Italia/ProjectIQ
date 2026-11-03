@@ -1,0 +1,18 @@
+<customapi uniquename="op365_ExpireAgentProposals">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Expires the pending agent proposals past their Expires On date (daily flow)">
+    <label description="Expires the pending agent proposals past their Expires On date (daily flow)" languagecode="1033" />
+  </description>
+  <displayname default="Expire Agent Proposals">
+    <label description="Expire Agent Proposals" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Expire Agent Proposals</name>
+  <plugintypeid>
+    <plugintypeexportkey>6df686f8-74d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

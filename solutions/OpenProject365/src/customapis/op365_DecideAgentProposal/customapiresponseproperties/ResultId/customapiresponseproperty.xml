@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="ResultId">
+  <description default="Id of the record created by the action">
+    <label description="Id of the record created by the action" languagecode="1033" />
+  </description>
+  <displayname default="ResultId">
+    <label description="ResultId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_DecideAgentProposal.ResultId</name>
+  <type>10</type>
+</customapiresponseproperty>

@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Count">
+  <description default="Proposals expired">
+    <label description="Proposals expired" languagecode="1033" />
+  </description>
+  <displayname default="Count">
+    <label description="Count" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_ExpireAgentProposals.Count</name>
+  <type>7</type>
+</customapiresponseproperty>

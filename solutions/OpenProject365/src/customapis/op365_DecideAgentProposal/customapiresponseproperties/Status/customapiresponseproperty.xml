@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Status">
+  <description default="Status reason of the proposal after the decision">
+    <label description="Status reason of the proposal after the decision" languagecode="1033" />
+  </description>
+  <displayname default="Status">
+    <label description="Status" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_DecideAgentProposal.Status</name>
+  <type>7</type>
+</customapiresponseproperty>
