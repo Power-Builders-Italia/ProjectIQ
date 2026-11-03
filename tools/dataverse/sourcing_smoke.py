@@ -570,10 +570,11 @@ finally:
         safe(f'request {pr}', clean_request, pr)
     for inv in created_invoices:
         safe(f'invoice {inv}', drop, 'op365_supplierinvoices', inv)
-    for item in created_items:   # its item supplier rows are parental children: deleted with it
-        safe(f'item {item}', drop, 'op365_items', item)
     if prj:
         safe('project', drop, 'op365_projects', prj)
+    # after the project: request lines of ordered requests cannot be deleted one by one, the project delete removes them
+    for item in created_items:   # its item supplier rows are parental children: deleted with it
+        safe(f'item {item}', drop, 'op365_items', item)
     for id_ in (sup1, sup2, cust):
         if id_:
             safe(f'account {id_}', drop, 'accounts', id_)
