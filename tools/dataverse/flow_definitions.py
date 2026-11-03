@@ -281,7 +281,7 @@ def proposal_approval_flow():
     it in the channel; only a failed Approve is written on the proposal (op365_RecordProposalError).
     """
     pid = "triggerOutputs()?['body/op365_agentproposalid']"
-    team = f"outputs('Team_and_channel')"
+    team = "outputs('Team_and_channel')"
     answer = "body('Post_approval_card')"
     fact = lambda title, value: {'title': title, 'value': value}
     card = {
@@ -340,7 +340,7 @@ def proposal_approval_flow():
         'Post_decision_failed': _op('shared_teams', 'PostMessageToConversation', {
             **channel, 'body/messageBody': (
                 f"@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\" not decided: ', {decide_error})")},
-            {'Failed_approval': ['Succeeded', 'Skipped', 'Failed']}),
+            {'Failed_approval': ['Succeeded', 'Failed']}),
         'Post_decision_recorded': _op('shared_teams', 'PostMessageToConversation', {
             **channel, 'body/messageBody': (
                 f"@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\" ', "
