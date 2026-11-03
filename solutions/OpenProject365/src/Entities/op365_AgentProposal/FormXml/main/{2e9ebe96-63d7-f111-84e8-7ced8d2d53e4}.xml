@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{2e9ebe96-63d7-f111-84e8-7ced8d2d53e4}</formid>
+    <IntroducedVersion>1.0.1.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" id="{ff0fe1ca-4325-553c-982d-30d1c546534c}" expanded="true" showlabel="true" verticallayout="true">
+          <labels>
+            <label description="Allgemein" languagecode="1031" />
+            <label description="General" languagecode="1033" />
+            <label description="Général" languagecode="1036" />
+            <label description="Generale" languagecode="1040" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="general" showlabel="true" showbar="false" columns="2" id="{90408aa1-dc88-5c96-a30d-492c67b54e39}">
+                  <labels>
+                    <label description="Allgemein" languagecode="1031" />
+                    <label description="General" languagecode="1033" />
+                    <label description="Général" languagecode="1036" />
+                    <label description="Generale" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7031ff34-af02-5f29-89f7-145c6ce32b1c}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                          <label description="Nome" languagecode="1040" />
+                          <label description="Name" languagecode="1031" />
+                          <label description="Nom" languagecode="1036" />
+                        </labels>
+                        <control id="op365_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_name" disabled="true" />
+                      </cell>
+                      <cell id="{d097e4e7-c21e-5e22-96b3-18a2de4bd003}">
+                        <labels>
+                          <label description="Kind" languagecode="1033" />
+                          <label description="Tipo" languagecode="1040" />
+                          <label description="Art" languagecode="1031" />
+                          <label description="Type" languagecode="1036" />
+                        </labels>
+                        <control id="op365_kind" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_kind" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5d535732-4c55-5409-87d7-57c8f44c5aed}">
+                        <labels>
+                          <label description="Action Type" languagecode="1033" />
+                          <label description="Tipo di azione" languagecode="1040" />
+                          <label description="Aktionstyp" languagecode="1031" />
+                          <label description="Type d’action" languagecode="1036" />
+                        </labels>
+                        <control id="op365_actiontype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="op365_actiontype" disabled="true" />
+                      </cell>
+                      <cell id="{1959474c-0aab-573e-9383-f9bc066e767a}">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                          <label description="Motivo stato" languagecode="1040" />
+                          <label description="Statusgrund" languagecode="1031" />
+                          <label description="Raison du statut" languagecode="1036" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c376471d-f1c0-5eb1-bdab-861b4ad49168}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                          <label description="Commessa" languagecode="1040" />
+                          <label description="Projekt" languagecode="1031" />
+                          <label description="Projet" languagecode="1036" />
+                        </labels>
+                        <control id="op365_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_projectid" disabled="true" />
+                      </cell>
+                      <cell id="{409fb5b3-2d68-5391-8fb7-9e787c599f90}">
+                        <labels>
+                          <label description="Supplier" languagecode="1033" />
+                          <label description="Produttore" languagecode="1040" />
+                          <label description="Lieferant" languagecode="1031" />
+                          <label description="Fournisseur" languagecode="1036" />
+                        </labels>
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0ba55840-5ee4-5ff6-95cf-cafa5ab9c3ea}">
+                        <labels>
+                          <label description="Purchase Request" languagecode="1033" />
+                          <label description="Richiesta di acquisto" languagecode="1040" />
+                          <label description="Bestellanforderung" languagecode="1031" />
+                          <label description="Demande d'achat" languagecode="1036" />
+                        </labels>
+                        <control id="op365_purchaserequestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaserequestid" disabled="true" />
+                      </cell>
+                      <cell id="{b984ed19-a579-585f-956a-c4e501185fc6}">
+                        <labels>
+                          <label description="RFQ" languagecode="1033" />
+                          <label description="RdO" languagecode="1040" />
+                          <label description="Angebotsanfrage" languagecode="1031" />
+                          <label description="Demande de prix" languagecode="1036" />
+                        </labels>
+                        <control id="op365_rfqid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_rfqid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c58f59a1-29a9-523f-9287-948f57d33bae}">
+                        <labels>
+                          <label description="Invitation" languagecode="1033" />
+                          <label description="Invito" languagecode="1040" />
+                          <label description="Einladung" languagecode="1031" />
+                          <label description="Invitation" languagecode="1036" />
+                        </labels>
+                        <control id="op365_invitationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_invitationid" disabled="true" />
+                      </cell>
+                      <cell id="{ab74d6cf-66fd-5ede-ad83-ed722d460c27}">
+                        <labels>
+                          <label description="Purchase Order" languagecode="1033" />
+                          <label description="Ordine di acquisto" languagecode="1040" />
+                          <label description="Bestellung" languagecode="1031" />
+                          <label description="Commande d'achat" languagecode="1036" />
+                        </labels>
+                        <control id="op365_purchaseorderid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_purchaseorderid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1ae6ecad-ac37-53c5-aae7-b9a428abd29d}">
+                        <labels>
+                          <label description="Supplier Invoice" languagecode="1033" />
+                          <label description="Fattura fornitore" languagecode="1040" />
+                          <label description="Lieferantenrechnung" languagecode="1031" />
+                          <label description="Facture fournisseur" languagecode="1036" />
+                        </labels>
+                        <control id="op365_supplierinvoiceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierinvoiceid" disabled="true" />
+                      </cell>
+                      <cell id="{bf95d501-6220-5eae-b028-3d821ef5ad7b}">
+                        <labels>
+                          <label description="Amount" languagecode="1033" />
+                          <label description="Importo" languagecode="1040" />
+                          <label description="Betrag" languagecode="1031" />
+                          <label description="Montant" languagecode="1036" />
+                        </labels>
+                        <control id="op365_amount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_amount" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{40cec6c6-71fe-593d-afd7-6322abcf7aa7}">
+                        <labels>
+                          <label description="Estimated Saving" languagecode="1033" />
+                          <label description="Risparmio stimato" languagecode="1040" />
+                          <label description="Geschätzte Einsparung" languagecode="1031" />
+                          <label description="Économie estimée" languagecode="1036" />
+                        </labels>
+                        <control id="op365_estimatedsaving" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="op365_estimatedsaving" disabled="true" />
+                      </cell>
+                      <cell id="{1f5ec36f-fe1f-55db-9978-5cf12642c234}">
+                        <labels>
+                          <label description="Expires On" languagecode="1033" />
+                          <label description="Scade il" languagecode="1040" />
+                          <label description="Läuft ab am" languagecode="1031" />
+                          <label description="Expire le" languagecode="1036" />
+                        </labels>
+                        <control id="op365_expireson" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_expireson" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="rationale" showlabel="true" showbar="false" columns="1" id="{4dfb6c29-3ef5-525e-b536-8ab0b0165440}">
+                  <labels>
+                    <label description="Begründung" languagecode="1031" />
+                    <label description="Rationale" languagecode="1033" />
+                    <label description="Justification" languagecode="1036" />
+                    <label description="Motivazione" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{aaa2d30e-bbc2-565b-b8ca-8c9458fd9ebf}">
+                        <labels>
+                          <label description="Rationale" languagecode="1033" />
+                          <label description="Motivazione" languagecode="1040" />
+                          <label description="Begründung" languagecode="1031" />
+                          <label description="Justification" languagecode="1036" />
+                        </labels>
+                        <control id="op365_rationale" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_rationale" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="evidence" showlabel="true" showbar="false" columns="1" id="{0139fb6b-ce90-528a-8bbf-3754a0d7e7dc}">
+                  <labels>
+                    <label description="Nachweis" languagecode="1031" />
+                    <label description="Evidence" languagecode="1033" />
+                    <label description="Éléments de preuve" languagecode="1036" />
+                    <label description="Evidenze" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4c2b0f7a-e19e-5897-9ed3-23d631e8a35f}">
+                        <labels>
+                          <label description="Evidence" languagecode="1033" />
+                          <label description="Evidenze" languagecode="1040" />
+                          <label description="Nachweis" languagecode="1031" />
+                          <label description="Éléments de preuve" languagecode="1036" />
+                        </labels>
+                        <control id="op365_evidence" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_evidence" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="decision" showlabel="true" showbar="false" columns="2" id="{4464d849-2a77-50f6-927b-5a1c20147593}">
+                  <labels>
+                    <label description="Entscheidung" languagecode="1031" />
+                    <label description="Decision" languagecode="1033" />
+                    <label description="Décision" languagecode="1036" />
+                    <label description="Decisione" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5138f760-d6db-5112-90f5-9a9e344542e1}">
+                        <labels>
+                          <label description="Decided By" languagecode="1033" />
+                          <label description="Deciso da" languagecode="1040" />
+                          <label description="Entschieden von" languagecode="1031" />
+                          <label description="Décidé par" languagecode="1036" />
+                        </labels>
+                        <control id="op365_decidedbyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_decidedbyid" disabled="true" />
+                      </cell>
+                      <cell id="{b2d796b6-2298-542d-8dda-51ff2032499c}">
+                        <labels>
+                          <label description="Decided On" languagecode="1033" />
+                          <label description="Deciso il" languagecode="1040" />
+                          <label description="Entschieden am" languagecode="1031" />
+                          <label description="Décidé le" languagecode="1036" />
+                        </labels>
+                        <control id="op365_decidedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="op365_decidedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a9a0eff5-4462-5a7e-8f85-1d163f256cc8}">
+                        <labels>
+                          <label description="Decision Note" languagecode="1033" />
+                          <label description="Nota decisione" languagecode="1040" />
+                          <label description="Entscheidungsnotiz" languagecode="1031" />
+                          <label description="Note de décision" languagecode="1036" />
+                        </labels>
+                        <control id="op365_decisionnote" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_decisionnote" />
+                      </cell>
+                      <cell id="{34730c53-fc88-539a-b78d-0d2ef2ec72f2}">
+                        <labels>
+                          <label description="Result Id" languagecode="1033" />
+                          <label description="Id risultato" languagecode="1040" />
+                          <label description="Ergebnis-ID" languagecode="1031" />
+                          <label description="ID du résultat" languagecode="1036" />
+                        </labels>
+                        <control id="op365_resultid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="op365_resultid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b08f424a-ecd5-5ae3-8c4c-620442c675bf}">
+                        <labels>
+                          <label description="Error" languagecode="1033" />
+                          <label description="Errore" languagecode="1040" />
+                          <label description="Fehler" languagecode="1031" />
+                          <label description="Erreur" languagecode="1036" />
+                        </labels>
+                        <control id="op365_error" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="op365_error" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Agentenvorschlag" languagecode="1031" />
+      <LocalizedName description="Agent Proposal" languagecode="1033" />
+      <LocalizedName description="Proposition de l’agent" languagecode="1036" />
+      <LocalizedName description="Proposta agente" languagecode="1040" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Vorschlag, Erkenntnis oder Protokoll des Beschaffungsagenten (ProjectIQ)" languagecode="1031" />
+      <Description description="Proposal, insight or log of the sourcing agent (ProjectIQ)" languagecode="1033" />
+      <Description description="Proposition, constat ou journal de l’agent d’approvisionnement (ProjectIQ)" languagecode="1036" />
+      <Description description="Proposta, osservazione o registro dell’agente acquisti (ProjectIQ)" languagecode="1040" />
+    </Descriptions>
+  </systemform>
+</forms>

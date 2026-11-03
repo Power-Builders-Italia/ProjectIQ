@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <EntityRelationship Name="business_unit_op365_absence" />
+  <EntityRelationship Name="business_unit_op365_agentproposal" />
   <EntityRelationship Name="business_unit_op365_baseline" />
   <EntityRelationship Name="business_unit_op365_baselinenode" />
   <EntityRelationship Name="business_unit_op365_goodsreceipt" />
@@ -31,6 +32,8 @@
   <EntityRelationship Name="FileAttachment_op365_SupplierInvoice_op365_XmlFile" />
   <EntityRelationship Name="lk_op365_absence_createdby" />
   <EntityRelationship Name="lk_op365_absence_modifiedby" />
+  <EntityRelationship Name="lk_op365_agentproposal_createdby" />
+  <EntityRelationship Name="lk_op365_agentproposal_modifiedby" />
   <EntityRelationship Name="lk_op365_baseline_createdby" />
   <EntityRelationship Name="lk_op365_baseline_modifiedby" />
   <EntityRelationship Name="lk_op365_baselinenode_createdby" />
@@ -83,6 +86,7 @@
   <EntityRelationship Name="lk_op365_wbsdependency_modifiedby" />
   <EntityRelationship Name="lk_op365_wbsnode_createdby" />
   <EntityRelationship Name="lk_op365_wbsnode_modifiedby" />
+  <EntityRelationship Name="op365_account_agentproposal_supplierid" />
   <EntityRelationship Name="op365_account_item_defaultsupplierid" />
   <EntityRelationship Name="op365_account_itemsupplier_supplierid" />
   <EntityRelationship Name="op365_account_materialusage_supplierid" />
@@ -100,6 +104,7 @@
   <EntityRelationship Name="op365_item_materialusage_itemid" />
   <EntityRelationship Name="op365_item_purchaseorderline_itemid" />
   <EntityRelationship Name="op365_item_purchaserequestline_itemid" />
+  <EntityRelationship Name="op365_project_agentproposal_projectid" />
   <EntityRelationship Name="op365_project_baseline_projectid" />
   <EntityRelationship Name="op365_project_goodsreceipt_projectid" />
   <EntityRelationship Name="op365_project_materialusage_projectid" />
@@ -113,12 +118,14 @@
   <EntityRelationship Name="op365_project_wbsdependency_projectid" />
   <EntityRelationship Name="op365_project_wbsnode_projectid" />
   <EntityRelationship Name="op365_projectsupplier_wbsnode" />
+  <EntityRelationship Name="op365_purchaseorder_agentproposal_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_goodsreceipt_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_purchaseorderline_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_rfq_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorder_supplierinvoice_purchaseorderid" />
   <EntityRelationship Name="op365_purchaseorderline_goodsreceiptline_orderlineid" />
   <EntityRelationship Name="op365_purchaseorderline_supplierinvoiceline_orderlineid" />
+  <EntityRelationship Name="op365_purchaserequest_agentproposal_purchaserequestid" />
   <EntityRelationship Name="op365_purchaserequest_purchaseorder_purchaserequestid" />
   <EntityRelationship Name="op365_purchaserequest_purchaserequestline_purchaserequestid" />
   <EntityRelationship Name="op365_purchaserequest_rfq_purchaserequestid" />
@@ -129,10 +136,14 @@
   <EntityRelationship Name="op365_resource_timeentry_resourceid" />
   <EntityRelationship Name="op365_resource_wbsallocation_resourceid" />
   <EntityRelationship Name="op365_resource_wbsnode_ownerresourceid" />
+  <EntityRelationship Name="op365_rfq_agentproposal_rfqid" />
   <EntityRelationship Name="op365_rfq_rfqinvitation_rfqid" />
+  <EntityRelationship Name="op365_rfqinvitation_agentproposal_invitationid" />
   <EntityRelationship Name="op365_rfqinvitation_rfq_winninginvitationid" />
   <EntityRelationship Name="op365_rfqinvitation_rfqquote_invitationid" />
+  <EntityRelationship Name="op365_supplierinvoice_agentproposal_supplierinvoiceid" />
   <EntityRelationship Name="op365_supplierinvoice_supplierinvoiceline_supplierinvoiceid" />
+  <EntityRelationship Name="op365_systemuser_agentproposal_decidedbyid" />
   <EntityRelationship Name="op365_systemuser_project_projectmanagerid" />
   <EntityRelationship Name="op365_systemuser_projectmember_userid" />
   <EntityRelationship Name="op365_systemuser_purchaserequest_currentapproverid" />
@@ -153,6 +164,7 @@
   <EntityRelationship Name="op365_wbsnode_wbsdependency_successorid" />
   <EntityRelationship Name="op365_wbsnode_wbsnode_parentid" />
   <EntityRelationship Name="owner_op365_absence" />
+  <EntityRelationship Name="owner_op365_agentproposal" />
   <EntityRelationship Name="owner_op365_baseline" />
   <EntityRelationship Name="owner_op365_baselinenode" />
   <EntityRelationship Name="owner_op365_goodsreceipt" />
@@ -180,6 +192,7 @@
   <EntityRelationship Name="owner_op365_wbsdependency" />
   <EntityRelationship Name="owner_op365_wbsnode" />
   <EntityRelationship Name="team_op365_absence" />
+  <EntityRelationship Name="team_op365_agentproposal" />
   <EntityRelationship Name="team_op365_baseline" />
   <EntityRelationship Name="team_op365_baselinenode" />
   <EntityRelationship Name="team_op365_goodsreceipt" />
@@ -206,6 +219,7 @@
   <EntityRelationship Name="team_op365_wbsallocation" />
   <EntityRelationship Name="team_op365_wbsdependency" />
   <EntityRelationship Name="team_op365_wbsnode" />
+  <EntityRelationship Name="TransactionCurrency_op365_AgentProposal" />
   <EntityRelationship Name="TransactionCurrency_op365_BaselineNode" />
   <EntityRelationship Name="TransactionCurrency_op365_Item" />
   <EntityRelationship Name="TransactionCurrency_op365_ItemSupplier" />
@@ -225,6 +239,7 @@
   <EntityRelationship Name="TransactionCurrency_op365_TimeEntry" />
   <EntityRelationship Name="TransactionCurrency_op365_WbsNode" />
   <EntityRelationship Name="user_op365_absence" />
+  <EntityRelationship Name="user_op365_agentproposal" />
   <EntityRelationship Name="user_op365_baseline" />
   <EntityRelationship Name="user_op365_baselinenode" />
   <EntityRelationship Name="user_op365_goodsreceipt" />

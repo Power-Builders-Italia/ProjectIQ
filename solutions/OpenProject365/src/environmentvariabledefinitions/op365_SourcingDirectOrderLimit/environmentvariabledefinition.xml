@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="op365_SourcingDirectOrderLimit">
+  <description default="Amount below which the agent proposes a direct purchase order instead of an RFQ. Empty or 0 = always RFQ.">
+    <label description="Amount below which the agent proposes a direct purchase order instead of an RFQ. Empty or 0 = always RFQ." languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Direct Order Limit">
+    <label description="Sourcing Direct Order Limit" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

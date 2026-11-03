@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="op365_SourcingAgentEnabled">
+  <defaultvalue>no</defaultvalue>
+  <description default="Yes: the sourcing agent triggers run. No: they stop at once; open proposals can still be decided.">
+    <label description="Yes: the sourcing agent triggers run. No: they stop at once; open proposals can still be decided." languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Agent Enabled">
+    <label description="Sourcing Agent Enabled" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000002</type>
+</environmentvariabledefinition>
