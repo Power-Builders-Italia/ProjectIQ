@@ -146,12 +146,15 @@ def case(name):
     return deco
 
 
-def user(ident):
+def user(ident, variable=''):
+    ident = ident.strip()   # a secret pasted with a trailing space or newline must still match
     safe = ident.replace("'", "''")
     flt = f"(fullname eq '{safe}' or domainname eq '{safe}' or internalemailaddress eq '{safe}') and isdisabled eq false"
     found = S.get(API + f'systemusers?$select=systemuserid,fullname,internalemailaddress&$filter={flt}').json().get('value', [])
     if len(found) != 1:
-        raise SystemExit(f'"{ident}": expected exactly one enabled user, found {len(found)}')
+        # the value is a secret, masked in the GitHub log: say which one and its length instead
+        raise SystemExit(f'{variable} "{ident}" ({len(ident)} characters): expected exactly one enabled user with this full name, '
+                         f'User Name or primary e-mail, found {len(found)}')
     return found[0]
 
 
@@ -218,8 +221,8 @@ def sent_rfq(pr):
     return rfq, [i['op365_rfqinvitationid'] for i in rows('op365_rfqinvitations', f'_op365_rfqid_value eq {rfq}', 'op365_rfqinvitationid')]
 
 
-buyer = user(os.environ['SOURCING_TEST_BUYER'])
-other = user(os.environ['SOURCING_TEST_OTHER'])
+buyer = user(os.environ['SOURCING_TEST_BUYER'], 'SOURCING_TEST_BUYER')
+other = user(os.environ['SOURCING_TEST_OTHER'], 'SOURCING_TEST_OTHER')
 BUYER, OTHER = buyer['systemuserid'], other['systemuserid']
 if BUYER == OTHER:
     sys.exit('SOURCING_TEST_BUYER and SOURCING_TEST_OTHER must be different users')
