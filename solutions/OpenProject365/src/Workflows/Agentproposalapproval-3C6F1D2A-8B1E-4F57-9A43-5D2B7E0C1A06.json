@@ -1,0 +1,320 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_dataverse_agent"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_teams": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "op365_teams"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Sourcing Approval Team (op365_SourcingApprovalTeam)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "op365_SourcingApprovalTeam",
+            "description": "Teams team id and channel id separated by |"
+          }
+        }
+      },
+      "triggers": {
+        "When_an_agent_proposal_is_added": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "op365_agentproposal",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "op365_kind eq 365000000"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Team_and_channel": {
+          "runAfter": {},
+          "type": "Compose",
+          "inputs": "@split(parameters('Sourcing Approval Team (op365_SourcingApprovalTeam)'), '|')"
+        },
+        "Get_proposal": {
+          "runAfter": {
+            "Team_and_channel": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "op365_agentproposals",
+              "recordId": "@triggerOutputs()?['body/op365_agentproposalid']",
+              "$select": "op365_name,op365_actiontype,op365_amount,op365_rationale",
+              "$expand": "op365_ProjectId($select=op365_name),op365_SupplierId($select=name)"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Record_link": {
+          "runAfter": {
+            "Get_proposal": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@concat(first(split(triggerOutputs()?['body/@odata.id'], '/api/data')), '/main.aspx?pagetype=entityrecord&etn=op365_agentproposal&id=', triggerOutputs()?['body/op365_agentproposalid'])"
+        },
+        "Card": {
+          "runAfter": {
+            "Record_link": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": {
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "type": "AdaptiveCard",
+            "version": "1.4",
+            "body": [
+              {
+                "type": "TextBlock",
+                "text": "Agent proposal",
+                "weight": "Bolder",
+                "size": "Medium"
+              },
+              {
+                "type": "TextBlock",
+                "text": "@{outputs('Get_proposal')?['body/op365_name']}",
+                "wrap": true,
+                "weight": "Bolder"
+              },
+              {
+                "type": "FactSet",
+                "facts": [
+                  {
+                    "title": "Action type",
+                    "value": "@{coalesce(outputs('Get_proposal')?['body/op365_actiontype@OData.Community.Display.V1.FormattedValue'], '')}"
+                  },
+                  {
+                    "title": "Project",
+                    "value": "@{coalesce(outputs('Get_proposal')?['body/op365_ProjectId/op365_name'], '')}"
+                  },
+                  {
+                    "title": "Supplier",
+                    "value": "@{coalesce(outputs('Get_proposal')?['body/op365_SupplierId/name'], '')}"
+                  },
+                  {
+                    "title": "Amount",
+                    "value": "@{coalesce(outputs('Get_proposal')?['body/op365_amount'], '')}"
+                  }
+                ]
+              },
+              {
+                "type": "TextBlock",
+                "text": "@{coalesce(outputs('Get_proposal')?['body/op365_rationale'], '')}",
+                "wrap": true
+              },
+              {
+                "type": "TextBlock",
+                "text": "[Open the proposal in ProjectIQ](@{outputs('Record_link')})",
+                "wrap": true
+              },
+              {
+                "type": "Input.Text",
+                "id": "Note",
+                "isMultiline": true,
+                "label": "Note (required to reject)",
+                "placeholder": "Reason for the decision"
+              }
+            ],
+            "actions": [
+              {
+                "type": "Action.Submit",
+                "title": "Approve",
+                "style": "positive",
+                "data": {
+                  "Decision": "Approve"
+                }
+              },
+              {
+                "type": "Action.Submit",
+                "title": "Reject",
+                "style": "destructive",
+                "data": {
+                  "Decision": "Reject"
+                }
+              }
+            ]
+          }
+        },
+        "Post_approval_card": {
+          "runAfter": {
+            "Card": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams",
+              "operationId": "PostCardAndWaitForResponse",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+            },
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Channel",
+              "body/body/recipient/groupId": "@first(outputs('Team_and_channel'))",
+              "body/body/recipient/channelId": "@last(outputs('Team_and_channel'))",
+              "body/body/messageBody": "@string(outputs('Card'))",
+              "body/body/updateMessage": "Response received: the decision is being recorded."
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Decide_proposal": {
+          "runAfter": {
+            "Post_approval_card": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "op365_agentproposals",
+              "recordId": "@triggerOutputs()?['body/op365_agentproposalid']",
+              "actionName": "op365_DecideAgentProposal",
+              "item/Approve": "@equals(body('Post_approval_card')?['data']?['Decision'], 'Approve')",
+              "item/Note": "@coalesce(body('Post_approval_card')?['data']?['Note'], '')",
+              "item/DecidedBy": "@body('Post_approval_card')?['responder']?['email']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Failed_approval": {
+          "runAfter": {
+            "Decide_proposal": [
+              "Failed"
+            ]
+          },
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@body('Post_approval_card')?['data']?['Decision']",
+              "Approve"
+            ]
+          },
+          "actions": {
+            "Record_error": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "op365_RecordProposalError",
+                  "item/ProposalId": "@triggerOutputs()?['body/op365_agentproposalid']",
+                  "item/Error": "@coalesce(body('Decide_proposal')?['error']?['message'], 'The decision could not be recorded.')",
+                  "item/DecidedBy": "@body('Post_approval_card')?['responder']?['email']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        },
+        "Post_decision_failed": {
+          "runAfter": {
+            "Failed_approval": [
+              "Succeeded",
+              "Failed"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams",
+              "operationId": "PostMessageToConversation",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+            },
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Channel",
+              "body/recipient/groupId": "@first(outputs('Team_and_channel'))",
+              "body/recipient/channelId": "@last(outputs('Team_and_channel'))",
+              "body/messageBody": "@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\" not decided: ', coalesce(body('Decide_proposal')?['error']?['message'], 'The decision could not be recorded.'))"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Post_decision_recorded": {
+          "runAfter": {
+            "Decide_proposal": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams",
+              "operationId": "PostMessageToConversation",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+            },
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Channel",
+              "body/recipient/groupId": "@first(outputs('Team_and_channel'))",
+              "body/recipient/channelId": "@last(outputs('Team_and_channel'))",
+              "body/messageBody": "@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\": ', if(equals(body('Decide_proposal')?['Status'], 2), 'Executed', if(equals(body('Decide_proposal')?['Status'], 365000002), 'Rejected', if(equals(body('Decide_proposal')?['Status'], 365000004), 'Superseded (nothing was done)', if(equals(body('Decide_proposal')?['Status'], 365000005), 'Acknowledged', string(body('Decide_proposal')?['Status']))))), ' (decided by ', body('Post_approval_card')?['responder']?['email'], ').')"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

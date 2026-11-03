@@ -1,0 +1,18 @@
+<customapi uniquename="op365_RecordProposalError">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Marks an agent proposal as Failed with the error of the approved action (card flow and app command)">
+    <label description="Marks an agent proposal as Failed with the error of the approved action (card flow and app command)" languagecode="1033" />
+  </description>
+  <displayname default="Record Proposal Error">
+    <label description="Record Proposal Error" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Record Proposal Error</name>
+  <plugintypeid>
+    <plugintypeexportkey>8a66c4fe-74d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

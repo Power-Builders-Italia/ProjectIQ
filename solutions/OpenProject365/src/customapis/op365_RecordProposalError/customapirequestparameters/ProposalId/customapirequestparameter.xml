@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="ProposalId">
+  <description default="Agent proposal">
+    <label description="Agent proposal" languagecode="1033" />
+  </description>
+  <displayname default="ProposalId">
+    <label description="ProposalId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_RecordProposalError.ProposalId</name>
+  <type>12</type>
+</customapirequestparameter>
