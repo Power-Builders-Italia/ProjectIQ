@@ -369,7 +369,10 @@ try:
         pid = propose(invoice=invoice, project=prj, action=A_APPROVE_INV)
         e = expect_error(approve(pid, caller=BUYER), E_CANNOT)
         if e:
-            return e
+            p = proposal(pid)
+            inv = get('op365_supplierinvoices', invoice, 'statuscode')
+            return (f'{e} (proposal statuscode {p["statuscode"]}, decided by {p["_op365_decidedbyid_value"]}, buyer {BUYER}; '
+                    f'invoice statuscode {inv["statuscode"]})')
         if proposal(pid)['statuscode'] != ST_PENDING:
             return 'proposal is no longer Pending'
 
