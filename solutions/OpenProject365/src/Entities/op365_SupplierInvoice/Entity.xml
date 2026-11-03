@@ -917,6 +917,9 @@
               <option value="365000000" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Pending" languagecode="1033" />
+                  <label description="Ausstehend" languagecode="1031" />
+                  <label description="En attente" languagecode="1036" />
+                  <label description="In attesa" languagecode="1040" />
                 </labels>
               </option>
               <option value="365000001" ExternalValue="" IsHidden="0">
@@ -932,6 +935,9 @@
               <option value="365000003" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Blocked" languagecode="1033" />
+                  <label description="Gesperrt" languagecode="1031" />
+                  <label description="Bloqué" languagecode="1036" />
+                  <label description="Bloccato" languagecode="1040" />
                 </labels>
               </option>
             </options>
@@ -988,11 +994,17 @@
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
@@ -1041,6 +1053,9 @@
             <IsCustomizable>1</IsCustomizable>
             <displaynames>
               <displayname description="From Supplier Portal" languagecode="1033" />
+              <displayname description="Aus dem Lieferantenportal" languagecode="1031" />
+              <displayname description="Depuis le portail fournisseurs" languagecode="1036" />
+              <displayname description="Dal portale fornitori" languagecode="1040" />
             </displaynames>
             <Descriptions>
               <Description description="The supplier uploaded the invoice in the supplier portal" languagecode="1033" />
@@ -1049,17 +1064,26 @@
               <option value="1" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="Yes" languagecode="1033" />
+                  <label description="Ja" languagecode="1031" />
+                  <label description="Oui" languagecode="1036" />
+                  <label description="Sì" languagecode="1040" />
                 </labels>
               </option>
               <option value="0" ExternalValue="" IsHidden="0">
                 <labels>
                   <label description="No" languagecode="1033" />
+                  <label description="Nein" languagecode="1031" />
+                  <label description="Non" languagecode="1036" />
+                  <label description="No" languagecode="1040" />
                 </labels>
               </option>
             </options>
           </optionset>
           <displaynames>
             <displayname description="From Supplier Portal" languagecode="1033" />
+            <displayname description="Aus dem Lieferantenportal" languagecode="1031" />
+            <displayname description="Depuis le portail fournisseurs" languagecode="1036" />
+            <displayname description="Dal portale fornitori" languagecode="1040" />
           </displaynames>
           <Descriptions>
             <Description description="The supplier uploaded the invoice in the supplier portal" languagecode="1033" />
@@ -2492,6 +2516,9 @@
               <status value="365000002" state="0" IsHidden="0">
                 <labels>
                   <label description="Draft" languagecode="1033" />
+                  <label description="Entwurf" languagecode="1031" />
+                  <label description="Brouillon" languagecode="1036" />
+                  <label description="Bozza" languagecode="1040" />
                 </labels>
               </status>
               <status value="2" state="1" IsHidden="0">

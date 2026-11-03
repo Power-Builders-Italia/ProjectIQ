@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="op365_SourcingApprovalTeam">
+  <description default="Teams team id and channel id separated by |">
+    <label description="Teams team id and channel id separated by |" languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Approval Team">
+    <label description="Sourcing Approval Team" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

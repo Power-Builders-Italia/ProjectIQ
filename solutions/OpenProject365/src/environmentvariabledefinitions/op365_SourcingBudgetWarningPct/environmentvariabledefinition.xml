@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="op365_SourcingBudgetWarningPct">
+  <defaultvalue>90</defaultvalue>
+  <description default="Percentage of the budget of a project or WBS node above which the agent reports a Budget Alert.">
+    <label description="Percentage of the budget of a project or WBS node above which the agent reports a Budget Alert." languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Budget Warning %">
+    <label description="Sourcing Budget Warning %" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

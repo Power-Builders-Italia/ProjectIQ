@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="op365_SourcingAgentUser">
+  <description default="User Name of the application user that runs the sourcing agent: the only caller trusted to pass the decider to DecideAgentProposal.">
+    <label description="User Name of the application user that runs the sourcing agent: the only caller trusted to pass the decider to DecideAgentProposal." languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Agent User">
+    <label description="Sourcing Agent User" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.1.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>
