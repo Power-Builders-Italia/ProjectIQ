@@ -13,6 +13,11 @@ TEAMS = '/providers/Microsoft.PowerApps/apis/shared_teams'
 CONNECTORS = {'shared_commondataserviceforapps': ('op365_dataverse', DATAVERSE),
               'shared_sharepointonline': ('op365_sharepoint', SHAREPOINT),
               'shared_teams': ('op365_teams', TEAMS)}
+# Dataverse connection of the sourcing agent application user, used ONLY by "Agent proposal approval": the card flow calls
+# DecideAgentProposal as the agent (the only caller trusted with DecidedBy), the other flows keep op365_dataverse
+AGENT_DATAVERSE = 'op365_dataverse_agent'
+# every connection reference of the solution: logical name -> connector
+REFERENCES = {**{name: api for name, api in CONNECTORS.values()}, AGENT_DATAVERSE: DATAVERSE}
 WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
 # environment variables: (schema name, display name, description); values are set per environment, never in the repository
@@ -53,7 +58,9 @@ def bound_action(action, entity_set, record_id, parameters=None, run_after=None)
         'parameters': params, 'authentication': "@parameters('$authentication')"}}
 
 
-def clientdata(trigger, actions, connectors=('shared_commondataserviceforapps',), variables=()):
+def clientdata(trigger, actions, connectors=('shared_commondataserviceforapps',), variables=(), references=None):
+    """Flow definition; references maps a connector to a connection reference other than its default in CONNECTORS."""
+    references = references or {}
     parameters = {'$connections': {'defaultValue': {}, 'type': 'Object'},
                   '$authentication': {'defaultValue': {}, 'type': 'SecureObject'}}
     for v in variables:
@@ -61,7 +68,7 @@ def clientdata(trigger, actions, connectors=('shared_commondataserviceforapps',)
                                     'metadata': {'schemaName': v[0], 'description': v[2]}}
     return {'properties': {
         'connectionReferences': {c: {
-            'runtimeSource': 'embedded', 'connection': {'connectionReferenceLogicalName': CONNECTORS[c][0]},
+            'runtimeSource': 'embedded', 'connection': {'connectionReferenceLogicalName': references.get(c, CONNECTORS[c][0])},
             'api': {'name': c}} for c in connectors},
         'definition': {
             '$schema': 'https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#',
@@ -278,7 +285,9 @@ def proposal_approval_flow():
     The card is posted whether or not the sourcing agent is enabled (open proposals stay decidable). The in-app
     notification to the project managers is not here: the AgentProposalNotify plugin sends it. A Reject without a note
     reaches op365_DecideAgentProposal on purpose: the API answers "Add a note to reject the proposal." and the flow shows
-    it in the channel; only a failed Approve is written on the proposal (op365_RecordProposalError).
+    it in the channel; only a failed Approve is written on the proposal (op365_RecordProposalError, with the responder as
+    DecidedBy, so a responder who may not decide cannot fail the proposal). Dataverse runs through op365_dataverse_agent
+    (the agent application user); the outcome posted is the Status returned by the decision.
     """
     pid = "triggerOutputs()?['body/op365_agentproposalid']"
     team = "outputs('Team_and_channel')"
@@ -309,6 +318,11 @@ def proposal_approval_flow():
             'authentication': "@parameters('$authentication')"}}}
     channel = {'poster': 'Flow bot', 'location': 'Channel', 'body/recipient/groupId': f'@first({team})',
                'body/recipient/channelId': f'@last({team})'}
+    # outcome = Status returned by DecideAgentProposal (an Approve can end Superseded), with the labels of the app
+    status = "body('Decide_proposal')?['Status']"
+    outcome = (f"if(equals({status}, 2), 'Executed', if(equals({status}, 365000002), 'Rejected', "
+               f"if(equals({status}, 365000004), 'Superseded (nothing was done)', "
+               f"if(equals({status}, 365000005), 'Acknowledged', string({status})))))")
     decide_error = "coalesce(body('Decide_proposal')?['error']?['message'], 'The decision could not be recorded.')"
     actions = {
         'Team_and_channel': {'runAfter': {}, 'type': 'Compose',
@@ -335,7 +349,7 @@ def proposal_approval_flow():
             'expression': {'equals': [f"@{answer}?['data']?['Decision']", 'Approve']},
             'actions': {'Record_error': _op('shared_commondataserviceforapps', 'PerformUnboundAction', {
                 'actionName': 'op365_RecordProposalError', 'item/ProposalId': f'@{pid}',
-                'item/Error': f'@{decide_error}'})},
+                'item/Error': f'@{decide_error}', 'item/DecidedBy': f"@{answer}?['responder']?['email']"})},
             'else': {'actions': {}}},
         'Post_decision_failed': _op('shared_teams', 'PostMessageToConversation', {
             **channel, 'body/messageBody': (
@@ -343,11 +357,11 @@ def proposal_approval_flow():
             {'Failed_approval': ['Succeeded', 'Failed']}),
         'Post_decision_recorded': _op('shared_teams', 'PostMessageToConversation', {
             **channel, 'body/messageBody': (
-                f"@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\" ', "
-                f"if(equals({answer}?['data']?['Decision'], 'Approve'), 'approved', 'rejected'), ' by ', "
-                f"{answer}?['responder']?['email'], '.')")}, {'Decide_proposal': ['Succeeded']}),
+                f"@concat('Proposal \"', outputs('Get_proposal')?['body/op365_name'], '\": ', {outcome}, ' (decided by ', "
+                f"{answer}?['responder']?['email'], ').')")}, {'Decide_proposal': ['Succeeded']}),
     }
-    return clientdata(trigger, actions, ('shared_commondataserviceforapps', 'shared_teams'), (APPROVAL_TEAM,))
+    return clientdata(trigger, actions, ('shared_commondataserviceforapps', 'shared_teams'), (APPROVAL_TEAM,),
+                      {'shared_commondataserviceforapps': AGENT_DATAVERSE})
 
 
 # (id, name, description, clientdata, state code, localized names {lcid: (name, description)})
