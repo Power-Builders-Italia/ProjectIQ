@@ -9,6 +9,8 @@ namespace OpenProject365.Plugins
 {
     // Sourcing agent proposal rules without SDK types, covered by OpenProject365.Plugins.Tests.
 
+    // Fields are assigned by DataContractJsonSerializer, not by code.
+#pragma warning disable 0649
     [DataContract]
     internal class ProposalJson
     {
@@ -18,6 +20,7 @@ namespace OpenProject365.Plugins
         [DataMember(Name = "contactId")] public string ContactId;
         [DataMember(Name = "note")] public string Note;
     }
+#pragma warning restore 0649
 
     /// <summary>Parameters of a Source via RFQ proposal.</summary>
     public class SourcePayload
