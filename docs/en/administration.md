@@ -194,7 +194,7 @@ In-app notifications are on by default in new environments. Users manage them fr
 
 Do this once per environment, after the solution is installed. The foundations work without the agent: you can test the whole proposal cycle with the smoke test of IT before the agent exists. Everything is off until you decide.
 
-1. **Create the application user.** In Microsoft Entra ID register an application (client id and secret). In the Power Platform admin center → Environments → *your environment* → Settings → Users + permissions → **Application users**, add it with the name **ProjectIQ Sourcing Agent** and assign the role **OP365 Sourcing Agent**. Also assign the **OP365 Cost Visibility** profile (Column security profiles).
+1. **Create the application user.** In Microsoft Entra ID register an application (client id and secret). In the Power Platform admin center → Environments → *your environment* → Settings → Users + permissions → **Application users**, add it with the name **ProjectIQ Sourcing Agent** and assign the roles **Basic User** and **OP365 Sourcing Agent** (OP365 roles add to Basic User). Also assign the **OP365 Cost Visibility** profile (Column security profiles).
 2. **Set *Sourcing Agent User*** to the **User Name** of this application user ([Company settings](#company-settings)). Without it nobody can decide on behalf of a person, so the Teams card cannot work.
 3. **Give the buyers access.** Assign **OP365 Buyer** (in addition to Basic User and OP365 User) and the **OP365 Cost Visibility** profile to the people who decide purchasing proposals. The Purchasing Approver decides invoice proposals.
 4. **Choose the channel.** Create or pick a Teams channel for the cards and set *Sourcing Approval Team* to `<team id>|<channel id>`.
