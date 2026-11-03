@@ -19,6 +19,7 @@ flowchart TD
     F --> G[7. Betriebsschließungen<br/>des Jahres]
     G --> H[8. Flow Daily time reminder an]
     H --> I[9. Optional: Lieferantenportal]
+    I --> J[10. Optional: Beschaffungsagent]
 ```
 
 | Schritt | Wo | Details |
@@ -32,10 +33,13 @@ flowchart TD
 | 7 | Projects → Planning → Absences (ohne Ressource) | [Stammdaten](master-data.md#abwesenheiten-und-betriebsschließungen) |
 | 8 | Power Automate | [Tägliche Stundenerinnerung](#tägliche-stundenerinnerung) |
 | 9 | Power Pages | [Lieferantenportal](supplier-portal.md) |
+| 10 | Power Platform Admin Center, Power Apps, Power Automate | [Den Beschaffungsagenten einrichten](#den-beschaffungsagenten-einrichten) |
 
 ## Lizenzen
 
 Jeder interne Benutzer braucht eine **Power Apps Premium**-Lizenz (oder eine gleichwertige Lizenz, die modellgesteuerte Apps auf Dataverse umfasst). Lieferanten, die das Portal nutzen, brauchen keine Power-Apps-Lizenz: Sie sind Portalbenutzer und durch die Power-Pages-Kapazität der Umgebung abgedeckt.
+
+Der [Beschaffungsagent](sourcing-agent.md) fügt einen Anwendungsbenutzer hinzu (er braucht keine Benutzerlizenz, zählt aber zu den Anwendungsbenutzern der Umgebung) und zwei Cloud-Flows, die die Verbindungen Microsoft Dataverse und Microsoft Teams nutzen. Der Agent selbst ist ein Copilot-Studio-Agent, der in späteren Versionen geliefert wird und Copilot-Studio-Kapazität verbraucht: Prüfen Sie Ihre Lizenzen, bevor Sie ihn einschalten.
 
 ## Sicherheitsrollen
 
@@ -45,6 +49,8 @@ Die Rollen von ProjectIQ sind **additiv**: Jeder interne Benutzer braucht die St
 |---|---|---|
 | **OP365 Administrator** | Fachliche Administratoren, Controller, Backoffice, Einkaufsgenehmiger | Organisationsweit: Anlegen, Lesen, Schreiben, Löschen, Anfügen, Zuweisen und Freigeben bei allen Tabellen von ProjectIQ, Kunden, Lieferanten und Kontakten. Sieht jedes Projekt. Kann Stunden und Anforderungen in jedem Projekt genehmigen, über Lieferantenrechnungen entscheiden, Stunden für andere einreichen |
 | **OP365 User** | Projektleiter, Teammitglieder, Einkäufer | Liest Stammdaten organisationsweit; legt eigene Datensätze an und verwaltet sie; sieht die Projekte, deren **Besitzer** er ist oder in denen er **Mitglied** ist, mit den Rechten seiner Projektrolle (siehe [Projekte und Team](projects-and-team.md#das-projektteam)). Lieferantenrechnungen: nur lesen |
+| **OP365 Buyer** | Einkäufer, die den Einkauf des Unternehmens führen | Zusätzlich zu Basic User (und normalerweise OP365 User): liest alle Projekte und ihre untergeordneten Tabellen; Vollzugriff auf Bedarfsanforderungen, Angebotsanfragen, Einladungen, Angebote, Bestellungen, Wareneingänge, Lieferanten und Kontakte in jedem Projekt; liest Lieferantenrechnungen (entscheidet nicht darüber); liest und schreibt die [Vorschläge des Agenten](sourcing-agent.md#vorschläge-des-agenten). Weisen Sie auch das Profil **OP365 Cost Visibility** zu |
+| **OP365 Sourcing Agent** | Nur der Anwendungsbenutzer des Beschaffungsagenten | Liest Stammdaten, Projekte und Einkaufsdaten; legt Agentenvorschläge an. Schreibt keine Einkaufsdatensätze und kann nicht über Vorschläge entscheiden. Braucht das Profil **OP365 Cost Visibility** für die Ausgabenanalyse |
 
 Die Standardrolle **System Administrator** wird von allen Regeln von ProjectIQ wie OP365 Administrator behandelt.
 
@@ -81,8 +87,9 @@ Kostenspalten sind durch das Feldsicherheitsprofil **OP365 Cost Visibility** ges
 | Material Usage | Unit Cost, Total Cost |
 | Account | Spend (Lieferanten), IBAN |
 | Item | Spend |
+| Agent Proposal | Evidence |
 
-Weisen Sie das Profil (Power Platform Admin Center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → Benutzer oder Teams hinzufügen) Administratoren, Projektleitern und Controllern zu. Die Projektsummen (Budget Total, Actual Cost, Committed Cost) sind nicht geschützt: Wer das Projekt lesen kann, sieht sie.
+Weisen Sie das Profil auch den Einkäufern und dem Anwendungsbenutzer des Beschaffungsagenten zu. Weisen Sie das Profil (Power Platform Admin Center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → Benutzer oder Teams hinzufügen) Administratoren, Projektleitern und Controllern zu. Die Projektsummen (Budget Total, Actual Cost, Committed Cost) sind nicht geschützt: Wer das Projekt lesen kann, sieht sie.
 
 ## Unternehmenseinstellungen
 
@@ -109,6 +116,14 @@ So ändern Sie einen Wert:
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | Die ProjectIQ-Vorlagen | E-Mail-Vorlage (Typ Firma) jeder Nachricht an Lieferanten, je **Language** des Lieferanten: `{"DocumentExpiring": {"Italian": "<Vorlagentitel>", "English": "<Vorlagentitel>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` ist die Sprache, wenn der Lieferant keine hat oder es keine Vorlage dafür gibt |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Leer | Name oder E-Mail-Adresse der **Warteschlange** (Postfach mit serverseitiger Synchronisierung), die die E-Mails an Lieferanten sendet. Leer = keine E-Mails |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: Im Lieferantenportal können Lieferanten den Fortschritt % der PSP-Aktivitäten ihres Umfangs aktualisieren (nur Aktivitäten ohne Unteraktivitäten). No: Sie sehen ihn nur. Siehe [Lieferantenportal](supplier-portal.md#projektlieferanten-und-psp-umfang) |
+| `op365_SourcingAgentEnabled` | **Sourcing Agent Enabled** | Yes/No | No | Yes: Die Trigger des Beschaffungsagenten laufen. No: Sie stoppen sofort; offene Vorschläge können weiterhin entschieden werden |
+| `op365_SourcingAgentUser` | **Sourcing Agent User** | Text | Leer | **User Name** des Anwendungsbenutzers, der den Agenten ausführt: der einzige Aufrufer, der die entscheidende Person angeben darf (der Flow der Genehmigungskarte tut das). Leer = niemand |
+| `op365_SourcingApprovalTeam` | **Sourcing Approval Team** | Text | Leer | Teams-Team-ID und Kanal-ID, getrennt durch `\|`, in dem die Genehmigungskarten veröffentlicht werden |
+| `op365_SourcingDirectOrderLimit` | **Sourcing Direct Order Limit** | Number | Leer | Betrag, unter dem der Agent eine Direktbestellung statt einer Angebotsanfrage vorschlägt. Leer oder 0 = immer Angebotsanfrage |
+| `op365_SourcingMinQuotes` | **Sourcing Minimum Quotes** | Number | 3 | Anzahl der Lieferanten, die der Agent zu einer Angebotsanfrage einzuladen vorschlägt |
+| `op365_SourcingReminderDays` | **Sourcing Reminder Days** | Number | 2 | Tage vor der Frist der Angebotsanfrage, an denen der Agent Lieferanten erinnert, die nicht geantwortet haben (spätere Aufgaben) |
+| `op365_SourcingBudgetWarningPct` | **Sourcing Budget Warning %** | Number | 90 | Prozentsatz des Budgets eines Projekts oder PSP-Knotens, ab dem der Agent einen Budget Alert meldet (spätere Aufgaben) |
+| `op365_SourcingProposalExpiryDays` | **Sourcing Proposal Expiry Days** | Number | 5 | Tage nach der Erstellung, nach denen ein ausstehender Vorschlag verfällt |
 | `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes: Im Lieferantenportal hochgeladene PDF- und Bildrechnungen werden vom vorgefertigten Rechnungsverarbeitungsmodell von AI Builder gelesen, das AI-Builder-Credits verbraucht (etwa 32 pro Seite). No: Nur FatturaPA-XML-Dateien werden gelesen; bei den anderen geben die Lieferanten die Daten ein. Siehe [Einkauf](purchasing.md#lesen-der-datei) |
 
 Der Purchasing Approver ist ein Benutzername und kein Lookup, weil sich die Benutzer-IDs in jeder Umgebung unterscheiden. Bereits eingereichte Anforderungen behalten die ihnen zugewiesene Genehmigungsstufe.
@@ -124,7 +139,7 @@ In Test kann die IT die Werte auch bei der Bereitstellung über die Deployment S
 
 ## Automatisierungen im Hintergrund
 
-ProjectIQ hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Zwei Automatisierungen sind zeitgesteuert.
+ProjectIQ hält die meisten Kennzahlen mit **Plugins** aktuell, die beim Speichern von Datensätzen in Dataverse laufen; sie brauchen keine Wartung. Vier Cloud-Flows sind zeit- oder ereignisgesteuert: die beiden folgenden und die zwei des [Beschaffungsagenten](#agent-proposal-approval-und-daily-agent-proposal-expiry).
 
 ### Tägliche Stundenerinnerung
 
@@ -149,6 +164,17 @@ So werden die E-Mails gesendet:
    Dieselbe Warteschlange versendet die Portaleinladungen (**Invite to Portal** am Kontakt) mit *ProjectIQ - Portal invitation* (Nachricht `PortalInvitation`; Platzhalter `{Contact}`, `{Email}`, `{Link}` und `{ExpiryDate}`). Lassen Sie `{Link}` im Text: Das ist der Registrierungslink.
 4. Füllen Sie **Language** und **Email** jedes Lieferantenkontos aus.
 
+### Agent proposal approval und Daily agent proposal expiry
+
+Zwei Flows gehören zum [Beschaffungsagenten](sourcing-agent.md); beide werden **ausgeschaltet** angelegt:
+
+| Flow | Wann | Tut |
+|---|---|---|
+| **Agent proposal approval** | Wenn ein Vorschlag (Kind Proposal) hinzugefügt wird | Veröffentlicht eine adaptive Karte mit Approve / Reject im Teams-Kanal von *Sourcing Approval Team*, wartet auf die Antwort, erfasst die Entscheidung im Namen der antwortenden Person und veröffentlicht das Ergebnis |
+| **Daily agent proposal expiry** | Täglich um 06:30 (mitteleuropäische Zeit) | Ruft die Aktion *op365_ExpireAgentProposals* auf: Ausstehende Vorschläge nach ihrem **Expires On** werden Expired |
+
+Der Genehmigungs-Flow nutzt den Verbindungsverweis **op365_teams** (Microsoft Teams) und einen eigenen Dataverse-Verbindungsverweis, **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), der als Anwendungsbenutzer des Agenten handelt; alle anderen Flows verwenden **op365_dataverse**. Er veröffentlicht für jeden neuen Vorschlag eine Karte, auch wenn *Sourcing Agent Enabled* No ist. Die Schritte zum Einschalten stehen unter [Den Beschaffungsagenten einrichten](#den-beschaffungsagenten-einrichten).
+
 ### Was sonst automatisch geschieht
 
 | Automatisierung | Wann |
@@ -157,13 +183,27 @@ So werden die E-Mails gesendet:
 | Projektanzahl und Auftragswertsumme des Kunden | Bei jeder Projektänderung |
 | Einkaufsvolumen und Kontaktanzahl des Lieferanten; Bestellpositionen und Einkaufsvolumen des Artikels | Bei jeder Änderung von Bestellungen, Bestellpositionen und Kontakten |
 | Stundensatz der Ressource | Bei jeder Änderung von Resource Cost |
-| In-App-Benachrichtigungen | Beim Einreichen und Entscheiden von Stunden und Bedarfsanforderungen sowie durch die tägliche Erinnerung |
+| In-App-Benachrichtigungen | Beim Einreichen und Entscheiden von Stunden und Bedarfsanforderungen sowie durch die tägliche Erinnerung; an die Projektleiter, wenn der Beschaffungsagent einen Vorschlag hinzufügt |
 | Zugriff des Projektteams | Bei jeder Änderung von Projektmitgliedern |
 | Lesen der Lieferantenrechnungen (FatturaPA-XML oder AI Builder) und ihre Prüfungen | Im Hintergrund, wenige Sekunden nachdem ein Lieferant eine Rechnung hochlädt oder ihre Nummer, ihr Datum oder ihre Bestellung ändert |
 
 ### Benachrichtigungen
 
 In-App-Benachrichtigungen sind in neuen Umgebungen standardmäßig aktiviert. Benutzer verwalten sie über das Glockensymbol. Benachrichtigungen blockieren nie: Kann eine nicht gesendet werden, gelingt der Vorgang trotzdem.
+
+## Den Beschaffungsagenten einrichten
+
+Einmal pro Umgebung, nachdem die Lösung installiert ist. Die Grundlagen funktionieren ohne den Agenten: Sie können den gesamten Vorschlagszyklus mit dem Smoke-Test der IT prüfen, bevor es den Agenten gibt. Alles bleibt ausgeschaltet, bis Sie entscheiden.
+
+1. **Anwendungsbenutzer anlegen.** Registrieren Sie in Microsoft Entra ID eine Anwendung (Client-ID und Secret). Fügen Sie sie im Power Platform Admin Center → Environments → *Ihre Umgebung* → Settings → Users + permissions → **Application users** mit dem Namen **ProjectIQ Sourcing Agent** hinzu und weisen Sie die Rollen **Basic User** und **OP365 Sourcing Agent** zu (OP365-Rollen ergänzen Basic User). Weisen Sie auch das Profil **OP365 Cost Visibility** zu (Column security profiles).
+2. **Setzen Sie *Sourcing Agent User*** auf den **User Name** dieses Anwendungsbenutzers ([Unternehmenseinstellungen](#unternehmenseinstellungen)). Ohne ihn kann niemand im Namen einer Person entscheiden, und die Teams-Karte kann nicht funktionieren.
+3. **Einkäufern Zugriff geben.** Weisen Sie **OP365 Buyer** (zusätzlich zu Basic User und OP365 User) und das Profil **OP365 Cost Visibility** den Personen zu, die über Einkaufsvorschläge entscheiden. Rechnungsvorschläge entscheidet der Purchasing Approver.
+4. **Kanal wählen.** Legen Sie einen Teams-Kanal für die Karten an oder wählen Sie einen und setzen Sie *Sourcing Approval Team* auf `<team id>|<channel id>`.
+5. **Verbindungen anlegen.** Ein Benutzer legt die Verbindung **Microsoft Teams** (ein Dienstkonto, das Mitglied des Teams ist) für den Verbindungsverweis **op365_teams** an, und eine Verbindung **Microsoft Dataverse**, die dem Anwendungsbenutzer aus Schritt 1 gehört (sie meldet sich als dieser Anwendungsbenutzer an), für den Verbindungsverweis **op365_dataverse_agent**, und verknüpft sie in der Lösung (Test und Produktion: über die Deployment Settings). Verwenden Sie diese Dataverse-Verbindung nur für **op365_dataverse_agent** und teilen Sie sie nicht mit anderen Benutzern: Alles, was sie verwendet, handelt als der Agent. Verknüpfen Sie sie nie mit **op365_dataverse**, das die anderen Flows verwenden.
+6. **Schalten Sie** die Flows **Agent proposal approval** und **Daily agent proposal expiry** **ein** und prüfen Sie am nächsten Tag ihren Ausführungsverlauf.
+7. **Agenten einschalten**, erst wenn er veröffentlicht ist: Setzen Sie *Sourcing Agent Enabled* auf Yes. Der Agent ist in jeder Umgebung standardmäßig ausgeschaltet, auch im AppSource-Paket.
+
+Um die Einrichtung zu prüfen, ohne auf den Agenten zu warten, führt die IT den Smoke-Test aus, der im [Leitfaden zur Entwicklungsumgebung](../dev-environment.md#sourcing-agent) beschrieben ist.
 
 ## Überwachung und Historie
 
@@ -198,7 +238,7 @@ Neue Versionen werden auf AppSource veröffentlicht: Installieren Sie sie auf de
 Wenn die IT eine neue Version bereitstellt:
 
 1. Prüfen Sie, ob die Plugin-Schritte **aktiviert** sind (ein abgebrochener Import kann sie deaktiviert lassen; die IT kann das in den *Plug-in steps* der Lösung prüfen).
-2. Prüfen Sie, ob der Flow **Daily time reminder** **eingeschaltet** ist.
+2. Prüfen Sie, ob der Flow **Daily time reminder** **eingeschaltet** ist (und, wenn Sie den Beschaffungsagenten nutzen, auch **Agent proposal approval** und **Daily agent proposal expiry**).
 3. Wurde das Lieferantenportal aktualisiert, **leeren Sie den Portal-Cache** (`/_services/about` → *Clear cache*) und melden Sie sich erneut an.
 4. Lesen Sie die Versionshinweise und die aktualisierten Handbücher (diese Dokumentation wird mit jeder funktionalen Änderung aktualisiert).
 
@@ -221,3 +261,7 @@ Wenn die IT eine neue Version bereitstellt:
 | Summen nach einem Import nicht aktualisiert | Plugin-Schritte deaktiviert | Plugin-Schritte aktivieren |
 | Anforderungen über der Schwelle gehen an alle Administratoren | Purchasing Approver leer oder nicht der User Name eines aktiven Benutzers | Die [Umgebungsvariable](#unternehmenseinstellungen) setzen |
 | Lieferanten sehen „This area is reserved to suppliers“ | Web-Rolle Supplier fehlt oder nicht angemeldet | Dem Kontakt die Web-Rolle zuweisen |
+| Keine Karte in Teams für einen neuen Vorschlag | Flow **Agent proposal approval** aus, Teams-Verbindung defekt oder *Sourcing Approval Team* leer oder falsch | Flow, seine Verbindungen und die Einstellung prüfen |
+| Der Kanal zeigt „Only the sourcing agent can decide on behalf of another user.“ | *Sourcing Agent User* leer oder nicht der Benutzer der Verbindung von **op365_dataverse_agent** | Den User Name des Anwendungsbenutzers eintragen und dessen Verbindung mit **op365_dataverse_agent** verknüpfen |
+| „You cannot decide this proposal.“ | Der Person fehlt die Rolle für diesen Aktionstyp | Siehe [Wer macht was](sourcing-agent.md#wer-macht-was) |
+| Vorschläge bleiben nach ihrem Datum Pending | Flow **Daily agent proposal expiry** aus | Einschalten |

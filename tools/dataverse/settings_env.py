@@ -34,6 +34,23 @@ VARIABLES = [
      'Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing '
      'model (it consumes AI Builder credits, about 32 per page). No: only FatturaPA XML files are read; the supplier '
      'fills in the data of the others.'),
+    ('op365_SourcingAgentEnabled', 'Sourcing Agent Enabled', BOOLEAN, 'no',
+     'Yes: the sourcing agent triggers run. No: they stop at once; open proposals can still be decided.'),
+    ('op365_SourcingAgentUser', 'Sourcing Agent User', STRING, None,
+     'User Name of the application user that runs the sourcing agent: the only caller trusted to pass the decider '
+     'to DecideAgentProposal.'),
+    ('op365_SourcingApprovalTeam', 'Sourcing Approval Team', STRING, None,
+     'Teams team id and channel id separated by |'),
+    ('op365_SourcingDirectOrderLimit', 'Sourcing Direct Order Limit', NUMBER, None,
+     'Amount below which the agent proposes a direct purchase order instead of an RFQ. Empty or 0 = always RFQ.'),
+    ('op365_SourcingMinQuotes', 'Sourcing Minimum Quotes', NUMBER, '3',
+     'Number of suppliers the agent proposes to invite to an RFQ.'),
+    ('op365_SourcingReminderDays', 'Sourcing Reminder Days', NUMBER, '2',
+     'Days before the RFQ deadline when the agent reminds the suppliers who have not answered.'),
+    ('op365_SourcingBudgetWarningPct', 'Sourcing Budget Warning %', NUMBER, '90',
+     'Percentage of the budget of a project or WBS node above which the agent reports a Budget Alert.'),
+    ('op365_SourcingProposalExpiryDays', 'Sourcing Proposal Expiry Days', NUMBER, '5',
+     'Days after creation when a pending proposal expires.'),
 ]
 # document metadata flows: SharePoint site and library ids, set by tools/sharepoint/document_metadata.py (no default)
 VARIABLES += [(schema, label, STRING, None, desc) for schema, label, desc in [SITE, *LIBRARIES.values()]]

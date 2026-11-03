@@ -47,6 +47,12 @@ COMMANDS = [
         ('ApproveDocument', 'Approve', 'Approve the document: it becomes valid', 'Accept', 'approveDocument', [S]),
         ('RejectDocument', 'Reject', 'Reject the document with a note for the supplier', 'Cancel', 'rejectDocument', [S]),
     ]),
+    ('op365_AgentProposal', 'op365_agentproposal', [
+        ('ApproveProposal', 'Approve', "Approve the proposal: the agent's action runs with your identity", 'Accept', 'approveProposal', [1]),
+        ('RejectProposal', 'Reject', 'Reject the proposal with a note', 'Cancel', 'rejectProposal', [1]),
+        ('RetryProposal', 'Retry', 'Move the failed proposal back to Pending so that it can be approved again', 'Refresh', 'retryProposal', [S + 1]),
+        ('AcknowledgeProposal', 'Acknowledge', 'Acknowledge the insight', 'Accept', 'acknowledgeProposal', [S]),
+    ]),
     ('Contact', 'contact', [
         ('InviteToPortal', 'Invite to Portal', 'E-mail the contact an invitation to the supplier portal (its Company Name must be a supplier)',
          'Send', 'inviteToPortal', None),
@@ -86,6 +92,9 @@ def ribbon(table, buttons):
 
 
 for folder, table, buttons in COMMANDS:
+    if not os.path.isdir(os.path.join(ROOT, folder)):
+        print('skip', folder, '(entity folder not in the unpacked solution yet: export and unpack Dev first)')
+        continue
     path = os.path.join(ROOT, folder, 'RibbonDiff.xml')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(ribbon(table, buttons))

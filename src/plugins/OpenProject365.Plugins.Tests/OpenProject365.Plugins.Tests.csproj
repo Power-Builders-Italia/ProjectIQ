@@ -8,6 +8,7 @@
     <Compile Include="../OpenProject365.Plugins/Text.cs" Link="Text.cs" />
     <Compile Include="../OpenProject365.Plugins/Model.cs" Link="Model.cs" />
     <Compile Include="../OpenProject365.Plugins/InvoiceLogic.cs" Link="InvoiceLogic.cs" />
+    <Compile Include="../OpenProject365.Plugins/ProposalLogic.cs" Link="ProposalLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

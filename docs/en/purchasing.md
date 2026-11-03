@@ -39,11 +39,12 @@ Numbers are assigned automatically when the record is saved: purchase requests `
 | Approve / reject up to the threshold | The project manager (current approver), any Manager of the project, an administrator |
 | Approve / reject above the threshold (second level) | The **Purchasing Approver** set in the [environment variables](administration.md#company-settings), or an administrator |
 | Cancel a request | The requester, a Manager of the project, an administrator |
-| Create RFQs and orders, send, award, change order status | A Manager of the project, an administrator |
+| Create RFQs and orders, send, award, change order status | A Manager of the project, a user with the **OP365 Buyer** role, an administrator |
 | Register goods receipts | A Manager or Contributor of the project, an administrator |
 | Approve / reject supplier invoices | The Purchasing Approver, an administrator |
+| Decide a proposal of the [sourcing agent](sourcing-agent.md#who-does-what) | Depends on the proposal: a buyer, a Manager of the project or an administrator; invoice proposals only the Purchasing Approver or an administrator |
 
-"Administrator" means a user with the **OP365 Administrator** or **System Administrator** role.
+"Administrator" means a user with the **OP365 Administrator** or **System Administrator** role. The **OP365 Buyer** role is for the people who run purchasing for the company: a buyer can create, send, award and cancel RFQs, create orders, change order status, and cancel purchase requests and goods receipts on **every** project, without being a member of it. A refused action says "Only a manager of the project or a buyer can ...". Buyers cannot decide supplier invoices (segregation of duties).
 
 All the actions are **buttons in the command bar** of the forms. Each button is enabled only in the statuses where it applies, and every action asks for confirmation.
 

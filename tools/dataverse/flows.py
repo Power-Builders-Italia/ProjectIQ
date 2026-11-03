@@ -9,16 +9,19 @@ import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from dv import S, API
 from meta import ok, one
-from flow_definitions import CONNECTORS, FLOWS
+from flow_definitions import FLOWS, REFERENCES
 
-REFERENCES = {
+LABELS = {
     'op365_dataverse': ('ProjectIQ Dataverse', 'Dataverse connection used by the ProjectIQ flows'),
+    'op365_dataverse_agent': ('ProjectIQ Dataverse (sourcing agent)',
+                              'Dataverse connection of the sourcing agent application user, used only by the agent proposal approval flow; not shared'),
     'op365_sharepoint': ('ProjectIQ SharePoint', 'SharePoint connection (dedicated user) used by the ProjectIQ document flows'),
+    'op365_teams': ('ProjectIQ Teams', 'Teams connection (service account member of the approval team) used by the agent proposal approval card'),
 }
 
 connections = {}
-for name, connector in CONNECTORS.values():
-    label, desc = REFERENCES[name]
+for name, connector in REFERENCES.items():
+    label, desc = LABELS[name]
     ref = one(f"connectionreferences?$select=connectionreferenceid,connectionid&$filter=connectionreferencelogicalname eq '{name}'")
     if ref:
         print('skip connection reference', name); connections[name] = ref.get('connectionid')

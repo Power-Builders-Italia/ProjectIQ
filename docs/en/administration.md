@@ -17,6 +17,7 @@ flowchart TD
     F --> G[7. Company closures<br/>for the year]
     G --> H[8. Daily time reminder flow on]
     H --> I[9. Optional: supplier portal]
+    I --> J[10. Optional: sourcing agent]
 ```
 
 | Step | Where | Details |
@@ -30,10 +31,13 @@ flowchart TD
 | 7 | Projects → Planning → Absences (no resource) | [Master data](master-data.md#absences-and-company-closures) |
 | 8 | Power Automate | [Daily time reminder](#daily-time-reminder) |
 | 9 | Power Pages | [Supplier portal](supplier-portal.md) |
+| 10 | Power Platform admin center, Power Apps, Power Automate | [Setting up the sourcing agent](#setting-up-the-sourcing-agent) |
 
 ## Licences
 
 Every internal user needs a **Power Apps Premium** licence (or an equivalent licence that includes model-driven apps on Dataverse). Suppliers using the portal do not need a Power Apps licence: they are portal users, covered by the Power Pages capacity of the environment.
+
+The [sourcing agent](sourcing-agent.md) adds an application user (it needs no user licence, but it counts against the application users of the environment) and two cloud flows that use the Microsoft Dataverse and Microsoft Teams connections. The agent itself is a Copilot Studio agent delivered in later releases and uses Copilot Studio capacity: check your licensing before you switch it on.
 
 ## Security roles
 
@@ -43,6 +47,9 @@ ProjectIQ roles are **additive**: every internal user needs the standard **Basic
 |---|---|---|
 | **OP365 Administrator** | Functional administrators, controllers, back office, purchasing approver | Organization-wide: create, read, write, delete, append, assign and share on all ProjectIQ tables, customers, suppliers and contacts. Sees every project. Can approve hours and requests on every project, decide supplier invoices, submit hours for others |
 | **OP365 User** | Project managers, team members, buyers | Reads master data organisation-wide; creates and manages their own records; sees the projects they **own** or where they are **members**, with the rights of their project role (see [Projects and team](projects-and-team.md#the-project-team)). Supplier invoices: read only |
+
+| **OP365 Buyer** | Buyers who run purchasing for the company | In addition to Basic User (and normally OP365 User): reads all projects and their child tables; full access to purchase requests, RFQs, invitations, quotes, orders, goods receipts, supplier accounts and contacts on every project; reads supplier invoices (does not decide them); reads and writes the [agent proposals](sourcing-agent.md#agent-proposals). Assign the **OP365 Cost Visibility** profile too |
+| **OP365 Sourcing Agent** | The application user of the sourcing agent only | Reads master data, projects and purchasing data; creates agent proposals. It does not write purchasing records and cannot decide proposals. Needs the **OP365 Cost Visibility** profile for the spend analysis |
 
 The standard **System Administrator** role is treated like OP365 Administrator by all ProjectIQ rules.
 
@@ -79,8 +86,9 @@ Cost columns are protected by the column security profile **OP365 Cost Visibilit
 | Material Usage | Unit Cost, Total Cost |
 | Account | Spend (suppliers), IBAN |
 | Item | Spend |
+| Agent Proposal | Evidence |
 
-Assign the profile (Power Platform admin center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → add users or teams) to administrators, project managers and controllers. Project totals (Budget Total, Actual Cost, Committed Cost) are not protected: whoever can read the project sees them.
+Assign the profile also to the buyers and to the application user of the sourcing agent. Assign the profile (Power Platform admin center → *Settings* → *Users + permissions* → *Column security profiles* → **OP365 Cost Visibility** → add users or teams) to administrators, project managers and controllers. Project totals (Budget Total, Actual Cost, Committed Cost) are not protected: whoever can read the project sees them.
 
 ## Company settings
 
@@ -107,6 +115,14 @@ To change a value:
 | `op365_SupplierEmailTemplates` | **Supplier Email Templates** | JSON | The ProjectIQ templates | E-mail template (Account type) of each message to suppliers, by supplier **Language**: `{"DocumentExpiring": {"Italian": "<template title>", "English": "<template title>", "default": "English"}, "DocumentExpired": {...}, "PortalInvitation": {...}}`. `default` is the language used when the supplier has none or it has no template |
 | `op365_SupplierEmailSender` | **Supplier Email Sender** | Text | Empty | Name or e-mail address of the **queue** (mailbox with server-side synchronization) that sends the e-mails to suppliers. Empty = no e-mails |
 | `op365_SupplierProgressUpdates` | **Supplier Progress Updates** | Yes/No | No | Yes: on the supplier portal suppliers can update the progress % of the WBS activities of their scope (activities without sub-activities only). No: they only see it. See [Supplier portal](supplier-portal.md#project-suppliers-and-wbs-scope) |
+| `op365_SourcingAgentEnabled` | **Sourcing Agent Enabled** | Yes/No | No | Yes: the sourcing agent triggers run. No: they stop at once; open proposals can still be decided |
+| `op365_SourcingAgentUser` | **Sourcing Agent User** | Text | Empty | **User Name** of the application user that runs the agent: the only caller trusted to pass the person who decided (the approval card flow does). Empty = nobody |
+| `op365_SourcingApprovalTeam` | **Sourcing Approval Team** | Text | Empty | Teams team id and channel id separated by `\|`, where the approval cards are posted |
+| `op365_SourcingDirectOrderLimit` | **Sourcing Direct Order Limit** | Number | Empty | Amount below which the agent proposes a direct purchase order instead of an RFQ. Empty or 0 = always RFQ |
+| `op365_SourcingMinQuotes` | **Sourcing Minimum Quotes** | Number | 3 | Number of suppliers the agent proposes to invite to an RFQ |
+| `op365_SourcingReminderDays` | **Sourcing Reminder Days** | Number | 2 | Days before the RFQ deadline when the agent reminds the suppliers who have not answered (later tasks) |
+| `op365_SourcingBudgetWarningPct` | **Sourcing Budget Warning %** | Number | 90 | Percentage of the budget of a project or WBS node above which the agent reports a Budget Alert (later tasks) |
+| `op365_SourcingProposalExpiryDays` | **Sourcing Proposal Expiry Days** | Number | 5 | Days after creation when a pending proposal expires |
 | `op365_InvoiceAiExtraction` | **Invoice AI Extraction** | Yes/No | Yes | Yes: PDF and image invoices uploaded on the supplier portal are read by the AI Builder prebuilt invoice processing model, which consumes AI Builder credits (about 32 per page). No: only FatturaPA XML files are read; suppliers type the data of the others. See [Purchasing](purchasing.md#reading-the-file) |
 
 The Purchasing Approver is a user name and not a lookup because user ids differ in every environment. Requests already submitted keep the approval level they were given.
@@ -122,7 +138,7 @@ In Test, IT can also set the values at deployment time through the deployment se
 
 ## Background automations
 
-ProjectIQ keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Two automations are scheduled.
+ProjectIQ keeps most figures up to date with **plugins** that run inside Dataverse when records are saved; they need no maintenance. Four cloud flows are scheduled or triggered: the two below and the two of the [sourcing agent](#agent-proposal-approval-and-daily-agent-proposal-expiry).
 
 ### Daily time reminder
 
@@ -147,6 +163,17 @@ To send the e-mails:
    The same queue sends the portal invitations (**Invite to Portal** on the contact) with *ProjectIQ - Portal invitation* (message `PortalInvitation`; placeholders `{Contact}`, `{Email}`, `{Link}` and `{ExpiryDate}`). Keep `{Link}` in its text: it is the registration link.
 4. Fill in the **Language** and the **Email** of each supplier account.
 
+### Agent proposal approval and Daily agent proposal expiry
+
+Two flows belong to the [sourcing agent](sourcing-agent.md); both are created **off**:
+
+| Flow | When | Does |
+|---|---|---|
+| **Agent proposal approval** | When a proposal (Kind Proposal) is added | Posts an adaptive card with Approve / Reject in the Teams channel of *Sourcing Approval Team*, waits for the answer, records the decision in the name of the person who answered, and posts the outcome |
+| **Daily agent proposal expiry** | Every day at 06:30 (W. Europe time) | Calls the action *op365_ExpireAgentProposals*: pending proposals past their **Expires On** become Expired |
+
+The approval flow uses the connection reference **op365_teams** (Microsoft Teams) and its own Dataverse connection reference **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), which acts as the application user of the agent; all the other flows use **op365_dataverse**. It posts a card for every new proposal even when *Sourcing Agent Enabled* is No. The steps to turn them on are in [Setting up the sourcing agent](#setting-up-the-sourcing-agent).
+
 ### What else happens automatically
 
 | Automation | When |
@@ -155,13 +182,27 @@ To send the e-mails:
 | Customer project count and contract value total | On every project change |
 | Supplier spend and contact count; item order lines and spend | On every order, order line and contact change |
 | Resource hourly cost | On every Resource Cost change |
-| In-app notifications | On submissions and decisions of hours and purchase requests, and from the daily reminder |
+| In-app notifications | On submissions and decisions of hours and purchase requests, and from the daily reminder; to the project managers when the sourcing agent adds a proposal |
 | Project team access | On every project member change |
 | Reading of supplier invoices (FatturaPA XML or AI Builder) and their checks | In the background, a few seconds after a supplier uploads an invoice or changes its number, date or order |
 
 ### Notifications
 
 In-app notifications are on by default in new environments. Users manage them from the bell icon. Notifications are never blocking: if one cannot be sent, the operation still succeeds.
+
+## Setting up the sourcing agent
+
+Do this once per environment, after the solution is installed. The foundations work without the agent: you can test the whole proposal cycle with the smoke test of IT before the agent exists. Everything is off until you decide.
+
+1. **Create the application user.** In Microsoft Entra ID register an application (client id and secret). In the Power Platform admin center → Environments → *your environment* → Settings → Users + permissions → **Application users**, add it with the name **ProjectIQ Sourcing Agent** and assign the roles **Basic User** and **OP365 Sourcing Agent** (OP365 roles add to Basic User). Also assign the **OP365 Cost Visibility** profile (Column security profiles).
+2. **Set *Sourcing Agent User*** to the **User Name** of this application user ([Company settings](#company-settings)). Without it nobody can decide on behalf of a person, so the Teams card cannot work.
+3. **Give the buyers access.** Assign **OP365 Buyer** (in addition to Basic User and OP365 User) and the **OP365 Cost Visibility** profile to the people who decide purchasing proposals. The Purchasing Approver decides invoice proposals.
+4. **Choose the channel.** Create or pick a Teams channel for the cards and set *Sourcing Approval Team* to `<team id>|<channel id>`.
+5. **Create the connections.** A user creates the **Microsoft Teams** connection (a service account that is a member of the team) for the connection reference **op365_teams**, and a **Microsoft Dataverse** connection owned by the application user of step 1 (it signs in as that application user) for the connection reference **op365_dataverse_agent**, then links them in the solution (Test and Production: through the deployment settings). Use that Dataverse connection only for **op365_dataverse_agent** and do not share it with other users: whatever uses it acts as the agent. Never link it to **op365_dataverse**, which the other flows use.
+6. **Turn on** the flows **Agent proposal approval** and **Daily agent proposal expiry** and check their run history the next day.
+7. **Switch the agent on** only when it is published: set *Sourcing Agent Enabled* to Yes. The agent is off by default in every environment, also in the AppSource package.
+
+To check the setup without waiting for the agent, IT runs the smoke test described in the [development environment guide](../dev-environment.md#sourcing-agent).
 
 ## Auditing and history
 
@@ -196,7 +237,7 @@ New versions are published on AppSource: install them from the same **Dynamics 3
 When IT deploys a new version:
 
 1. Check that the plugin steps are **enabled** (an interrupted import can leave them disabled; IT can verify in the solution's *Plug-in steps*).
-2. Check that the **Daily time reminder** flow is **on**.
+2. Check that the **Daily time reminder** flow is **on** (and, if you use the sourcing agent, **Agent proposal approval** and **Daily agent proposal expiry**).
 3. If the supplier portal was updated, **clear the portal cache** (`/_services/about` → *Clear cache*) and sign in again.
 4. Read the release notes and the updated manuals (this documentation is updated together with every functional change).
 
@@ -219,3 +260,7 @@ When IT deploys a new version:
 | Totals not updated after an import | Plugin steps disabled | Enable the plugin steps |
 | Requests above the threshold go to all administrators | Purchasing Approver empty, or not the User Name of an enabled user | Set the [environment variable](#company-settings) |
 | Suppliers see "This area is reserved to suppliers" | Missing Supplier web role or not signed in | Assign the web role to the contact |
+| No card in Teams for a new proposal | Flow **Agent proposal approval** off, Teams connection broken, or *Sourcing Approval Team* empty or wrong | Check the flow, its connections and the setting |
+| The channel shows "Only the sourcing agent can decide on behalf of another user." | *Sourcing Agent User* empty, or not the user of the connection of **op365_dataverse_agent** | Set the User Name of the application user and link its connection to **op365_dataverse_agent** |
+| "You cannot decide this proposal." | The person lacks the role for that action type | See [Who does what](sourcing-agent.md#who-does-what) |
+| Proposals stay Pending after their date | Flow **Daily agent proposal expiry** off | Turn it on |

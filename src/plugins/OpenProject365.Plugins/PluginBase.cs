@@ -18,6 +18,7 @@ namespace OpenProject365.Plugins
             }
             catch (InvalidPluginExecutionException ex)
             {
+                context.Trace("{0} {1} refused: {2}. Pipeline: {3}", GetType().Name, context.Message, ex.Message, context.Pipeline());
                 // messages are English in the code: show them in the user's language
                 var message = Text.Translate(ex.Message, UserLanguage.Column(context.SystemService, context.Execution.InitiatingUserId));
                 if (message == ex.Message) throw;
@@ -41,15 +42,20 @@ namespace OpenProject365.Plugins
         {
             Execution = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             tracing = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-            var factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            Service = factory.CreateOrganizationService(Execution.UserId);
+            Factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            Service = Factory.CreateOrganizationService(Execution.UserId);
             // null user = SYSTEM: used for totals and access teams, which users cannot write themselves
-            SystemService = factory.CreateOrganizationService(null);
+            SystemService = Factory.CreateOrganizationService(null);
         }
 
         public IPluginExecutionContext Execution { get; }
+        /// <summary>Creates services that run as another user (DecideAgentProposal runs the approved action as the decider).</summary>
+        public IOrganizationServiceFactory Factory { get; }
         public IOrganizationService Service { get; }
         public IOrganizationService SystemService { get; }
+
+        /// <summary>The user the operation runs for; equals the initiating user except when a plugin impersonates, as DecideAgentProposal does.</summary>
+        public Guid CallerId => Execution.UserId;
 
         public string Message => Execution.MessageName;
 
@@ -84,6 +90,15 @@ namespace OpenProject365.Plugins
         private static readonly string[] SystemColumns =
             { "modifiedon", "modifiedby", "modifiedonbehalfby", "exchangerate", "transactioncurrencyid", "timezoneruleversionnumber", "utcconversiontimezonecode" };
 
+        /// <summary>This operation and its parents (message, table, stage, depth, user), for the plugin trace log.</summary>
+        public string Pipeline()
+        {
+            var parts = new System.Collections.Generic.List<string>();
+            for (IPluginExecutionContext c = Execution; c != null; c = c.ParentContext)
+                parts.Add($"{c.MessageName}/{c.PrimaryEntityName}/stage {c.Stage}/depth {c.Depth}/user {c.UserId}");
+            return string.Join(" <- ", parts);
+        }
+
         /// <summary>True when this operation runs because a parent record of the given table is being deleted.</summary>
         public bool IsCascadeDeleteOf(string table)
         {
@@ -97,7 +112,7 @@ namespace OpenProject365.Plugins
         public bool IsInside(params string[] messages)
         {
             for (var c = Execution.ParentContext; c != null; c = c.ParentContext)
-                if (Array.IndexOf(messages, c.MessageName) >= 0)
+                if (Proposals.Covers(c.MessageName, messages))
                     return true;
             return false;
         }

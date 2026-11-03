@@ -309,6 +309,16 @@
 "Comptes ayant répondu aux campagnes ces 6 derniers mois",
 "Account: inviate risposte a campagne negli ultimi sei mesi"
 ],
+"Acknowledged": [
+"Zur Kenntnis genommen",
+"Pris en compte",
+"Preso in carico"
+],
+"Action Type": [
+"Aktionstyp",
+"Type d’action",
+"Tipo di azione"
+],
 "Active": [
 "Aktiv",
 "Actif",
@@ -974,6 +984,26 @@
 "Après-midi",
 "Pomeriggio"
 ],
+"Agent Insights": [
+"Agent-Erkenntnisse",
+"Constats de l’agent",
+"Osservazioni agente"
+],
+"Agent Log": [
+"Agentenprotokoll",
+"Journal de l’agent",
+"Registro agente"
+],
+"Agent Proposal": [
+"Agentenvorschlag",
+"Proposition de l’agent",
+"Proposta agente"
+],
+"Agent Proposals": [
+"Agentenvorschläge",
+"Propositions de l’agent",
+"Proposte agente"
+],
 "Agentic User": [
 "Agentenbenutzer",
 "Utilisateur agentique",
@@ -1243,6 +1273,11 @@
 "E-Mail genehmigen",
 "Approuver l’e-mail",
 "Approva indirizzo e-mail"
+],
+"Approve Invoice": [
+"Rechnung genehmigen",
+"Approuver la facture",
+"Approva fattura"
 ],
 "Approve the document: it becomes valid": [
 "Dokument genehmigen: es wird gültig",
@@ -1558,6 +1593,11 @@
 "Budget",
 "Budget",
 "Budget"
+],
+"Budget Alert": [
+"Budgetwarnung",
+"Alerte budget",
+"Avviso budget"
 ],
 "Budget Hours": [
 "Budgetstunden",
@@ -1979,6 +2019,11 @@
 "Achèvement du nœud en pourcentage",
 "Completamento del nodo in percentuale"
 ],
+"Compliance Alert": [
+"Compliance-Warnung",
+"Alerte de conformité",
+"Avviso di conformità"
+],
 "Compliance document of a supplier (DURC, certifications, insurance...)": [
 "Compliance-Dokument eines Lieferanten (DURC, Zertifizierungen, Versicherung ...)",
 "Document de conformité d'un fournisseur (DURC, certifications, assurance...)",
@@ -2008,6 +2053,11 @@
 "Bestätigte Bestellungen",
 "Commandes confirmées",
 "Ordini confermati"
+],
+"Consolidation": [
+"Zusammenfassung",
+"Regroupement",
+"Consolidamento"
 ],
 "Consultant": [
 "Berater",
@@ -2639,10 +2689,20 @@
 "Note de décision ; obligatoire pour rejeter",
 "Nota della decisione; obbligatoria per rifiutare"
 ],
+"Decision, insight or log written by the sourcing agent": [
+"Entscheidung, Erkenntnis oder Protokoll des Beschaffungsagenten",
+"Décision, constat ou journal rédigé par l’agent d’approvisionnement",
+"Decisione, osservazione o registro scritti dall’agente acquisti"
+],
 "Declined": [
 "Abgelehnt",
 "Décliné",
 "Declinato"
+],
+"Dedup Key": [
+"Duplikatschlüssel",
+"Clé anti-doublon",
+"Chiave anti-duplicati"
 ],
 "Default Account card form.": [
 "Standardmäßiges Kontokartenformular",
@@ -2908,6 +2968,11 @@
 "Gerätespezialist",
 "Device Professional",
 "Per dispositivo professionale"
+],
+"Direct Order": [
+"Direktbestellung",
+"Commande directe",
+"Ordine diretto"
 ],
 "Direct Reports": [
 "Mitarbeiter",
@@ -3284,6 +3349,11 @@
 "Location et leasing d’équipements",
 "Edilizia"
 ],
+"Error": [
+"Fehler",
+"Erreur",
+"Errore"
+],
 "Essential": [
 "Grundlegend",
 "Essentiel",
@@ -3309,6 +3379,11 @@
 "Prix estimé (base)",
 "Prezzo stimato (base)"
 ],
+"Estimated Saving": [
+"Geschätzte Einsparung",
+"Économie estimée",
+"Risparmio stimato"
+],
 "Estimated amount above the Settings threshold. Set on submit": [
 "Geschätzter Betrag über dem Schwellenwert der Einstellungen. Beim Einreichen gesetzt",
 "Montant estimé au-dessus du seuil des paramètres. Défini à la soumission",
@@ -3329,6 +3404,16 @@
 "Chaque jour à 06:00 (Europe/Rome) : statut d'expiration des documents fournisseur, compteurs d'alerte et e-mails d'expiration",
 "Ogni giorno alle 06:00 (Europe/Rome): stato di scadenza dei documenti fornitore, contatori di avviso ed e-mail di scadenza"
 ],
+"Everything the sourcing agent proposed, found or did, newest first": [
+"Alles, was der Beschaffungsagent vorgeschlagen, gefunden oder getan hat, neueste zuerst",
+"Tout ce que l’agent d’approvisionnement a proposé, constaté ou fait, le plus récent d’abord",
+"Tutto ciò che l’agente acquisti ha proposto, rilevato o fatto, dal più recente"
+],
+"Evidence": [
+"Nachweis",
+"Éléments de preuve",
+"Evidenze"
+],
 "Exchange Rate": [
 "Wechselkurs",
 "Taux de change",
@@ -3343,6 +3428,11 @@
 "Wechselkurs der Währung, die unter Berücksichtigung der Basiswährung dem Systembenutzer zugeordnet ist.",
 "Taux de change de la devise associée à l’utilisateur système par rapport à la devise de base.",
 "Tasso di cambio per la valuta associata all'utente di sistema rispetto alla valuta di base."
+],
+"Executed": [
+"Ausgeführt",
+"Exécuté",
+"Eseguito"
 ],
 "Exists": [
 "Vorhanden",
@@ -3363,6 +3453,11 @@
 "Abgelaufene Dokumente",
 "Documents expirés",
 "Documenti scaduti"
+],
+"Expires On": [
+"Läuft ab am",
+"Expire le",
+"Scade il"
 ],
 "Expiring": [
 "Läuft bald ab",
@@ -3418,6 +3513,11 @@
 "FTP-Site",
 "Site FTP",
 "Sito FTP"
+],
+"Failed": [
+"Fehlgeschlagen",
+"Échoué",
+"Non riuscito"
 ],
 "FatturaPA XML or PDF, attached by hand": [
 "FatturaPA-XML oder PDF, manuell angehängt",
@@ -3488,6 +3588,11 @@
 "Finanzen",
 "Finance",
 "Commercio all'ingrosso, al dettaglio, riparazioni"
+],
+"Findings of the sourcing agent to acknowledge": [
+"Erkenntnisse des Beschaffungsagenten zur Kenntnisnahme",
+"Constats de l’agent d’approvisionnement à prendre en compte",
+"Osservazioni dell’agente acquisti da prendere in carico"
 ],
 "Finish-to-Start": [
 "Ende-Anfang",
@@ -4369,6 +4474,11 @@
 "Information indiquant si le compte participe aux règles de workflow.",
 "Specifica se l'account partecipa alle regole del flusso di lavoro."
 ],
+"Insight": [
+"Erkenntnis",
+"Constat",
+"Osservazione"
+],
 "Instructions for the suppliers": [
 "Anweisungen für die Lieferanten",
 "Instructions pour les fournisseurs",
@@ -4468,6 +4578,11 @@
 "Kontakte einladen",
 "Inviter des contacts",
 "Invita contatti"
+],
+"Invite Supplier": [
+"Lieferanten einladen",
+"Inviter le fournisseur",
+"Invita fornitore"
 ],
 "Invite To Portal": [
 "Zum Portal einladen",
@@ -4749,6 +4864,11 @@
 "Utilisateurs clés ayant influencé les transactions conclues au cours des 12 derniers mois.",
 "Utenti che hanno influenzato in modo determinante le transazioni acquisite negli ultimi 12 mesi."
 ],
+"Kind": [
+"Art",
+"Type",
+"Tipo"
+],
 "Kind of compliance document: DURC, Company Report, Certification, Insurance, Contract or Other": [
 "Art des Compliance-Dokuments: DURC, Company Report, Certification, Insurance, Contract oder Other",
 "Type de document de conformité : DURC, Company Report, Certification, Insurance, Contract ou Other",
@@ -4828,6 +4948,11 @@
 "Nachname des Benutzers.",
 "Nom de l'utilisateur.",
 "Cognome dell'utente."
+],
+"Late Delivery": [
+"Verspätete Lieferung",
+"Livraison en retard",
+"Consegna in ritardo"
 ],
 "Latest User Update Time": [
 "Aktuellste Benutzerupdatezeit",
@@ -4963,6 +5088,11 @@
 "Enddatum Sperrung",
 "Date de fin du verrouillage",
 "Data fine blocco"
+],
+"Log": [
+"Protokoll",
+"Journal",
+"Registro"
 ],
 "Login Enabled": [
 "Anmeldung aktiviert",
@@ -5314,6 +5444,11 @@
 "Mes contacts actifs",
 "Contatti attivi personali"
 ],
+"My Agent Decisions": [
+"Meine Agentenentscheidungen",
+"Mes décisions sur l’agent",
+"Le mie decisioni sull’agente"
+],
 "My Baseline Nodes": [
 "Meine Basisplan-Elemente",
 "Mes éléments de référence",
@@ -5544,6 +5679,11 @@
 "Saisie du nouveau mot de passe",
 "Nuovo input password"
 ],
+"New Supplier Needed": [
+"Neuer Lieferant erforderlich",
+"Nouveau fournisseur nécessaire",
+"Serve un nuovo fornitore"
+],
 "New goods receipt": [
 "Neuer Wareneingang",
 "Nouvelle réception",
@@ -5763,6 +5903,16 @@
 "Nur für eintägige Abwesenheiten",
 "Uniquement pour les absences d'une journée",
 "Solo per assenze di un giorno"
+],
+"Open": [
+"Offen",
+"Ouvert",
+"Aperto"
+],
+"Open Agent Proposals": [
+"Offene Agentenvorschläge",
+"Propositions de l’agent ouvertes",
+"Proposte agente aperte"
 ],
 "Open Mailbox": [
 "Postfach öffnen",
@@ -6054,6 +6204,11 @@
 "Hachage du mot de passe",
 "Hash password"
 ],
+"Payload": [
+"Nutzdaten",
+"Données de l’action",
+"Dati azione"
+],
 "Payment": [
 "Zahlung",
 "Paiement",
@@ -6078,6 +6233,11 @@
 "Zahlungsbedingungen der Bestellung",
 "Conditions de paiement de la commande",
 "Condizioni di pagamento dell'ordine"
+],
+"Pending": [
+"Ausstehend",
+"En attente",
+"In attesa"
 ],
 "Pending Approval": [
 "Ausstehende Genehmigung",
@@ -6679,6 +6839,26 @@
 "Prononciation du deuxième prénom de l'utilisateur, écrit en caractères phonétiques Hiragana ou Katakana.",
 "Pronuncia del secondo nome dell'utente, scritto in caratteri hiragana o katakana fonetici."
 ],
+"Proposal": [
+"Vorschlag",
+"Proposition",
+"Proposta"
+],
+"Proposal, insight or log of the sourcing agent (ProjectIQ)": [
+"Vorschlag, Erkenntnis oder Protokoll des Beschaffungsagenten (ProjectIQ)",
+"Proposition, constat ou journal de l’agent d’approvisionnement (ProjectIQ)",
+"Proposta, osservazione o registro dell’agente acquisti (ProjectIQ)"
+],
+"Proposals I approved or rejected": [
+"Von mir genehmigte oder abgelehnte Vorschläge",
+"Propositions que j’ai approuvées ou rejetées",
+"Proposte che ho approvato o rifiutato"
+],
+"Proposals of the sourcing agent waiting for a decision, soonest expiry first": [
+"Vorschläge des Beschaffungsagenten, die auf eine Entscheidung warten, zuerst die am frühesten ablaufenden",
+"Propositions de l’agent d’approvisionnement en attente de décision, expiration la plus proche d’abord",
+"Proposte dell’agente acquisti in attesa di decisione, prima quelle in scadenza"
+],
 "Prospect": [
 "Interessent",
 "Prospect",
@@ -7269,6 +7449,11 @@
 "Demande de prix à laquelle appartient l'invitation",
 "RdO a cui appartiene l'invito"
 ],
+"Rationale": [
+"Begründung",
+"Justification",
+"Motivazione"
+],
 "Read": [
 "Lesezugriff",
 "Lecture",
@@ -7564,6 +7749,11 @@
 "Rejeter l’e-mail",
 "Rifiuta indirizzo e-mail"
 ],
+"Reject Invoice": [
+"Rechnung ablehnen",
+"Rejeter la facture",
+"Rifiuta fattura"
+],
 "Reject the document with a note for the supplier": [
 "Dokument mit einer Notiz für den Lieferanten ablehnen",
 "Rejeter le document avec une note pour le fournisseur",
@@ -7788,6 +7978,11 @@
 "Eingeschränkter Zugriffsmodus",
 "Mode d'accès restreint",
 "Modalità accesso limitato"
+],
+"Result Id": [
+"Ergebnis-ID",
+"ID du résultat",
+"Id risultato"
 ],
 "Revenue": [
 "Umsatz",
@@ -8719,6 +8914,11 @@
 "Source du prospect du contact.",
 "Fonte del contatto."
 ],
+"Source via RFQ": [
+"Beschaffung per Angebotsanfrage",
+"Approvisionner par demande de prix",
+"Acquisto tramite RdO"
+],
 "Sourcing": [
 "Beschaffung",
 "Approvisionnement",
@@ -9094,6 +9294,11 @@
 "Dimanche",
 "Domenica"
 ],
+"Superseded": [
+"Ersetzt",
+"Remplacé",
+"Sostituito"
+],
 "Supplier": [
 "Lieferant",
 "Fournisseur",
@@ -9218,6 +9423,11 @@
 "Fortschrittsaktualisierung durch Lieferanten",
 "Mises à jour d'avancement par les fournisseurs",
 "Aggiornamento avanzamento da fornitori"
+],
+"Supplier Reminder": [
+"Lieferantenerinnerung",
+"Relance fournisseur",
+"Sollecito fornitore"
 ],
 "Supplier Status": [
 "Lieferantenstatus",

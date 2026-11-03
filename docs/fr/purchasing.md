@@ -41,11 +41,12 @@ Les numéros sont attribués automatiquement à l'enregistrement : demandes d'ac
 | Approuver / rejeter jusqu'au seuil | Le chef de projet (approbateur courant), tout Manager du projet, un administrateur |
 | Approuver / rejeter au-dessus du seuil (second niveau) | Le **Purchasing Approver** défini dans les [variables d'environnement](administration.md#paramètres-de-lentreprise), ou un administrateur |
 | Annuler une demande | Le demandeur, un Manager du projet, un administrateur |
-| Créer appels d'offres et commandes, envoyer, attribuer, changer le statut des commandes | Un Manager du projet, un administrateur |
+| Créer appels d'offres et commandes, envoyer, attribuer, changer le statut des commandes | Un Manager du projet, un utilisateur avec le rôle **OP365 Buyer**, un administrateur |
 | Enregistrer des réceptions | Un Manager ou Contributor du projet, un administrateur |
 | Approuver / rejeter les factures fournisseurs | Le Purchasing Approver, un administrateur |
+| Décider d'une proposition de l'[agent achats](sourcing-agent.md#qui-fait-quoi) | Selon la proposition : un acheteur, un Manager du projet ou un administrateur ; les propositions de facture seulement le Purchasing Approver ou un administrateur |
 
-« Administrateur » désigne un utilisateur avec le rôle **OP365 Administrator** ou **System Administrator**.
+« Administrateur » désigne un utilisateur avec le rôle **OP365 Administrator** ou **System Administrator**. Le rôle **OP365 Buyer** est destiné aux personnes qui gèrent les achats de l'entreprise : un acheteur peut créer, envoyer, attribuer et annuler des appels d'offres, créer des commandes, changer le statut des commandes et annuler des demandes d'achat et des réceptions sur **tous** les projets, sans en être membre. Une action refusée affiche « Only a manager of the project or a buyer can ... ». Les acheteurs ne peuvent pas décider des factures fournisseurs (séparation des tâches).
 
 Toutes les actions sont des **boutons de la barre de commandes** des formulaires. Chaque bouton n'est actif que dans les statuts où il s'applique, et chaque action demande une confirmation.
 

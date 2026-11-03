@@ -49,6 +49,28 @@ namespace OpenProject365.Plugins
             return system.RetrieveMultiple(query).Entities.Count > 0;
         }
 
+        /// <summary>Holds the OP365 Buyer role.</summary>
+        public static bool IsBuyer(IOrganizationService system, Guid userId)
+        {
+            var query = new QueryExpression("role") { ColumnSet = new ColumnSet(false), TopCount = 1 };
+            query.Criteria.AddCondition("name", ConditionOperator.Equal, "OP365 Buyer");
+            var link = query.AddLink("systemuserroles", "roleid", "roleid");
+            link.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
+            return system.RetrieveMultiple(query).Entities.Count > 0;
+        }
+
+        /// <summary>Enabled user whose User Name or primary email equals the given name; null when not found.</summary>
+        public static Guid? UserByName(IOrganizationService system, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return null;
+            var query = new QueryExpression("systemuser") { ColumnSet = new ColumnSet(false), TopCount = 1 };
+            query.Criteria.AddCondition("isdisabled", ConditionOperator.Equal, false);
+            var who = query.Criteria.AddFilter(LogicalOperator.Or);
+            who.AddCondition("domainname", ConditionOperator.Equal, name);
+            who.AddCondition("internalemailaddress", ConditionOperator.Equal, name);
+            return system.RetrieveMultiple(query).Entities.FirstOrDefault()?.Id;
+        }
+
         public static bool IsProjectManager(IOrganizationService system, Guid projectId, Guid userId)
         {
             var query = new QueryExpression(Model.ProjectMember) { ColumnSet = new ColumnSet(false), TopCount = 1 };
