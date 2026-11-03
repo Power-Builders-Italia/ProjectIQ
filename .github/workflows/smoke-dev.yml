@@ -1,0 +1,88 @@
+name: smoke-dev
+
+# Runs an end-to-end smoke test script of tools/dataverse against Dev, by hand (Actions > smoke-dev > Run workflow).
+# The workflow always runs from main, so environment dev (deployment branches main) can give it its secrets; the script
+# itself is taken from the branch in the `ref` input, so a feature can be checked in Dev before its pull request is
+# merged. Only a branch of this repository is accepted (no fork, tag or pull request ref), and every run waits for a
+# reviewer of environment dev: approve only a branch whose script you have read.
+# The scripts create their own test data in Dev and delete it at the end.
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: Smoke test to run
+        type: choice
+        options:
+          - sourcing_smoke.py
+        default: sourcing_smoke.py
+      ref:
+        description: Branch of this repository that holds the script (e.g. a feature branch not merged yet)
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: smoke-dev
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    # GitHub environment dev: required reviewer, deployment branches main; PP_* and the secrets of each script
+    environment: dev
+    env:
+      PYTHONUTF8: 1
+    steps:
+      - name: Check the branch
+        env:
+          REF: ${{ inputs.ref }}
+          SCRIPT: ${{ inputs.script }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api "repos/$GITHUB_REPOSITORY/branches/$REF" --jq .name > /dev/null 2>&1; then
+            echo "::error::'$REF' is not a branch of this repository"; exit 1
+          fi
+          echo "Script \`$SCRIPT\` from branch \`$REF\`" >> "$GITHUB_STEP_SUMMARY"
+        shell: bash
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/heads/${{ inputs.ref }}
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - name: Run the smoke test
+        shell: bash
+        env:
+          SCRIPT: ${{ inputs.script }}
+          PAC_ENVIRONMENT_URL: ${{ secrets.PP_ENVIRONMENT_URL }}
+          PAC_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+          PAC_CLIENT_ID: ${{ secrets.PP_CLIENT_ID }}
+          PAC_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+          # sourcing_smoke.py
+          SOURCING_AGENT_CLIENT_ID: ${{ secrets.SOURCING_AGENT_CLIENT_ID }}
+          SOURCING_AGENT_CLIENT_SECRET: ${{ secrets.SOURCING_AGENT_CLIENT_SECRET }}
+          SOURCING_TEST_BUYER: ${{ secrets.SOURCING_TEST_BUYER }}
+          SOURCING_TEST_OTHER: ${{ secrets.SOURCING_TEST_OTHER }}
+        run: |
+          if [ ! -f "tools/dataverse/$SCRIPT" ]; then
+            echo "::error::tools/dataverse/$SCRIPT does not exist on this branch"; exit 1
+          fi
+          python -m pip install --quiet requests
+          set +e
+          python "tools/dataverse/$SCRIPT" 2>&1 | tee smoke.log
+          code=${PIPESTATUS[0]}
+          set -e
+          {
+            echo '```'
+            grep -E '^(PASS|FAIL|SKIP|WARNING|  )|passed, ' smoke.log || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          case $code in
+            0) echo "All cases passed" >> "$GITHUB_STEP_SUMMARY" ;;
+            2) echo "::warning::No failure, but at least one case was skipped: check it by hand (see the script)" ;;
+            *) echo "::error::The smoke test failed (exit $code)"; exit 1 ;;
+          esac
