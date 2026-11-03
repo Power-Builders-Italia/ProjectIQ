@@ -13,8 +13,8 @@ L'agent a dix tâches, livrées dans l'ordre de la chaîne des achats. Chaque t�
 
 | # | Tâche | Résultat | Statut |
 |---|---|---|---|
-| 1 | Aiguiller une demande d'achat approuvée : appel d'offres ou commande directe | Proposition **Source via RFQ** ou **Direct Order** | Planifié |
-| 2 | Choisir les fournisseurs à inviter (note, documents valides, délai, historique des prix) | Liste d'invitations dans la proposition de la tâche 1 | Planifié |
+| 1 | Aiguiller une demande d'achat approuvée : appel d'offres ou commande directe | Proposition **Source via RFQ** ou **Direct Order** | Analyse disponible ([comment](#aiguillage-dune-demande)) ; agent à venir |
+| 2 | Choisir les fournisseurs à inviter (articles vendus, documents valides, prix, délai, réponses aux appels d'offres passés) | Liste d'invitations dans la proposition de la tâche 1 | Analyse disponible ([comment](#aiguillage-dune-demande)) ; agent à venir |
 | 3 | Analyser les offres (prix, livraison, risque) et recommander l'attribution | Proposition **Award RFQ** | Planifié |
 | 4 | Relancer les fournisseurs qui n'ont pas répondu à un appel d'offres | E-mail au fournisseur et ligne de journal | Planifié |
 | 5 | Conformité des fournisseurs : documents bientôt expirés ou expirés de fournisseurs ayant des appels d'offres ou commandes ouverts | Insight **Compliance Alert** | Planifié |
@@ -195,6 +195,42 @@ L'action s'exécute en une seule étape, au nom de la personne qui a approuvé ;
 
 Une proposition rejetée ne laisse rien : l'agent ne crée jamais de brouillons.
 
+## Aiguillage d'une demande
+
+Les tâches 1 et 2 portent sur une demande d'achat **approuvée**. Deux analyses en lecture seule font les calculs ; l'agent se contente de les expliquer dans le champ **Rationale** de la proposition et copie l'analyse dans **Evidence** :
+
+- **Sourcing Suggest Suppliers** classe les fournisseurs qui pourraient servir la demande ;
+- **Sourcing Route Request** choisit entre appel d'offres et commande directe, et remplit les fournisseurs et l'échéance de la proposition.
+
+Les deux lisent les données avec les droits de l'appelant : un utilisateur ne voit que les fournisseurs et les prix que ses rôles lui permettent de lire.
+
+**Candidats.** Le fournisseur préféré de la demande, les fournisseurs des articles demandés (lignes fournisseur de l'article et fournisseur par défaut de l'article) et les fournisseurs dont la *Supplier Category* est la *Category* d'un article demandé.
+
+**Non éligibles** (listés en dernier, jamais invités) : inactifs ou non fournisseurs, **Blocked**, ou avec des **documents expirés**. Les documents qui vont expirer ne sont qu'un avertissement.
+
+**Score** des fournisseurs éligibles, sur 100 plus un bonus :
+
+| Partie | Points | Calcul |
+|---|---|---|
+| Lignes couvertes | 40 | Part des lignes de la demande dont l'article est vendu par le fournisseur |
+| Prix | 25 | Prix fournisseur le plus bas ÷ prix de ce fournisseur, sur les lignes avec un prix fournisseur. Aucun prix enregistré : 12,5 |
+| Délai | 15 | Délai le plus court ÷ délai de ce fournisseur (le plus long de ses articles). Inconnu : 7,5 |
+| Réponses | 15 | Appels d'offres répondus ÷ clos sur les 12 derniers mois (refusés, répondus ou échéance passée). Aucun historique : 7,5 |
+| Fournisseur préféré | +5 | Le fournisseur préféré de la demande |
+
+```mermaid
+flowchart TD
+    A[Demande d'achat approuvée] --> B{Appel d'offres ou commande<br/>déjà présents ?}
+    B -->|oui| NA[Pas de proposition]
+    B -->|non| C{Fournisseurs<br/>éligibles ?}
+    C -->|aucun| NS[Pas de proposition :<br/>aucun fournisseur conforme]
+    C -->|oui| D{Montant ≤ Direct Order Limit<br/>et un fournisseur vend chaque ligne ?}
+    D -->|oui| DO[Direct Order<br/>au fournisseur préféré s'il vend chaque ligne,<br/>sinon au mieux noté]
+    D -->|non| RFQ[Source via RFQ<br/>les mieux notés, autant que Minimum Quotes,<br/>échéance à 7 jours]
+```
+
+Les raisons (montant par rapport à la limite, fournisseurs choisis, moins de fournisseurs que *Sourcing Minimum Quotes*) font partie de l'analyse : la proposition dit toujours pourquoi. Quand vous approuvez, l'appel d'offres ou la commande est créé exactement comme si vous aviez utilisé vous-même **Create RFQ** ou **Create Purchase Order**, avec vos droits.
+
 ## Insights et journal
 
 Les insights et les lignes de journal sont de l'information. Un **Insight** reste **Open** jusqu'à ce que quelqu'un le prenne en compte avec **Acknowledge** (un administrateur, un acheteur ou le chef de projet du projet de l'insight) ; il passe alors à **Acknowledged**. Une ligne de **Log** est créée **Done** et n'est jamais décidée. Il n'y a pas de carte Teams pour les insights et le journal.
@@ -242,4 +278,6 @@ Les administrateurs préparent l'agent une fois par environnement : utilisateur 
 | *Sourcing Agent User* | L'utilisateur d'application de l'agent. Seul cet utilisateur peut indiquer la personne qui a décidé (le flux Teams le fait) |
 | *Sourcing Approval Team* | Équipe et canal Teams des cartes d'approbation |
 | *Sourcing Proposal Expiry Days* | Jours avant l'expiration d'une proposition en attente (5) |
-| *Sourcing Direct Order Limit*, *Sourcing Minimum Quotes*, *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Utilisés par les tâches des versions ultérieures |
+| *Sourcing Direct Order Limit* | Montant estimé jusqu'auquel une demande peut aller en commande directe ([aiguillage](#aiguillage-dune-demande)). Vide : toujours un appel d'offres |
+| *Sourcing Minimum Quotes* | Fournisseurs invités à un appel d'offres (3) |
+| *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Utilisés par les tâches des versions ultérieures |

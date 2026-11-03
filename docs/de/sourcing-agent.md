@@ -13,8 +13,8 @@ Der Agent hat zehn Aufgaben, geliefert in der Reihenfolge der Einkaufskette. Jed
 
 | # | Aufgabe | Ergebnis | Status |
 |---|---|---|---|
-| 1 | Eine genehmigte Bedarfsanforderung lenken: Angebotsanfrage oder Direktbestellung | Vorschlag **Source via RFQ** oder **Direct Order** | Geplant |
-| 2 | Die einzuladenden Lieferanten wählen (Bewertung, gültige Dokumente, Lieferzeit, Preisverlauf) | Einladungsliste im Vorschlag der Aufgabe 1 | Geplant |
+| 1 | Eine genehmigte Bedarfsanforderung lenken: Angebotsanfrage oder Direktbestellung | Vorschlag **Source via RFQ** oder **Direct Order** | Analyse verfügbar ([wie](#wie-eine-anforderung-gelenkt-wird)); Agent folgt |
+| 2 | Die einzuladenden Lieferanten wählen (verkaufte Artikel, gültige Dokumente, Preis, Lieferzeit, Antworten auf frühere Anfragen) | Einladungsliste im Vorschlag der Aufgabe 1 | Analyse verfügbar ([wie](#wie-eine-anforderung-gelenkt-wird)); Agent folgt |
 | 3 | Die Angebote analysieren (Preis, Lieferung, Risiko) und die Vergabe empfehlen | Vorschlag **Award RFQ** | Geplant |
 | 4 | Lieferanten erinnern, die eine Angebotsanfrage nicht beantwortet haben | E-Mail an den Lieferanten und Protokollzeile | Geplant |
 | 5 | Lieferanten-Compliance: ablaufende oder abgelaufene Dokumente von Lieferanten mit offenen Angebotsanfragen oder Bestellungen | Insight **Compliance Alert** | Geplant |
@@ -195,6 +195,42 @@ Die Aktion läuft in einem Schritt im Namen der Person, die genehmigt hat; alle 
 
 Ein abgelehnter Vorschlag hinterlässt nichts: Der Agent legt nie Entwürfe an.
 
+## Wie eine Anforderung gelenkt wird
+
+Die Aufgaben 1 und 2 arbeiten auf einer **genehmigten** Bedarfsanforderung. Zwei schreibgeschützte Analysen rechnen; der Agent erklärt die Zahlen nur im Feld **Rationale** des Vorschlags und kopiert die Analyse in **Evidence**:
+
+- **Sourcing Suggest Suppliers** ordnet die Lieferanten, die die Anforderung bedienen könnten;
+- **Sourcing Route Request** wählt zwischen Angebotsanfrage und Direktbestellung und füllt Lieferanten und Frist des Vorschlags.
+
+Beide lesen die Daten mit den Rechten des Aufrufers: ein Benutzer sieht nur die Lieferanten und Preise, die seine Rollen lesen dürfen.
+
+**Kandidaten.** Der bevorzugte Lieferant der Anforderung, die Lieferanten der angeforderten Artikel (Artikel-Lieferanten-Zeilen und Standardlieferant des Artikels) und die Lieferanten, deren *Supplier Category* die *Category* eines angeforderten Artikels ist.
+
+**Nicht geeignet** (zuletzt aufgeführt, nie eingeladen): inaktiv oder kein Lieferant, **Blocked** oder mit **abgelaufenen Dokumenten**. Bald ablaufende Dokumente sind nur ein Hinweis.
+
+**Punktzahl** der geeigneten Lieferanten, von 100 plus Bonus:
+
+| Teil | Punkte | Berechnung |
+|---|---|---|
+| Abgedeckte Positionen | 40 | Anteil der Positionen, deren Artikel der Lieferant verkauft |
+| Preis | 25 | Niedrigster Lieferantenpreis ÷ Preis dieses Lieferanten, auf den Positionen mit Lieferantenpreis. Kein Preis erfasst: 12,5 |
+| Lieferzeit | 15 | Kürzeste Lieferzeit ÷ Lieferzeit dieses Lieferanten (die längste seiner Artikel). Unbekannt: 7,5 |
+| Antworten | 15 | Beantwortete ÷ abgeschlossene Angebotsanfragen der letzten 12 Monate (abgelehnt, beantwortet oder Frist abgelaufen). Keine Historie: 7,5 |
+| Bevorzugter Lieferant | +5 | Der bevorzugte Lieferant der Anforderung |
+
+```mermaid
+flowchart TD
+    A[Genehmigte Bedarfsanforderung] --> B{Anfrage oder Bestellung<br/>schon vorhanden?}
+    B -->|ja| NA[Kein Vorschlag]
+    B -->|nein| C{Geeignete<br/>Lieferanten?}
+    C -->|keine| NS[Kein Vorschlag:<br/>kein konformer Lieferant]
+    C -->|ja| D{Betrag ≤ Direct Order Limit<br/>und ein Lieferant verkauft jede Position?}
+    D -->|ja| DO[Direct Order<br/>an den bevorzugten Lieferanten, wenn er jede Position verkauft,<br/>sonst an den bestbewerteten]
+    D -->|nein| RFQ[Source via RFQ<br/>die bestbewerteten, so viele wie Minimum Quotes,<br/>Frist in 7 Tagen]
+```
+
+Die Gründe (Betrag gegenüber dem Limit, gewählte Lieferanten, weniger Lieferanten als *Sourcing Minimum Quotes*) gehören zur Analyse, daher sagt der Vorschlag immer warum. Wenn Sie genehmigen, wird die Anfrage oder Bestellung genau so erstellt, als hätten Sie selbst **Create RFQ** oder **Create Purchase Order** verwendet, mit Ihren Rechten.
+
 ## Insights und Protokoll
 
 Insights und Protokollzeilen sind Information. Ein **Insight** bleibt **Open**, bis es jemand mit **Acknowledge** quittiert (ein Administrator, ein Einkäufer oder der Projektleiter des Projekts des Insights); dann wird es **Acknowledged**. Eine **Log**-Zeile entsteht als **Done** und wird nie entschieden. Für Insights und Protokoll gibt es keine Teams-Karte.
@@ -242,4 +278,6 @@ Administratoren richten den Agenten einmal pro Umgebung ein: Anwendungsbenutzer,
 | *Sourcing Agent User* | Der Anwendungsbenutzer des Agenten. Nur dieser Benutzer darf die entscheidende Person angeben (der Teams-Flow tut das) |
 | *Sourcing Approval Team* | Teams-Team und -Kanal der Genehmigungskarten |
 | *Sourcing Proposal Expiry Days* | Tage, bis ein ausstehender Vorschlag verfällt (5) |
-| *Sourcing Direct Order Limit*, *Sourcing Minimum Quotes*, *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Von den Aufgaben späterer Versionen genutzt |
+| *Sourcing Direct Order Limit* | Geschätzter Betrag, bis zu dem eine Anforderung direkt bestellt werden kann ([Lenkung](#wie-eine-anforderung-gelenkt-wird)). Leer: immer eine Angebotsanfrage |
+| *Sourcing Minimum Quotes* | Zu einer Angebotsanfrage eingeladene Lieferanten (3) |
+| *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Von den Aufgaben späterer Versionen genutzt |

@@ -13,8 +13,8 @@ The agent has ten tasks, delivered in the order of the purchasing chain. Each ta
 
 | # | Task | Result | Status |
 |---|---|---|---|
-| 1 | Route an approved purchase request: RFQ or direct order | Proposal **Source via RFQ** or **Direct Order** | Planned |
-| 2 | Choose the suppliers to invite (rating, valid documents, lead time, price history) | Invitation list inside the proposal of task 1 | Planned |
+| 1 | Route an approved purchase request: RFQ or direct order | Proposal **Source via RFQ** or **Direct Order** | Analysis available ([how](#how-a-request-is-routed)); agent coming |
+| 2 | Choose the suppliers to invite (items sold, valid documents, price, lead time, answers to past RFQs) | Invitation list inside the proposal of task 1 | Analysis available ([how](#how-a-request-is-routed)); agent coming |
 | 3 | Analyse the quotes (price, delivery, risk) and recommend the award | Proposal **Award RFQ** | Planned |
 | 4 | Remind suppliers who have not answered an RFQ | E-mail to the supplier and a log row | Planned |
 | 5 | Supplier compliance: expiring or expired documents of suppliers with open RFQs or orders | Insight **Compliance Alert** | Planned |
@@ -195,6 +195,42 @@ The action runs in one step, in the name of the person who approved, so every ex
 
 A rejected proposal leaves nothing behind: the agent never creates drafts.
 
+## How a request is routed
+
+Tasks 1 and 2 work on an **approved** purchase request. Two read-only analyses do the numbers; the agent only explains them in the proposal's **Rationale** and copies the analysis into **Evidence**:
+
+- **Sourcing Suggest Suppliers** ranks the suppliers that could serve the request;
+- **Sourcing Route Request** chooses between a request for quotation and a direct order, and fills the proposal's suppliers and deadline.
+
+Both read the data with the rights of whoever calls them: a user sees only the suppliers and prices their roles let them read.
+
+**Candidates.** The preferred supplier of the request, the suppliers of the requested items (item supplier rows and default supplier of the item) and the suppliers whose *Supplier Category* is the *Category* of a requested item.
+
+**Not eligible** (listed last, never invited): inactive or not a supplier, **Blocked**, or with **expired documents**. Documents expiring soon are only shown as a warning.
+
+**Score** of the eligible suppliers, out of 100 plus a bonus:
+
+| Part | Points | How |
+|---|---|---|
+| Lines covered | 40 | Share of the request lines whose item the supplier sells |
+| Price | 25 | Cheapest supplier price ÷ this supplier's price, on the lines with a supplier price. No price on record: 12.5 |
+| Lead time | 15 | Shortest lead time ÷ this supplier's lead time (longest of its items). Unknown: 7.5 |
+| Answers | 15 | Requests for quotation answered ÷ closed in the last 12 months (declined, answered, or past the deadline). No history: 7.5 |
+| Preferred supplier | +5 | The preferred supplier of the request |
+
+```mermaid
+flowchart TD
+    A[Approved purchase request] --> B{RFQ or order<br/>already there?}
+    B -->|yes| NA[No proposal]
+    B -->|no| C{Eligible<br/>suppliers?}
+    C -->|none| NS[No proposal:<br/>no compliant supplier]
+    C -->|yes| D{Amount ≤ Direct Order Limit<br/>and one supplier sells every line?}
+    D -->|yes| DO[Direct Order<br/>to the preferred supplier if it sells every line,<br/>else the best scored]
+    D -->|no| RFQ[Source via RFQ<br/>best scored suppliers, as many as Minimum Quotes,<br/>deadline in 7 days]
+```
+
+The reasons (amount against the limit, suppliers chosen, fewer suppliers than *Sourcing Minimum Quotes*) are part of the analysis, so the proposal always says why. When you approve, the RFQ or the order is created exactly as if you had used **Create RFQ** or **Create Purchase Order** yourself, with your rights.
+
 ## Insights and log
 
 Insights and log rows are information. An **Insight** stays **Open** until somebody acknowledges it with **Acknowledge** (an administrator, a buyer or the project manager of the insight's project); it then becomes **Acknowledged**. A **Log** row is created as **Done** and is never decided. There is no Teams card for insights and logs.
@@ -242,4 +278,6 @@ Administrators prepare the agent once per environment: application user, roles, 
 | *Sourcing Agent User* | The application user of the agent. Only this user can pass the person who decided (the Teams flow does it) |
 | *Sourcing Approval Team* | Teams team and channel of the approval cards |
 | *Sourcing Proposal Expiry Days* | Days before a pending proposal expires (5) |
-| *Sourcing Direct Order Limit*, *Sourcing Minimum Quotes*, *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Used by the tasks of later releases |
+| *Sourcing Direct Order Limit* | Estimated amount up to which a request can go to a direct order ([routing](#how-a-request-is-routed)). Empty: always a request for quotation |
+| *Sourcing Minimum Quotes* | Suppliers invited to a request for quotation (3) |
+| *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Used by the tasks of later releases |

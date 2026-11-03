@@ -7,8 +7,9 @@ the exit code is 1 when any case fails. Run it only against Dev: it creates and 
 Cases: approve Source via RFQ as the buyer (app path); decide as the agent client with DecidedBy (Teams path); forged
 DecidedBy; double decision; concurrent double decision; Award RFQ superseded by a hand award; Source via RFQ superseded
 by an open RFQ; failure rolls back, RecordProposalError and Retry; Approve Invoice by a buyer; duplicate open proposal;
-Log created as Done; unentitled Teams responder (Decide and RecordProposalError refused); expiry (reported as SKIP when
-Expires On cannot be backdated from outside the plugins).
+Log created as Done; unentitled Teams responder (Decide and RecordProposalError refused); route a request as the agent
+(op365_SourcingSuggestSuppliers ranks the cheaper supplier first, op365_SourcingRouteRequest returns a proposal that the
+buyer approves); expiry (reported as SKIP when Expires On cannot be backdated from outside the plugins).
 
 Prerequisites
   * Tasks 3-7 of "Sourcing agent Foundations" are deployed in the target Dev environment (proposal table, plugins and
@@ -38,7 +39,7 @@ call op365_ExpireAgentProposals), and confirm the proposal is Expired and Count 
 
 Run:  python3 tools/dataverse/sourcing_smoke.py
 """
-import datetime as dt, os, sys, threading
+import datetime as dt, json, os, sys, threading
 from concurrent.futures import ThreadPoolExecutor
 import requests
 
@@ -71,6 +72,7 @@ results = []
 created_proposals = []
 created_prs = []
 created_invoices = []
+created_items = []
 
 
 def agent_session():
@@ -476,6 +478,41 @@ try:
             return f'statuscode {p["statuscode"]}, error {p["op365_error"]!r}, expected Pending without error'
         if rfqs_of(pr):
             return 'an RFQ was created'
+
+    # ---------- 14. route a purchase request as the agent (tasks 1-2) ----------
+    @case('Route as the agent: cheaper supplier ranked first, RouteRequest payload approved by the buyer -> Executed')
+    def _():
+        item = post('op365_items', {'op365_code': 'SMOKE-SRC-ITEM', 'op365_name': 'Smoke cable', 'op365_unitcost': 10})['op365_itemid']
+        created_items.append(item)
+        for sup, price, lead in ((sup1, 8, 3), (sup2, 12, 10)):
+            post('op365_itemsuppliers', {'op365_ItemId@odata.bind': f'/op365_items({item})', 'op365_SupplierId@odata.bind': f'/accounts({sup})',
+                                         'op365_price': price, 'op365_leadtimedays': lead})
+        pr = post('op365_purchaserequests', {'op365_ProjectId@odata.bind': f'/op365_projects({prj})', 'op365_title': 'Smoke 14'})['op365_purchaserequestid']
+        created_prs.append(pr)
+        post('op365_purchaserequestlines', {'op365_PurchaseRequestId@odata.bind': f'/op365_purchaserequests({pr})',
+                                            'op365_ItemId@odata.bind': f'/op365_items({item})', 'op365_quantity': 5, 'op365_estimatedprice': 10})
+        must(bound('op365_purchaserequests', pr, 'op365_SubmitPurchaseRequest'), 'submit request')
+        must(bound('op365_purchaserequests', pr, 'op365_DecidePurchaseRequest', {'Approve': True}), 'approve request')
+        ranked = json.loads(must(bound('op365_purchaserequests', pr, 'op365_SourcingSuggestSuppliers', sess=AGENT), 'suggest')['Result'])
+        order = [x['supplierId'] for x in ranked if x['supplierId'] in (sup1, sup2)]
+        if order != [sup1, sup2]:
+            return f'suppliers ranked {order}, expected the cheaper and faster supplier A first'
+        route = must(bound('op365_purchaserequests', pr, 'op365_SourcingRouteRequest', sess=AGENT), 'route')
+        if route['Route'] not in ('SourceViaRfq', 'DirectOrder') or route['ActionType'] not in (A_SOURCE, A_DIRECT):
+            return f'route {route["Route"]} / {route["ActionType"]}, expected SourceViaRfq or DirectOrder'
+        body = json.loads(route['Payload'])
+        chosen = body.get('supplierIds') or [body.get('supplierId')]
+        if chosen[0] != sup1 or not set(chosen) <= {sup1, sup2}:
+            return f'payload suppliers {chosen}, expected supplier A first'
+        pid = propose(pr=pr, project=prj, action=route['ActionType'], payload=route['Payload'])
+        r = approve(pid, caller=BUYER)
+        if not r.ok:
+            return f'decide failed: {err(r)}'
+        if proposal(pid)['statuscode'] != ST_EXECUTED:
+            return 'proposal not Executed'
+        again = must(bound('op365_purchaserequests', pr, 'op365_SourcingRouteRequest', sess=AGENT), 'route again')
+        if again['Route'] != 'NotApplicable':
+            return f'route after sourcing {again["Route"]}, expected NotApplicable'
 finally:
     left = []
     refused = []   # deletes refused while their parent was still there: the project delete usually removes them by cascade
@@ -535,6 +572,9 @@ finally:
         safe(f'invoice {inv}', drop, 'op365_supplierinvoices', inv)
     if prj:
         safe('project', drop, 'op365_projects', prj)
+    # after the project: request lines of ordered requests cannot be deleted one by one, the project delete removes them
+    for item in created_items:   # its item supplier rows are parental children: deleted with it
+        safe(f'item {item}', drop, 'op365_items', item)
     for id_ in (sup1, sup2, cust):
         if id_:
             safe(f'account {id_}', drop, 'accounts', id_)

@@ -13,8 +13,8 @@ L'agente ha dieci task, consegnati nell'ordine della catena degli acquisti. Ogni
 
 | # | Task | Risultato | Stato |
 |---|---|---|---|
-| 1 | Instradare una richiesta d'acquisto approvata: RdO o ordine diretto | Proposta **Source via RFQ** o **Direct Order** | Pianificato |
-| 2 | Scegliere i fornitori da invitare (valutazione, documenti validi, tempi di consegna, storico prezzi) | Elenco degli inviti dentro la proposta del task 1 | Pianificato |
+| 1 | Instradare una richiesta d'acquisto approvata: RdO o ordine diretto | Proposta **Source via RFQ** o **Direct Order** | Analisi disponibile ([come](#come-viene-instradata-una-richiesta)); agente in arrivo |
+| 2 | Scegliere i fornitori da invitare (articoli venduti, documenti validi, prezzo, tempi di consegna, risposte alle RdO passate) | Elenco degli inviti dentro la proposta del task 1 | Analisi disponibile ([come](#come-viene-instradata-una-richiesta)); agente in arrivo |
 | 3 | Analizzare le offerte (prezzo, consegna, rischio) e raccomandare l'aggiudicazione | Proposta **Award RFQ** | Pianificato |
 | 4 | Sollecitare i fornitori che non hanno risposto a una RdO | E-mail al fornitore e riga di log | Pianificato |
 | 5 | Conformità dei fornitori: documenti in scadenza o scaduti di fornitori con RdO o ordini aperti | Insight **Compliance Alert** | Pianificato |
@@ -195,6 +195,42 @@ L'azione viene eseguita in un solo passo, a nome della persona che ha approvato,
 
 Una proposta respinta non lascia nulla: l'agente non crea mai bozze.
 
+## Come viene instradata una richiesta
+
+I task 1 e 2 lavorano su una richiesta d'acquisto **approvata**. Due analisi in sola lettura fanno i conti; l'agente si limita a spiegarli nel campo **Rationale** della proposta e copia l'analisi in **Evidence**:
+
+- **Sourcing Suggest Suppliers** ordina i fornitori che potrebbero servire la richiesta;
+- **Sourcing Route Request** sceglie tra RdO e ordine diretto e compila fornitori e scadenza della proposta.
+
+Entrambe leggono i dati con i diritti di chi le chiama: un utente vede solo i fornitori e i prezzi che i suoi ruoli gli permettono di leggere.
+
+**Candidati.** Il fornitore preferito della richiesta, i fornitori degli articoli richiesti (righe fornitore dell'articolo e fornitore predefinito dell'articolo) e i fornitori la cui *Supplier Category* è la *Category* di un articolo richiesto.
+
+**Non idonei** (elencati in fondo, mai invitati): inattivi o non fornitori, **Blocked**, o con **documenti scaduti**. I documenti in scadenza sono solo un avviso.
+
+**Punteggio** dei fornitori idonei, su 100 più un bonus:
+
+| Parte | Punti | Come |
+|---|---|---|
+| Righe coperte | 40 | Quota delle righe della richiesta il cui articolo è venduto dal fornitore |
+| Prezzo | 25 | Prezzo fornitore più basso ÷ prezzo di questo fornitore, sulle righe con un prezzo fornitore. Nessun prezzo registrato: 12,5 |
+| Tempi di consegna | 15 | Tempo di consegna più breve ÷ quello di questo fornitore (il più lungo dei suoi articoli). Sconosciuto: 7,5 |
+| Risposte | 15 | RdO a cui ha risposto ÷ RdO chiuse negli ultimi 12 mesi (rifiutate, con risposta o oltre la scadenza). Nessuno storico: 7,5 |
+| Fornitore preferito | +5 | Il fornitore preferito della richiesta |
+
+```mermaid
+flowchart TD
+    A[Richiesta d'acquisto approvata] --> B{RdO o ordine<br/>già presenti?}
+    B -->|sì| NA[Nessuna proposta]
+    B -->|no| C{Fornitori<br/>idonei?}
+    C -->|nessuno| NS[Nessuna proposta:<br/>nessun fornitore conforme]
+    C -->|sì| D{Importo ≤ Direct Order Limit<br/>e un fornitore vende ogni riga?}
+    D -->|sì| DO[Direct Order<br/>al fornitore preferito se vende ogni riga,<br/>altrimenti al migliore per punteggio]
+    D -->|no| RFQ[Source via RFQ<br/>i migliori per punteggio, quanti Minimum Quotes,<br/>scadenza a 7 giorni]
+```
+
+I motivi (importo rispetto al limite, fornitori scelti, meno fornitori di *Sourcing Minimum Quotes*) fanno parte dell'analisi, quindi la proposta dice sempre perché. Quando approvi, la RdO o l'ordine vengono creati esattamente come se avessi usato tu **Create RFQ** o **Create Purchase Order**, con i tuoi diritti.
+
 ## Insight e log
 
 Insight e righe di log sono informazioni. Un **Insight** resta **Open** finché qualcuno non lo prende in carico con **Acknowledge** (un amministratore, un buyer o il project manager del progetto dell'insight); poi diventa **Acknowledged**. Una riga di **Log** nasce **Done** e non viene mai decisa. Per insight e log non c'è la scheda Teams.
@@ -242,4 +278,6 @@ Gli amministratori preparano l'agente una volta per ambiente: application user, 
 | *Sourcing Agent User* | L'application user dell'agente. Solo questo utente può indicare la persona che ha deciso (lo fa il flusso Teams) |
 | *Sourcing Approval Team* | Team e canale Teams delle schede di approvazione |
 | *Sourcing Proposal Expiry Days* | Giorni prima che una proposta in attesa scada (5) |
-| *Sourcing Direct Order Limit*, *Sourcing Minimum Quotes*, *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Usate dai task delle versioni successive |
+| *Sourcing Direct Order Limit* | Importo stimato fino al quale una richiesta può andare in ordine diretto ([instradamento](#come-viene-instradata-una-richiesta)). Vuota: sempre una RdO |
+| *Sourcing Minimum Quotes* | Fornitori invitati a una RdO (3) |
+| *Sourcing Reminder Days*, *Sourcing Budget Warning %* | Usate dai task delle versioni successive |
