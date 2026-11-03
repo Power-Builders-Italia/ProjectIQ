@@ -43,12 +43,13 @@ namespace OpenProject365.Plugins
 
         /// <summary>
         /// The proposal, read after a write that locks its row: a concurrent decision, retry or expiry waits for this transaction
-        /// and then reads the committed status, so a proposal is never decided twice. Error is empty on every status this
-        /// lock is taken from (Pending), or is cleared/overwritten afterwards (Failed).
+        /// and then reads the committed status, so a proposal is never decided twice. The write puts back Expires On, which
+        /// nothing changes after the create, so it changes no data (Error and the status stay as they are).
         /// </summary>
         public static Entity Lock(IOrganizationService system, Guid id)
         {
-            system.Update(new Entity(Model.AgentProposal, id) { ["op365_error"] = null });
+            var expires = system.Retrieve(Model.AgentProposal, id, new ColumnSet("op365_expireson")).GetAttributeValue<DateTime?>("op365_expireson");
+            system.Update(new Entity(Model.AgentProposal, id) { ["op365_expireson"] = expires });
             return system.Retrieve(Model.AgentProposal, id, new ColumnSet(Columns));
         }
 
@@ -153,11 +154,19 @@ namespace OpenProject365.Plugins
             if (context.Get<OptionSetValue>("op365_kind")?.Value != Proposals.Proposal) return;
             var project = context.Get<EntityReference>(Model.ProjectId);
             if (project == null) return;
-            var name = context.Get<string>("op365_name");
-            if (string.IsNullOrWhiteSpace(name))
-                name = context.SystemService.Retrieve(Model.AgentProposal, context.PrimaryId, new ColumnSet("op365_name")).GetAttributeValue<string>("op365_name");
-            foreach (var user in Rules.ProjectManagers(context.SystemService, project.Id))
-                Rules.Notify(context, user, Proposals.NewProposalTitle, name);
+            try
+            {
+                var name = context.Get<string>("op365_name");
+                if (string.IsNullOrWhiteSpace(name))
+                    name = context.SystemService.Retrieve(Model.AgentProposal, context.PrimaryId, new ColumnSet("op365_name")).GetAttributeValue<string>("op365_name");
+                foreach (var user in Rules.ProjectManagers(context.SystemService, project.Id))
+                    Rules.Notify(context, user, Proposals.NewProposalTitle, name);
+            }
+            catch (Exception ex)
+            {
+                // FYI only: never fails the create
+                context.Trace("agent proposal notification skipped: {0}", ex.Message);
+            }
         }
     }
 
@@ -185,8 +194,8 @@ namespace OpenProject365.Plugins
             var proposal = Sourcing.Lock(system, id);
             var kind = Sourcing.Option(proposal, "op365_kind");
             var action = Sourcing.Option(proposal, "op365_actiontype");
-            var status = Sourcing.Rule(() => Proposals.Decide(kind, Sourcing.Option(proposal, "statuscode"), approve, note));
             if (!Sourcing.CanDecide(system, proposal, decider)) Purchasing.Fail(Proposals.CannotDecide);
+            var status = Sourcing.Rule(() => Proposals.Decide(kind, Sourcing.Option(proposal, "statuscode"), approve, note));
 
             var decision = new Entity(Model.AgentProposal, id)
             {
@@ -199,7 +208,7 @@ namespace OpenProject365.Plugins
             if (status == Proposals.Executed)
             {
                 var targetStatus = TargetStatus(system, proposal, action);
-                if (!targetStatus.HasValue || !Proposals.IsTargetValid(action, targetStatus.Value))
+                if (!targetStatus.HasValue || !Proposals.IsTargetValid(action, targetStatus.Value, HasOpenSourcing(system, proposal, action)))
                 {
                     status = Proposals.Superseded;
                 }
@@ -222,6 +231,21 @@ namespace OpenProject365.Plugins
             Sourcing.SetStatus(system, id, status, decision);
             context.Execution.OutputParameters["Status"] = status;
             context.Execution.OutputParameters["ResultId"] = resultId;
+        }
+
+        /// <summary>True when the purchase request of a Source via RFQ or Direct Order proposal already has a non-cancelled RFQ or purchase order.</summary>
+        private static bool HasOpenSourcing(IOrganizationService system, Entity proposal, int action)
+        {
+            var request = Purchasing.Id(proposal, Model.PurchaseRequestId);
+            if ((action != Proposals.SourceViaRfq && action != Proposals.DirectOrder) || !request.HasValue) return false;
+            foreach (var t in new[] { new { Table = Model.Rfq, Cancelled = Model.RfqCancelled }, new { Table = Model.PurchaseOrder, Cancelled = Model.PoCancelled } })
+            {
+                var query = new QueryExpression(t.Table) { ColumnSet = new ColumnSet(false), TopCount = 1 };
+                query.Criteria.AddCondition(Model.PurchaseRequestId, ConditionOperator.Equal, request.Value);
+                query.Criteria.AddCondition("statuscode", ConditionOperator.NotEqual, t.Cancelled);
+                if (system.RetrieveMultiple(query).Entities.Count > 0) return true;
+            }
+            return false;
         }
 
         /// <summary>Status reason of the record the action works on; null when the proposal has no such record.</summary>
@@ -310,8 +334,8 @@ namespace OpenProject365.Plugins
             var system = context.SystemService;
             var id = context.TargetReference.Id;
             var proposal = Sourcing.Lock(system, id);
-            var status = Sourcing.Rule(() => Proposals.Retry(Sourcing.Option(proposal, "statuscode")));
             if (!Sourcing.CanDecide(system, proposal, context.CallerId)) Purchasing.Fail(Proposals.CannotDecide);
+            var status = Sourcing.Rule(() => Proposals.Retry(Sourcing.Option(proposal, "statuscode")));
             Sourcing.SetStatus(system, id, status, new Entity(Model.AgentProposal, id) { ["op365_error"] = null });
         }
     }

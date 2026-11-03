@@ -151,7 +151,7 @@ STEPS = [
   ('WbsNodeSupplierScope', 'Create', 'op365_wbsnode', POST, None, None),
   ('WbsNodeSupplierScope', 'Update', 'op365_wbsnode', POST, 'op365_parentid', 'op365_projectid'),
   ('WbsNodePortalGuard', 'Update', 'op365_wbsnode', PRE, None, None),
-  # sourcing agent: agent proposals (sourcing_agent.py)
+  # sourcing agent: agent proposals (table created by sourcing_agent.py)
   ('AgentProposalValidate', 'Create', 'op365_agentproposal', PRE, None, None),
   ('AgentProposalValidate', 'Update', 'op365_agentproposal', PRE, None, 'op365_kind,op365_actiontype,statuscode,op365_dedupkey'),
   ('AgentProposalNotify', 'Create', 'op365_agentproposal', POST, None, None),

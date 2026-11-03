@@ -139,6 +139,16 @@ namespace OpenProject365.Plugins
             throw new InvalidOperationException(AlreadyDecided);
         }
 
+        /// <summary>
+        /// As <see cref="IsTargetValid(int, int)"/>; a Source via RFQ or Direct Order proposal is also superseded when its purchase
+        /// request already has a non-cancelled RFQ or purchase order (someone sourced it meanwhile).
+        /// </summary>
+        public static bool IsTargetValid(int actionType, int targetStatus, bool requestHasOpenRfqOrOrder)
+        {
+            if ((actionType == SourceViaRfq || actionType == DirectOrder) && requestHasOpenRfqOrOrder) return false;
+            return IsTargetValid(actionType, targetStatus);
+        }
+
         public static bool IsTargetValid(int actionType, int targetStatus)
         {
             switch (actionType)

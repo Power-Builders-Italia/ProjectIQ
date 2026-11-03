@@ -84,4 +84,9 @@ public class ProposalTests
     [Fact] public void TargetLookups_RequestFirstProjectLast() {
         Assert.Equal("op365_purchaserequestid", Proposals.TargetLookups[0][0]);
         Assert.Equal("op365_project", Proposals.TargetLookups[Proposals.TargetLookups.Length - 1][1]); }
+    [Fact] public void IsTargetValid_RequestAlreadySourced_IsSuperseded() {
+        Assert.False(Proposals.IsTargetValid(Proposals.SourceViaRfq, Model.PrApproved, true));
+        Assert.False(Proposals.IsTargetValid(Proposals.DirectOrder, Model.PrApproved, true));
+        Assert.True(Proposals.IsTargetValid(Proposals.DirectOrder, Model.PrApproved, false));
+        Assert.True(Proposals.IsTargetValid(Proposals.AwardRfq, Model.RfqSent, true)); }
 }
