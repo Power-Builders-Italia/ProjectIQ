@@ -1,14 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <CustomActions />
+  <CustomActions>
+    <CustomAction Id="op365.agentproposal.AcknowledgeProposal.CustomAction" Location="Mscrm.Form.op365_agentproposal.MainTab.Save.Controls._children" Sequence="8">
+      <CommandUIDefinition>
+        <Button Id="op365.agentproposal.AcknowledgeProposal.Button" Command="op365.agentproposal.AcknowledgeProposal.Command" LabelText="$LocLabels:op365.agentproposal.AcknowledgeProposal.Label" ToolTipTitle="$LocLabels:op365.agentproposal.AcknowledgeProposal.Label" ToolTipDescription="$LocLabels:op365.agentproposal.AcknowledgeProposal.Tip" TemplateAlias="o1" ModernImage="Accept" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.agentproposal.ApproveProposal.CustomAction" Location="Mscrm.Form.op365_agentproposal.MainTab.Save.Controls._children" Sequence="5">
+      <CommandUIDefinition>
+        <Button Id="op365.agentproposal.ApproveProposal.Button" Command="op365.agentproposal.ApproveProposal.Command" LabelText="$LocLabels:op365.agentproposal.ApproveProposal.Label" ToolTipTitle="$LocLabels:op365.agentproposal.ApproveProposal.Label" ToolTipDescription="$LocLabels:op365.agentproposal.ApproveProposal.Tip" TemplateAlias="o1" ModernImage="Accept" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.agentproposal.RejectProposal.CustomAction" Location="Mscrm.Form.op365_agentproposal.MainTab.Save.Controls._children" Sequence="6">
+      <CommandUIDefinition>
+        <Button Id="op365.agentproposal.RejectProposal.Button" Command="op365.agentproposal.RejectProposal.Command" LabelText="$LocLabels:op365.agentproposal.RejectProposal.Label" ToolTipTitle="$LocLabels:op365.agentproposal.RejectProposal.Label" ToolTipDescription="$LocLabels:op365.agentproposal.RejectProposal.Tip" TemplateAlias="o1" ModernImage="Cancel" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="op365.agentproposal.RetryProposal.CustomAction" Location="Mscrm.Form.op365_agentproposal.MainTab.Save.Controls._children" Sequence="7">
+      <CommandUIDefinition>
+        <Button Id="op365.agentproposal.RetryProposal.Button" Command="op365.agentproposal.RetryProposal.Command" LabelText="$LocLabels:op365.agentproposal.RetryProposal.Label" ToolTipTitle="$LocLabels:op365.agentproposal.RetryProposal.Label" ToolTipDescription="$LocLabels:op365.agentproposal.RetryProposal.Tip" TemplateAlias="o1" ModernImage="Refresh" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
   <Templates>
     <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
   </Templates>
-  <CommandDefinitions />
+  <CommandDefinitions>
+    <CommandDefinition Id="op365.agentproposal.AcknowledgeProposal.Command">
+      <EnableRules>
+        <EnableRule Id="op365.agentproposal.AcknowledgeProposal.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.agentproposal.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.acknowledgeProposal">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.agentproposal.ApproveProposal.Command">
+      <EnableRules>
+        <EnableRule Id="op365.agentproposal.ApproveProposal.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.agentproposal.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.approveProposal">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.agentproposal.RejectProposal.Command">
+      <EnableRules>
+        <EnableRule Id="op365.agentproposal.RejectProposal.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.agentproposal.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.rejectProposal">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="op365.agentproposal.RetryProposal.Command">
+      <EnableRules>
+        <EnableRule Id="op365.agentproposal.RetryProposal.Enable" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="op365.agentproposal.Existing" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction Library="$webresource:op365_/scripts/purchasing.js" FunctionName="OP365.Purchasing.retryProposal">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
   <RuleDefinitions>
     <TabDisplayRules />
-    <DisplayRules />
-    <EnableRules />
+    <DisplayRules>
+      <DisplayRule Id="op365.agentproposal.Existing">
+        <FormStateRule State="Create" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="op365.agentproposal.AcknowledgeProposal.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000000" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.agentproposal.ApproveProposal.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.agentproposal.RejectProposal.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="1" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="op365.agentproposal.RetryProposal.Enable">
+        <OrRule>
+          <Or>
+            <ValueRule Field="statuscode" Value="365000001" />
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
   </RuleDefinitions>
-  <LocLabels />
+  <LocLabels>
+    <LocLabel Id="op365.agentproposal.AcknowledgeProposal.Label">
+      <Titles>
+        <Title description="Acknowledge" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.AcknowledgeProposal.Tip">
+      <Titles>
+        <Title description="Acknowledge the insight" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.ApproveProposal.Label">
+      <Titles>
+        <Title description="Approve" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.ApproveProposal.Tip">
+      <Titles>
+        <Title description="Approve the proposal: the agent's action runs with your identity" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.RejectProposal.Label">
+      <Titles>
+        <Title description="Reject" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.RejectProposal.Tip">
+      <Titles>
+        <Title description="Reject the proposal with a note" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.RetryProposal.Label">
+      <Titles>
+        <Title description="Retry" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="op365.agentproposal.RetryProposal.Tip">
+      <Titles>
+        <Title description="Move the failed proposal back to Pending so that it can be approved again" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
 </RibbonDiffXml>
