@@ -456,14 +456,16 @@ finally:
     def children(es, col, id_, key):
         try:
             return [x[key] for x in rows(es, f'{col} eq {id_}', key)]
-        except Exception:  # noqa: BLE001
+        except Exception as ex:  # noqa: BLE001
+            left.append(f'query {es} where {col} = {id_} failed ({type(ex).__name__}: {ex}): its rows may be left behind')
             return []
     # Order, from the relationship kinds in phase4_tables.py: proposals first (their target lookups are referential, but
     # they are ours); then per request the purchase orders (referential to request/RFQ/invoice: no block) with their
     # receipts and lines, then RFQs with invitations and quotes (RFQ -> winning invitation/order lookups are referential, so
     # they do not block), then request lines and the request (parental children go before it). Supplier invoices and
     # invitations/orders that point to a supplier must go before the suppliers, the only restrict relationships
-    # (invitation, order, invoice -> supplier). Last the project and the customer. Every step is guarded: nothing here can
+    # (invitation, order, invoice -> supplier). Last the project and the customer. Project supplier rows (op365_projectsupplier, created by the plugins on RFQ send,
+    # restrict on supplier) are parental children of the project, so deleting the project before the suppliers removes them. Every step is guarded: nothing here can
     # skip the summary and the exit code.
     def safe(label, fn, *args):
         try:
