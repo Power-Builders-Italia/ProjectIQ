@@ -263,7 +263,7 @@ flowchart LR
 |---|---|---|
 | Contributor | change Dev, open pull requests, run `export-dev` | System Customizer (or higher) in Dev; *Triage* on the repository (pull requests from a fork) or *Write*; *Write* to run `export-dev` |
 | Maintainer | review and merge pull requests, run `deploy-test` | *Write* or *Admin* on the repository |
-| Dev approver | approve each run of `deploy-dev` and `export-dev` | required reviewer of the GitHub environment `dev` |
+| Dev approver | approve each run of `deploy-dev`, `export-dev` and `smoke-dev` | required reviewer of the GitHub environment `dev` |
 | Test approver | approve each run of `deploy-test` | required reviewer of the GitHub environment `test` |
 
 ### 1. Change Dev
@@ -403,6 +403,19 @@ PAC_ENVIRONMENT_URL=https://<test-org>.crm4.dynamics.com SEED_USER_EMAIL=<user e
 
 The project manager of every project, and the resource linked to them, is the user in `SEED_USER_EMAIL` (default: the first interactive user).
 
+### Smoke tests in Dev (smoke-dev)
+
+Some features have an end-to-end smoke test script in `tools/dataverse` that creates its own data in Dev, checks the plugins and Custom APIs and deletes the data at the end. The `smoke-dev` workflow runs one of them in GitHub Actions, so the credentials it needs stay in the secrets of the GitHub environment `dev` and never pass through a workstation or a cloud session.
+
+1. Actions > smoke-dev > **Run workflow**, branch `main` (the workflow must run from `main` to receive the secrets of `dev`).
+2. Choose the **script** and the **ref**: the branch of this repository that holds the script, for example a feature branch whose pull request waits for the smoke test before merge. Forks, tags and pull request refs are refused.
+3. The Dev approver reads the script on that branch, then **Review deployments** > `dev` > **Approve and deploy**: the run executes that branch's code with the Dev secrets.
+4. The summary of the run lists each case (PASS, FAIL, SKIP). Exit 0 = every case passed; 2 = no failure, at least one case skipped (warning, check it by hand as the script explains); any other code fails the run.
+
+| Script | Secrets of environment `dev` it needs, besides `PP_*` |
+|---|---|
+| `sourcing_smoke.py` | `SOURCING_AGENT_CLIENT_ID`, `SOURCING_AGENT_CLIENT_SECRET`, `SOURCING_TEST_BUYER`, `SOURCING_TEST_OTHER` |
+
 ## GitHub repository security
 
 The repository is public: environment URLs, tenant, app and connection ids and user names live only in GitHub **environment secrets**. Not in variables: the Actions logs of a public repository are public, and only secrets are masked. No repository-level secrets: any workflow pushed to a branch by a user with write access could read them.
@@ -410,7 +423,7 @@ The repository is public: environment URLs, tenant, app and connection ids and u
 - **Environment `test`** (Settings > Environments): required reviewer, deployment branches limited to `main`. `deploy-test` runs in it (the environment name is the `settings` input).
   - Secrets: `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (the app registration, application user in Dev and Test), `TEST_ENVIRONMENT_URL` (target URL; the workflow has no input to override it, so a user who can run it cannot deploy to another environment), `OP365_DATAVERSE_CONNECTION_ID`, `OP365_SHAREPOINT_CONNECTION_ID`, `OP365_TEAMS_CONNECTION_ID` and `OP365_DATAVERSE_AGENT_CONNECTION_ID` (ids in Test of the Dataverse, SharePoint and Teams connections and of the Dataverse connection of the sourcing agent application user, Power Apps > Connections > the connection's URL).
   - Optional secrets for the company settings ([environment variables](data-model.md#company-settings-environment-variables)): `OP365_TIME_APPROVAL_ENABLED` (`yes`/`no`), `OP365_PURCHASE_REQUEST_THRESHOLD` (number, dot as decimal separator), `OP365_PURCHASING_APPROVER` (User Name in Test), `OP365_SUPPLIER_EMAIL_SENDER` (queue name or e-mail address for the supplier e-mails); for the document metadata flows `OP365_SHAREPOINT_SITE_URL`, `OP365_PROJECT_LIBRARY_ID`, `OP365_PURCHASE_ORDER_LIBRARY_ID`, `OP365_SUPPLIER_DOCUMENT_LIBRARY_ID` (printed by `tools/sharepoint/document_metadata.py`); for the [sourcing agent](#sourcing-agent) `OP365_SOURCING_AGENT_ENABLED` (`yes`/`no`), `OP365_SOURCING_AGENT_USER` (User Name of the agent application user in Test), `OP365_SOURCING_APPROVAL_TEAM` (`<team id>|<channel id>`). `deploy-test` writes them into `deployment/test.settings.json`; an empty or missing secret is left out, so Test keeps its current value (or the default).
-- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev` and the `export` job of `export-dev` run in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
+- **Environment `dev`**: required reviewer, deployment branches limited to `main`. `deploy-dev`, the `export` job of `export-dev` and `smoke-dev` run in it. Secrets `PP_ENVIRONMENT_URL`, `PP_TENANT_ID`, `PP_CLIENT_ID`, `PP_CLIENT_SECRET` (an application user of Dev with System Administrator or System Customizer), plus the secrets of the smoke test scripts ([Smoke tests in Dev](#smoke-tests-in-dev-smoke-dev)). Its `drift-pr` and `record` jobs need no secrets: they use `GITHUB_TOKEN` with write access (`contents` and `pull-requests`, `deployments`) in those two jobs only, and Settings > Actions > General > **Allow GitHub Actions to create and approve pull requests** must be on for `drift-pr`.
 - **Environment `appsource`**: required reviewer the publisher only (`pborg-mc`), deployment branches limited to `main`; secrets `PP_*` as in `test` (only for the Solution Checker). `publish-appsource` runs in it and also refuses any other actor ([Publishing on Microsoft AppSource](appsource.md#build-the-package)).
 - **Environment `release`**: required reviewer (whoever may publish a version), deployment branches limited to `main`; no secrets. `release` runs in it ([Release on GitHub](#5-release-on-github)).
 - **Environment `solution-checker`**: deployment branches limited to `main`, no reviewer; secrets `PP_*` for the Solution Checker (see [CI and Solution Checker](#ci-and-solution-checker)).
