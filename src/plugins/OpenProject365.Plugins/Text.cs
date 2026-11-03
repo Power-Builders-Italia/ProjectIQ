@@ -7,7 +7,7 @@ namespace OpenProject365.Plugins
     /// <summary>
     /// Translates the English messages of the plugins (errors and in-app notifications) into the user's language.
     /// Messages stay English in the code; a message matches a template here, {n} placeholders included, and the
-    /// placeholder values are translated in turn (e.g. the action of "Only a manager of the project can {0}.").
+    /// placeholder values are translated in turn (e.g. the action of "Only a manager of the project or a buyer can {0}.").
     /// </summary>
     public static class Text
     {
@@ -31,7 +31,15 @@ namespace OpenProject365.Plugins
             new[] { "Only submitted time entries can be approved or rejected.", "Nur eingereichte Zeiteinträge können genehmigt oder abgelehnt werden.", "Seules les saisies de temps soumises peuvent être approuvées ou rejetées.", "Si possono approvare o rifiutare solo registrazioni ore inviate." },
             new[] { "Only a manager of the project can approve or reject its time entries.", "Nur ein Projektleiter des Projekts kann dessen Zeiteinträge genehmigen oder ablehnen.", "Seul un chef de projet du projet peut approuver ou rejeter ses saisies de temps.", "Solo un capo commessa della commessa può approvarne o rifiutarne le registrazioni ore." },
             new[] { "Only a manager of the project can decide this purchase request.", "Nur ein Projektleiter des Projekts kann über diese Bestellanforderung entscheiden.", "Seul un chef de projet du projet peut statuer sur cette demande d'achat.", "Solo un capo commessa della commessa può decidere questa richiesta di acquisto." },
-            new[] { "Only a manager of the project can {0}.", "Nur ein Projektleiter des Projekts kann {0}.", "Seul un chef de projet du projet peut {0}.", "Solo un capo commessa della commessa può {0}." },
+            new[] { "Only a manager of the project or a buyer can {0}.", "Nur ein Projektleiter des Projekts oder ein Einkäufer kann {0}.", "Seul un chef de projet du projet ou un acheteur peut {0}.", "Solo un capo commessa della commessa o un buyer può {0}." },
+            new[] { "This proposal has already been decided.", "Über diesen Vorschlag wurde bereits entschieden.", "Cette proposition a déjà fait l'objet d'une décision.", "Su questa proposta è già stata presa una decisione." },
+            new[] { "Add a note to reject the proposal.", "Fügen Sie eine Notiz hinzu, um den Vorschlag abzulehnen.", "Ajoutez une note pour rejeter la proposition.", "Aggiungi una nota per rifiutare la proposta." },
+            new[] { "Only failed proposals can be retried.", "Nur fehlgeschlagene Vorschläge können erneut versucht werden.", "Seules les propositions en échec peuvent être relancées.", "Si possono riprovare solo le proposte non riuscite." },
+            new[] { "Only the sourcing agent can decide on behalf of another user.", "Nur der Sourcing-Agent kann im Namen eines anderen Benutzers entscheiden.", "Seul l'agent d'approvisionnement peut statuer au nom d'un autre utilisateur.", "Solo l'agente di approvvigionamento può decidere per conto di un altro utente." },
+            new[] { "You cannot decide this proposal.", "Sie können über diesen Vorschlag nicht entscheiden.", "Vous ne pouvez pas statuer sur cette proposition.", "Non puoi decidere questa proposta." },
+            new[] { "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal.", "Verwenden Sie Approve, Reject, Retry oder Acknowledge, um den Status eines Agentenvorschlags zu ändern.", "Utilisez Approve, Reject, Retry ou Acknowledge pour modifier le statut d'une proposition de l'agent.", "Usa Approve, Reject, Retry o Acknowledge per modificare lo stato di una proposta dell'agente." },
+            new[] { "An agent proposal cannot be changed after it is created.", "Ein Agentenvorschlag kann nach dem Erstellen nicht mehr geändert werden.", "Une proposition de l'agent ne peut plus être modifiée après sa création.", "Una proposta dell'agente non può essere modificata dopo la creazione." },
+            new[] { "An open proposal for the same action already exists.", "Für dieselbe Aktion gibt es bereits einen offenen Vorschlag.", "Une proposition ouverte existe déjà pour la même action.", "Esiste già una proposta aperta per la stessa azione." },
             new[] { "Only a manager or contributor of the project can {0}.", "Nur ein Projektleiter oder Mitwirkender des Projekts kann {0}.", "Seul un chef de projet ou un contributeur du projet peut {0}.", "Solo un capo commessa o un collaboratore della commessa può {0}." },
             new[] { "The project is closed.", "Das Projekt ist abgeschlossen.", "Le projet est clôturé.", "La commessa è chiusa." },
             new[] { "{0} is not an active supplier.", "{0} ist kein aktiver Lieferant.", "{0} n'est pas un fournisseur actif.", "{0} non è un fornitore attivo." },

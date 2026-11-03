@@ -10,11 +10,18 @@ public class TextTests
         Assert.Equal("Das Projekt ist abgeschlossen.", Text.Translate("The project is closed.", Text.Column(1031)));
     }
 
+    [Fact] public void ManagerOrBuyerMessage_IsTranslated() =>
+        Assert.Equal("Solo un capo commessa della commessa o un buyer può creare una richiesta di offerta.",
+            Text.Translate("Only a manager of the project or a buyer can create a request for quotation.", Text.Column(1040)));
+
+    [Fact] public void ProposalMessages_AreTranslated() =>
+        Assert.NotEqual("This proposal has already been decided.", Text.Translate("This proposal has already been decided.", Text.Column(1040)));
+
     [Fact]
     public void Translate_PlaceholderValuesAreTranslatedToo()
     {
-        Assert.Equal("Seul un chef de projet du projet peut créer une commande d'achat.",
-            Text.Translate("Only a manager of the project can create a purchase order.", Text.Column(1036)));
+        Assert.Equal("Seul un chef de projet du projet ou un acheteur peut créer une commande d'achat.",
+            Text.Translate("Only a manager of the project or a buyer can create a purchase order.", Text.Column(1036)));
         Assert.Equal("Steel beam: nur noch 2,5 zu empfangen.",
             Text.Translate("Steel beam: only 2,5 still to receive.", Text.Column(1031)));
     }

@@ -51,6 +51,9 @@ namespace OpenProject365.Plugins
         public IOrganizationService Service { get; }
         public IOrganizationService SystemService { get; }
 
+        /// <summary>The user the operation runs for; equals the initiating user except when a plugin impersonates, as DecideAgentProposal does.</summary>
+        public Guid CallerId => Execution.UserId;
+
         public string Message => Execution.MessageName;
 
         public Entity Target =>

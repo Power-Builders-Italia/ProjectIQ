@@ -42,11 +42,11 @@ namespace OpenProject365.Plugins
             return approver == userId || Rules.IsAdmin(system, userId);
         }
 
-        /// <summary>Administrator or Manager of the project.</summary>
+        /// <summary>Administrator, Manager of the project or OP365 Buyer.</summary>
         public static void EnsureManager(IOrganizationService system, Guid projectId, Guid userId, string action)
         {
-            if (!Rules.IsAdmin(system, userId) && !Rules.IsProjectManager(system, projectId, userId))
-                Fail($"Only a manager of the project can {action}.");
+            if (!Rules.IsAdmin(system, userId) && !Rules.IsProjectManager(system, projectId, userId) && !Rules.IsBuyer(system, userId))
+                Fail($"Only a manager of the project or a buyer can {action}.");
         }
 
         /// <summary>Administrator, Manager or Contributor of the project.</summary>
@@ -218,7 +218,7 @@ namespace OpenProject365.Plugins
             {
                 var status = target.GetAttributeValue<OptionSetValue>("statuscode")?.Value;
                 if (status.HasValue && status != Model.PrDraft) Purchasing.Fail("Use Submit to send a purchase request for approval.");
-                if (!target.Contains("op365_requesterid")) target["op365_requesterid"] = new EntityReference("systemuser", context.Execution.InitiatingUserId);
+                if (!target.Contains("op365_requesterid")) target["op365_requesterid"] = new EntityReference("systemuser", context.CallerId);
             }
             else
             {
@@ -301,7 +301,7 @@ namespace OpenProject365.Plugins
         {
             var system = context.SystemService;
             var id = context.TargetReference.Id;
-            var caller = context.Execution.InitiatingUserId;
+            var caller = context.CallerId;
             var pr = system.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", "op365_number", "op365_title", Model.ProjectId,
                 Model.WbsNodeId, "op365_requesterid", "op365_estimatedamount"));
             var status = Purchasing.Status(pr);
@@ -369,7 +369,7 @@ namespace OpenProject365.Plugins
             if (!approve && string.IsNullOrWhiteSpace(note)) Purchasing.Fail("Add a note to reject the purchase request.");
             var system = context.SystemService;
             var id = context.TargetReference.Id;
-            var caller = context.Execution.InitiatingUserId;
+            var caller = context.CallerId;
             var pr = system.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", "op365_number", "op365_title", Model.ProjectId,
                 "op365_requesterid", "op365_currentapproverid", "op365_approvallevel", "op365_abovethreshold", "op365_estimatedamount"));
             if (Purchasing.Status(pr) != Model.PrSubmitted) Purchasing.Fail("Only submitted purchase requests can be approved or rejected.");
@@ -424,7 +424,7 @@ namespace OpenProject365.Plugins
         {
             var system = context.SystemService;
             var id = context.TargetReference.Id;
-            var caller = context.Execution.InitiatingUserId;
+            var caller = context.CallerId;
             var pr = system.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", Model.ProjectId, "op365_requesterid"));
             var status = Purchasing.Status(pr);
             if (status == Model.PrOrdered || status == Model.PrCancelled) Purchasing.Fail("Ordered or cancelled purchase requests cannot be cancelled.");
@@ -450,7 +450,7 @@ namespace OpenProject365.Plugins
             var pr = system.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", Model.ProjectId, "op365_preferredsupplierid", "op365_title"));
             if (Purchasing.Status(pr) != Model.PrApproved) Purchasing.Fail("Only approved purchase requests can go to a request for quotation.");
             var projectId = Purchasing.Id(pr, Model.ProjectId) ?? Guid.Empty;
-            Purchasing.EnsureManager(system, projectId, context.Execution.InitiatingUserId, "create a request for quotation");
+            Purchasing.EnsureManager(system, projectId, context.CallerId, "create a request for quotation");
             var deadline = Rules.OptionalDate(input, "Deadline") ?? DateTime.UtcNow.Date.AddDays(7);
             if (deadline < DateTime.UtcNow.Date) Purchasing.Fail("The deadline must be today or later.");
 
@@ -501,7 +501,7 @@ namespace OpenProject365.Plugins
             var rfq = system.Retrieve(Model.Rfq, id, new ColumnSet("statuscode", Model.ProjectId, Model.PurchaseRequestId, "op365_number", "op365_deadline", "op365_notes"));
             var status = Purchasing.Status(rfq);
             if (status != Model.RfqDraft && status != Model.RfqSent) Purchasing.Fail("Only draft or sent requests for quotation can be sent.");
-            Purchasing.EnsureManager(system, Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty, context.Execution.InitiatingUserId, "send the request for quotation");
+            Purchasing.EnsureManager(system, Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty, context.CallerId, "send the request for quotation");
             if (rfq.GetAttributeValue<DateTime?>("op365_deadline")?.Date < DateTime.UtcNow.Date) Purchasing.Fail("The deadline has passed: move it before sending.");
             var now = DateTime.UtcNow;
             var count = 0;
@@ -554,7 +554,7 @@ namespace OpenProject365.Plugins
             var rfq = system.Retrieve(Model.Rfq, id, new ColumnSet("statuscode", Model.ProjectId, Model.PurchaseRequestId));
             if (Purchasing.Status(rfq) != Model.RfqSent) Purchasing.Fail("Only sent requests for quotation can be awarded.");
             var projectId = Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty;
-            Purchasing.EnsureManager(system, projectId, context.Execution.InitiatingUserId, "award the request for quotation");
+            Purchasing.EnsureManager(system, projectId, context.CallerId, "award the request for quotation");
             var inv = system.Retrieve(Model.RfqInvitation, invitationId, new ColumnSet(Model.RfqId, Model.SupplierId, "statuscode", "op365_deliverydays"));
             if (Purchasing.Id(inv, Model.RfqId) != id) Purchasing.Fail("The invitation belongs to another request for quotation.");
             if (Purchasing.Status(inv) != Model.InvitationResponded) Purchasing.Fail("Award a supplier who sent a quote.");
@@ -597,7 +597,7 @@ namespace OpenProject365.Plugins
             var rfq = system.Retrieve(Model.Rfq, id, new ColumnSet("statuscode", Model.ProjectId));
             var status = Purchasing.Status(rfq);
             if (status != Model.RfqDraft && status != Model.RfqSent) Purchasing.Fail("Only draft or sent requests for quotation can be cancelled.");
-            Purchasing.EnsureManager(system, Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty, context.Execution.InitiatingUserId, "cancel the request for quotation");
+            Purchasing.EnsureManager(system, Purchasing.Id(rfq, Model.ProjectId) ?? Guid.Empty, context.CallerId, "cancel the request for quotation");
             system.Update(new Entity(Model.Rfq, id) { ["statuscode"] = new OptionSetValue(Model.RfqCancelled), ["op365_cancelledon"] = DateTime.UtcNow });
         }
     }
@@ -769,7 +769,7 @@ namespace OpenProject365.Plugins
             var pr = system.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", Model.ProjectId, Model.WbsNodeId, "op365_preferredsupplierid"));
             if (Purchasing.Status(pr) != Model.PrApproved) Purchasing.Fail("Only approved purchase requests can be ordered.");
             var projectId = Purchasing.Id(pr, Model.ProjectId) ?? Guid.Empty;
-            Purchasing.EnsureManager(system, projectId, context.Execution.InitiatingUserId, "create a purchase order");
+            Purchasing.EnsureManager(system, projectId, context.CallerId, "create a purchase order");
             var supplier = input.Contains("SupplierId") && input["SupplierId"] is Guid g && g != Guid.Empty ? g : Purchasing.Id(pr, "op365_preferredsupplierid");
             if (!supplier.HasValue) Purchasing.Fail("Choose the supplier: set Preferred Supplier on the request.");
             var lines = Purchasing.Children(system, Model.PurchaseRequestLine, Model.PurchaseRequestId, id,
@@ -935,7 +935,7 @@ namespace OpenProject365.Plugins
             var to = map[name];
             var po = system.Retrieve(Model.PurchaseOrder, id, new ColumnSet("statuscode", Model.ProjectId, Model.SupplierId));
             var from = Purchasing.Status(po);
-            Purchasing.EnsureManager(system, Purchasing.Id(po, Model.ProjectId) ?? Guid.Empty, context.Execution.InitiatingUserId, "change the status of the purchase order");
+            Purchasing.EnsureManager(system, Purchasing.Id(po, Model.ProjectId) ?? Guid.Empty, context.CallerId, "change the status of the purchase order");
             var receipts = Purchasing.Children(system, Model.GoodsReceipt, Model.PurchaseOrderId, id).Count > 0;
             var error = OrderStatus.Check(from, to, receipts);
             if (error != null) Purchasing.Fail(error);
@@ -974,7 +974,7 @@ namespace OpenProject365.Plugins
             var status = Purchasing.Status(po);
             if (status != Model.PoSent && status != Model.PoConfirmed) Purchasing.Fail("Goods can be received only on sent or confirmed purchase orders.");
             var projectId = Purchasing.Id(po, Model.ProjectId).Value;
-            Purchasing.EnsureContributor(system, projectId, context.Execution.InitiatingUserId, "register goods receipts");
+            Purchasing.EnsureContributor(system, projectId, context.CallerId, "register goods receipts");
             Rules.EnsureInProgress(system, projectId);
 
             var lines = Purchasing.Children(system, Model.PurchaseOrderLine, Model.PurchaseOrderId, id,
@@ -1068,7 +1068,7 @@ namespace OpenProject365.Plugins
             var id = context.TargetReference.Id;
             var gr = system.Retrieve(Model.GoodsReceipt, id, new ColumnSet(Model.PurchaseOrderId, Model.ProjectId));
             var projectId = Purchasing.Id(gr, Model.ProjectId).Value;
-            Purchasing.EnsureManager(system, projectId, context.Execution.InitiatingUserId, "cancel goods receipts");
+            Purchasing.EnsureManager(system, projectId, context.CallerId, "cancel goods receipts");
             foreach (var line in Purchasing.Children(system, Model.GoodsReceiptLine, Model.GoodsReceiptId, id, Model.OrderLineId, "op365_quantity"))
             {
                 var usages = new QueryExpression(Model.MaterialUsage) { ColumnSet = new ColumnSet(false) };
@@ -1135,7 +1135,7 @@ namespace OpenProject365.Plugins
             var system = context.SystemService;
             var target = context.Target;
             if (context.IsInside("op365_DecideSupplierInvoice")) return;
-            var portal = context.Execution.Depth == 1 && SupplierDocuments.IsPortal(system, context.Execution.InitiatingUserId);
+            var portal = context.Execution.Depth == 1 && SupplierDocuments.IsPortal(system, context.CallerId);
             var status = context.Message == "Create" ? 0 : Purchasing.Status(context.Pre);
             if (context.Message == "Create")
             {
@@ -1259,7 +1259,7 @@ namespace OpenProject365.Plugins
             var note = input.Contains("Note") ? input["Note"] as string : null;
             if (!approve && string.IsNullOrWhiteSpace(note)) Purchasing.Fail("Add a note to reject the invoice.");
             var system = context.SystemService;
-            var caller = context.Execution.InitiatingUserId;
+            var caller = context.CallerId;
             var id = context.TargetReference.Id;
             if (Purchasing.Status(system.Retrieve(Model.SupplierInvoice, id, new ColumnSet("statuscode"))) != Model.InvoiceToReview)
                 Purchasing.Fail("Only invoices to review can be approved or rejected.");

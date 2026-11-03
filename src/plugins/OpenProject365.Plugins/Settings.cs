@@ -11,6 +11,14 @@ namespace OpenProject365.Plugins
         public const string TimeApprovalEnabledVariable = "op365_TimeApprovalEnabled";
         public const string PurchaseRequestThresholdVariable = "op365_PurchaseRequestThreshold";
         public const string PurchasingApproverVariable = "op365_PurchasingApprover";
+        public const string SourcingAgentEnabledVariable = "op365_SourcingAgentEnabled";
+        public const string SourcingAgentUserVariable = "op365_SourcingAgentUser";
+        public const string SourcingApprovalTeamVariable = "op365_SourcingApprovalTeam";
+        public const string SourcingDirectOrderLimitVariable = "op365_SourcingDirectOrderLimit";
+        public const string SourcingMinQuotesVariable = "op365_SourcingMinQuotes";
+        public const string SourcingReminderDaysVariable = "op365_SourcingReminderDays";
+        public const string SourcingBudgetWarningPctVariable = "op365_SourcingBudgetWarningPct";
+        public const string SourcingProposalExpiryDaysVariable = "op365_SourcingProposalExpiryDays";
 
         /// <summary>Current value of the environment variable, else its default value; null when neither is set.</summary>
         public static string Value(IOrganizationService system, string schemaName)
@@ -34,16 +42,15 @@ namespace OpenProject365.Plugins
             EnvironmentValue.Number(Value(system, PurchaseRequestThresholdVariable));
 
         /// <summary>Enabled user whose User Name or primary email is the Purchasing Approver variable; null when not set or not found.</summary>
-        public static Guid? PurchasingApprover(IOrganizationService system)
-        {
-            var name = Value(system, PurchasingApproverVariable);
-            if (name == null) return null;
-            var query = new QueryExpression("systemuser") { ColumnSet = new ColumnSet(false), TopCount = 1 };
-            query.Criteria.AddCondition("isdisabled", ConditionOperator.Equal, false);
-            var who = query.Criteria.AddFilter(LogicalOperator.Or);
-            who.AddCondition("domainname", ConditionOperator.Equal, name);
-            who.AddCondition("internalemailaddress", ConditionOperator.Equal, name);
-            return system.RetrieveMultiple(query).Entities.FirstOrDefault()?.Id;
-        }
+        public static Guid? PurchasingApprover(IOrganizationService system) =>
+            Rules.UserByName(system, Value(system, PurchasingApproverVariable));
+
+        /// <summary>Enabled user the sourcing agent runs as; null when not set or not found.</summary>
+        public static Guid? SourcingAgentUser(IOrganizationService system) =>
+            Rules.UserByName(system, Value(system, SourcingAgentUserVariable));
+
+        /// <summary>Days after which an open agent proposal expires; 5 when not set.</summary>
+        public static int SourcingProposalExpiryDays(IOrganizationService system) =>
+            (int)(EnvironmentValue.Number(Value(system, SourcingProposalExpiryDaysVariable)) ?? 5m);
     }
 }
