@@ -337,9 +337,13 @@ def proposal_approval_flow():
             f"@concat(first(split(triggerOutputs()?['body/@odata.id'], '/api/data')), "
             f"'/main.aspx?pagetype=entityrecord&etn=op365_agentproposal&id=', {pid})")},
         'Card': {'runAfter': {'Record_link': ['Succeeded']}, 'type': 'Compose', 'inputs': card},
-        'Post_approval_card': _op('shared_teams', 'PostCardAndWaitForResponse', {
-            **channel, 'body/messageBody': "@string(outputs('Card'))", 'body/shouldUpdateCard': True,
-            'body/updateMessage': 'Response received: the decision is being recorded.'}, {'Card': ['Succeeded']}),
+        # "wait for a response" is a webhook action: its card parameters sit one level deeper (body/body/...)
+        'Post_approval_card': dict(_op('shared_teams', 'PostCardAndWaitForResponse', {
+            'poster': 'Flow bot', 'location': 'Channel',
+            'body/body/recipient/groupId': f'@first({team})', 'body/body/recipient/channelId': f'@last({team})',
+            'body/body/messageBody': "@string(outputs('Card'))", 'body/body/shouldUpdateCard': True,
+            'body/body/updateMessage': 'Response received: the decision is being recorded.'}, {'Card': ['Succeeded']}),
+            type='OpenApiConnectionWebhook'),
         'Decide_proposal': bound_action('op365_DecideAgentProposal', 'op365_agentproposals', f'@{pid}', {
             'Approve': f"@equals({answer}?['data']?['Decision'], 'Approve')",
             'Note': f"@coalesce({answer}?['data']?['Note'], '')",
