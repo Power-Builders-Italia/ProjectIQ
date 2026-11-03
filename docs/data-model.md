@@ -242,6 +242,45 @@ Project suppliers (`ProjectSuppliers.cs`): `RfqInvitationProjectSupplier` (an in
 | Ribbon buttons (`tools/dataverse/ribbon.py`) | Request, RFQ, Order, Receipt, Invoice forms | One button per Custom API, enabled only in the statuses where it applies (`op365_/scripts/purchasing.js`, dialogs `op365_/pages/decision.html` and `receipt.html`) |
 | Dashboard **Spend** | Purchasing area | Spend by supplier, by project, orders by status, open orders, invoices to review |
 
+## Sourcing agent
+
+Table created by `tools/dataverse/sourcing_agent.py`; rules in `ProposalLogic.cs`, plugins and Custom APIs in `Sourcing.cs`. See the [manual](en/sourcing-agent.md) and [ADR 0003](adr/0003-sourcing-agent-proposals.md).
+
+### Table `op365_agentproposal` (Agent Proposal)
+
+User-owned, notes and auditing on. Parental relationship from Project, so the project access teams see the proposals of their projects. Choice values start at 365000000 in the order shown.
+
+| Column | Type | Notes |
+|---|---|---|
+| `op365_name` | Text (400) | Primary name; default "{Action Type} – {record}" |
+| `op365_kind` | Choice | Proposal, Insight, Log. Fixed at create |
+| `op365_actiontype` | Choice | Source via RFQ, Direct Order, Award RFQ, Approve Invoice, Reject Invoice, Invite Supplier, Supplier Reminder, Compliance Alert, Budget Alert, Late Delivery, Consolidation, New Supplier Needed. Fixed at create |
+| `op365_projectid` (parental), `op365_purchaserequestid`, `op365_rfqid`, `op365_invitationid`, `op365_purchaseorderid`, `op365_supplierinvoiceid`, `op365_supplierid`, `op365_decidedbyid` | Lookups | Optional; typed lookups instead of a polymorphic regarding |
+| `op365_rationale` | Memo (4000) | Written by the agent |
+| `op365_evidence` | Memo (100000) | Analysis output (JSON); column-secured, in **OP365 Cost Visibility** |
+| `op365_payload` | Memo (4000) | Inputs of the action (JSON: `supplierIds`, `deadline`, `supplierId`, `contactId`, `note`) |
+| `op365_amount`, `op365_estimatedsaving` | Currency | |
+| `op365_dedupkey` | Text (200) | `table:id:action` of the first lookup set (request, RFQ, invitation, order, invoice, supplier, project); an active row with the same key is refused |
+| `op365_expireson` | Date | Proposals only: creation date plus `op365_SourcingProposalExpiryDays` (the plugin sets it) |
+| `op365_decidedon`, `op365_decisionnote`, `op365_resultid`, `op365_error` | Date and time, memo (2000), text, memo (2000) | Written by the Custom APIs; the Decision Note is the only editable column |
+
+Status reasons: active **Pending** (1, default), **Open** (365000000), **Failed** (365000001); inactive **Executed** (2, default), **Rejected** (365000002), **Expired** (365000003), **Superseded** (365000004), **Acknowledged** (365000005), **Done** (365000006). `AgentProposalValidate` sets the initial status from the kind and refuses direct status changes.
+
+Views: Open Agent Proposals (default), Agent Insights, Agent Log, My Agent Decisions. Form **Agent Proposal**; subgrid **Agent Proposals** on the Project form.
+
+### Plugins and Custom API (sourcing agent)
+
+| Component | Does |
+|---|---|
+| `AgentProposalValidate` (Create, Update; PreOperation) | Initial status, Dedup Key, Expires On, default name; refuses duplicates, direct status changes and edits other than the Decision Note |
+| `AgentProposalNotify` (Create; PostOperation) | In-app notification "New agent proposal" to the project managers, for a Proposal with a project; never fails the create |
+| `op365_DecideAgentProposal` (bound; Approve, Note, DecidedBy; outputs Status, ResultId) | Approve or reject a proposal, acknowledge an insight. `DecidedBy` only from the caller named in `op365_SourcingAgentUser`. Checks that the decider may decide, that the target is still valid (else Superseded; also when a Source via RFQ or Direct Order request already has a non-cancelled RFQ or order), then runs the action impersonating the decider. A failing action rolls back the call |
+| `op365_RetryAgentProposal` (bound) | Failed → Pending, clears Error; whoever can decide the proposal |
+| `op365_ExpireAgentProposals` (unbound; output Count) | Pending past Expires On → Expired; called by the daily flow |
+| `op365_RecordProposalError` (unbound; ProposalId, Error) | Marks a Pending proposal Failed after a failed approved action; the sourcing agent user and whoever can decide the proposal |
+
+Flows: **Agent proposal approval** (Teams adaptive card) and **Daily agent proposal expiry** (06:30), connection references `op365_teams` and `op365_dataverse`. Settings: the eight `op365_Sourcing*` variables ([Administration](en/administration.md#company-settings)).
+
 ## Security
 
 | Component | Content |
@@ -258,6 +297,10 @@ Project suppliers (`ProjectSuppliers.cs`): `RfqInvitationProjectSupplier` (an in
 | OP365 User (F4) | User-level access on the purchasing tables; supplier invoices Read and Append To only |
 | OP365 Cost Visibility (F4) | + supplier and item spend |
 | OP365 Cost Visibility (accounts) | + `op365_iban` on Account (supplier and customer IBAN) |
+| OP365 Buyer | Organization-level Read on Project and its child tables; Create, Read, Write, Delete, Append, Append To on purchase requests (and lines), RFQs, invitations, quotes, orders (and lines), goods receipts (and lines), Account and Contact; supplier invoices Read and Append To; Agent Proposal Read, Write, Append, Append To. `Rules.IsBuyer` makes `Purchasing.EnsureManager` accept it |
+| OP365 Sourcing Agent | Application user only. Organization-level Read on project, purchasing, invoice and master data tables; Read and Append To on the lookup targets of the proposal; Create, Read, Append on Agent Proposal |
+| Agent Proposal | OP365 Administrator full access; OP365 User Read at basic level (the proposals of their projects through the access team) |
+| OP365 Cost Visibility (sourcing) | + `op365_evidence` on Agent Proposal |
 | Access team templates on Project | **OP365 Project Manager** (Read, Write, Append, Append To, Share), **OP365 Project Contributor** (Read, Append, Append To: members can log time and materials), **OP365 Project Reader** (Read). Templates are not solution components: the plugin creates them on first use in each environment |
 
 OP365 roles are additive: every internal user also needs the standard **Basic User** role. Assign the Cost Visibility profile to administrators and project managers.

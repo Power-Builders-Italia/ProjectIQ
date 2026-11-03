@@ -57,6 +57,7 @@ The user manuals describe every functional area in depth, with diagrams, step-by
 | Administration: users, security, settings, automations | [EN](docs/en/administration.md) | [IT](docs/it/administration.md) | [FR](docs/fr/administration.md) | [DE](docs/de/administration.md) |
 | Copilot and Cowork: questions in natural language (read-only) | [EN](docs/en/copilot.md) | [IT](docs/it/copilot.md) | [FR](docs/fr/copilot.md) | [DE](docs/de/copilot.md) |
 | Portfolio Agent: ProjectIQ cards in Microsoft 365 Copilot, hours logged and approved, draft projects from documents | [EN](docs/en/portfolio-agent.md) | [IT](docs/it/portfolio-agent.md) | [FR](docs/fr/portfolio-agent.md) | [DE](docs/de/portfolio-agent.md) |
+| Sourcing agent: proposals prepared by the agent and decided by a person, Teams card, Approve / Reject / Retry, roles and setup | [EN](docs/en/sourcing-agent.md) | [IT](docs/it/sourcing-agent.md) | [FR](docs/fr/sourcing-agent.md) | [DE](docs/de/sourcing-agent.md) |
 
 Technical documentation (English): [Development environment setup](docs/dev-environment.md) · [Environments and deployment](docs/dev-environment.md#environments-and-deployment) · [Data model](docs/data-model.md) · [Publishing on Microsoft AppSource](docs/appsource.md).
 

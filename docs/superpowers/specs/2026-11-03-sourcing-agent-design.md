@@ -1,6 +1,6 @@
 # Sourcing agent — design
 
-- Status: draft for review (2026-11-03)
+- Status: foundations built (2026-11-03); this document matches what was built in the foundations pull request
 - Scope: an autonomous **Copilot Studio** agent that works as a Sourcing Manager on ProjectIQ purchasing data, from the approved purchase request to the supplier invoice.
 
 ## 1. Goal and decisions
@@ -69,6 +69,7 @@ flowchart TB
 | Agent identity | Application user **ProjectIQ Sourcing Agent** with role *OP365 Sourcing Agent*: reads, creates proposals, notifies suppliers; never writes business tables, never decides |
 | No drafts | The agent does not create draft RFQs or orders. On approval `DecideAgentProposal` runs the whole chain (e.g. `CreateRfq` → apply the invitation list of the payload → `SendRfq`), so a rejected proposal leaves nothing behind |
 | Execution | `DecideAgentProposal` checks the decider, then calls the target Custom API with `IOrganizationServiceFactory.CreateOrganizationService(deciderId)`: status rules, `EnsureManager`, `IsSecondLevelApprover` and auditing apply to the person who approved |
+| Failure | A failing inner action throws and rolls back the **whole** `DecideAgentProposal` call, so the proposal cannot be marked Failed by the call itself and stays Pending. The caller (card flow, app command) records the failure with `op365_RecordProposalError`: Pending → Failed with the message; Retry returns it to Pending |
 | Idempotency | One open proposal per `DedupKey` (`table:id:action`), enforced by plugin |
 | Calculation errors | An analysis Custom API that fails produces a Log row with the error and no proposal; the agent never falls back to computing numbers itself |
 
@@ -153,6 +154,7 @@ Active: Pending, Open, Failed. Inactive: Executed, Rejected, Expired, Superseded
 | `op365_NotifySupplier` | Account | Sends a supplier template (RFQ Reminder, Order Delay, Portal Invitation) regarding a record; output Sent |
 | `op365_DecideAgentProposal` | Agent proposal | Inputs Approve, Note, DecidedBy (optional); outputs Status, ResultId |
 | `op365_RetryAgentProposal` | Agent proposal | Failed → Pending |
+| `op365_RecordProposalError` | Unbound (ProposalId, Error) | Marks a proposal **Failed** with the error after an approved action failed. Allowed to the agent user and to whoever can decide the proposal (admins included) |
 | `op365_ExpireAgentProposals` | Unbound | Pending past ExpiresOn → Expired; output Count |
 
 Analysis Custom APIs return spend and quote prices only when the caller has the *OP365 Cost Visibility* profile; they never return IBAN or hourly costs.
@@ -167,7 +169,7 @@ Analysis Custom APIs return spend and quote prices only when the caller has the 
 | Event: new supplier account not on the portal | 10 |
 | Daily 07:00 (after *Daily document expiry* at 06:00) | 3 (sent RFQs past the deadline), 4, 5, 7, 8 |
 | Weekly, Monday | 9, 10 |
-| Daily flow (deterministic, no agent) | `op365_ExpireAgentProposals` |
+| Daily 06:30 flow (deterministic, no agent) | `op365_ExpireAgentProposals` |
 
 ```mermaid
 sequenceDiagram
@@ -179,16 +181,20 @@ sequenceDiagram
     AG->>DV: analysis Custom API → Evidence
     AG->>DV: create Agent Proposal (Pending, Rationale, Payload)
     DV-->>FL: row added, Kind = Proposal
+    DV->>PM: in-app notification (FYI, plugin)
     FL->>B: adaptive card in op365_SourcingApprovalTeam
-    FL->>PM: in-app notification (FYI)
     B->>FL: Approve / Reject + note
     FL->>DV: DecideAgentProposal(Approve, Note, DecidedBy)
     DV->>DV: caller = op365_SourcingAgentUser? decider allowed?
     DV->>DV: target still valid? else Superseded
     DV->>DV: run target Custom API impersonating the decider
     DV-->>FL: Executed + ResultId, or Failed + Error
-    FL->>B: update the card (outcome and link)
+    FL->>B: message in the channel (outcome, or the error)
 ```
+
+If `DecideAgentProposal` fails after an Approve, the flow calls `op365_RecordProposalError` (the proposal becomes Failed) and posts the error in the channel. A Reject without a note is refused by the API and is not recorded: the proposal stays Pending.
+
+The in-app notification (FYI) to the project managers is sent by the plugin `AgentProposalNotify` when the proposal is created, not by the flow.
 
 Deciding from the app calls `DecideAgentProposal` directly with the person as caller; a later click on the Teams card gets "This proposal has already been decided."
 
@@ -197,7 +203,7 @@ Deciding from the app calls `DecideAgentProposal` directly with the person as ca
 | Role | Privileges |
 |---|---|
 | **OP365 Buyer** (new) | Organization Read on Project and its child tables; Organization full access on purchase requests, RFQs, invitations, quotes, orders, goods receipts, supplier accounts and contacts; supplier invoices Read and Append To; Agent Proposal Organization Read and Write. Additive to Basic User; assign *OP365 Cost Visibility* |
-| **OP365 Sourcing Agent** (new, application user only) | Organization Read on master data, project and purchasing tables; Create on Agent Proposal; *OP365 Cost Visibility* (needed for spend analysis) |
+| **OP365 Sourcing Agent** (new, application user only) | Organization Read on master data, project and purchasing tables; Create on Agent Proposal; Read and Append To on the lookup targets of the proposal (project, purchase request, RFQ, invitation, order, supplier invoice, account), needed to set the lookups; *OP365 Cost Visibility* (needed for spend analysis) |
 | OP365 User | Agent Proposal at User level: sees the proposals of their projects through the access team (parental relationship) |
 | OP365 Administrator | Full access |
 
@@ -207,7 +213,7 @@ Code changes:
 |---|---|
 | `Purchasing.EnsureManager` | Admin, project manager **or OP365 Buyer** (`Rules.IsBuyer`) |
 | `DecideSupplierInvoice` | None: invoices stay with the Purchasing Approver or an administrator |
-| `DecideAgentProposal` | `DecidedBy` accepted only when the caller is `op365_SourcingAgentUser`; the decider must be allowed for the action type; then impersonation |
+| `DecideAgentProposal` | `DecidedBy` accepted only when the caller is `op365_SourcingAgentUser` (checked before the user name is looked up); the decider must be allowed for the action type; then impersonation. Acknowledging an insight requires admin, buyer or project manager of the project. Source via RFQ / Direct Order proposals become Superseded also when the purchase request already has a non-cancelled RFQ or purchase order |
 | Agent Proposal | Not exposed on the supplier portal (no table permission) |
 
 ## 7. ALM and tests

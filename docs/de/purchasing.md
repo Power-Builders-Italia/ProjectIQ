@@ -41,11 +41,12 @@ Nummern werden beim Speichern automatisch vergeben: Bedarfsanforderungen `PR-000
 | Bis zur Schwelle genehmigen / ablehnen | Der Projektleiter (aktueller Genehmiger), jeder Manager des Projekts, ein Administrator |
 | Über der Schwelle genehmigen / ablehnen (zweite Stufe) | Der in den [Umgebungsvariablen](administration.md#unternehmenseinstellungen) festgelegte **Purchasing Approver** oder ein Administrator |
 | Eine Anforderung stornieren | Der Anforderer, ein Manager des Projekts, ein Administrator |
-| Angebotsanfragen und Bestellungen anlegen, versenden, vergeben, Bestellstatus ändern | Ein Manager des Projekts, ein Administrator |
+| Angebotsanfragen und Bestellungen anlegen, versenden, vergeben, Bestellstatus ändern | Ein Manager des Projekts, ein Benutzer mit der Rolle **OP365 Buyer**, ein Administrator |
 | Wareneingänge buchen | Ein Manager oder Contributor des Projekts, ein Administrator |
 | Lieferantenrechnungen genehmigen / ablehnen | Der Purchasing Approver, ein Administrator |
+| Über einen Vorschlag des [Beschaffungsagenten](sourcing-agent.md#wer-macht-was) entscheiden | Je nach Vorschlag: ein Einkäufer, ein Manager des Projekts oder ein Administrator; Rechnungsvorschläge nur der Purchasing Approver oder ein Administrator |
 
-„Administrator“ bedeutet ein Benutzer mit der Rolle **OP365 Administrator** oder **System Administrator**.
+„Administrator“ bedeutet ein Benutzer mit der Rolle **OP365 Administrator** oder **System Administrator**. Die Rolle **OP365 Buyer** ist für die Personen, die den Einkauf des Unternehmens führen: Ein Einkäufer kann in **jedem** Projekt Angebotsanfragen anlegen, versenden, vergeben und stornieren, Bestellungen anlegen, den Bestellstatus ändern sowie Bedarfsanforderungen und Wareneingänge stornieren, ohne Mitglied des Projekts zu sein. Eine abgelehnte Aktion zeigt „Only a manager of the project or a buyer can ...“. Einkäufer können nicht über Lieferantenrechnungen entscheiden (Funktionstrennung).
 
 Alle Aktionen sind **Schaltflächen in der Befehlsleiste** der Formulare. Jede Schaltfläche ist nur in den Status aktiv, in denen sie gilt, und jede Aktion fragt nach einer Bestätigung.
 

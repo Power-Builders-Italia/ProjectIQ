@@ -54,6 +54,33 @@ The same script creates the connection reference `op365_sharepoint` (SharePoint,
 
 After a solution import check that plugin steps are enabled: an interrupted import can leave them disabled.
 
+## Sourcing agent
+
+Foundations of the [sourcing agent](en/sourcing-agent.md) ([ADR 0003](adr/0003-sourcing-agent-proposals.md)). Order in Dev: `python3 tools/dataverse/sourcing_agent.py` (table `op365_agentproposal`, columns, status reasons, Evidence in the **OP365 Cost Visibility** profile, roles **OP365 Buyer** and **OP365 Sourcing Agent**, views, form, Agent Proposals subgrid on the Project form), `plugins.py` (steps `AgentProposalValidate`, `AgentProposalNotify` and the Custom APIs `op365_DecideAgentProposal`, `op365_RetryAgentProposal`, `op365_ExpireAgentProposals`, `op365_RecordProposalError`), `settings_env.py` (the eight `op365_Sourcing*` variables), `translations.py`, `ribbon.py` (commands Approve, Reject, Retry, Acknowledge on the proposal form; rerun it after the table has been exported, because it skips tables without an entity folder) and `flows.py` (connection reference `op365_teams` and the flows **Agent proposal approval** and **Daily agent proposal expiry**, off).
+
+Manual steps, once per environment (the same as the [Administration](en/administration.md#setting-up-the-sourcing-agent) checklist, with the technical details):
+
+1. **Application user.** An Entra app registration with a client secret, added as application user (name **ProjectIQ Sourcing Agent**) with the role **OP365 Sourcing Agent** and the **OP365 Cost Visibility** profile. Its **User Name** goes in `op365_SourcingAgentUser`: `DecideAgentProposal` accepts the decider (`DecidedBy`) only from that caller.
+2. **Connections.** A Microsoft Teams connection for `op365_teams` (a service account that is a member of the team) and a Dataverse connection owned by the application user for the approval flow; share them with the deployment application user (*Can use*). In Test, `deployment/test.settings.json` maps the references like `op365_dataverse` (see [Cloud flows](#cloud-flows)).
+3. **Settings.** `op365_SourcingApprovalTeam` = `<team id>|<channel id>`; the other variables have defaults; `op365_SourcingAgentEnabled` stays No until the agent is published.
+4. **Flows.** Turn **Agent proposal approval** and **Daily agent proposal expiry** (06:30, W. Europe) on.
+
+Failure handling: an approved action that fails rolls back the whole `op365_DecideAgentProposal` call, so the proposal stays Pending. The caller (card flow, the app command in `purchasing.js`) then calls `op365_RecordProposalError`, which marks it Failed; `op365_RetryAgentProposal` returns it to Pending.
+
+### Smoke test
+
+`python3 tools/dataverse/sourcing_smoke.py` creates its own data in Dev (customer, suppliers, project, requests, RFQs, invoice, proposals), runs 12 cases (decision as the buyer and as the agent with `DecidedBy`, forged `DecidedBy`, double and concurrent decision, superseded targets, failure with `op365_RecordProposalError` and Retry, invoice approval by a buyer, duplicate proposal, Log created as Done, expiry) and deletes the data at the end, also after a failure. It needs, besides `PAC_*` (an admin application user):
+
+| Variable | Meaning |
+|---|---|
+| `SOURCING_AGENT_CLIENT_ID`, `SOURCING_AGENT_CLIENT_SECRET` | The app registration of the application user set in `op365_SourcingAgentUser` |
+| `SOURCING_TEST_BUYER` | User Name, full name or e-mail of an enabled user with the **OP365 Buyer** role who is not an administrator, Purchasing Approver or project manager of the test project |
+| `SOURCING_TEST_OTHER` | A second, different enabled user (target of the forged `DecidedBy`) |
+
+A token cannot sign in as a person, so "as the buyer" uses the impersonation header (`MSCRMCallerID`) on the admin application user, which therefore needs the privilege `prvActOnBehalfOfAnotherUser` (for example the Delegate role).
+
+Exit codes: **0** every case passed; **1** at least one failed; **2** no failure but at least one case skipped. Case 2 is expected today for the expiry case: **Expires On** is set by the create plugin and cannot be edited, so the script cannot make a proposal overdue and reports SKIP. Check the expiry by hand: back-date **Expires On** of a test proposal with an admin tool, run **Daily agent proposal expiry** (or call `op365_ExpireAgentProposals`) and confirm the proposal is Expired.
+
 ## Copilot and Work IQ
 
 `tools/dataverse/workiq.py` prepares the read-only exposure of ProjectIQ to Microsoft Copilot and Copilot Cowork (Business Applications in Work IQ, preview). Design and decisions: [ADR 0001](adr/0001-copilot-work-iq-read-only.md). User and admin guide: [Copilot and Cowork](en/copilot.md).

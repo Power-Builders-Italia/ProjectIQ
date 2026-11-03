@@ -41,11 +41,12 @@ I numeri vengono assegnati automaticamente al salvataggio: richieste d'acquisto 
 | Approvare / respingere fino alla soglia | Il project manager (approvatore corrente), qualunque Manager del progetto, un amministratore |
 | Approvare / respingere sopra la soglia (secondo livello) | Il **Purchasing Approver** indicato nelle [variabili d'ambiente](administration.md#impostazioni-aziendali), o un amministratore |
 | Annullare una richiesta | Il richiedente, un Manager del progetto, un amministratore |
-| Creare RdO e ordini, inviare, aggiudicare, cambiare stato agli ordini | Un Manager del progetto, un amministratore |
+| Creare RdO e ordini, inviare, aggiudicare, cambiare stato agli ordini | Un Manager del progetto, un utente con il ruolo **OP365 Buyer**, un amministratore |
 | Registrare entrate merci | Un Manager o Contributor del progetto, un amministratore |
 | Approvare / respingere fatture fornitori | Il Purchasing Approver, un amministratore |
+| Decidere una proposta dell'[agente acquisti](sourcing-agent.md#chi-fa-cosa) | Dipende dalla proposta: un buyer, un Manager del progetto o un amministratore; le proposte di fattura solo il Purchasing Approver o un amministratore |
 
-"Amministratore" indica un utente con il ruolo **OP365 Administrator** o **System Administrator**.
+"Amministratore" indica un utente con il ruolo **OP365 Administrator** o **System Administrator**. Il ruolo **OP365 Buyer** è per chi gestisce gli acquisti dell'azienda: un buyer può creare, inviare, aggiudicare e annullare RdO, creare ordini, cambiare lo stato degli ordini e annullare richieste d'acquisto ed entrate merci su **ogni** progetto, senza esserne membro. Un'azione rifiutata mostra "Only a manager of the project or a buyer can ...". I buyer non possono decidere le fatture fornitori (separazione dei compiti).
 
 Tutte le azioni sono **pulsanti nella barra dei comandi** dei form. Ogni pulsante è attivo solo negli stati in cui ha senso, e ogni azione chiede conferma.
 
