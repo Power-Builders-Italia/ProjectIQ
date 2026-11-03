@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -31,6 +32,20 @@ namespace OpenProject365.Plugins
 
     public static class Proposals
     {
+        /// <summary>The Custom APIs op365_DecideAgentProposal runs for an approved proposal.</summary>
+        public static readonly string[] ActionApis =
+            { "op365_CreateRfq", "op365_SendRfq", "op365_CreatePurchaseOrder", "op365_AwardRfq", "op365_DecideSupplierInvoice", "op365_InviteToPortal" };
+
+        /// <summary>
+        /// True when an operation whose pipeline contains <paramref name="parentMessage"/> counts as running inside one of
+        /// <paramref name="messages"/>. A Custom API that a plugin calls (op365_DecideAgentProposal running op365_SendRfq) is
+        /// not in the ParentContext chain of the operations it makes: they show the calling Custom API instead. Every write made
+        /// while op365_DecideAgentProposal runs an action comes from one of the ActionApis, so it stands for all of them.
+        /// </summary>
+        public static bool Covers(string parentMessage, string[] messages) =>
+            Array.IndexOf(messages, parentMessage) >= 0
+            || (parentMessage == "op365_DecideAgentProposal" && messages.Any(m => Array.IndexOf(ActionApis, m) >= 0));
+
         // Kind
         public const int Proposal = 365000000;
         public const int Insight = 365000001;

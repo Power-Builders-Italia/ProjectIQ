@@ -170,7 +170,7 @@ def propose(pr=None, rfq=None, inv=None, invoice=None, project=None, action=A_SO
 
 
 def proposal(pid):
-    return get('op365_agentproposals', pid, 'statuscode,statecode,op365_resultid,op365_error,op365_decisionnote')
+    return get('op365_agentproposals', pid, 'statuscode,statecode,op365_resultid,op365_error,op365_decisionnote,_op365_decidedbyid_value')
 
 
 def approve(pid, sess=None, caller=None, decided_by=None, note=None):
@@ -188,7 +188,7 @@ def payload(*suppliers, days=7):
 
 
 def rfqs_of(pr):
-    return rows('op365_rfqs', f'_op365_purchaserequestid_value eq {pr}', 'op365_rfqid,statuscode,_createdby_value')
+    return rows('op365_rfqs', f'_op365_purchaserequestid_value eq {pr}', 'op365_rfqid,statuscode')
 
 
 def expect_error(r, message):
@@ -240,7 +240,7 @@ try:
     # ---------- 1. approve Source via RFQ as the buyer (app path) ----------
     pr1 = pid1 = None
 
-    @case('Approve Source via RFQ as the buyer: Executed, RFQ Sent with two invitations, created by the buyer')
+    @case('Approve Source via RFQ as the buyer: Executed, RFQ Sent with two invitations, decided by the buyer')
     def _():
         global pr1, pid1
         pr1 = make_pr('Smoke 1')
@@ -256,30 +256,33 @@ try:
             return f'proposal statuscode {p["statuscode"]}, expected Executed'
         if not rfq or p['op365_resultid'] != rfq:
             return f'ResultId {rfq} does not match the proposal result {p["op365_resultid"]}'
-        h = get('op365_rfqs', rfq, 'statuscode,_createdby_value,_op365_purchaserequestid_value')
+        h = get('op365_rfqs', rfq, 'statuscode,_op365_purchaserequestid_value')
         n = len(rows('op365_rfqinvitations', f'_op365_rfqid_value eq {rfq}', 'op365_rfqinvitationid'))
         if h['statuscode'] != RFQ_SENT or n != 2:
             return f'RFQ statuscode {h["statuscode"]} with {n} invitations, expected Sent with 2'
-        if h['_createdby_value'] != BUYER:
-            return f'RFQ created by {h["_createdby_value"]}, expected the buyer {BUYER}'
+        # the Custom APIs write with the SYSTEM service, so the RFQ does not show the buyer: the proposal records the decider,
+        # and the inner APIs check the decider's rights (case 12: an unentitled responder is refused)
+        if p['_op365_decidedbyid_value'] != BUYER:
+            return f'proposal decided by {p["_op365_decidedbyid_value"]}, expected the buyer {BUYER}'
 
     # ---------- 2. Teams path: the agent client decides with DecidedBy = buyer e-mail ----------
-    @case('Teams path: agent client with DecidedBy = buyer e-mail, RFQ created by the buyer and not by the agent')
+    @case('Teams path: agent client with DecidedBy = buyer e-mail, Executed, one RFQ, decided by the buyer and not by the agent')
     def _():
         pr = make_pr('Smoke 2')
         pid = propose(pr=pr, project=prj, payload=payload(sup1, sup2))
         r = approve(pid, sess=AGENT, decided_by=BUYER_MAIL)
         if not r.ok:
             return f'decide failed: {err(r)}'
-        if proposal(pid)['statuscode'] != ST_EXECUTED:
+        p = proposal(pid)
+        if p['statuscode'] != ST_EXECUTED:
             return 'proposal not Executed'
         rf = rfqs_of(pr)
         if len(rf) != 1:
             return f'{len(rf)} RFQs for the request, expected 1'
-        if rf[0]['_createdby_value'] == agent_id:
-            return 'RFQ created by the agent'
-        if rf[0]['_createdby_value'] != BUYER:
-            return f'RFQ created by {rf[0]["_createdby_value"]}, expected the buyer'
+        if p['_op365_decidedbyid_value'] == agent_id:
+            return 'proposal decided by the agent'
+        if p['_op365_decidedbyid_value'] != BUYER:
+            return f'proposal decided by {p["_op365_decidedbyid_value"]}, expected the buyer'
 
     # ---------- 3 + 8. forged DecidedBy, then duplicate on the same (still Pending) target ----------
     pr3 = pid3 = None
@@ -469,12 +472,13 @@ try:
             return 'an RFQ was created'
 finally:
     left = []
+    refused = []   # deletes refused while their parent was still there: the project delete usually removes them by cascade
 
     def drop(es, id_):
         try:
             r = S.delete(API + f'{es}({id_})')
             if r.status_code >= 300 and r.status_code != 404:
-                left.append(f'{es}({id_}): {r.status_code} {err(r)[:120]}')
+                refused.append((es, id_, f'{es}({id_}): {r.status_code} {err(r)[:120]}'))
         except Exception as ex:  # noqa: BLE001
             left.append(f'{es}({id_}): {ex}')
 
@@ -528,6 +532,12 @@ finally:
     for id_ in (sup1, sup2, cust):
         if id_:
             safe(f'account {id_}', drop, 'accounts', id_)
+    for es, id_, message in refused:
+        try:
+            if S.get(API + f'{es}({id_})?$select=createdon').status_code != 404:
+                left.append(message)
+        except Exception as ex:  # noqa: BLE001
+            left.append(f'{message} (check failed: {ex})')
     if left:
         print('WARNING: left behind in Dev (delete by hand):')
         for x in left:

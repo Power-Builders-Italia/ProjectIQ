@@ -8,6 +8,11 @@ public class ProposalTests
     private static readonly Guid B = new Guid("bbbbbbbb-0000-0000-0000-000000000002");
     private static readonly Guid C = new Guid("cccccccc-0000-0000-0000-000000000003");
 
+    [Fact] public void Covers_SameMessage() => Assert.True(Proposals.Covers("op365_SendRfq", new[] { "op365_CreateRfq", "op365_SendRfq" }));
+    [Fact] public void Covers_DecideStandsForItsActionApis() => Assert.True(Proposals.Covers("op365_DecideAgentProposal", new[] { "op365_SendRfq", "op365_CancelRfq" }));
+    [Fact] public void Covers_DecideNotForOtherApis() => Assert.False(Proposals.Covers("op365_DecideAgentProposal", new[] { "op365_RegisterGoodsReceipt", "op365_CancelGoodsReceipt" }));
+    [Fact] public void Covers_OtherMessage() => Assert.False(Proposals.Covers("Update", new[] { "op365_SendRfq" }));
+
     [Fact] public void DedupKey_IsTableIdAction() =>
         Assert.Equal("op365_rfq:0f8fad5b-d9cb-469f-a165-70867728950e:365000002",
             Proposals.DedupKey("op365_rfq", new Guid("0F8FAD5B-D9CB-469F-A165-70867728950E"), Proposals.AwardRfq));
