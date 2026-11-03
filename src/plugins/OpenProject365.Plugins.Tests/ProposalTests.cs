@@ -50,4 +50,38 @@ public class ProposalTests
         Assert.Equal(Proposals.Pending, Proposals.InitialStatus(Proposals.Proposal));
         Assert.Equal(Proposals.Open, Proposals.InitialStatus(Proposals.Insight));
         Assert.Equal(Proposals.Done, Proposals.InitialStatus(Proposals.Log)); }
+    [Fact] public void ResolveDecider_EmptyDecidedBy_Throws() =>
+        Assert.Equal("The user who decided is not a ProjectIQ user.",
+            Assert.Throws<InvalidOperationException>(() => Proposals.ResolveDecider(B, B, Guid.Empty)).Message);
+    [Fact] public void ResolveDeciderByName_UnknownUser_Throws() =>
+        Assert.Equal("The user who decided is not a ProjectIQ user.",
+            Assert.Throws<InvalidOperationException>(() => Proposals.ResolveDecider(B, B, "nobody@contoso.com", n => null)).Message);
+    [Fact] public void ResolveDeciderByName_ForgedCaller_ThrowsBeforeLookup() =>
+        Assert.Equal("Only the sourcing agent can decide on behalf of another user.",
+            Assert.Throws<InvalidOperationException>(() => Proposals.ResolveDecider(A, B, "c@contoso.com",
+                n => throw new Exception("lookup must not run"))).Message);
+    [Fact] public void ResolveDeciderByName_AgentAndBlank() {
+        Assert.Equal(C, Proposals.ResolveDecider(B, B, " c@contoso.com ", n => n == "c@contoso.com" ? C : (Guid?)null));
+        Assert.Equal(A, Proposals.ResolveDecider(A, null, "  ", n => C)); }
+    [Fact] public void Retry_OnlyFromFailed() {
+        Assert.Equal(Proposals.Pending, Proposals.Retry(Proposals.Failed));
+        Assert.Equal("Only failed proposals can be retried.", Assert.Throws<InvalidOperationException>(() => Proposals.Retry(Proposals.Executed)).Message); }
+    [Fact] public void RecordError_OnlyBeforeDecision() {
+        Assert.Equal(Proposals.Failed, Proposals.RecordError(Proposals.Pending));
+        Assert.Equal(Proposals.Failed, Proposals.RecordError(Proposals.Failed));
+        Assert.Throws<InvalidOperationException>(() => Proposals.RecordError(Proposals.Executed)); }
+    [Fact] public void ErrorText_DefaultsAndTruncates() {
+        Assert.Equal("Unknown error.", Proposals.ErrorText(" "));
+        Assert.Equal(2000, Proposals.ErrorText(new string('x', 3000)).Length); }
+    [Fact] public void InvoiceNote_DecisionThenStoredThenPayload() {
+        Assert.Equal("now", Proposals.InvoiceNote("now", "stored", "{\"note\":\"agent\"}"));
+        Assert.Equal("stored", Proposals.InvoiceNote(" ", "stored", "{\"note\":\"agent\"}"));
+        Assert.Equal("agent", Proposals.InvoiceNote(null, null, "{\"note\":\"agent\"}")); }
+    [Fact] public void DefaultName_LabelAndTarget() {
+        Assert.Equal("Award RFQ \u2013 RFQ-00012", Proposals.DefaultName(Proposals.AwardRfq, "RFQ-00012"));
+        Assert.Equal("New Supplier Needed", Proposals.DefaultName(Proposals.NewSupplierNeeded, null));
+        Assert.Equal(400, Proposals.DefaultName(Proposals.DirectOrder, new string('x', 500)).Length); }
+    [Fact] public void TargetLookups_RequestFirstProjectLast() {
+        Assert.Equal("op365_purchaserequestid", Proposals.TargetLookups[0][0]);
+        Assert.Equal("op365_project", Proposals.TargetLookups[Proposals.TargetLookups.Length - 1][1]); }
 }

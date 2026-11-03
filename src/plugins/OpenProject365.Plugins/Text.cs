@@ -40,6 +40,10 @@ namespace OpenProject365.Plugins
             new[] { "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal.", "Verwenden Sie Approve, Reject, Retry oder Acknowledge, um den Status eines Agentenvorschlags zu ändern.", "Utilisez Approve, Reject, Retry ou Acknowledge pour modifier le statut d'une proposition de l'agent.", "Usa Approve, Reject, Retry o Acknowledge per modificare lo stato di una proposta dell'agente." },
             new[] { "An agent proposal cannot be changed after it is created.", "Ein Agentenvorschlag kann nach dem Erstellen nicht mehr geändert werden.", "Une proposition de l'agent ne peut plus être modifiée après sa création.", "Una proposta dell'agente non può essere modificata dopo la creazione." },
             new[] { "An open proposal for the same action already exists.", "Für dieselbe Aktion gibt es bereits einen offenen Vorschlag.", "Une proposition ouverte existe déjà pour la même action.", "Esiste già una proposta aperta per la stessa azione." },
+            new[] { "The user who decided is not a ProjectIQ user.", "Der Benutzer, der entschieden hat, ist kein ProjectIQ-Benutzer.", "L'utilisateur qui a statué n'est pas un utilisateur ProjectIQ.", "L'utente che ha deciso non è un utente ProjectIQ." },
+            new[] { "Set the Kind and the Action Type of the agent proposal.", "Legen Sie Art und Aktionstyp des Agentenvorschlags fest.", "Renseignez le Type et le Type d’action de la proposition de l'agent.", "Imposta Tipo e Tipo di azione della proposta dell'agente." },
+            new[] { "The proposal has no invitation to award.", "Der Vorschlag enthält keine Einladung für die Vergabe.", "La proposition n'a pas d'invitation à attribuer.", "La proposta non ha un invito da aggiudicare." },
+            new[] { "The proposal has no contact to invite.", "Der Vorschlag enthält keinen einzuladenden Kontakt.", "La proposition n'a pas de contact à inviter.", "La proposta non ha un contatto da invitare." },
             new[] { "Only a manager or contributor of the project can {0}.", "Nur ein Projektleiter oder Mitwirkender des Projekts kann {0}.", "Seul un chef de projet ou un contributeur du projet peut {0}.", "Solo un capo commessa o un collaboratore della commessa può {0}." },
             new[] { "The project is closed.", "Das Projekt ist abgeschlossen.", "Le projet est clôturé.", "La commessa è chiusa." },
             new[] { "{0} is not an active supplier.", "{0} ist kein aktiver Lieferant.", "{0} n'est pas un fournisseur actif.", "{0} non è un fornitore attivo." },
@@ -129,6 +133,7 @@ namespace OpenProject365.Plugins
             new[] { "Only supplier documents pending review can be approved or rejected.", "Nur Lieferantendokumente in Prüfung können genehmigt oder abgelehnt werden.", "Seuls les documents fournisseur en attente d'examen peuvent être approuvés ou rejetés.", "Si possono approvare o rifiutare solo documenti fornitore in attesa di revisione." },
 
             // ----- notifications
+            new[] { "New agent proposal", "Neuer Agentenvorschlag", "Nouvelle proposition de l'agent", "Nuova proposta dell'agente" },
             new[] { "Supplier document to review", "Lieferantendokument zu prüfen", "Document fournisseur à examiner", "Documento fornitore da revisionare" },
             new[] { "{0} sent a document to review: {1}.", "{0} hat ein Dokument zur Prüfung gesendet: {1}.", "{0} a envoyé un document à examiner : {1}.", "{0} ha inviato un documento da revisionare: {1}." },
             new[] { "Record your hours", "Erfassen Sie Ihre Stunden", "Saisissez vos heures", "Registra le tue ore" },

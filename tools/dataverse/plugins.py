@@ -151,6 +151,10 @@ STEPS = [
   ('WbsNodeSupplierScope', 'Create', 'op365_wbsnode', POST, None, None),
   ('WbsNodeSupplierScope', 'Update', 'op365_wbsnode', POST, 'op365_parentid', 'op365_projectid'),
   ('WbsNodePortalGuard', 'Update', 'op365_wbsnode', PRE, None, None),
+  # sourcing agent: agent proposals (sourcing_agent.py)
+  ('AgentProposalValidate', 'Create', 'op365_agentproposal', PRE, None, None),
+  ('AgentProposalValidate', 'Update', 'op365_agentproposal', PRE, None, 'op365_kind,op365_actiontype,statuscode,op365_dedupkey'),
+  ('AgentProposalNotify', 'Create', 'op365_agentproposal', POST, None, None),
 ]
 
 # Custom APIs: unique name -> class, display name, description, binding table (None = unbound), function,
@@ -224,6 +228,21 @@ APIS = {
       '(daily document expiry flow)', None, False,
       [('Date', 1, True, 'Date; default today in Europe/Rome')],
       [('Count', 7, 'Documents whose expiry status changed'), ('Sent', 7, 'E-mails sent to suppliers')]),
+  # sourcing agent: agent proposals
+  'op365_DecideAgentProposal': ('DecideAgentProposal', 'Decide Agent Proposal',
+      'Approves (runs the proposed action as the person who decided) or rejects a pending agent proposal, or acknowledges an insight',
+      'op365_agentproposal', False,
+      [('Approve', 0, False, 'True to approve, false to reject'), ('Note', 10, True, 'Decision note; required to reject'),
+       ('DecidedBy', 10, True, 'User Name or e-mail of the person who decided; accepted only from the sourcing agent')],
+      [('Status', 7, 'Status reason of the proposal after the decision'), ('ResultId', 10, 'Id of the record created by the action')]),
+  'op365_RetryAgentProposal': ('RetryAgentProposal', 'Retry Agent Proposal',
+      'Moves a failed agent proposal back to Pending so that it can be approved again', 'op365_agentproposal', False, [], []),
+  'op365_ExpireAgentProposals': ('ExpireAgentProposals', 'Expire Agent Proposals',
+      'Expires the pending agent proposals past their Expires On date (daily flow)', None, False,
+      [], [('Count', 7, 'Proposals expired')]),
+  'op365_RecordProposalError': ('RecordProposalError', 'Record Proposal Error',
+      'Marks an agent proposal as Failed with the error of the approved action (card flow and app command)', None, False,
+      [('ProposalId', 12, False, 'Agent proposal'), ('Error', 10, False, 'Error message of the failed action')], []),
 }
 
 

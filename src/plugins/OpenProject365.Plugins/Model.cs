@@ -26,6 +26,7 @@ namespace OpenProject365.Plugins
         public const string SupplierDocument = "op365_supplierdocument";
         public const string SupplierInvoice = "op365_supplierinvoice";
         public const string SupplierInvoiceLine = "op365_supplierinvoiceline";
+        public const string AgentProposal = "op365_agentproposal";
 
         public const string ProjectId = "op365_projectid";
         public const string CustomerId = "op365_customerid";

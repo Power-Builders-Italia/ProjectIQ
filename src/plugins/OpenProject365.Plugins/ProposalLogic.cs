@@ -70,6 +70,29 @@ namespace OpenProject365.Plugins
         public const string UseDecisionActions = "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal.";
         public const string NotEditable = "An agent proposal cannot be changed after it is created.";
         public const string DuplicateOpen = "An open proposal for the same action already exists.";
+        public const string NotAUser = "The user who decided is not a ProjectIQ user.";
+        public const string KindRequired = "Set the Kind and the Action Type of the agent proposal.";
+        public const string NoInvitation = "The proposal has no invitation to award.";
+        public const string NoContact = "The proposal has no contact to invite.";
+        public const string NewProposalTitle = "New agent proposal";
+
+        /// <summary>Lookups of a proposal as (column, table), in the order that picks the target of the dedup key and of the default name.</summary>
+        public static readonly string[][] TargetLookups =
+        {
+            new[] { "op365_purchaserequestid", "op365_purchaserequest" },
+            new[] { "op365_rfqid", "op365_rfq" },
+            new[] { "op365_invitationid", "op365_rfqinvitation" },
+            new[] { "op365_purchaseorderid", "op365_purchaseorder" },
+            new[] { "op365_supplierinvoiceid", "op365_supplierinvoice" },
+            new[] { "op365_supplierid", "account" },
+            new[] { "op365_projectid", "op365_project" },
+        };
+
+        private static readonly string[] ActionLabels =
+        {
+            "Source via RFQ", "Direct Order", "Award RFQ", "Approve Invoice", "Reject Invoice", "Invite Supplier",
+            "Supplier Reminder", "Compliance Alert", "Budget Alert", "Late Delivery", "Consolidation", "New Supplier Needed",
+        };
 
         public static int StateOf(int status)
         {
@@ -177,7 +200,64 @@ namespace OpenProject365.Plugins
         {
             if (!decidedBy.HasValue) return callerId;
             if (!agentUserId.HasValue || agentUserId.Value != callerId) throw new InvalidOperationException(OnlyAgentDecides);
+            if (decidedBy.Value == Guid.Empty) throw new InvalidOperationException(NotAUser);
             return decidedBy.Value;
+        }
+
+        /// <summary>
+        /// The user a decision runs as: the caller, or the user named by DecidedBy (User Name or e-mail) when the caller is the
+        /// sourcing agent. The caller is checked before the name is looked up, so other callers learn nothing about user names.
+        /// </summary>
+        public static Guid ResolveDecider(Guid callerId, Guid? agentUserId, string decidedBy, Func<string, Guid?> findUser)
+        {
+            if (string.IsNullOrWhiteSpace(decidedBy)) return callerId;
+            if (!agentUserId.HasValue || agentUserId.Value != callerId) throw new InvalidOperationException(OnlyAgentDecides);
+            return ResolveDecider(callerId, agentUserId, findUser(decidedBy.Trim()) ?? Guid.Empty);
+        }
+
+        /// <summary>Retry: Failed goes back to Pending; any other status throws.</summary>
+        public static int Retry(int status)
+        {
+            if (status != Failed) throw new InvalidOperationException(OnlyFailedRetry);
+            return Pending;
+        }
+
+        /// <summary>Error of an approved action: a Pending (or already Failed) proposal becomes Failed; a decided one throws.</summary>
+        public static int RecordError(int status)
+        {
+            if (status != Pending && status != Failed) throw new InvalidOperationException(AlreadyDecided);
+            return Failed;
+        }
+
+        /// <summary>Error text as stored (Error column, 2000 characters).</summary>
+        public static string ErrorText(string error)
+        {
+            error = string.IsNullOrWhiteSpace(error) ? "Unknown error." : error.Trim();
+            return error.Length > 2000 ? error.Substring(0, 2000) : error;
+        }
+
+        /// <summary>Note for the supplier invoice decision: the decision note, else the stored one, else the note of the payload.</summary>
+        public static string InvoiceNote(string decisionNote, string storedNote, string payload)
+        {
+            if (!string.IsNullOrWhiteSpace(decisionNote)) return decisionNote;
+            if (!string.IsNullOrWhiteSpace(storedNote)) return storedNote;
+            return ParseNote(payload);
+        }
+
+        /// <summary>English label of the action type (as the choice); empty for unknown values.</summary>
+        public static string ActionLabel(int actionType)
+        {
+            var i = actionType - SourceViaRfq;
+            return i >= 0 && i < ActionLabels.Length ? ActionLabels[i] : "";
+        }
+
+        /// <summary>Default name "{Action Type} – {target}", within the 400 characters of the column.</summary>
+        public static string DefaultName(int actionType, string target)
+        {
+            var label = ActionLabel(actionType);
+            var name = string.IsNullOrWhiteSpace(target) ? label : string.IsNullOrEmpty(label) ? target.Trim() : label + " \u2013 " + target.Trim();
+            if (string.IsNullOrEmpty(name)) name = "Agent proposal";
+            return name.Length > 400 ? name.Substring(0, 400) : name;
         }
 
         private static ProposalJson Read(string json)

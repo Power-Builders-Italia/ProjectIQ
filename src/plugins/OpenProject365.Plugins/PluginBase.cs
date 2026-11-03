@@ -41,13 +41,15 @@ namespace OpenProject365.Plugins
         {
             Execution = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             tracing = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-            var factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            Service = factory.CreateOrganizationService(Execution.UserId);
+            Factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            Service = Factory.CreateOrganizationService(Execution.UserId);
             // null user = SYSTEM: used for totals and access teams, which users cannot write themselves
-            SystemService = factory.CreateOrganizationService(null);
+            SystemService = Factory.CreateOrganizationService(null);
         }
 
         public IPluginExecutionContext Execution { get; }
+        /// <summary>Creates services that run as another user (DecideAgentProposal runs the approved action as the decider).</summary>
+        public IOrganizationServiceFactory Factory { get; }
         public IOrganizationService Service { get; }
         public IOrganizationService SystemService { get; }
 

@@ -18,6 +18,13 @@ public class TextTests
         Assert.NotEqual("This proposal has already been decided.", Text.Translate("This proposal has already been decided.", Text.Column(1040)));
 
     [Fact]
+    public void SourcingAgentMessages_AreTranslated()
+    {
+        Assert.Equal("L'utente che ha deciso non è un utente ProjectIQ.", Text.Translate("The user who decided is not a ProjectIQ user.", Text.Column(1040)));
+        Assert.Equal("Neuer Agentenvorschlag", Text.Translate("New agent proposal", Text.Column(1031)));
+    }
+
+    [Fact]
     public void Translate_PlaceholderValuesAreTranslatedToo()
     {
         Assert.Equal("Seul un chef de projet du projet ou un acheteur peut créer une commande d'achat.",
