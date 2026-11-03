@@ -242,7 +242,9 @@ APIS = {
       [], [('Count', 7, 'Proposals expired')]),
   'op365_RecordProposalError': ('RecordProposalError', 'Record Proposal Error',
       'Marks an agent proposal as Failed with the error of the approved action (card flow and app command)', None, False,
-      [('ProposalId', 12, False, 'Agent proposal'), ('Error', 10, False, 'Error message of the failed action')], []),
+      [('ProposalId', 12, False, 'Agent proposal'), ('Error', 10, False, 'Error message of the failed action'),
+       ('DecidedBy', 10, True, 'User Name or e-mail of the person who approved; accepted only from (and required of) the sourcing agent')],
+      []),
 }
 
 

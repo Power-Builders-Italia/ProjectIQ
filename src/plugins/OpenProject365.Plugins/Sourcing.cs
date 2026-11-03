@@ -43,8 +43,8 @@ namespace OpenProject365.Plugins
 
         /// <summary>
         /// The proposal, read after a write that locks its row: a concurrent decision, retry or expiry waits for this transaction
-        /// and then reads the committed status, so a proposal is never decided twice. The write puts back Expires On, which
-        /// nothing changes after the create, so it changes no data (Error and the status stay as they are).
+        /// and then reads the committed status, so a proposal is never decided twice. The write puts back the current Expires On
+        /// (only the create and Retry set it), so it changes no data (Error and the status stay as they are).
         /// </summary>
         public static Entity Lock(IOrganizationService system, Guid id)
         {
@@ -79,7 +79,7 @@ namespace OpenProject365.Plugins
     /// (Pending, Open or Done), Dedup Key from the first lookup set (request, RFQ, invitation, order, invoice, supplier,
     /// project) and the action type, no second active proposal with the same key, Expires On for proposals, default Name
     /// "{Action Type} – {target}"; the decision columns are set only by the Custom APIs. Update: the status changes only
-    /// through the Custom APIs and only the Decision Note can change (owner changes and the lookups cleared by the delete of
+    /// through the Custom APIs and only the Decision Note can change, while the proposal is active (owner changes and the lookups cleared by the delete of
     /// their target are let through).
     /// </summary>
     public class AgentProposalValidate : PluginBase
@@ -95,7 +95,15 @@ namespace OpenProject365.Plugins
             if (context.Message == "Update")
             {
                 if (context.Changed("statuscode") || context.Changed("statecode")) Purchasing.Fail(Proposals.UseDecisionActions);
-                if (context.ChangesOnly(new[] { "op365_decisionnote" }.Concat(Owner).ToArray())) return;
+                if (context.ChangesOnly(new[] { "op365_decisionnote" }.Concat(Owner).ToArray()))
+                {
+                    // the note belongs to the decision: editable only while the proposal is active (status from the pre-image)
+                    var pre = context.Pre;
+                    if (context.Changed("op365_decisionnote") && pre != null
+                        && !Proposals.NoteEditable(Sourcing.Option(pre, "statuscode")))
+                        Purchasing.Fail(Proposals.NoteLocked);
+                    return;
+                }
                 // a deleted record clears the lookups that point to it (referential, remove link)
                 if (context.IsInside("Delete") && context.ChangesOnly(Proposals.TargetLookups.Select(l => l[0]).ToArray())) return;
                 Purchasing.Fail(Proposals.NotEditable);
@@ -202,7 +210,7 @@ namespace OpenProject365.Plugins
                 ["op365_decidedbyid"] = new EntityReference("systemuser", decider),
                 ["op365_decidedon"] = DateTime.UtcNow,
             };
-            if (!string.IsNullOrWhiteSpace(note)) decision["op365_decisionnote"] = note;
+            if (!string.IsNullOrWhiteSpace(note)) decision["op365_decisionnote"] = Proposals.NoteText(note);
 
             string resultId = null;
             if (status == Proposals.Executed)
@@ -326,7 +334,10 @@ namespace OpenProject365.Plugins
         }
     }
 
-    /// <summary>Custom API op365_RetryAgentProposal (bound): Failed → Pending and Error cleared, for a user who can decide the proposal.</summary>
+    /// <summary>
+    /// Custom API op365_RetryAgentProposal (bound): Failed → Pending, Error cleared and a new Expires On (today plus the
+    /// expiry days), for a user who can decide the proposal.
+    /// </summary>
     public class RetryAgentProposal : PluginBase
     {
         protected override void Run(LocalContext context)
@@ -336,7 +347,11 @@ namespace OpenProject365.Plugins
             var proposal = Sourcing.Lock(system, id);
             if (!Sourcing.CanDecide(system, proposal, context.CallerId)) Purchasing.Fail(Proposals.CannotDecide);
             var status = Sourcing.Rule(() => Proposals.Retry(Sourcing.Option(proposal, "statuscode")));
-            Sourcing.SetStatus(system, id, status, new Entity(Model.AgentProposal, id) { ["op365_error"] = null });
+            Sourcing.SetStatus(system, id, status, new Entity(Model.AgentProposal, id)
+            {
+                ["op365_error"] = null,
+                ["op365_expireson"] = Proposals.ExpiresOn(DateTime.UtcNow, Settings.SourcingProposalExpiryDays(system)),
+            });
         }
     }
 
@@ -368,10 +383,11 @@ namespace OpenProject365.Plugins
     }
 
     /// <summary>
-    /// Custom API op365_RecordProposalError (unbound). Inputs ProposalId (Guid), Error (string). A Pending (or Failed) proposal
-    /// → Failed with the error of the approved action, which rolled back DecideAgentProposal. Called by the card flow and the
-    /// app command after a failed decision; allowed to administrators, the sourcing agent user and the users who can decide
-    /// the proposal.
+    /// Custom API op365_RecordProposalError (unbound). Inputs ProposalId (Guid), Error (string), DecidedBy (string, User Name
+    /// or e-mail; accepted only from op365_SourcingAgentUser, which must pass it). A Pending (or Failed) proposal → Failed with
+    /// the error of the approved action, which rolled back DecideAgentProposal. Called by the card flow (as the agent, with the
+    /// Teams responder) and the app command after a failed decision; the decider (the caller, or DecidedBy) must be allowed to
+    /// decide the proposal, so an unentitled responder cannot turn a Pending proposal into Failed.
     /// </summary>
     public class RecordProposalError : PluginBase
     {
@@ -380,12 +396,13 @@ namespace OpenProject365.Plugins
             var input = context.Execution.InputParameters;
             var id = input.Contains("ProposalId") && input["ProposalId"] is Guid g ? g : Guid.Empty;
             var error = input.Contains("Error") ? input["Error"] as string : null;
+            var decidedBy = input.Contains("DecidedBy") ? input["DecidedBy"] as string : null;
             var system = context.SystemService;
-            var caller = context.CallerId;
+            var decider = Sourcing.Rule(() => Proposals.ResolveDecider(context.CallerId, Settings.SourcingAgentUser(system), decidedBy,
+                name => Rules.UserByName(system, name)));
             var proposal = Sourcing.Lock(system, id);
-            if (Settings.SourcingAgentUser(system) != caller && !Sourcing.CanDecide(system, proposal, caller))
-                Purchasing.Fail(Proposals.CannotDecide);
-            var status = Sourcing.Rule(() => Proposals.RecordError(Sourcing.Option(proposal, "statuscode")));
+            var canDecide = Sourcing.CanDecide(system, proposal, decider);
+            var status = Sourcing.Rule(() => Proposals.RecordError(Sourcing.Option(proposal, "statuscode"), canDecide));
             Sourcing.SetStatus(system, id, status, new Entity(Model.AgentProposal, id) { ["op365_error"] = Proposals.ErrorText(error) });
         }
     }

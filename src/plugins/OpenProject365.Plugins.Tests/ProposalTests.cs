@@ -63,6 +63,21 @@ public class ProposalTests
     [Fact] public void ResolveDeciderByName_AgentAndBlank() {
         Assert.Equal(C, Proposals.ResolveDecider(B, B, " c@contoso.com ", n => n == "c@contoso.com" ? C : (Guid?)null));
         Assert.Equal(A, Proposals.ResolveDecider(A, null, "  ", n => C)); }
+    [Fact] public void ResolveDeciderByName_AgentWithoutDecidedBy_Throws() =>
+        Assert.Equal("The sourcing agent must give the user who decided.",
+            Assert.Throws<InvalidOperationException>(() => Proposals.ResolveDecider(B, B, " ", n => C)).Message);
+    [Fact] public void RecordError_DeciderMustBeAllowed() {
+        Assert.Equal("You cannot decide this proposal.", Assert.Throws<InvalidOperationException>(() => Proposals.RecordError(Proposals.Pending, false)).Message);
+        Assert.Equal(Proposals.Failed, Proposals.RecordError(Proposals.Pending, true)); }
+    [Fact] public void NoteEditable_OnlyWhileActive() {
+        Assert.True(Proposals.NoteEditable(Proposals.Pending));
+        Assert.True(Proposals.NoteEditable(Proposals.Failed));
+        Assert.False(Proposals.NoteEditable(Proposals.Executed));
+        Assert.False(Proposals.NoteEditable(Proposals.Rejected)); }
+    [Fact] public void NoteText_TruncatesToColumn() {
+        Assert.Equal(2000, Proposals.NoteText(new string('x', 3000)).Length);
+        Assert.Equal("ok", Proposals.NoteText("ok"));
+        Assert.Null(Proposals.NoteText(null)); }
     [Fact] public void Retry_OnlyFromFailed() {
         Assert.Equal(Proposals.Pending, Proposals.Retry(Proposals.Failed));
         Assert.Equal("Only failed proposals can be retried.", Assert.Throws<InvalidOperationException>(() => Proposals.Retry(Proposals.Executed)).Message); }

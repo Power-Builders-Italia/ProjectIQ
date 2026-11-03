@@ -71,6 +71,8 @@ namespace OpenProject365.Plugins
         public const string NotEditable = "An agent proposal cannot be changed after it is created.";
         public const string DuplicateOpen = "An open proposal for the same action already exists.";
         public const string NotAUser = "The user who decided is not a ProjectIQ user.";
+        public const string DeciderRequired = "The sourcing agent must give the user who decided.";
+        public const string NoteLocked = "The Decision Note cannot be changed after the proposal is decided.";
         public const string KindRequired = "Set the Kind and the Action Type of the agent proposal.";
         public const string NoInvitation = "The proposal has no invitation to award.";
         public const string NoContact = "The proposal has no contact to invite.";
@@ -217,10 +219,16 @@ namespace OpenProject365.Plugins
         /// <summary>
         /// The user a decision runs as: the caller, or the user named by DecidedBy (User Name or e-mail) when the caller is the
         /// sourcing agent. The caller is checked before the name is looked up, so other callers learn nothing about user names.
+        /// The agent itself never decides: without DecidedBy its call is refused.
         /// </summary>
         public static Guid ResolveDecider(Guid callerId, Guid? agentUserId, string decidedBy, Func<string, Guid?> findUser)
         {
-            if (string.IsNullOrWhiteSpace(decidedBy)) return callerId;
+            var isAgent = agentUserId.HasValue && agentUserId.Value == callerId;
+            if (string.IsNullOrWhiteSpace(decidedBy))
+            {
+                if (isAgent) throw new InvalidOperationException(DeciderRequired);
+                return callerId;
+            }
             if (!agentUserId.HasValue || agentUserId.Value != callerId) throw new InvalidOperationException(OnlyAgentDecides);
             return ResolveDecider(callerId, agentUserId, findUser(decidedBy.Trim()) ?? Guid.Empty);
         }
@@ -239,11 +247,30 @@ namespace OpenProject365.Plugins
             return Failed;
         }
 
+        /// <summary>As <see cref="RecordError(int)"/>, for a decider who must be allowed to decide the proposal (also when the caller is the agent).</summary>
+        public static int RecordError(int status, bool deciderCanDecide)
+        {
+            if (!deciderCanDecide) throw new InvalidOperationException(CannotDecide);
+            return RecordError(status);
+        }
+
         /// <summary>Error text as stored (Error column, 2000 characters).</summary>
         public static string ErrorText(string error)
         {
             error = string.IsNullOrWhiteSpace(error) ? "Unknown error." : error.Trim();
             return error.Length > 2000 ? error.Substring(0, 2000) : error;
+        }
+
+        /// <summary>The Decision Note can be edited only while the proposal is active (Pending, Open or Failed).</summary>
+        public static bool NoteEditable(int status)
+        {
+            return StateOf(status) == 0;
+        }
+
+        /// <summary>Decision note as stored (Decision Note column, 2000 characters).</summary>
+        public static string NoteText(string note)
+        {
+            return note != null && note.Length > 2000 ? note.Substring(0, 2000) : note;
         }
 
         /// <summary>Note for the supplier invoice decision: the decision note, else the stored one, else the note of the payload.</summary>

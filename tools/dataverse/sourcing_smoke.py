@@ -7,7 +7,8 @@ the exit code is 1 when any case fails. Run it only against Dev: it creates and 
 Cases: approve Source via RFQ as the buyer (app path); decide as the agent client with DecidedBy (Teams path); forged
 DecidedBy; double decision; concurrent double decision; Award RFQ superseded by a hand award; Source via RFQ superseded
 by an open RFQ; failure rolls back, RecordProposalError and Retry; Approve Invoice by a buyer; duplicate open proposal;
-Log created as Done; expiry (reported as SKIP when Expires On cannot be backdated from outside the plugins).
+Log created as Done; unentitled Teams responder (Decide and RecordProposalError refused); expiry (reported as SKIP when
+Expires On cannot be backdated from outside the plugins).
 
 Prerequisites
   * Tasks 3-7 of "Sourcing agent Foundations" are deployed in the target Dev environment (proposal table, plugins and
@@ -16,9 +17,11 @@ Prerequisites
   * PAC_TENANT_ID, PAC_ENVIRONMENT_URL, PAC_CLIENT_ID, PAC_CLIENT_SECRET: the admin application user (see dv.py).
   * SOURCING_AGENT_CLIENT_ID, SOURCING_AGENT_CLIENT_SECRET: the application registration of the sourcing agent, the
     application user set as the sourcing agent user of the environment. It creates the proposals and acts as the agent.
-  * SOURCING_TEST_BUYER: User Name, full name or e-mail of an enabled user with the Purchasing Buyer role who is neither
+  * SOURCING_TEST_BUYER: User Name, full name or e-mail of an enabled user with the OP365 Buyer role who is neither
     an administrator, nor a Purchasing Approver, nor a project manager of the test project.
-  * SOURCING_TEST_OTHER: the same kind of identifier for a second, different enabled user (target of the forged DecidedBy).
+  * SOURCING_TEST_OTHER: the same kind of identifier for a second, different enabled user who cannot decide proposals
+    (no OP365 Buyer role, not an administrator, Purchasing Approver or project manager of the test project): target of the
+    forged DecidedBy and the unentitled Teams responder.
   * A client-credentials token cannot sign in as a person, so "as the buyer" is done with the Dataverse impersonation
     header MSCRMCallerID on the admin application user session. The admin application user must therefore hold the
     prvActOnBehalfOfAnotherUser privilege (e.g. the Delegate role). The plugins see the buyer as the calling user.
@@ -61,6 +64,7 @@ E_DECIDED = 'This proposal has already been decided.'
 E_CANNOT = 'You cannot decide this proposal.'
 E_DUPLICATE = 'An open proposal for the same action already exists.'
 E_NOTE = 'Add a note to reject the proposal.'
+E_DECIDER_REQUIRED = 'The sourcing agent must give the user who decided.'
 
 SKIP = 'SKIP:'
 results = []
@@ -339,7 +343,7 @@ try:
         if proposal(pid)['statuscode'] != ST_PENDING:
             return 'proposal is not Pending after the rolled-back approve'
         msg = err(r)
-        r = unbound('op365_RecordProposalError', {'ProposalId': pid, 'Error': msg}, sess=AGENT)
+        r = unbound('op365_RecordProposalError', {'ProposalId': pid, 'Error': msg, 'DecidedBy': BUYER_MAIL}, sess=AGENT)
         if not r.ok:
             return f'RecordProposalError failed: {err(r)}'
         p = proposal(pid)
@@ -442,6 +446,27 @@ try:
         n = len(rfqs_of(pr))
         if n != 1:
             return f'{n} RFQs for the request, expected 1'
+
+    # ---------- 13. unentitled Teams responder ----------
+    @case('Unentitled Teams responder: agent client with DecidedBy = other user -> Decide and RecordProposalError refused, still Pending')
+    def _():
+        pr = make_pr('Smoke 13')
+        pid = propose(pr=pr, project=prj, payload=payload(sup1, sup2))
+        e = expect_error(approve(pid, sess=AGENT, decided_by=OTHER_MAIL), E_CANNOT)
+        if e:
+            return 'Decide: ' + e
+        e = expect_error(unbound('op365_RecordProposalError', {'ProposalId': pid, 'Error': 'smoke', 'DecidedBy': OTHER_MAIL},
+                                 sess=AGENT), E_CANNOT)
+        if e:
+            return 'RecordProposalError with DecidedBy: ' + e
+        e = expect_error(unbound('op365_RecordProposalError', {'ProposalId': pid, 'Error': 'smoke'}, sess=AGENT), E_DECIDER_REQUIRED)
+        if e:
+            return 'RecordProposalError without DecidedBy: ' + e
+        p = proposal(pid)
+        if p['statuscode'] != ST_PENDING or p['op365_error']:
+            return f'statuscode {p["statuscode"]}, error {p["op365_error"]!r}, expected Pending without error'
+        if rfqs_of(pr):
+            return 'an RFQ was created'
 finally:
     left = []
 
