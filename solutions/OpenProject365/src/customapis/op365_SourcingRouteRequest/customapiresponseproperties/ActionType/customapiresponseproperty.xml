@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="ActionType">
+  <description default="Agent proposal action type to create; 0 when none">
+    <label description="Agent proposal action type to create; 0 when none" languagecode="1033" />
+  </description>
+  <displayname default="ActionType">
+    <label description="ActionType" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SourcingRouteRequest.ActionType</name>
+  <type>7</type>
+</customapiresponseproperty>

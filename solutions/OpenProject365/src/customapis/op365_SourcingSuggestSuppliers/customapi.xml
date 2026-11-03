@@ -1,0 +1,19 @@
+<customapi uniquename="op365_SourcingSuggestSuppliers">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Ranks the suppliers that could serve a purchase request (coverage, price, lead time, answers, documents); read-only">
+    <label description="Ranks the suppliers that could serve a purchase request (coverage, price, lead time, answers, documents); read-only" languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Suggest Suppliers">
+    <label description="Sourcing Suggest Suppliers" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Sourcing Suggest Suppliers</name>
+  <plugintypeid>
+    <plugintypeexportkey>6d641e5d-d2d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

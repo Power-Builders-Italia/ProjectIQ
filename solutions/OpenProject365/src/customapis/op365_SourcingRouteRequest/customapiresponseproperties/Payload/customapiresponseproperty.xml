@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Payload">
+  <description default="JSON payload of the agent proposal">
+    <label description="JSON payload of the agent proposal" languagecode="1033" />
+  </description>
+  <displayname default="Payload">
+    <label description="Payload" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SourcingRouteRequest.Payload</name>
+  <type>10</type>
+</customapiresponseproperty>

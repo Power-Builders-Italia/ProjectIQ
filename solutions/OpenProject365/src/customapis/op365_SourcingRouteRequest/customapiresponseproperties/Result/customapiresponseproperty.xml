@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Result">
+  <description default="Whole analysis as JSON (agent proposal Evidence)">
+    <label description="Whole analysis as JSON (agent proposal Evidence)" languagecode="1033" />
+  </description>
+  <displayname default="Result">
+    <label description="Result" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SourcingRouteRequest.Result</name>
+  <type>10</type>
+</customapiresponseproperty>
