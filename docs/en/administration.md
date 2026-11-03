@@ -172,7 +172,7 @@ Two flows belong to the [sourcing agent](sourcing-agent.md); both are created **
 | **Agent proposal approval** | When a proposal (Kind Proposal) is added | Posts an adaptive card with Approve / Reject in the Teams channel of *Sourcing Approval Team*, waits for the answer, records the decision in the name of the person who answered, and posts the outcome |
 | **Daily agent proposal expiry** | Every day at 06:30 (W. Europe time) | Calls the action *op365_ExpireAgentProposals*: pending proposals past their **Expires On** become Expired |
 
-The approval flow uses the connection reference **op365_teams** (Microsoft Teams) and the Dataverse one. It posts a card for every new proposal even when *Sourcing Agent Enabled* is No. The steps to turn them on are in [Setting up the sourcing agent](#setting-up-the-sourcing-agent).
+The approval flow uses the connection reference **op365_teams** (Microsoft Teams) and its own Dataverse connection reference **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), which acts as the application user of the agent; all the other flows use **op365_dataverse**. It posts a card for every new proposal even when *Sourcing Agent Enabled* is No. The steps to turn them on are in [Setting up the sourcing agent](#setting-up-the-sourcing-agent).
 
 ### What else happens automatically
 
@@ -198,7 +198,7 @@ Do this once per environment, after the solution is installed. The foundations w
 2. **Set *Sourcing Agent User*** to the **User Name** of this application user ([Company settings](#company-settings)). Without it nobody can decide on behalf of a person, so the Teams card cannot work.
 3. **Give the buyers access.** Assign **OP365 Buyer** (in addition to Basic User and OP365 User) and the **OP365 Cost Visibility** profile to the people who decide purchasing proposals. The Purchasing Approver decides invoice proposals.
 4. **Choose the channel.** Create or pick a Teams channel for the cards and set *Sourcing Approval Team* to `<team id>|<channel id>`.
-5. **Create the connections.** A user creates the **Microsoft Teams** connection (a service account that is a member of the team) for the connection reference **op365_teams**, and a **Microsoft Dataverse** connection owned by the application user of step 1 for the approval flow, then links them in the solution (Test and Production: through the deployment settings).
+5. **Create the connections.** A user creates the **Microsoft Teams** connection (a service account that is a member of the team) for the connection reference **op365_teams**, and a **Microsoft Dataverse** connection owned by the application user of step 1 (it signs in as that application user) for the connection reference **op365_dataverse_agent**, then links them in the solution (Test and Production: through the deployment settings). Use that Dataverse connection only for **op365_dataverse_agent** and do not share it with other users: whatever uses it acts as the agent. Never link it to **op365_dataverse**, which the other flows use.
 6. **Turn on** the flows **Agent proposal approval** and **Daily agent proposal expiry** and check their run history the next day.
 7. **Switch the agent on** only when it is published: set *Sourcing Agent Enabled* to Yes. The agent is off by default in every environment, also in the AppSource package.
 
@@ -261,6 +261,6 @@ When IT deploys a new version:
 | Requests above the threshold go to all administrators | Purchasing Approver empty, or not the User Name of an enabled user | Set the [environment variable](#company-settings) |
 | Suppliers see "This area is reserved to suppliers" | Missing Supplier web role or not signed in | Assign the web role to the contact |
 | No card in Teams for a new proposal | Flow **Agent proposal approval** off, Teams connection broken, or *Sourcing Approval Team* empty or wrong | Check the flow, its connections and the setting |
-| The channel shows "Only the sourcing agent can decide on behalf of another user." | *Sourcing Agent User* empty, or not the user that owns the flow's Dataverse connection | Set the User Name of the application user and use its connection |
+| The channel shows "Only the sourcing agent can decide on behalf of another user." | *Sourcing Agent User* empty, or not the user of the connection of **op365_dataverse_agent** | Set the User Name of the application user and link its connection to **op365_dataverse_agent** |
 | "You cannot decide this proposal." | The person lacks the role for that action type | See [Who does what](sourcing-agent.md#who-does-what) |
 | Proposals stay Pending after their date | Flow **Daily agent proposal expiry** off | Turn it on |

@@ -173,7 +173,7 @@ Deux flux appartiennent à l'[agent achats](sourcing-agent.md) ; les deux sont c
 | **Agent proposal approval** | Quand une proposition (Kind Proposal) est ajoutée | Publie une carte adaptative avec Approve / Reject dans le canal Teams de *Sourcing Approval Team*, attend la réponse, enregistre la décision au nom de la personne qui a répondu et publie le résultat |
 | **Daily agent proposal expiry** | Chaque jour à 06:30 (heure d'Europe occidentale) | Appelle l'action *op365_ExpireAgentProposals* : les propositions en attente dont la **Expires On** est dépassée passent à Expired |
 
-Le flux d'approbation utilise la référence de connexion **op365_teams** (Microsoft Teams) et celle de Dataverse. Il publie une carte pour chaque nouvelle proposition, même si *Sourcing Agent Enabled* vaut No. Les étapes pour les activer sont dans [Mettre en place l'agent achats](#mettre-en-place-lagent-achats).
+Le flux d'approbation utilise la référence de connexion **op365_teams** (Microsoft Teams) et sa propre référence de connexion Dataverse, **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), qui agit en tant qu'utilisateur d'application de l'agent ; tous les autres flux utilisent **op365_dataverse**. Il publie une carte pour chaque nouvelle proposition, même si *Sourcing Agent Enabled* vaut No. Les étapes pour les activer sont dans [Mettre en place l'agent achats](#mettre-en-place-lagent-achats).
 
 ### Ce qui se passe aussi automatiquement
 
@@ -199,7 +199,7 @@ Les notifications dans l'application sont activées par défaut dans les nouveau
 2. **Renseignez *Sourcing Agent User*** avec le **User Name** de cet utilisateur d'application ([Paramètres de l'entreprise](#paramètres-de-lentreprise)). Sans cela, personne ne peut décider au nom d'une personne et la carte Teams ne peut pas fonctionner.
 3. **Donnez accès aux acheteurs.** Attribuez **OP365 Buyer** (en plus de Basic User et OP365 User) et le profil **OP365 Cost Visibility** aux personnes qui décident des propositions d'achat. Les propositions de facture sont décidées par le Purchasing Approver.
 4. **Choisissez le canal.** Créez ou choisissez un canal Teams pour les cartes et renseignez *Sourcing Approval Team* avec `<team id>|<channel id>`.
-5. **Créez les connexions.** Un utilisateur crée la connexion **Microsoft Teams** (un compte de service membre de l'équipe) pour la référence de connexion **op365_teams**, et une connexion **Microsoft Dataverse** appartenant à l'utilisateur d'application de l'étape 1 pour le flux d'approbation, puis les lie dans la solution (Test et Production : via les paramètres de déploiement).
+5. **Créez les connexions.** Un utilisateur crée la connexion **Microsoft Teams** (un compte de service membre de l'équipe) pour la référence de connexion **op365_teams**, et une connexion **Microsoft Dataverse** appartenant à l'utilisateur d'application de l'étape 1 (elle se connecte en tant que cet utilisateur d'application) pour la référence de connexion **op365_dataverse_agent**, puis les lie dans la solution (Test et Production : via les paramètres de déploiement). N'utilisez cette connexion Dataverse que pour **op365_dataverse_agent** et ne la partagez pas avec d'autres utilisateurs : tout ce qui l'utilise agit en tant qu'agent. Ne la liez jamais à **op365_dataverse**, qu'utilisent les autres flux.
 6. **Activez** les flux **Agent proposal approval** et **Daily agent proposal expiry** et vérifiez leur historique d'exécution le lendemain.
 7. **Activez l'agent** seulement quand il est publié : réglez *Sourcing Agent Enabled* sur Yes. L'agent est désactivé par défaut dans chaque environnement, y compris dans le package AppSource.
 
@@ -262,6 +262,6 @@ Quand l'informatique déploie une nouvelle version :
 | Les demandes au-dessus du seuil vont à tous les administrateurs | Purchasing Approver vide, ou pas le User Name d'un utilisateur actif | Renseignez la [variable d'environnement](#paramètres-de-lentreprise) |
 | Les fournisseurs voient « This area is reserved to suppliers » | Rôle web Supplier manquant ou non connectés | Attribuez le rôle web au contact |
 | Aucune carte dans Teams pour une nouvelle proposition | Flux **Agent proposal approval** désactivé, connexion Teams rompue, ou *Sourcing Approval Team* vide ou erroné | Vérifiez le flux, ses connexions et le paramètre |
-| Le canal affiche « Only the sourcing agent can decide on behalf of another user. » | *Sourcing Agent User* vide, ou différent de l'utilisateur propriétaire de la connexion Dataverse du flux | Renseignez le User Name de l'utilisateur d'application et utilisez sa connexion |
+| Le canal affiche « Only the sourcing agent can decide on behalf of another user. » | *Sourcing Agent User* vide, ou différent de l'utilisateur de la connexion de **op365_dataverse_agent** | Renseignez le User Name de l'utilisateur d'application et liez sa connexion à **op365_dataverse_agent** |
 | « You cannot decide this proposal. » | La personne n'a pas le rôle pour ce type d'action | Voir [Qui fait quoi](sourcing-agent.md#qui-fait-quoi) |
 | Les propositions restent Pending après leur date | Flux **Daily agent proposal expiry** désactivé | Activez-le |

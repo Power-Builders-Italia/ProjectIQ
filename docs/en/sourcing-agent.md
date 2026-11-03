@@ -50,7 +50,7 @@ Why proposals and not direct actions: purchasing involves money and commitments 
 | **Retry** a failed proposal | Whoever could decide that proposal |
 | **Acknowledge** an insight | An administrator, a user with the **OP365 Buyer** role, a project manager of the insight's project |
 | Create proposals, insights and log rows | The sourcing agent only (its application user) |
-| Change a proposal | Nobody: only the **Decision Note** can be edited. Status changes happen only through the commands |
+| Change a proposal | Nobody: only the **Decision Note** can be edited, while the proposal is Pending, Open or Failed. Status changes happen only through the commands |
 
 "Administrator" means a user with the **OP365 Administrator** or **System Administrator** role. The **OP365 Buyer** role also lets a user do the purchasing actions that were reserved to project managers and administrators (create, send, award and cancel RFQs, create orders, change order status, cancel purchase requests and goods receipts), on every project; see [Purchasing](purchasing.md#who-does-what). The project manager of the proposal's project is informed with an in-app notification when a proposal arrives.
 
@@ -75,8 +75,8 @@ An **Agent Proposal** is one row of the table of the same name. Its **Kind** say
 | **Rationale** | The explanation written by the agent: why it proposes this |
 | **Evidence** | The output of the analysis behind the proposal (JSON). Visible only with the **OP365 Cost Visibility** profile |
 | **Amount**, **Estimated Saving** | Value of the order, award or invoice, and the saving the agent expects |
-| **Expires On** | For proposals: the creation date plus the days of the *Sourcing Proposal Expiry Days* setting (5 by default) |
-| **Decided By**, **Decided On**, **Decision Note** | Who decided, when, and the note. A note is required to reject |
+| **Expires On** | For proposals: the creation date plus the days of the *Sourcing Proposal Expiry Days* setting (5 by default); **Retry** sets it again from the day of the retry |
+| **Decided By**, **Decided On**, **Decision Note** | Who decided, when, and the note (up to 2,000 characters; a longer note is cut). A note is required to reject |
 | **Result Id** | The record created by the approved action (RFQ, purchase order…) |
 | **Error** | The message of the action when it failed |
 
@@ -127,7 +127,7 @@ A **Source via RFQ** or **Direct Order** proposal is also **Superseded** when it
 ### Rules
 
 - **One open proposal per subject.** The agent cannot create a second active (Pending, Open or Failed) proposal for the same record and action: the system refuses with "An open proposal for the same action already exists." Once the first one is decided, expired or superseded, a new one is possible.
-- **Nobody edits a proposal.** Rationale, Evidence, Payload, Kind, Action Type and links are fixed at creation; only the **Decision Note** can change. A direct status change is refused with "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal."
+- **Nobody edits a proposal.** Rationale, Evidence, Payload, Kind, Action Type and links are fixed at creation; only the **Decision Note** can change, and only until the proposal is decided ("The Decision Note cannot be changed after the proposal is decided."). A direct status change is refused with "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal."
 - **Only the commands decide.** The decision, the person and the time are written by the system, never typed.
 - **Proposals expire.** The **Daily agent proposal expiry** flow runs every day at 06:30 (W. Europe time) and moves to **Expired** the Pending proposals whose **Expires On** is before today.
 
@@ -148,7 +148,7 @@ sequenceDiagram
     B->>TM: Approve
     TM->>DV: decision on behalf of the person who answered
     DV->>DV: checks the person, then runs the action as that person
-    DV-->>TM: message "approved by ..." (or the error)
+    DV-->>TM: message with the outcome (or the error)
 ```
 
 ### From Teams
@@ -158,9 +158,9 @@ The **Agent proposal approval** flow posts an **adaptive card** in the Teams cha
 1. Read the card. Open the proposal in ProjectIQ if you want to see the Evidence.
 2. To approve, select **Approve**. The **Note** is optional.
 3. To reject, type a reason in **Note (required to reject)** and select **Reject**.
-4. The channel gets a message: "Proposal ... approved by ..." or "... rejected by ...".
+4. The channel gets a message with the real outcome: "Proposal ...: Executed (decided by ...)." or **Rejected**, or **Superseded (nothing was done)** when the record was no longer in the expected status (see [Life cycle](#life-cycle)).
 
-The decision is recorded for **you**, identified by the e-mail address of your Teams account, and the action runs with **your** rights. The person who answers must therefore be a ProjectIQ user allowed to decide that proposal; otherwise the channel shows the message "You cannot decide this proposal." or "The user who decided is not a ProjectIQ user." and nothing changes.
+The decision is recorded for **you**, identified by the e-mail address of your Teams account, and the action runs with **your** rights. The person who answers must therefore be a ProjectIQ user allowed to decide that proposal; otherwise the channel shows the message "You cannot decide this proposal." or "The user who decided is not a ProjectIQ user." and nothing changes: the proposal stays **Pending** and is not marked Failed.
 
 If the action fails (for example the RFQ cannot be sent), nothing is created, the proposal becomes **Failed** with the reason in **Error**, and the channel shows "Proposal ... not decided: ...". If you reject without a note, the card answers "Add a note to reject the proposal." in the channel and the proposal stays **Pending**: reject it again from the app, with a note.
 
@@ -172,7 +172,7 @@ Open the proposal (from the **Agent Proposals** section of the project, or from 
 |---|---|---|
 | **Approve** | Pending | Asks for confirmation ("Approve this proposal? The agent's action runs with your identity.") and runs the action |
 | **Reject** | Pending | Opens a dialog that requires a note |
-| **Retry** | Failed | After confirmation, moves the proposal back to **Pending** and clears the error |
+| **Retry** | Failed | After confirmation, moves the proposal back to **Pending**, clears the error and sets a new **Expires On** |
 | **Acknowledge** | Open | Marks the insight as **Acknowledged** |
 
 1. Read the **Rationale** and, if you have the profile, the **Evidence**.
@@ -222,8 +222,10 @@ On the project form, the **Agent Proposals** section lists the proposals of that
 | You cannot decide this proposal. | You are not allowed to decide that action type, see [Who does what](#who-does-what) |
 | Only the sourcing agent can decide on behalf of another user. | An attempt to decide in the name of somebody else |
 | The user who decided is not a ProjectIQ user. | The Teams account of the person who answered is not a ProjectIQ user |
+| The sourcing agent must give the user who decided. | A call of the sourcing agent without the person who decided (the agent never decides for itself) |
 | Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal. | A direct status change |
 | An agent proposal cannot be changed after it is created. | An edit of a field other than Decision Note |
+| The Decision Note cannot be changed after the proposal is decided. | An edit of the Decision Note of an Executed, Rejected, Expired, Superseded, Acknowledged or Done row |
 | An open proposal for the same action already exists. | A duplicate proposal |
 | Set the Kind and the Action Type of the agent proposal. | A proposal created without them |
 | The proposal has no invitation to award. | **Award RFQ** without an invitation |

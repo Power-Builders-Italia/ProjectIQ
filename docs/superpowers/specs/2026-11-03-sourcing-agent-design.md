@@ -154,7 +154,7 @@ Active: Pending, Open, Failed. Inactive: Executed, Rejected, Expired, Superseded
 | `op365_NotifySupplier` | Account | Sends a supplier template (RFQ Reminder, Order Delay, Portal Invitation) regarding a record; output Sent |
 | `op365_DecideAgentProposal` | Agent proposal | Inputs Approve, Note, DecidedBy (optional); outputs Status, ResultId |
 | `op365_RetryAgentProposal` | Agent proposal | Failed → Pending |
-| `op365_RecordProposalError` | Unbound (ProposalId, Error) | Marks a proposal **Failed** with the error after an approved action failed. Allowed to the agent user and to whoever can decide the proposal (admins included) |
+| `op365_RecordProposalError` | Unbound (ProposalId, Error, DecidedBy) | Marks a proposal **Failed** with the error after an approved action failed. The decider (the caller, or `DecidedBy` from the agent user, which must pass it) must be allowed to decide the proposal (admins included) |
 | `op365_ExpireAgentProposals` | Unbound | Pending past ExpiresOn → Expired; output Count |
 
 Analysis Custom APIs return spend and quote prices only when the caller has the *OP365 Cost Visibility* profile; they never return IBAN or hourly costs.
@@ -192,7 +192,7 @@ sequenceDiagram
     FL->>B: message in the channel (outcome, or the error)
 ```
 
-If `DecideAgentProposal` fails after an Approve, the flow calls `op365_RecordProposalError` (the proposal becomes Failed) and posts the error in the channel. A Reject without a note is refused by the API and is not recorded: the proposal stays Pending.
+If `DecideAgentProposal` fails after an Approve, the flow calls `op365_RecordProposalError` with the responder as `DecidedBy` (the proposal becomes Failed only if the responder may decide it) and posts the error in the channel. The flow's Dataverse calls use the dedicated connection reference `op365_dataverse_agent` (the agent application user); the outcome posted is the `Status` returned by the decision (Executed, Rejected, Superseded). A Reject without a note is refused by the API and is not recorded: the proposal stays Pending.
 
 The in-app notification (FYI) to the project managers is sent by the plugin `AgentProposalNotify` when the proposal is created, not by the flow.
 

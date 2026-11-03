@@ -173,7 +173,7 @@ Zwei Flows gehören zum [Beschaffungsagenten](sourcing-agent.md); beide werden *
 | **Agent proposal approval** | Wenn ein Vorschlag (Kind Proposal) hinzugefügt wird | Veröffentlicht eine adaptive Karte mit Approve / Reject im Teams-Kanal von *Sourcing Approval Team*, wartet auf die Antwort, erfasst die Entscheidung im Namen der antwortenden Person und veröffentlicht das Ergebnis |
 | **Daily agent proposal expiry** | Täglich um 06:30 (mitteleuropäische Zeit) | Ruft die Aktion *op365_ExpireAgentProposals* auf: Ausstehende Vorschläge nach ihrem **Expires On** werden Expired |
 
-Der Genehmigungs-Flow nutzt den Verbindungsverweis **op365_teams** (Microsoft Teams) und den von Dataverse. Er veröffentlicht für jeden neuen Vorschlag eine Karte, auch wenn *Sourcing Agent Enabled* No ist. Die Schritte zum Einschalten stehen unter [Den Beschaffungsagenten einrichten](#den-beschaffungsagenten-einrichten).
+Der Genehmigungs-Flow nutzt den Verbindungsverweis **op365_teams** (Microsoft Teams) und einen eigenen Dataverse-Verbindungsverweis, **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), der als Anwendungsbenutzer des Agenten handelt; alle anderen Flows verwenden **op365_dataverse**. Er veröffentlicht für jeden neuen Vorschlag eine Karte, auch wenn *Sourcing Agent Enabled* No ist. Die Schritte zum Einschalten stehen unter [Den Beschaffungsagenten einrichten](#den-beschaffungsagenten-einrichten).
 
 ### Was sonst automatisch geschieht
 
@@ -199,7 +199,7 @@ Einmal pro Umgebung, nachdem die Lösung installiert ist. Die Grundlagen funktio
 2. **Setzen Sie *Sourcing Agent User*** auf den **User Name** dieses Anwendungsbenutzers ([Unternehmenseinstellungen](#unternehmenseinstellungen)). Ohne ihn kann niemand im Namen einer Person entscheiden, und die Teams-Karte kann nicht funktionieren.
 3. **Einkäufern Zugriff geben.** Weisen Sie **OP365 Buyer** (zusätzlich zu Basic User und OP365 User) und das Profil **OP365 Cost Visibility** den Personen zu, die über Einkaufsvorschläge entscheiden. Rechnungsvorschläge entscheidet der Purchasing Approver.
 4. **Kanal wählen.** Legen Sie einen Teams-Kanal für die Karten an oder wählen Sie einen und setzen Sie *Sourcing Approval Team* auf `<team id>|<channel id>`.
-5. **Verbindungen anlegen.** Ein Benutzer legt die Verbindung **Microsoft Teams** (ein Dienstkonto, das Mitglied des Teams ist) für den Verbindungsverweis **op365_teams** an, und eine Verbindung **Microsoft Dataverse**, die dem Anwendungsbenutzer aus Schritt 1 gehört, für den Genehmigungs-Flow, und verknüpft sie in der Lösung (Test und Produktion: über die Deployment Settings).
+5. **Verbindungen anlegen.** Ein Benutzer legt die Verbindung **Microsoft Teams** (ein Dienstkonto, das Mitglied des Teams ist) für den Verbindungsverweis **op365_teams** an, und eine Verbindung **Microsoft Dataverse**, die dem Anwendungsbenutzer aus Schritt 1 gehört (sie meldet sich als dieser Anwendungsbenutzer an), für den Verbindungsverweis **op365_dataverse_agent**, und verknüpft sie in der Lösung (Test und Produktion: über die Deployment Settings). Verwenden Sie diese Dataverse-Verbindung nur für **op365_dataverse_agent** und teilen Sie sie nicht mit anderen Benutzern: Alles, was sie verwendet, handelt als der Agent. Verknüpfen Sie sie nie mit **op365_dataverse**, das die anderen Flows verwenden.
 6. **Schalten Sie** die Flows **Agent proposal approval** und **Daily agent proposal expiry** **ein** und prüfen Sie am nächsten Tag ihren Ausführungsverlauf.
 7. **Agenten einschalten**, erst wenn er veröffentlicht ist: Setzen Sie *Sourcing Agent Enabled* auf Yes. Der Agent ist in jeder Umgebung standardmäßig ausgeschaltet, auch im AppSource-Paket.
 
@@ -262,6 +262,6 @@ Wenn die IT eine neue Version bereitstellt:
 | Anforderungen über der Schwelle gehen an alle Administratoren | Purchasing Approver leer oder nicht der User Name eines aktiven Benutzers | Die [Umgebungsvariable](#unternehmenseinstellungen) setzen |
 | Lieferanten sehen „This area is reserved to suppliers“ | Web-Rolle Supplier fehlt oder nicht angemeldet | Dem Kontakt die Web-Rolle zuweisen |
 | Keine Karte in Teams für einen neuen Vorschlag | Flow **Agent proposal approval** aus, Teams-Verbindung defekt oder *Sourcing Approval Team* leer oder falsch | Flow, seine Verbindungen und die Einstellung prüfen |
-| Der Kanal zeigt „Only the sourcing agent can decide on behalf of another user.“ | *Sourcing Agent User* leer oder nicht der Benutzer, dem die Dataverse-Verbindung des Flows gehört | Den User Name des Anwendungsbenutzers eintragen und dessen Verbindung verwenden |
+| Der Kanal zeigt „Only the sourcing agent can decide on behalf of another user.“ | *Sourcing Agent User* leer oder nicht der Benutzer der Verbindung von **op365_dataverse_agent** | Den User Name des Anwendungsbenutzers eintragen und dessen Verbindung mit **op365_dataverse_agent** verknüpfen |
 | „You cannot decide this proposal.“ | Der Person fehlt die Rolle für diesen Aktionstyp | Siehe [Wer macht was](sourcing-agent.md#wer-macht-was) |
 | Vorschläge bleiben nach ihrem Datum Pending | Flow **Daily agent proposal expiry** aus | Einschalten |

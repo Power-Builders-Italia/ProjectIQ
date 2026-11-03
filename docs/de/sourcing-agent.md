@@ -50,7 +50,7 @@ Warum Vorschläge und keine direkten Aktionen: Der Einkauf bindet Geld und Verpf
 | Einen fehlgeschlagenen Vorschlag mit **Retry** wiederholen | Wer über diesen Vorschlag hätte entscheiden dürfen |
 | Ein Insight mit **Acknowledge** quittieren | Ein Administrator, ein Benutzer mit der Rolle **OP365 Buyer**, ein Projektleiter des Projekts des Insights |
 | Vorschläge, Insights und Protokollzeilen anlegen | Nur der Beschaffungsagent (sein Anwendungsbenutzer) |
-| Einen Vorschlag ändern | Niemand: Nur die **Decision Note** ist bearbeitbar. Status ändern sich nur über die Befehle |
+| Einen Vorschlag ändern | Niemand: Nur die **Decision Note** ist bearbeitbar, solange der Vorschlag Pending, Open oder Failed ist. Status ändern sich nur über die Befehle |
 
 „Administrator“ bedeutet ein Benutzer mit der Rolle **OP365 Administrator** oder **System Administrator**. Die Rolle **OP365 Buyer** erlaubt auch die Einkaufsaktionen, die Projektleitern und Administratoren vorbehalten waren (Angebotsanfragen anlegen, versenden, vergeben und stornieren, Bestellungen anlegen, Bestellstatus ändern, Bedarfsanforderungen und Wareneingänge stornieren), in jedem Projekt; siehe [Einkauf](purchasing.md#wer-macht-was). Der Projektleiter des Projekts des Vorschlags erhält eine In-App-Benachrichtigung, wenn ein Vorschlag eintrifft.
 
@@ -75,8 +75,8 @@ Ein **Agent Proposal** ist eine Zeile der gleichnamigen Tabelle. Sein **Kind** s
 | **Rationale** | Die vom Agenten geschriebene Erklärung: warum er das vorschlägt |
 | **Evidence** | Das Ergebnis der Analyse hinter dem Vorschlag (JSON). Nur mit dem Profil **OP365 Cost Visibility** sichtbar |
 | **Amount**, **Estimated Saving** | Wert der Bestellung, Vergabe oder Rechnung und die vom Agenten erwartete Einsparung |
-| **Expires On** | Bei Vorschlägen: das Erstellungsdatum plus die Tage der Einstellung *Sourcing Proposal Expiry Days* (standardmäßig 5) |
-| **Decided By**, **Decided On**, **Decision Note** | Wer entschieden hat, wann, und die Notiz. Zum Ablehnen ist eine Notiz erforderlich |
+| **Expires On** | Bei Vorschlägen: das Erstellungsdatum plus die Tage der Einstellung *Sourcing Proposal Expiry Days* (standardmäßig 5); **Retry** setzt es ab dem Tag des neuen Versuchs neu |
+| **Decided By**, **Decided On**, **Decision Note** | Wer entschieden hat, wann, und die Notiz (bis zu 2.000 Zeichen; eine längere Notiz wird gekürzt). Zum Ablehnen ist eine Notiz erforderlich |
 | **Result Id** | Der von der genehmigten Aktion erzeugte Datensatz (Angebotsanfrage, Bestellung…) |
 | **Error** | Die Meldung der Aktion, wenn sie fehlgeschlagen ist |
 
@@ -127,7 +127,7 @@ Ein Vorschlag **Source via RFQ** oder **Direct Order** wird auch dann **Supersed
 ### Regeln
 
 - **Ein offener Vorschlag pro Gegenstand.** Der Agent kann für denselben Datensatz und dieselbe Aktion keinen zweiten aktiven Vorschlag (Pending, Open oder Failed) anlegen: Das System lehnt mit „An open proposal for the same action already exists.“ ab. Ist der erste entschieden, verfallen oder superseded, ist ein neuer möglich.
-- **Niemand bearbeitet einen Vorschlag.** Rationale, Evidence, Payload, Kind, Action Type und Verknüpfungen sind bei der Erstellung festgelegt; nur die **Decision Note** kann sich ändern. Eine direkte Statusänderung wird mit „Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal.“ abgelehnt.
+- **Niemand bearbeitet einen Vorschlag.** Rationale, Evidence, Payload, Kind, Action Type und Verknüpfungen sind bei der Erstellung festgelegt; nur die **Decision Note** kann sich ändern, und nur bis zur Entscheidung („The Decision Note cannot be changed after the proposal is decided.“). Eine direkte Statusänderung wird mit „Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal.“ abgelehnt.
 - **Nur die Befehle entscheiden.** Entscheidung, Person und Zeitpunkt schreibt das System, sie werden nie eingetippt.
 - **Vorschläge verfallen.** Der Flow **Daily agent proposal expiry** läuft jeden Tag um 06:30 (mitteleuropäische Zeit) und setzt Pending-Vorschläge, deren **Expires On** vor heute liegt, auf **Expired**.
 
@@ -148,7 +148,7 @@ sequenceDiagram
     B->>TM: Approve
     TM->>DV: Entscheidung im Namen der antwortenden Person
     DV->>DV: prüft die Person, führt dann die Aktion als diese Person aus
-    DV-->>TM: Meldung „approved by ...“ (oder der Fehler)
+    DV-->>TM: Meldung mit dem Ergebnis (oder der Fehler)
 ```
 
 ### Aus Teams
@@ -158,9 +158,9 @@ Der Flow **Agent proposal approval** veröffentlicht für jeden neuen Vorschlag 
 1. Lesen Sie die Karte. Öffnen Sie den Vorschlag in ProjectIQ, wenn Sie die Evidence sehen möchten.
 2. Zum Genehmigen wählen Sie **Approve**. Die **Note** ist optional.
 3. Zum Ablehnen geben Sie in **Note (required to reject)** einen Grund ein und wählen **Reject**.
-4. Der Kanal erhält eine Meldung: „Proposal ... approved by ...“ oder „... rejected by ...“.
+4. Der Kanal erhält eine Meldung mit dem tatsächlichen Ergebnis: „Proposal ...: Executed (decided by ...).“ oder **Rejected**, oder **Superseded (nothing was done)**, wenn der Datensatz nicht mehr im erwarteten Status war (siehe [Lebenszyklus](#lebenszyklus)).
 
-Die Entscheidung wird auf **Ihren** Namen erfasst, erkannt an der E-Mail-Adresse Ihres Teams-Kontos, und die Aktion läuft mit **Ihren** Rechten. Die antwortende Person muss daher ein ProjectIQ-Benutzer sein, der über diesen Vorschlag entscheiden darf; andernfalls zeigt der Kanal „You cannot decide this proposal.“ oder „The user who decided is not a ProjectIQ user.“ und nichts ändert sich.
+Die Entscheidung wird auf **Ihren** Namen erfasst, erkannt an der E-Mail-Adresse Ihres Teams-Kontos, und die Aktion läuft mit **Ihren** Rechten. Die antwortende Person muss daher ein ProjectIQ-Benutzer sein, der über diesen Vorschlag entscheiden darf; andernfalls zeigt der Kanal „You cannot decide this proposal.“ oder „The user who decided is not a ProjectIQ user.“ und nichts ändert sich: Der Vorschlag bleibt **Pending** und wird nicht Failed.
 
 Schlägt die Aktion fehl (zum Beispiel kann die Angebotsanfrage nicht versendet werden), wird nichts angelegt, der Vorschlag wird **Failed** mit dem Grund in **Error**, und der Kanal zeigt „Proposal ... not decided: ...“. Lehnen Sie ohne Notiz ab, erscheint im Kanal „Add a note to reject the proposal.“ und der Vorschlag bleibt **Pending**: Lehnen Sie ihn erneut in der App ab, mit einer Notiz.
 
@@ -172,7 +172,7 @@ Schlägt die Aktion fehl (zum Beispiel kann die Angebotsanfrage nicht versendet 
 |---|---|---|
 | **Approve** | Pending | Fragt nach Bestätigung („Approve this proposal? The agent's action runs with your identity.“) und führt die Aktion aus |
 | **Reject** | Pending | Öffnet einen Dialog, der eine Notiz verlangt |
-| **Retry** | Failed | Setzt den Vorschlag nach Bestätigung auf **Pending** zurück und löscht den Fehler |
+| **Retry** | Failed | Setzt den Vorschlag nach Bestätigung auf **Pending** zurück, löscht den Fehler und setzt ein neues **Expires On** |
 | **Acknowledge** | Open | Markiert das Insight als **Acknowledged** |
 
 1. Lesen Sie die **Rationale** und, wenn Sie das Profil haben, die **Evidence**.
@@ -222,8 +222,10 @@ Im Projektformular listet der Abschnitt **Agent Proposals** die Vorschläge dies
 | You cannot decide this proposal. | Sie dürfen über diesen Aktionstyp nicht entscheiden, siehe [Wer macht was](#wer-macht-was) |
 | Only the sourcing agent can decide on behalf of another user. | Ein Versuch, im Namen einer anderen Person zu entscheiden |
 | The user who decided is not a ProjectIQ user. | Das Teams-Konto der antwortenden Person ist kein ProjectIQ-Benutzer |
+| The sourcing agent must give the user who decided. | Ein Aufruf des Sourcing-Agenten ohne die Person, die entschieden hat (der Agent entscheidet nie selbst) |
 | Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal. | Eine direkte Statusänderung |
 | An agent proposal cannot be changed after it is created. | Die Änderung eines anderen Feldes als Decision Note |
+| The Decision Note cannot be changed after the proposal is decided. | Die Änderung der Decision Note einer Zeile Executed, Rejected, Expired, Superseded, Acknowledged oder Done |
 | An open proposal for the same action already exists. | Ein doppelter Vorschlag |
 | Set the Kind and the Action Type of the agent proposal. | Ein Vorschlag, der ohne beide angelegt wurde |
 | The proposal has no invitation to award. | **Award RFQ** ohne Einladung |

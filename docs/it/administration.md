@@ -173,7 +173,7 @@ Due flussi appartengono all'[agente acquisti](sourcing-agent.md); entrambi vengo
 | **Agent proposal approval** | Quando viene aggiunta una proposta (Kind Proposal) | Pubblica una scheda adattiva con Approve / Reject nel canale Teams di *Sourcing Approval Team*, attende la risposta, registra la decisione a nome della persona che ha risposto e pubblica l'esito |
 | **Daily agent proposal expiry** | Ogni giorno alle 06:30 (ora dell'Europa occidentale) | Chiama l'azione *op365_ExpireAgentProposals*: le proposte in attesa oltre la loro **Expires On** diventano Expired |
 
-Il flusso di approvazione usa il riferimento di connessione **op365_teams** (Microsoft Teams) e quello Dataverse. Pubblica una scheda per ogni nuova proposta anche quando *Sourcing Agent Enabled* è No. I passi per attivarli sono in [Configurare l'agente acquisti](#configurare-lagente-acquisti).
+Il flusso di approvazione usa il riferimento di connessione **op365_teams** (Microsoft Teams) e un proprio riferimento di connessione Dataverse, **op365_dataverse_agent** (*ProjectIQ Dataverse (sourcing agent)*), che agisce come application user dell'agente; tutti gli altri flussi usano **op365_dataverse**. Pubblica una scheda per ogni nuova proposta anche quando *Sourcing Agent Enabled* è No. I passi per attivarli sono in [Configurare l'agente acquisti](#configurare-lagente-acquisti).
 
 ### Cos'altro succede in automatico
 
@@ -199,7 +199,7 @@ Da fare una volta per ambiente, dopo l'installazione della soluzione. Le fondame
 2. **Imposta *Sourcing Agent User*** con lo **User Name** di questo application user ([Impostazioni aziendali](#impostazioni-aziendali)). Senza, nessuno può decidere per conto di una persona e la scheda Teams non può funzionare.
 3. **Dai accesso ai buyer.** Assegna **OP365 Buyer** (oltre a Basic User e OP365 User) e il profilo **OP365 Cost Visibility** alle persone che decidono le proposte di acquisto. Le proposte di fattura le decide il Purchasing Approver.
 4. **Scegli il canale.** Crea o scegli un canale Teams per le schede e imposta *Sourcing Approval Team* a `<team id>|<channel id>`.
-5. **Crea le connessioni.** Un utente crea la connessione **Microsoft Teams** (un account di servizio membro del team) per il riferimento di connessione **op365_teams**, e una connessione **Microsoft Dataverse** di proprietà dell'application user del passo 1 per il flusso di approvazione, poi le collega nella soluzione (Test e Produzione: tramite le deployment settings).
+5. **Crea le connessioni.** Un utente crea la connessione **Microsoft Teams** (un account di servizio membro del team) per il riferimento di connessione **op365_teams**, e una connessione **Microsoft Dataverse** di proprietà dell'application user del passo 1 (accede come quell'application user) per il riferimento di connessione **op365_dataverse_agent**, poi le collega nella soluzione (Test e Produzione: tramite le deployment settings). Usa quella connessione Dataverse solo per **op365_dataverse_agent** e non condividerla con altri utenti: qualunque cosa la usi agisce come l'agente. Non collegarla mai a **op365_dataverse**, che usano gli altri flussi.
 6. **Attiva** i flussi **Agent proposal approval** e **Daily agent proposal expiry** e controlla la cronologia di esecuzione il giorno dopo.
 7. **Accendi l'agente** solo quando è pubblicato: imposta *Sourcing Agent Enabled* a Yes. L'agente è spento di default in ogni ambiente, anche nel pacchetto AppSource.
 
@@ -262,6 +262,6 @@ Quando l'IT distribuisce una nuova versione:
 | Le richieste sopra soglia vanno a tutti gli amministratori | Purchasing Approver vuoto, o non è lo User Name di un utente attivo | Imposta la [variabile d'ambiente](#impostazioni-aziendali) |
 | I fornitori vedono "This area is reserved to suppliers" | Manca il web role Supplier o non hanno effettuato l'accesso | Assegna il web role al contatto |
 | Nessuna scheda in Teams per una nuova proposta | Flusso **Agent proposal approval** spento, connessione Teams interrotta, oppure *Sourcing Approval Team* vuoto o errato | Controlla il flusso, le sue connessioni e l'impostazione |
-| Il canale mostra "Only the sourcing agent can decide on behalf of another user." | *Sourcing Agent User* vuoto, o non è l'utente proprietario della connessione Dataverse del flusso | Imposta lo User Name dell'application user e usa la sua connessione |
+| Il canale mostra "Only the sourcing agent can decide on behalf of another user." | *Sourcing Agent User* vuoto, o non è l'utente della connessione di **op365_dataverse_agent** | Imposta lo User Name dell'application user e collega la sua connessione a **op365_dataverse_agent** |
 | "You cannot decide this proposal." | La persona non ha il ruolo per quel tipo di azione | Vedi [Chi fa cosa](sourcing-agent.md#chi-fa-cosa) |
 | Le proposte restano Pending dopo la data | Flusso **Daily agent proposal expiry** spento | Attivalo |

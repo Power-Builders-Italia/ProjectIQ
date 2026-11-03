@@ -50,7 +50,7 @@ Perché proposte e non azioni dirette: gli acquisti impegnano denaro e obblighi 
 | Fare **Retry** di una proposta fallita | Chi avrebbe potuto decidere quella proposta |
 | Fare **Acknowledge** di un insight | Un amministratore, un utente con il ruolo **OP365 Buyer**, un project manager del progetto dell'insight |
 | Creare proposte, insight e righe di log | Solo l'agente acquisti (il suo application user) |
-| Modificare una proposta | Nessuno: si può modificare solo la **Decision Note**. Gli stati cambiano solo con i comandi |
+| Modificare una proposta | Nessuno: si può modificare solo la **Decision Note**, finché la proposta è Pending, Open o Failed. Gli stati cambiano solo con i comandi |
 
 "Amministratore" indica un utente con il ruolo **OP365 Administrator** o **System Administrator**. Il ruolo **OP365 Buyer** permette anche di fare le azioni di acquisto riservate ai project manager e agli amministratori (creare, inviare, aggiudicare e annullare RdO, creare ordini, cambiare lo stato degli ordini, annullare richieste d'acquisto ed entrate merci), su ogni progetto; vedi [Acquisti](purchasing.md#chi-fa-cosa). Il project manager del progetto della proposta riceve una notifica in-app quando arriva una proposta.
 
@@ -75,8 +75,8 @@ Una **Agent Proposal** è una riga dell'omonima tabella. Il suo **Kind** dice co
 | **Rationale** | La spiegazione scritta dall'agente: perché propone questo |
 | **Evidence** | L'output dell'analisi alla base della proposta (JSON). Visibile solo con il profilo **OP365 Cost Visibility** |
 | **Amount**, **Estimated Saving** | Valore dell'ordine, dell'aggiudicazione o della fattura, e il risparmio atteso dall'agente |
-| **Expires On** | Per le proposte: la data di creazione più i giorni dell'impostazione *Sourcing Proposal Expiry Days* (5 di default) |
-| **Decided By**, **Decided On**, **Decision Note** | Chi ha deciso, quando, e la nota. Per respingere la nota è obbligatoria |
+| **Expires On** | Per le proposte: la data di creazione più i giorni dell'impostazione *Sourcing Proposal Expiry Days* (5 di default); **Retry** la ricalcola dal giorno del nuovo tentativo |
+| **Decided By**, **Decided On**, **Decision Note** | Chi ha deciso, quando, e la nota (fino a 2.000 caratteri; una nota più lunga viene troncata). Per respingere la nota è obbligatoria |
 | **Result Id** | Il record creato dall'azione approvata (RdO, ordine d'acquisto…) |
 | **Error** | Il messaggio dell'azione quando è fallita |
 
@@ -127,7 +127,7 @@ Una proposta **Source via RFQ** o **Direct Order** diventa **Superseded** anche 
 ### Regole
 
 - **Una sola proposta aperta per oggetto.** L'agente non può creare una seconda proposta attiva (Pending, Open o Failed) per lo stesso record e la stessa azione: il sistema rifiuta con "An open proposal for the same action already exists." Quando la prima è decisa, scaduta o superseded, ne è possibile una nuova.
-- **Nessuno modifica una proposta.** Rationale, Evidence, Payload, Kind, Action Type e collegamenti sono fissi alla creazione; si può cambiare solo la **Decision Note**. Un cambio diretto di stato viene rifiutato con "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal."
+- **Nessuno modifica una proposta.** Rationale, Evidence, Payload, Kind, Action Type e collegamenti sono fissi alla creazione; si può cambiare solo la **Decision Note**, e solo finché la proposta non è decisa ("The Decision Note cannot be changed after the proposal is decided."). Un cambio diretto di stato viene rifiutato con "Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal."
 - **Decidono solo i comandi.** La decisione, la persona e l'ora sono scritte dal sistema, mai digitate.
 - **Le proposte scadono.** Il flusso **Daily agent proposal expiry** gira ogni giorno alle 06:30 (ora dell'Europa occidentale) e porta a **Expired** le proposte Pending con **Expires On** precedente a oggi.
 
@@ -148,7 +148,7 @@ sequenceDiagram
     B->>TM: Approve
     TM->>DV: decisione a nome della persona che ha risposto
     DV->>DV: verifica la persona, poi esegue l'azione come quella persona
-    DV-->>TM: messaggio "approved by ..." (o l'errore)
+    DV-->>TM: messaggio con l'esito (o l'errore)
 ```
 
 ### Da Teams
@@ -158,9 +158,9 @@ Il flusso **Agent proposal approval** pubblica una **scheda adattiva** nel canal
 1. Leggi la scheda. Apri la proposta in ProjectIQ se vuoi vedere l'Evidence.
 2. Per approvare, seleziona **Approve**. La **Note** è facoltativa.
 3. Per respingere, scrivi un motivo in **Note (required to reject)** e seleziona **Reject**.
-4. Il canale riceve un messaggio: "Proposal ... approved by ..." oppure "... rejected by ...".
+4. Il canale riceve un messaggio con l'esito reale: "Proposal ...: Executed (decided by ...)." oppure **Rejected**, oppure **Superseded (nothing was done)** quando il record non era più nello stato atteso (vedi [Ciclo di vita](#ciclo-di-vita)).
 
-La decisione viene registrata a **tuo** nome, identificato dall'indirizzo e-mail del tuo account Teams, e l'azione viene eseguita con i **tuoi** diritti. Chi risponde deve quindi essere un utente ProjectIQ autorizzato a decidere quella proposta; altrimenti il canale mostra "You cannot decide this proposal." oppure "The user who decided is not a ProjectIQ user." e non cambia nulla.
+La decisione viene registrata a **tuo** nome, identificato dall'indirizzo e-mail del tuo account Teams, e l'azione viene eseguita con i **tuoi** diritti. Chi risponde deve quindi essere un utente ProjectIQ autorizzato a decidere quella proposta; altrimenti il canale mostra "You cannot decide this proposal." oppure "The user who decided is not a ProjectIQ user." e non cambia nulla: la proposta resta **Pending** e non diventa Failed.
 
 Se l'azione fallisce (per esempio la RdO non si può inviare), non viene creato nulla, la proposta diventa **Failed** con il motivo in **Error** e il canale mostra "Proposal ... not decided: ...". Se respingi senza nota, nel canale compare "Add a note to reject the proposal." e la proposta resta **Pending**: respingila di nuovo dall'app, con una nota.
 
@@ -172,7 +172,7 @@ Apri la proposta (dalla sezione **Agent Proposals** del progetto, o dal collegam
 |---|---|---|
 | **Approve** | Pending | Chiede conferma ("Approve this proposal? The agent's action runs with your identity.") ed esegue l'azione |
 | **Reject** | Pending | Apre una finestra che richiede una nota |
-| **Retry** | Failed | Dopo la conferma, riporta la proposta a **Pending** e cancella l'errore |
+| **Retry** | Failed | Dopo la conferma, riporta la proposta a **Pending**, cancella l'errore e imposta una nuova **Expires On** |
 | **Acknowledge** | Open | Segna l'insight come **Acknowledged** |
 
 1. Leggi la **Rationale** e, se hai il profilo, l'**Evidence**.
@@ -222,8 +222,10 @@ Nel modulo del progetto, la sezione **Agent Proposals** elenca le proposte di qu
 | You cannot decide this proposal. | Non sei autorizzato a decidere quel tipo di azione, vedi [Chi fa cosa](#chi-fa-cosa) |
 | Only the sourcing agent can decide on behalf of another user. | Un tentativo di decidere a nome di un'altra persona |
 | The user who decided is not a ProjectIQ user. | L'account Teams di chi ha risposto non è un utente ProjectIQ |
+| The sourcing agent must give the user who decided. | Una chiamata dell'agente di sourcing senza la persona che ha deciso (l'agente non decide mai per sé) |
 | Use Approve, Reject, Retry or Acknowledge to change the status of an agent proposal. | Un cambio diretto di stato |
 | An agent proposal cannot be changed after it is created. | La modifica di un campo diverso da Decision Note |
+| The Decision Note cannot be changed after the proposal is decided. | La modifica della Decision Note di una riga Executed, Rejected, Expired, Superseded, Acknowledged o Done |
 | An open proposal for the same action already exists. | Una proposta duplicata |
 | Set the Kind and the Action Type of the agent proposal. | Una proposta creata senza di essi |
 | The proposal has no invitation to award. | **Award RFQ** senza un invito |

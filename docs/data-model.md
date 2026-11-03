@@ -272,14 +272,14 @@ Views: Open Agent Proposals (default), Agent Insights, Agent Log, My Agent Decis
 
 | Component | Does |
 |---|---|
-| `AgentProposalValidate` (Create, Update; PreOperation) | Initial status, Dedup Key, Expires On, default name; refuses duplicates, direct status changes and edits other than the Decision Note |
+| `AgentProposalValidate` (Create, Update; PreOperation) | Initial status, Dedup Key, Expires On, default name; refuses duplicates, direct status changes, edits other than the Decision Note and edits of the Decision Note once the proposal is decided |
 | `AgentProposalNotify` (Create; PostOperation) | In-app notification "New agent proposal" to the project managers, for a Proposal with a project; never fails the create |
 | `op365_DecideAgentProposal` (bound; Approve, Note, DecidedBy; outputs Status, ResultId) | Approve or reject a proposal, acknowledge an insight. `DecidedBy` only from the caller named in `op365_SourcingAgentUser`. Checks that the decider may decide, that the target is still valid (else Superseded; also when a Source via RFQ or Direct Order request already has a non-cancelled RFQ or order), then runs the action impersonating the decider. A failing action rolls back the call |
-| `op365_RetryAgentProposal` (bound) | Failed → Pending, clears Error; whoever can decide the proposal |
+| `op365_RetryAgentProposal` (bound) | Failed → Pending, clears Error, new Expires On; whoever can decide the proposal |
 | `op365_ExpireAgentProposals` (unbound; output Count) | Pending past Expires On → Expired; called by the daily flow |
-| `op365_RecordProposalError` (unbound; ProposalId, Error) | Marks a Pending proposal Failed after a failed approved action; the sourcing agent user and whoever can decide the proposal |
+| `op365_RecordProposalError` (unbound; ProposalId, Error, DecidedBy) | Marks a Pending proposal Failed after a failed approved action. The decider is resolved as in `op365_DecideAgentProposal` (`DecidedBy` only from, and required of, the sourcing agent user) and must be allowed to decide the proposal |
 
-Flows: **Agent proposal approval** (Teams adaptive card) and **Daily agent proposal expiry** (06:30), connection references `op365_teams` and `op365_dataverse`. Settings: the eight `op365_Sourcing*` variables ([Administration](en/administration.md#company-settings)).
+Flows: **Agent proposal approval** (Teams adaptive card) and **Daily agent proposal expiry** (06:30), connection references `op365_teams` and `op365_dataverse_agent` (the agent application user, used only by the approval flow) for the approval, `op365_dataverse` for the expiry. Settings: the eight `op365_Sourcing*` variables ([Administration](en/administration.md#company-settings)).
 
 ## Security
 
