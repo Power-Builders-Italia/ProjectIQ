@@ -80,6 +80,9 @@ PURCHASING = ['op365_purchaserequest', 'op365_purchaserequestline', 'op365_rfq',
               'op365_purchaseorder', 'op365_purchaseorderline', 'op365_goodsreceipt', 'op365_goodsreceiptline']
 INVOICES = ['op365_supplierinvoice', 'op365_supplierinvoiceline']
 MASTER = ['account', 'contact', 'op365_item', 'op365_itemsupplier', 'op365_resource', 'op365_supplierdocument']
+# lookup targets of the proposal: the Sourcing Agent needs AppendTo on them to create a proposal with the lookups set
+LOOKUP_TARGETS = ['op365_project', 'op365_purchaserequest', 'op365_rfq', 'op365_rfqinvitation', 'op365_purchaseorder',
+                  'op365_supplierinvoice', 'account']
 grant_roles({
     'OP365 Administrator': {T: (ALL, 'Global')},
     'OP365 User': {T: (['Read'], 'Basic')},
@@ -92,6 +95,8 @@ grant_roles({
     'OP365 Sourcing Agent': {
         T: (['Create', 'Read', 'Append'], 'Global'),
         **{t: (['Read'], 'Global') for t in PROJECT + PURCHASING + INVOICES + MASTER},
+        # creating a proposal that sets a lookup needs AppendTo on the lookup target (Read is kept)
+        **{t: (['Read', 'AppendTo'], 'Global') for t in LOOKUP_TARGETS},
     },
 })
 
