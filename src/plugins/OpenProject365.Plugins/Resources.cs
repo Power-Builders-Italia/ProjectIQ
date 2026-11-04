@@ -54,4 +54,33 @@ namespace OpenProject365.Plugins
             context.SystemService.Update(update);
         }
     }
+    /// <summary>
+    /// op365_resource Create/Update of User or Contact, PreOperation (PreImage on Update): a resource is internal (User) or
+    /// external (Contact of a supplier, never both); Supplier is the contact's Company Name; a contact has one active resource.
+    /// </summary>
+    public class ResourceLink : PluginBase
+    {
+        protected override void Run(LocalContext context)
+        {
+            var system = context.SystemService;
+            var contact = context.Get<EntityReference>(Model.ContactId);
+            EntityReference company = null;
+            if (contact != null)
+                company = system.Retrieve("contact", contact.Id, new ColumnSet("parentcustomerid")).GetAttributeValue<EntityReference>("parentcustomerid");
+            var error = ExternalTime.LinkError(context.Get<EntityReference>("op365_userid") != null, contact != null,
+                company != null && company.LogicalName == "account" && PortalAccess.IsSupplier(system, company));
+            if (error != null) throw new InvalidPluginExecutionException(error);
+            if (contact != null)
+            {
+                var query = new QueryExpression(Model.Resource) { ColumnSet = new ColumnSet("op365_name"), TopCount = 1 };
+                query.Criteria.AddCondition(Model.ContactId, ConditionOperator.Equal, contact.Id);
+                query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
+                if (context.Message == "Update") query.Criteria.AddCondition("op365_resourceid", ConditionOperator.NotEqual, context.PrimaryId);
+                var other = system.RetrieveMultiple(query).Entities.FirstOrDefault();
+                if (other != null)
+                    throw new InvalidPluginExecutionException($"The contact is already linked to the resource {other.GetAttributeValue<string>("op365_name")}.");
+            }
+            context.Target[Model.SupplierId] = contact == null ? null : new EntityReference("account", company.Id);
+        }
+    }
 }

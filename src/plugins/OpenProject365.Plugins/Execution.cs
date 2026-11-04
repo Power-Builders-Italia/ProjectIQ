@@ -18,22 +18,37 @@ namespace OpenProject365.Plugins
         protected override void Run(LocalContext context)
         {
             var target = context.Target;
+            var system = context.SystemService;
             var byApi = context.IsInside(Apis);
+            // the supplier portal writes through the Web API as the site's application user (external resources only)
+            var portal = !byApi && SupplierDocuments.IsPortal(system, context.Execution.InitiatingUserId);
+            var submit = false;
             if (!byApi)
             {
                 var status = target.GetAttributeValue<OptionSetValue>("statuscode")?.Value;
-                if (context.Message == "Create" ? status.HasValue && status != Model.TimeDraft : target.Contains("statuscode") || target.Contains("statecode"))
-                    throw new InvalidPluginExecutionException("Use Submit, Approve or Reject to change the status of time entries.");
                 var current = context.Pre?.GetAttributeValue<OptionSetValue>("statuscode")?.Value;
-                if (current == Model.TimeSubmitted || current == Model.TimeApproved)
+                if (portal && context.Message == "Update" && status.HasValue && status != current)
+                {
+                    var error = ExternalTime.PortalStatusError(current, status.Value);
+                    if (error != null) throw new InvalidPluginExecutionException(error);
+                    submit = true;
+                }
+                else if (context.Message == "Create" ? status.HasValue && status != Model.TimeDraft : target.Contains("statuscode") || target.Contains("statecode"))
+                    throw new InvalidPluginExecutionException("Use Submit, Approve or Reject to change the status of time entries.");
+                else if (current == Model.TimeSubmitted || current == Model.TimeApproved)
                     throw new InvalidPluginExecutionException("Submitted or approved time entries cannot be changed.");
             }
+            if (portal) EnsurePortalEntry(context);
+            if (submit) Submit(context);
             if (context.Message == "Update" && !Inputs.Any(context.Changed)) return;
 
-            var system = context.SystemService;
             if (context.Get<EntityReference>(Model.ResourceId) == null)
                 target[Model.ResourceId] = CallerResource(system, context.Execution.InitiatingUserId);
+            if (context.Get<EntityReference>(Model.ProjectId) == null && context.Get<EntityReference>(Model.WbsNodeId) != null)
+                target[Model.ProjectId] = system.Retrieve(Model.WbsNode, context.Get<EntityReference>(Model.WbsNodeId).Id, new ColumnSet(Model.ProjectId))
+                    .GetAttributeValue<EntityReference>(Model.ProjectId);
             var project = context.Get<EntityReference>(Model.ProjectId);
+            if (project == null) throw new InvalidPluginExecutionException("Select the project of the time entry.");
             var resource = context.Get<EntityReference>(Model.ResourceId);
             var date = context.Get<DateTime?>("op365_entrydate") ?? DateTime.UtcNow.Date;
             var hours = context.Get<decimal?>("op365_hours") ?? 0m;
@@ -45,6 +60,64 @@ namespace OpenProject365.Plugins
             target["op365_revenue"] = new Money(Math.Round(hours * MemberRate(system, project.Id, res.GetAttributeValue<EntityReference>("op365_userid")), 2));
             var name = res.GetAttributeValue<string>("op365_name") + " " + date.ToString("yyyy-MM-dd");
             target["op365_name"] = name.Length > 200 ? name.Substring(0, 200) : name;
+        }
+
+        /// <summary>
+        /// Portal entries: an external resource (Contact) and a WBS node in the scope of an active Project Supplier row of
+        /// the resource's supplier. The table permissions already limit the portal user to its own resource.
+        /// </summary>
+        private static void EnsurePortalEntry(LocalContext context)
+        {
+            var system = context.SystemService;
+            var resource = context.Get<EntityReference>(Model.ResourceId);
+            var res = resource == null ? null : system.Retrieve(Model.Resource, resource.Id, new ColumnSet(Model.ContactId, Model.SupplierId));
+            var supplier = res?.GetAttributeValue<EntityReference>(Model.SupplierId);
+            if (res?.GetAttributeValue<EntityReference>(Model.ContactId) == null || supplier == null)
+                throw new InvalidPluginExecutionException("On the supplier portal hours can be recorded only by an external resource.");
+            var node = context.Get<EntityReference>(Model.WbsNodeId);
+            if (node == null) throw new InvalidPluginExecutionException("You can record hours only on the activities assigned to your company.");
+            var query = new QueryExpression(ProjectSuppliers.Table) { ColumnSet = new ColumnSet(false), TopCount = 1 };
+            query.Criteria.AddCondition(Model.SupplierId, ConditionOperator.Equal, supplier.Id);
+            query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
+            query.Criteria.AddCondition("statuscode", ConditionOperator.Equal, ProjectSuppliers.Active);
+            var scope = query.AddLink(ProjectSuppliers.Scope, ProjectSuppliers.Id, ProjectSuppliers.Id);
+            scope.LinkCriteria.AddCondition(Model.WbsNodeId, ConditionOperator.Equal, node.Id);
+            if (system.RetrieveMultiple(query).Entities.Count == 0)
+                throw new InvalidPluginExecutionException("You can record hours only on the activities assigned to your company.");
+        }
+
+        /// <summary>
+        /// Portal submission (Draft or Rejected -> Submitted): same outcome as op365_SubmitTimeEntries, Approved directly when
+        /// time approval is off; the project managers get one notification per batch.
+        /// </summary>
+        private static void Submit(LocalContext context)
+        {
+            var system = context.SystemService;
+            var target = context.Target;
+            var now = DateTime.UtcNow;
+            var approval = Settings.TimeApprovalEnabled(system);
+            target["op365_submittedon"] = now;
+            target["op365_decisionnote"] = null;
+            if (!approval)
+            {
+                target["statuscode"] = new OptionSetValue(Model.TimeApproved);
+                target["op365_decidedon"] = now;
+                return;
+            }
+            var project = context.Get<EntityReference>(Model.ProjectId);
+            var resource = context.Get<EntityReference>(Model.ResourceId);
+            var query = new QueryExpression(Model.TimeEntry) { ColumnSet = new ColumnSet("op365_submittedon") };
+            query.Criteria.AddCondition(Model.ProjectId, ConditionOperator.Equal, project.Id);
+            query.Criteria.AddCondition(Model.ResourceId, ConditionOperator.Equal, resource.Id);
+            query.Criteria.AddCondition("statuscode", ConditionOperator.Equal, Model.TimeSubmitted);
+            query.Criteria.AddCondition("op365_submittedon", ConditionOperator.GreaterEqual, now.AddMinutes(-10));
+            query.Criteria.AddCondition("op365_timeentryid", ConditionOperator.NotEqual, context.PrimaryId);
+            var recent = system.RetrieveMultiple(query).Entities.Select(e => e.GetAttributeValue<DateTime>("op365_submittedon"));
+            if (!ExternalTime.NotifyBatch(now, recent)) return;
+            var who = system.Retrieve(Model.Resource, resource.Id, new ColumnSet("op365_name")).GetAttributeValue<string>("op365_name");
+            var name = system.Retrieve(Model.Project, project.Id, new ColumnSet("op365_name")).GetAttributeValue<string>("op365_name");
+            foreach (var manager in Rules.ProjectManagers(system, project.Id))
+                Rules.Notify(context, manager, "Time entries to approve", $"{who} submitted time entries on {name} from the supplier portal.");
         }
 
         private static EntityReference CallerResource(IOrganizationService system, Guid userId)
@@ -211,6 +284,7 @@ namespace OpenProject365.Plugins
             var now = DateTime.UtcNow;
             var count = 0;
             var notify = new System.Collections.Generic.Dictionary<Guid, int>();
+            var external = new System.Collections.Generic.Dictionary<Guid, Tuple<Entity, int>>();
             foreach (var id in Rules.Ids(input, "TimeEntryIds"))
             {
                 var e = system.Retrieve(Model.TimeEntry, id, new ColumnSet("statuscode", Model.ProjectId, Model.ResourceId));
@@ -226,9 +300,29 @@ namespace OpenProject365.Plugins
                     ["op365_decisionnote"] = note,
                 });
                 count++;
-                var user = system.Retrieve(Model.Resource, e.GetAttributeValue<EntityReference>(Model.ResourceId).Id, new ColumnSet("op365_userid"))
-                    .GetAttributeValue<EntityReference>("op365_userid");
+                var res = system.Retrieve(Model.Resource, e.GetAttributeValue<EntityReference>(Model.ResourceId).Id,
+                    new ColumnSet("op365_userid", Model.ContactId, Model.SupplierId));
+                var user = res.GetAttributeValue<EntityReference>("op365_userid");
                 if (user != null && user.Id != caller) notify[user.Id] = (notify.ContainsKey(user.Id) ? notify[user.Id] : 0) + 1;
+                if (!approve && res.GetAttributeValue<EntityReference>(Model.ContactId) != null && res.GetAttributeValue<EntityReference>(Model.SupplierId) != null)
+                    external[res.Id] = Tuple.Create(res, (external.ContainsKey(res.Id) ? external[res.Id].Item2 : 0) + 1);
+            }
+            // external resources have no user: the contact gets the TimeEntriesRejected e-mail (supplier's language)
+            if (external.Count > 0)
+            {
+                var mailer = new SupplierMailer(context);
+                foreach (var x in external.Values)
+                {
+                    var contact = x.Item1.GetAttributeValue<EntityReference>(Model.ContactId);
+                    var tokens = new System.Collections.Generic.Dictionary<string, string>
+                    {
+                        ["{Contact}"] = system.Retrieve("contact", contact.Id, new ColumnSet("fullname")).GetAttributeValue<string>("fullname") ?? "",
+                        ["{Count}"] = x.Item2.ToString(),
+                        ["{Note}"] = note ?? "",
+                    };
+                    if (!mailer.Send("TimeEntriesRejected", x.Item1.GetAttributeValue<EntityReference>(Model.SupplierId).Id, contact, tokens, contact))
+                        context.Trace("rejection e-mail to {0} not sent", contact.Id);
+                }
             }
             foreach (var n in notify)
                 Rules.Notify(context, n.Key, approve ? "Time entries approved" : "Time entries rejected",

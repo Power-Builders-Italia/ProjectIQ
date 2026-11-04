@@ -34,6 +34,8 @@ ASYNC = {'SupplierInvoiceExtract'}
 # class, message, table, stage, filtering attributes, pre-image attributes
 STEPS = [
   ('ResourceDefaults', 'Create', 'op365_resource', PRE, None, None),
+  ('ResourceLink', 'Create', 'op365_resource', PRE, None, None),
+  ('ResourceLink', 'Update', 'op365_resource', PRE, 'op365_userid,op365_contactid,op365_supplierid', 'op365_userid,op365_contactid'),
   ('ResourceCostSync', 'Create', 'op365_resourcecost', POST, None, None),
   ('ResourceCostSync', 'Update', 'op365_resourcecost', POST, 'op365_validfrom,op365_hourlycost,op365_resourceid,statecode', 'op365_resourceid'),
   ('ResourceCostSync', 'Delete', 'op365_resourcecost', POST, None, 'op365_resourceid'),

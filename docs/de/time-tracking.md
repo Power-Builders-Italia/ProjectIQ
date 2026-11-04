@@ -57,6 +57,7 @@ stateDiagram-v2
 ### Bevor Sie beginnen
 
 - Ihr Benutzer muss mit einer **Resource** verknüpft sein (Master Data → Resources → Feld *User*). Andernfalls zeigt der Stundenzettel „Your user is not linked to a resource. Ask an administrator to set User on your Resource.“
+- Mitarbeiter Ihrer Lieferanten, die **externe Ressourcen** sind (eine Ressource mit einem **Contact** statt eines Users), erfassen ihre Stunden im [Lieferantenportal](supplier-portal.md#ihre-stunden-erfassen-timesheet), nicht in der App; ihre Stunden gelangen wie die anderen in **Time Approval**.
 - Sie können Stunden nur auf Projekten **In Progress** erfassen, die Sie sehen können (Sie sind Mitglied oder Besitzer).
 
 ### Das Dashboard Timesheet
@@ -175,6 +176,8 @@ Wenn ein Eintrag genehmigt wird:
 - werden seine **Kosten** zu den **Actual Cost** des Elements und des Projekts addiert und erscheinen in der [Kostenübersicht](materials-and-costs.md#kostenübersicht);
 - wird der Eintrag endgültig: Er kann weder geändert noch gelöscht werden.
 
+Stunden, die **externe Ressourcen** im Lieferantenportal erfassen, werden genauso genehmigt. Sie haben keinen Benutzer: Statt der In-App-Benachrichtigung erhält der Kontakt eine E-Mail, wenn Stunden abgelehnt werden (siehe [Lieferantenportal](supplier-portal.md#externe-ressourcen-stunden-aus-dem-portal)).
+
 ## Wie Stunden bewertet werden
 
 Jeder Zeiteintrag trägt zwei Beträge, die bei jedem Speichern berechnet werden:
@@ -192,6 +195,7 @@ Beispiel: Marcos Kosten betragen 35,00 €/h bis 30. Juni und 38,50 €/h ab 1. 
 |---|---|---|
 | **Time Approval Enabled** | Umgebungsvariable `op365_TimeApprovalEnabled` ([Administration](administration.md#unternehmenseinstellungen)) | Yes (Standard): Eingereichte Stunden warten auf Genehmigung. No: **Submit** genehmigt die Einträge sofort (sie zählen direkt in den Ist-Werten) |
 | **User** auf der Ressource | Master Data → Resources | Verknüpft eine Person mit ihrer Ressource: erforderlich für den Stundenzettel |
+| **Contact** auf der Ressource | Master Data → Resources | Macht die Ressource extern: Die Person erfasst ihre Stunden im Lieferantenportal ([Stammdaten](master-data.md#externe-ressourcen-personal-von-lieferanten)) |
 | **Weekly Hours**, **Working Days** | Ressource | Erwartete Stunden (Erinnerung, Wochensumme) |
 | **Absences** | Planning → Absences | Verringern die erwarteten Stunden; Betriebsschließungen setzen die Erinnerungen aus |
 | **Hourly Rate** auf dem Projektmitglied | Projekt → Team | Erlös der Stunden des Mitglieds |
@@ -214,3 +218,6 @@ Administratoren können Einträge im Namen anderer einreichen und Einträge jede
 | „Add a note to reject time entries.“ | Die Begründung der Ablehnung ist Pflicht |
 | „Only submitted time entries can be approved or rejected.“ | Über den Eintrag wurde bereits entschieden (vielleicht von einem anderen Manager): Aktualisieren Sie |
 | „Enter hours between 0 and 24.“ | Der im Stundenzettel eingegebene Wert ist ungültig |
+| „You can record hours only on the activities assigned to your company.“ | Lieferantenportal: Die Aktivität ist nicht im PSP-Umfang eines aktiven Projektlieferanten des Unternehmens der Person |
+| „On the supplier portal hours can be recorded only by an external resource.“ | Lieferantenportal: Die Ressource hat keinen Contact |
+| „On the supplier portal time entries can only be submitted.“ | Lieferantenportal: Im Portal können Einträge nur zur Genehmigung eingereicht werden |

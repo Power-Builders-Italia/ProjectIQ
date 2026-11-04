@@ -226,6 +226,8 @@ Eine **Ressource** ist eine Person (oder ein Trupp oder jede andere Kapazität),
 | **Name** | Name der Person oder des Trupps (Pflichtfeld) |
 | **Role** | Berufsbezeichnung oder Qualifikation (zum Beispiel „Elektriker“, „Bauleiter“) |
 | **User** | Der Dataverse-Benutzer der Person. Erforderlich für den Stundenzettel: Der Stundenzettel findet „meine Ressource“ über dieses Feld |
+| **Contact** | Für eine **externe Ressource** (eine Person eines Lieferanten): der Kontakt dieser Person. Eine Ressource hat einen User **oder** einen Contact, nie beides; der Kontakt muss einen Lieferanten als **Company Name** haben |
+| **Supplier** | Schreibgeschützt: der Lieferant des Kontakts, wird automatisch ausgefüllt |
 | **Owner** | Besitzer des Datensatzes |
 | **Weekly Hours** | Vertragliche Wochenstunden, von 0 bis 80. Standard **40** |
 | **Working Days** | Die Tage, an denen die Ressource arbeitet. Standard **Montag bis Freitag** |
@@ -238,6 +240,17 @@ Wochenstunden und Arbeitstage werden an drei Stellen verwendet:
 - in der **täglichen Erinnerung**: erwartete Stunden pro Tag = Wochenstunden ÷ Anzahl der Arbeitstage;
 - im **Stundenzettel**: Die Wochensumme wird mit den Wochenstunden verglichen;
 - in der **Ressourcenauslastung**: Wochenkapazität = Wochenstunden, abzüglich Abwesenheiten und Betriebsschließungen.
+
+### Externe Ressourcen (Personal von Lieferanten)
+
+Subunternehmer arbeiten oft mit eigenem Personal an Ihren Projekten, und deren Stunden gehören zu den Projektkosten. Statt Stundenzettel per E-Mail einzusammeln, verknüpfen Sie die Person über ihren **Kontakt** mit einer Ressource: Sie erfasst ihre Stunden selbst im [Lieferantenportal](supplier-portal.md#ihre-stunden-erfassen-timesheet), und Ihre Projektleiter genehmigen sie wie alle anderen Stunden.
+
+1. Stellen Sie sicher, dass die Person als **Kontakt** mit dem Lieferanten als **Company Name** existiert (siehe [Lieferantenportal](supplier-portal.md#einem-lieferanten-zugriff-geben)) und sich am Portal anmelden kann.
+2. Legen Sie die **Resource** an: **Name**, **Role**, **Contact** = die Person (**User** leer lassen), **Weekly Hours**, **Working Days**. **Supplier** wird automatisch ausgefüllt.
+3. Fügen Sie eine Zeile **Resource Cost** mit dem mit dem Lieferanten vereinbarten Stundensatz hinzu: Er bewertet die Stunden wie beim internen Personal.
+4. Fügen Sie den Lieferanten dem Projekt hinzu (**Project Supplier**, Status Active) mit den PSP-Aktivitäten, an denen er arbeitet: Auf diesen Aktivitäten kann die Person Stunden erfassen.
+
+Regeln: Eine Ressource kann nicht gleichzeitig User und Contact haben („A resource is linked to a User or to a Contact, not both.“); der Kontakt muss zu einem Lieferanten gehören („The contact of an external resource must have a supplier as Company Name.“); ein Kontakt kann nur mit einer aktiven Ressource verknüpft sein („The contact is already linked to the resource ...“). Externe Ressourcen erhalten keine tägliche Erinnerung (sie haben keinen Benutzer).
 
 ### Historie der Stundensätze (Resource Costs)
 

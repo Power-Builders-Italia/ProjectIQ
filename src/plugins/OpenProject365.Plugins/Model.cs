@@ -45,6 +45,7 @@ namespace OpenProject365.Plugins
         public const string CommittedCost = "op365_committedcost";
         public const string ItemId = "op365_itemid";
         public const string SupplierId = "op365_supplierid";
+        public const string ContactId = "op365_contactid";
         public const string PurchaseRequestId = "op365_purchaserequestid";
         public const string PurchaseOrderId = "op365_purchaseorderid";
         public const string RfqId = "op365_rfqid";

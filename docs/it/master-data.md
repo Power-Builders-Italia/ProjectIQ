@@ -226,6 +226,8 @@ Una **risorsa** è una persona (o una squadra, o qualsiasi capacità) le cui ore
 | **Name** | Nome della persona o della squadra (obbligatorio) |
 | **Role** | Mansione o competenza (per esempio "Elettricista", "Capocantiere") |
 | **User** | L'utente Dataverse della persona. Necessario per usare il foglio ore: il foglio ore trova "la mia risorsa" tramite questo campo |
+| **Contact** | Per una **risorsa esterna** (una persona di un fornitore): il contatto di quella persona. Una risorsa ha un User **oppure** un Contact, mai entrambi; il contatto deve avere un fornitore come **Company Name** |
+| **Supplier** | Sola lettura: il fornitore del contatto, compilato automaticamente |
 | **Owner** | Proprietario del record |
 | **Weekly Hours** | Ore contrattuali a settimana, da 0 a 80. Predefinito **40** |
 | **Working Days** | I giorni lavorativi della risorsa. Predefinito **da lunedì a venerdì** |
@@ -238,6 +240,17 @@ Ore settimanali e giorni lavorativi si usano in tre punti:
 - il **promemoria giornaliero**: ore attese al giorno = ore settimanali ÷ numero di giorni lavorativi;
 - il **foglio ore**: il totale settimanale è confrontato con le ore settimanali;
 - il **carico risorse**: capacità settimanale = ore settimanali, meno assenze e chiusure aziendali.
+
+### Risorse esterne (personale dei fornitori)
+
+Spesso i subappaltatori lavorano sulle tue commesse con il proprio personale, e le loro ore fanno parte del costo della commessa. Invece di raccogliere fogli ore via e-mail, collega la persona a una risorsa tramite il suo **contatto**: registra da sola le ore sul [portale fornitori](supplier-portal.md#registrare-le-ore-timesheet) e i capi commessa le approvano come tutte le altre ore.
+
+1. Verifica che la persona esista come **contatto** con **Company Name** = il fornitore (vedi [Portale fornitori](supplier-portal.md#dare-accesso-a-un-fornitore)) e che possa accedere al portale.
+2. Crea la **Resource**: **Name**, **Role**, **Contact** = la persona (lascia vuoto **User**), **Weekly Hours**, **Working Days**. **Supplier** si compila da solo.
+3. Aggiungi una riga **Resource Cost** con la tariffa oraria concordata con il fornitore: valorizza le ore come per il personale interno.
+4. Aggiungi il fornitore alla commessa (**Project Supplier**, stato Active) con le attività WBS su cui lavora: sono le attività su cui la persona può registrare ore.
+
+Regole: una risorsa non può avere sia User sia Contact ("A resource is linked to a User or to a Contact, not both."); il contatto deve appartenere a un fornitore ("The contact of an external resource must have a supplier as Company Name."); un contatto può essere collegato a una sola risorsa attiva ("The contact is already linked to the resource ..."). Le risorse esterne non ricevono il promemoria giornaliero (non hanno un utente).
 
 ### Storico del costo orario (Resource Costs)
 

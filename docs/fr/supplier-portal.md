@@ -11,6 +11,7 @@ Le **portail fournisseurs** est un site web, réalisé avec Microsoft Power Page
 - voit la part de chaque commande déjà **reçue** ;
 - **dépose ses factures** (XML FatturaPA ou PDF) : les données sont lues automatiquement et contrôlées par rapport à ses commandes, puis il en suit l'approbation et le **paiement** ;
 - voit les **projets** sur lesquels il travaille, avec les activités du planning (WBS) qui lui sont attribuées, et — si vous l'autorisez — met à jour leur **avancement** ;
+- saisit les **heures** de son personnel sur vos projets dans une **feuille de temps** hebdomadaire, lorsque vous les reliez à une ressource ;
 - dépose ses **documents d'entreprise** (DURC, certifications, assurances), que votre acheteur approuve, et est averti quand ils expirent.
 
 Tout ce que fait le fournisseur est immédiatement visible dans ProjectIQ : les devis apparaissent dans la Quote Comparison de l'appel d'offres, les confirmations changent le statut de la commande, les documents déposés attendent votre vérification.
@@ -155,9 +156,32 @@ Le document reste **Pending review** jusqu'à ce que l'acheteur l'approuve. Tant
 
 Vous recevez un e-mail quand un document approuvé va expirer (30 jours avant) et quand il expire ; le Dashboard affiche les mêmes alertes.
 
+### Saisir vos heures (Timesheet)
+
+Si votre client vous a enregistré comme **ressource** de ses projets, la barre latérale affiche **Timesheet** (avec un compteur orange lorsque des heures ont été rejetées). La page est votre feuille de temps hebdomadaire :
+
+| Partie | Ce qu'elle affiche |
+|---|---|
+| **‹ Previous** / **Next ›** | Passer d'une semaine à l'autre ; la semaine en cours s'ouvre d'abord |
+| Compteurs | Heures **Hours this week**, **Draft**, **Submitted / Approved** et **Rejected** |
+| Notes orange | Une ligne par saisie **Rejected** de la semaine, avec la note du chef de projet |
+| Grille | Une ligne par activité (code et nom du projet, code et nom de l'activité), une colonne par jour du lundi au dimanche, le **Total** de la ligne et son **Status** |
+
+1. Choisissez une activité dans **+ Add activity** : la liste ne montre que les activités que votre client a attribuées à votre entreprise, sur des projets en cours.
+2. Saisissez les heures de chaque jour (0–24, quarts d'heure autorisés). Videz une cellule pour supprimer les heures de ce jour.
+3. Cliquez sur **Save draft** pour garder votre travail, ou sur **Submit week** pour enregistrer et soumettre à l'approbation toutes les heures en brouillon et rejetées de la semaine.
+
+| Statut | Signification |
+|---|---|
+| **Draft** | Enregistrée, non envoyée : vous pouvez encore la modifier |
+| **Submitted** | En attente de l'approbation de votre client : lecture seule |
+| **Approved** | Acceptée : lecture seule |
+| **Rejected** | Renvoyée avec une note (bordure rouge) : corrigez les heures et cliquez de nouveau sur **Submit week**. Vous recevez aussi un e-mail |
+
 ### Erreurs
 
 Si une action échoue, un message rouge en explique la raison. Cas fréquents : « Session expired: sign in again. » (reconnectez-vous et recommencez), « The deadline of the request for quotation has passed. » (contactez l'acheteur pour une prolongation), « The request for quotation is closed. » (il a été attribué ou annulé), « Approved documents cannot be changed. » ou « Approved documents cannot be deleted. » (déposez plutôt un nouveau document), « Choose the file of the document. » (un nouveau document nécessite son fichier), « Progress must be between 0 and 100. », « Progress updates from the supplier portal are disabled. » (votre client les a désactivées), « Sent invoices cannot be changed. » (demandez à votre client de rejeter la facture), « The invoice cannot be sent while it is being read or when it is a duplicate. » (attendez quelques secondes, ou supprimez le doublon), « Fill in the invoice number and date. ».
+Dans le **Timesheet** : « You can record hours only on the activities assigned to your company. », « Hours and materials can be recorded only on projects In Progress. » (le projet est suspendu ou clôturé), « Submitted or approved time entries cannot be changed. » (demandez à votre client de les rejeter), « Hours must be between 0 and 24. ».
 
 ## Partie 2 — Guide pour le personnel interne
 
@@ -174,6 +198,7 @@ Le portail est volontairement restreint. Les fournisseurs ne lisent que leurs pr
 | Fournisseurs du projet de son entreprise (Active et Invited) | Projet, rôle, statut | Rien |
 | Projets de ces fournisseurs du projet et de ses commandes | Code, nom, dates de début et de fin, avancement | Rien |
 | Nœuds WBS de son périmètre | Code, nom, dates de début et de fin, avancement | **Progress %** des nœuds sans nœuds enfants, seulement si **Supplier Progress Updates** vaut Yes |
+| Sa ressource (Contact = l'utilisateur) et ses saisies de temps | Nom de la ressource et heures hebdomadaires ; date, heures, statut et note de décision des saisies | Créer, modifier et supprimer des saisies **Draft** ou **Rejected** (date, heures, activité du périmètre), les **soumettre**. Jamais le coût ni le revenu |
 | Factures fournisseur de son entreprise | Numéro, dates, montants, lignes, statut, note de décision, paiement, notes d'extraction | Déposer le fichier, **numéro de facture**, **dates**, **commande** et **note du fournisseur** tant qu'elle est Draft ; l'**envoyer** (Draft → To Review) si elle n'est ni Pending ni Blocked ; supprimer les brouillons |
 | Documents fournisseur de son entreprise | Tous les champs, y compris la note de vérification | Type, description, numéro, dates, notes, fichier ; peut les créer et les supprimer, seulement tant que le document n'est pas approuvé |
 
@@ -198,6 +223,25 @@ flowchart LR
 - Vous pouvez ajouter un fournisseur du projet à la main depuis la liste **Suppliers** du projet (**Project**, **Supplier**, **Role**), et ajouter des nœuds WBS dans sa liste **WBS Scope** (**Add Existing WBS Node**). Un nœud apporte toujours toutes ses sous-activités, y compris celles créées plus tard.
 - Pour masquer des activités, retirez-les du WBS Scope (retirer un nœud ne retire pas ses sous-activités : retirez-les aussi), ou désactivez le fournisseur du projet pour masquer tout le projet.
 - L'autorisation pour les fournisseurs de mettre à jour l'avancement est un paramètre de l'entreprise, **Supplier Progress Updates** ([Administration](administration.md#paramètres-de-lentreprise)) ; la valeur par défaut est No. *Can Update Progress* sur le fournisseur du projet affiche la valeur actuelle.
+
+### Ressources externes : heures depuis le portail
+
+Le personnel d'un fournisseur peut saisir ses heures sur le portail lorsque vous reliez son **contact** à une **Resource** ([Données de référence](master-data.md#ressources-externes-personnel-des-fournisseurs)).
+
+```mermaid
+flowchart LR
+    C[Contact du fournisseur] --> R[Resource<br/>Contact + Resource Cost]
+    PS[Project Supplier Active<br/>+ WBS Scope] --> T
+    R --> T[Portail : Timesheet<br/>Draft → Submit week]
+    T --> A[Time Approval<br/>chef de projet]
+    A -->|Approved| AC[Heures et coût réels]
+    A -->|Rejected + note| E[E-mail au contact<br/>+ note sur le portail]
+```
+
+- La personne ne peut saisir des heures que sur les activités du **WBS Scope** d'un fournisseur du projet **Active** de son entreprise, sur des projets **In Progress**.
+- **Submit week** fonctionne comme **Submit** dans la feuille de temps : les saisies passent à **Submitted** (ou directement **Approved** si **Time Approval Enabled** vaut No) et les chefs de projet reçoivent une notification « <resource> submitted time entries on <project> from the supplier portal. ».
+- Approuvez-les ou rejetez-les dans **Time Approval** comme d'habitude. En cas de rejet, le contact reçoit l'e-mail *ProjectIQ - Saisies de temps rejetées* (message `TimeEntriesRejected`, envoyé comme les autres e-mails aux fournisseurs, voir [Administration](administration.md#expiration-quotidienne-des-documents)) et voit votre note sur le portail.
+- Le coût est heures × coût horaire de la ressource à la date (le taux convenu avec le fournisseur). Le fournisseur ne voit jamais ni coût ni revenu.
 
 ### Donner l'accès à un fournisseur
 

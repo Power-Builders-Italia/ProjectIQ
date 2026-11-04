@@ -2,7 +2,7 @@
 
 Creates or updates the Supplier web role, the table permissions, the Web API site settings, the shared web templates
 (style, sidebar, project cards), the pages (dashboard, projects, requests for quotation and quote, purchase orders and
-order confirmation, invoices, company documents; Liquid and CSS in portal_ui.py) and the menu links. Records are matched by name, so the script
+order confirmation, invoices, company documents, timesheet of external resources; Liquid and CSS in portal_ui.py) and the menu links. Records are matched by name, so the script
 is idempotent. Run it against Dev (PAC_* variables), then export the OpenProject365SupplierPortal solution:
 
     python3 tools/portal/supplier_portal.py
@@ -117,8 +117,14 @@ permission('Supplier projects', 'op365_project', PARENT, relationship='op365_pro
 permission('Supplier project assignments', 'op365_projectsupplier', ACCOUNT, relationship='op365_account_projectsupplier_supplierid')
 permission('Supplier assigned projects', 'op365_project', PARENT, relationship='op365_project_projectsupplier_projectid',
            parent='Supplier project assignments')
-permission('Supplier WBS scope', 'op365_wbsnode', PARENT, write=True, relationship='op365_projectsupplier_wbsnode',
+permission('Supplier WBS scope', 'op365_wbsnode', PARENT, write=True, appendto=True, relationship='op365_projectsupplier_wbsnode',
            parent='Supplier project assignments')
+# external resource of the signed-in contact (Resource.Contact) and its time entries: record, change, delete and submit
+# drafts; the plugin TimeEntryValidate allows only nodes of the company's scope and refuses changes to submitted entries;
+# Append To on the resource and on the WBS scope lets a new entry be bound to them
+permission('Supplier resource', 'op365_resource', CONTACT, appendto=True, relationship='op365_contact_resource_contactid')
+permission('Supplier time entries', 'op365_timeentry', PARENT, write=True, create=True, delete=True, append=True,
+           relationship='op365_resource_timeentry_resourceid', parent='Supplier resource')
 # own company documents: upload, change and delete (the plugins refuse changes to approved documents);
 # Append/Append To on both sides (the site checks the account -> document association) let a new document be linked to
 # the supplier's own account (the contact's Company Name)
@@ -154,6 +160,12 @@ SETTINGS = {
     'Webapi/op365_supplierinvoice/fields': 'op365_invoicenumber,op365_invoicedate,op365_duedate,op365_suppliernote,op365_xmlfile,'
                                            'op365_extractrequested,statuscode,op365_supplierid,op365_SupplierId,'
                                            'op365_purchaseorderid,op365_PurchaseOrderId',
+    # never cost, revenue or the decision columns: the plugins set them; statuscode only to submit (Draft/Rejected -> Submitted)
+    'Webapi/op365_timeentry/enabled': 'true',
+    'Webapi/op365_timeentry/fields': 'op365_entrydate,op365_hours,op365_notes,statuscode,op365_resourceid,op365_ResourceId,'
+                                     'op365_wbsnodeid,op365_WbsNodeId',
+    'Webapi/op365_resource/enabled': 'true',
+    'Webapi/op365_resource/fields': 'op365_resourceid',
     # the related table of a lookup bound on create must be Web API enabled too; Supplier company grants no write
     'Webapi/account/enabled': 'true',
     'Webapi/account/fields': 'accountid',
@@ -395,6 +407,7 @@ page('Order', 'order', ui.shell('orders', ORDER), ORDER_JS, parent=orders, hidde
 invoices = page('Invoices', 'invoices', ui.shell('invoices', ui.tokens(ui.INVOICES)), ui.CALL_JS + ui.tokens(ui.INVOICES_JS), order=5)
 page('Invoice', 'invoice', ui.shell('invoices', ui.tokens(ui.INVOICE)), ui.CALL_JS + ui.tokens(ui.INVOICE_JS), parent=invoices, hidden=True)
 documents = page('Documents', 'documents', ui.shell('documents', ui.tokens(ui.DOCUMENTS)), ui.DOCUMENTS_JS, order=6)
+timesheet = page('Timesheet', 'timesheet', ui.shell('timesheet', ui.tokens(ui.TIMESHEET)), ui.CALL_JS + ui.tokens(ui.TIMESHEET_JS), order=7)
 
 # ---------- home: suppliers go straight to the dashboard, everyone else gets the sign-in landing ----------
 HOME_HTML = """{% include '""" + ui.STYLE_NAME + """' %}
@@ -422,7 +435,8 @@ print('ok   home page')
 
 # ---------- menu ----------
 for name, target, order in (('Dashboard', dashboard, 1), ('Projects', projects, 2), ('Requests for quotation', rfqs, 3),
-                            ('Purchase orders', orders, 4), ('Invoices', invoices, 5), ('Documents', documents, 6)):
+                            ('Purchase orders', orders, 4), ('Invoices', invoices, 5), ('Documents', documents, 6),
+                            ('Timesheet', timesheet, 7)):
     found = rows('mspp_weblinks', f"_mspp_weblinksetid_value eq {MENU} and mspp_name eq '{q(name)}'", 'mspp_weblinkid')
     body = {'mspp_name': name, 'mspp_displayorder': order, 'mspp_robotsfollowlink': True, 'mspp_openinnewwindow': False,
             'mspp_pageid@odata.bind': f'/mspp_webpages({target})', 'mspp_weblinksetid@odata.bind': f'/mspp_weblinksets({MENU})',

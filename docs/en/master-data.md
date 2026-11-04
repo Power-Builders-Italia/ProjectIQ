@@ -224,6 +224,8 @@ A **resource** is a person (or a crew, or any capacity) whose hours are planned 
 | **Name** | Name of the person or crew (required) |
 | **Role** | Job title or skill (for example "Electrician", "Site manager") |
 | **User** | The Dataverse user of the person. Required to use the timesheet: the timesheet looks up "my resource" through this field |
+| **Contact** | For an **external resource** (a person of a supplier): the contact of that person. A resource has a User **or** a Contact, never both; the contact must have a supplier as **Company Name** |
+| **Supplier** | Read-only: the supplier of the contact, filled in automatically |
 | **Owner** | Record owner |
 | **Weekly Hours** | Contractual hours per week, from 0 to 80. Default **40** |
 | **Working Days** | The days the resource works. Default **Monday to Friday** |
@@ -236,6 +238,17 @@ Weekly hours and working days are used in three places:
 - the **daily reminder**: expected hours per day = weekly hours ÷ number of working days;
 - the **timesheet**: the weekly total is compared with the weekly hours;
 - the **resource load**: weekly capacity = weekly hours, minus absences and company closures.
+
+### External resources (supplier staff)
+
+Subcontractors often work on your projects with their own people, and their hours are part of the job cost. Instead of collecting timesheets by e-mail, link the person to a resource through their **contact**: they record their hours themselves on the [supplier portal](supplier-portal.md#recording-your-hours-timesheet) and your project managers approve them like any other hours.
+
+1. Make sure the person exists as a **contact** whose **Company Name** is the supplier (see [Supplier portal](supplier-portal.md#giving-a-supplier-access)) and that they can sign in to the portal.
+2. Create the **Resource**: **Name**, **Role**, **Contact** = the person (leave **User** empty), **Weekly Hours**, **Working Days**. **Supplier** is filled in by itself.
+3. Add a **Resource Cost** row with the hourly rate agreed with the supplier: it values the hours like for internal people.
+4. Add the supplier to the project (**Project Supplier**, status Active) with the WBS activities it works on: these are the activities the person can record hours on.
+
+Rules: a resource cannot have both a User and a Contact ("A resource is linked to a User or to a Contact, not both."); the contact must belong to a supplier ("The contact of an external resource must have a supplier as Company Name."); a contact can be linked to one active resource only ("The contact is already linked to the resource ..."). External resources get no daily reminder (they have no user).
 
 ### Hourly cost history (Resource Costs)
 

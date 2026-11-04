@@ -116,6 +116,10 @@
         <Dependent type="powerpagecomponent" id="{5b66636f-43d0-f111-a05b-7ced8d2d53e4}" />
       </MissingDependency>
       <MissingDependency>
+        <Required type="1" schemaName="op365_resource" displayName="Resource" solution="Active" />
+        <Dependent type="powerpagecomponent" id="{5cc0e755-4dd8-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
         <Required type="1" schemaName="op365_rfqinvitation" displayName="RFQ Invitation" solution="Active" />
         <Dependent type="powerpagecomponent" id="{3f66636f-43d0-f111-a05b-7ced8d2d53e4}" />
       </MissingDependency>
@@ -134,6 +138,10 @@
       <MissingDependency>
         <Required type="1" schemaName="op365_supplierinvoiceline" displayName="Supplier Invoice Line" solution="Active" />
         <Dependent type="powerpagecomponent" id="{442b1b31-01d7-f111-84e8-7ced8d2d53e4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="op365_timeentry" displayName="Time Entry" solution="Active" />
+        <Dependent type="powerpagecomponent" id="{6ac0e755-4dd8-f111-84e8-7ced8d2d53e4}" />
       </MissingDependency>
       <MissingDependency>
         <Required type="1" schemaName="op365_wbsnode" displayName="WBS Node" solution="Active" />

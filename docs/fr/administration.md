@@ -162,6 +162,7 @@ Pour envoyer les e-mails :
 2. Renseignez **Supplier Email Sender** avec le nom ou l'adresse e-mail de la file d'attente.
 3. Vérifiez les modèles dans **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* et *ProjectIQ - Document expired*, avec une version par langue comme *ProjectIQ - Document expiré*). Adaptez leur texte à votre guise ; les espaces réservés `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` et `{ExpiryDate}` sont remplis pour chaque document. Pour utiliser d'autres modèles, indiquez leurs titres dans **Supplier Email Templates**. Les modèles sont des données de l'environnement, pas de la solution : s'ils manquent, l'IT les crée avec `tools/dataverse/supplier_email_templates.py`.
    La même file d'attente envoie les invitations au portail (**Invite to Portal** sur le contact) avec *ProjectIQ - Portal invitation* (message `PortalInvitation` ; espaces réservés `{Contact}`, `{Email}`, `{Link}` et `{ExpiryDate}`). Gardez `{Link}` dans le texte : c'est le lien d'inscription.
+   Les heures rejetées des **ressources externes** sont envoyées par e-mail à leur contact avec *ProjectIQ - Saisies de temps rejetées* (message `TimeEntriesRejected` ; espaces réservés `{Contact}`, `{Count}` et `{Note}`).
 4. Renseignez **Language** et **Email** de chaque compte fournisseur.
 
 ### Agent proposal approval et Daily agent proposal expiry

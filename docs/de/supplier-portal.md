@@ -11,6 +11,7 @@ Das **Lieferantenportal** ist eine Website, erstellt mit Microsoft Power Pages a
 - sehen, welcher Teil jeder Bestellung bereits **geliefert** wurde;
 - **seine Rechnungen hochladen** (FatturaPA-XML oder PDF): Die Daten werden automatisch gelesen und mit seinen Bestellungen abgeglichen, dann verfolgt er Genehmigung und **Zahlung**;
 - die **Projekte** sehen, an denen er arbeitet, mit den ihm zugewiesenen Aktivitäten des Plans (PSP), und — wenn Sie es erlauben — deren **Fortschritt** aktualisieren;
+- die **Stunden** seiner Mitarbeiter auf Ihren Projekten in einem wöchentlichen **Stundenzettel** erfassen, wenn Sie sie mit einer Ressource verknüpfen;
 - seine **Unternehmensdokumente** (DURC, Zertifizierungen, Versicherungen) hochladen, die Ihr Einkäufer genehmigt, und wird vor ihrem Ablauf gewarnt.
 
 Alles, was der Lieferant tut, ist sofort in ProjectIQ sichtbar: Angebote erscheinen im Quote Comparison der Angebotsanfrage, Bestätigungen ändern den Status der Bestellung, hochgeladene Dokumente warten auf Ihre Prüfung.
@@ -155,9 +156,32 @@ Das Dokument bleibt **Pending review**, bis der Einkäufer es genehmigt. Solange
 
 Sie erhalten eine E-Mail, wenn ein genehmigtes Dokument bald abläuft (30 Tage vorher) und wenn es abläuft; das Dashboard zeigt dieselben Hinweise.
 
+### Ihre Stunden erfassen (Timesheet)
+
+Wenn Ihr Kunde Sie als **Ressource** seiner Projekte registriert hat, zeigt die Seitenleiste **Timesheet** (mit einem orangen Zähler, wenn Stunden abgelehnt wurden). Die Seite ist Ihr wöchentlicher Stundenzettel:
+
+| Teil | Was er zeigt |
+|---|---|
+| **‹ Previous** / **Next ›** | Zwischen den Wochen wechseln; zuerst öffnet sich die aktuelle Woche |
+| Zähler | Stunden **Hours this week**, **Draft**, **Submitted / Approved** und **Rejected** |
+| Orange Notizen | Eine Zeile pro **Rejected**-Eintrag der Woche, mit der Notiz des Projektleiters |
+| Raster | Eine Zeile pro Aktivität (Projektcode und -name, Aktivitätscode und -name), eine Spalte pro Tag von Montag bis Sonntag, die **Total** der Zeile und ihr **Status** |
+
+1. Wählen Sie eine Aktivität in **+ Add activity**: Die Liste zeigt nur die Aktivitäten, die Ihr Kunde Ihrem Unternehmen zugewiesen hat, auf laufenden Projekten.
+2. Geben Sie die Stunden jedes Tages ein (0–24, Viertelstunden erlaubt). Leeren Sie eine Zelle, um die Stunden dieses Tages zu entfernen.
+3. Klicken Sie auf **Save draft**, um Ihre Arbeit zu speichern, oder auf **Submit week**, um alle Entwurfs- und abgelehnten Stunden der Woche zu speichern und zur Genehmigung einzureichen.
+
+| Status | Bedeutung |
+|---|---|
+| **Draft** | Gespeichert, nicht gesendet: Sie können ihn noch ändern |
+| **Submitted** | Wartet auf die Genehmigung Ihres Kunden: schreibgeschützt |
+| **Approved** | Angenommen: schreibgeschützt |
+| **Rejected** | Mit einer Notiz zurückgegeben (roter Rahmen): Korrigieren Sie die Stunden und klicken Sie erneut auf **Submit week**. Sie erhalten auch eine E-Mail |
+
 ### Fehler
 
 Schlägt eine Aktion fehl, erklärt eine rote Meldung den Grund. Häufige Fälle: „Session expired: sign in again.“ (melden Sie sich erneut an und wiederholen Sie den Vorgang), „The deadline of the request for quotation has passed.“ (bitten Sie den Einkäufer um eine Fristverlängerung), „The request for quotation is closed.“ (sie wurde vergeben oder storniert), „Approved documents cannot be changed.“ oder „Approved documents cannot be deleted.“ (laden Sie stattdessen ein neues Dokument hoch), „Choose the file of the document.“ (ein neues Dokument braucht seine Datei), „Progress must be between 0 and 100.“, „Progress updates from the supplier portal are disabled.“ (Ihr Kunde hat sie deaktiviert), „Sent invoices cannot be changed.“ (bitten Sie Ihren Kunden, die Rechnung abzulehnen), „The invoice cannot be sent while it is being read or when it is a duplicate.“ (warten Sie einige Sekunden, oder löschen Sie das Duplikat), „Fill in the invoice number and date.“.
+Im **Timesheet**: „You can record hours only on the activities assigned to your company.“, „Hours and materials can be recorded only on projects In Progress.“ (das Projekt ist ausgesetzt oder abgeschlossen), „Submitted or approved time entries cannot be changed.“ (bitten Sie Ihren Kunden, sie abzulehnen), „Hours must be between 0 and 24.“.
 
 ## Teil 2 — Leitfaden für interne Mitarbeiter
 
@@ -174,6 +198,7 @@ Das Portal ist bewusst eingeschränkt. Lieferanten lesen nur ihre eigenen Datens
 | Projektlieferanten seines Unternehmens (Active und Invited) | Projekt, Rolle, Status | Nichts |
 | Projekte dieser Projektlieferanten und seiner Bestellungen | Code, Name, Start- und Enddatum, Fortschritt | Nichts |
 | PSP-Elemente seines Umfangs | Code, Name, Start- und Enddatum, Fortschritt | **Progress %** der Elemente ohne Unterelemente, nur wenn **Supplier Progress Updates** Yes ist |
+| Seine Ressource (Contact = der Benutzer) und ihre Zeiteinträge | Name der Ressource und Wochenstunden; Datum, Stunden, Status und Entscheidungsnotiz der Einträge | **Draft**- oder **Rejected**-Einträge anlegen, ändern und löschen (Datum, Stunden, Aktivität des Umfangs) und **einreichen**. Nie Kosten oder Erlöse |
 | Lieferantenrechnungen seines Unternehmens | Nummer, Daten, Beträge, Positionen, Status, Entscheidungsnotiz, Zahlung, Lesehinweise | Datei hochladen, **Rechnungsnummer**, **Daten**, **Bestellung** und **Lieferantennotiz**, solange Draft; **senden** (Draft → To Review), wenn nicht Pending oder Blocked; Entwürfe löschen |
 | Lieferantendokumente seines Unternehmens | Alle Felder, einschließlich der Prüfnotiz | Typ, Beschreibung, Nummer, Daten, Notizen, Datei; kann sie anlegen und löschen, nur solange das Dokument nicht genehmigt ist |
 
@@ -198,6 +223,25 @@ flowchart LR
 - Sie können einen Projektlieferanten von Hand über die Liste **Suppliers** des Projekts anlegen (**Project**, **Supplier**, **Role**) und in seiner Liste **WBS Scope** PSP-Elemente hinzufügen (**Add Existing WBS Node**). Ein Element bringt immer alle seine Unteraktivitäten mit, auch später angelegte.
 - Um Aktivitäten auszublenden, entfernen Sie sie aus dem WBS Scope (das Entfernen eines Elements entfernt seine Unteraktivitäten nicht: entfernen Sie diese auch), oder deaktivieren Sie den Projektlieferanten, um das ganze Projekt auszublenden.
 - Ob Lieferanten den Fortschritt aktualisieren dürfen, ist eine Unternehmenseinstellung, **Supplier Progress Updates** ([Administration](administration.md#unternehmenseinstellungen)); Standard ist No. *Can Update Progress* am Projektlieferanten zeigt den aktuellen Wert.
+
+### Externe Ressourcen: Stunden aus dem Portal
+
+Mitarbeiter eines Lieferanten können ihre Stunden im Portal erfassen, wenn Sie ihren **Kontakt** mit einer **Resource** verknüpfen ([Stammdaten](master-data.md#externe-ressourcen-personal-von-lieferanten)).
+
+```mermaid
+flowchart LR
+    C[Kontakt des Lieferanten] --> R[Resource<br/>Contact + Resource Cost]
+    PS[Project Supplier Active<br/>+ WBS Scope] --> T
+    R --> T[Portal: Timesheet<br/>Draft → Submit week]
+    T --> A[Time Approval<br/>Projektleiter]
+    A -->|Approved| AC[Ist-Stunden und -Kosten]
+    A -->|Rejected + Notiz| E[E-Mail an den Kontakt<br/>+ Notiz im Portal]
+```
+
+- Die Person kann Stunden nur auf den Aktivitäten des **WBS Scope** eines **Active** Projektlieferanten ihres Unternehmens erfassen, auf Projekten **In Progress**.
+- **Submit week** funktioniert wie **Submit** im Stundenzettel: Die Einträge werden **Submitted** (oder sofort **Approved**, wenn **Time Approval Enabled** No ist), und die Projektleiter erhalten eine Benachrichtigung „<resource> submitted time entries on <project> from the supplier portal.“.
+- Genehmigen oder lehnen Sie sie wie gewohnt in **Time Approval** ab. Bei einer Ablehnung erhält der Kontakt die E-Mail *ProjectIQ - Zeiteinträge abgelehnt* (Nachricht `TimeEntriesRejected`, versendet wie die anderen E-Mails an Lieferanten, siehe [Administration](administration.md#täglicher-dokumentenablauf)) und sieht Ihre Notiz im Portal.
+- Die Kosten sind Stunden × Stundensatz der Ressource am Datum (der mit dem Lieferanten vereinbarte Satz). Der Lieferant sieht nie Kosten oder Erlöse.
 
 ### Einem Lieferanten Zugriff geben
 
