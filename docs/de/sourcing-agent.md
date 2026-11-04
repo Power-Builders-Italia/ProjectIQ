@@ -13,8 +13,8 @@ Der Agent hat zehn Aufgaben, geliefert in der Reihenfolge der Einkaufskette. Jed
 
 | # | Aufgabe | Ergebnis | Status |
 |---|---|---|---|
-| 1 | Eine genehmigte Bedarfsanforderung lenken: Angebotsanfrage oder Direktbestellung | Vorschlag **Source via RFQ** oder **Direct Order** | Analyse verfügbar ([wie](#wie-eine-anforderung-gelenkt-wird)); Agent folgt |
-| 2 | Die einzuladenden Lieferanten wählen (verkaufte Artikel, gültige Dokumente, Preis, Lieferzeit, Antworten auf frühere Anfragen) | Einladungsliste im Vorschlag der Aufgabe 1 | Analyse verfügbar ([wie](#wie-eine-anforderung-gelenkt-wird)); Agent folgt |
+| 1 | Eine genehmigte Bedarfsanforderung lenken: Angebotsanfrage oder Direktbestellung | Vorschlag **Source via RFQ** oder **Direct Order** | Verfügbar: Agent nach der [Anleitung](../../copilot/sourcing-agent/README.md) erstellen ([wie](#wie-eine-anforderung-gelenkt-wird)) |
+| 2 | Die einzuladenden Lieferanten wählen (verkaufte Artikel, gültige Dokumente, Preis, Lieferzeit, Antworten auf frühere Anfragen) | Einladungsliste im Vorschlag der Aufgabe 1 | Verfügbar innerhalb der Aufgabe 1 ([wie](#wie-eine-anforderung-gelenkt-wird)) |
 | 3 | Die Angebote analysieren (Preis, Lieferung, Risiko) und die Vergabe empfehlen | Vorschlag **Award RFQ** | Geplant |
 | 4 | Lieferanten erinnern, die eine Angebotsanfrage nicht beantwortet haben | E-Mail an den Lieferanten und Protokollzeile | Geplant |
 | 5 | Lieferanten-Compliance: ablaufende oder abgelaufene Dokumente von Lieferanten mit offenen Angebotsanfragen oder Bestellungen | Insight **Compliance Alert** | Geplant |
@@ -202,6 +202,8 @@ Die Aufgaben 1 und 2 arbeiten auf einer **genehmigten** Bedarfsanforderung. Zwei
 - **Sourcing Suggest Suppliers** ordnet die Lieferanten, die die Anforderung bedienen könnten;
 - **Sourcing Route Request** wählt zwischen Angebotsanfrage und Direktbestellung und füllt Lieferanten und Frist des Vorschlags.
 
+Danach ruft der Agent **Sourcing Propose Route** mit seiner Erklärung auf. Dieser Aufruf berechnet die Lenkung neu (der Agent übergibt nie Zahlen) und erstellt den Vorschlag mit Payload, der Analyse als Evidence, Betrag, Projekt, Anforderung und, bei einer Direktbestellung, dem Lieferanten. Ist kein Lieferant geeignet, erstellt er stattdessen das Insight **New Supplier Needed**. Er wird abgelehnt, solange *Sourcing Agent Enabled* auf No steht ("The sourcing agent is switched off."), und wenn die Anforderung bereits einen offenen Vorschlag für dieselbe Aktion hat.
+
 Beide lesen die Daten mit den Rechten des Aufrufers: ein Benutzer sieht nur die Lieferanten und Preise, die seine Rollen lesen dürfen.
 
 **Kandidaten.** Der bevorzugte Lieferant der Anforderung, die Lieferanten der angeforderten Artikel (Artikel-Lieferanten-Zeilen und Standardlieferant des Artikels) und die Lieferanten, deren *Supplier Category* die *Category* eines angeforderten Artikels ist.
@@ -223,7 +225,7 @@ flowchart TD
     A[Genehmigte Bedarfsanforderung] --> B{Anfrage oder Bestellung<br/>schon vorhanden?}
     B -->|ja| NA[Kein Vorschlag]
     B -->|nein| C{Geeignete<br/>Lieferanten?}
-    C -->|keine| NS[Kein Vorschlag:<br/>kein konformer Lieferant]
+    C -->|keine| NS[Insight New Supplier Needed:<br/>kein konformer Lieferant]
     C -->|ja| D{Betrag ≤ Direct Order Limit<br/>und ein Lieferant verkauft jede Position?}
     D -->|ja| DO[Direct Order<br/>an den bevorzugten Lieferanten, wenn er jede Position verkauft,<br/>sonst an den bestbewerteten]
     D -->|nein| RFQ[Source via RFQ<br/>die bestbewerteten, so viele wie Minimum Quotes,<br/>Frist in 7 Tagen]

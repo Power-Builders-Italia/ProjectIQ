@@ -37,7 +37,7 @@ flowchart TD
 
 Every internal user needs a **Power Apps Premium** licence (or an equivalent licence that includes model-driven apps on Dataverse). Suppliers using the portal do not need a Power Apps licence: they are portal users, covered by the Power Pages capacity of the environment.
 
-The [sourcing agent](sourcing-agent.md) adds an application user (it needs no user licence, but it counts against the application users of the environment) and two cloud flows that use the Microsoft Dataverse and Microsoft Teams connections. The agent itself is a Copilot Studio agent delivered in later releases and uses Copilot Studio capacity: check your licensing before you switch it on.
+The [sourcing agent](sourcing-agent.md) adds an application user (it needs no user licence, but it counts against the application users of the environment) and two cloud flows that use the Microsoft Dataverse and Microsoft Teams connections. The agent itself is a Copilot Studio autonomous agent that uses Copilot Studio capacity (Copilot Credits) on every run: check your licensing before you switch it on.
 
 ## Security roles
 
@@ -200,7 +200,8 @@ Do this once per environment, after the solution is installed. The foundations w
 4. **Choose the channel.** Create or pick a Teams channel for the cards and set *Sourcing Approval Team* to `<team id>|<channel id>`.
 5. **Create the connections.** A user creates the **Microsoft Teams** connection (a service account that is a member of the team) for the connection reference **op365_teams**, and a **Microsoft Dataverse** connection owned by the application user of step 1 (it signs in as that application user) for the connection reference **op365_dataverse_agent**, then links them in the solution (Test and Production: through the deployment settings). Use that Dataverse connection only for **op365_dataverse_agent** and do not share it with other users: whatever uses it acts as the agent. Never link it to **op365_dataverse**, which the other flows use.
 6. **Turn on** the flows **Agent proposal approval** and **Daily agent proposal expiry** and check their run history the next day.
-7. **Switch the agent on** only when it is published: set *Sourcing Agent Enabled* to Yes. The agent is off by default in every environment, also in the AppSource package.
+7. **Build and publish the agent** in Copilot Studio with the application user's Dataverse connection, following the [build guide](../../copilot/sourcing-agent/README.md).
+8. **Switch the agent on** only when it is published: set *Sourcing Agent Enabled* to Yes. The agent is off by default in every environment, also in the AppSource package.
 
 To check the setup without waiting for the agent, IT runs the smoke test described in the [development environment guide](../dev-environment.md#sourcing-agent).
 

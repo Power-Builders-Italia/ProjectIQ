@@ -22,6 +22,7 @@ public class TextTests
     {
         Assert.Equal("L'utente che ha deciso non è un utente ProjectIQ.", Text.Translate("The user who decided is not a ProjectIQ user.", Text.Column(1040)));
         Assert.Equal("Neuer Agentenvorschlag", Text.Translate("New agent proposal", Text.Column(1031)));
+        Assert.Equal("L'agente di approvvigionamento è disattivato.", Text.Translate("The sourcing agent is switched off.", Text.Column(1040)));
     }
 
     [Fact]

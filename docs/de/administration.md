@@ -39,7 +39,7 @@ flowchart TD
 
 Jeder interne Benutzer braucht eine **Power Apps Premium**-Lizenz (oder eine gleichwertige Lizenz, die modellgesteuerte Apps auf Dataverse umfasst). Lieferanten, die das Portal nutzen, brauchen keine Power-Apps-Lizenz: Sie sind Portalbenutzer und durch die Power-Pages-Kapazität der Umgebung abgedeckt.
 
-Der [Beschaffungsagent](sourcing-agent.md) fügt einen Anwendungsbenutzer hinzu (er braucht keine Benutzerlizenz, zählt aber zu den Anwendungsbenutzern der Umgebung) und zwei Cloud-Flows, die die Verbindungen Microsoft Dataverse und Microsoft Teams nutzen. Der Agent selbst ist ein Copilot-Studio-Agent, der in späteren Versionen geliefert wird und Copilot-Studio-Kapazität verbraucht: Prüfen Sie Ihre Lizenzen, bevor Sie ihn einschalten.
+Der [Beschaffungsagent](sourcing-agent.md) fügt einen Anwendungsbenutzer hinzu (er braucht keine Benutzerlizenz, zählt aber zu den Anwendungsbenutzern der Umgebung) und zwei Cloud-Flows, die die Verbindungen Microsoft Dataverse und Microsoft Teams nutzen. Der Agent selbst ist ein autonomer Copilot-Studio-Agent, der bei jeder Ausführung Copilot-Studio-Kapazität (Copilot Credits) verbraucht: Prüfen Sie Ihre Lizenzen, bevor Sie ihn einschalten.
 
 ## Sicherheitsrollen
 
@@ -201,7 +201,8 @@ Einmal pro Umgebung, nachdem die Lösung installiert ist. Die Grundlagen funktio
 4. **Kanal wählen.** Legen Sie einen Teams-Kanal für die Karten an oder wählen Sie einen und setzen Sie *Sourcing Approval Team* auf `<team id>|<channel id>`.
 5. **Verbindungen anlegen.** Ein Benutzer legt die Verbindung **Microsoft Teams** (ein Dienstkonto, das Mitglied des Teams ist) für den Verbindungsverweis **op365_teams** an, und eine Verbindung **Microsoft Dataverse**, die dem Anwendungsbenutzer aus Schritt 1 gehört (sie meldet sich als dieser Anwendungsbenutzer an), für den Verbindungsverweis **op365_dataverse_agent**, und verknüpft sie in der Lösung (Test und Produktion: über die Deployment Settings). Verwenden Sie diese Dataverse-Verbindung nur für **op365_dataverse_agent** und teilen Sie sie nicht mit anderen Benutzern: Alles, was sie verwendet, handelt als der Agent. Verknüpfen Sie sie nie mit **op365_dataverse**, das die anderen Flows verwenden.
 6. **Schalten Sie** die Flows **Agent proposal approval** und **Daily agent proposal expiry** **ein** und prüfen Sie am nächsten Tag ihren Ausführungsverlauf.
-7. **Agenten einschalten**, erst wenn er veröffentlicht ist: Setzen Sie *Sourcing Agent Enabled* auf Yes. Der Agent ist in jeder Umgebung standardmäßig ausgeschaltet, auch im AppSource-Paket.
+7. **Agenten erstellen und veröffentlichen** in Copilot Studio mit der Dataverse-Verbindung des Anwendungsbenutzers, nach der [Anleitung](../../copilot/sourcing-agent/README.md).
+8. **Agenten einschalten**, erst wenn er veröffentlicht ist: Setzen Sie *Sourcing Agent Enabled* auf Yes. Der Agent ist in jeder Umgebung standardmäßig ausgeschaltet, auch im AppSource-Paket.
 
 Um die Einrichtung zu prüfen, ohne auf den Agenten zu warten, führt die IT den Smoke-Test aus, der im [Leitfaden zur Entwicklungsumgebung](../dev-environment.md#sourcing-agent) beschrieben ist.
 

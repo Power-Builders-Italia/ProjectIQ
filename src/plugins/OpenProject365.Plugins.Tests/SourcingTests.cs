@@ -160,4 +160,43 @@ public class SourcingTests
         Assert.Contains("\"route\":\"DirectOrder\"", json);
         Assert.Contains("\"suppliers\":[", json);
     }
+
+    [Fact]
+    public void Proposal_Rfq_PayloadOfTheRoute()
+    {
+        var r = Route(600, 500, new[] { S("A"), S("B") });
+        var p = SourcingRules.Proposal(r);
+        Assert.Equal(Proposals.Proposal, p.Kind);
+        Assert.Equal(Proposals.SourceViaRfq, p.ActionType);
+        Assert.Equal(SourcingRules.Json(r.Payload), p.Payload);
+        Assert.Null(p.SupplierId);
+    }
+
+    [Fact]
+    public void Proposal_DirectOrder_HasSupplier()
+    {
+        var a = S("A");
+        var p = SourcingRules.Proposal(Route(100, 500, new[] { a }));
+        Assert.Equal(Proposals.DirectOrder, p.ActionType);
+        Assert.Equal(a.Id, p.SupplierId);
+    }
+
+    [Fact]
+    public void Proposal_NoSupplier_Insight()
+    {
+        var p = SourcingRules.Proposal(Route(100, 500, new[] { S("Blocked", blocked: true) }));
+        Assert.Equal(Proposals.Insight, p.Kind);
+        Assert.Equal(Proposals.NewSupplierNeeded, p.ActionType);
+        Assert.Null(p.Payload);
+    }
+
+    [Fact] public void Proposal_NotApplicable_Nothing() => Assert.Null(SourcingRules.Proposal(Route(100, 500, new[] { S("A") }, approved: false)));
+
+    [Fact]
+    public void Rationale_TrimmedCutAndRequired()
+    {
+        Assert.Equal("Why", SourcingRules.Rationale("  Why "));
+        Assert.Equal(SourcingRules.RationaleMax, SourcingRules.Rationale(new string('x', 5000)).Length);
+        Assert.Equal(SourcingRules.RationaleRequired, Assert.Throws<InvalidOperationException>(() => SourcingRules.Rationale(" ")).Message);
+    }
 }

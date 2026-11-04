@@ -13,8 +13,8 @@ The agent has ten tasks, delivered in the order of the purchasing chain. Each ta
 
 | # | Task | Result | Status |
 |---|---|---|---|
-| 1 | Route an approved purchase request: RFQ or direct order | Proposal **Source via RFQ** or **Direct Order** | Analysis available ([how](#how-a-request-is-routed)); agent coming |
-| 2 | Choose the suppliers to invite (items sold, valid documents, price, lead time, answers to past RFQs) | Invitation list inside the proposal of task 1 | Analysis available ([how](#how-a-request-is-routed)); agent coming |
+| 1 | Route an approved purchase request: RFQ or direct order | Proposal **Source via RFQ** or **Direct Order** | Available: build the agent with the [guide](../../copilot/sourcing-agent/README.md) ([how](#how-a-request-is-routed)) |
+| 2 | Choose the suppliers to invite (items sold, valid documents, price, lead time, answers to past RFQs) | Invitation list inside the proposal of task 1 | Available inside task 1 ([how](#how-a-request-is-routed)) |
 | 3 | Analyse the quotes (price, delivery, risk) and recommend the award | Proposal **Award RFQ** | Planned |
 | 4 | Remind suppliers who have not answered an RFQ | E-mail to the supplier and a log row | Planned |
 | 5 | Supplier compliance: expiring or expired documents of suppliers with open RFQs or orders | Insight **Compliance Alert** | Planned |
@@ -202,6 +202,8 @@ Tasks 1 and 2 work on an **approved** purchase request. Two read-only analyses d
 - **Sourcing Suggest Suppliers** ranks the suppliers that could serve the request;
 - **Sourcing Route Request** chooses between a request for quotation and a direct order, and fills the proposal's suppliers and deadline.
 
+Then the agent calls **Sourcing Propose Route** with its explanation. That call computes the route again (the agent never passes numbers) and creates the proposal with the payload, the analysis as Evidence, the amount, the project, the request and, for a direct order, the supplier. When no supplier is eligible it creates the insight **New Supplier Needed** instead. It is refused while *Sourcing Agent Enabled* is No ("The sourcing agent is switched off.") and when the request already has an open proposal for the same action.
+
 Both read the data with the rights of whoever calls them: a user sees only the suppliers and prices their roles let them read.
 
 **Candidates.** The preferred supplier of the request, the suppliers of the requested items (item supplier rows and default supplier of the item) and the suppliers whose *Supplier Category* is the *Category* of a requested item.
@@ -223,7 +225,7 @@ flowchart TD
     A[Approved purchase request] --> B{RFQ or order<br/>already there?}
     B -->|yes| NA[No proposal]
     B -->|no| C{Eligible<br/>suppliers?}
-    C -->|none| NS[No proposal:<br/>no compliant supplier]
+    C -->|none| NS[Insight New Supplier Needed:<br/>no compliant supplier]
     C -->|yes| D{Amount ≤ Direct Order Limit<br/>and one supplier sells every line?}
     D -->|yes| DO[Direct Order<br/>to the preferred supplier if it sells every line,<br/>else the best scored]
     D -->|no| RFQ[Source via RFQ<br/>best scored suppliers, as many as Minimum Quotes,<br/>deadline in 7 days]

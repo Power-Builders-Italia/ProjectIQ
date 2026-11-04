@@ -148,6 +148,18 @@ namespace OpenProject365.Plugins
             return service.RetrieveMultiple(oq).Entities.Count > 0;
         }
 
+        /// <summary>Route of the purchase request, read with the caller's privileges (settings with the system service).</summary>
+        public static RouteResult Route(LocalContext context, Guid id)
+        {
+            var service = context.Service;
+            var request = Request(service, id);
+            decimal amount; int lines;
+            var scored = ScoreSuppliers(service, request, out amount, out lines);
+            return SourcingRules.Route(id, Purchasing.Id(request, Model.ProjectId), Purchasing.Status(request) == Model.PrApproved,
+                AlreadySourced(service, id), amount, Settings.SourcingDirectOrderLimit(context.SystemService),
+                Settings.SourcingMinQuotes(context.SystemService), scored, DateTime.UtcNow);
+        }
+
         public static Entity Request(IOrganizationService service, Guid id) =>
             service.Retrieve(Model.PurchaseRequest, id, new ColumnSet("statuscode", Model.ProjectId, "op365_preferredsupplierid", "op365_estimatedamount"));
     }
@@ -177,19 +189,50 @@ namespace OpenProject365.Plugins
     {
         protected override void Run(LocalContext context)
         {
-            var service = context.Service;
-            var id = context.TargetReference.Id;
-            var request = SourcingAnalysis.Request(service, id);
-            decimal amount; int lines;
-            var scored = SourcingAnalysis.ScoreSuppliers(service, request, out amount, out lines);
-            var route = SourcingRules.Route(id, Purchasing.Id(request, Model.ProjectId), Purchasing.Status(request) == Model.PrApproved,
-                SourcingAnalysis.AlreadySourced(service, id), amount, Settings.SourcingDirectOrderLimit(context.SystemService),
-                Settings.SourcingMinQuotes(context.SystemService), scored, DateTime.UtcNow);
+            var route = SourcingAnalysis.Route(context, context.TargetReference.Id);
             var output = context.Execution.OutputParameters;
             output["Route"] = route.Route;
             output["ActionType"] = route.ActionType ?? 0;
             output["Payload"] = route.Payload == null ? "" : SourcingRules.Json(route.Payload);
             output["Result"] = SourcingRules.Json(route);
+        }
+    }
+
+    /// <summary>
+    /// Custom API op365_SourcingProposeRoute (bound to op365_purchaserequest), the only write tool of the sourcing agent for tasks
+    /// 1 and 2. Input Rationale (the agent's explanation). Recomputes the route (the agent never passes numbers) and creates, with
+    /// the caller's privileges, the agent proposal Source via RFQ or Direct Order (payload, evidence, amount, project, request,
+    /// supplier), or the insight New Supplier Needed when no supplier is eligible; nothing when the route is NotApplicable.
+    /// Refused while op365_SourcingAgentEnabled is off. Outputs Route and ProposalId (empty when nothing was created).
+    /// </summary>
+    public class SourcingProposeRoute : PluginBase
+    {
+        protected override void Run(LocalContext context)
+        {
+            if (!Settings.SourcingAgentEnabled(context.SystemService)) Purchasing.Fail(SourcingRules.AgentOff);
+            var rationale = Sourcing.Rule(() => SourcingRules.Rationale(context.Execution.InputParameters.Contains("Rationale")
+                ? context.Execution.InputParameters["Rationale"] as string : null));
+            var id = context.TargetReference.Id;
+            var route = SourcingAnalysis.Route(context, id);
+            var output = context.Execution.OutputParameters;
+            output["Route"] = route.Route;
+            output["ProposalId"] = "";
+            var proposal = SourcingRules.Proposal(route);
+            if (proposal == null) return;
+
+            var row = new Entity(Model.AgentProposal)
+            {
+                ["op365_kind"] = new OptionSetValue(proposal.Kind),
+                ["op365_actiontype"] = new OptionSetValue(proposal.ActionType),
+                ["op365_rationale"] = rationale,
+                ["op365_evidence"] = SourcingRules.Json(route),
+                ["op365_amount"] = new Money(route.EstimatedAmount),
+                [Model.PurchaseRequestId] = new EntityReference(Model.PurchaseRequest, id),
+            };
+            if (proposal.Payload != null) row["op365_payload"] = proposal.Payload;
+            if (!string.IsNullOrEmpty(route.ProjectId)) row[Model.ProjectId] = new EntityReference(Model.Project, Guid.Parse(route.ProjectId));
+            if (proposal.SupplierId.HasValue) row[Model.SupplierId] = new EntityReference("account", proposal.SupplierId.Value);
+            output["ProposalId"] = context.Service.Create(row).ToString("D");
         }
     }
 }

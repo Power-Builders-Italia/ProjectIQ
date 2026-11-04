@@ -71,7 +71,7 @@ Legal: [Privacy statement](docs/legal/privacy.md) · [Terms of use](docs/legal/t
 | `src/plugins` | C# plugins and Custom API implementations |
 | `src/pcf` | PCF controls (GanttChart, WbsTreeGrid, WeeklyTimesheet, TimeApproval, ResourceLoad, CostSummary, QuoteComparison, ProgressField) |
 | `src/webresources` | Form scripts and dialogs |
-| `copilot` | Business skills and glossary for Copilot (`skills`, `glossary.md`); `portfolio-agent`: SPFx Copilot components and declarative agent ([guide](docs/dev-environment.md#portfolio-agent-spfx-copilot-components)) |
+| `copilot` | Business skills and glossary for Copilot (`skills`, `glossary.md`); `sourcing-agent`: Copilot Studio build guide of the [sourcing agent](copilot/sourcing-agent/README.md); `portfolio-agent`: SPFx Copilot components and declarative agent ([guide](docs/dev-environment.md#portfolio-agent-spfx-copilot-components)) |
 | `portal` | Power Pages supplier portal |
 | `appsource` | AppSource package: Package Deployer project and listing assets ([guide](docs/appsource.md)) |
 | `docs` | User manuals (`docs/<language>/`), [dev environment setup](docs/dev-environment.md), [data model](docs/data-model.md), ADRs |

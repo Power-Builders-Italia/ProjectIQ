@@ -76,6 +76,15 @@ namespace OpenProject365.Plugins
         [DataMember(Name = "suppliers", Order = 10)] public SupplierScore[] Suppliers;
     }
 
+    /// <summary>The agent proposal or insight that a route becomes (op365_SourcingProposeRoute).</summary>
+    public class RouteProposal
+    {
+        public int Kind;
+        public int ActionType;
+        public string Payload;
+        public Guid? SupplierId;
+    }
+
     public static class SourcingRules
     {
         public const string RouteRfq = "SourceViaRfq";
@@ -94,6 +103,9 @@ namespace OpenProject365.Plugins
         public const int RfqDeadlineDays = 7;
 
         public const string NotApproved = "Only approved purchase requests can be sourced.";
+        public const string AgentOff = "The sourcing agent is switched off.";
+        public const string RationaleRequired = "Write the rationale of the proposal.";
+        public const int RationaleMax = 4000;
 
         /// <summary>
         /// Scores every candidate, best first. Not eligible (score 0, listed last): inactive, blocked, or with expired documents.
@@ -236,6 +248,40 @@ namespace OpenProject365.Plugins
             if (invite.Count < minQuotes) reasons.Add($"Fewer suppliers than the {minQuotes} quotes wanted.");
             result.Reasons = reasons.ToArray();
             return result;
+        }
+
+        /// <summary>
+        /// What a route becomes: SourceViaRfq and DirectOrder a proposal of the same action type (payload of the route, supplier
+        /// of the direct order), NoSupplier an insight New Supplier Needed, NotApplicable nothing (null).
+        /// </summary>
+        public static RouteProposal Proposal(RouteResult route)
+        {
+            if (route == null) return null;
+            switch (route.Route)
+            {
+                case RouteRfq:
+                case RouteDirect:
+                    var supplier = route.Payload?.SupplierId;
+                    return new RouteProposal
+                    {
+                        Kind = Proposals.Proposal,
+                        ActionType = route.ActionType.Value,
+                        Payload = Json(route.Payload),
+                        SupplierId = string.IsNullOrEmpty(supplier) ? (Guid?)null : Guid.Parse(supplier),
+                    };
+                case RouteNone:
+                    return new RouteProposal { Kind = Proposals.Insight, ActionType = Proposals.NewSupplierNeeded };
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>The rationale written by the agent, trimmed and cut to the column size; empty is refused.</summary>
+        public static string Rationale(string text)
+        {
+            var value = (text ?? "").Trim();
+            if (value.Length == 0) throw new InvalidOperationException(RationaleRequired);
+            return value.Length > RationaleMax ? value.Substring(0, RationaleMax) : value;
         }
 
         private static string Amount(decimal value) => value.ToString("0.00", CultureInfo.InvariantCulture);

@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Rationale">
+  <description default="Why the agent proposes this route, quoting the reasons of the analysis">
+    <label description="Why the agent proposes this route, quoting the reasons of the analysis" languagecode="1033" />
+  </description>
+  <displayname default="Rationale">
+    <label description="Rationale" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>op365_SourcingProposeRoute.Rationale</name>
+  <type>10</type>
+</customapirequestparameter>
