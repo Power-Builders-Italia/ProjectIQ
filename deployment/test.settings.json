@@ -65,6 +65,16 @@
       "LogicalName": "op365_dataverse_agent",
       "ConnectionId": "#{OP365_DATAVERSE_AGENT_CONNECTION_ID}#",
       "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593",
+      "ConnectionId": "#{OP365_DATAVERSE_AGENT_CONNECTION_ID}#",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "op365_sharedmicrosoftcopilotstudio_11d9c",
+      "ConnectionId": "#{OP365_COPILOT_STUDIO_CONNECTION_ID}#",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_microsoftcopilotstudio"
     }
   ]
 }
