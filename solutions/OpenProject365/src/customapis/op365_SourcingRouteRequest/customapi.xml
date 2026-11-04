@@ -1,0 +1,19 @@
+<customapi uniquename="op365_SourcingRouteRequest">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Recommends a request for quotation or a direct order for an approved purchase request and the suppliers; read-only">
+    <label description="Recommends a request for quotation or a direct order for an approved purchase request and the suppliers; read-only" languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Route Request">
+    <label description="Sourcing Route Request" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Sourcing Route Request</name>
+  <plugintypeid>
+    <plugintypeexportkey>6c641e5d-d2d7-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

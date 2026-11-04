@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Route">
+  <description default="SourceViaRfq, DirectOrder, NoSupplier or NotApplicable">
+    <label description="SourceViaRfq, DirectOrder, NoSupplier or NotApplicable" languagecode="1033" />
+  </description>
+  <displayname default="Route">
+    <label description="Route" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SourcingRouteRequest.Route</name>
+  <type>10</type>
+</customapiresponseproperty>
