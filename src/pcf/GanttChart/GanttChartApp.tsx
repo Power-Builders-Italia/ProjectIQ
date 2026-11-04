@@ -10,6 +10,7 @@ import { CpmLink, criticalPath, CpmResult } from "../shared/cpm";
 import { isoDay, toDay } from "../shared/dates";
 import { bands, PX_PER_DAY, range, Zoom } from "../shared/timeline";
 import { ChevronDownIcon, ChevronRightIcon, RefreshIcon } from "../shared/icons";
+import { openRecordInSidePane } from "../shared/navigation";
 
 const ROW = 30, HEADER = 44, LABELS = 280;
 
@@ -120,7 +121,7 @@ export function GanttChartApp({ context, refreshKey }: Props): React.ReactElemen
     const critical = (id: string): boolean => showCritical && cpm.critical.has(id);
 
     const openNode = async (id: string): Promise<void> => {
-        await context.navigation.openForm({ entityName: "op365_wbsnode", entityId: id });
+        await openRecordInSidePane(context.navigation, "op365_wbsnode", id);
         setReload(r => r + 1);
     };
     const toggle = (id: string): void => {

@@ -84,7 +84,7 @@ L'onglet WBS du projet affiche l'arbre complet sous forme de grille dépliable.
 
 | Colonne | Nœuds feuilles | Nœuds parents |
 |---|---|---|
-| **Name** (avec code) | Clic pour ouvrir le formulaire du nœud | Clic sur la flèche pour déplier/replier ; clic sur le nom pour ouvrir le formulaire |
+| **Name** (avec code) | Clic pour ouvrir le formulaire du nœud dans un panneau latéral | Clic sur la flèche pour déplier/replier ; clic sur le nom pour ouvrir le formulaire dans un panneau latéral |
 | **Start** / **End** | Modifiables en ligne | Début le plus tôt / fin la plus tardive des nœuds inférieurs (en gris, cumulés) |
 | **Budget Hours** | Modifiable en ligne | Somme des nœuds inférieurs |
 | **Labour**, **Materials**, **Other** | Modifiables en ligne | – |
@@ -94,6 +94,8 @@ L'onglet WBS du projet affiche l'arbre complet sous forme de grille dépliable.
 Les montants sont affichés dans la devise du projet.
 
 La dernière ligne affiche le **Total** des heures et du budget de tout le projet. Les valeurs cumulées sont en gris ; survolez-les pour voir l'info-bulle « Includes child nodes ».
+
+Le formulaire du nœud s'ouvre dans un **panneau latéral** (side panel) sur la moitié droite de la fenêtre, avec sa propre barre de commandes (**Save**, ...) et ses onglets, tandis que le WBS (ou le Gantt) reste visible à gauche. Utilisez le bouton d'agrandissement en haut du panneau pour passer au formulaire en pleine page. À la fermeture du panneau, le WBS et le Gantt sont actualisés avec vos modifications.
 
 ### Barre d'outils
 
@@ -182,7 +184,7 @@ gantt
 
 Ce que vous voyez :
 
-- **Colonne de gauche** : l'arbre WBS (dépliez/repliez avec les flèches ; cliquez sur un nom pour ouvrir le nœud).
+- **Colonne de gauche** : l'arbre WBS (dépliez/repliez avec les flèches ; cliquez sur un nom ou une barre pour ouvrir le nœud dans un panneau latéral).
 - **Barres récapitulatives** (foncées) pour les nœuds parents, du début le plus tôt à la fin la plus tardive de leurs enfants.
 - **Barres de tâches** pour les nœuds feuilles, avec l'**avancement** affiché en remplissage plus foncé.
 - **Flèches** pour les dépendances fin-début.
