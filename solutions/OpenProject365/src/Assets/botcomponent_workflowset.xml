@@ -1,0 +1,5 @@
+<botcomponent_workflowset>
+  <botcomponent_workflow botcomponentid.schemaname="op365_ProjectIQSourcingAgent.ExternalTriggerComponent.whenaPurch.592dfc48-d638-49c1-a1a3-3218d8e539a" workflowid.workflowid="b379f3cd-3bd8-f111-84e8-7ced8d2d53e4">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+</botcomponent_workflowset>

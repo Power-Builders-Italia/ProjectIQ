@@ -81,6 +81,8 @@ Both tools: **Add a tool** → **Connector** → **Microsoft Dataverse** → **P
 
 The trigger fires only when the status changes to Approved. A change of other columns does not fire it.
 
+The trigger flow must use the connection reference `op365_dataverse_agent` (*ProjectIQ Dataverse (sourcing agent)*): Dataverse then registers the flow's webhook (a *Callback Registration* row) as the application user, and the role *OP365 Sourcing Agent* has the privileges to read and update it. If the flow was first saved with another connection, the old webhook keeps its owner and every run fails with `does not have ReadAccess/WriteAccess right(s) for record … of entity Callback Registration`. To fix it, delete that Callback Registration row (as an administrator), then turn the flow off and on.
+
 ## 5. Test, then publish
 
 1. Keep `op365_SourcingAgentEnabled` = No and approve a test request: on the **Activity** page the run calls *Route purchase request*. Then *Propose route* is refused with "The sourcing agent is switched off." and the agent stops (expected).

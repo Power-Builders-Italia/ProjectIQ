@@ -1,0 +1,10 @@
+<botcomponent schemaname="op365_ProjectIQSourcingAgent.action.MicrosoftDataverse-Eseguiunazioneassociatanellambienteselezi_Jqb">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Microsoft Dataverse - Esegui un'azione associata nell'ambiente selezionato</name>
+  <parentbotid>
+    <schemaname>op365_ProjectIQSourcingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

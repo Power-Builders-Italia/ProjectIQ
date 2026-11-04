@@ -3,7 +3,10 @@
     <label description="Why the agent proposes this route, quoting the reasons of the analysis" languagecode="1033" />
   </description>
   <displayname default="Rationale">
+    <label description="Begründung" languagecode="1031" />
     <label description="Rationale" languagecode="1033" />
+    <label description="Justification" languagecode="1036" />
+    <label description="Motivazione" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <isoptional>0</isoptional>

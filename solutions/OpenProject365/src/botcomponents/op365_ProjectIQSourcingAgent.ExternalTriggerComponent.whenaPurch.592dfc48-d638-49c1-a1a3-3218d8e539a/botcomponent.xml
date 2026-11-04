@@ -1,0 +1,12 @@
+<botcomponent schemaname="op365_ProjectIQSourcingAgent.ExternalTriggerComponent.whenaPurch.592dfc48-d638-49c1-a1a3-3218d8e539a">
+  <componenttype>17</componenttype>
+  <description>Trigger your agent with certain message upon event: Quando una riga viene aggiunta, modificata o eliminata.</description>
+  <iconurl>https://static.powerapps.com/resource/ppcr/releases/v1.0.1834/1.0.1834.5101/commondataserviceforapps/icon.png</iconurl>
+  <iscustomizable>0</iscustomizable>
+  <name>when a Purchase Request in modified</name>
+  <parentbotid>
+    <schemaname>op365_ProjectIQSourcingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>
