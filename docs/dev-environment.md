@@ -167,6 +167,14 @@ The site uses the enhanced data model. Suppliers sign in, answer RFQs (prices on
   fields of `op365_supplierdocument` list the lookup both as `op365_supplierid` and as its navigation name `op365_SupplierId` (the
   check is case-sensitive) and exclude statuscode and the review columns; `account` is Web API enabled as well (only `accountid`),
   because the table on the other side of a bound lookup must be; the plugins refuse changes to approved documents.
+- Timesheet of external resources (page **Timesheet**, `/timesheet/`, shown in the sidebar only when the signed-in contact is the Contact of an
+  active resource): *Supplier resource* (`op365_resource`, Contact scope via `op365_contact_resource_contactid`, read and Append To) and its
+  child *Supplier time entries* (`op365_timeentry`, Parent via `op365_resource_timeentry_resourceid`, read, write, create, delete, append).
+  *Supplier WBS scope* also grants Append To, so that a new entry can be bound with `op365_WbsNodeId@odata.bind` (the plugin fills the project
+  from the node). `op365_timeentry` is Web API enabled with date, hours, notes, statuscode and the two lookups (logical and navigation names),
+  never cost, revenue or the decision columns; `op365_resource` with `op365_resourceid` only. `TimeEntryValidate` checks portal writes (external
+  resource, node of an Active project supplier's scope, status only Draft/Rejected → Submitted). Rejections are e-mailed with the template
+  message `TimeEntriesRejected`: run `tools/dataverse/supplier_email_templates.py` in every environment to create its templates.
 - A supplier user is a contact whose parent account is the supplier, with the **Supplier** web role. The plugin step
   `SupplierContactRole` (contact Create/Update of `parentcustomerid`) grants the role when the parent account has Is Supplier and removes
   it otherwise, so self-registered users get it as soon as the buyer links them. The Custom API `op365_InviteToPortal` (button

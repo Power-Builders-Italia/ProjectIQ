@@ -11,6 +11,7 @@ Il **portale fornitori** è un sito web, realizzato con Microsoft Power Pages su
 - vede quanto di ogni ordine è già stato **ricevuto**;
 - **carica le sue fatture** (XML FatturaPA o PDF): i dati vengono letti automaticamente e controllati rispetto ai suoi ordini, poi ne segue l'approvazione e il **pagamento**;
 - vede le **commesse** su cui lavora, con le attività del piano (WBS) assegnate a lui e, se lo consenti, ne aggiorna l'**avanzamento**;
+- registra le **ore** del suo personale sulle tue commesse in un **foglio ore** settimanale, quando li colleghi a una risorsa;
 - carica i suoi **documenti aziendali** (DURC, certificazioni, assicurazioni), che il tuo buyer approva, e viene avvisato quando scadono.
 
 Tutto ciò che il fornitore fa è subito visibile in ProjectIQ: le offerte compaiono nel Quote Comparison della RdO, le conferme cambiano lo stato dell'ordine, i documenti caricati attendono la tua revisione.
@@ -155,9 +156,32 @@ Il documento resta **Pending review** finché il buyer non lo approva. Finché �
 
 Ricevi un'email quando un documento approvato sta per scadere (30 giorni prima) e quando scade; la Dashboard mostra gli stessi avvisi.
 
+### Registrare le ore (Timesheet)
+
+Se il tuo cliente ti ha registrato come **risorsa** delle sue commesse, la barra laterale mostra **Timesheet** (con un contatore arancione quando alcune ore sono state rifiutate). La pagina è il tuo foglio ore settimanale:
+
+| Parte | Cosa mostra |
+|---|---|
+| **‹ Previous** / **Next ›** | Passa da una settimana all'altra; si apre la settimana corrente |
+| Contatori | Ore **Hours this week**, **Draft**, **Submitted / Approved** e **Rejected** |
+| Note arancioni | Una riga per ogni registrazione **Rejected** della settimana, con la nota del capo commessa |
+| Griglia | Una riga per attività (codice e nome della commessa, codice e nome dell'attività), una colonna per giorno da lunedì a domenica, il **Total** della riga e il suo **Status** |
+
+1. Scegli un'attività in **+ Add activity**: l'elenco mostra solo le attività che il cliente ha assegnato alla tua azienda, su commesse in corso.
+2. Inserisci le ore di ogni giorno (0–24, ammessi i quarti d'ora). Svuota una cella per togliere le ore di quel giorno.
+3. Fai clic su **Save draft** per salvare il lavoro, oppure su **Submit week** per salvare e inviare in approvazione tutte le ore in bozza e rifiutate della settimana.
+
+| Stato | Significato |
+|---|---|
+| **Draft** | Salvata, non inviata: puoi ancora modificarla |
+| **Submitted** | In attesa di approvazione del cliente: sola lettura |
+| **Approved** | Accettata: sola lettura |
+| **Rejected** | Restituita con una nota (bordo rosso): correggi le ore e fai di nuovo clic su **Submit week**. Ricevi anche un'e-mail |
+
 ### Errori
 
 Se un'azione non riesce, un messaggio rosso spiega il motivo. Casi comuni: "Session expired: sign in again." (accedi di nuovo e ripeti), "The deadline of the request for quotation has passed." (contatta il buyer per una proroga), "The request for quotation is closed." (è stata aggiudicata o annullata), "Approved documents cannot be changed." o "Approved documents cannot be deleted." (carica invece un nuovo documento), "Choose the file of the document." (un nuovo documento richiede il suo file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (il cliente li ha disattivati), "Sent invoices cannot be changed." (chiedi al cliente di rifiutare la fattura), "The invoice cannot be sent while it is being read or when it is a duplicate." (attendi qualche secondo, oppure elimina il duplicato), "Fill in the invoice number and date.".
+Nel **Timesheet**: "You can record hours only on the activities assigned to your company.", "Hours and materials can be recorded only on projects In Progress." (la commessa è sospesa o chiusa), "Submitted or approved time entries cannot be changed." (chiedi al cliente di rifiutarle), "Hours must be between 0 and 24.".
 
 ## Parte 2 — Guida per il personale interno
 
@@ -174,6 +198,7 @@ Il portale è volutamente ristretto. I fornitori possono leggere solo i propri r
 | Fornitori di commessa della sua azienda (Active e Invited) | Commessa, ruolo, stato | Nulla |
 | Commesse di quei fornitori di commessa e dei suoi ordini | Codice, nome, data inizio e fine, avanzamento | Nulla |
 | Nodi WBS del suo perimetro | Codice, nome, data inizio e fine, avanzamento | **Progress %** dei nodi senza nodi figli, solo se **Supplier Progress Updates** è Yes |
+| La sua risorsa (Contact = l'utente) e le sue registrazioni ore | Nome della risorsa e ore settimanali; data, ore, stato e nota di decisione delle registrazioni | Crea, modifica ed elimina registrazioni **Draft** o **Rejected** (data, ore, attività del perimetro) e le **invia**. Mai costo o ricavo |
 | Fatture fornitore della sua azienda | Numero, date, importi, righe, stato, nota della decisione, pagamento, note di estrazione | Caricare il file, **numero fattura**, **date**, **ordine d'acquisto** e **nota del fornitore** finché è Draft; **inviarla** (Draft → To Review) se non è Pending o Blocked; eliminare le bozze |
 | Documenti fornitore della sua azienda | Tutti i campi, compresa la nota di revisione | Tipo, descrizione, numero, date, note, file; può crearli ed eliminarli, solo finché il documento non è approvato |
 
@@ -198,6 +223,25 @@ flowchart LR
 - Puoi aggiungere un fornitore di commessa a mano dall'elenco **Suppliers** della commessa (**Project**, **Supplier**, **Role**) e aggiungere nodi WBS nel suo elenco **WBS Scope** (**Add Existing WBS Node**). Un nodo porta sempre con sé tutte le sue sotto-attività, anche quelle create dopo.
 - Per nascondere attività, rimuovile dal WBS Scope (rimuovere un nodo non rimuove le sue sotto-attività: rimuovi anche quelle), oppure disattiva il fornitore di commessa per nascondere l'intera commessa.
 - Se i fornitori possono aggiornare l'avanzamento è un'impostazione aziendale, **Supplier Progress Updates** ([Amministrazione](administration.md#impostazioni-aziendali)); il valore predefinito è No. *Can Update Progress* sul fornitore di commessa mostra il valore attuale.
+
+### Risorse esterne: ore dal portale
+
+Il personale di un fornitore può registrare le ore sul portale quando colleghi il suo **contatto** a una **Resource** ([Anagrafiche](master-data.md#risorse-esterne-personale-dei-fornitori)).
+
+```mermaid
+flowchart LR
+    C[Contatto del fornitore] --> R[Resource<br/>Contact + Resource Cost]
+    PS[Project Supplier Active<br/>+ WBS Scope] --> T
+    R --> T[Portale: Timesheet<br/>Draft → Submit week]
+    T --> A[Time Approval<br/>capo commessa]
+    A -->|Approved| AC[Ore e costo effettivi]
+    A -->|Rejected + nota| E[E-mail al contatto<br/>+ nota sul portale]
+```
+
+- La persona può registrare ore solo sulle attività del **WBS Scope** di un fornitore di commessa **Active** della sua azienda, su commesse **In Progress**.
+- **Submit week** funziona come **Submit** nel foglio ore: le registrazioni diventano **Submitted** (o subito **Approved** se **Time Approval Enabled** è No) e i capi commessa ricevono una notifica "<resource> submitted time entries on <project> from the supplier portal.".
+- Approvale o rifiutale in **Time Approval** come sempre. Quando rifiuti, il contatto riceve l'e-mail *ProjectIQ - Ore rifiutate* (messaggio `TimeEntriesRejected`, inviata come le altre e-mail ai fornitori, vedi [Amministrazione](administration.md#scadenza-giornaliera-dei-documenti)) e vede la tua nota sul portale.
+- Il costo è ore × costo orario della risorsa alla data (la tariffa concordata con il fornitore). Il fornitore non vede mai costi né ricavi.
 
 ### Dare accesso a un fornitore
 

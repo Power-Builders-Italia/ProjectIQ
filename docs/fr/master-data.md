@@ -226,6 +226,8 @@ Une **ressource** est une personne (ou une équipe, ou toute capacité) dont les
 | **Name** | Nom de la personne ou de l'équipe (obligatoire) |
 | **Role** | Fonction ou compétence (par exemple « Électricien », « Chef de chantier ») |
 | **User** | L'utilisateur Dataverse de la personne. Nécessaire pour la feuille de temps : elle retrouve « ma ressource » via ce champ |
+| **Contact** | Pour une **ressource externe** (une personne d'un fournisseur) : le contact de cette personne. Une ressource a un User **ou** un Contact, jamais les deux ; le contact doit avoir un fournisseur comme **Company Name** |
+| **Supplier** | Lecture seule : le fournisseur du contact, renseigné automatiquement |
 | **Owner** | Propriétaire de l'enregistrement |
 | **Weekly Hours** | Heures contractuelles par semaine, de 0 à 80. Par défaut **40** |
 | **Working Days** | Les jours travaillés. Par défaut **du lundi au vendredi** |
@@ -238,6 +240,17 @@ Les heures hebdomadaires et les jours travaillés servent à trois endroits :
 - le **rappel quotidien** : heures attendues par jour = heures hebdomadaires ÷ nombre de jours travaillés ;
 - la **feuille de temps** : le total hebdomadaire est comparé aux heures hebdomadaires ;
 - la **charge des ressources** : capacité hebdomadaire = heures hebdomadaires, moins absences et fermetures d'entreprise.
+
+### Ressources externes (personnel des fournisseurs)
+
+Les sous-traitants travaillent souvent sur vos projets avec leur propre personnel, et leurs heures font partie du coût du projet. Au lieu de collecter des feuilles de temps par e-mail, reliez la personne à une ressource via son **contact** : elle saisit elle-même ses heures sur le [portail fournisseurs](supplier-portal.md#saisir-vos-heures-timesheet) et vos chefs de projet les approuvent comme toutes les autres heures.
+
+1. Vérifiez que la personne existe en tant que **contact** dont le **Company Name** est le fournisseur (voir [Portail fournisseurs](supplier-portal.md#donner-laccès-à-un-fournisseur)) et qu'elle peut se connecter au portail.
+2. Créez la **Resource** : **Name**, **Role**, **Contact** = la personne (laissez **User** vide), **Weekly Hours**, **Working Days**. **Supplier** se remplit tout seul.
+3. Ajoutez une ligne **Resource Cost** avec le taux horaire convenu avec le fournisseur : il valorise les heures comme pour le personnel interne.
+4. Ajoutez le fournisseur au projet (**Project Supplier**, statut Active) avec les activités WBS sur lesquelles il travaille : ce sont les activités sur lesquelles la personne peut saisir des heures.
+
+Règles : une ressource ne peut pas avoir à la fois un User et un Contact (« A resource is linked to a User or to a Contact, not both. ») ; le contact doit appartenir à un fournisseur (« The contact of an external resource must have a supplier as Company Name. ») ; un contact ne peut être lié qu'à une seule ressource active (« The contact is already linked to the resource ... »). Les ressources externes ne reçoivent pas le rappel quotidien (elles n'ont pas d'utilisateur).
 
 ### Historique du coût horaire (Resource Costs)
 

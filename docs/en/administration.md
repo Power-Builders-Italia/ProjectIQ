@@ -161,6 +161,7 @@ To send the e-mails:
 2. Set **Supplier Email Sender** to the name or the e-mail address of the queue.
 3. Check the templates in **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* and *ProjectIQ - Document expired*, with a version per language such as *ProjectIQ - Documento scaduto*). Change their text as you like; placeholders `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` and `{ExpiryDate}` are filled in for each document. To use other templates, write their titles in **Supplier Email Templates**. Templates are data of the environment, not of the solution: if they are missing, IT creates them with `tools/dataverse/supplier_email_templates.py`.
    The same queue sends the portal invitations (**Invite to Portal** on the contact) with *ProjectIQ - Portal invitation* (message `PortalInvitation`; placeholders `{Contact}`, `{Email}`, `{Link}` and `{ExpiryDate}`). Keep `{Link}` in its text: it is the registration link.
+   Rejected hours of **external resources** are e-mailed to their contact with *ProjectIQ - Time entries rejected* (message `TimeEntriesRejected`; placeholders `{Contact}`, `{Count}` and `{Note}`).
 4. Fill in the **Language** and the **Email** of each supplier account.
 
 ### Agent proposal approval and Daily agent proposal expiry

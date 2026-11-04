@@ -162,6 +162,7 @@ Per inviare le email:
 2. Imposta **Supplier Email Sender** con il nome o l'indirizzo email della coda.
 3. Controlla i modelli in **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* e *ProjectIQ - Document expired*, con una versione per lingua come *ProjectIQ - Documento scaduto*). Modificane il testo a piacere; i segnaposto `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` e `{ExpiryDate}` vengono compilati per ogni documento. Per usare altri modelli, scrivi i loro titoli in **Supplier Email Templates**. I modelli sono dati dell'ambiente, non della soluzione: se mancano, l'IT li crea con `tools/dataverse/supplier_email_templates.py`.
    La stessa coda invia gli inviti al portale (**Invite to Portal** sul contatto) con *ProjectIQ - Portal invitation* (messaggio `PortalInvitation`; segnaposto `{Contact}`, `{Email}`, `{Link}` e `{ExpiryDate}`). Lascia `{Link}` nel testo: è il link di registrazione.
+   Le ore rifiutate delle **risorse esterne** vengono comunicate via e-mail al loro contatto con *ProjectIQ - Ore rifiutate* (messaggio `TimeEntriesRejected`; segnaposto `{Contact}`, `{Count}` e `{Note}`).
 4. Compila **Language** ed **Email** di ogni account fornitore.
 
 ### Agent proposal approval e Daily agent proposal expiry

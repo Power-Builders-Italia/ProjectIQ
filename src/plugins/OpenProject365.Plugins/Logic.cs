@@ -253,4 +253,34 @@ namespace OpenProject365.Plugins
             return null;
         }
     }
+    /// <summary>Rules of external resources (a supplier contact instead of a user) and of the hours they record on the supplier portal.</summary>
+    public static class ExternalTime
+    {
+        /// <summary>Error of the User/Contact link of a resource, null when valid.</summary>
+        public static string LinkError(bool hasUser, bool hasContact, bool contactOfSupplier)
+        {
+            if (hasUser && hasContact) return "A resource is linked to a User or to a Contact, not both.";
+            if (hasContact && !contactOfSupplier) return "The contact of an external resource must have a supplier as Company Name.";
+            return null;
+        }
+
+        /// <summary>
+        /// Error of a status change requested from the supplier portal, null when allowed: only Draft or Rejected entries
+        /// can be sent (Submitted); no other status can be set.
+        /// </summary>
+        public static string PortalStatusError(int? current, int requested)
+        {
+            if (requested != Model.TimeSubmitted) return "On the supplier portal time entries can only be submitted.";
+            if (current.HasValue && current != Model.TimeDraft && current != Model.TimeRejected)
+                return "Only draft or rejected time entries can be submitted.";
+            return null;
+        }
+
+        /// <summary>
+        /// The project managers are notified once per batch: when no other entry of the same resource and project was
+        /// submitted in the last minutes (the portal submits a week entry by entry).
+        /// </summary>
+        public static bool NotifyBatch(DateTime now, IEnumerable<DateTime> recentSubmissions, int minutes = 10) =>
+            !recentSubmissions.Any(t => t > now.AddMinutes(-minutes) && t <= now);
+    }
 }

@@ -57,6 +57,7 @@ stateDiagram-v2
 ### Avant de commencer
 
 - Votre utilisateur doit être relié à une **Resource** (Master Data → Resources → champ *User*). Sinon la feuille de temps affiche « Your user is not linked to a resource. Ask an administrator to set User on your Resource. »
+- Le personnel de vos fournisseurs qui est **ressource externe** (une ressource avec un **Contact** au lieu d'un User) saisit ses heures sur le [portail fournisseurs](supplier-portal.md#saisir-vos-heures-timesheet), pas dans l'application ; ses heures arrivent dans **Time Approval** comme les autres.
 - Vous ne pouvez saisir des heures que sur les projets **In Progress** que vous voyez (vous en êtes membre ou propriétaire).
 
 ### Le tableau de bord Timesheet
@@ -175,6 +176,8 @@ Lorsqu'une saisie est approuvée :
 - son **coût** s'ajoute à l'**Actual Cost** du nœud et du projet, et apparaît dans la [synthèse des coûts](materials-and-costs.md#synthèse-des-coûts) ;
 - la saisie devient définitive : elle ne peut plus être modifiée ni supprimée.
 
+Les heures saisies sur le portail fournisseurs par les **ressources externes** s'approuvent de la même façon. Elles n'ont pas d'utilisateur : au lieu de la notification dans l'application, le contact reçoit un e-mail lorsque des heures sont rejetées (voir [Portail fournisseurs](supplier-portal.md#ressources-externes--heures-depuis-le-portail)).
+
 ## Valorisation des heures
 
 Chaque saisie porte deux montants, calculés à chaque enregistrement :
@@ -192,6 +195,7 @@ Exemple : le coût de Marco est de 35,00 €/h jusqu'au 30 juin et de 38,50 €/
 |---|---|---|
 | **Time Approval Enabled** | Variable d'environnement `op365_TimeApprovalEnabled` ([Administration](administration.md#paramètres-de-lentreprise)) | Yes (par défaut) : les heures soumises attendent l'approbation. No : **Submit** approuve immédiatement les saisies (elles comptent tout de suite dans le réel) |
 | **User** sur la Resource | Master Data → Resources | Relie une personne à sa ressource : nécessaire pour la feuille de temps |
+| **Contact** sur la Resource | Master Data → Resources | Rend la ressource externe : la personne saisit ses heures sur le portail fournisseurs ([Données de référence](master-data.md#ressources-externes-personnel-des-fournisseurs)) |
 | **Weekly Hours**, **Working Days** | Resource | Heures attendues (rappel, total hebdomadaire) |
 | **Absences** | Planning → Absences | Réduisent les heures attendues ; les fermetures d'entreprise suspendent les rappels |
 | **Hourly Rate** sur le Project Member | Projet → Team | Produit des heures du membre |
@@ -214,3 +218,6 @@ Les administrateurs peuvent soumettre des saisies pour d'autres et approuver ou 
 | « Add a note to reject time entries. » | Le motif du rejet est obligatoire |
 | « Only submitted time entries can be approved or rejected. » | La saisie a déjà été traitée (peut-être par un autre manager) : actualisez |
 | « Enter hours between 0 and 24. » | La valeur saisie dans la feuille de temps n'est pas valide |
+| « You can record hours only on the activities assigned to your company. » | Portail fournisseurs : l'activité n'est pas dans le périmètre WBS d'un fournisseur du projet actif de l'entreprise de la personne |
+| « On the supplier portal hours can be recorded only by an external resource. » | Portail fournisseurs : la ressource n'a pas de Contact |
+| « On the supplier portal time entries can only be submitted. » | Portail fournisseurs : depuis le portail, les saisies peuvent seulement être soumises à l'approbation |

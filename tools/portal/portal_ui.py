@@ -2,7 +2,8 @@
 
 Layout: sidebar with the modules and their to-do counters, Dashboard (KPIs, compliance ring of the company documents,
 To do list, project cards), portfolio cards for projects, requests for quotation, purchase orders and invoices (with
-CSS-only status filters), and a grid with upload form for the company documents. Used by supplier_portal.py.
+CSS-only status filters), a grid with upload form for the company documents, and the weekly timesheet of the
+external resources (contacts linked to a resource). Used by supplier_portal.py.
 Records are read with the Liquid fetchxml tag, so the table permissions of the Supplier web role filter them.
 """
 import re
@@ -15,6 +16,7 @@ VALUES = {
     'EX_PENDING': 365000000, 'EX_READY': 365000001, 'EX_TOCHECK': 365000002, 'EX_BLOCKED': 365000003,
     'PAY_NOTPAID': 365000000, 'PAY_SCHEDULED': 365000001, 'PAY_PARTIAL': 365000002, 'PAY_PAID': 365000003,
     'DOC_APPROVED': 1, 'DOC_PENDING': 365000000, 'DOC_REJECTED': 365000001,
+    'TE_DRAFT': 1, 'TE_SUBMITTED': 365000000, 'TE_APPROVED': 365000001, 'TE_REJECTED': 365000002, 'PRJ_IN_PROGRESS': 1,
     'EXP_VALID': 365000000, 'EXP_EXPIRING': 365000001, 'EXP_EXPIRED': 365000002, 'EXP_REPLACED': 365000003,
 }
 DOCUMENT_TYPES = [(365000000, 'DURC'), (365000001, 'Company Report'), (365000002, 'Certification'),
@@ -188,6 +190,16 @@ NAV = """{% assign op_today = now | date: 'yyyy-MM-dd' %}
         <condition attribute="op365_expirystatus" operator="in"><value>@EXP_EXPIRING@</value><value>@EXP_EXPIRED@</value></condition></filter>
     </filter></filter></entity></fetch>
 {% endfetchxml %}
+{% fetchxml op_nav_res %}
+<fetch top="1"><entity name="op365_resource"><attribute name="op365_resourceid" />
+  <filter><condition attribute="statecode" operator="eq" value="0" /><condition attribute="op365_contactid" operator="eq" value="{{ user.id }}" /></filter></entity></fetch>
+{% endfetchxml %}
+{% assign op_has_res = op_nav_res.results.entities.size %}{% assign op_n_te = 0 %}
+{% if op_has_res > 0 %}{% fetchxml op_nav_te %}
+<fetch><entity name="op365_timeentry"><attribute name="op365_timeentryid" />
+  <filter><condition attribute="statuscode" operator="eq" value="@TE_REJECTED@" />
+    <condition attribute="op365_resourceid" operator="eq" value="{{ op_nav_res.results.entities[0].op365_resourceid }}" /></filter></entity></fetch>
+{% endfetchxml %}{% assign op_n_te = op_nav_te.results.entities.size %}{% endif %}
 {% assign op_n_rfq = op_nav_rfq.results.entities.size %}{% assign op_n_po = op_nav_po.results.entities.size %}
 {% assign op_n_doc = op_nav_doc.results.entities.size %}
 <nav class="op-nav" aria-label="Supplier portal">
@@ -196,6 +208,7 @@ NAV = """{% assign op_today = now | date: 'yyyy-MM-dd' %}
   <a class="op-link{% if active == 'projects' %} active{% endif %}" href="/projects/"{% if active == 'projects' %} aria-current="page"{% endif %}>Projects</a>
   <a class="op-link{% if active == 'rfqs' %} active{% endif %}" href="/rfqs/"{% if active == 'rfqs' %} aria-current="page"{% endif %}>Requests for quotation{% if op_n_rfq > 0 %} <span class="op-count" title="To quote">{{ op_n_rfq }}</span>{% endif %}</a>
   <a class="op-link{% if active == 'orders' %} active{% endif %}" href="/orders/"{% if active == 'orders' %} aria-current="page"{% endif %}>Purchase orders{% if op_n_po > 0 %} <span class="op-count" title="To confirm">{{ op_n_po }}</span>{% endif %}</a>
+  {% if op_has_res > 0 %}<a class="op-link{% if active == 'timesheet' %} active{% endif %}" href="/timesheet/"{% if active == 'timesheet' %} aria-current="page"{% endif %}>Timesheet{% if op_n_te > 0 %} <span class="op-count warn" title="Rejected">{{ op_n_te }}</span>{% endif %}</a>{% endif %}
   <a class="op-link{% if active == 'invoices' %} active{% endif %}" href="/invoices/"{% if active == 'invoices' %} aria-current="page"{% endif %}>Invoices</a>
   <a class="op-link{% if active == 'documents' %} active{% endif %}" href="/documents/"{% if active == 'documents' %} aria-current="page"{% endif %}>Documents{% if op_n_doc > 0 %} <span class="op-count warn" title="To renew or replace">{{ op_n_doc }}</span>{% endif %}</a>
   <div class="op-who">{{ user.parentcustomerid.name | escape }}<br><span>{{ user.fullname | escape }} &middot; <a href="/Account/Login/LogOff?returnUrl=%2F">Sign out</a></span></div>
@@ -933,5 +946,223 @@ $(function () {
         .fail(function (m) { op365Error('The document was saved but the file was not uploaded: ' + m); $('#op-doc-save').prop('disabled', false); });
     }).fail(function (m) { op365Error(m); $('#op-doc-save').prop('disabled', false); });
   });
+});
+"""
+
+
+# Timesheet of an external resource (a resource whose Contact is the signed-in user): a week grid, one row per WBS node of
+# the company's scope (active Project Supplier rows, projects In Progress), one cell per day. Liquid lists the resource,
+# the nodes and the entries (from the requested week on); the grid is drawn by TIMESHEET_JS. Approved and submitted
+# entries are read-only; drafts and rejected entries are saved, deleted and submitted through the Web API.
+TIMESHEET = """{% assign w = request.params['w'] | escape %}
+{% fetchxml op_res %}
+<fetch top="1"><entity name="op365_resource">
+  <attribute name="op365_resourceid" /><attribute name="op365_name" /><attribute name="op365_weeklyhours" />
+  <filter><condition attribute="statecode" operator="eq" value="0" /><condition attribute="op365_contactid" operator="eq" value="{{ user.id }}" /></filter>
+</entity></fetch>
+{% endfetchxml %}
+<div class="op-head"><div><div class="op-crumb"><a href="/dashboard/">Dashboard</a> / Timesheet</div>
+<h1 class="op-h1">Timesheet</h1>
+{% if op_res.results.entities.size == 0 %}</div></div>
+<div class="op-empty">Your account is not linked to a resource: ask your customer to create one for you.</div>
+{% else %}
+{% assign res = op_res.results.entities[0] %}
+<p class="op-muted">Resource: {{ res.op365_name | escape }}{% if res.op365_weeklyhours %} &middot; {{ res.op365_weeklyhours | round: 0 }} h/week{% endif %}</p></div>
+<div class="op-actions"><a class="op-btn ghost small" id="op-prev" href="#">&lsaquo; Previous</a>
+  <span class="op-btn ghost small" id="op-week" style="font-weight:700"></span>
+  <a class="op-btn ghost small" id="op-next" href="#">Next &rsaquo;</a></div></div>
+{% if w != blank %}{% assign op_from = w %}{% else %}{% assign op_from = now | date_add_days: -7 | date: 'yyyy-MM-dd' %}{% endif %}
+{% fetchxml op_nodes %}
+<fetch><entity name="op365_wbsnode">
+  <attribute name="op365_wbsnodeid" /><attribute name="op365_code" /><attribute name="op365_name" />
+  <filter><condition attribute="statecode" operator="eq" value="0" /></filter>
+  <order attribute="op365_sortorder" /><order attribute="op365_code" />
+  <link-entity name="op365_project" from="op365_projectid" to="op365_projectid" link-type="inner" alias="pr">
+    <attribute name="op365_code" /><attribute name="op365_name" />
+    <filter><condition attribute="statecode" operator="eq" value="0" /><condition attribute="statuscode" operator="eq" value="@PRJ_IN_PROGRESS@" /></filter>
+  </link-entity>
+  <link-entity name="op365_projectsupplier_wbsnode" from="op365_wbsnodeid" to="op365_wbsnodeid" link-type="inner" intersect="true">
+    <link-entity name="op365_projectsupplier" from="op365_projectsupplierid" to="op365_projectsupplierid" link-type="inner">
+      <filter><condition attribute="statecode" operator="eq" value="0" /><condition attribute="statuscode" operator="eq" value="@PS_ACTIVE@" /></filter>
+    </link-entity>
+  </link-entity>
+</entity></fetch>
+{% endfetchxml %}
+{% fetchxml op_te %}
+<fetch top="500"><entity name="op365_timeentry">
+  <attribute name="op365_timeentryid" /><attribute name="op365_wbsnodeid" /><attribute name="op365_projectid" /><attribute name="op365_entrydate" />
+  <attribute name="op365_hours" /><attribute name="statuscode" /><attribute name="op365_decisionnote" />
+  <filter><condition attribute="statecode" operator="eq" value="0" />
+    <condition attribute="op365_resourceid" operator="eq" value="{{ res.op365_resourceid }}" />
+    <condition attribute="op365_entrydate" operator="on-or-after" value="{{ op_from | xml_escape }}" /></filter>
+  <order attribute="op365_entrydate" />
+</entity></fetch>
+{% endfetchxml %}
+<div class="op-kpis"><div class="op-kpi">Hours this week<b id="op-k-all">0</b></div><div class="op-kpi">Draft<b id="op-k-draft" style="color:#92400e">0</b></div>
+  <div class="op-kpi">Submitted / Approved<b id="op-k-sent" style="color:#047857">0</b></div><div class="op-kpi">Rejected<b id="op-k-rej" style="color:#b91c1c">0</b></div></div>
+<div id="op-notes"></div>
+<div id="op365-error" class="alert alert-danger d-none" role="alert"></div>
+<div id="op-ts" data-resource="{{ res.op365_resourceid }}">
+  <ul class="d-none" id="op-ts-nodes">{% for n in op_nodes.results.entities %}
+    <li data-id="{{ n.op365_wbsnodeid }}" data-code="{{ n.op365_code | escape }}" data-name="{{ n.op365_name | escape }}"
+        data-project="{{ n['pr.op365_code'] | escape }} &middot; {{ n['pr.op365_name'] | escape }}"></li>{% endfor %}</ul>
+  <ul class="d-none" id="op-ts-entries">{% for e in op_te.results.entities %}
+    <li data-id="{{ e.op365_timeentryid }}" data-node="{{ e.op365_wbsnodeid.id }}" data-nodename="{{ e.op365_wbsnodeid.name | escape }}"
+        data-project="{{ e.op365_projectid.name | escape }}" data-date="{{ e.op365_entrydate | date: 'yyyy-MM-dd' }}"
+        data-hours="{{ e.op365_hours }}" data-status="{{ e.statuscode.value }}" data-note="{{ e.op365_decisionnote | escape }}"></li>{% endfor %}</ul>
+  <div class="op-tablebox"><table class="op-table" id="op-ts-grid" aria-label="Hours of the week"></table></div>
+  <div class="op-row" style="margin-top:12px"><label class="op-muted" style="display:flex;gap:8px;align-items:center">
+    <select id="op-ts-add" style="font:inherit;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;max-width:28rem">
+      <option value="">+ Add activity</option></select> Projects and activities assigned to your company</label></div>
+  <div class="op-row" style="margin-top:12px"><span class="op-muted">Approved hours are read-only. Rejected hours can be corrected and sent again.</span>
+    <div class="op-actions"><button type="button" class="op-btn ghost" id="op-ts-save">Save draft</button>
+      <button type="button" class="op-btn" id="op-ts-submit">Submit week</button></div></div>
+</div>
+{% endif %}"""
+
+TIMESHEET_JS = r"""// Timesheet: week grid drawn from the Liquid lists; changes are saved as Draft entries, Submit week sends the drafts
+// and the rejected entries of the week (statuscode Submitted, checked by the plugin TimeEntryValidate)
+$(function () {
+  var box = $('#op-ts');
+  if (!box.length) return;
+  var DRAFT = @TE_DRAFT@, SUBMITTED = @TE_SUBMITTED@, APPROVED = @TE_APPROVED@, REJECTED = @TE_REJECTED@;
+  var params = new URLSearchParams(location.search);
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function parse(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  var start = params.get('w') && /^\d{4}-\d{2}-\d{2}$/.test(params.get('w')) ? parse(params.get('w')) : new Date();
+  start = addDays(start, -((start.getDay() + 6) % 7));   // Monday
+  var days = [0, 1, 2, 3, 4, 5, 6].map(function (i) { return addDays(start, i); });
+  var keys = days.map(iso);
+  function go(d, extra) { location.href = '/timesheet/?w=' + iso(d) + (extra || ''); }
+  $('#op-prev').on('click', function (e) { e.preventDefault(); go(addDays(start, -7)); });
+  $('#op-next').on('click', function (e) { e.preventDefault(); go(addDays(start, 7)); });
+  var fmt = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+  $('#op-week').text(fmt.format(days[0]) + ' \u2013 ' + fmt.format(days[6]));
+
+  var nodes = {}, order = [];
+  $('#op-ts-nodes li').each(function () {
+    var n = $(this).data(); nodes[n.id] = { id: n.id, label: n.code + ' ' + n.name, project: n.project }; order.push(n.id);
+  });
+  var cells = {}, rows = [];   // cells[node][date] = [entries]
+  $('#op-ts-entries li').each(function () {
+    var e = $(this).data();
+    if (keys.indexOf(e.date) < 0) return;
+    e.hours = parseFloat(String(e.hours).replace(',', '.')) || 0;
+    if (!nodes[e.node]) nodes[e.node] = { id: e.node, label: e.nodename, project: e.project, closed: true };
+    cells[e.node] = cells[e.node] || {};
+    (cells[e.node][e.date] = cells[e.node][e.date] || []).push(e);
+    if (rows.indexOf(e.node) < 0) rows.push(e.node);
+  });
+  function entriesOfWeek() { var all = []; rows.forEach(function (n) { keys.forEach(function (k) { all = all.concat((cells[n] || {})[k] || []); }); }); return all; }
+
+  // Submit week: after the reload that follows Save, send the drafts and the rejected entries of the week
+  if (params.get('submit') === '1') {
+    var send = entriesOfWeek().filter(function (e) { return e.status == DRAFT || e.status == REJECTED; });
+    var k = 0;
+    var next = function () {
+      if (k === send.length) { go(start); return; }
+      op365Call('PATCH', '/_api/op365_timeentries(' + send[k].id + ')', { statuscode: SUBMITTED })
+        .done(function () { k++; next(); }).fail(function (m) { op365Error(m); });
+    };
+    next();
+    return;
+  }
+
+  function editable(list) { return !list || (list.length === 1 && (list[0].status == DRAFT || list[0].status == REJECTED)); }
+  function rowStatus(n) {
+    var st = [];
+    keys.forEach(function (k) { ((cells[n] || {})[k] || []).forEach(function (e) { st.push(+e.status); }); });
+    if (st.indexOf(REJECTED) >= 0) return ['b-red', 'Rejected'];
+    if (st.indexOf(DRAFT) >= 0) return ['b-amber', 'Draft'];
+    if (st.indexOf(SUBMITTED) >= 0) return ['b-blue', 'Submitted'];
+    if (st.indexOf(APPROVED) >= 0) return ['b-green', 'Approved'];
+    return ['b-grey', 'New'];
+  }
+  var dayFmt = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric' });
+  function draw() {
+    var t = $('#op-ts-grid').empty();
+    var head = $('<tr>').append($('<th scope="col">').text('Project / activity'));
+    days.forEach(function (d) { head.append($('<th scope="col">').text(dayFmt.format(d))); });
+    head.append('<th scope="col" style="text-align:right">Total</th><th scope="col">Status</th>');
+    t.append($('<thead>').append(head));
+    var body = $('<tbody>'), totals = [0, 0, 0, 0, 0, 0, 0];
+    var kpi = { all: 0, draft: 0, sent: 0, rej: 0 };
+    rows.forEach(function (n) {
+      var node = nodes[n], tr = $('<tr>').attr('data-node', n), sum = 0;
+      tr.append($('<td>').append($('<small>').text(node.project), $('<b>').text(node.label)));
+      keys.forEach(function (k, i) {
+        var list = (cells[n] || {})[k], h = 0;
+        (list || []).forEach(function (e) {
+          h += e.hours;
+          if (e.status == DRAFT) kpi.draft += e.hours; else if (e.status == REJECTED) kpi.rej += e.hours; else kpi.sent += e.hours;
+        });
+        sum += h; totals[i] += h;
+        var input = $('<input type="number" min="0" max="24" step="0.25" class="op-ts-h">').attr('data-date', k)
+          .attr('aria-label', node.label + ' ' + dayFmt.format(days[i])).val(h ? h : '')
+          .css({ width: '64px', font: 'inherit', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '6px', textAlign: 'right' });
+        if (!editable(list) || node.closed) input.prop('disabled', true).css({ background: '#f1f5f9', color: '#64748b' });
+        if (list && list.length === 1 && list[0].status == REJECTED) input.css('border', '2px solid var(--op-red)');
+        tr.append($('<td>').css(i >= 5 ? { background: '#f8fafc' } : {}).append(input));
+      });
+      kpi.all += sum;
+      var st = rowStatus(n);
+      tr.append($('<td style="text-align:right;font-weight:700">').text(sum), $('<td>').append($('<span class="op-badge">').addClass(st[0]).text(st[1])));
+      body.append(tr);
+    });
+    if (!rows.length) body.append('<tr><td colspan="10" class="op-muted">No hours this week: add an activity to start.</td></tr>');
+    t.append(body);
+    var foot = $('<tr>').append('<th>Total</th>');
+    totals.forEach(function (x) { foot.append($('<th>').text(x || '')); });
+    foot.append($('<th style="text-align:right">').text(kpi.all), '<th></th>');
+    t.append($('<tfoot>').append(foot));
+    $('#op-k-all').text(kpi.all); $('#op-k-draft').text(kpi.draft); $('#op-k-sent').text(kpi.sent); $('#op-k-rej').text(kpi.rej);
+    var notes = $('#op-notes').empty();
+    entriesOfWeek().forEach(function (e) {
+      if (e.status != REJECTED) return;
+      notes.append($('<p class="op-note" style="margin-bottom:8px">').append($('<b>').text('Rejected'),
+        document.createTextNode(' \u00b7 ' + nodes[e.node].label + ', ' + dayFmt.format(parse(e.date)) + (e.note ? ': ' + e.note : ''))));
+    });
+    var add = $('#op-ts-add');
+    add.find('option:not(:first)').remove();
+    order.forEach(function (id) { if (rows.indexOf(id) < 0) add.append($('<option>').val(id).text(nodes[id].project + ' \u2013 ' + nodes[id].label)); });
+    add.prop('disabled', add.find('option').length < 2);
+  }
+  $('#op-ts-add').on('change', function () { var v = $(this).val(); if (v) { rows.push(v); draw(); } });
+
+  // Save: one call per changed cell (create, change or delete a draft), then reload
+  function save(after) {
+    var calls = [];
+    $('#op-ts-grid tbody tr[data-node]').each(function () {
+      var n = $(this).data('node');
+      $(this).find('input.op-ts-h:not(:disabled)').each(function () {
+        var k = $(this).data('date'), raw = $(this).val(), v = raw === '' ? 0 : Number(raw);
+        var list = (cells[n] || {})[k], e = list && list[0];
+        if (isNaN(v) || v < 0 || v > 24) { calls.push({ error: 'Hours must be between 0 and 24.' }); return; }
+        if (e && v === 0) calls.push({ m: 'DELETE', u: '/_api/op365_timeentries(' + e.id + ')' });
+        else if (e && v !== e.hours) calls.push({ m: 'PATCH', u: '/_api/op365_timeentries(' + e.id + ')', b: { op365_hours: v } });
+        else if (!e && v > 0) calls.push({ m: 'POST', u: '/_api/op365_timeentries', b: {
+          op365_entrydate: k, op365_hours: v,
+          'op365_ResourceId@odata.bind': '/op365_resources(' + box.data('resource') + ')',
+          'op365_WbsNodeId@odata.bind': '/op365_wbsnodes(' + n + ')' } });
+      });
+    });
+    var bad = calls.filter(function (c) { return c.error; });
+    if (bad.length) { op365Error(bad[0].error); return; }
+    $('#op-ts button').prop('disabled', true);
+    var i = 0;
+    var next = function () {
+      if (i === calls.length) { after(); return; }
+      op365Call(calls[i].m, calls[i].u, calls[i].b).done(function () { i++; next(); })
+        .fail(function (m) { op365Error(m); $('#op-ts button').prop('disabled', false); });
+    };
+    next();
+  }
+  $('#op-ts-save').on('click', function () { save(function () { go(start); }); });
+  $('#op-ts-submit').on('click', function () {
+    if (!confirm('Submit the hours of this week for approval?')) return;
+    save(function () { go(start, '&submit=1'); });
+  });
+  draw();
 });
 """

@@ -44,6 +44,17 @@ public class TextTests
     }
 
     [Fact]
+    public void ExternalResourceMessages_AreTranslated()
+    {
+        Assert.Equal("Puoi registrare ore solo sulle attività assegnate alla tua azienda.",
+            Text.Translate("You can record hours only on the activities assigned to your company.", Text.Column(1040)));
+        Assert.Equal("Il contatto è già collegato alla risorsa Mario Rossi.",
+            Text.Translate("The contact is already linked to the resource Mario Rossi.", Text.Column(1040)));
+        Assert.Equal("Anna Bianchi ha inviato registrazioni ore su Ospedale dal portale fornitori.",
+            Text.Translate("Anna Bianchi submitted time entries on Ospedale from the supplier portal.", Text.Column(1040)));
+    }
+
+    [Fact]
     public void Translate_KeepsEnglishAndUnknownMessages()
     {
         Assert.Equal("The project is closed.", Text.Translate("The project is closed.", Text.Column(1033)));

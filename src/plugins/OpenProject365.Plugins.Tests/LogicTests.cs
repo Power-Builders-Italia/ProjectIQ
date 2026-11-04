@@ -206,3 +206,40 @@ public class DocumentExpiryTests
         Assert.False(WbsScope.IsLeaf(rows, A));
     }
 }
+
+public class ExternalTimeTests
+{
+    [Fact] public void Link_UserOrContact() => Assert.Null(ExternalTime.LinkError(true, false, false));
+    [Fact] public void Link_ContactOfSupplier() => Assert.Null(ExternalTime.LinkError(false, true, true));
+    [Fact] public void Link_NeitherIsFine() => Assert.Null(ExternalTime.LinkError(false, false, false));
+    [Fact] public void Link_BothRefused() => Assert.Equal("A resource is linked to a User or to a Contact, not both.", ExternalTime.LinkError(true, true, true));
+    [Fact] public void Link_ContactWithoutSupplierRefused() =>
+        Assert.Equal("The contact of an external resource must have a supplier as Company Name.", ExternalTime.LinkError(false, true, false));
+
+    [Theory]
+    [InlineData(1)]           // Draft
+    [InlineData(365000002)]   // Rejected
+    public void Portal_SubmitsDraftOrRejected(int current) => Assert.Null(ExternalTime.PortalStatusError(current, 365000000));
+
+    [Theory]
+    [InlineData(365000000)]   // Submitted
+    [InlineData(365000001)]   // Approved
+    public void Portal_CannotResubmit(int current) =>
+        Assert.Equal("Only draft or rejected time entries can be submitted.", ExternalTime.PortalStatusError(current, 365000000));
+
+    [Theory]
+    [InlineData(365000001)]   // Approved
+    [InlineData(365000002)]   // Rejected
+    [InlineData(1)]           // back to Draft
+    public void Portal_OnlySubmits(int requested) =>
+        Assert.Equal("On the supplier portal time entries can only be submitted.", ExternalTime.PortalStatusError(1, requested));
+
+    [Fact]
+    public void Notify_OncePerBatch()
+    {
+        var now = new System.DateTime(2026, 11, 4, 12, 0, 0);
+        Assert.True(ExternalTime.NotifyBatch(now, new System.DateTime[0]));
+        Assert.True(ExternalTime.NotifyBatch(now, new[] { now.AddMinutes(-30) }));
+        Assert.False(ExternalTime.NotifyBatch(now, new[] { now.AddMinutes(-2) }));
+    }
+}

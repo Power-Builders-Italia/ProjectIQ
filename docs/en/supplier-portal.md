@@ -11,6 +11,7 @@ The **supplier portal** is a website, built with Microsoft Power Pages on the sa
 - sees how much of each order has already been **received**;
 - **uploads its invoices** (FatturaPA XML or PDF): the data are read automatically and checked against its orders, then it follows their approval and **payment**;
 - sees the **projects** it works on, with the activities of the plan (WBS) assigned to it, and — if you allow it — updates their **progress**;
+- records the **hours** of its people on your projects in a weekly **timesheet**, when you link them to a resource;
 - uploads its **company documents** (DURC, certifications, insurance), which your buyer approves, and is warned when they expire.
 
 Everything the supplier does is immediately visible in ProjectIQ: quotes appear in the Quote Comparison of the RFQ, confirmations change the order status, uploaded documents wait for your review.
@@ -153,9 +154,32 @@ The document is **Pending review** until the buyer approves it. While it is pend
 
 You receive an e-mail when an approved document is about to expire (30 days before) and when it expires; the Dashboard shows the same alerts.
 
+### Recording your hours (Timesheet)
+
+If your customer has registered you as a **resource** of its projects, the sidebar shows **Timesheet** (with an orange counter when some hours were rejected). The page is your weekly timesheet:
+
+| Part | What it shows |
+|---|---|
+| **‹ Previous** / **Next ›** | Move between weeks; the current week opens first |
+| Counters | **Hours this week**, **Draft**, **Submitted / Approved** and **Rejected** hours |
+| Orange notes | One line per **Rejected** entry of the week, with the note of the project manager |
+| Grid | One row per activity (project code and name, activity code and name), one column per day from Monday to Sunday, the **Total** of the row and its **Status** |
+
+1. Choose an activity in **+ Add activity**: the list shows only the activities your customer assigned to your company, on projects in progress.
+2. Type the hours of each day (0–24, quarters of an hour allowed). Empty a cell to remove the hours of that day.
+3. Click **Save draft** to keep your work, or **Submit week** to save and send all the draft and rejected hours of the week for approval.
+
+| Status | Meaning |
+|---|---|
+| **Draft** | Saved, not sent: you can still change it |
+| **Submitted** | Waiting for your customer's approval: read-only |
+| **Approved** | Accepted: read-only |
+| **Rejected** | Returned with a note (red border): correct the hours and click **Submit week** again. You also receive an e-mail |
+
 ### Errors
 
 If an action fails, a red message explains why. Common cases: "Session expired: sign in again." (sign in and repeat), "The deadline of the request for quotation has passed." (contact the buyer to extend it), "The request for quotation is closed." (it was awarded or cancelled), "Approved documents cannot be changed." or "Approved documents cannot be deleted." (upload a new document instead), "Choose the file of the document." (a new document needs its file), "Progress must be between 0 and 100.", "Progress updates from the supplier portal are disabled." (your customer turned them off), "Sent invoices cannot be changed." (ask your customer to reject the invoice), "The invoice cannot be sent while it is being read or when it is a duplicate." (wait a few seconds, or delete the duplicate), "Fill in the invoice number and date.".
+On the **Timesheet**: "You can record hours only on the activities assigned to your company.", "Hours and materials can be recorded only on projects In Progress." (the project is suspended or closed), "Submitted or approved time entries cannot be changed." (ask your customer to reject them), "Hours must be between 0 and 24.".
 
 ## Part 2 — Guide for internal staff
 
@@ -172,6 +196,7 @@ The portal is deliberately narrow. Suppliers can read only their own records and
 | Project suppliers of their company (Active and Invited) | Project, role, status | Nothing |
 | Projects of those project suppliers and of their orders | Code, name, start and end date, progress | Nothing |
 | WBS nodes of their scope | Code, name, start and end date, progress | **Progress %** of nodes without child nodes, only when **Supplier Progress Updates** is Yes |
+| Their resource (Contact = the user) and its time entries | Resource name and weekly hours; date, hours, status and decision note of the entries | Create, change and delete **Draft** or **Rejected** entries (date, hours, activity of the scope), **submit** them. Never cost or revenue |
 | Supplier invoices of their company | Number, dates, amounts, lines, status, decision note, payment, extraction notes | Upload the file, **invoice number**, **dates**, **purchase order** and **supplier note** while Draft; **send** (Draft → To Review) unless Pending or Blocked; delete drafts |
 | Supplier documents of their company | All fields, including the review note | Type, description, number, dates, notes, file; can create and delete, only while the document is not approved |
 
@@ -196,6 +221,25 @@ flowchart LR
 - You can add a project supplier by hand from the **Suppliers** list of the project (**Project**, **Supplier**, **Role**), and add WBS nodes in its **WBS Scope** list (**Add Existing WBS Node**). A node always brings all its sub-activities, also those created later.
 - To hide activities, remove them from the WBS Scope (removing a node does not remove its sub-activities: remove them too), or deactivate the project supplier to hide the whole project.
 - Whether suppliers may update the progress is a company setting, **Supplier Progress Updates** ([Administration](administration.md#company-settings)); the default is No. *Can Update Progress* on the project supplier shows the current value.
+
+### External resources: hours from the portal
+
+People of a supplier can record their hours on the portal when you link their **contact** to a **Resource** ([Master data](master-data.md#external-resources-supplier-staff)).
+
+```mermaid
+flowchart LR
+    C[Contact of the supplier] --> R[Resource<br/>Contact + Resource Cost]
+    PS[Project Supplier Active<br/>+ WBS Scope] --> T
+    R --> T[Portal: Timesheet<br/>Draft → Submit week]
+    T --> A[Time Approval<br/>project manager]
+    A -->|Approved| AC[Actual hours and cost]
+    A -->|Rejected + note| E[E-mail to the contact<br/>+ note on the portal]
+```
+
+- The person can record hours only on the activities of the **WBS Scope** of an **Active** project supplier of their company, on projects **In Progress**.
+- **Submit week** works like **Submit** in the timesheet: entries become **Submitted** (or **Approved** at once when **Time Approval Enabled** is No) and the project managers get one notification "<resource> submitted time entries on <project> from the supplier portal.".
+- Approve or reject them in **Time Approval** as usual. When you reject, the contact receives the e-mail *ProjectIQ - Time entries rejected* (message `TimeEntriesRejected`, sent like the other supplier e-mails, see [Administration](administration.md#daily-document-expiry)) and sees your note on the portal.
+- Cost is hours × the resource's hourly cost on the date (the rate agreed with the supplier). The supplier never sees cost or revenue.
 
 ### Giving a supplier access
 

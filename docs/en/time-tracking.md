@@ -55,6 +55,7 @@ stateDiagram-v2
 ### Before you start
 
 - Your user must be linked to a **Resource** (Master Data → Resources → *User* field). If not, the timesheet shows "Your user is not linked to a resource. Ask an administrator to set User on your Resource."
+- People of your suppliers who are **external resources** (a resource with a **Contact** instead of a User) record their hours on the [supplier portal](supplier-portal.md#recording-your-hours-timesheet), not in the app; their hours reach **Time Approval** like the others.
 - You can record hours only on projects **In Progress** that you can see (you are a member, or the owner).
 
 ### The Timesheet dashboard
@@ -173,6 +174,8 @@ When an entry is approved:
 - its **cost** is added to the **Actual Cost** of the node and of the project, and appears in the [cost summary](materials-and-costs.md#cost-summary);
 - the entry becomes final: it cannot be changed or deleted.
 
+Hours recorded on the supplier portal by **external resources** are approved in the same way. They have no user, so instead of the in-app notification the contact receives an e-mail when hours are rejected (see [Supplier portal](supplier-portal.md#external-resources-hours-from-the-portal)).
+
 ## How hours are valued
 
 Each time entry carries two amounts, calculated whenever it is saved:
@@ -190,6 +193,7 @@ Example: Marco's cost is 35.00 €/h until 30 June and 38.50 €/h from 1 July. 
 |---|---|---|
 | **Time Approval Enabled** | Environment variable `op365_TimeApprovalEnabled` ([Administration](administration.md#company-settings)) | Yes (default): submitted hours wait for approval. No: **Submit** approves the entries immediately (they count in actuals straight away) |
 | **User** on Resource | Master Data → Resources | Links a person to their resource: required to use the timesheet |
+| **Contact** on Resource | Master Data → Resources | Makes the resource external: the person records hours on the supplier portal ([Master data](master-data.md#external-resources-supplier-staff)) |
 | **Weekly Hours**, **Working Days** | Resource | Expected hours (reminder, weekly total) |
 | **Absences** | Planning → Absences | Reduce expected hours; company closures suspend reminders |
 | **Hourly Rate** on Project Member | Project → Team | Revenue of the member's hours |
@@ -212,3 +216,6 @@ Administrators can submit entries on behalf of others and approve or reject entr
 | "Add a note to reject time entries." | The rejection reason is required |
 | "Only submitted time entries can be approved or rejected." | The entry was already decided (perhaps by another manager): refresh |
 | "Enter hours between 0 and 24." | The value typed in the timesheet is not valid |
+| "You can record hours only on the activities assigned to your company." | Supplier portal: the activity is not in the WBS scope of an active project supplier of the person's company |
+| "On the supplier portal hours can be recorded only by an external resource." | Supplier portal: the resource has no Contact |
+| "On the supplier portal time entries can only be submitted." | Supplier portal: the portal can only send entries for approval |

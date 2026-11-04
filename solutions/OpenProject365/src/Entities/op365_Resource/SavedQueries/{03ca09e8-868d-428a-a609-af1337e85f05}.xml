@@ -15,6 +15,8 @@
           <cell name="op365_hourlycost" width="110" />
           <cell name="op365_weeklyhours" width="110" />
           <cell name="op365_userid" width="180" />
+          <cell name="op365_contactid" width="180" />
+          <cell name="op365_supplierid" width="180" />
         </row>
       </grid>
     </layoutxml>
@@ -27,6 +29,8 @@
           <attribute name="op365_hourlycost" />
           <attribute name="op365_weeklyhours" />
           <attribute name="op365_userid" />
+          <attribute name="op365_contactid" />
+          <attribute name="op365_supplierid" />
           <attribute name="op365_resourceid" />
           <order attribute="op365_name" descending="false" />
           <filter type="and">

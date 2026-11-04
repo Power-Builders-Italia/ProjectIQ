@@ -162,6 +162,7 @@ So werden die E-Mails gesendet:
 2. Tragen Sie in **Supplier Email Sender** den Namen oder die E-Mail-Adresse der Warteschlange ein.
 3. Prüfen Sie die Vorlagen unter **Settings** → **Templates** → **E-mail Templates** (*ProjectIQ - Document expiring* und *ProjectIQ - Document expired*, mit einer Version je Sprache wie *ProjectIQ - Dokument abgelaufen*). Passen Sie den Text nach Belieben an; die Platzhalter `{Document}`, `{DocumentType}`, `{Number}`, `{IssueDate}` und `{ExpiryDate}` werden für jedes Dokument gefüllt. Um andere Vorlagen zu verwenden, tragen Sie ihre Titel in **Supplier Email Templates** ein. Vorlagen sind Daten der Umgebung, nicht der Lösung: Fehlen sie, legt die IT sie mit `tools/dataverse/supplier_email_templates.py` an.
    Dieselbe Warteschlange versendet die Portaleinladungen (**Invite to Portal** am Kontakt) mit *ProjectIQ - Portal invitation* (Nachricht `PortalInvitation`; Platzhalter `{Contact}`, `{Email}`, `{Link}` und `{ExpiryDate}`). Lassen Sie `{Link}` im Text: Das ist der Registrierungslink.
+   Abgelehnte Stunden **externer Ressourcen** werden ihrem Kontakt per E-Mail mit *ProjectIQ - Zeiteinträge abgelehnt* mitgeteilt (Nachricht `TimeEntriesRejected`; Platzhalter `{Contact}`, `{Count}` und `{Note}`).
 4. Füllen Sie **Language** und **Email** jedes Lieferantenkontos aus.
 
 ### Agent proposal approval und Daily agent proposal expiry

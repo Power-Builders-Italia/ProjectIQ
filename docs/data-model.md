@@ -11,6 +11,8 @@ erDiagram
     account ||--o{ op365_supplierdocument : "supplier (parental)"
     op365_item ||--o{ op365_itemsupplier : "item (parental)"
     systemuser |o--o{ op365_resource : user
+    contact |o--o{ op365_resource : "contact (external resource)"
+    account |o--o{ op365_resource : "supplier (read-only)"
     op365_resource ||--o{ op365_resourcecost : "resource (parental)"
     op365_resource |o--o{ op365_absence : "resource (empty = company closure)"
 ```
@@ -22,7 +24,7 @@ erDiagram
 | `op365_item` | Name | Code | Code, Category, Uom, UnitCost, DefaultSupplierId, Notes |
 | `op365_itemsupplier` | Name | ItemId + SupplierId | SupplierCode, Price, LeadTimeDays, MinimumLot, Notes |
 | `op365_supplierdocument` | Description | – | DocumentType, Number, IssueDate, ExpiryDate, ExternalUrl, File, Notes; review: statuscode Approved (1) / Pending Review / Rejected, ExpiryStatus (Valid, Expiring, Expired, Replaced), ExpiryNotice, FromPortal, ReviewedById, ReviewedOn, ReviewNote; SharePointUrl (URL, link to the file once the flow File approved supplier documents moved it to SharePoint) |
-| `op365_resource` | Name | – | Role, HourlyCost (secured), UserId, WeeklyHours (0–80), WorkingDays (multi-choice) |
+| `op365_resource` | Name | – | Role, HourlyCost (secured), UserId, WeeklyHours (0–80), WorkingDays (multi-choice); external resources (`tools/dataverse/external_resources.py`): ContactId (the supplier's person, never together with UserId), SupplierId (read-only, the contact's Company Name) |
 | `op365_resourcecost` | Name | ResourceId + ValidFrom | ValidFrom, HourlyCost (secured) |
 | `op365_absence` | Name | – | AbsenceType, FromDate, ToDate, Hours, Notes |
 
@@ -85,6 +87,7 @@ A table can have only one cascading parent, so the Predecessor, Successor and Pa
 | Class | Trigger | Does |
 |---|---|---|
 | ResourceDefaults | Resource create (pre) | WeeklyHours 40 and Monday-Friday when empty |
+| ResourceLink | Resource create, update of User/Contact/Supplier (pre) | User or Contact, never both; the contact's Company Name must be a supplier; one active resource per contact; SupplierId = the contact's Company Name |
 | ResourceCostSync | Resource Cost create/update/delete (post) | Resource HourlyCost = cost with the latest Valid From not in the future |
 | ProjectSync | Project create/update/delete (post) | Project manager becomes a Manager member; customer ProjectCount and ContractValueTotal |
 | ProjectMemberName / ProjectMemberSync | Project Member create (pre) / create, update, delete (post) | Name = user; user added to or removed from the project access team of the role |
@@ -143,12 +146,12 @@ Actuals count **approved** hours and costs plus all material usage. Time is ente
 
 | Class | Trigger | Does |
 |---|---|---|
-| TimeEntryValidate | Time Entry create/update (pre) | Status only through the APIs; submitted/approved locked; resource = caller's resource; project In Progress; WBS node of the project; Cost = hours × hourly cost valid on the date; Revenue = hours × member hourly rate; Name |
+| TimeEntryValidate | Time Entry create/update (pre) | Status only through the APIs, except the supplier portal (caller `# Portals-<site>`), which may only submit Draft/Rejected entries (Approved at once when approval is off; one notification to the project managers per batch of 10 minutes); portal entries need an external resource and a WBS node in the scope of an Active project supplier of the resource's supplier; project = project of the WBS node when empty; submitted/approved locked; resource = caller's resource; project In Progress; WBS node of the project; Cost = hours × hourly cost valid on the date; Revenue = hours × member hourly rate; Name |
 | TimeEntryDelete | Time Entry delete (pre) | Submitted and approved entries cannot be deleted (except with the project) |
 | MaterialUsageValidate | Material Usage create/update (pre) | Project In Progress; WBS node of the project; description and unit from the item; unit cost = supplier price, else item cost; TotalCost |
 | ActualsRollup | Time Entry and Material Usage create/update/delete (post) | ActualHours and ActualCost of the WBS nodes and the project |
 | SubmitTimeEntries | Custom API `op365_SubmitTimeEntries` (TimeEntryIds → Count) | Own entries (any for administrators) to Submitted, or Approved when approval is off; in-app notification to the project managers |
-| DecideTimeEntries | Custom API `op365_DecideTimeEntries` (TimeEntryIds, Approve, Note → Count) | Project managers and administrators approve or reject (note required); in-app notification to the resource |
+| DecideTimeEntries | Custom API `op365_DecideTimeEntries` (TimeEntryIds, Approve, Note → Count) | Project managers and administrators approve or reject (note required); in-app notification to the resource's user; rejected entries of external resources: e-mail `TimeEntriesRejected` to the contact (supplier e-mail templates and queue) |
 | GetLabourCost | Custom API function `op365_GetLabourCost` (ResourceId, Date → HourlyCost) | Hourly cost valid on a date, under the caller's column security |
 
 ### Code components (Phase 3)
@@ -362,6 +365,7 @@ python3 tools/dataverse/app.py                  # also publishes (views are read
 python3 tools/dataverse/supplier_documents.py   # supplier document review and expiry columns, status reasons, views, form Review section
 python3 tools/dataverse/supplier_email_templates.py  # default e-mail templates for suppliers (environment data: run in every environment)
 python3 tools/dataverse/project_suppliers.py    # Project Supplier table + WBS scope N:N, form and subgrids (then plugins.py again)
+python3 tools/dataverse/external_resources.py   # Contact and Supplier on Resource, form section, view (then plugins.py again)
 python3 tools/dataverse/settings_env.py         # company settings environment variables; removes the former op365_settings table
 python3 tools/dataverse/phase2_smoke.py         # end-to-end checks of the plugins, clean up after themselves
 python3 tools/dataverse/phase3_smoke.py

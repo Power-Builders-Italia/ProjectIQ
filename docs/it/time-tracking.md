@@ -57,6 +57,7 @@ stateDiagram-v2
 ### Prima di iniziare
 
 - Il tuo utente deve essere collegato a una **Resource** (Master Data → Resources → campo *User*). Altrimenti il foglio ore mostra "Your user is not linked to a resource. Ask an administrator to set User on your Resource."
+- Il personale dei fornitori che è **risorsa esterna** (una risorsa con un **Contact** invece di un User) registra le ore sul [portale fornitori](supplier-portal.md#registrare-le-ore-timesheet), non nell'app; le sue ore arrivano in **Time Approval** come le altre.
 - Puoi registrare ore solo su progetti **In Progress** che puoi vedere (sei membro o proprietario).
 
 ### La dashboard Timesheet
@@ -175,6 +176,8 @@ Quando una registrazione viene approvata:
 - il suo **costo** si somma all'**Actual Cost** del nodo e del progetto, e compare nel [riepilogo costi](materials-and-costs.md#riepilogo-costi);
 - la registrazione diventa definitiva: non può essere modificata né eliminata.
 
+Le ore registrate sul portale fornitori dalle **risorse esterne** si approvano allo stesso modo. Non hanno un utente: al posto della notifica in-app, il contatto riceve un'e-mail quando le ore vengono rifiutate (vedi [Portale fornitori](supplier-portal.md#risorse-esterne-ore-dal-portale)).
+
 ## Come vengono valorizzate le ore
 
 Ogni registrazione porta due importi, calcolati a ogni salvataggio:
@@ -192,6 +195,7 @@ Esempio: il costo di Marco è 35,00 €/h fino al 30 giugno e 38,50 €/h dal 1 
 |---|---|---|
 | **Time Approval Enabled** | Variabile d'ambiente `op365_TimeApprovalEnabled` ([Amministrazione](administration.md#impostazioni-aziendali)) | Yes (predefinito): le ore inviate attendono l'approvazione. No: **Submit** approva subito le registrazioni (contano subito nei consuntivi) |
 | **User** sulla Resource | Master Data → Resources | Collega una persona alla sua risorsa: necessario per usare il foglio ore |
+| **Contact** sulla Resource | Master Data → Resources | Rende esterna la risorsa: la persona registra le ore sul portale fornitori ([Anagrafiche](master-data.md#risorse-esterne-personale-dei-fornitori)) |
 | **Weekly Hours**, **Working Days** | Resource | Ore attese (promemoria, totale settimanale) |
 | **Absences** | Planning → Absences | Riducono le ore attese; le chiusure aziendali sospendono i promemoria |
 | **Hourly Rate** sul Project Member | Progetto → Team | Ricavo delle ore del membro |
@@ -214,3 +218,6 @@ Gli amministratori possono inviare registrazioni per conto di altri e approvare 
 | "Add a note to reject time entries." | Il motivo del rifiuto è obbligatorio |
 | "Only submitted time entries can be approved or rejected." | La registrazione era già stata decisa (magari da un altro manager): aggiorna |
 | "Enter hours between 0 and 24." | Il valore scritto nel foglio ore non è valido |
+| "You can record hours only on the activities assigned to your company." | Portale fornitori: l'attività non è nel perimetro WBS di un fornitore di commessa attivo dell'azienda della persona |
+| "On the supplier portal hours can be recorded only by an external resource." | Portale fornitori: la risorsa non ha un Contact |
+| "On the supplier portal time entries can only be submitted." | Portale fornitori: dal portale le registrazioni si possono solo inviare in approvazione |

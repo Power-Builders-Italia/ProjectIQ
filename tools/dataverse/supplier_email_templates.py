@@ -4,7 +4,8 @@ The op365_SupplierEmailTemplates environment variable maps each message and supp
 default value names the templates created here. Templates are environment data, not solution components: run this
 script once in every environment (PAC_* variables), then adapt the text in Settings > Templates > Email Templates.
 An existing template with the same title is left as it is. Placeholders {Document}, {DocumentType}, {Number},
-{IssueDate} and {ExpiryDate} (documents), {Contact}, {Email}, {Link} and {ExpiryDate} (portal invitation) are filled
+{IssueDate} and {ExpiryDate} (documents), {Contact}, {Email}, {Link} and {ExpiryDate} (portal invitation), {Contact}, {Count} and {Note}
+(time entries rejected) are filled
 by the plugin; the supplier name comes from the Account.
 """
 import json, os, sys
@@ -59,6 +60,20 @@ TEXTS = {
                    '{Contact}, vous êtes invité(e) au portail fournisseurs, où vous voyez les documents, les appels d\'offres '
                    'et les bons de commande de votre entreprise. Créez votre compte avec l\'e-mail {Email} depuis ce lien avant le '
                    '{ExpiryDate} (utilisable une fois) : <a href="{Link}">{Link}</a>'),
+    },
+    'TimeEntriesRejected': {
+        'English': ('ProjectIQ - Time entries rejected', 'Time entries rejected',
+                    '{Contact}, {Count} of your time entries were rejected. Note: {Note}. '
+                    'Correct them in the Timesheet page of the supplier portal and submit them again.'),
+        'Italian': ('ProjectIQ - Ore rifiutate', 'Registrazioni ore rifiutate',
+                    '{Contact}, {Count} delle tue registrazioni ore sono state rifiutate. Nota: {Note}. '
+                    'Correggile nella pagina Timesheet del portale fornitori e inviale di nuovo.'),
+        'German': ('ProjectIQ - Zeiteinträge abgelehnt', 'Zeiteinträge abgelehnt',
+                   '{Contact}, {Count} Ihrer Zeiteinträge wurden abgelehnt. Notiz: {Note}. '
+                   'Korrigieren Sie sie auf der Seite Timesheet des Lieferantenportals und reichen Sie sie erneut ein.'),
+        'French': ('ProjectIQ - Saisies de temps rejetées', 'Saisies de temps rejetées',
+                   '{Contact}, {Count} de vos saisies de temps ont été rejetées. Note : {Note}. '
+                   'Corrigez-les dans la page Timesheet du portail fournisseurs et soumettez-les à nouveau.'),
     },
 }
 
