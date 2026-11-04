@@ -11,6 +11,7 @@ import { isoDay, toDay } from "../shared/dates";
 import { EditableCell } from "../shared/EditableCell";
 import { ProgressCell } from "../shared/ProgressCell";
 import { progressLabel } from "../shared/progress";
+import { openRecordInSidePane } from "../shared/navigation";
 
 const useStyles = makeStyles({
     root: { display: "flex", flexDirection: "column", gap: tokens.spacingVerticalS, width: "100%" },
@@ -90,7 +91,7 @@ export function WbsTreeGridApp({ context, refreshKey }: Props): React.ReactEleme
     };
 
     const openNode = async (id: string): Promise<void> => {
-        await context.navigation.openForm({ entityName: "op365_wbsnode", entityId: id });
+        await openRecordInSidePane(context.navigation, "op365_wbsnode", id);
         setReload(r => r + 1);
     };
     const newNode = async (parent?: WbsNode): Promise<void> => {

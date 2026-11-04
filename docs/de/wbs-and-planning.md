@@ -84,7 +84,7 @@ Die Registerkarte WBS des Projekts zeigt den ganzen Baum als aufklappbares Raste
 
 | Spalte | Blattelemente | Übergeordnete Elemente |
 |---|---|---|
-| **Name** (mit Code) | Klicken, um das Formular des Elements zu öffnen | Auf den Pfeil klicken zum Auf-/Zuklappen; auf den Namen klicken, um das Formular zu öffnen |
+| **Name** (mit Code) | Klicken, um das Formular des Elements in einem Seitenbereich zu öffnen | Auf den Pfeil klicken zum Auf-/Zuklappen; auf den Namen klicken, um das Formular in einem Seitenbereich zu öffnen |
 | **Start** / **End** | Direkt bearbeitbar | Frühester Beginn / spätestes Ende der darunterliegenden Elemente (grau, verdichtet) |
 | **Budget Hours** | Direkt bearbeitbar | Summe der darunterliegenden Elemente |
 | **Labour**, **Materials**, **Other** | Direkt bearbeitbar | – |
@@ -94,6 +94,8 @@ Die Registerkarte WBS des Projekts zeigt den ganzen Baum als aufklappbares Raste
 Beträge werden in der Währung des Projekts angezeigt.
 
 Die letzte Zeile zeigt die **Total** (Summe) der Stunden und des Budgets für das ganze Projekt. Verdichtete Werte sind grau dargestellt; fahren Sie mit der Maus darüber, um den Tooltip „Includes child nodes“ (enthält Unterelemente) zu sehen.
+
+Das Formular des Elements öffnet sich in einem **Seitenbereich** (side panel) in der rechten Hälfte des Fensters, mit eigener Befehlsleiste (**Save**, ...) und eigenen Registerkarten, während der PSP (oder das Gantt) links sichtbar bleibt. Mit der Schaltfläche zum Erweitern oben im Bereich wechseln Sie zum ganzseitigen Formular. Wenn Sie den Bereich schließen, werden PSP und Gantt mit Ihren Änderungen aktualisiert.
 
 ### Symbolleiste
 
@@ -182,7 +184,7 @@ gantt
 
 Was Sie sehen:
 
-- **Linke Spalte**: der PSP-Baum (mit den Pfeilen auf-/zuklappen; auf einen Namen klicken, um das Element zu öffnen).
+- **Linke Spalte**: der PSP-Baum (mit den Pfeilen auf-/zuklappen; auf einen Namen oder einen Balken klicken, um das Element in einem Seitenbereich zu öffnen).
 - **Sammelbalken** (dunkel) für übergeordnete Elemente, vom frühesten Beginn bis zum spätesten Ende ihrer Unterelemente.
 - **Vorgangsbalken** für Blattelemente, mit dem **Fortschritt** als dunklere Füllung.
 - **Pfeile** für Ende-Anfang-Abhängigkeiten.

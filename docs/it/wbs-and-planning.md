@@ -84,7 +84,7 @@ La tab WBS del progetto mostra l'intero albero come griglia espandibile.
 
 | Colonna | Nodi foglia | Nodi padre |
 |---|---|---|
-| **Name** (con codice) | Clic per aprire il form del nodo | Clic sulla freccia per espandere/comprimere; clic sul nome per aprire il form |
+| **Name** (con codice) | Clic per aprire il form del nodo in un pannello laterale | Clic sulla freccia per espandere/comprimere; clic sul nome per aprire il form in un pannello laterale |
 | **Start** / **End** | Modificabili in linea | Inizio più vicino / fine più lontana dei nodi sottostanti (in grigio, aggregati) |
 | **Budget Hours** | Modificabile in linea | Somma dei nodi sottostanti |
 | **Labour**, **Materials**, **Other** | Modificabili in linea | – |
@@ -94,6 +94,8 @@ La tab WBS del progetto mostra l'intero albero come griglia espandibile.
 Gli importi sono mostrati nella valuta del progetto.
 
 L'ultima riga mostra il **Total** di ore e budget dell'intero progetto. I valori aggregati sono in grigio; passa il mouse sopra per vedere il suggerimento "Includes child nodes".
+
+Il form del nodo si apre in un **pannello laterale** (side panel) nella metà destra della finestra, con la sua barra dei comandi (**Save**, ...) e le sue tab, mentre la WBS (o il Gantt) resta visibile a sinistra. Usa il pulsante di espansione in alto nel pannello per passare al form a pagina intera. Quando chiudi il pannello la WBS e il Gantt si aggiornano con le tue modifiche.
 
 ### Barra degli strumenti
 
@@ -182,7 +184,7 @@ gantt
 
 Cosa vedi:
 
-- **Colonna sinistra**: l'albero WBS (espandi/comprimi con le frecce; clicca un nome per aprire il nodo).
+- **Colonna sinistra**: l'albero WBS (espandi/comprimi con le frecce; clicca un nome o una barra per aprire il nodo in un pannello laterale).
 - **Barre di riepilogo** (scure) per i nodi padre, dall'inizio più vicino alla fine più lontana dei figli.
 - **Barre delle attività** per i nodi foglia, con l'**avanzamento** mostrato come riempimento più scuro.
 - **Frecce** per le dipendenze fine-inizio.

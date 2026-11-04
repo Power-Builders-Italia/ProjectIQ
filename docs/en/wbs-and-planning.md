@@ -82,7 +82,7 @@ The WBS tab of the project shows the whole tree as an expandable grid.
 
 | Column | Leaf nodes | Parent nodes |
 |---|---|---|
-| **Name** (with code) | Click to open the node form | Click the arrow to expand/collapse; click the name to open the form |
+| **Name** (with code) | Click to open the node form in a side panel | Click the arrow to expand/collapse; click the name to open the form in a side panel |
 | **Start** / **End** | Editable inline | Earliest start / latest end of the nodes below (grey, rolled up) |
 | **Budget Hours** | Editable inline | Sum of the nodes below |
 | **Labour**, **Materials**, **Other** | Editable inline | – |
@@ -92,6 +92,8 @@ The WBS tab of the project shows the whole tree as an expandable grid.
 Amounts are shown in the currency of the project.
 
 The last row shows the **Total** of hours and budget for the whole project. Rolled-up values are shown in grey; hover over them to see the "Includes child nodes" tooltip.
+
+The node form opens in a **side panel** on the right half of the window, with its own command bar (**Save**, ...) and tabs, while the WBS (or the Gantt) stays visible on the left. Use the expand button at the top of the panel to switch to the full-page form. When you close the panel the WBS and the Gantt are refreshed with your changes.
 
 ### Toolbar
 
@@ -180,7 +182,7 @@ gantt
 
 What you see:
 
-- **Left column**: the WBS tree (expand/collapse with the arrows; click a name to open the node).
+- **Left column**: the WBS tree (expand/collapse with the arrows; click a name or a bar to open the node in a side panel).
 - **Summary bars** (dark) for parent nodes, from the earliest start to the latest end of their children.
 - **Task bars** for leaf nodes, with the **progress** shown as a darker fill.
 - **Arrows** for finish-to-start dependencies.
