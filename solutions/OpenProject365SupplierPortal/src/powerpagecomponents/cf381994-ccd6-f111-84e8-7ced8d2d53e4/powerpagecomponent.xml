@@ -8,7 +8,7 @@
   "create": false,
   "delete": false,
   "append": false,
-  "appendto": false,
+  "appendto": true,
   "parentrelationship": "op365_projectsupplier_wbsnode",
   "parententitypermission": "b3381994-ccd6-f111-84e8-7ced8d2d53e4",
   "adx_entitypermission_webrole": [

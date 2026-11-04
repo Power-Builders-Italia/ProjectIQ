@@ -3,7 +3,10 @@
     <label description="JSON payload of the agent proposal" languagecode="1033" />
   </description>
   <displayname default="Payload">
+    <label description="Nutzdaten" languagecode="1031" />
     <label description="Payload" languagecode="1033" />
+    <label description="Données de l’action" languagecode="1036" />
+    <label description="Dati azione" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_SourcingRouteRequest.Payload</name>

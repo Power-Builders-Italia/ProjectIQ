@@ -3,7 +3,10 @@
     <label description="Proposals expired" languagecode="1033" />
   </description>
   <displayname default="Count">
+    <label description="Anzahl" languagecode="1031" />
     <label description="Count" languagecode="1033" />
+    <label description="Nombre" languagecode="1036" />
+    <label description="Numero" languagecode="1040" />
   </displayname>
   <iscustomizable>1</iscustomizable>
   <name>op365_ExpireAgentProposals.Count</name>

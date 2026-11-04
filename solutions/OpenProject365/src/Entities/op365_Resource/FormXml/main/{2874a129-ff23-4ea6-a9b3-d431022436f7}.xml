@@ -67,6 +67,36 @@
                     </row>
                   </rows>
                 </section>
+                <section name="external_resource" showlabel="true" showbar="false" columns="2" id="{3880171c-67a9-5f5e-b009-3a50e258e6fc}">
+                  <labels>
+                    <label description="Externe Ressource" languagecode="1031" />
+                    <label description="External Resource" languagecode="1033" />
+                    <label description="Ressource externe" languagecode="1036" />
+                    <label description="Risorsa esterna" languagecode="1040" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{497fbf6e-a4b5-5758-a58b-6479da99e641}">
+                        <labels>
+                          <label description="Contact" languagecode="1033" />
+                          <label description="Contatto" languagecode="1040" />
+                          <label description="Kontakt" languagecode="1031" />
+                          <label description="Contact" languagecode="1036" />
+                        </labels>
+                        <control id="op365_contactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_contactid" />
+                      </cell>
+                      <cell id="{5f34147d-1859-562f-9b24-f48168532100}">
+                        <labels>
+                          <label description="Supplier" languagecode="1033" />
+                          <label description="Produttore" languagecode="1040" />
+                          <label description="Lieferant" languagecode="1031" />
+                          <label description="Fournisseur" languagecode="1036" />
+                        </labels>
+                        <control id="op365_supplierid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="op365_supplierid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section name="capacity_and_cost" showlabel="true" showbar="false" columns="2" id="{06680723-7920-500f-aa57-a0ad17d2b772}">
                   <labels>
                     <label description="Kapazität und Kosten" languagecode="1031" />
