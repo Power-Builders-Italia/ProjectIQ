@@ -4,16 +4,19 @@
       "shared_microsoftcopilotstudio": {
         "runtimeSource": "embedded",
         "connection": {
+          "name": "shared-microsoftcopi-6842a63a-b0c4-4aa4-89f8-a0093445cea7",
           "connectionReferenceLogicalName": "op365_sharedmicrosoftcopilotstudio_11d9c"
         },
         "api": {
           "name": "shared_microsoftcopilotstudio"
         }
       },
-      "shared_commondataserviceforapps": {
+      "shared_commondataserviceforapps-1": {
+        "impersonation": {},
         "runtimeSource": "embedded",
         "connection": {
-          "connectionReferenceLogicalName": "op365_dataverse"
+          "name": "25e6e5f8106044e4b8a7f8c6540cb593",
+          "connectionReferenceLogicalName": "op365_dataverse_agent"
         },
         "api": {
           "name": "shared_commondataserviceforapps"
@@ -34,11 +37,14 @@
         }
       },
       "triggers": {
-        "Quando_una_riga_viene_aggiunta,_modificata_o_eliminata": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "eaffb3bb-52ae-4594-b406-3332e30bdab3"
+          },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
             "host": {
-              "connectionName": "shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps-1",
               "operationId": "SubscribeWebhookTrigger",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
             },
@@ -56,6 +62,9 @@
       "actions": {
         "Sends_a_prompt_to_the_specified_copilot_for_processing": {
           "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "394ce18e-d392-4919-b5bc-9ef0d2600920"
+          },
           "type": "OpenApiConnection",
           "inputs": {
             "host": {
@@ -72,7 +81,7 @@
         }
       }
     },
-    "templateName": null
+    "templateName": ""
   },
   "schemaVersion": "1.0.0.0"
 }

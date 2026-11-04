@@ -11,9 +11,12 @@
     <RolePrivilege name="prvAppendToop365_Rfq" level="Global" />
     <RolePrivilege name="prvAppendToop365_RfqInvitation" level="Global" />
     <RolePrivilege name="prvAppendToop365_SupplierInvoice" level="Global" />
+    <RolePrivilege name="prvCreateCallbackRegistration" level="Basic" />
     <RolePrivilege name="prvCreateop365_AgentProposal" level="Global" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvDeleteCallbackRegistration" level="Basic" />
     <RolePrivilege name="prvReadAccount" level="Global" />
+    <RolePrivilege name="prvReadCallbackRegistration" level="Local" />
     <RolePrivilege name="prvReadContact" level="Global" />
     <RolePrivilege name="prvReadop365_AgentProposal" level="Global" />
     <RolePrivilege name="prvReadop365_GoodsReceipt" level="Global" />
@@ -44,6 +47,7 @@
     <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
     <RolePrivilege name="prvReadSharePointData" level="Global" />
     <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteCallbackRegistration" level="Basic" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
   </RolePrivileges>
 </Role>
