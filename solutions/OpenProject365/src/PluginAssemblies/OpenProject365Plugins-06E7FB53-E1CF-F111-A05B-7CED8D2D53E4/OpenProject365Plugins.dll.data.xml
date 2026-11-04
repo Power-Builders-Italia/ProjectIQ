@@ -128,6 +128,9 @@
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceDefaults, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="14e7fb53-e1cf-f111-a05b-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceDefaults">
       <FriendlyName>ResourceDefaults</FriendlyName>
     </PluginType>
+    <PluginType AssemblyQualifiedName="OpenProject365.Plugins.ResourceLink, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="5836bafc-4cd8-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.ResourceLink">
+      <FriendlyName>ResourceLink</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="OpenProject365.Plugins.RetryAgentProposal, OpenProject365.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=33c2dacbfffa3971" PluginTypeId="8b66c4fe-74d7-f111-84e8-7ced8d2d53e4" Name="OpenProject365.Plugins.RetryAgentProposal">
       <FriendlyName>RetryAgentProposal</FriendlyName>
     </PluginType>

@@ -131,6 +131,9 @@
     <LocLabel Id="op365.agentproposal.ApproveProposal.Label">
       <Titles>
         <Title description="Approve" languagecode="1033" />
+        <Title description="Genehmigen" languagecode="1031" />
+        <Title description="Approva" languagecode="1040" />
+        <Title description="Approuver" languagecode="1036" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.agentproposal.ApproveProposal.Tip">
@@ -141,6 +144,9 @@
     <LocLabel Id="op365.agentproposal.RejectProposal.Label">
       <Titles>
         <Title description="Reject" languagecode="1033" />
+        <Title description="Rejeter" languagecode="1036" />
+        <Title description="Ablehnen" languagecode="1031" />
+        <Title description="Rifiuta" languagecode="1040" />
       </Titles>
     </LocLabel>
     <LocLabel Id="op365.agentproposal.RejectProposal.Tip">

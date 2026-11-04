@@ -94,10 +94,12 @@
   <EntityRelationship Name="op365_account_projectsupplier_supplierid" />
   <EntityRelationship Name="op365_account_purchaseorder_supplierid" />
   <EntityRelationship Name="op365_account_purchaserequest_preferredsupplierid" />
+  <EntityRelationship Name="op365_account_resource_supplierid" />
   <EntityRelationship Name="op365_account_rfqinvitation_supplierid" />
   <EntityRelationship Name="op365_account_supplierdocument_supplierid" />
   <EntityRelationship Name="op365_account_supplierinvoice_supplierid" />
   <EntityRelationship Name="op365_baseline_baselinenode_baselineid" />
+  <EntityRelationship Name="op365_contact_resource_contactid" />
   <EntityRelationship Name="op365_goodsreceipt_goodsreceiptline_goodsreceiptid" />
   <EntityRelationship Name="op365_goodsreceiptline_materialusage_goodsreceiptlineid" />
   <EntityRelationship Name="op365_item_itemsupplier_itemid" />

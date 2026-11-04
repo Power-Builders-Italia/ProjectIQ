@@ -1,0 +1,14 @@
+<powerpagecomponent powerpagecomponentid="77118168-4dd8-f111-84e8-7ced8d2d53e4">
+  <content>{
+  "value": "op365_entrydate,op365_hours,op365_notes,statuscode,op365_resourceid,op365_ResourceId,op365_wbsnodeid,op365_WbsNodeId",
+  "source": 0
+}</content>
+  <iscustomizable>1</iscustomizable>
+  <name>Webapi/op365_timeentry/fields</name>
+  <powerpagecomponenttype>9</powerpagecomponenttype>
+  <powerpagesiteid>
+    <powerpagesiteid>3f7e51b8-7590-436b-b2d2-e5dd17c30453</powerpagesiteid>
+  </powerpagesiteid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</powerpagecomponent>
