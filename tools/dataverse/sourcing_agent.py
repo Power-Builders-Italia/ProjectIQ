@@ -97,7 +97,13 @@ grant_roles({
         **{t: (['Read'], 'Global') for t in PROJECT + PURCHASING + INVOICES + MASTER},
         # creating a proposal that sets a lookup needs AppendTo on the lookup target (Read is kept)
         **{t: (['Read', 'AppendTo'], 'Global') for t in LOOKUP_TARGETS},
+        # the agent trigger flow uses the agent's connection: Dataverse registers its webhook (callback registration)
+        # as the agent and reads it on every event; the webhook may be owned by whoever imported or saved the flow
+        'callbackregistration': (['Create', 'Write', 'Delete'], 'Basic'),
     },
+})
+grant_roles({
+    'OP365 Sourcing Agent': {'callbackregistration': (['Read'], 'Local')},
 })
 
 PROPOSAL = str(S)
