@@ -1,0 +1,19 @@
+<customapi uniquename="op365_SourcingProposeRoute">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>1</bindingtype>
+  <boundentitylogicalname>op365_purchaserequest</boundentitylogicalname>
+  <description default="Recomputes the route of an approved purchase request and creates the agent proposal (or the New Supplier Needed insight) with the rationale written by the sourcing agent; refused while the agent is switched off">
+    <label description="Recomputes the route of an approved purchase request and creates the agent proposal (or the New Supplier Needed insight) with the rationale written by the sourcing agent; refused while the agent is switched off" languagecode="1033" />
+  </description>
+  <displayname default="Sourcing Propose Route">
+    <label description="Sourcing Propose Route" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>Sourcing Propose Route</name>
+  <plugintypeid>
+    <plugintypeexportkey>1594a8c5-1bd8-f111-84e8-7ced8d2d53e4</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -1,0 +1,109 @@
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: organization
+    value: current
+
+  - kind: ManualTaskInput
+    propertyName: entityName
+    value: op365_purchaserequests
+
+  - kind: ManualTaskInput
+    propertyName: actionName
+    value: Microsoft.Dynamics.CRM.op365_SourcingRouteRequest
+
+  - kind: AutomaticTaskInput
+    propertyName: recordId
+
+modelDisplayName: Route purchase request
+modelDescription: "Read-only analysis of an approved purchase request: route (SourceViaRfq, DirectOrder, NoSupplier, NotApplicable), the proposal payload and the whole analysis as JSON (Result) with the ranked suppliers and the reasons."
+outputs:
+  - propertyName: ActionType
+    name: ActionType
+
+  - propertyName: Payload
+    name: Payload
+
+  - propertyName: Result
+    name: Result
+
+  - propertyName: Route
+    name: Route
+
+action:
+  kind: InvokeConnectorTaskAction
+  connectionReference: op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593
+  connectionProperties:
+    mode: Maker
+
+  operationId: PerformBoundActionWithOrganization
+  dynamicInputSchema:
+    properties:
+      actionName:
+        displayName: Action Name
+        description: Choose an action
+        nameForModel: action_name
+        isRequired: true
+        order: 2
+        dynamicValuesConfig:
+          capability: List
+
+        type: String
+
+      entityName:
+        displayName: Table name
+        description: Choose a table
+        nameForModel: entity_name
+        isRequired: true
+        order: 1
+        dynamicValuesConfig:
+          capability: List
+
+        type: String
+
+      item:
+        displayName: Action parameters
+        description: Action parameters
+        order: 4
+        type: Any
+
+      organization:
+        displayName: Environment
+        description: Choose an environment
+        nameForModel: organization
+        isRequired: true
+        order: 0
+        dynamicValuesConfig:
+          capability: List
+
+        type: String
+
+      recordId:
+        displayName: Row ID
+        description: Enter the row's globally unique identifier (GUID)
+        nameForModel: record_id
+        descriptionForModel: "Set to the target row's globally unique identifier (GUID). Example: 3ce6c728-3c8a-4b55-a4ee-a251b253c3ee."
+        isRequired: true
+        order: 3
+        type: String
+
+  dynamicOutputSchema:
+    kind: Record
+    properties:
+      ActionType:
+        order: 1
+        type: Number
+
+      Payload:
+        order: 2
+        type: String
+
+      Result:
+        order: 3
+        type: String
+
+      Route:
+        order: 0
+        type: String
+
+outputMode: All
