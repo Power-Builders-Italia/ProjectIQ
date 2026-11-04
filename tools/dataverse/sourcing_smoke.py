@@ -66,6 +66,7 @@ E_CANNOT = 'You cannot decide this proposal.'
 E_DUPLICATE = 'An open proposal for the same action already exists.'
 E_NOTE = 'Add a note to reject the proposal.'
 E_DECIDER_REQUIRED = 'The sourcing agent must give the user who decided.'
+E_AGENT_OFF = 'The sourcing agent is switched off.'
 
 SKIP = 'SKIP:'
 results = []
@@ -84,6 +85,28 @@ def agent_session():
     s.headers.update({'Authorization': 'Bearer ' + r.json()['access_token'], 'OData-MaxVersion': '4.0', 'OData-Version': '4.0',
                       'Accept': 'application/json', 'Content-Type': 'application/json; charset=utf-8'})
     return s
+
+
+AGENT_SWITCH = 'op365_SourcingAgentEnabled'
+switch_restore = []   # (value row id, previous value or None when the row was created by the smoke)
+
+
+def agent_switch(on):
+    """Sets op365_SourcingAgentEnabled in Dev; the finally block puts back the previous value."""
+    d = S.get(API + f"environmentvariabledefinitions?$select=environmentvariabledefinitionid&$filter=schemaname eq '{AGENT_SWITCH}'"
+              f"&$expand=environmentvariabledefinition_environmentvariablevalue($select=environmentvariablevalueid,value)").json()['value'][0]
+    values = d['environmentvariabledefinition_environmentvariablevalue']
+    value = 'yes' if on else 'no'
+    if values:
+        v = values[0]
+        if not switch_restore:
+            switch_restore.append((v['environmentvariablevalueid'], v['value']))
+        must(S.patch(API + f"environmentvariablevalues({v['environmentvariablevalueid']})", json={'value': value}), 'agent switch')
+    else:
+        r = must(S.post(API + 'environmentvariablevalues', headers=R, json={
+            'value': value, 'EnvironmentVariableDefinitionId@odata.bind': f"/environmentvariabledefinitions({d['environmentvariabledefinitionid']})"}),
+            'agent switch')
+        switch_restore.append((r['environmentvariablevalueid'], None))
 
 
 def err(r):
@@ -513,6 +536,45 @@ try:
         again = must(bound('op365_purchaserequests', pr, 'op365_SourcingRouteRequest', sess=AGENT), 'route again')
         if again['Route'] != 'NotApplicable':
             return f'route after sourcing {again["Route"]}, expected NotApplicable'
+    # ---------- 15. the agent creates the proposal with op365_SourcingProposeRoute ----------
+    @case('ProposeRoute as the agent: refused while switched off; on: proposal with the route payload, evidence and rationale; '
+          'second call refused as duplicate')
+    def _():
+        item = post('op365_items', {'op365_code': 'SMOKE-SRC-ITEM15', 'op365_name': 'Smoke pipe', 'op365_unitcost': 10})['op365_itemid']
+        created_items.append(item)
+        post('op365_itemsuppliers', {'op365_ItemId@odata.bind': f'/op365_items({item})', 'op365_SupplierId@odata.bind': f'/accounts({sup1})',
+                                     'op365_price': 9, 'op365_leadtimedays': 2})
+        pr = post('op365_purchaserequests', {'op365_ProjectId@odata.bind': f'/op365_projects({prj})', 'op365_title': 'Smoke 15'})['op365_purchaserequestid']
+        created_prs.append(pr)
+        post('op365_purchaserequestlines', {'op365_PurchaseRequestId@odata.bind': f'/op365_purchaserequests({pr})',
+                                            'op365_ItemId@odata.bind': f'/op365_items({item})', 'op365_quantity': 2, 'op365_estimatedprice': 10})
+        must(bound('op365_purchaserequests', pr, 'op365_SubmitPurchaseRequest'), 'submit request')
+        must(bound('op365_purchaserequests', pr, 'op365_DecidePurchaseRequest', {'Approve': True}), 'approve request')
+        why = {'Rationale': 'Smoke: supplier A sells every line.'}
+        agent_switch(False)
+        off = expect_error(bound('op365_purchaserequests', pr, 'op365_SourcingProposeRoute', why, sess=AGENT), E_AGENT_OFF)
+        if off:
+            return 'switched off: ' + off
+        agent_switch(True)
+        route = must(bound('op365_purchaserequests', pr, 'op365_SourcingRouteRequest', sess=AGENT), 'route')
+        made = must(bound('op365_purchaserequests', pr, 'op365_SourcingProposeRoute', why, sess=AGENT), 'propose')
+        if not made.get('ProposalId'):
+            return f'no proposal created (route {made.get("Route")})'
+        created_proposals.append(made['ProposalId'])
+        p = get('op365_agentproposals', made['ProposalId'],
+                'op365_kind,op365_actiontype,op365_payload,op365_rationale,op365_evidence,statuscode,_op365_purchaserequestid_value,'
+                '_op365_projectid_value,_createdby_value')
+        if (made['Route'], p['op365_actiontype'], p['op365_payload']) != (route['Route'], route['ActionType'], route['Payload']):
+            return f'proposal {made["Route"]}/{p["op365_actiontype"]} {p["op365_payload"]}, route {route["Route"]}/{route["ActionType"]} {route["Payload"]}'
+        if p['op365_kind'] != KIND_PROPOSAL or p['statuscode'] != ST_PENDING or p['op365_rationale'] != why['Rationale']:
+            return f'kind {p["op365_kind"]}, status {p["statuscode"]}, rationale {p["op365_rationale"]!r}'
+        if p['_op365_purchaserequestid_value'] != pr or p['_op365_projectid_value'] != prj or p['_createdby_value'] != agent_id:
+            return 'lookups or creator wrong'
+        if not p.get('op365_evidence') or json.loads(p['op365_evidence']).get('route') != route['Route']:
+            return 'evidence missing'
+        dup = expect_error(bound('op365_purchaserequests', pr, 'op365_SourcingProposeRoute', why, sess=AGENT), E_DUPLICATE)
+        if dup:
+            return 'second call: ' + dup
 finally:
     left = []
     refused = []   # deletes refused while their parent was still there: the project delete usually removes them by cascade
@@ -564,6 +626,13 @@ finally:
             drop('op365_purchaserequestlines', ln)
         drop('op365_purchaserequests', pr)
 
+    for vid, previous in switch_restore:   # the agent switch back as it was (no value row when the smoke created it)
+        safe('agent switch', lambda: S.delete(API + f'environmentvariablevalues({vid})') if previous is None
+             else S.patch(API + f'environmentvariablevalues({vid})', json={'value': previous}))
+    for pr in created_prs:   # proposals an agent created on our requests are ours too
+        for pid in children('op365_agentproposals', '_op365_purchaserequestid_value', pr, 'op365_agentproposalid'):
+            if pid not in created_proposals:
+                created_proposals.append(pid)
     for pid in created_proposals:
         safe(f'proposal {pid}', drop, 'op365_agentproposals', pid)
     for pr in created_prs:

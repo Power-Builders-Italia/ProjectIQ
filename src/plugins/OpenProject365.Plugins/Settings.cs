@@ -45,6 +45,10 @@ namespace OpenProject365.Plugins
         public static Guid? PurchasingApprover(IOrganizationService system) =>
             Rules.UserByName(system, Value(system, PurchasingApproverVariable));
 
+        /// <summary>Sourcing agent switch; off when the variable has no value.</summary>
+        public static bool SourcingAgentEnabled(IOrganizationService system) =>
+            EnvironmentValue.Bool(Value(system, SourcingAgentEnabledVariable), false);
+
         /// <summary>Enabled user the sourcing agent runs as; null when not set or not found.</summary>
         public static Guid? SourcingAgentUser(IOrganizationService system) =>
             Rules.UserByName(system, Value(system, SourcingAgentUserVariable));

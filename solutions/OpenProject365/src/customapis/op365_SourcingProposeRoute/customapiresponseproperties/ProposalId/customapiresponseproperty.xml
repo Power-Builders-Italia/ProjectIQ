@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="ProposalId">
+  <description default="Id of the agent proposal or insight created; empty when nothing was created">
+    <label description="Id of the agent proposal or insight created; empty when nothing was created" languagecode="1033" />
+  </description>
+  <displayname default="ProposalId">
+    <label description="ProposalId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>op365_SourcingProposeRoute.ProposalId</name>
+  <type>10</type>
+</customapiresponseproperty>

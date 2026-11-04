@@ -13,8 +13,8 @@ L'agente ha dieci task, consegnati nell'ordine della catena degli acquisti. Ogni
 
 | # | Task | Risultato | Stato |
 |---|---|---|---|
-| 1 | Instradare una richiesta d'acquisto approvata: RdO o ordine diretto | Proposta **Source via RFQ** o **Direct Order** | Analisi disponibile ([come](#come-viene-instradata-una-richiesta)); agente in arrivo |
-| 2 | Scegliere i fornitori da invitare (articoli venduti, documenti validi, prezzo, tempi di consegna, risposte alle RdO passate) | Elenco degli inviti dentro la proposta del task 1 | Analisi disponibile ([come](#come-viene-instradata-una-richiesta)); agente in arrivo |
+| 1 | Instradare una richiesta d'acquisto approvata: RdO o ordine diretto | Proposta **Source via RFQ** o **Direct Order** | Disponibile: costruisci l'agente con la [guida](../../copilot/sourcing-agent/README.md) ([come](#come-viene-instradata-una-richiesta)) |
+| 2 | Scegliere i fornitori da invitare (articoli venduti, documenti validi, prezzo, tempi di consegna, risposte alle RdO passate) | Elenco degli inviti dentro la proposta del task 1 | Disponibile dentro il task 1 ([come](#come-viene-instradata-una-richiesta)) |
 | 3 | Analizzare le offerte (prezzo, consegna, rischio) e raccomandare l'aggiudicazione | Proposta **Award RFQ** | Pianificato |
 | 4 | Sollecitare i fornitori che non hanno risposto a una RdO | E-mail al fornitore e riga di log | Pianificato |
 | 5 | Conformità dei fornitori: documenti in scadenza o scaduti di fornitori con RdO o ordini aperti | Insight **Compliance Alert** | Pianificato |
@@ -202,6 +202,8 @@ I task 1 e 2 lavorano su una richiesta d'acquisto **approvata**. Due analisi in 
 - **Sourcing Suggest Suppliers** ordina i fornitori che potrebbero servire la richiesta;
 - **Sourcing Route Request** sceglie tra RdO e ordine diretto e compila fornitori e scadenza della proposta.
 
+Poi l'agente chiama **Sourcing Propose Route** con la sua spiegazione. La chiamata ricalcola l'instradamento (l'agente non passa mai numeri) e crea la proposta con payload, analisi come Evidence, importo, commessa, richiesta e, per un ordine diretto, il fornitore. Quando nessun fornitore è idoneo crea invece l'insight **New Supplier Needed**. È rifiutata finché *Sourcing Agent Enabled* è No ("The sourcing agent is switched off.") e quando la richiesta ha già una proposta aperta per la stessa azione.
+
 Entrambe leggono i dati con i diritti di chi le chiama: un utente vede solo i fornitori e i prezzi che i suoi ruoli gli permettono di leggere.
 
 **Candidati.** Il fornitore preferito della richiesta, i fornitori degli articoli richiesti (righe fornitore dell'articolo e fornitore predefinito dell'articolo) e i fornitori la cui *Supplier Category* è la *Category* di un articolo richiesto.
@@ -223,7 +225,7 @@ flowchart TD
     A[Richiesta d'acquisto approvata] --> B{RdO o ordine<br/>già presenti?}
     B -->|sì| NA[Nessuna proposta]
     B -->|no| C{Fornitori<br/>idonei?}
-    C -->|nessuno| NS[Nessuna proposta:<br/>nessun fornitore conforme]
+    C -->|nessuno| NS[Insight New Supplier Needed:<br/>nessun fornitore conforme]
     C -->|sì| D{Importo ≤ Direct Order Limit<br/>e un fornitore vende ogni riga?}
     D -->|sì| DO[Direct Order<br/>al fornitore preferito se vende ogni riga,<br/>altrimenti al migliore per punteggio]
     D -->|no| RFQ[Source via RFQ<br/>i migliori per punteggio, quanti Minimum Quotes,<br/>scadenza a 7 giorni]

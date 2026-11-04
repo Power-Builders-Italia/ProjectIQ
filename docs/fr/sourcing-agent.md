@@ -13,8 +13,8 @@ L'agent a dix tâches, livrées dans l'ordre de la chaîne des achats. Chaque t�
 
 | # | Tâche | Résultat | Statut |
 |---|---|---|---|
-| 1 | Aiguiller une demande d'achat approuvée : appel d'offres ou commande directe | Proposition **Source via RFQ** ou **Direct Order** | Analyse disponible ([comment](#aiguillage-dune-demande)) ; agent à venir |
-| 2 | Choisir les fournisseurs à inviter (articles vendus, documents valides, prix, délai, réponses aux appels d'offres passés) | Liste d'invitations dans la proposition de la tâche 1 | Analyse disponible ([comment](#aiguillage-dune-demande)) ; agent à venir |
+| 1 | Aiguiller une demande d'achat approuvée : appel d'offres ou commande directe | Proposition **Source via RFQ** ou **Direct Order** | Disponible : construisez l'agent avec le [guide](../../copilot/sourcing-agent/README.md) ([comment](#aiguillage-dune-demande)) |
+| 2 | Choisir les fournisseurs à inviter (articles vendus, documents valides, prix, délai, réponses aux appels d'offres passés) | Liste d'invitations dans la proposition de la tâche 1 | Disponible dans la tâche 1 ([comment](#aiguillage-dune-demande)) |
 | 3 | Analyser les offres (prix, livraison, risque) et recommander l'attribution | Proposition **Award RFQ** | Planifié |
 | 4 | Relancer les fournisseurs qui n'ont pas répondu à un appel d'offres | E-mail au fournisseur et ligne de journal | Planifié |
 | 5 | Conformité des fournisseurs : documents bientôt expirés ou expirés de fournisseurs ayant des appels d'offres ou commandes ouverts | Insight **Compliance Alert** | Planifié |
@@ -202,6 +202,8 @@ Les tâches 1 et 2 portent sur une demande d'achat **approuvée**. Deux analyses
 - **Sourcing Suggest Suppliers** classe les fournisseurs qui pourraient servir la demande ;
 - **Sourcing Route Request** choisit entre appel d'offres et commande directe, et remplit les fournisseurs et l'échéance de la proposition.
 
+Ensuite l'agent appelle **Sourcing Propose Route** avec son explication. Cet appel recalcule l'aiguillage (l'agent ne passe jamais de chiffres) et crée la proposition avec le payload, l'analyse en Evidence, le montant, le projet, la demande et, pour une commande directe, le fournisseur. Quand aucun fournisseur n'est éligible, il crée à la place l'insight **New Supplier Needed**. Il est refusé tant que *Sourcing Agent Enabled* vaut No ("The sourcing agent is switched off.") et quand la demande a déjà une proposition ouverte pour la même action.
+
 Les deux lisent les données avec les droits de l'appelant : un utilisateur ne voit que les fournisseurs et les prix que ses rôles lui permettent de lire.
 
 **Candidats.** Le fournisseur préféré de la demande, les fournisseurs des articles demandés (lignes fournisseur de l'article et fournisseur par défaut de l'article) et les fournisseurs dont la *Supplier Category* est la *Category* d'un article demandé.
@@ -223,7 +225,7 @@ flowchart TD
     A[Demande d'achat approuvée] --> B{Appel d'offres ou commande<br/>déjà présents ?}
     B -->|oui| NA[Pas de proposition]
     B -->|non| C{Fournisseurs<br/>éligibles ?}
-    C -->|aucun| NS[Pas de proposition :<br/>aucun fournisseur conforme]
+    C -->|aucun| NS[Insight New Supplier Needed :<br/>aucun fournisseur conforme]
     C -->|oui| D{Montant ≤ Direct Order Limit<br/>et un fournisseur vend chaque ligne ?}
     D -->|oui| DO[Direct Order<br/>au fournisseur préféré s'il vend chaque ligne,<br/>sinon au mieux noté]
     D -->|non| RFQ[Source via RFQ<br/>les mieux notés, autant que Minimum Quotes,<br/>échéance à 7 jours]

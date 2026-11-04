@@ -257,6 +257,13 @@ APIS = {
        ('ActionType', 7, 'Agent proposal action type to create; 0 when none'),
        ('Payload', 10, 'JSON payload of the agent proposal'),
        ('Result', 10, 'Whole analysis as JSON (agent proposal Evidence)')]),
+  # sourcing agent: the tool that writes (creates the proposal of tasks 1 and 2)
+  'op365_SourcingProposeRoute': ('SourcingProposeRoute', 'Sourcing Propose Route',
+      'Recomputes the route of an approved purchase request and creates the agent proposal (or the New Supplier Needed insight) '
+      'with the rationale written by the sourcing agent; refused while the agent is switched off',
+      'op365_purchaserequest', False, [('Rationale', 10, False, 'Why the agent proposes this route, quoting the reasons of the analysis')],
+      [('Route', 10, 'SourceViaRfq, DirectOrder, NoSupplier or NotApplicable'),
+       ('ProposalId', 10, 'Id of the agent proposal or insight created; empty when nothing was created')]),
 }
 
 
