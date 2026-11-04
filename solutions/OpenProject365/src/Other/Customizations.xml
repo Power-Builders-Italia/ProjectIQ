@@ -46,6 +46,22 @@
       <statecode>0</statecode>
       <statuscode>1</statuscode>
     </connectionreference>
+    <connectionreference connectionreferencelogicalname="op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593">
+      <connectionreferencedisplayname>op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>0</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="op365_sharedmicrosoftcopilotstudio_11d9c">
+      <connectionreferencedisplayname>Microsoft Copilot Studio OpenProject365-11d9c</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_microsoftcopilotstudio</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
     <connectionreference connectionreferencelogicalname="op365_sharepoint">
       <connectionreferencedisplayname>ProjectIQ SharePoint</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_sharepointonline</connectorid>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="op365_ProjectIQSourcingAgent.topic.ThankYou">
+  <componenttype>9</componenttype>
+  <description>This topic triggers when the user says thank you.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Thank you</name>
+  <parentbotid>
+    <schemaname>op365_ProjectIQSourcingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

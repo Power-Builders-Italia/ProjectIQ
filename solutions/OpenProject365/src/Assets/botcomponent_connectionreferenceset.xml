@@ -1,0 +1,8 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="op365_ProjectIQSourcingAgent.action.MicrosoftDataverse-Eseguiunazioneassociatanellambienteselezi_Jqb" connectionreferenceid.connectionreferencelogicalname="op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="op365_ProjectIQSourcingAgent.action.MicrosoftDataverse-Eseguiunazioneassociatanellambienteselezionat" connectionreferenceid.connectionreferencelogicalname="op365_ProjectIQSourcingAgent.shared_commondataserviceforapps.25e6e5f8106044e4b8a7f8c6540cb593">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

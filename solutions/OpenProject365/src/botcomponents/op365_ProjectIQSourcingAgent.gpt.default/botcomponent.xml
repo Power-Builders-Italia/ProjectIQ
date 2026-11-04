@@ -1,0 +1,11 @@
+<botcomponent schemaname="op365_ProjectIQSourcingAgent.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Routes approved purchase requests: proposes a request for quotation or a direct order with the suppliers to invite, for a buyer to decide.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>ProjectIQ Sourcing Agent</name>
+  <parentbotid>
+    <schemaname>op365_ProjectIQSourcingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>
